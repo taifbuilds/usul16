@@ -241,6 +241,7 @@ def _cluster_generation(context: dict, person_id: int | None) -> tuple[int, int]
         context["generations"][pid][:2]
         for pid in _cluster_members(context, person_id)
         if pid in context["generations"]
+        and context["generations"][pid][3] != "conflict"
     ]
     if not ranges:
         return None

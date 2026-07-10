@@ -125,6 +125,19 @@ def seeded(db: Session) -> tuple[Session, Book]:
     add_entry(db, mujam, 21, "أحمد بن محمد بن خالد")
     add_entry(db, mujam, 22, "محمد بن خالد البرقي")
     add_entry(db, mujam, 23, "المفضل بن صالح الأسدي النخاس")
+    add_entry(db, mujam, 24, "زرارة بن أعين")
+    add_entry(db, mujam, 25, "الحسين بن محمد الأشعري")
+    add_entry(db, mujam, 26, "عبد الله بن سنان")
+    add_entry(db, mujam, 27, "الحسين بن سعيد الأهوازي")
+    add_entry(db, mujam, 28, "أبو علي الأشعري")
+    add_entry(db, mujam, 29, "محمد بن عيسى")
+    add_entry(db, mujam, 30, "يونس بن عبد الرحمن")
+    add_entry(db, mujam, 31, "محمد بن مسلم الثقفي")
+    add_entry(db, mujam, 32, "العلاء بن رزين")
+    add_entry(db, mujam, 33, "أحمد بن محمد بن عيسى الأشعري القمي")
+    add_entry(db, mujam, 34, "علي بن الحكم")
+    add_entry(db, mujam, 35, "محمد بن سنان")
+    add_entry(db, mujam, 36, "حريز بن عبد الله")
     build_person_layer(db)
     return db, kafi
 
@@ -300,54 +313,125 @@ def test_kafi_opening_prior_applies_to_parallel_chain(seeded):
 
 
 @pytest.mark.parametrize(
-    ("tokens", "expected_name", "expected_method"),
+    ("tokens", "target_position", "expected_name", "expected_method"),
     [
         (
             [("الحسن بن محبوب", "named_narrator"), ("ابن أبي عمير", "named_narrator")],
+            1,
             "محمد بن أبي عمير زياد",
             "kafi_review_ibn_abi_umayr",
         ),
         (
             [("علي بن إبراهيم", "named_narrator"), ("أبيه", "pronoun_relation")],
+            1,
             "إبراهيم بن هاشم أبو إسحاق القمي",
             "kafi_review_father_after_ali_ibrahim",
         ),
         (
             [("الحسن بن محبوب", "named_narrator"), ("أبي عبد الله ع", "imam")],
+            1,
             "جعفر بن محمد الصادق عليه السلام",
             "kafi_review_terminal_abu_abdullah",
         ),
         (
             [("علي بن محمد", "named_narrator"), ("سهل بن زياد", "named_narrator")],
+            0,
             "علي بن محمد بن بندار",
             "kafi_review_opening_ali_muhammad_before_sahl",
         ),
         (
             [("أحمد بن محمد بن خالد", "named_narrator"), ("أبيه", "pronoun_relation")],
+            1,
             "محمد بن خالد البرقي",
             "kafi_review_father_after_ahmad_barqi",
         ),
         (
             [("الحسن بن محبوب", "named_narrator"), ("أبي جميلة", "named_narrator")],
+            1,
             "المفضل بن صالح الأسدي النخاس",
             "kafi_review_abu_jamila",
         ),
         (
             [("الحسن بن محبوب", "named_narrator"), ("أبي الحسن الرضا ع", "imam")],
+            1,
             "علي بن موسى الرضا عليه السلام",
             "kafi_review_terminal_abu_al_hasan_al_rida",
+        ),
+        (
+            [("الحسن بن محبوب", "named_narrator"), ("سهل بن زياد", "named_narrator")],
+            1,
+            "سهل بن زياد",
+            "kafi_review_internal_sahl_ibn_ziyad",
+        ),
+        (
+            [("الحسن بن محبوب", "named_narrator"), ("زرارة", "named_narrator")],
+            1,
+            "زرارة بن أعين",
+            "kafi_review_internal_zurara",
+        ),
+        (
+            [("الحسين بن محمد", "named_narrator"), ("الحسن بن محبوب", "named_narrator")],
+            0,
+            "الحسين بن محمد الأشعري",
+            "kafi_review_opening_husayn_ibn_muhammad",
+        ),
+        (
+            [("الحسن بن محبوب", "named_narrator"), ("عبد الله بن سنان", "named_narrator")],
+            1,
+            "عبد الله بن سنان",
+            "kafi_review_internal_abdullah_ibn_sinan",
+        ),
+        (
+            [("الحسن بن محبوب", "named_narrator"), ("الحسين بن سعيد", "named_narrator")],
+            1,
+            "الحسين بن سعيد الأهوازي",
+            "kafi_review_internal_husayn_ibn_said",
+        ),
+        (
+            [("أبو علي الأشعري", "named_narrator"), ("الحسن بن محبوب", "named_narrator")],
+            0,
+            "أبو علي الأشعري",
+            "kafi_review_opening_abu_ali_al_ashari",
+        ),
+        (
+            [("محمد بن عيسى", "named_narrator"), ("يونس", "named_narrator")],
+            1,
+            "يونس بن عبد الرحمن",
+            "kafi_review_yunus_after_muhammad_ibn_isa",
+        ),
+        (
+            [("العلاء بن رزين", "named_narrator"), ("محمد بن مسلم", "named_narrator")],
+            1,
+            "محمد بن مسلم الثقفي",
+            "kafi_review_muhammad_ibn_muslim_after_al_ala",
+        ),
+        (
+            [
+                ("محمد بن يحيى", "named_narrator"),
+                ("أحمد بن محمد", "named_narrator"),
+                ("علي بن الحكم", "named_narrator"),
+            ],
+            1,
+            "أحمد بن محمد بن عيسى الأشعري القمي",
+            "kafi_review_ahmad_ibn_muhammad_between_yahya_and_known_teacher",
+        ),
+        (
+            [("الحسن بن محبوب", "named_narrator"), ("حريز", "named_narrator")],
+            1,
+            "حريز بن عبد الله",
+            "kafi_review_internal_hariz",
         ),
     ],
 )
 def test_validated_review_priors_resolve_exact_kafi_patterns(
-    seeded, tokens, expected_name, expected_method
+    seeded, tokens, target_position, expected_name, expected_method
 ):
     db, kafi = seeded
     chain = make_chain(db, kafi, f"review-{expected_method}", 1, tokens)
     rebuild_person_resolutions(db, book_ids=[kafi.id])
 
     stats = refine_compiler_priors(db, book_ids=[kafi.id])
-    rows = resolutions_for(db, chain, len(tokens) - 1 if expected_method != "kafi_review_opening_ali_muhammad_before_sahl" else 0)
+    rows = resolutions_for(db, chain, target_position)
 
     assert stats.review_priors >= 1
     assert rows[0].status == "resolved"

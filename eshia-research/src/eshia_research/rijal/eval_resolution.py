@@ -374,7 +374,10 @@ def _load_generations(db: Session, person_ids: set[int]) -> dict[int, tuple[int,
         return gens
     stmt = select(
         PersonGeneration.person_id, PersonGeneration.gen_lo, PersonGeneration.gen_hi
-    ).where(PersonGeneration.person_id.in_(person_ids))
+    ).where(
+        PersonGeneration.person_id.in_(person_ids),
+        PersonGeneration.method != "conflict",
+    )
     for pid, lo, hi in db.execute(stmt):
         gens[pid] = (lo, hi)
     return gens

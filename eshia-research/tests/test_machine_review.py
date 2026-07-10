@@ -13,6 +13,7 @@ from eshia_research.models import (
     MentionResolution,
     Narrator,
     Person,
+    PersonGeneration,
     PersonResolutionDecision,
     PersonSurfaceForm,
     RijalEntry,
@@ -129,6 +130,60 @@ def test_machine_review_approves_strong_resolved_case(db: Session):
     decision = db.execute(select(PersonResolutionDecision)).scalar_one()
     assert decision.selected_person_id == person.id
     assert decision.confidence_tier == "high"
+
+
+def test_machine_review_does_not_hard_flag_conflicted_generation_rows(db: Session):
+    book = _book(db)
+    student = _person(db, "حماد بن عيسى")
+    teacher = _person(db, "ربعي بن عبد الله")
+    student_node = _chain_case(db, book, 1, "حماد بن عيسى")
+    chain_id = student_node.chain_id
+    teacher_node = ChainNode(
+        chain_id=chain_id,
+        position=1,
+        raw_token="ربعي بن عبد الله",
+        token_normalised=norm("ربعي بن عبد الله"),
+        node_type="named_narrator",
+    )
+    db.add(teacher_node)
+    db.flush()
+    db.add_all([
+        MentionResolution(
+            chain_node_id=student_node.id,
+            person_id=student.id,
+            rank=1,
+            status="resolved",
+            method="surface_full",
+            resolver_version=PERSON_RESOLVER_VERSION,
+        ),
+        MentionResolution(
+            chain_node_id=teacher_node.id,
+            person_id=teacher.id,
+            rank=1,
+            status="resolved",
+            method="surface_full",
+            resolver_version=PERSON_RESOLVER_VERSION,
+        ),
+        PersonGeneration(
+            person_id=student.id,
+            gen_lo=2,
+            gen_hi=2,
+            method="conflict",
+            resolver_version=PERSON_RESOLVER_VERSION,
+        ),
+        PersonGeneration(
+            person_id=teacher.id,
+            gen_lo=7,
+            gen_hi=7,
+            method="conflict",
+            resolver_version=PERSON_RESOLVER_VERSION,
+        ),
+    ])
+    db.commit()
+
+    stats = run_machine_review(db, source_book_id="11005", commit=False)
+    assert stats.decision_counts["flag_contradiction"] == 0
+    assert stats.decision_counts["approve_current"] == 2
 
 
 def test_machine_review_approves_kafi_source_prior_with_retained_alternatives(db: Session):

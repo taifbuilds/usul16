@@ -206,6 +206,22 @@ def test_generation_violation_is_flagged(db: Session):
     assert report.gen_violations == 1
 
 
+def test_conflicted_generation_is_not_hard_chronology_evidence(db: Session):
+    book = _kafi(db)
+    student = _person(db, "حماد بن عيسى")
+    teacher = _person(db, "ربعي بن عبد الله")
+    db.add(PersonGeneration(person_id=student.id, gen_lo=2, gen_hi=2, method="conflict",
+                            resolver_version=RV))
+    db.add(PersonGeneration(person_id=teacher.id, gen_lo=7, gen_hi=7, method="conflict",
+                            resolver_version=RV))
+    _edge_chain(db, book, 1, student, teacher)
+    db.commit()
+
+    report = evaluate_resolution(db, "11005")
+    assert report.gen_edges_checked == 0
+    assert report.gen_violations == 0
+
+
 def test_same_person_cluster_corroborates_duplicate_identity(db: Session):
     book = _kafi(db)
     documented_student = _person(db, "Ù…Ø­Ù…Ø¯ Ø¨Ù† ÙŠØ­ÙŠÙ‰ Ø§Ù„Ø¹Ø·Ø§Ø±")

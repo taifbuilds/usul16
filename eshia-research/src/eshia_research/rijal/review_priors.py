@@ -22,6 +22,7 @@ from eshia_research.models import (
     MentionResolution,
     Person,
     PersonResolutionDecision,
+    RijalEntry,
 )
 from eshia_research.normalise import normalise_arabic_persian
 from eshia_research.rijal.effective_resolution import ADMIN_REVIEWER
@@ -38,9 +39,11 @@ class ReviewPriorSpec:
     method: str
     tokens: tuple[str, ...]
     target_names: tuple[str, ...]
+    target_entry_numbers: tuple[int, ...] | None = None
     previous_tokens: tuple[str, ...] | None = None
     next_tokens: tuple[str, ...] | None = None
     position: int | None = None
+    minimum_position: int | None = None
     rationale: str = ""
 
     def matches(
@@ -54,6 +57,8 @@ class ReviewPriorSpec:
         if token not in self.tokens:
             return False
         if self.position is not None and position != self.position:
+            return False
+        if self.minimum_position is not None and position < self.minimum_position:
             return False
         if self.previous_tokens is not None and previous_token not in self.previous_tokens:
             return False
@@ -126,6 +131,92 @@ AL_KAFI_REVIEW_PRIORS: tuple[ReviewPriorSpec, ...] = (
         target_names=(_n("علي بن موسى الرضا عليه السلام"),),
         rationale="The explicit terminal title Abu al-Hasan al-Rida identifies Imam al-Rida.",
     ),
+    ReviewPriorSpec(
+        key="internal_sahl_ibn_ziyad",
+        method="kafi_review_internal_sahl_ibn_ziyad",
+        tokens=(_n("سهل بن زياد"),),
+        minimum_position=1,
+        target_names=(_n("سهل بن زياد"),),
+        target_entry_numbers=(5639,),
+        rationale="Reviewed internal Al-Kafi mentions consistently identify Sahl b. Ziyad.",
+    ),
+    ReviewPriorSpec(
+        key="internal_zurara",
+        method="kafi_review_internal_zurara",
+        tokens=(_n("زرارة"),),
+        minimum_position=1,
+        target_names=(_n("زرارة بن أعين"),),
+        rationale="Reviewed internal Zurara mentions consistently identify Zurara b. Ayan.",
+    ),
+    ReviewPriorSpec(
+        key="opening_husayn_ibn_muhammad",
+        method="kafi_review_opening_husayn_ibn_muhammad",
+        tokens=(_n("الحسين بن محمد"),),
+        position=0,
+        target_names=(_n("الحسين بن محمد الأشعري"),),
+        rationale="The reviewed Al-Kafi opening source is al-Husayn b. Muhammad al-Ashari.",
+    ),
+    ReviewPriorSpec(
+        key="internal_abdullah_ibn_sinan",
+        method="kafi_review_internal_abdullah_ibn_sinan",
+        tokens=(_n("عبد الله بن سنان"),),
+        minimum_position=1,
+        target_names=(_n("عبد الله بن سنان"),),
+        target_entry_numbers=(6916,),
+        rationale="Reviewed internal mentions consistently identify Abd Allah b. Sinan.",
+    ),
+    ReviewPriorSpec(
+        key="internal_husayn_ibn_said",
+        method="kafi_review_internal_husayn_ibn_said",
+        tokens=(_n("الحسين بن سعيد"),),
+        minimum_position=1,
+        target_names=(_n("الحسين بن سعيد الأهوازي"),),
+        rationale="Reviewed internal mentions consistently identify al-Husayn b. Said al-Ahwazi.",
+    ),
+    ReviewPriorSpec(
+        key="opening_abu_ali_al_ashari",
+        method="kafi_review_opening_abu_ali_al_ashari",
+        tokens=(_n("أبو علي الأشعري"),),
+        position=0,
+        target_names=(_n("أبو علي الأشعري"),),
+        rationale="The reviewed Al-Kafi opening kunya consistently identifies Abu Ali al-Ashari.",
+    ),
+    ReviewPriorSpec(
+        key="yunus_after_muhammad_ibn_isa",
+        method="kafi_review_yunus_after_muhammad_ibn_isa",
+        tokens=(_n("يونس"),),
+        previous_tokens=(_n("محمد بن عيسى"),),
+        target_names=(_n("يونس بن عبد الرحمن"),),
+        rationale="Reviewed Muhammad b. Isa -> Yunus edges identify Yunus b. Abd al-Rahman.",
+    ),
+    ReviewPriorSpec(
+        key="muhammad_ibn_muslim_after_al_ala",
+        method="kafi_review_muhammad_ibn_muslim_after_al_ala",
+        tokens=(_n("محمد بن مسلم"),),
+        previous_tokens=(_n("العلاء بن رزين"),),
+        target_names=(_n("محمد بن مسلم الثقفي"),),
+        rationale="Reviewed al-Ala b. Razin -> Muhammad b. Muslim edges identify al-Thaqafi.",
+    ),
+    ReviewPriorSpec(
+        key="ahmad_ibn_muhammad_between_yahya_and_known_teacher",
+        method="kafi_review_ahmad_ibn_muhammad_between_yahya_and_known_teacher",
+        tokens=(_n("أحمد بن محمد"),),
+        previous_tokens=(_n("محمد بن يحيى"),),
+        next_tokens=(_n("علي بن الحكم"), _n("محمد بن سنان")),
+        target_names=(_n("أحمد بن محمد بن عيسى الأشعري القمي"),),
+        rationale=(
+            "Reviewed Muhammad b. Yahya -> Ahmad b. Muhammad chains before "
+            "Ali b. al-Hakam or Muhammad b. Sinan identify Ibn Isa al-Ashari."
+        ),
+    ),
+    ReviewPriorSpec(
+        key="internal_hariz",
+        method="kafi_review_internal_hariz",
+        tokens=(_n("حريز"),),
+        minimum_position=1,
+        target_names=(_n("حريز بن عبد الله"),),
+        rationale="Reviewed internal Hariz mentions consistently identify Hariz b. Abd Allah.",
+    ),
 )
 
 REVIEW_PRIOR_METHODS = frozenset(spec.method for spec in AL_KAFI_REVIEW_PRIORS)
@@ -154,10 +245,19 @@ class ReviewPriorValidation:
         return self.holdout_correct / self.holdout_total if self.holdout_total else 0.0
 
 
-def _target_person(db: Session, spec: ReviewPriorSpec) -> Person | None:
+def target_person_for_spec(db: Session, spec: ReviewPriorSpec) -> Person | None:
     people = db.execute(
         select(Person).where(Person.canonical_name_norm.in_(spec.target_names))
     ).scalars().all()
+    if len(people) > 1 and spec.target_entry_numbers:
+        people = db.execute(
+            select(Person)
+            .join(RijalEntry, RijalEntry.id == Person.primary_entry_id)
+            .where(
+                Person.canonical_name_norm.in_(spec.target_names),
+                RijalEntry.entry_number.in_(spec.target_entry_numbers),
+            )
+        ).scalars().all()
     if len(people) != 1:
         return None
     return people[0]
@@ -248,7 +348,7 @@ def validate_review_priors(
 
     results: list[ReviewPriorValidation] = []
     for spec in AL_KAFI_REVIEW_PRIORS:
-        target = _target_person(db, spec)
+        target = target_person_for_spec(db, spec)
         reviewed = [
             row
             for row in rows

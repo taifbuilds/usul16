@@ -47,7 +47,7 @@ from eshia_research.models import (
 from eshia_research.normalise import normalise_arabic_persian
 from eshia_research.rijal.name_grammar import parse_name
 from eshia_research.rijal.person_resolver import PERSON_RESOLVER_VERSION
-from eshia_research.rijal.review_priors import AL_KAFI_REVIEW_PRIORS
+from eshia_research.rijal.review_priors import AL_KAFI_REVIEW_PRIORS, target_person_for_spec
 
 ProgressCallback = Callable[[str, int, int], None]
 
@@ -1208,9 +1208,9 @@ def _apply_kafi_review_priors(
 
     target_ids: dict[str, int] = {}
     for spec in AL_KAFI_REVIEW_PRIORS:
-        person_id = _find_person_by_norms(lookup, list(spec.target_names))
-        if person_id is not None:
-            target_ids[spec.key] = person_id
+        person = target_person_for_spec(db, spec)
+        if person is not None:
+            target_ids[spec.key] = person.id
     if not target_ids:
         return
 
@@ -1273,6 +1273,7 @@ def _apply_kafi_review_priors(
             existing_rows
             and existing_rows[0].person_id == person_id
             and existing_rows[0].status == "resolved"
+            and existing_rows[0].method == spec.method
         ):
             continue
         _replace_with_source_prior(

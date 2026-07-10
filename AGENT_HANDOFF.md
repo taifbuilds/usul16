@@ -1144,6 +1144,81 @@ Applied by Codex on 2026-07-10:
   - live API, `alkafi-1`, admin review, and quality graph routes return 200
   - backend PID 9080; frontend PID 17316
 
+## Review-Prior Accuracy Sprint Wave 2 — Codex 2026-07-10
+
+User requested a further reduction in the remaining review count. Read-only
+queue profiling found repeated exact/contextual cases still marked weak even
+where imported review was unanimous. Added ten more Al-Kafi-only priors using
+the same deterministic holdout contract; all passed at 100%. Report:
+`scratch_audit/kafi_review_prior_validation_wave2_20260710.md`.
+
+Also fixed a machine-review/eval calibration bug: generation rows whose own
+method is `conflict` were being used as hard chronology evidence. They are now
+excluded from hard generation checks in machine review, eval, and graph quality.
+Reliable generation rows are unchanged and still checked. Added regression
+coverage across all three read paths.
+
+Pre-apply verification:
+
+- focused tests: 55 passed before full suite expansion
+- full backend: 294 passed, 1 warning
+- frontend lint and production build: passed
+- second-wave prior dry run: 9,579 rank-1/evidence updates
+- transactional combined simulation:
+  - resolved coverage: 57,298 -> 60,185 (65.3% -> 68.6%)
+  - `approve_current`: 44,431 -> 54,090
+  - `needs_external_review`: 37,215 -> 32,665
+  - `flag_contradiction`: 6,101 -> 992
+  - reliable chronology violations: 496/4,244
+  - bare-form leaks: 0
+
+Planned DB edit recorded by Codex on 2026-07-10 before applying:
+
+- Scope: Al-Kafi `mention_resolutions` matching the ten checked-in wave-2
+  priors or already-validated wave-1 rows whose evidence method needs upgrading,
+  followed by a refresh of `codex-machine-v1` decisions under the corrected
+  generation calibration. Do not rerun global context. Preserve all 10,031
+  external/admin decisions. No source text, split, chain token, person,
+  generation, Mu'jam, or same-person row is edited.
+- Commands:
+  - `refine-compiler-priors --source-book-id 11005`
+  - `machine-review-person-resolutions --source-book-id 11005`
+- Backup target before apply:
+  `eshia-research/eshia_research.before-review-priors-wave2.20260710-235837.db`
+
+Applied by Codex on 2026-07-10:
+
+- Stopped backend PID 9080 and created the recorded 2.032 GiB backup; backup
+  `PRAGMA quick_check`: `ok`.
+- Applied exactly 9,579 derived updates/revalidations:
+  - 9,577 review-prior rows
+  - 2 opening-anaphora refreshes
+  - highest-volume wave-2 methods: Sahl b. Ziyad 1,375; Zurara 714; Abu Ali
+    al-Ashari 657; al-Husayn b. Muhammad 656; al-Husayn b. Said 604;
+    Abd Allah b. Sinan 467; bounded Ahmad b. Muhammad context 405; Hariz 378;
+    Yunus 284; Muhammad b. Muslim 163
+- Refreshed `codex-machine-v1` under the corrected generation calibration:
+  - `approve_current`: 44,431 -> 54,092 (+9,661)
+  - `needs_external_review`: 37,215 -> 32,663 (-4,552)
+  - `flag_contradiction`: 6,101 -> 992 (-5,109)
+  - all 10,031 external/admin decisions preserved unchanged
+- Final raw resolution state:
+  - resolved 60,187/87,747 (68.6%)
+  - ambiguous 16,608 (18.9%)
+  - unresolved 10,802 (12.3%)
+  - bare-form leaks 0
+  - reliable generation violations 496/4,245
+- Mu'jam exact-match floor after broader coverage: 11,222 corroborated, 7,022
+  contradicted, 13,806 under-documented. Treat the contradicted queue as the
+  next evidence audit, not as proof that unanimous exact/context priors are bad.
+- Final verification:
+  - main DB `PRAGMA quick_check`: `ok`
+  - backend 294 passed, 1 warning
+  - frontend lint/build passed
+  - split audit still has 0 suspicious unreviewed
+  - API, quality graph, `alkafi-1`, and review UI return 200
+  - backend PID 19392; frontend PID 17316
+
 ## Near-Term Plan
 
 1. Execute Tamyiz Engine phases A-E (above). Phases A-D, same-person links,

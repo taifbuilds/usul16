@@ -320,3 +320,19 @@ def test_quality_flags_generation_violation(client: TestClient, db: Session, two
     body = client.get("/transmission-graph?source_book_id=11005&min_count=1&quality=1").json()
     edge = next(e for e in body["edges"] if e["source"] == student.id)
     assert edge["gen_violation"] is True
+
+
+def test_quality_ignores_generation_rows_already_marked_conflict(
+    client: TestClient, db: Session, two_person_book
+):
+    book, student, teacher, _ = two_person_book
+    _edge(db, book, 1, student, teacher)
+    db.add(PersonGeneration(person_id=student.id, gen_lo=2, gen_hi=2, gen_point=2,
+                            method="conflict", resolver_version=PERSON_RESOLVER_VERSION))
+    db.add(PersonGeneration(person_id=teacher.id, gen_lo=7, gen_hi=7, gen_point=7,
+                            method="conflict", resolver_version=PERSON_RESOLVER_VERSION))
+    db.commit()
+
+    body = client.get("/transmission-graph?source_book_id=11005&min_count=1&quality=1").json()
+    edge = next(e for e in body["edges"] if e["source"] == student.id)
+    assert edge["gen_violation"] is None
