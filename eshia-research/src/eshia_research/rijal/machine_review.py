@@ -34,6 +34,7 @@ from eshia_research.models import (
 from eshia_research.normalise import normalise_arabic_persian
 from eshia_research.rijal.identity_links import same_person_clusters
 from eshia_research.rijal.person_resolver import PERSON_RESOLVER_VERSION
+from eshia_research.rijal.review_priors import REVIEW_PRIOR_METHODS
 
 REVIEWER = "codex-machine-v1"
 _REJECTED_HADITH_STATUS = "rejected_non_hadith_fragment"
@@ -49,13 +50,13 @@ _STRONG_METHODS = {
     "kafi_opening_muhammad_yahya",
     "kafi_opening_ali_ibrahim",
     "kafi_opening_anaphora_previous_hadith",
-}
+} | set(REVIEW_PRIOR_METHODS)
 _SOURCE_PRIOR_METHODS = {
     "compiler_prior_kulayni",
     "kafi_opening_muhammad_yahya",
     "kafi_opening_ali_ibrahim",
     "kafi_opening_anaphora_previous_hadith",
-}
+} | set(REVIEW_PRIOR_METHODS)
 _SQLITE_CHUNK = 800
 
 

@@ -28,7 +28,7 @@ from collections.abc import Callable
 from dataclasses import dataclass, field
 
 from sqlalchemy import delete, select
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, aliased
 
 from eshia_research.corpus import AL_KAFI_ISLAMIYYA_SOURCE_BOOK_ID, CANONICAL_FOUR_BOOK_SOURCE_IDS
 from eshia_research.models import (
@@ -47,6 +47,7 @@ from eshia_research.models import (
 from eshia_research.normalise import normalise_arabic_persian
 from eshia_research.rijal.name_grammar import parse_name
 from eshia_research.rijal.person_resolver import PERSON_RESOLVER_VERSION
+from eshia_research.rijal.review_priors import AL_KAFI_REVIEW_PRIORS
 
 ProgressCallback = Callable[[str, int, int], None]
 
@@ -171,6 +172,7 @@ class CollectiveRefinementStats:
     compiler_priors: int = 0
     source_priors: int = 0
     anaphora_priors: int = 0
+    review_priors: int = 0
     context_resolved: int = 0
     roster_expanded_nodes: int = 0
     roster_rows_added: int = 0
@@ -1187,6 +1189,118 @@ def _apply_kafi_opening_anaphora_priors(
             last_source_person_id = None
 
 
+def _apply_kafi_review_priors(
+    db: Session,
+    *,
+    selected_book_ids: list[int],
+    lookup: ContextLookup,
+    stats: CollectiveRefinementStats,
+) -> None:
+    kafi_book_ids = [
+        book_id
+        for book_id, source_book_id in db.execute(
+            select(Book.id, Book.source_book_id).where(Book.id.in_(selected_book_ids))
+        )
+        if source_book_id == AL_KAFI_ISLAMIYYA_SOURCE_BOOK_ID
+    ]
+    if not kafi_book_ids:
+        return
+
+    target_ids: dict[str, int] = {}
+    for spec in AL_KAFI_REVIEW_PRIORS:
+        person_id = _find_person_by_norms(lookup, list(spec.target_names))
+        if person_id is not None:
+            target_ids[spec.key] = person_id
+    if not target_ids:
+        return
+
+    prior_tokens = tuple({token for spec in AL_KAFI_REVIEW_PRIORS for token in spec.tokens})
+    previous = aliased(ChainNode)
+    following = aliased(ChainNode)
+    rows = db.execute(
+        select(
+            ChainNode.id.label("node_id"),
+            ChainNode.token_normalised.label("token_norm"),
+            ChainNode.position.label("position"),
+            previous.token_normalised.label("previous_token"),
+            following.token_normalised.label("next_token"),
+        )
+        .join(Chain, Chain.id == ChainNode.chain_id)
+        .join(Hadith, Hadith.id == Chain.hadith_id)
+        .outerjoin(
+            previous,
+            (previous.chain_id == ChainNode.chain_id)
+            & (previous.position == ChainNode.position - 1),
+        )
+        .outerjoin(
+            following,
+            (following.chain_id == ChainNode.chain_id)
+            & (following.position == ChainNode.position + 1),
+        )
+        .where(
+            Hadith.book_id.in_(kafi_book_ids),
+            Hadith.review_status != REJECTED_HADITH_STATUS,
+            ChainNode.token_normalised.in_(prior_tokens),
+        )
+        .order_by(Hadith.book_id, Hadith.sequence_in_book, Chain.chain_number, ChainNode.position)
+    ).all()
+
+    matches = []
+    for row in rows:
+        spec = next(
+            (
+                candidate
+                for candidate in AL_KAFI_REVIEW_PRIORS
+                if candidate.key in target_ids
+                and candidate.matches(
+                    token=row.token_norm,
+                    position=row.position,
+                    previous_token=row.previous_token,
+                    next_token=row.next_token,
+                )
+            ),
+            None,
+        )
+        if spec is not None:
+            matches.append((row, spec))
+
+    stats.nodes_examined += len(matches)
+    rows_by_node = _resolution_rows_for_nodes(db, [row.node_id for row, _spec in matches])
+    for row, spec in matches:
+        person_id = target_ids[spec.key]
+        existing_rows = rows_by_node.get(row.node_id, [])
+        if (
+            existing_rows
+            and existing_rows[0].person_id == person_id
+            and existing_rows[0].status == "resolved"
+        ):
+            continue
+        _replace_with_source_prior(
+            db,
+            node_id=row.node_id,
+            person_id=person_id,
+            existing_rows=existing_rows,
+            lookup=lookup,
+            method=spec.method,
+            summary=(
+                f"Resolved to {lookup.person_name_ar.get(person_id)} by validated "
+                f"Al-Kafi external-review prior: {spec.rationale}"
+            ),
+            evidence_json={
+                "phase": COLLECTIVE_REFINER_VERSION,
+                "review_prior": spec.key,
+                "source_book_id": AL_KAFI_ISLAMIYYA_SOURCE_BOOK_ID,
+                "token_norm": row.token_norm,
+                "previous_token": row.previous_token,
+                "next_token": row.next_token,
+                "validation": "deterministic_80_20_external_review_holdout",
+            },
+        )
+        stats.nodes_resolved += 1
+        stats.review_priors += 1
+        stats.method_counts[spec.method] += 1
+
+
 def refine_compiler_priors(
     db: Session,
     *,
@@ -1238,6 +1352,13 @@ def refine_compiler_priors(
             stats.method_counts["compiler_prior_kulayni"] += 1
 
     _apply_kafi_opening_source_priors(
+        db,
+        selected_book_ids=selected_book_ids,
+        lookup=lookup,
+        stats=stats,
+    )
+    db.flush()
+    _apply_kafi_review_priors(
         db,
         selected_book_ids=selected_book_ids,
         lookup=lookup,

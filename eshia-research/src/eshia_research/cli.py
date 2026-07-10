@@ -615,11 +615,12 @@ def refine_compiler_priors_cmd(
     book_id: list[int] = typer.Option([], "--book-id", help="Local Book.id (repeatable)."),
     dry_run: bool = typer.Option(False, "--dry-run", help="Run without committing database changes."),
 ) -> None:
-    """Apply fast source-opening priors (Tamyiz Phase D first slice).
+    """Apply fast source and externally validated priors (Tamyiz Phase D).
 
     This pins narrow al-Kafi source conventions such as chain-opening "Abu
     Ja'far Muhammad b. Ya'qub", "Muhammad b. Yahya", "Ali b. Ibrahim", and
-    opening "anhu" continuations while retaining ranked alternatives. Run
+    opening "anhu" continuations, plus narrow priors validated against the
+    imported external-review holdout, while retaining ranked alternatives. Run
     after build-person-layer -> resolve-persons -> build-tabaqat ->
     refine-tabaqat.
     """
@@ -644,10 +645,36 @@ def refine_compiler_priors_cmd(
         f"{mode}: examined {stats.nodes_examined} source-prior target node(s); "
         f"resolved {stats.nodes_resolved} "
         f"({stats.compiler_priors} Kulayni, {stats.source_priors} source openings, "
-        f"{stats.anaphora_priors} anaphora)."
+        f"{stats.review_priors} review priors, {stats.anaphora_priors} anaphora)."
     )
     for method, count in stats.method_counts.most_common(12):
         typer.echo(f"  {method}: {count}")
+
+
+@app.command("validate-review-priors")
+def validate_review_priors_cmd(
+    source_book_id: str = typer.Option(
+        AL_KAFI_ISLAMIYYA_SOURCE_BOOK_ID,
+        "--source-book-id",
+        help="eShia source_book_id whose imported review decisions should be scored.",
+    ),
+) -> None:
+    """Read-only 80/20 holdout validation for checked-in review priors."""
+    from eshia_research.rijal.review_priors import (
+        format_review_prior_validation,
+        validate_review_priors,
+    )
+
+    _init_db()
+    db = SessionLocal()
+    try:
+        results = validate_review_priors(db, source_book_id=source_book_id)
+    finally:
+        db.close()
+
+    typer.echo(format_review_prior_validation(results))
+    if not all(result.passed for result in results):
+        raise typer.Exit(1)
 
 
 @app.command("refine-collective-context")

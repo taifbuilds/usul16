@@ -1055,15 +1055,102 @@ New tests: `test_effective_resolution.py` (12), `test_api_edge_evidence.py` (4),
 + decision/quality cases in `test_api_transmission_graph.py`, + override-through-chains
 in `test_api_books.py`.
 
+## External-Review-to-Rule Accuracy Sprint — Codex 2026-07-10
+
+Safety baseline completed before resolver work:
+
+- Initialized a local Git repository at the workspace root and committed the
+  code-only baseline as `a7386b6`.
+- Databases, snapshots, environments, dependencies, logs, and generated review
+  packets are excluded from Git.
+- Added `scripts/database-backup-retention.ps1`; it is dry-run by default,
+  protects the seven newest snapshots, requires a 14-day minimum age, and never
+  considers the live database. Initial dry run removed nothing.
+- Aligned `pyproject.toml` with the tested/runtime floor of Python 3.11 and
+  refreshed stale README/architecture documentation.
+
+Read-only review mining implemented in
+`src/eshia_research/rijal/review_priors.py` with CLI command
+`validate-review-priors`. Selection contract: deterministic 80/20 split by
+`chain_node_id % 5`, minimum 8 training and 3 holdout examples, and >=95%
+agreement in both. Eight narrow Al-Kafi rules passed at 100% on both slices.
+Full report: `scratch_audit/kafi_review_prior_validation_20260710.md`.
+
+Dry-run result for `refine-compiler-priors --source-book-id 11005 --dry-run`:
+
+- target nodes examined: 25,182
+- proposed rank-1 updates: 9,108
+- validated review-prior updates: 9,104
+- opening-anaphora refreshes: 4
+- ranked alternatives retained; no source text or chain-token edits
+- backend verification before apply: 281 passed, 1 warning
+
+Planned DB edit recorded by Codex on 2026-07-10 before applying:
+
+- Scope: Al-Kafi derived person-resolution rows only. Apply the eight checked-in
+  review priors, rerun Phase-D collective context from the corrected seeds, and
+  refresh `codex-machine-v1` decisions. Existing external/admin decisions remain
+  separate and are not overwritten. No hadith text, split, chain token, Mu'jam
+  entry, person, or same-person relation is edited.
+- Commands:
+  - `refine-compiler-priors --source-book-id 11005`
+  - `refine-collective-context --source-book-id 11005`
+  - `machine-review-person-resolutions --source-book-id 11005`
+- Backup target before apply:
+  `eshia-research/eshia_research.before-review-priors.20260710-231620.db`
+
+Applied by Codex on 2026-07-10:
+
+- Stopped the API writer, copied the 2.032 GiB main database to the recorded
+  backup, verified equal length, and ran `PRAGMA quick_check` on the snapshot:
+  `ok`.
+- Applied the validated prior pass exactly as dry-run predicted:
+  - total derived rank-1 updates: 9,108
+  - review-prior updates: 9,104
+  - opening-anaphora refreshes: 4
+  - `abihi` after Ali b. Ibrahim -> Ibrahim b. Hashim: 3,680
+  - Ibn Abi Umayr -> Muhammad b. Abi Umayr: 2,535
+  - terminal Abu Abd Allah -> Imam al-Sadiq: 1,809
+  - parallel-chain opening Ali b. Ibrahim: 578
+  - opening Ali b. Muhammad before Sahl: 159
+  - Abu Jamila: 133; explicit al-Rida title: 106; Ahmad al-Barqi's father: 104
+- Raw confident coverage improved:
+  - resolved: 48,552/87,747 (55.3%) -> 57,298/87,747 (65.3%)
+  - ambiguous: 27,973 -> 19,495
+  - unresolved: 11,072 -> 10,804
+  - bare-form leaks remain 0 (PASS)
+- A transactional Phase-D collective-context simulation proposed another 2,328
+  context resolutions, but worsened the independent contradiction rates. It was
+  rolled back and was NOT applied. Do not propagate context again until the
+  generation/eval conflicts below are understood.
+- Refreshed only `codex-machine-v1` decisions after the validated priors:
+  - `approve_current`: 37,844 -> 44,431
+  - `needs_external_review`: 45,991 -> 37,215
+  - `flag_contradiction`: 3,912 -> 6,101
+  - the 10,031 `codex-admin-external-v1` decisions were preserved unchanged
+- Important quality caution: broader confident coverage exposes more edges to
+  the independent checks. Generation violations are now 3,066/23,501 and the
+  exact-match Mu'jam corroboration floor is 64.2% (10,366 corroborated, 5,771
+  contradicted). Some flags are known evaluation/tabaqa defects — e.g. the
+  historically valid Ibn Abi Umayr -> Jamil b. Darraj edge is flagged because
+  their stored generation numbers are inverted. The next accuracy task is to
+  repair/validate generation assignments and decompose these flags, not to
+  roll back the externally unanimous identity rules.
+- Verification after apply:
+  - main DB `PRAGMA quick_check`: `ok`
+  - backend: 281 passed, 1 warning
+  - frontend lint and production build: passed
+  - split audit remains 109 reviewed flags / 0 suspicious unreviewed
+  - live API, `alkafi-1`, admin review, and quality graph routes return 200
+  - backend PID 9080; frontend PID 17316
+
 ## Near-Term Plan
 
-1. Execute Tamyiz Engine phases A-E (above). Phase A DONE (person layer), Phase B DONE
-   (reference calculus), Phase C DONE (tabaqat lattice + generation disambiguation).
-   Phase D Al-Kafi compiler prior + global context/EM convergence DONE.
-   Same-person identity links from al-Khoei tamyiz DONE. Machine-admin review
-   decisions + external-review packet export DONE. Next is applying verified
-   outside-review responses back into machine decision records, then cautious
-   override/amend logic for only high-confidence externally verified cases.
+1. Execute Tamyiz Engine phases A-E (above). Phases A-D, same-person links,
+   external-review import, decision overlays, and the first holdout-validated
+   review-to-rule pass are DONE. Next: audit the generation lattice and split
+   the 3,066 chronology flags into bad generation assignments, bad identities,
+   and real textual-chain anomalies before Phase E or another context pass.
 2. Expand clickable narrator UI from opt-in graph panel into direct isnad-token linking once token-to-text alignment is mature.
 3. Improve narrator pages with better grouping of Mu'jam occurrences and links back to hadith appearances.
 4. Add targeted Al-Kafi spot-check dashboards for approved warning buckets (`very_short_matn`, `terminal_speech_inside_matn`, etc.).

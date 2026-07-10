@@ -42,7 +42,15 @@ def add_entry(db: Session, book: Book, number: int, name: str, text: str = "") -
     db.flush()
 
 
-def make_chain(db: Session, book: Book, public_id: str, seq: int, tokens: list[tuple[str, str]]) -> Chain:
+def make_chain(
+    db: Session,
+    book: Book,
+    public_id: str,
+    seq: int,
+    tokens: list[tuple[str, str]],
+    *,
+    chain_number: int = 1,
+) -> Chain:
     hadith = Hadith(
         public_id=public_id,
         book_id=book.id,
@@ -61,7 +69,7 @@ def make_chain(db: Session, book: Book, public_id: str, seq: int, tokens: list[t
     )
     db.add(hadith)
     db.flush()
-    chain = Chain(hadith_id=hadith.id, chain_number=1, raw_isnad="x")
+    chain = Chain(hadith_id=hadith.id, chain_number=chain_number, raw_isnad="x")
     db.add(chain)
     db.flush()
     for position, (token, node_type) in enumerate(tokens):
@@ -108,6 +116,15 @@ def seeded(db: Session) -> tuple[Session, Book]:
     add_entry(db, mujam, 12, "علي بن إبراهيم بن هاشم")
     add_entry(db, mujam, 13, "علي بن إبراهيم التيملي")
     add_entry(db, mujam, 14, "علي بن إبراهيم بن يعلى")
+    add_entry(db, mujam, 15, "إبراهيم بن هاشم أبو إسحاق القمي")
+    add_entry(db, mujam, 16, "أحمد بن أبي عمير")
+    add_entry(db, mujam, 17, "محمد بن أبي عمير زياد")
+    add_entry(db, mujam, 18, "علي بن محمد بن بندار")
+    add_entry(db, mujam, 19, "علي بن محمد الأشعث")
+    add_entry(db, mujam, 20, "سهل بن زياد")
+    add_entry(db, mujam, 21, "أحمد بن محمد بن خالد")
+    add_entry(db, mujam, 22, "محمد بن خالد البرقي")
+    add_entry(db, mujam, 23, "المفضل بن صالح الأسدي النخاس")
     build_person_layer(db)
     return db, kafi
 
@@ -257,6 +274,85 @@ def test_fast_prior_slice_resolves_kafi_ali_ibrahim_opening(seeded):
     assert rows[0].status == "resolved"
     assert rows[0].method == "kafi_opening_ali_ibrahim"
     assert rows[0].person_id == person_id(db, "علي بن إبراهيم بن هاشم")
+
+
+def test_kafi_opening_prior_applies_to_parallel_chain(seeded):
+    db, kafi = seeded
+    chain = make_chain(
+        db,
+        kafi,
+        "ali-ibrahim-parallel",
+        1,
+        [
+            ("علي بن إبراهيم", "named_narrator"),
+            ("الحسن بن محبوب", "named_narrator"),
+        ],
+        chain_number=2,
+    )
+    rebuild_person_resolutions(db, book_ids=[kafi.id])
+
+    stats = refine_compiler_priors(db, book_ids=[kafi.id])
+    rows = resolutions_for(db, chain, 0)
+
+    assert stats.review_priors == 1
+    assert rows[0].method == "kafi_opening_ali_ibrahim"
+    assert rows[0].person_id == person_id(db, "علي بن إبراهيم بن هاشم")
+
+
+@pytest.mark.parametrize(
+    ("tokens", "expected_name", "expected_method"),
+    [
+        (
+            [("الحسن بن محبوب", "named_narrator"), ("ابن أبي عمير", "named_narrator")],
+            "محمد بن أبي عمير زياد",
+            "kafi_review_ibn_abi_umayr",
+        ),
+        (
+            [("علي بن إبراهيم", "named_narrator"), ("أبيه", "pronoun_relation")],
+            "إبراهيم بن هاشم أبو إسحاق القمي",
+            "kafi_review_father_after_ali_ibrahim",
+        ),
+        (
+            [("الحسن بن محبوب", "named_narrator"), ("أبي عبد الله ع", "imam")],
+            "جعفر بن محمد الصادق عليه السلام",
+            "kafi_review_terminal_abu_abdullah",
+        ),
+        (
+            [("علي بن محمد", "named_narrator"), ("سهل بن زياد", "named_narrator")],
+            "علي بن محمد بن بندار",
+            "kafi_review_opening_ali_muhammad_before_sahl",
+        ),
+        (
+            [("أحمد بن محمد بن خالد", "named_narrator"), ("أبيه", "pronoun_relation")],
+            "محمد بن خالد البرقي",
+            "kafi_review_father_after_ahmad_barqi",
+        ),
+        (
+            [("الحسن بن محبوب", "named_narrator"), ("أبي جميلة", "named_narrator")],
+            "المفضل بن صالح الأسدي النخاس",
+            "kafi_review_abu_jamila",
+        ),
+        (
+            [("الحسن بن محبوب", "named_narrator"), ("أبي الحسن الرضا ع", "imam")],
+            "علي بن موسى الرضا عليه السلام",
+            "kafi_review_terminal_abu_al_hasan_al_rida",
+        ),
+    ],
+)
+def test_validated_review_priors_resolve_exact_kafi_patterns(
+    seeded, tokens, expected_name, expected_method
+):
+    db, kafi = seeded
+    chain = make_chain(db, kafi, f"review-{expected_method}", 1, tokens)
+    rebuild_person_resolutions(db, book_ids=[kafi.id])
+
+    stats = refine_compiler_priors(db, book_ids=[kafi.id])
+    rows = resolutions_for(db, chain, len(tokens) - 1 if expected_method != "kafi_review_opening_ali_muhammad_before_sahl" else 0)
+
+    assert stats.review_priors >= 1
+    assert rows[0].status == "resolved"
+    assert rows[0].method == expected_method
+    assert rows[0].person_id == person_id(db, expected_name)
 
 
 def test_fast_prior_slice_resolves_opening_anhu_to_previous_hadith_source(seeded):
