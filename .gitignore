@@ -1,0 +1,52 @@
+# Local tooling and secrets
+.claude/
+.env
+.env.*
+!.env.example
+!**/.env.example
+
+# Python
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+**/.pytest_cache/
+.venv/
+**/.venv/
+*.egg-info/
+**/*.egg-info/
+
+# Node / Next.js
+node_modules/
+**/node_modules/
+.next/
+**/.next/
+out/
+**/out/
+*.tsbuildinfo
+next-env.d.ts
+
+# Databases and database snapshots are operational data, not source code
+*.db
+*.db-*
+*.db.*
+*.sqlite
+*.sqlite3
+
+# Runtime output
+*.log
+*.err
+*.out
+*.meta
+data/checkpoints/
+**/data/checkpoints/
+
+# Generated review packets (final reports/results remain trackable)
+eshia-research/scratch_audit/person_review_packet_*.md
+eshia-research/scratch_audit/person_review_packet_*.jsonl
+eshia-research/scratch_audit/external_assessment_*_needs_review_*.md
+
+# One-off local captures
+/bihar_detail.html
+Thumbs.db
+.DS_Store
+

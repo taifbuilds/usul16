@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+:root {
+  /* Warm cream/ink reading-room palette, deep green + gold accents, in the
+     spirit of an old letterpress edition rather than a generic SaaS app. */
+  --background: #f6f1e4;
+  --foreground: #2a251e;
+  --surface: #fffdf7;
+  --accent: #1f5c4d;
+  --accent-foreground: #fffdf7;
+  --gold: #b8923f;
+  --muted: #8a8171;
+  --border: #e3d9c1;
+
+  --badge-bg: #ece2c8;
+  --badge-foreground: #7a6a45;
+  --badge-verified-bg: #dbe8e0;
+  --badge-verified-foreground: #1f5c4d;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-gold: var(--gold);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-badge: var(--badge-bg);
+  --color-badge-foreground: var(--badge-foreground);
+  --color-badge-verified: var(--badge-verified-bg);
+  --color-badge-verified-foreground: var(--badge-verified-foreground);
+  --font-sans: var(--font-body);
+  --font-serif: var(--font-display);
+  --font-arabic: var(--font-amiri);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* ------------------------------------------------------------------ */
+/* Motion                                                              */
+/* ------------------------------------------------------------------ */
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(-30px, 24px, 0) scale(1.08);
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.8);
+  }
+}
+
+/* Staged entrance for hero content: elements start invisible and fade up
+   in sequence. `both` keeps the pre-animation state during the delay. */
+.animate-fade-up {
+  animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.anim-delay-1 { animation-delay: 0.1s; }
+.anim-delay-2 { animation-delay: 0.22s; }
+.anim-delay-3 { animation-delay: 0.34s; }
+.anim-delay-4 { animation-delay: 0.46s; }
+.anim-delay-5 { animation-delay: 0.58s; }
+
+.animate-spin-slower {
+  animation: spin-slow 240s linear infinite;
+}
+.animate-spin-slower-reverse {
+  animation: spin-slow 320s linear infinite reverse;
+}
+.animate-drift {
+  animation: drift 14s ease-in-out infinite alternate;
+}
+.animate-pulse-dot {
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+
+/* Scroll-reveal (driven by the Reveal client component) */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-spin-slower,
+  .animate-spin-slower-reverse,
+  .animate-drift,
+  .animate-pulse-dot {
+    animation: none;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

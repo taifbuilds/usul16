@@ -1,0 +1,14 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: eshia
+      POSTGRES_PASSWORD: eshia
+      POSTGRES_DB: eshia_research
+    ports:
+      - "5432:5432"
+    volumes:
+      - eshia_pg_data:/var/lib/postgresql/data
+
+volumes:
+  eshia_pg_data:
