@@ -44,6 +44,9 @@ data/checkpoints/
 eshia-research/scratch_audit/person_review_packet_*.md
 eshia-research/scratch_audit/person_review_packet_*.jsonl
 eshia-research/scratch_audit/external_assessment_*_needs_review_*.md
+eshia-research/scratch_audit/generation_audit_*.md
+eshia-research/scratch_audit/generation_audit_*.jsonl
+eshia-research/scratch_audit/eval_final_*.json
 
 # One-off local captures
 /bihar_detail.html

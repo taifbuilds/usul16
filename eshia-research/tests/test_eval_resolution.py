@@ -204,6 +204,46 @@ def test_generation_violation_is_flagged(db: Session):
     report = evaluate_resolution(db, "11005")
     assert report.gen_edges_checked == 1
     assert report.gen_violations == 1
+    # Both endpoints are anchor-derived and the gap (5) is past tolerance, so it
+    # is a RELIABLE violation too.
+    assert report.reliable_gen_violations == 1
+
+
+def test_propagated_only_generation_is_not_a_reliable_violation(db: Session):
+    book = _kafi(db)
+    student = _person(db, "محمد بن أبي عمير")
+    teacher = _person(db, "معاوية بن عمار")
+    # Inverted, but both generations are pure PROPAGATION — advisory, not a hard
+    # verdict. This is the Ibn Abi Umayr hub case that produced ~490 false flags.
+    db.add(PersonGeneration(person_id=student.id, gen_lo=6, gen_hi=6, method="propagated",
+                            resolver_version=RV))
+    db.add(PersonGeneration(person_id=teacher.id, gen_lo=7, gen_hi=7, method="propagated",
+                            resolver_version=RV))
+    _edge_chain(db, book, 1, student, teacher)
+    db.commit()
+
+    report = evaluate_resolution(db, "11005")
+    assert report.gen_violations == 1            # still visible in the raw count
+    assert report.reliable_gen_violations == 0   # but NOT a reliable (actionable) one
+    assert report.reliable_gen_edges_checked == 0
+
+
+def test_gap_of_one_layer_is_within_tolerance(db: Session):
+    book = _kafi(db)
+    student = _person(db, "عيسى بن أبي منصور")
+    teacher = _person(db, "جعفر بن محمد الصادق عليه السلام")
+    # Companion at layer 4 who also narrated from al-Sadiq (5): a one-layer
+    # overshoot is soft-anchor boundary noise, not a real violation.
+    db.add(PersonGeneration(person_id=student.id, gen_lo=4, gen_hi=4, method="ashab_anchor",
+                            resolver_version=RV))
+    db.add(PersonGeneration(person_id=teacher.id, gen_lo=5, gen_hi=5, method="imam_fixed",
+                            resolver_version=RV))
+    _edge_chain(db, book, 1, student, teacher)
+    db.commit()
+
+    report = evaluate_resolution(db, "11005")
+    assert report.reliable_gen_edges_checked == 1
+    assert report.reliable_gen_violations == 0
 
 
 def test_conflicted_generation_is_not_hard_chronology_evidence(db: Session):

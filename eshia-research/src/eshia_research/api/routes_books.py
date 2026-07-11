@@ -330,6 +330,13 @@ _PERSON_AUDIT_RISKS = {
     "many_candidates",
 }
 from eshia_research.rijal.effective_resolution import ADMIN_REVIEWER as _ADMIN_PERSON_REVIEWER
+from eshia_research.rijal.machine_review import REVIEWER as _MACHINE_PERSON_REVIEWER
+
+_PERSON_AUDIT_MACHINE_DECISIONS = {
+    "approve_current",
+    "needs_external_review",
+    "flag_contradiction",
+}
 
 
 def _admin_decision_read(
@@ -1156,6 +1163,7 @@ def list_person_resolution_audit_queue(
     status: str = "open",
     node_type: str | None = None,
     risk: str | None = None,
+    machine_decision: str | None = None,
     q: str | None = None,
     admin_reviewed: bool = False,
     skip: int = 0,
@@ -1170,6 +1178,9 @@ def list_person_resolution_audit_queue(
     risk = risk.strip() if risk else None
     if risk and risk not in _PERSON_AUDIT_RISKS:
         raise HTTPException(status_code=400, detail="Unsupported person resolution risk")
+    machine_decision = machine_decision.strip() if machine_decision else None
+    if machine_decision and machine_decision not in _PERSON_AUDIT_MACHINE_DECISIONS:
+        raise HTTPException(status_code=400, detail="Unsupported machine decision filter")
     limit = max(1, min(limit, 200))
     skip = max(skip, 0)
 
@@ -1233,6 +1244,17 @@ def list_person_resolution_audit_queue(
                     PersonResolutionDecision.chain_node_id == ChainNode.id,
                     PersonResolutionDecision.reviewer == _ADMIN_PERSON_REVIEWER,
                     PersonResolutionDecision.resolver_version == PERSON_RESOLVER_VERSION,
+                )
+            )
+        )
+    if machine_decision:
+        query = query.filter(
+            exists().where(
+                and_(
+                    PersonResolutionDecision.chain_node_id == ChainNode.id,
+                    PersonResolutionDecision.reviewer == _MACHINE_PERSON_REVIEWER,
+                    PersonResolutionDecision.resolver_version == PERSON_RESOLVER_VERSION,
+                    PersonResolutionDecision.decision_type == machine_decision,
                 )
             )
         )
@@ -2101,7 +2123,14 @@ def get_transmission_graph(
     generations = dict(
         db.execute(
             select(PersonGeneration.person_id, func.coalesce(PersonGeneration.gen_point, PersonGeneration.gen_lo))
-            .where(PersonGeneration.person_id.in_(member_ids))
+            .where(
+                PersonGeneration.person_id.in_(member_ids),
+                # Exclude conflict-method rows: a person whose generation evidence
+                # is self-contradictory should render as undated in the ṭabaqāt
+                # layout rather than be confidently banded at a bogus layer. This
+                # matches the quality overlay, which also excludes conflict rows.
+                PersonGeneration.method != "conflict",
+            )
         ).all()
     )
 

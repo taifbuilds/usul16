@@ -322,6 +322,34 @@ def test_quality_flags_generation_violation(client: TestClient, db: Session, two
     assert edge["gen_violation"] is True
 
 
+def test_quality_ignores_propagated_only_generation(client: TestClient, db: Session, two_person_book):
+    """A propagated-only generation is advisory and must NOT declare an edge
+    impossible, even when inverted (the unanchored-hub false-positive case)."""
+    book, student, teacher, _ = two_person_book
+    _edge(db, book, 1, student, teacher)
+    db.add(PersonGeneration(person_id=student.id, gen_lo=6, gen_hi=6, gen_point=6,
+                            method="propagated", resolver_version=PERSON_RESOLVER_VERSION))
+    db.add(PersonGeneration(person_id=teacher.id, gen_lo=7, gen_hi=7, gen_point=7,
+                            method="propagated", resolver_version=PERSON_RESOLVER_VERSION))
+    db.commit()
+    body = client.get("/transmission-graph?source_book_id=11005&min_count=1&quality=1").json()
+    edge = next(e for e in body["edges"] if e["source"] == student.id)
+    assert edge["gen_violation"] is None
+
+
+def test_quality_gap_of_one_is_within_tolerance(client: TestClient, db: Session, two_person_book):
+    book, student, teacher, _ = two_person_book
+    _edge(db, book, 1, student, teacher)
+    db.add(PersonGeneration(person_id=student.id, gen_lo=4, gen_hi=4, gen_point=4,
+                            method="ashab_anchor", resolver_version=PERSON_RESOLVER_VERSION))
+    db.add(PersonGeneration(person_id=teacher.id, gen_lo=5, gen_hi=5, gen_point=5,
+                            method="imam_fixed", resolver_version=PERSON_RESOLVER_VERSION))
+    db.commit()
+    body = client.get("/transmission-graph?source_book_id=11005&min_count=1&quality=1").json()
+    edge = next(e for e in body["edges"] if e["source"] == student.id)
+    assert edge["gen_violation"] is False
+
+
 def test_quality_ignores_generation_rows_already_marked_conflict(
     client: TestClient, db: Session, two_person_book
 ):
@@ -336,3 +364,22 @@ def test_quality_ignores_generation_rows_already_marked_conflict(
     body = client.get("/transmission-graph?source_book_id=11005&min_count=1&quality=1").json()
     edge = next(e for e in body["edges"] if e["source"] == student.id)
     assert edge["gen_violation"] is None
+
+
+def test_node_generation_excludes_conflict_rows(client: TestClient, db: Session, two_person_book):
+    """A conflict-method person renders as undated (generation None) in the layout,
+    not confidently banded at a bogus layer."""
+    book, student, teacher, _ = two_person_book
+    _edge(db, book, 1, student, teacher)
+    # Student has a clean generation; teacher's is self-contradictory.
+    db.add(PersonGeneration(person_id=student.id, gen_lo=5, gen_hi=5, gen_point=5,
+                            method="ashab_anchor", resolver_version=PERSON_RESOLVER_VERSION))
+    db.add(PersonGeneration(person_id=teacher.id, gen_lo=2, gen_hi=8, gen_point=4,
+                            method="conflict", resolver_version=PERSON_RESOLVER_VERSION))
+    db.commit()
+
+    body = client.get("/transmission-graph?source_book_id=11005&min_count=1").json()
+    student_node = next(n for n in body["nodes"] if n["id"] == student.id)
+    teacher_node = next(n for n in body["nodes"] if n["id"] == teacher.id)
+    assert student_node["generation"] == 5
+    assert teacher_node["generation"] is None

@@ -245,6 +245,7 @@ export async function getPersonResolutionAuditQueue(params: {
   status?: string;
   nodeType?: string | null;
   risk?: string | null;
+  machineDecision?: string | null;
   q?: string | null;
   adminReviewed?: boolean;
   skip?: number;
@@ -255,6 +256,7 @@ export async function getPersonResolutionAuditQueue(params: {
   if (params.status) query.set("status", params.status);
   if (params.nodeType) query.set("node_type", params.nodeType);
   if (params.risk) query.set("risk", params.risk);
+  if (params.machineDecision) query.set("machine_decision", params.machineDecision);
   if (params.q) query.set("q", params.q);
   if (params.adminReviewed) query.set("admin_reviewed", "true");
   if (params.skip) query.set("skip", String(params.skip));

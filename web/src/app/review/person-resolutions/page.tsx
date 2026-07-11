@@ -45,6 +45,13 @@ const RISK_OPTIONS = [
   "many_candidates",
 ];
 
+const MACHINE_DECISION_OPTIONS = [
+  "",
+  "approve_current",
+  "needs_external_review",
+  "flag_contradiction",
+];
+
 function compactNumber(value: number): string {
   return new Intl.NumberFormat("en-US").format(value);
 }
@@ -284,6 +291,7 @@ export default async function PersonResolutionAuditPage({
     status?: string;
     node_type?: string;
     risk?: string;
+    machine_decision?: string;
     q?: string;
     admin_reviewed?: string;
     skip?: string;
@@ -295,6 +303,7 @@ export default async function PersonResolutionAuditPage({
   const status = params.status ?? "open";
   const nodeType = params.node_type ?? "";
   const risk = params.risk ?? "";
+  const machineDecision = params.machine_decision ?? "";
   const q = params.q ?? "";
   const adminReviewed = params.admin_reviewed === "true" || params.admin_reviewed === "1";
   const skip = Math.max(0, Number(params.skip ?? 0) || 0);
@@ -309,6 +318,7 @@ export default async function PersonResolutionAuditPage({
       status,
       nodeType: nodeType || null,
       risk: risk || null,
+      machineDecision: machineDecision || null,
       q: q || null,
       adminReviewed,
       skip,
@@ -375,6 +385,20 @@ export default async function PersonResolutionAuditPage({
               className="mt-1 w-44 rounded-lg border border-border bg-surface px-3 py-2 outline-none focus:border-accent"
             >
               {RISK_OPTIONS.map((option) => (
+                <option key={option || "none"} value={option}>
+                  {option ? statusLabel(option) : "none"}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="block text-sm">
+            <span className="font-medium text-muted">Machine decision</span>
+            <select
+              name="machine_decision"
+              defaultValue={machineDecision}
+              className="mt-1 w-48 rounded-lg border border-border bg-surface px-3 py-2 outline-none focus:border-accent"
+            >
+              {MACHINE_DECISION_OPTIONS.map((option) => (
                 <option key={option || "none"} value={option}>
                   {option ? statusLabel(option) : "none"}
                 </option>
@@ -605,6 +629,7 @@ export default async function PersonResolutionAuditPage({
                     status,
                     node_type: nodeType,
                     risk,
+                    machine_decision: machineDecision,
                     q,
                     skip: Math.max(0, skip - limit),
                     limit,
@@ -621,6 +646,7 @@ export default async function PersonResolutionAuditPage({
                     status,
                     node_type: nodeType,
                     risk,
+                    machine_decision: machineDecision,
                     q,
                     skip: skip + limit,
                     limit,

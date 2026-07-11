@@ -186,6 +186,48 @@ def test_machine_review_does_not_hard_flag_conflicted_generation_rows(db: Sessio
     assert stats.decision_counts["approve_current"] == 2
 
 
+def _gen_violation_case(db, book, student_method: str, teacher_method: str):
+    """A resolved student->teacher edge with the teacher a later generation."""
+    student = _person(db, "حماد بن عيسى")
+    teacher = _person(db, "ربعي بن عبد الله")
+    student_node = _chain_case(db, book, 1, "حماد بن عيسى")
+    teacher_node = ChainNode(chain_id=student_node.chain_id, position=1,
+                             raw_token="ربعي بن عبد الله",
+                             token_normalised=norm("ربعي بن عبد الله"),
+                             node_type="named_narrator")
+    db.add(teacher_node)
+    db.flush()
+    db.add_all([
+        MentionResolution(chain_node_id=student_node.id, person_id=student.id, rank=1,
+                          status="resolved", method="surface_full",
+                          resolver_version=PERSON_RESOLVER_VERSION),
+        MentionResolution(chain_node_id=teacher_node.id, person_id=teacher.id, rank=1,
+                          status="resolved", method="surface_full",
+                          resolver_version=PERSON_RESOLVER_VERSION),
+        PersonGeneration(person_id=student.id, gen_lo=2, gen_hi=2, method=student_method,
+                         resolver_version=PERSON_RESOLVER_VERSION),
+        PersonGeneration(person_id=teacher.id, gen_lo=7, gen_hi=7, method=teacher_method,
+                         resolver_version=PERSON_RESOLVER_VERSION),
+    ])
+    db.commit()
+
+
+def test_machine_review_hard_flags_anchor_derived_generation_violation(db: Session):
+    book = _book(db)
+    _gen_violation_case(db, book, "imam_fixed", "imam_fixed")
+    stats = run_machine_review(db, source_book_id="11005", commit=False)
+    # Both endpoints anchor-derived and the gap is past tolerance -> hard flag.
+    assert stats.decision_counts["flag_contradiction"] == 2
+
+
+def test_machine_review_does_not_hard_flag_propagated_generation_violation(db: Session):
+    book = _book(db)
+    _gen_violation_case(db, book, "propagated", "propagated")
+    stats = run_machine_review(db, source_book_id="11005", commit=False)
+    # Propagation-only generations are advisory, not a hard contradiction.
+    assert stats.decision_counts["flag_contradiction"] == 0
+
+
 def test_machine_review_approves_kafi_source_prior_with_retained_alternatives(db: Session):
     book = _book(db)
     winner = _person(db, "محمد بن يحيى أبو جعفر العطار")

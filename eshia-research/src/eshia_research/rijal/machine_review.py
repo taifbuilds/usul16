@@ -32,6 +32,7 @@ from eshia_research.models import (
     RijalOccurrence,
 )
 from eshia_research.normalise import normalise_arabic_persian
+from eshia_research.rijal.eval_resolution import RELIABLE_GEN_METHODS, gen_violation
 from eshia_research.rijal.identity_links import same_person_clusters
 from eshia_research.rijal.person_resolver import PERSON_RESOLVER_VERSION
 from eshia_research.rijal.review_priors import REVIEW_PRIOR_METHODS
@@ -234,14 +235,21 @@ def _cluster_members(context: dict, person_id: int) -> set[int]:
     return context["clusters"].get(person_id, {person_id})
 
 
-def _cluster_generation(context: dict, person_id: int | None) -> tuple[int, int] | None:
+def _cluster_generation(
+    context: dict, person_id: int | None, *, reliable_only: bool = False
+) -> tuple[int, int] | None:
     if person_id is None:
         return None
+    if reliable_only:
+        def _usable(method: str) -> bool:
+            return method in RELIABLE_GEN_METHODS
+    else:
+        def _usable(method: str) -> bool:
+            return method != "conflict"
     ranges = [
         context["generations"][pid][:2]
         for pid in _cluster_members(context, person_id)
-        if pid in context["generations"]
-        and context["generations"][pid][3] != "conflict"
+        if pid in context["generations"] and _usable(context["generations"][pid][3])
     ]
     if not ranges:
         return None
@@ -293,11 +301,12 @@ def _edge_corroborated(context: dict, student_pid: int | None, teacher_pid: int 
 
 
 def _generation_violation(context: dict, student_pid: int | None, teacher_pid: int | None) -> bool:
-    student_gen = _cluster_generation(context, student_pid)
-    teacher_gen = _cluster_generation(context, teacher_pid)
-    if not student_gen or not teacher_gen:
-        return False
-    return teacher_gen[0] > student_gen[1]
+    # A HARD contradiction flag must rest only on anchor-derived generations —
+    # propagated-only intervals are unreliable (see eval_resolution notes) and
+    # produced ~490 false flags on unanchored hub narrators. Soft tolerance too.
+    student_gen = _cluster_generation(context, student_pid, reliable_only=True)
+    teacher_gen = _cluster_generation(context, teacher_pid, reliable_only=True)
+    return bool(gen_violation(student_gen, teacher_gen))
 
 
 def _candidate_payload(context: dict, rows: list[MentionResolution]) -> list[dict]:

@@ -46,6 +46,11 @@ def test_imam_generation_keyword_mapping():
     # Specificity: al-Askari must not fall through to bare al-Hasan.
     assert imam_generation_from_raw("الحسن العسكري (ع)") == 10
     assert imam_generation_from_raw("رسول الله (ص)") == 0
+    # «أبي الحسن» alone is an ambiguous kunya (Kazim/Rida/Hadi) and must NOT fall
+    # through to bare «الحسن» -> layer 2; it disambiguates only with an honorific.
+    assert imam_generation_from_raw("أبي الحسن (ع)") is None
+    assert imam_generation_from_raw("أبي الحسن الرضا (ع)") == 7
+    assert imam_generation_from_raw("أبي الحسن موسى الكاظم (ع)") == 6
 
 
 def _entry(db, book, number, name, text=""):
@@ -211,3 +216,64 @@ def test_refine_disambiguates_imam_by_generation(db: Session):
     assert final[0].status == "resolved"
     assert final[0].person_id == baqir
     assert final[0].method == "tabaqat_disambiguated"
+
+
+def test_refine_ignores_conflict_method_anchor(db: Session):
+    """A conflict-method generation must NOT anchor a chain and disambiguate a node.
+
+    Regression: a person whose own generation evidence is self-contradictory
+    (method='conflict') was still being used as an anchor in refine_with_tabaqat,
+    letting an untrustworthy generation decide another narrator's identity.
+    """
+    from eshia_research.rijal.person_resolver import PERSON_RESOLVER_VERSION as RV
+
+    mujam = Book(source_book_id="14036", title_original="m", title_normalised="m", source_url="u")
+    kafi = Book(source_book_id="11005", title_original="k", title_normalised="k", source_url="u")
+    db.add_all([mujam, kafi])
+    db.flush()
+    _entry(db, mujam, 1, "محمد بن مسلم الثقفي")
+    db.flush()
+    build_person_layer(db)
+    narr = db.execute(select(Person.id).where(Person.canonical_name_norm == norm("محمد بن مسلم الثقفی"))).scalar_one()
+    baqir = db.execute(select(Person.id).where(Person.canonical_name_norm == norm("محمد بن علي الباقر عليه السلام"))).scalar_one()
+    jawad = db.execute(select(Person.id).where(Person.canonical_name_norm == norm("محمد بن علي الجواد عليه السلام"))).scalar_one()
+
+    hadith = Hadith(public_id="k-1", book_id=kafi.id, sequence_in_book=1, sequence_in_page=1,
+                    volume_start=1, volume_end=1, page_start=1, page_end=1, full_text_raw="x",
+                    full_text_normalised="x", matn_raw="x", matn_normalised="x", source_url="u", isnad_raw="x")
+    db.add(hadith)
+    db.flush()
+    chain = Chain(hadith_id=hadith.id, chain_number=1, raw_isnad="x")
+    db.add(chain)
+    db.flush()
+    n0 = ChainNode(chain_id=chain.id, position=0, raw_token="x",
+                   token_normalised=norm("محمد بن مسلم"), node_type="named_narrator")
+    n1 = ChainNode(chain_id=chain.id, position=1, raw_token="x",
+                   token_normalised=norm("ابی جعفر ع"), node_type="imam")
+    db.add_all([n0, n1])
+    db.flush()
+    db.add(MentionResolution(chain_node_id=n0.id, person_id=narr, rank=1, status="resolved",
+                             method="surface_full", resolver_version=RV))
+    db.add(MentionResolution(chain_node_id=n1.id, person_id=baqir, rank=1, status="ambiguous",
+                             method="surface_masum_title", resolver_version=RV))
+    db.add(MentionResolution(chain_node_id=n1.id, person_id=jawad, rank=2, status="ambiguous",
+                             method="surface_masum_title", resolver_version=RV))
+    db.flush()
+
+    # Build the lattice (imams get fixed layers), then force the narrator anchor
+    # into a conflict state, mirroring a person with contradictory gen evidence.
+    build_tabaqat(db, book_ids=[kafi.id])
+    narr_gen = db.execute(select(PersonGeneration).where(PersonGeneration.person_id == narr)).scalar_one_or_none()
+    if narr_gen is None:
+        db.add(PersonGeneration(person_id=narr, gen_lo=3, gen_hi=8, gen_point=6,
+                                method="conflict", resolver_version="tabaqat_c1"))
+    else:
+        narr_gen.method = "conflict"
+    db.flush()
+
+    stats = refine_with_tabaqat(db, book_ids=[kafi.id])
+    # With the only anchor now conflict-flagged, nothing should be disambiguated.
+    assert stats["imam_disambiguated"] == 0
+    final = db.execute(select(MentionResolution).where(MentionResolution.chain_node_id == n1.id)).scalars().all()
+    assert len(final) == 2
+    assert {r.status for r in final} == {"ambiguous"}

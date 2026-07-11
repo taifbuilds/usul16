@@ -98,10 +98,23 @@ _IMAM_KEYWORDS: tuple[tuple[str, int], ...] = (
 )
 
 
+# «أبي الحسن» is a kunya shared by al-Kazim (6), al-Rida (7) and al-Hadi (9). On
+# its own it does not identify an Imam, and must NOT fall through to the bare
+# «الحسن» -> layer 2 keyword (which would be wrong). It only disambiguates when a
+# more specific honorific accompanies it.
+_ABU_AL_HASAN = _n("ابي الحسن")
+_ABU_AL_HASAN_DISAMBIGUATORS = tuple(
+    _n(k) for k in ("العسكري", "ابي محمد", "الهادي", "الرضا", "الكاظم")
+)
+
+
 def imam_generation_from_raw(imam_raw: str | None) -> int | None:
     if not imam_raw:
         return None
     norm = _n(imam_raw)
+    if _ABU_AL_HASAN in norm and not any(k in norm for k in _ABU_AL_HASAN_DISAMBIGUATORS):
+        # Ambiguous kunya with no disambiguator -> unanchorable, not layer 2.
+        return None
     for keyword, generation in _IMAM_KEYWORDS:
         if keyword in norm:
             return generation
@@ -321,7 +334,12 @@ def refine_with_tabaqat(
         pid: pt
         for pid, pt in db.execute(
             select(PersonGeneration.person_id, PersonGeneration.gen_point)
-            .where(PersonGeneration.gen_point.isnot(None))
+            .where(
+                PersonGeneration.gen_point.isnot(None),
+                # A person whose own generation evidence is self-contradictory
+                # must not anchor or disambiguate other narrators' identities.
+                PersonGeneration.method != "conflict",
+            )
         )
     }
     person_name_ar: dict[int, str] = {

@@ -68,6 +68,17 @@ CONFIDENT_STATUSES = ("resolved", "via_collective")
 WELL_ATTESTED_MIN_OCCURRENCES = 6
 _SAMPLE_CAP = 25
 
+# Generation methods whose interval is derived from a real anchor (a fixed Imam
+# layer or an Imam-companionship statement) rather than pure propagation. Only
+# these are trustworthy enough to declare an edge chronologically *impossible*.
+# A generation-lattice audit (2026-07-11) showed 493 of 496 raw violations were
+# propagation noise on unanchored hub narrators (e.g. Ibn Abi Umayr), not wrong
+# identities — so propagated-only intervals are advisory, never a hard verdict.
+RELIABLE_GEN_METHODS = frozenset({"imam_fixed", "ashab_anchor", "anchor_and_propagated"})
+# Anchors carry a soft +/-1 width, so a one-layer overshoot (a companion who
+# narrated from two adjacent Imams) is boundary noise, not a real violation.
+GEN_VIOLATION_TOLERANCE = 1
+
 
 @dataclasses.dataclass
 class EvalReport:
@@ -87,6 +98,10 @@ class EvalReport:
     gen_edges_checked: int
     gen_violations: int
     gen_violation_samples: list[dict]
+    # Reliable subset: only anchor-derived generations, with soft tolerance.
+    reliable_gen_edges_checked: int
+    reliable_gen_violations: int
+    reliable_gen_violation_samples: list[dict]
 
     # Metric 4: Mu'jam edge corroboration
     edges_confident: int
@@ -120,9 +135,11 @@ class EvalReport:
             a(f"      node {s['chain_node_id']} '{s['token']}' -> proxy person "
               f"{s['person_id']} '{s['person_name']}'")
         a("")
-        a(f"[3] Generation monotonicity: {self.gen_violations} violation(s) "
+        a(f"[3] Generation monotonicity: {self.gen_violations} raw violation(s) "
           f"of {self.gen_edges_checked} gen-checkable edge(s)")
-        for s in self.gen_violation_samples[:8]:
+        a(f"      RELIABLE (anchor-derived only): {self.reliable_gen_violations} "
+          f"violation(s) of {self.reliable_gen_edges_checked} edge(s)  <-- the gate")
+        for s in self.reliable_gen_violation_samples[:8]:
             a(f"      {s['hadith']}: student '{s['student']}' gen{s['student_gen']} "
               f"<- teacher '{s['teacher']}' gen{s['teacher_gen']} (teacher later than student)")
         a("")
@@ -214,7 +231,8 @@ def score_person_edges(
 
     person_index = _load_person_index(db, member_ids)
     surface_forms = _load_surface_forms(db, member_ids)
-    generations = _load_generations(db, member_ids)
+    # Only anchor-derived generations may declare an edge impossible on the graph.
+    generations = _load_generations(db, member_ids, reliable_only=True)
     narrator_ids = {
         p["narrator_id"] for p in person_index.values() if p["narrator_id"] is not None
     }
@@ -250,7 +268,7 @@ def score_person_edges(
     for s_pid, t_pid in pairs:
         sg = cluster_generation(s_pid)
         tg = cluster_generation(t_pid)
-        gen_violation = (tg[0] > sg[1]) if (sg and tg) else None
+        edge_gen_violation = gen_violation(sg, tg)
         verdict, _, _ = _classify_corroboration(
             cluster_forms(s_pid),
             cluster_forms(t_pid),
@@ -259,7 +277,7 @@ def score_person_edges(
             narrates_from,
             narrated_by,
         )
-        result[(s_pid, t_pid)] = EdgeQuality(corroboration=verdict, gen_violation=gen_violation)
+        result[(s_pid, t_pid)] = EdgeQuality(corroboration=verdict, gen_violation=edge_gen_violation)
     return result
 
 
@@ -368,19 +386,41 @@ def _load_occurrence_edges(
     return narrates_from, narrated_by
 
 
-def _load_generations(db: Session, person_ids: set[int]) -> dict[int, tuple[int, int]]:
+def _load_generations(
+    db: Session, person_ids: set[int], *, reliable_only: bool = False
+) -> dict[int, tuple[int, int]]:
+    """Person -> (gen_lo, gen_hi).
+
+    Always excludes self-contradictory (`conflict`) rows. With `reliable_only`,
+    restricts further to anchor-derived methods (`RELIABLE_GEN_METHODS`) so the
+    caller can make a HARD chronological-impossibility claim; propagated-only
+    intervals are advisory and must not drive such a claim.
+    """
     gens: dict[int, tuple[int, int]] = {}
     if not person_ids:
         return gens
+    method_filter = (
+        PersonGeneration.method.in_(RELIABLE_GEN_METHODS)
+        if reliable_only
+        else PersonGeneration.method != "conflict"
+    )
     stmt = select(
         PersonGeneration.person_id, PersonGeneration.gen_lo, PersonGeneration.gen_hi
     ).where(
         PersonGeneration.person_id.in_(person_ids),
-        PersonGeneration.method != "conflict",
+        method_filter,
     )
     for pid, lo, hi in db.execute(stmt):
         gens[pid] = (lo, hi)
     return gens
+
+
+def gen_violation(student_gen: tuple[int, int] | None, teacher_gen: tuple[int, int] | None) -> bool | None:
+    """Is this a chronology violation? teacher strictly later than student, past
+    the soft-anchor tolerance. None when either endpoint has no usable generation."""
+    if not student_gen or not teacher_gen:
+        return None
+    return teacher_gen[0] > student_gen[1] + GEN_VIOLATION_TOLERANCE
 
 
 def evaluate_resolution(
@@ -407,6 +447,7 @@ def evaluate_resolution(
     person_index = _load_person_index(db, cluster_person_ids)
     surface_forms = _load_surface_forms(db, cluster_person_ids)
     generations = _load_generations(db, cluster_person_ids)
+    generations_reliable = _load_generations(db, cluster_person_ids, reliable_only=True)
 
     narrator_ids = {
         p["narrator_id"] for p in person_index.values() if p["narrator_id"] is not None
@@ -438,6 +479,16 @@ def evaluate_resolution(
             generations[pid]
             for pid in _cluster_members(person_id)
             if pid in generations
+        ]
+        if not ranges:
+            return None
+        return min(lo for lo, _ in ranges), max(hi for _, hi in ranges)
+
+    def _cluster_generation_reliable(person_id: int) -> tuple[int, int] | None:
+        ranges = [
+            generations_reliable[pid]
+            for pid in _cluster_members(person_id)
+            if pid in generations_reliable
         ]
         if not ranges:
             return None
@@ -483,28 +534,49 @@ def evaluate_resolution(
     edges_confident = len(edges)
 
     # ---- Metric 3: generation monotonicity ----
+    # Two counts: the RAW count over all non-conflict generations (mostly
+    # propagation noise), and the RELIABLE count over anchor-derived generations
+    # only (the honest, actionable signal). The reliable count is the gate.
     gen_edges_checked = 0
     gen_violations = 0
     gen_violation_samples: list[dict] = []
+    reliable_gen_edges_checked = 0
+    reliable_gen_violations = 0
+    reliable_gen_violation_samples: list[dict] = []
     for student, teacher in edges:
         sg = _cluster_generation(student["person_id"])
         tg = _cluster_generation(teacher["person_id"])
-        if not sg or not tg:
-            continue
-        gen_edges_checked += 1
-        # teacher must be same/earlier generation: teacher_lo <= student_hi.
-        if tg[0] > sg[1]:
-            gen_violations += 1
-            if len(gen_violation_samples) < _SAMPLE_CAP:
-                gen_violation_samples.append(
-                    {
-                        "hadith": f"chain {student['chain_id']}",
-                        "student": person_index[student["person_id"]]["name"],
-                        "teacher": person_index[teacher["person_id"]]["name"],
-                        "student_gen": f"{sg[0]}-{sg[1]}",
-                        "teacher_gen": f"{tg[0]}-{tg[1]}",
-                    }
-                )
+        if sg and tg:
+            gen_edges_checked += 1
+            # teacher must be same/earlier generation: teacher_lo <= student_hi.
+            if tg[0] > sg[1]:
+                gen_violations += 1
+                if len(gen_violation_samples) < _SAMPLE_CAP:
+                    gen_violation_samples.append(
+                        {
+                            "hadith": f"chain {student['chain_id']}",
+                            "student": person_index[student["person_id"]]["name"],
+                            "teacher": person_index[teacher["person_id"]]["name"],
+                            "student_gen": f"{sg[0]}-{sg[1]}",
+                            "teacher_gen": f"{tg[0]}-{tg[1]}",
+                        }
+                    )
+        rsg = _cluster_generation_reliable(student["person_id"])
+        rtg = _cluster_generation_reliable(teacher["person_id"])
+        if rsg and rtg:
+            reliable_gen_edges_checked += 1
+            if gen_violation(rsg, rtg):
+                reliable_gen_violations += 1
+                if len(reliable_gen_violation_samples) < _SAMPLE_CAP:
+                    reliable_gen_violation_samples.append(
+                        {
+                            "hadith": f"chain {student['chain_id']}",
+                            "student": person_index[student["person_id"]]["name"],
+                            "teacher": person_index[teacher["person_id"]]["name"],
+                            "student_gen": f"{rsg[0]}-{rsg[1]}",
+                            "teacher_gen": f"{rtg[0]}-{rtg[1]}",
+                        }
+                    )
 
     # ---- Metric 4: Mu'jam edge corroboration ----
     edges_both_mujam = 0
@@ -560,6 +632,9 @@ def evaluate_resolution(
         gen_edges_checked=gen_edges_checked,
         gen_violations=gen_violations,
         gen_violation_samples=gen_violation_samples,
+        reliable_gen_edges_checked=reliable_gen_edges_checked,
+        reliable_gen_violations=reliable_gen_violations,
+        reliable_gen_violation_samples=reliable_gen_violation_samples,
         edges_confident=edges_confident,
         edges_both_mujam=edges_both_mujam,
         corroborated=corroborated,

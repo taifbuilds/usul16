@@ -474,6 +474,43 @@ def test_fast_prior_slice_resolves_opening_anhu_to_previous_hadith_source(seeded
     assert rows[0].person_id == resolutions_for(db, first, 0)[0].person_id
 
 
+def test_generation_veto_blocks_chronologically_impossible_context_winner(seeded):
+    from eshia_research.models import PersonGeneration
+    db, kafi = seeded
+    make_chain(
+        db, kafi, "edge-seed", 1,
+        [
+            ("محمد بن يحيى العطار", "named_narrator"),
+            ("أحمد بن محمد بن عيسى الأشعري", "named_narrator"),
+            ("الحسن بن محبوب", "named_narrator"),
+        ],
+    )
+    target = make_chain(
+        db, kafi, "target", 2,
+        [
+            ("محمد بن يحيى العطار", "named_narrator"),
+            ("أحمد بن محمد", "named_narrator"),
+            ("الحسن بن محبوب", "named_narrator"),
+        ],
+    )
+    rebuild_person_resolutions(db, book_ids=[kafi.id])
+    assert resolutions_for(db, target, 1)[0].status == "ambiguous"
+
+    # Anchor the next neighbour at layer 5 and the would-be winner at layer 1 —
+    # four layers off the neighbour-derived expectation (6): impossible.
+    ashari = person_id(db, "أحمد بن محمد بن عيسى الأشعري")
+    mahbub = person_id(db, "الحسن بن محبوب")
+    db.add(PersonGeneration(person_id=ashari, gen_lo=1, gen_hi=1, gen_point=1,
+                            method="imam_fixed", resolver_version="tabaqat_c1"))
+    db.add(PersonGeneration(person_id=mahbub, gen_lo=5, gen_hi=5, gen_point=5,
+                            method="ashab_anchor", resolver_version="tabaqat_c1"))
+    db.flush()
+
+    refine_with_collective_context(db, book_ids=[kafi.id])
+    # The edge-supported al-Ash'ari pick is vetoed, so the node stays honest.
+    assert resolutions_for(db, target, 1)[0].status == "ambiguous"
+
+
 def test_roster_expands_after_context_resolves_next_bare_name(seeded):
     db, kafi = seeded
     make_chain(

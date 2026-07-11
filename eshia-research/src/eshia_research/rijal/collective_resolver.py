@@ -45,6 +45,7 @@ from eshia_research.models import (
     RijalOccurrence,
 )
 from eshia_research.normalise import normalise_arabic_persian
+from eshia_research.rijal.eval_resolution import RELIABLE_GEN_METHODS
 from eshia_research.rijal.name_grammar import parse_name
 from eshia_research.rijal.person_resolver import PERSON_RESOLVER_VERSION
 from eshia_research.rijal.review_priors import AL_KAFI_REVIEW_PRIORS, target_person_for_spec
@@ -78,6 +79,10 @@ MAX_EXPANDED_CANDIDATES = 300
 MAX_STORED_ALTERNATES = 5
 MIN_WIN_SCORE = 65
 MIN_WIN_MARGIN = 18
+# A candidate is vetoed when its anchor-derived generation is at least this many
+# layers away from an anchor-derived neighbour's expectation. Only anchor-vs-anchor
+# comparisons veto; propagated-only generations remain a soft score term.
+GENERATION_VETO_GAP = 3
 
 REJECTED_HADITH_STATUS = "rejected_non_hadith_fragment"
 
@@ -195,6 +200,10 @@ class ContextLookup:
     roster_keys_by_person: dict[int, list[str]]
     roster_members_by_key_person: dict[int, list[tuple[int, str, str, int]]]
     kulayni_person_id: int | None = None
+    # Anchor-derived generation intervals only (imam_fixed/ashab/anchor_and_prop).
+    # A HARD generation veto may fire only when BOTH the candidate and the
+    # neighbour have one of these — propagated-only generations stay advisory.
+    reliable_generation: dict[int, tuple[int, int]] = field(default_factory=dict)
 
 
 def _select_book_ids(db: Session, source_book_ids, book_ids) -> list[int]:
@@ -320,8 +329,19 @@ def _build_context_lookup(db: Session) -> ContextLookup:
         pid: gen
         for pid, gen in db.execute(
             select(PersonGeneration.person_id, PersonGeneration.gen_point).where(
-                PersonGeneration.gen_point.isnot(None)
+                PersonGeneration.gen_point.isnot(None),
+                # Conflict-method rows have self-contradictory generation evidence;
+                # they must not earn or pay generation score in context resolution.
+                PersonGeneration.method != "conflict",
             )
+        )
+    }
+    reliable_generation = {
+        pid: (lo, hi)
+        for pid, lo, hi in db.execute(
+            select(
+                PersonGeneration.person_id, PersonGeneration.gen_lo, PersonGeneration.gen_hi
+            ).where(PersonGeneration.method.in_(RELIABLE_GEN_METHODS))
         )
     }
 
@@ -409,6 +429,7 @@ def _build_context_lookup(db: Session) -> ContextLookup:
         roster_keys_by_person=dict(roster_keys_by_person),
         roster_members_by_key_person=dict(roster_members_by_key_person),
         kulayni_person_id=kulayni_person_id,
+        reliable_generation=reliable_generation,
     )
 
 
@@ -651,6 +672,35 @@ def _score_candidate(
             evidence.extend(gen_notes[:2])
             evidence_json["generation"] = {"person": gen, "notes": gen_notes[:4]}
 
+    # Hard generation veto — only anchor-vs-anchor, so it cannot fire on the
+    # unreliable propagated hubs. A candidate whose anchored generation is >= 3
+    # layers from an anchored neighbour's expectation is chronologically
+    # impossible and must never win, however strong its surface/edge score.
+    cand_iv = lookup.reliable_generation.get(candidate.person_id)
+    if cand_iv is not None:
+        vetoed_notes: list[str] = []
+        for previous in previous_people:
+            prev_iv = lookup.reliable_generation.get(previous)
+            if prev_iv is None:
+                continue
+            expected = (prev_iv[0] - 1, prev_iv[1] - 1)  # candidate is one layer earlier
+            if _interval_gap(cand_iv, expected) >= GENERATION_VETO_GAP:
+                vetoed_notes.append(
+                    f"generation {cand_iv} incompatible with previous-anchored {prev_iv}"
+                )
+        for nxt in next_people:
+            next_iv = lookup.reliable_generation.get(nxt)
+            if next_iv is None:
+                continue
+            expected = (next_iv[0] + 1, next_iv[1] + 1)  # candidate is one layer later
+            if _interval_gap(cand_iv, expected) >= GENERATION_VETO_GAP:
+                vetoed_notes.append(
+                    f"generation {cand_iv} incompatible with next-anchored {next_iv}"
+                )
+        if vetoed_notes:
+            evidence_json["generation_vetoed"] = True
+            evidence.append(vetoed_notes[0])
+
     if previous_node and previous_node.is_collective and candidate.person_id in lookup.roster_keys_by_person:
         if IDDAH in previous_node.token_norm or JAMAAH in previous_node.token_norm:
             score += 36
@@ -703,7 +753,17 @@ def _inject_compiler_candidate(
     ] + candidates
 
 
+def _interval_gap(a: tuple[int, int], b: tuple[int, int]) -> int:
+    """Layers separating two closed intervals; <= 0 when they overlap."""
+    return max(a[0] - b[1], b[0] - a[1])
+
+
 def _choose_winner(scores: list[CandidateScore]) -> CandidateScore | None:
+    if not scores:
+        return None
+    # A generation-vetoed candidate is chronologically impossible — drop it
+    # entirely before ranking, so it can neither win nor block a valid winner.
+    scores = [s for s in scores if not s.evidence_json.get("generation_vetoed")]
     if not scores:
         return None
     scores.sort(key=lambda item: (-item.score, item.person_id))

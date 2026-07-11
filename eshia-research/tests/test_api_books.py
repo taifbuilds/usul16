@@ -523,6 +523,54 @@ def test_get_hadith_chains_reflects_admin_override(client: TestClient, db: Sessi
     assert pr["status"] == "approved_override"
 
 
+def test_person_audit_queue_filters_by_machine_decision(client: TestClient, db: Session):
+    book = _book(db, source_book_id="11005", title="al-kafi")
+    page = _page(db, book, page_number=10)
+
+    def _node_with_machine_decision(seq: int, decision_type: str) -> None:
+        hadith = Hadith(
+            public_id=f"alkafi-md-{seq}", book_id=book.id, page_start_id=page.id,
+            page_end_id=page.id, sequence_in_book=seq, sequence_in_page=1,
+            volume_start=1, volume_end=1, page_start=10, page_end=10,
+            full_text_raw="raw", full_text_normalised="raw", isnad_raw="x",
+            isnad_normalised="x", matn_raw="m", matn_normalised="m",
+            source_url=page.source_url, review_status="pending",
+        )
+        db.add(hadith)
+        db.flush()
+        chain = Chain(hadith_id=hadith.id, chain_number=1, raw_isnad="x", node_count=1)
+        db.add(chain)
+        db.flush()
+        node = ChainNode(chain_id=chain.id, position=0, raw_token="أحمد بن محمد",
+                         token_normalised="احمد بن محمد", node_type="named_narrator")
+        db.add(node)
+        db.flush()
+        db.add(MentionResolution(chain_node_id=node.id, person_id=None, rank=1,
+                                 status="ambiguous", method="surface_full",
+                                 resolver_version=PERSON_RESOLVER_VERSION))
+        db.add(PersonResolutionDecision(
+            chain_node_id=node.id, decision_type=decision_type, confidence_tier="low",
+            reviewer="codex-machine-v1", resolver_version=PERSON_RESOLVER_VERSION,
+        ))
+
+    _node_with_machine_decision(1, "flag_contradiction")
+    _node_with_machine_decision(2, "needs_external_review")
+    db.commit()
+
+    body = client.get(
+        "/person-resolution-audit/queue"
+        "?source_book_id=11005&status=all&machine_decision=flag_contradiction"
+    ).json()
+    assert body["total"] == 1
+    assert body["items"][0]["public_id"] == "alkafi-md-1"
+
+    # An unsupported value is rejected.
+    bad = client.get(
+        "/person-resolution-audit/queue?source_book_id=11005&machine_decision=nonsense"
+    )
+    assert bad.status_code == 400
+
+
 def test_get_hadith_chains_hides_rejected_fragments(client: TestClient, db: Session):
     book = _book(db, source_book_id="11005", title="al-kafi")
     page = _page(db, book, page_number=10)

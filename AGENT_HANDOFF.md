@@ -1219,13 +1219,142 @@ Applied by Codex on 2026-07-10:
   - API, quality graph, `alkafi-1`, and review UI return 200
   - backend PID 19392; frontend PID 17316
 
+## Generation-Lattice Audit + Reliability Gate + Gated Context Round — Claude 2026-07-11
+
+This sprint executed the "audit the generation lattice" gate the Near-Term Plan
+named, then unlocked one accuracy-positive context round behind it. Headline
+outcome for Al-Kafi: **resolved 60,187 -> 63,280 (68.6% -> 72.1%)** while the
+independent **Mu'jam corroboration rate went UP 61.51% -> 61.73%** and **reliable
+generation violations went 496(effective) -> 0**. bare-form leaks stayed 0.
+Admin decisions (10,031 `codex-admin-external-v1`) untouched throughout.
+
+### The key finding (why almost nothing needed "fixing")
+
+A new read-only audit (`audit-generations`) classified all 496 chronology
+violations: **493 were `suspect_generation`, 0 `suspect_identity`, 3
+unclassified.** Only **3** violations sat between two anchor-derived generations,
+and all 3 are gap-1 companion-of-two-Imams noise. The other ~493 are PROPAGATION
+noise on unanchored hub narrators — above all محمد بن أبي عمير (361 violations)
+and معاوية بن عمار (232), who have NO companionship anchor and whose generations
+were pinned (and inverted) by pure propagation through same-person cluster
+siblings. **The identities were correct; the generation lattice over-trusted
+propagation.** So the repair is semantic, not a data purge — no identity was
+demoted (0 admin disagreements, and demotion machinery was deliberately not
+built because it would act on nothing).
+
+### Code changes (all shipped, full suite 309 passed)
+
+Phase 0/1 — conflict-method generation rows no longer used as hard evidence in
+the three paths that still consumed them:
+- `rijal/tabaqat.py` `refine_with_tabaqat`: gen_point load excludes `method='conflict'`.
+- `rijal/collective_resolver.py` context lookup: same exclusion.
+- `api/routes_books.py` graph node-generation read (line ~2103): excludes conflict
+  so a self-contradictory person renders UNDATED in the ṭabaqāt layout instead of
+  banded at a bogus layer (now matches the quality overlay).
+
+Phase 2 — `rijal/generation_audit.py` (NEW, read-only) + CLI `audit-generations`
+(`--output-dir`, `--json`, `--no-write`). Full uncapped export (md + JSONL) of
+every violation / conflict-person / Mu'jam-contradicted edge with stable ids
+(node_id, person_id, hadith public_id, chain position), each violation
+auto-bucketed `suspect_generation | suspect_identity | suspect_text |
+unclassified`. Cross-checks: reproduces eval's exact 496/4245. Tests
+`tests/test_generation_audit.py` (5).
+
+Phase 3 — the reliability gate (the substantive accuracy fix). New shared
+constants in `rijal/eval_resolution.py`: `RELIABLE_GEN_METHODS =
+{imam_fixed, ashab_anchor, anchor_and_propagated}` and `GEN_VIOLATION_TOLERANCE
+= 1`, plus helper `gen_violation(sg, tg)`. A HARD chronology claim now requires
+BOTH endpoints anchor-derived, past a 1-layer soft tolerance. Applied in:
+- `eval_resolution`: `_load_generations(reliable_only=...)`; report gained
+  `reliable_gen_violations` / `reliable_gen_edges_checked` (the raw
+  `gen_violations` is kept for transparency). `score_person_edges` (graph
+  quality) now uses reliable-only + tolerance.
+- `machine_review._generation_violation`: reliable-only + tolerance.
+- `tabaqat.imam_generation_from_raw`: guard so bare «أبي الحسن» (Kazim/Rida/Hadi
+  kunya) returns None instead of falling through to «الحسن» -> layer 2 (0 rows
+  today; defensive).
+
+Phase 4 — `rijal/collective_resolver.py` hard generation VETO: a candidate whose
+anchor-derived interval is >= `GENERATION_VETO_GAP` (3) layers from an
+anchor-derived neighbour's expectation is dropped in `_choose_winner`
+(`evidence_json["generation_vetoed"]`). Anchor-vs-anchor only, so it never fires
+on the unreliable propagated hubs. `ContextLookup.reliable_generation` added.
+
+Phase 5 — review UI can browse by machine decision:
+- `GET /person-resolution-audit/queue` gained `machine_decision`
+  (`approve_current|needs_external_review|flag_contradiction`), a SQL EXISTS join
+  on `codex-machine-v1` decisions. `web/.../review/person-resolutions/page.tsx`
+  got a "Machine decision" select (sticky across pagination) + `books.ts`
+  `machineDecision` param. Tests: `test_api_books.py` machine_decision filter.
+
+New/changed tests across `test_tabaqat`, `test_eval_resolution`,
+`test_api_transmission_graph`, `test_machine_review`, `test_collective_resolver`,
+`test_generation_audit`, `test_api_books`. Frontend lint + build green.
+
+### DB writes (each backed up, quick_check ok, admin rows preserved)
+
+1. `machine-review-person-resolutions --source-book-id 11005` under the new
+   reliable gate. Backup `eshia_research.before-generation-reliability.20260711-112159.db`.
+   `flag_contradiction` 992 -> **0** (all were propagation-noise false flags);
+   approve_current 54,092 -> 55,053; needs_external_review -> 32,694. No
+   mention_resolutions or person_generations touched, so resolved/corroboration
+   identical at this step.
+2. `refine-collective-context --source-book-id 11005` ONE round (with the veto).
+   Backup `eshia_research.before-phaseD-context-veto.20260711-113145.db`.
+   Resolved +3,093 -> 63,280; roster expansion +1,064 rows. Then
+   machine-review refreshed: approve_current 55,925 / needs_external_review 31,822.
+   IMPORTANT — convergence was tested and REJECTED: rounds 2-3 (+898) had 52%
+   marginal corroboration (below corpus) and dropped the rate to 61.39%, so the
+   backup was restored and only round 1 (marginal 63.2%, rate 61.73%) was kept.
+   **Lesson: convergence is not the objective; stop when marginal corroboration
+   falls below the corpus rate. Do NOT re-run context to convergence.**
+
+### Final measured state (Al-Kafi, `eval-resolution`, snapshot in scratch_audit)
+
+- resolved 63,280 / 87,747 (72.1%); ambiguous 13,515; unresolved 10,536;
+  via_collective 5; missing 403; latent 8.
+- bare-form leaks: 0 (PASS). raw gen_violations 552; **reliable_gen_violations 0**.
+- Mu'jam: corroborated 12,975 / contradicted 8,044 / under-documented 15,282;
+  **corroboration_rate 61.73%** (up from 61.51%). The 8,044 contradicted is a
+  SHARPER AUDIT QUEUE (more edges became testable), not an accuracy drop — the
+  rate rose. `machine_decision=flag_contradiction` is empty; browse the
+  contradicted queue via the audit JSONL / `needs_external_review` (31,822).
+- Graph verified live: quality overlay `gen_violation` edges = 0 (no more
+  propagation-noise reds), node generations exclude conflict, admin corrections
+  (3,963) still flow through, `alkafi-1` chains 200.
+- Snapshots: `scratch_audit/generation_audit_11005_20260711-114424.{md,jsonl}`,
+  `scratch_audit/eval_final_generation_sprint_20260711.json`.
+
+### DONE definition for Al-Kafi person resolution (standing)
+
+Every chain node is one of: (a) resolved with a rendered dalil + machine
+approve_current or admin approval; (b) ranked-ambiguous with candidates shown;
+(c) flagged (machine needs_external_review / admin flag / audit `suspect_text`).
+Plateau ~72% resolved is expected — the residual ambiguity (bare «محمد بن مسلم»
+etc.) is the honest answer, not backlog. **Do not chase 100%.**
+
+### Residual / next (for a later session, all non-blocking)
+
+- The 3 `suspect_text` violations (ميسر بياع الزطي -> al-Jawad, gap 2) and the
+  8,044 Mu'jam-contradicted edges are the Phase E (tashif/saqt) input — annotate
+  only, never silent text edits.
+- 328 conflict-method persons + the unanchored famous hubs (Ibn Abi Umayr,
+  Mu'awiya b. Ammar, Hisham b. al-Hakam) would benefit from real companionship
+  anchors sourced from the Mu'jam — NOT hand-fabricated. Their generations stay
+  advisory until then.
+- Barqi/Sahl 'iddah roster seeds still at confidence 75 (verify vs muqaddima).
+- Boroujerdi Tartib Asanid al-Kafi gold-eval still unbuilt.
+
 ## Near-Term Plan
 
 1. Execute Tamyiz Engine phases A-E (above). Phases A-D, same-person links,
-   external-review import, decision overlays, and the first holdout-validated
-   review-to-rule pass are DONE. Next: audit the generation lattice and split
-   the 3,066 chronology flags into bad generation assignments, bad identities,
-   and real textual-chain anomalies before Phase E or another context pass.
+   external-review import, decision overlays, the first holdout-validated
+   review-to-rule pass, and the generation-lattice audit + reliability gate +
+   one gated context round are DONE. The chronology-flag gate is RESOLVED: the
+   flags were propagation noise on unanchored hubs, not bad identities; reliable
+   violations are now 0. Next unlock is Phase E (tashif/saqt annotation) over the
+   `suspect_text` + Mu'jam-contradicted queues, and sourcing real anchors for the
+   famous unanchored hub narrators. Do NOT re-run context to convergence.
 2. Expand clickable narrator UI from opt-in graph panel into direct isnad-token linking once token-to-text alignment is mature.
 3. Improve narrator pages with better grouping of Mu'jam occurrences and links back to hadith appearances.
 4. Add targeted Al-Kafi spot-check dashboards for approved warning buckets (`very_short_matn`, `terminal_speech_inside_matn`, etc.).

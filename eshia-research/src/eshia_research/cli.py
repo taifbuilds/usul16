@@ -1084,6 +1084,50 @@ def eval_resolution_cmd(
         typer.echo(report.format_text())
 
 
+@app.command("audit-generations")
+def audit_generations_cmd(
+    source_book_id: str = typer.Option(
+        "11005", "--source-book-id", help="eShia source_book_id to audit (default Al-Kafi)."
+    ),
+    resolver_version: str = typer.Option(
+        "tamyiz_b1", "--resolver-version", help="mention_resolutions resolver_version to audit."
+    ),
+    output_dir: str = typer.Option(
+        "scratch_audit", "--output-dir", help="Directory for the markdown + JSONL exports."
+    ),
+    json_out: bool = typer.Option(False, "--json", help="Print the summary JSON to stdout."),
+    no_write: bool = typer.Option(False, "--no-write", help="Compute only; do not write export files."),
+) -> None:
+    """Full generation-lattice audit with per-case triage buckets (read-only).
+
+    Exports EVERY generation-monotonicity violation, conflict-method person, and
+    Mu'jam-contradicted edge with stable identifiers, each violation classified
+    into suspect_generation | suspect_identity | suspect_text | unclassified.
+    """
+    from eshia_research.rijal.generation_audit import audit_generations, write_audit_exports
+
+    _init_db()
+    db = SessionLocal()
+    try:
+        report = audit_generations(
+            db, source_book_id=source_book_id, resolver_version=resolver_version
+        )
+    finally:
+        db.close()
+
+    if json_out:
+        import json as _json
+
+        typer.echo(_json.dumps(report.summary_dict(), ensure_ascii=False, indent=2))
+    else:
+        typer.echo(report.format_text())
+
+    if not no_write:
+        md_path, jsonl_path = write_audit_exports(report, output_dir)
+        typer.echo(f"Wrote {md_path}")
+        typer.echo(f"Wrote {jsonl_path}")
+
+
 @app.command("machine-review-person-resolutions")
 def machine_review_person_resolutions_cmd(
     source_book_id: str = typer.Option(
