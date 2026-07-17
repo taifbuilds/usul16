@@ -1073,7 +1073,7 @@ export function TransmissionGraphClient() {
 
   if (error) {
     return (
-      <div className="rounded-2xl border border-border bg-surface p-10 text-center text-muted">
+      <div className="rounded-lg border border-border bg-surface p-10 text-center text-muted">
         {error}
       </div>
     );
@@ -1097,16 +1097,16 @@ export function TransmissionGraphClient() {
             }}
             placeholder="Find a narrator…"
             aria-label="Find a narrator"
-            className="w-64 rounded-full border border-border bg-surface px-4 py-2 text-sm outline-none focus:border-accent focus:ring-1 focus:ring-accent"
+            className="min-h-11 w-64 rounded-md border border-border bg-surface px-4 py-2 text-sm outline-none focus:border-accent focus:ring-1 focus:ring-accent"
           />
           {searchOpen && searchResults.length > 0 && (
-            <ul className="absolute z-30 mt-1 w-80 overflow-hidden rounded-xl border border-border bg-surface shadow-lg">
+            <ul className="absolute z-30 mt-1 w-80 overflow-hidden rounded-md border border-border bg-surface shadow-lg">
               {searchResults.map((n) => (
                 <li key={n.id}>
                   <button
                     type="button"
                     onClick={() => flyToNode(n.id)}
-                    className="flex w-full items-center justify-between gap-3 px-4 py-2 text-right hover:bg-background"
+                    className="flex min-h-11 w-full items-center justify-between gap-3 px-4 py-2 text-right hover:bg-background"
                   >
                     <span className="text-xs text-muted">
                       {numberFormat.format(n.hadith_count)}
@@ -1129,12 +1129,12 @@ export function TransmissionGraphClient() {
             max={15}
             value={minWeight}
             onChange={(ev) => setMinWeight(Number(ev.target.value))}
-            className="w-36 accent-[#1f5c4d]"
+            className="w-36 accent-[var(--accent)]"
           />
           <span className="w-5 font-medium text-foreground tabular-nums">{minWeight}</span>
         </label>
 
-        <div className="flex overflow-hidden rounded-full border border-border text-sm" role="group" aria-label="Layout">
+        <div className="flex overflow-hidden rounded-md border border-border text-sm" role="group" aria-label="Layout">
           {(
             [
               ["constellation", "Constellation"],
@@ -1146,7 +1146,7 @@ export function TransmissionGraphClient() {
               type="button"
               onClick={() => setLayout(mode)}
               aria-pressed={layout === mode}
-              className={`px-4 py-1.5 transition ${
+              className={`min-h-11 px-4 py-1.5 transition ${
                 layout === mode
                   ? "bg-accent text-accent-foreground"
                   : "bg-surface text-foreground/70 hover:text-accent"
@@ -1161,7 +1161,7 @@ export function TransmissionGraphClient() {
           type="button"
           onClick={() => setQualityOn((on) => !on)}
           aria-pressed={qualityOn}
-          className={`rounded-full border px-4 py-1.5 text-sm transition ${
+          className={`min-h-11 rounded-md border px-4 py-1.5 text-sm transition ${
             qualityOn
               ? "border-accent bg-accent text-accent-foreground"
               : "border-border bg-surface text-foreground/70 hover:text-accent"
@@ -1174,7 +1174,7 @@ export function TransmissionGraphClient() {
         <button
           type="button"
           onClick={resetView}
-          className="rounded-full border border-border bg-surface px-4 py-1.5 text-sm text-foreground/70 transition hover:text-accent"
+          className="min-h-11 rounded-md border border-border bg-surface px-4 py-1.5 text-sm text-foreground/70 transition hover:text-accent"
         >
           Reset view
         </button>
@@ -1193,7 +1193,7 @@ export function TransmissionGraphClient() {
       {/* The plate */}
       <div
         ref={wrapRef}
-        className="relative h-[72vh] min-h-[480px] w-full overflow-hidden rounded-2xl border border-border shadow-[inset_0_0_60px_rgba(0,0,0,0.35)]"
+        className="relative h-[72vh] min-h-[480px] w-full overflow-hidden rounded-lg border border-border shadow-[inset_0_0_48px_rgba(0,0,0,0.28)]"
         style={{ background: PLATE_BG }}
       >
         <canvas ref={canvasRef} className="block h-full w-full cursor-grab" aria-label="Narrator transmission network graph" role="img" />
@@ -1209,7 +1209,7 @@ export function TransmissionGraphClient() {
         {/* Tooltip */}
         <div
           ref={tooltipRef}
-          className="pointer-events-none absolute left-0 top-0 z-20 w-56 rounded-xl p-3 opacity-0 transition-opacity duration-100"
+          className="pointer-events-none absolute left-0 top-0 z-20 w-56 rounded-md p-3 opacity-0 transition-opacity duration-100"
           style={{
             background: "rgba(15, 24, 19, 0.95)",
             border: "1px solid rgba(236, 231, 214, 0.16)",
@@ -1251,7 +1251,7 @@ export function TransmissionGraphClient() {
 
         {/* Legend */}
         <div
-          className="absolute bottom-3 left-3 z-10 rounded-xl px-3.5 py-3 text-[11px] leading-5"
+          className="absolute bottom-3 left-3 z-10 rounded-md px-3.5 py-3 text-[11px] leading-5"
           style={{
             background: "rgba(15, 24, 19, 0.88)",
             border: "1px solid rgba(236, 231, 214, 0.12)",
@@ -1302,7 +1302,7 @@ export function TransmissionGraphClient() {
         {/* Detail panel */}
         {selected && (
           <aside
-            className="absolute right-3 top-3 z-10 w-80 max-w-[calc(100%-1.5rem)] rounded-2xl p-4"
+            className="absolute right-3 top-3 z-10 w-80 max-w-[calc(100%-1.5rem)] rounded-md p-4"
             style={{
               background: "rgba(15, 24, 19, 0.94)",
               border: "1px solid rgba(236, 231, 214, 0.16)",
@@ -1325,7 +1325,7 @@ export function TransmissionGraphClient() {
                   setSelectedId(null);
                 }}
                 aria-label="Close details"
-                className="rounded-full px-2 text-lg leading-none transition hover:opacity-70"
+                className="rounded-md px-2 text-lg leading-none transition hover:opacity-70"
                 style={{ color: INK_SECONDARY }}
               >
                 ×
@@ -1359,7 +1359,7 @@ export function TransmissionGraphClient() {
                         type="button"
                         onClick={() => openEvidence(selected.id, node.id, `${selected.label} → ${node.label}`)}
                         title="Show the shared hadiths for this edge"
-                        className="rounded-md px-1.5 py-1 text-xs tabular-nums transition hover:bg-white/10"
+                        className="inline-flex min-h-6 min-w-6 items-center justify-center rounded-md px-1.5 py-1 text-xs tabular-nums transition hover:bg-[#f2ead9]/10"
                         style={{ color: INK_PRIMARY }}
                       >
                         {numberFormat.format(count)}
@@ -1367,7 +1367,7 @@ export function TransmissionGraphClient() {
                       <button
                         type="button"
                         onClick={() => flyToNode(node.id)}
-                        className="flex flex-1 items-center justify-end rounded-lg px-2 py-1 text-right transition hover:bg-white/5"
+                        className="flex flex-1 items-center justify-end rounded-lg px-2 py-1 text-right transition hover:bg-[#f2ead9]/5"
                       >
                         <span
                           dir="rtl"
@@ -1396,7 +1396,7 @@ export function TransmissionGraphClient() {
                         type="button"
                         onClick={() => openEvidence(node.id, selected.id, `${node.label} → ${selected.label}`)}
                         title="Show the shared hadiths for this edge"
-                        className="rounded-md px-1.5 py-1 text-xs tabular-nums transition hover:bg-white/10"
+                        className="inline-flex min-h-6 min-w-6 items-center justify-center rounded-md px-1.5 py-1 text-xs tabular-nums transition hover:bg-[#f2ead9]/10"
                         style={{ color: INK_PRIMARY }}
                       >
                         {numberFormat.format(count)}
@@ -1404,7 +1404,7 @@ export function TransmissionGraphClient() {
                       <button
                         type="button"
                         onClick={() => flyToNode(node.id)}
-                        className="flex flex-1 items-center justify-end rounded-lg px-2 py-1 text-right transition hover:bg-white/5"
+                        className="flex flex-1 items-center justify-end rounded-lg px-2 py-1 text-right transition hover:bg-[#f2ead9]/5"
                       >
                         <span
                           dir="rtl"
@@ -1424,7 +1424,7 @@ export function TransmissionGraphClient() {
             {selected.narrator_id !== null && (
               <Link
                 href={`/narrators/${selected.narrator_id}`}
-                className="mt-4 block rounded-full px-4 py-2 text-center text-sm font-medium transition hover:opacity-90"
+                className="mt-4 flex min-h-11 items-center justify-center rounded-md px-4 py-2 text-center text-sm font-medium transition hover:opacity-90"
                 style={{ background: IMAM_GOLD, color: "#171207" }}
               >
                 Open narrator profile →
@@ -1436,7 +1436,7 @@ export function TransmissionGraphClient() {
         {/* Edge evidence — the actual shared hadiths behind one transmission link */}
         {evidence && (
           <aside
-            className="absolute bottom-3 right-3 z-20 flex max-h-[60%] w-96 max-w-[calc(100%-1.5rem)] flex-col rounded-2xl p-4"
+            className="absolute bottom-3 right-3 z-20 flex max-h-[60%] w-96 max-w-[calc(100%-1.5rem)] flex-col rounded-md p-4"
             style={{
               background: "rgba(15, 24, 19, 0.96)",
               border: "1px solid rgba(236, 231, 214, 0.18)",
@@ -1462,7 +1462,7 @@ export function TransmissionGraphClient() {
                 type="button"
                 onClick={() => setEvidence(null)}
                 aria-label="Close evidence"
-                className="rounded-full px-2 text-lg leading-none transition hover:opacity-70"
+                className="rounded-md px-2 text-lg leading-none transition hover:opacity-70"
                 style={{ color: INK_SECONDARY }}
               >
                 ×
@@ -1484,7 +1484,7 @@ export function TransmissionGraphClient() {
                     <li key={item.public_id}>
                       <Link
                         href={`/hadith/${item.public_id}`}
-                        className="block rounded-lg px-2 py-1.5 transition hover:bg-white/5"
+                        className="flex min-h-11 items-center rounded-lg px-2 py-1.5 transition hover:bg-[#f2ead9]/5"
                       >
                         <span className="text-[11px]" style={{ color: INK_SECONDARY }}>
                           #{item.sequence_in_book}
@@ -1512,7 +1512,7 @@ export function TransmissionGraphClient() {
       </div>
 
       {/* Table view — the non-visual path to the same data */}
-      <details className="mt-6 rounded-2xl border border-border bg-surface">
+      <details className="mt-6 rounded-lg border border-border bg-surface">
         <summary className="cursor-pointer px-5 py-3 text-sm font-medium text-foreground/80 transition hover:text-accent">
           View as table — strongest transmission links
         </summary>

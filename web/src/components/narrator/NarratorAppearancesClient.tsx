@@ -11,7 +11,7 @@ import { formatArabicText } from "@/lib/arabic";
 import { amiri } from "@/lib/fonts";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://127.0.0.1:8000";
-const PAGE_SIZE = 120;
+const PAGE_SIZE = 30;
 
 function appearanceLocation(appearance: NarratorHadithAppearanceRead): string {
   const page =
@@ -38,7 +38,8 @@ async function fetchAppearances(params: {
   query.set("skip", String(params.skip));
   query.set("limit", String(params.limit));
   const response = await fetch(
-    `${API_BASE_URL}/narrators/${params.narratorId}/hadith-appearances?${query.toString()}`
+    `${API_BASE_URL}/narrators/${params.narratorId}/hadith-appearances?${query.toString()}`,
+    { signal: AbortSignal.timeout(15_000) }
   );
   if (!response.ok) throw new Error(response.statusText || "Could not load appearances");
   return response.json() as Promise<NarratorHadithAppearancePage>;
@@ -51,7 +52,7 @@ function AppearanceCard({ appearance }: { appearance: NarratorHadithAppearanceRe
         <div>
           <Link
             href={`/hadith/${encodeURIComponent(appearance.public_id)}`}
-            className="font-mono text-sm text-accent hover:underline"
+            className="inline-flex min-h-11 items-center font-mono text-sm text-accent hover:underline"
           >
             {appearance.public_id}
           </Link>
@@ -60,7 +61,7 @@ function AppearanceCard({ appearance }: { appearance: NarratorHadithAppearanceRe
         </div>
         <Link
           href={`/read/${appearance.book_id}/${appearance.volume_start ?? 1}/${appearance.page_start}#hadith-${appearance.hadith_id}`}
-          className="text-xs font-medium text-accent hover:underline"
+          className="inline-flex min-h-11 items-center text-xs font-medium text-accent hover:underline"
         >
           Open in reader
         </Link>
@@ -164,7 +165,7 @@ export function NarratorAppearancesClient({
             type="button"
             onClick={() => void loadFilter(null)}
             disabled={loading}
-            className={`rounded-full border px-3 py-1 text-sm ${
+            className={`min-h-11 rounded-full border px-3 py-1 text-sm ${
               sourceBookId === null
                 ? "border-accent bg-badge-verified text-accent"
                 : "border-border text-muted hover:border-accent hover:text-accent"
@@ -178,7 +179,7 @@ export function NarratorAppearancesClient({
               type="button"
               onClick={() => void loadFilter(count.source_book_id)}
               disabled={loading}
-              className={`rounded-full border px-3 py-1 text-sm ${
+              className={`min-h-11 rounded-full border px-3 py-1 text-sm ${
                 sourceBookId === count.source_book_id
                   ? "border-accent bg-badge-verified text-accent"
                   : "border-border text-muted hover:border-accent hover:text-accent"
@@ -206,7 +207,7 @@ export function NarratorAppearancesClient({
             type="button"
             onClick={() => void loadMore()}
             disabled={loading}
-            className="rounded-lg border border-border px-4 py-2 text-sm font-medium text-accent hover:border-accent disabled:opacity-50"
+            className="min-h-11 rounded-lg border border-border px-4 py-2 text-sm font-medium text-accent hover:border-accent disabled:opacity-50"
           >
             {loading ? "Loading..." : "Load more"}
           </button>

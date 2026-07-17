@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import {
   getPersonResolutionAuditQueue,
   getPersonResolutionAuditSummary,
@@ -189,7 +190,7 @@ function AuditItem({ item }: { item: PersonResolutionAuditItem }) {
           </p>
 
           {item.effective_resolution ? (
-            <div className="mt-3 border-l-2 border-accent pl-3">
+            <div className="mt-3 border border-border bg-background px-3 py-2">
               <div className="flex flex-wrap items-center gap-2">
                 <p className="text-xs font-medium text-muted">Effective result</p>
                 <span className="rounded-full border border-accent/30 bg-badge-verified px-2 py-0.5 text-xs text-accent">
@@ -298,6 +299,8 @@ export default async function PersonResolutionAuditPage({
     limit?: string;
   }>;
 }) {
+  if (process.env.ENABLE_REVIEW_UI !== "true") notFound();
+
   const params = searchParams ? await searchParams : {};
   const sourceBookId = params.source_book_id ?? DEFAULT_SOURCE_BOOK_ID;
   const status = params.status ?? "open";
@@ -332,7 +335,7 @@ export default async function PersonResolutionAuditPage({
     : 0;
 
   return (
-    <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
       <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="text-xs font-medium tracking-wide text-muted uppercase">Tamyiz admin</p>
@@ -716,6 +719,6 @@ export default async function PersonResolutionAuditPage({
           </section>
         </aside>
       </section>
-    </main>
+    </div>
   );
 }

@@ -18,6 +18,7 @@ export function ReaderControls({
 }) {
   const router = useRouter();
   const [pageInput, setPageInput] = useState(String(pageNumber));
+  const [readerSize, setReaderSize] = useState<"compact" | "comfortable" | "large">("comfortable");
 
   const pages = useMemo(
     () => [...new Set(availablePages)].sort((a, b) => a - b),
@@ -44,14 +45,20 @@ export function ReaderControls({
     goTo(volumeNumber, target);
   }
 
+  function changeReaderSize(size: "compact" | "comfortable" | "large") {
+    setReaderSize(size);
+    document.documentElement.setAttribute("data-reader-size", size);
+  }
+
   const volumeOptions = Array.from({ length: Math.max(volumeCount, volumeNumber) }, (_, i) => i + 1);
   const navButton =
-    "flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface text-base transition hover:border-accent hover:text-accent disabled:opacity-40 disabled:hover:border-border disabled:hover:text-foreground";
+    "flex h-11 w-11 items-center justify-center rounded-md border border-border bg-background text-base transition hover:border-accent hover:text-accent disabled:opacity-40 disabled:hover:border-border disabled:hover:text-foreground";
 
   return (
-    <div className="flex items-center justify-between gap-3 text-sm">
+    <div className="text-sm">
+      <div className="flex items-center justify-between gap-3">
       {/* RTL book: "previous page" sits on the right, so use the right arrow */}
-      <button
+        <button
         type="button"
         aria-label="Next page"
         onClick={() => nextPage !== null && goTo(volumeNumber, nextPage)}
@@ -59,14 +66,14 @@ export function ReaderControls({
         className={navButton}
       >
         ←
-      </button>
+        </button>
 
-      <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2">
         <select
           value={volumeNumber}
           aria-label="Volume"
           onChange={(event) => goTo(Number(event.target.value), 1)}
-          className="rounded-full border border-border bg-surface px-3 py-1.5"
+          className="min-h-11 rounded-md border border-border bg-background px-3 py-2"
         >
           {volumeOptions.map((volume) => (
             <option key={volume} value={volume}>
@@ -81,13 +88,13 @@ export function ReaderControls({
             aria-label="Page number"
             value={pageInput}
             onChange={(event) => setPageInput(event.target.value)}
-            className="w-16 rounded-full border border-border bg-surface px-3 py-1.5 text-center"
+            className="min-h-11 w-16 rounded-md border border-border bg-background px-3 py-2 text-center"
           />
           <span className="text-muted">/ {lastPage}</span>
         </form>
-      </div>
+        </div>
 
-      <button
+        <button
         type="button"
         aria-label="Previous page"
         onClick={() => prevPage !== null && goTo(volumeNumber, prevPage)}
@@ -95,7 +102,32 @@ export function ReaderControls({
         className={navButton}
       >
         →
-      </button>
+        </button>
+      </div>
+
+      <div className="mt-3 flex items-center justify-end gap-2 border-t border-border pt-3">
+        <span className="mr-1 text-xs text-muted">Arabic text size</span>
+        {([
+          ["compact", "A−", "Compact Arabic text"],
+          ["comfortable", "A", "Comfortable Arabic text"],
+          ["large", "A+", "Large Arabic text"],
+        ] as const).map(([size, label, ariaLabel]) => (
+          <button
+            key={size}
+            type="button"
+            aria-label={ariaLabel}
+            aria-pressed={readerSize === size}
+            onClick={() => changeReaderSize(size)}
+            className={`min-h-11 min-w-11 rounded-md border px-2 py-1.5 font-serif transition-colors ${
+              readerSize === size
+                ? "border-accent bg-accent text-accent-foreground"
+                : "border-border bg-background text-foreground hover:border-accent"
+            }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

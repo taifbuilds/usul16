@@ -40,7 +40,7 @@ function renderInline(text: string): ReactNode[] {
 
 function HadithCard({ unit }: { unit: HadithUnit }) {
   return (
-    <article className="rounded-2xl border border-border bg-surface p-5 sm:p-6">
+    <article className="border border-border bg-surface p-5 shadow-[0_12px_34px_-30px_var(--shadow-color)] sm:p-7">
       <div className="mb-4 flex items-center justify-between gap-3">
         {unit.kind === "continuation" ? (
           <span className="rounded-full border border-dashed border-border px-3 py-1 text-xs text-muted">
@@ -57,12 +57,12 @@ function HadithCard({ unit }: { unit: HadithUnit }) {
       </div>
 
       {unit.isnad ? (
-        <p className="mb-4 border-b border-dashed border-border pb-4 text-lg leading-loose text-muted">
+        <p className="reader-isnad mb-4 border-b border-dashed border-border pb-4 text-lg leading-loose text-muted">
           {renderInline(formatArabicText(unit.isnad))}
         </p>
       ) : null}
 
-      <p className="text-justify text-2xl leading-[2.2]">
+      <p className="reader-matn text-justify text-2xl leading-[2.2]">
         {renderInline(formatArabicText(unit.matn ?? unit.text ?? ""))}
       </p>
 
@@ -139,11 +139,15 @@ export function IndexedHadithCard({
       isnad={hadith.isnad_raw ? formatArabicText(hadith.isnad_raw) : null}
       matn={formatArabicText(hadith.matn_raw)}
       footnotes={hadith.footnotes}
+      translation={hadith.translation}
     />
   );
 
   return (
-    <article id={`hadith-${hadith.id}`} className="scroll-mt-24 rounded-lg border border-border bg-surface p-5 sm:p-6">
+    <article
+      id={`hadith-${hadith.id}`}
+      className="scroll-mt-24 border border-border bg-surface p-5 shadow-[0_12px_34px_-30px_var(--shadow-color)] sm:p-7"
+    >
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap items-center gap-2 text-xs text-muted">
           <Link
@@ -177,7 +181,7 @@ export function IndexedHadithCard({
 
       {isCarryover ? (
         <details className="group">
-          <summary className="cursor-pointer list-none text-sm font-medium text-accent hover:underline">
+          <summary className="inline-flex min-h-11 cursor-pointer list-none items-center text-sm font-medium text-accent hover:underline">
             Show complete hadith text
           </summary>
           <div className="mt-4">{body}</div>
@@ -194,7 +198,7 @@ function TextParagraph({ text }: { text: string }) {
   const opener = OPENER_RE.exec(formatted);
 
   return (
-    <p className="px-1 text-justify text-xl leading-[2.1] text-foreground/90">
+    <p className="reader-prose px-1 text-justify text-xl leading-[2.1] text-foreground/90">
       {opener ? (
         <>
           <span className="font-bold text-accent">{opener[1]}</span>
@@ -212,7 +216,7 @@ function NoteParagraph({ text }: { text: string }) {
   const opener = OPENER_RE.exec(formatted);
 
   return (
-    <p className="text-justify text-lg leading-[2] text-foreground/80">
+    <p className="reader-note text-justify text-lg leading-[2] text-foreground/80">
       {opener ? (
         <>
           <span className="font-bold text-accent">{opener[1]}</span>
@@ -227,20 +231,26 @@ function NoteParagraph({ text }: { text: string }) {
 
 export function SectionHeading({ text }: { text: string }) {
   return (
-    <div className="flex items-center gap-4 pt-3 pb-1" role="heading" aria-level={2}>
-      <span className="h-px flex-1 bg-gradient-to-l from-border to-transparent" />
+    <div className="flex items-center gap-4 pt-4 pb-2" role="heading" aria-level={2}>
+      <span className="flex flex-1 items-center gap-2">
+        <span className="h-px flex-1 bg-gradient-to-l from-border-strong to-transparent" />
+        <span className="text-gold/60">✦</span>
+      </span>
       <h2 className="text-center text-2xl font-semibold leading-relaxed text-accent">
         {renderInline(formatArabicText(text))}
       </h2>
-      <span className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />
+      <span className="flex flex-1 items-center gap-2">
+        <span className="text-gold/60">✦</span>
+        <span className="h-px flex-1 bg-gradient-to-r from-border-strong to-transparent" />
+      </span>
     </div>
   );
 }
 
 function FootnoteSection({ footnotes }: { footnotes: Footnote[] }) {
   return (
-    <details className="group rounded-2xl border border-border bg-surface">
-      <summary className="flex cursor-pointer list-none items-center justify-between px-5 py-3 text-sm text-muted">
+    <details className="group border border-border bg-surface">
+      <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between px-5 py-3 text-sm text-muted">
         <span className="font-medium">
           الهوامش <span className="mx-1 text-border">·</span> {footnotes.length} footnote
           {footnotes.length === 1 ? "" : "s"}

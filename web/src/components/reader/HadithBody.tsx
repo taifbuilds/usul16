@@ -2,10 +2,18 @@
 
 import Link from "next/link";
 import { Fragment, useMemo, useState, type ReactNode } from "react";
-import type { ChainNodeRead, ChainRead, HadithChainsRead, HadithFootnote, PersonRef } from "@/lib/api/types";
+import type {
+  ChainNodeRead,
+  ChainRead,
+  HadithChainsRead,
+  HadithFootnote,
+  HadithTranslationRead,
+  PersonRef,
+} from "@/lib/api/types";
 import { getHadithChains } from "@/lib/api/books";
 import { formatArabicText } from "@/lib/arabic";
 import { INLINE_RE, normaliseMarker } from "@/lib/inline";
+import { isPublicHumanTranslation } from "@/lib/translationPublication";
 
 // Interactive hadith text: footnote markers («[٤]») are tappable and expand
 // the attached footnote inline, right under the paragraph being read —
@@ -53,7 +61,7 @@ function FootnoteInset({
   onClose: () => void;
 }) {
   return (
-    <div className="mt-2 mb-3 rounded-xl border border-gold/40 bg-badge/40 px-4 py-3">
+    <div className="mt-2 mb-3 rounded-md border border-gold/40 bg-badge/40 px-4 py-3">
       <div className="flex items-start justify-between gap-3">
         <p className="text-base leading-loose text-foreground/85">
           <sup className="me-1 select-none text-[0.7em] font-medium text-gold">
@@ -65,7 +73,7 @@ function FootnoteInset({
           type="button"
           onClick={onClose}
           aria-label="إغلاق الهامش"
-          className="mt-1 shrink-0 rounded-full px-2 text-muted hover:text-foreground"
+          className="mt-1 shrink-0 rounded-md px-2 text-muted hover:text-foreground"
         >
           ✕
         </button>
@@ -282,7 +290,7 @@ function ChainNodeChip({ node }: { node: ChainNodeRead }) {
         {phrase ? <span className="text-muted/70">{phrase}</span> : null}
         <details className="group relative inline-block">
           <summary
-            className={`cursor-pointer list-none rounded-full border px-2.5 py-1 ${personChipClass(node)}`}
+            className={`inline-flex min-h-6 cursor-pointer list-none items-center rounded-full border px-2.5 py-1 ${personChipClass(node)}`}
             title={node.person_resolution.primary_dalil ?? personResolutionLabel(node)}
           >
             <span>{label}</span>
@@ -301,7 +309,7 @@ function ChainNodeChip({ node }: { node: ChainNodeRead }) {
         <Link
           href={`/narrators/${node.narrator.id}`}
           title={node.resolution_reason ?? node.narrator.canonical_name_ar}
-          className={`rounded-full border px-2.5 py-1 transition hover:border-accent hover:text-accent ${chipClass(node)}`}
+          className={`inline-flex min-h-6 items-center rounded-full border px-2.5 py-1 transition hover:border-accent hover:text-accent ${chipClass(node)}`}
         >
           <span>{label}</span>
           <span className="ms-1 text-[0.65em] opacity-70">{statusLabel(node)}</span>
@@ -316,7 +324,7 @@ function ChainNodeChip({ node }: { node: ChainNodeRead }) {
         {phrase ? <span className="text-muted/70">{phrase}</span> : null}
         <details className="group relative inline-block">
           <summary
-            className={`cursor-pointer list-none rounded-full border px-2.5 py-1 ${chipClass(node)}`}
+            className={`inline-flex min-h-6 cursor-pointer list-none items-center rounded-full border px-2.5 py-1 ${chipClass(node)}`}
             title={node.resolution_reason ?? "Multiple possible narrator identities"}
           >
             <span>{label}</span>
@@ -535,16 +543,51 @@ function IsnadGraphPanel({
   );
 }
 
+function translationSourceLabel(translation: HadithTranslationRead): string | null {
+  const provenance = translation.provenance_json;
+  const translator =
+    typeof provenance?.translator === "string" && provenance.translator.trim()
+      ? provenance.translator.trim()
+      : null;
+  const source = typeof provenance?.source === "string" ? provenance.source : "";
+  const sourceUrl = typeof provenance?.source_url === "string" ? provenance.source_url : "";
+  const isThaqalaynSource = /thaqalayn/i.test(
+    `${source} ${sourceUrl} ${translation.provider ?? ""}`
+  );
+
+  if (translator) {
+    return isThaqalaynSource ? `${translator} — attributed by Thaqalayn` : translator;
+  }
+  if (isThaqalaynSource) return "Translation attribution provided by Thaqalayn";
+
+  return translation.provider?.trim() || null;
+}
+
+function translationSourceUrl(translation: HadithTranslationRead): string | null {
+  const provenance = translation.provenance_json;
+  const directUrl = provenance?.source_url;
+  if (typeof directUrl === "string" && directUrl.startsWith("https://")) return directUrl;
+
+  const sourceEvidence = provenance?.source_evidence;
+  if (typeof sourceEvidence !== "object" || sourceEvidence === null) return null;
+  const pdf = (sourceEvidence as Record<string, unknown>).pdf;
+  if (typeof pdf !== "object" || pdf === null) return null;
+  const pdfUrl = (pdf as Record<string, unknown>).source_url;
+  return typeof pdfUrl === "string" && pdfUrl.startsWith("https://") ? pdfUrl : null;
+}
+
 export function HadithBody({
   publicId,
   isnad,
   matn,
   footnotes,
+  translation,
 }: {
   publicId?: string | null;
   isnad: string | null;
   matn: string;
   footnotes: HadithFootnote[] | null;
+  translation?: HadithTranslationRead | null;
 }) {
   const [active, setActive] = useState<string | null>(null);
   const [chainData, setChainData] = useState<HadithChainsRead | null>(null);
@@ -584,6 +627,11 @@ export function HadithBody({
     built.push({ key: "matn", kind: "matn", segments: segment(matn, claim) });
     return built;
   }, [isnad, matn, notes]);
+  const publicTranslation = isPublicHumanTranslation(translation) ? translation : null;
+  const translationSource = publicTranslation
+    ? translationSourceLabel(publicTranslation)
+    : null;
+  const translationUrl = publicTranslation ? translationSourceUrl(publicTranslation) : null;
 
   const renderSegments = (paragraphKey: string, segments: Segment[]): ReactNode[] =>
     segments.map((seg, index) => {
@@ -611,7 +659,7 @@ export function HadithBody({
           onClick={() => setActive(isOpen ? null : id)}
           aria-expanded={isOpen}
           title="اعرض الهامش"
-          className={`mx-0.5 -my-1 inline-flex items-baseline rounded px-0.5 align-super text-[0.55em] font-semibold transition ${
+          className={`mx-0.5 -my-1 inline-flex min-h-6 min-w-6 items-center justify-center rounded px-0.5 align-super text-[0.55em] font-semibold transition ${
             isOpen ? "bg-gold/20 text-gold" : "text-gold hover:bg-gold/10"
           }`}
         >
@@ -631,7 +679,7 @@ export function HadithBody({
           <div key={paragraph.key}>
             {paragraph.kind === "isnad" ? (
               <>
-                <p className="mb-4 border-b border-dashed border-border pb-4 text-lg leading-loose text-muted">
+                <p className="reader-isnad mb-4 border-b border-dashed border-border pb-4 text-lg leading-loose text-muted">
                   {primaryChain && isnad ? (
                     <ClickableIsnadText text={isnad} chain={primaryChain} />
                   ) : (
@@ -647,7 +695,7 @@ export function HadithBody({
                 />
               </>
             ) : (
-              <p className="text-justify text-2xl leading-[2.2]">
+              <p className="reader-matn text-justify text-2xl leading-[2.2]">
                 {renderSegments(paragraph.key, paragraph.segments)}
               </p>
             )}
@@ -658,9 +706,56 @@ export function HadithBody({
         );
       })}
 
+      {publicTranslation ? (
+        <details
+          dir="ltr"
+          lang="en"
+          className="group mt-6 overflow-hidden rounded-md border border-accent/25 bg-background text-left"
+        >
+          <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm transition hover:bg-badge-verified/40 sm:px-5">
+            <span className="flex items-center gap-2 font-medium text-accent">
+              <span aria-hidden="true">A</span>
+              <span className="group-open:hidden">Read English translation</span>
+              <span className="hidden group-open:inline">Hide English translation</span>
+            </span>
+            <span className="flex items-center gap-2 text-xs text-muted">
+              {translationSource ?? "English translation"}
+              <span aria-hidden="true" className="transition group-open:rotate-180">⌄</span>
+            </span>
+          </summary>
+          <div className="border-t border-accent/15 px-4 py-5 sm:px-5">
+            {publicTranslation.rendered_isnad_en ? (
+              <p className="mb-4 border-b border-dashed border-border pb-4 text-sm leading-relaxed text-muted">
+                <span className="font-medium text-foreground/70">Chain: </span>
+                {publicTranslation.rendered_isnad_en}
+              </p>
+            ) : null}
+            <p className="text-base leading-8 text-foreground/90 sm:text-lg">
+              {publicTranslation.matn_translation}
+            </p>
+            <p className="mt-4 text-xs leading-relaxed text-muted">
+              {translationSource ? (
+                <>
+                  Source:{" "}
+                  {translationUrl ? (
+                    <a href={translationUrl} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
+                      {translationSource}
+                    </a>
+                  ) : (
+                    <span>{translationSource}</span>
+                  )}
+                  <span className="mx-1 text-border">&middot;</span>
+                </>
+              ) : null}
+              Translation aid only. The Arabic text above remains authoritative.
+            </p>
+          </div>
+        </details>
+      ) : null}
+
       {notes.length > 0 ? (
         <details className="group mt-5 border-t border-dashed border-border pt-3">
-          <summary className="flex cursor-pointer list-none items-center justify-between text-sm text-muted">
+          <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between text-sm text-muted">
             <span className="font-medium">
               الهوامش <span className="mx-1 text-border">·</span> {notes.length}
             </span>

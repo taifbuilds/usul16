@@ -60,19 +60,19 @@ export default async function NarratorPage({
     null;
   const transmissionEdges = await getNarratorTransmissionEdges(narrator.id, {
     sourceBookId: initialTransmissionSourceBookId ?? undefined,
-    limit: 50,
-    sampleLimit: 5,
+    limit: 25,
+    sampleLimit: 3,
   });
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
+    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <Link href="/books" className="text-sm font-medium text-accent hover:underline">
+        <Link href="/books" className="inline-flex min-h-11 items-center text-sm font-medium text-accent hover:underline">
           Back to library
         </Link>
         <Link
           href={`/graph?narrator=${narrator.id}`}
-          className="text-sm font-medium text-accent hover:underline"
+          className="inline-flex min-h-11 items-center text-sm font-medium text-accent hover:underline"
         >
           View in the network →
         </Link>
@@ -80,7 +80,7 @@ export default async function NarratorPage({
 
       <header className="mt-5 border-b border-border pb-5">
         <p className="text-xs tracking-wide text-muted/70 uppercase">Narrator profile</p>
-        <h1 dir="rtl" lang="ar" className={`${amiri.className} mt-2 text-right text-4xl font-semibold text-accent`}>
+        <h1 dir="rtl" lang="ar" className={`${amiri.className} mt-2 text-right text-4xl font-semibold text-foreground sm:text-5xl`}>
           {formatArabicText(narrator.canonical_name_ar)}
         </h1>
         <div className="mt-4 flex flex-wrap gap-2 text-sm text-muted">
@@ -98,19 +98,19 @@ export default async function NarratorPage({
       </header>
 
       <section className="mt-6 grid gap-3 sm:grid-cols-4">
-        <div className="rounded-lg border border-border bg-surface p-4">
+        <div className="border-t-2 border-accent bg-surface p-4">
           <p className="text-xs text-muted">Resolved hadiths</p>
           <p className="mt-1 text-2xl font-semibold text-accent">{appearancesTotal}</p>
         </div>
-        <div className="rounded-lg border border-border bg-surface p-4">
+        <div className="border-t-2 border-accent bg-surface p-4">
           <p className="text-xs text-muted">Rijal statements</p>
           <p className="mt-1 text-2xl font-semibold text-accent">{statements.length}</p>
         </div>
-        <div className="rounded-lg border border-border bg-surface p-4">
+        <div className="border-t-2 border-accent bg-surface p-4">
           <p className="text-xs text-muted">Transmission notes</p>
           <p className="mt-1 text-2xl font-semibold text-accent">{occurrencesTotal}</p>
         </div>
-        <div className="rounded-lg border border-border bg-surface p-4">
+        <div className="border-t-2 border-accent bg-surface p-4">
           <p className="text-xs text-muted">Aliases</p>
           <p className="mt-1 text-2xl font-semibold text-accent">{aliases.length}</p>
         </div>
@@ -151,7 +151,7 @@ export default async function NarratorPage({
         {statements.length ? (
           <div className="grid gap-3 lg:grid-cols-2">
             {statements.map((statement) => (
-              <div key={statement.id} className="rounded-lg border border-border bg-surface p-4">
+              <div key={statement.id} className="rounded-md border border-border bg-surface p-4">
                 <p className="text-xs text-muted">
                   {statement.source_name} / {statement.statement_type} / confidence {statement.confidence}
                 </p>
@@ -170,7 +170,7 @@ export default async function NarratorPage({
         <h2 className="text-sm font-semibold tracking-wide text-muted uppercase">Mujam entries</h2>
         {rijalEntries.length ? (
           rijalEntries.map((entry) => (
-            <details key={entry.id} className="rounded-lg border border-border bg-surface">
+            <details key={entry.id} className="rounded-md border border-border bg-surface">
               <summary className="flex cursor-pointer list-none flex-wrap items-center justify-between gap-3 px-5 py-4">
                 <span className="text-sm text-muted">
                   Entry {entry.entry_number ?? "?"}
@@ -181,16 +181,18 @@ export default async function NarratorPage({
                     href={entry.source_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm font-medium text-accent hover:underline"
+                    className="inline-flex min-h-11 items-center text-sm font-medium text-accent hover:underline"
                   >
                     Source
                   </a>
                 ) : null}
               </summary>
               <div className="border-t border-border px-5 py-4">
-                <h3 dir="rtl" lang="ar" className={`${amiri.className} text-right text-2xl text-accent`}>
-                  {formatArabicText(entry.title_raw)}
-                </h3>
+                {entry.title_raw ? (
+                  <h3 dir="rtl" lang="ar" className={`${amiri.className} text-right text-2xl text-accent`}>
+                    {formatArabicText(entry.title_raw)}
+                  </h3>
+                ) : null}
                 <p
                   dir="rtl"
                   lang="ar"
@@ -207,7 +209,7 @@ export default async function NarratorPage({
       </section>
 
       <section className="mt-8 space-y-4">
-        <details className="rounded-lg border border-border bg-surface">
+        <details className="rounded-md border border-border bg-surface">
           <summary className="flex cursor-pointer list-none items-center justify-between px-5 py-4">
             <h2 className="text-sm font-semibold tracking-wide text-muted uppercase">Transmission notes</h2>
             <span className="text-xs text-muted">
@@ -216,7 +218,7 @@ export default async function NarratorPage({
           </summary>
           <div className="grid gap-2 border-t border-border p-4 sm:grid-cols-2">
             {occurrences.map((occurrence) => (
-              <div key={occurrence.id} className="rounded-lg border border-border bg-background p-3">
+              <div key={occurrence.id} className="rounded-md border border-border bg-background p-3">
                 <p className="text-xs text-muted">{occurrence.direction}</p>
                 <p dir="rtl" lang="ar" className={`${amiri.className} mt-1 text-right text-lg`}>
                   {formatArabicText(occurrence.related_name_raw)}

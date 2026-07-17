@@ -1,11 +1,26 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getBook, getBookChapters, getHadith } from "@/lib/api/books";
 import { formatArabicTitle } from "@/lib/arabic";
 import { amiri } from "@/lib/fonts";
 import { IndexedHadithCard } from "@/components/reader/ReaderText";
+import { Citation } from "@/components/citation/Citation";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({ params }: { params: Promise<{ publicId: string }> }): Promise<Metadata> {
+  const { publicId } = await params;
+  const hadith = await getHadith(decodeURIComponent(publicId));
+  if (!hadith) return { title: "Hadith not found" };
+  const book = await getBook(hadith.book_id);
+  const work = book?.title_normalised ?? "Shia hadith";
+  return {
+    title: `${work} · Hadith ${hadith.printed_number ?? hadith.public_id}`,
+    description: `Source record ${hadith.public_id}, volume ${hadith.volume_start ?? "unknown"}, page ${hadith.page_start}.`,
+    alternates: { canonical: `/hadith/${encodeURIComponent(hadith.public_id)}` },
+  };
+}
 
 // Permanent home of a single hadith: one stable URL per hadith record. This
 // ID is what cross-referencing ("this hadith IS that hadith"), grading and
@@ -37,22 +52,11 @@ export default async function HadithPermalinkPage({
     }
   }
 
-  const citation = [
-    book?.title_normalised,
-    hadith.volume_start !== null ? `vol. ${hadith.volume_start}` : null,
-    hadith.page_end !== hadith.page_start
-      ? `pp. ${hadith.page_start}-${hadith.page_end}`
-      : `p. ${hadith.page_start}`,
-    hadith.printed_number ? `no. ${hadith.printed_number}` : null,
-  ]
-    .filter(Boolean)
-    .join(", ");
-
   return (
-    <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6">
+    <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <div>
-          <p className="text-xs tracking-wide text-muted/70 uppercase">Hadith record</p>
+          <h1 className="text-xs font-semibold tracking-wide text-muted uppercase">Hadith record</h1>
           <p className="mt-1 font-mono text-sm text-accent">{hadith.public_id}</p>
         </div>
         {title ? (
@@ -72,10 +76,18 @@ export default async function HadithPermalinkPage({
         <IndexedHadithCard hadith={hadith} />
       </div>
 
-      <div className="mt-6 rounded-2xl border border-border bg-surface px-5 py-4 text-sm">
-        <p className="font-medium text-muted">Citation</p>
-        <p className="mt-1">{citation}</p>
-        <p className="mt-1 font-mono text-xs text-muted">{hadith.public_id}</p>
+      <div className="mt-6 border border-border bg-surface px-5 py-4 text-sm">
+        <p className="mb-2 font-medium text-muted">Citation</p>
+        <Citation
+          title={title ?? book?.title_normalised ?? "Shia hadith"}
+          volumeNumber={hadith.volume_start}
+          pageNumber={hadith.page_start}
+          pageEnd={hadith.page_end}
+          printedNumber={hadith.printed_number}
+          publicId={hadith.public_id}
+          permanentPath={`/hadith/${encodeURIComponent(hadith.public_id)}`}
+          sourceUrl={hadith.source_url}
+        />
       </div>
 
       <div className="mt-6 flex flex-wrap gap-4 text-sm">

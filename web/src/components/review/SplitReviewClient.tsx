@@ -47,13 +47,17 @@ async function fetchSplitReviewQueue(params: {
 
 async function saveSplitReview(
   publicId: string,
-  payload: HadithSplitReviewSave
+  payload: HadithSplitReviewSave,
+  adminToken: string
 ): Promise<HadithSplitReviewItem> {
   const response = await fetch(
     `${API_BASE_URL}/hadith-split-reviews/${encodeURIComponent(publicId)}`,
     {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "X-Admin-Token": adminToken,
+      },
       body: JSON.stringify(payload),
     }
   );
@@ -101,6 +105,7 @@ export function SplitReviewClient({
   const [message, setMessage] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [loadingQueue, setLoadingQueue] = useState(false);
+  const [adminToken, setAdminToken] = useState("");
 
   const setEditorFromItem = useCallback((item: HadithSplitReviewItem | null) => {
     setSelectedId(item?.hadith.public_id ?? "");
@@ -161,16 +166,24 @@ export function SplitReviewClient({
   const saveCurrent = useCallback(
     async (advance: boolean) => {
       if (!selected || !draftMatn.trim()) return;
+      if (!adminToken.trim()) {
+        setMessage("Enter the administrator token before saving an editorial decision.");
+        return;
+      }
       setSaving(true);
       setMessage(null);
       try {
-        const saved = await saveSplitReview(selected.hadith.public_id, {
-          approved_isnad_raw: draftIsnad.trim() || null,
-          approved_matn_raw: draftMatn.trim(),
-          review_status: status,
-          reviewer: reviewer.trim() || null,
-          notes: notes.trim() || null,
-        });
+        const saved = await saveSplitReview(
+          selected.hadith.public_id,
+          {
+            approved_isnad_raw: draftIsnad.trim() || null,
+            approved_matn_raw: draftMatn.trim(),
+            review_status: status,
+            reviewer: reviewer.trim() || null,
+            notes: notes.trim() || null,
+          },
+          adminToken.trim()
+        );
         const selectedIndex = items.findIndex(
           (item) => item.hadith.public_id === selected.hadith.public_id
         );
@@ -194,6 +207,7 @@ export function SplitReviewClient({
       }
     },
     [
+      adminToken,
       draftIsnad,
       draftMatn,
       items,
@@ -470,7 +484,7 @@ export function SplitReviewClient({
             </div>
 
             <div className="rounded-lg border border-border bg-surface p-4">
-              <div className="grid gap-4 sm:grid-cols-[12rem_12rem_minmax(0,1fr)]">
+              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-[12rem_12rem_16rem_minmax(0,1fr)]">
                 <label className="block text-sm">
                   <span className="font-medium text-muted">Status</span>
                   <select
@@ -484,6 +498,16 @@ export function SplitReviewClient({
                     <option value="needs_review">Needs review</option>
                     <option value="rejected">Rejected</option>
                   </select>
+                </label>
+                <label className="block text-sm">
+                  <span className="font-medium text-muted">Administrator token</span>
+                  <input
+                    type="password"
+                    autoComplete="current-password"
+                    value={adminToken}
+                    onChange={(event) => setAdminToken(event.target.value)}
+                    className="mt-2 w-full rounded-lg border border-border bg-background px-3 py-2 outline-none focus:border-accent"
+                  />
                 </label>
                 <label className="block text-sm">
                   <span className="font-medium text-muted">Reviewer</span>

@@ -2,62 +2,64 @@ import Link from "next/link";
 import { getBooks } from "@/lib/api/books";
 import { getStats } from "@/lib/api/stats";
 import type { BookSummary, LibraryStats } from "@/lib/api/types";
-import { SearchBox } from "@/components/nav/SearchBox";
 import { BookCard } from "@/components/books/BookCard";
-import { Reveal } from "@/components/ui/Reveal";
-import { CountUp } from "@/components/ui/CountUp";
-import { HeroOrnament } from "@/components/home/HeroOrnament";
+import { Hero } from "@/components/home/Hero";
 import { amiri } from "@/lib/fonts";
 
-// This app's content comes from a local backend that may not be running at
-// build time (and changes as crawls progress) — always render at request
-// time rather than attempting to statically prerender against a live API.
 export const dynamic = "force-dynamic";
 
-const TRY_SEARCHES = ["العقل", "الصلاة", "التوحيد", "الصوم"];
-
-const FEATURES = [
+const RESEARCH_PATHS = [
   {
-    title: "The original text",
-    body: "Every page in the Arabic of the printed critical edition, set in a typeface made for it — nothing paraphrased, nothing abridged.",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-6 w-6">
-        <path d="M12 5.5C10 4 7.5 3.5 4 3.5v15c3.5 0 6 .5 8 2 2-1.5 4.5-2 8-2v-15c-3.5 0-6 .5-8 2Z" />
-        <path d="M12 5.5v15" />
-      </svg>
-    ),
+    href: "/books",
+    title: "Read",
+    subtitle: "Move through a collection without losing the printed page.",
+    action: "Open the library",
+    icon: "book",
   },
   {
-    title: "Chain and matn, apart",
-    body: "The chain of transmission is set off from the report itself, and hadith are numbered as in the edition — the page reads the way scholars cite it.",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-6 w-6">
-        <path d="M9.5 14.5l5-5" />
-        <path d="M8.5 11l-3 3a3 3 0 104.24 4.24l3-3" />
-        <path d="M15.5 13l3-3a3 3 0 10-4.24-4.24l-3 3" />
-      </svg>
-    ),
+    href: "/search",
+    title: "Find",
+    subtitle: "Locate Arabic text, translations, titles, and source references.",
+    action: "Search the corpus",
+    icon: "search",
   },
   {
-    title: "Cited to the page",
-    body: "Book, volume, page — one click copies a citation you can hand to anyone, and every page links back to its printed source.",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-6 w-6">
-        <path d="M10 8H6a1 1 0 00-1 1v3a1 1 0 001 1h2.5c0 2-1 3.5-3.5 4" />
-        <path d="M19 8h-4a1 1 0 00-1 1v3a1 1 0 001 1h2.5c0 2-1 3.5-3.5 4" />
-      </svg>
-    ),
+    href: "/graph",
+    title: "Investigate",
+    subtitle: "Follow narrators, inspect chains, and verify transmission evidence.",
+    action: "Enter the network",
+    icon: "network",
   },
-];
+] as const;
 
 async function loadHomeData(): Promise<{ featured: BookSummary[]; stats: LibraryStats | null }> {
-  // The home page should still render (hero, features, footer) even when the
-  // backend is down — degrade to an empty shelf instead of a 500.
-  const [featured, stats] = await Promise.all([
-    getBooks({ limit: 4, hasContent: true }).catch(() => [] as BookSummary[]),
+  const [books, stats] = await Promise.all([
+    getBooks({ limit: 50, hasContent: true }).catch(() => [] as BookSummary[]),
     getStats().catch(() => null),
   ]);
+  const fourBooks = ["11005", "11021", "10083", "11002"];
+  const featured = fourBooks
+    .map((sourceId) => books.find((book) => book.source_book_id === sourceId))
+    .filter((book): book is BookSummary => Boolean(book));
+  for (const book of books) {
+    if (featured.length >= 4) break;
+    if (!featured.some((item) => item.id === book.id)) featured.push(book);
+  }
   return { featured, stats };
+}
+
+function formatNumber(value: number) {
+  return new Intl.NumberFormat("en-GB").format(value);
+}
+
+function PathIcon({ name }: { name: (typeof RESEARCH_PATHS)[number]["icon"] }) {
+  if (name === "search") {
+    return <svg aria-hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 4.5 4.5" /></svg>;
+  }
+  if (name === "network") {
+    return <svg aria-hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="6" cy="12" r="2.5" /><circle cx="18" cy="6" r="2.5" /><circle cx="18" cy="18" r="2.5" /><path d="m8.3 10.9 7.4-3.8M8.3 13.1l7.4 3.8" /></svg>;
+  }
+  return <svg aria-hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5v-16ZM20 5.5A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5v-16Z" /></svg>;
 }
 
 export default async function HomePage() {
@@ -65,183 +67,114 @@ export default async function HomePage() {
 
   return (
     <div>
-      {/* ---------------------------------------------------------- hero */}
-      <section className="relative overflow-hidden border-b border-border">
-        <HeroOrnament />
+      <Hero />
 
-        <div className="relative mx-auto max-w-3xl px-4 pt-24 pb-20 text-center sm:px-6 sm:pt-32 sm:pb-28">
-          <div className="animate-fade-up">
-            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/90 px-4 py-1.5 text-xs font-medium tracking-[0.18em] text-muted uppercase shadow-sm">
-              <span className="animate-pulse-dot h-1.5 w-1.5 rounded-full bg-accent" />A living library of Shia
-              hadith
-            </span>
-          </div>
-
-          <h1 className="animate-fade-up anim-delay-1 mt-8 font-serif text-5xl leading-[1.08] tracking-tight sm:text-6xl">
-            The whole tradition,
-            <br />
-            <span className="text-gold italic">in one quiet room.</span>
-          </h1>
-
-          <p
-            dir="rtl"
-            lang="ar"
-            className={`${amiri.className} animate-fade-up anim-delay-2 mt-6 text-xl text-muted`}
-          >
-            مكتبة الحديث الشيعي — النص، والسند، والهوامش
-          </p>
-
-          <p className="animate-fade-up anim-delay-3 mx-auto mt-5 max-w-xl text-lg text-foreground/70">
-            Read and search the hadith of the Prophet and the Ahl al-Bayt — the Four Books and centuries of
-            collections, in their original Arabic.
-          </p>
-
-          <div className="animate-fade-up anim-delay-4 mx-auto mt-9 max-w-xl">
-            <div className="rounded-full shadow-lg shadow-accent/5">
-              <SearchBox size="lg" />
-            </div>
-            <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-sm">
-              <span className="text-muted">Try:</span>
-              {TRY_SEARCHES.map((term) => (
-                <Link
-                  key={term}
-                  href={`/search?q=${encodeURIComponent(term)}`}
-                  dir="rtl"
-                  lang="ar"
-                  className={`${amiri.className} rounded-full border border-border bg-surface px-3.5 py-1 text-base text-foreground/75 transition hover:border-accent hover:text-accent`}
-                >
-                  {term}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          <div className="animate-fade-up anim-delay-5 mt-10 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="/books"
-              className="rounded-full bg-foreground px-7 py-3 font-medium text-background shadow-md transition hover:-translate-y-0.5 hover:shadow-lg"
-            >
-              Start reading →
-            </Link>
-            <Link
-              href="/about"
-              className="rounded-full border border-border bg-surface px-7 py-3 font-medium text-foreground/80 transition hover:border-accent hover:text-accent"
-            >
-              About the project
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* --------------------------------------------------------- stats */}
       {stats ? (
-        <section className="border-b border-border bg-surface/60">
-          <div className="mx-auto grid max-w-5xl grid-cols-3 gap-6 px-4 py-12 text-center sm:px-6">
-            <Reveal>
-              <p className="font-serif text-4xl text-foreground sm:text-5xl">
-                <CountUp value={stats.pages_digitized} />
-              </p>
-              <p className="mt-2 text-xs font-semibold tracking-[0.18em] text-muted uppercase">Pages digitized</p>
-            </Reveal>
-            <Reveal delay={120}>
-              <p className="font-serif text-4xl text-foreground sm:text-5xl">
-                <CountUp value={stats.books_readable} />
-              </p>
-              <p className="mt-2 text-xs font-semibold tracking-[0.18em] text-muted uppercase">Books readable</p>
-            </Reveal>
-            <Reveal delay={240}>
-              <p className="font-serif text-4xl text-foreground sm:text-5xl">
-                <CountUp value={stats.authors} />
-              </p>
-              <p className="mt-2 text-xs font-semibold tracking-[0.18em] text-muted uppercase">Authors indexed</p>
-            </Reveal>
+        <section className="border-b border-border bg-surface" aria-label="Corpus coverage">
+          <div className="mx-auto grid max-w-[90rem] grid-cols-2 px-4 sm:px-6 lg:grid-cols-[1.35fr_repeat(4,1fr)] lg:px-8">
+            <div className="col-span-2 flex items-center border-b border-border py-5 lg:col-span-1 lg:border-b-0 lg:pr-8">
+              <p className="max-w-xs text-sm font-semibold leading-6 text-foreground">A growing corpus with every record kept close to its source.</p>
+            </div>
+            {[
+              [stats.books_readable, "Readable books"],
+              [stats.pages_digitized, "Digitised pages"],
+              [stats.books_catalogued, "Catalogued works"],
+              [stats.authors, "Indexed authors"],
+            ].map(([value, label]) => (
+              <div key={label} className="border-l border-border px-4 py-5 sm:px-6">
+                <p className="font-serif text-2xl font-semibold tabular-nums text-foreground">{formatNumber(Number(value))}</p>
+                <p className="mt-1 text-xs font-medium text-muted">{label}</p>
+              </div>
+            ))}
           </div>
         </section>
       ) : null}
 
-      {/* ------------------------------------------------------ features */}
-      <section className="mx-auto max-w-5xl px-4 py-20 sm:px-6">
-        <Reveal>
-          <div className="flex items-end justify-between gap-4">
-            <div>
-              <p className="text-sm font-semibold tracking-[0.18em] text-accent uppercase">The reading room</p>
-              <h2 className="mt-2 font-serif text-3xl sm:text-4xl">Built for how hadith are read.</h2>
-            </div>
-            <p dir="rtl" lang="ar" className={`${amiri.className} hidden text-3xl text-gold sm:block`}>
-              القراءة
-            </p>
+      <section className="mx-auto max-w-[90rem] px-4 py-18 sm:px-6 sm:py-22 lg:px-8">
+        <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
+          <div>
+            <p className="text-sm font-semibold text-accent">Three ways into the corpus</p>
+            <h2 className="mt-3 max-w-xl font-serif text-4xl font-semibold leading-tight sm:text-5xl">Begin with the question you actually have.</h2>
           </div>
-        </Reveal>
+          <p className="max-w-2xl text-base leading-8 text-muted lg:justify-self-end">
+            Usul16 keeps reading, discovery, and narrator research equally close. Move between them without losing the hadith, chain, or citation that brought you there.
+          </p>
+        </div>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-3">
-          {FEATURES.map((feature, index) => (
-            <Reveal key={feature.title} delay={index * 120}>
-              <div className="group h-full rounded-2xl border border-border bg-surface p-6 transition hover:-translate-y-1 hover:border-accent hover:shadow-md">
-                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-badge-verified text-accent transition group-hover:bg-accent group-hover:text-accent-foreground">
-                  {feature.icon}
-                </div>
-                <h3 className="mt-5 font-serif text-xl">{feature.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{feature.body}</p>
-              </div>
-            </Reveal>
+        <div className="mt-10 border-y border-border lg:grid lg:grid-cols-3">
+          {RESEARCH_PATHS.map((path, index) => (
+            <Link key={path.href} href={path.href} className={`research-path group ${index ? "border-t border-border lg:border-l lg:border-t-0" : ""}`}>
+              <span className="research-path__icon"><PathIcon name={path.icon} /></span>
+              <span className="min-w-0 flex-1">
+                <span className="font-serif text-2xl font-semibold text-foreground">{path.title}</span>
+                <span className="mt-2 block max-w-sm text-sm leading-6 text-muted">{path.subtitle}</span>
+                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-accent">
+                  {path.action}<span aria-hidden className="transition-transform duration-200 group-hover:translate-x-1">→</span>
+                </span>
+              </span>
+            </Link>
           ))}
         </div>
       </section>
 
-      {/* ------------------------------------------------------ featured */}
       {featured.length > 0 ? (
-        <section className="border-t border-border bg-surface/40">
-          <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6">
-            <Reveal>
-              <div className="flex items-end justify-between gap-4">
-                <div>
-                  <p className="text-sm font-semibold tracking-[0.18em] text-accent uppercase">On the shelf</p>
-                  <h2 className="mt-2 font-serif text-3xl sm:text-4xl">Available to read now.</h2>
-                </div>
-                <Link
-                  href="/books"
-                  className="hidden shrink-0 text-sm font-medium text-accent hover:underline sm:block"
-                >
-                  Browse all →
-                </Link>
+        <section className="library-stage border-y border-border">
+          <div className="mx-auto max-w-[90rem] px-4 py-18 sm:px-6 sm:py-22 lg:px-8">
+            <div className="flex flex-wrap items-end justify-between gap-6">
+              <div>
+                <p className="text-sm font-semibold text-[color:var(--stage-accent)]">The major collections</p>
+                <h2 className="mt-2 font-serif text-4xl font-semibold text-[color:var(--stage-ink)] sm:text-5xl">Open a book, not a database row.</h2>
               </div>
-            </Reveal>
-
-            <div className="mt-10 grid gap-4 sm:grid-cols-2">
-              {featured.map((book, index) => (
-                <Reveal key={book.id} delay={index * 100}>
-                  <BookCard book={book} index={index + 1} />
-                </Reveal>
-              ))}
+              <Link href="/books" className="inline-flex items-center gap-2 text-sm font-semibold text-[color:var(--stage-accent)] hover:underline">
+                View the full catalogue <span aria-hidden>→</span>
+              </Link>
             </div>
 
-            <div className="mt-8 text-center sm:hidden">
-              <Link href="/books" className="text-sm font-medium text-accent hover:underline">
-                Browse all →
-              </Link>
+            <div className="mt-14 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
+              {featured.map((book, index) => <BookCard key={book.id} book={book} index={index + 1} />)}
             </div>
           </div>
         </section>
       ) : null}
 
-      {/* ----------------------------------------------------------- cta */}
-      <section className="border-t border-border">
-        <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6">
-          <Reveal>
-            <p dir="rtl" lang="ar" className={`${amiri.className} text-2xl text-gold`}>
-              اقرأ
-            </p>
-            <h2 className="mt-4 font-serif text-3xl leading-snug sm:text-4xl">
-              Open a book. The tradition is
-              <br className="hidden sm:block" /> already waiting.
-            </h2>
-            <Link
-              href="/books"
-              className="mt-8 inline-block rounded-full bg-accent px-8 py-3.5 font-medium text-accent-foreground shadow-md transition hover:-translate-y-0.5 hover:shadow-lg"
-            >
-              Browse the library →
-            </Link>
-          </Reveal>
+      <section className="mx-auto grid max-w-[90rem] gap-12 px-4 py-20 sm:px-6 sm:py-24 lg:grid-cols-[0.85fr_1.15fr] lg:items-start lg:px-8">
+        <div className="lg:sticky lg:top-28">
+          <p dir="rtl" lang="ar" className={`${amiri.className} text-3xl text-gold`}>من النص إلى الدليل</p>
+          <h2 className="mt-4 max-w-xl font-serif text-4xl font-semibold leading-tight sm:text-5xl">From the text to the evidence, context stays intact.</h2>
+          <p className="mt-5 max-w-xl text-base leading-8 text-muted">
+            A hadith record is not an isolated quotation. Each layer should answer the next scholarly question while preserving a route back to the edition.
+          </p>
+        </div>
+
+        <ol className="evidence-sequence">
+          {[
+            ["Source text", "Read the Arabic as printed, with isnad, matn, headings, and footnotes kept distinct."],
+            ["Translation aid", "Reveal English when useful, with provenance and status visible rather than implied."],
+            ["Narrator identity", "Open resolved narrator profiles directly from the chain and inspect why an identity was selected."],
+            ["Transmission evidence", "See relationships across the corpus, then return to the hadiths that establish each link."],
+            ["Stable citation", "Copy a durable identifier and verify the record against volume, page, and original source."],
+          ].map(([title, body], index) => (
+            <li key={title}>
+              <span className="evidence-sequence__number">{String(index + 1).padStart(2, "0")}</span>
+              <div>
+                <h3 className="font-serif text-2xl font-semibold">{title}</h3>
+                <p className="mt-2 max-w-2xl text-sm leading-7 text-muted">{body}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section className="border-y border-border bg-surface">
+        <div className="mx-auto grid max-w-[90rem] gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[1fr_auto] lg:items-center lg:px-8">
+          <div>
+            <p className="font-serif text-2xl font-semibold sm:text-3xl">The Arabic is the authority. The interface makes it inspectable.</p>
+            <p className="mt-2 max-w-3xl text-sm leading-7 text-muted">Open access, source-aware, and designed for the long attention of scholars and serious readers.</p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/about" className="inline-flex h-11 items-center rounded-md border border-border-strong px-5 text-sm font-semibold hover:border-accent hover:text-accent">Read the methodology</Link>
+            <Link href="/books" className="inline-flex h-11 items-center rounded-md bg-accent px-5 text-sm font-semibold text-accent-foreground hover:bg-accent-strong">Start reading</Link>
+          </div>
         </div>
       </section>
     </div>

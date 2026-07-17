@@ -82,15 +82,19 @@ export default async function ReaderPage({
   }
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-8 sm:px-6">
-      <Citation
-        title={title}
-        volumeNumber={page.volume_number}
-        pageNumber={page.page_number}
-        sourceUrl={page.source_url}
-      />
+    <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-12">
+      <h1 className="sr-only">{title}, volume {volumeNumber}, page {pageNumber}</h1>
+      <div className="border-b border-border pb-4">
+        <Citation
+          title={title}
+          volumeNumber={page.volume_number}
+          pageNumber={page.page_number}
+          sourceUrl={page.source_url}
+          permanentPath={`/read/${bookId}/${volumeNumber}/${pageNumber}`}
+        />
+      </div>
 
-      <div className="mt-4">
+      <div className="mt-4 border border-border bg-surface px-3 py-3 sm:px-4">
         <ReaderControls
           bookId={bookId}
           volumeNumber={volumeNumber}
@@ -109,7 +113,7 @@ export default async function ReaderPage({
         </p>
       ) : null}
 
-      <div className="mt-6 min-h-[45vh]">
+      <div className="mx-auto mt-7 min-h-[45vh] max-w-3xl">
         <ReaderText page={page} hadiths={hadiths} />
       </div>
 

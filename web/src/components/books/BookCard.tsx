@@ -1,45 +1,107 @@
+import Image from "next/image";
 import Link from "next/link";
 import { amiri } from "@/lib/fonts";
 import { formatArabicTitle } from "@/lib/arabic";
 import type { BookSummary } from "@/lib/api/types";
-import { ContentBadge } from "@/components/books/ContentBadge";
+import { corpusMaturity } from "@/lib/corpus-maturity";
 
-export function BookCard({ book, index }: { book: BookSummary; index?: number }) {
+type CoverRecord = {
+  label: string;
+  src?: string;
+};
+
+/**
+ * Cover images are scans or photographs of the edition represented by the
+ * source record. Never add a designed substitute here: an honest archival
+ * placeholder is preferable to a plausible but fabricated binding.
+ */
+const EDITION_COVERS: Record<string, CoverRecord> = {
+  "11005": { label: "Al-Kafi", src: "/covers/eshia/11005.jpg" },
+  "11021": { label: "Man La Yahduruhu al-Faqih", src: "/covers/eshia/11021.jpg" },
+  "10083": { label: "Tahdhib al-Ahkam", src: "/covers/eshia/10083.jpg" },
+  "11002": { label: "Al-Istibsar", src: "/covers/eshia/11002.jpg" },
+  "71860": { label: "Bihar al-Anwar", src: "/covers/eshia/71860.jpg" },
+  "11025": { label: "Wasa'il al-Shia", src: "/covers/eshia/11025.jpg" },
+  "14036": { label: "Mu'jam Rijal al-Hadith" },
+  "14028": { label: "Rijal al-Najashi", src: "/covers/eshia/14028.jpg" },
+  "71743": { label: "Ayat al-Ahkam", src: "/covers/eshia/71743.jpg" },
+  "10241": { label: "Rijal al-Kashshi" },
+  "12146": { label: "Rijal al-Tusi" },
+  "13341": { label: "Rijal Ibn Dawud" },
+  "27182": { label: "Kulliyat fi Ilm al-Rijal" },
+  "14010": { label: "Al-Fihrist" },
+  "12147": { label: "Rijal al-Allama al-Hilli" },
+  "86758": { label: "Rijal al-Barqi" },
+};
+
+export function BookCard({ book, index = 0 }: { book: BookSummary; index?: number }) {
   const title = formatArabicTitle(book.title_original);
-  const author = book.authors?.[0];
+  const cover = EDITION_COVERS[book.source_book_id];
+  const maturity = corpusMaturity(book.source_book_id);
+  const label = cover?.label ?? title;
+  const volumes = book.volume_count
+    ? `${book.volume_count} ${book.volume_count === 1 ? "volume" : "volumes"}`
+    : null;
 
   return (
     <Link
       href={`/books/${book.id}`}
-      className="group flex flex-col justify-between rounded-2xl border border-border bg-surface p-6 transition hover:border-accent hover:shadow-sm"
+      aria-label={`Open ${label}`}
+      className="library-book group/book"
     >
-      <div>
-        {index !== undefined ? (
-          <p className="text-xs font-semibold tracking-[0.2em] text-muted uppercase">
-            {String(index).padStart(2, "0")} · Kitāb
-          </p>
-        ) : null}
+      <span className="library-book__object">
+        <span aria-hidden className="library-book__shadow" />
+        <span aria-hidden className="library-book__page-block">
+          <span className="library-book__page-lines" />
+        </span>
 
-        <p dir="rtl" lang="ar" className={`${amiri.className} mt-3 text-right text-2xl leading-snug text-accent`}>
-          {title}
-        </p>
-
-        <div className="mt-2 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 text-sm text-muted">
-          {author ? (
-            <span dir="rtl" lang="ar" className={amiri.className}>
-              {formatArabicTitle(author.name_original)}
-            </span>
+        <span className={`library-book__cover ${cover?.src ? "" : "library-book__cover--unavailable"}`}>
+          {cover?.src ? (
+            <Image
+              src={cover.src}
+              alt={`${label} — cover of the catalogued edition`}
+              fill
+              priority={index < 4}
+              sizes="(max-width: 639px) 78vw, (max-width: 1023px) 38vw, 18rem"
+              className="library-book__cover-image"
+            />
           ) : (
-            <span />
+            <span className="library-book__unavailable">
+              <span className="library-book__source-id">Source {book.source_book_id}</span>
+              <span dir="rtl" lang="ar" className={`${amiri.className} library-book__unavailable-title`}>
+                {title}
+              </span>
+              <span className="library-book__unavailable-note">Cover scan unavailable</span>
+            </span>
           )}
-          {book.volume_count ? <span>{book.volume_count} vol.</span> : null}
-        </div>
-      </div>
+          <span aria-hidden className="library-book__cover-sheen" />
+        </span>
 
-      <div className="mt-6 flex items-center justify-between border-t border-border pt-4">
-        <ContentBadge hasContent={book.has_content} />
-        <span className="text-sm font-medium text-accent group-hover:underline">Open →</span>
-      </div>
+        <span aria-hidden className="library-book__edge" />
+        <span aria-hidden className="library-book__open-cue">
+          Open
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M4 10h12M12 6l4 4-4 4" />
+          </svg>
+        </span>
+      </span>
+
+      <span className="library-book__caption">
+        <span className="min-w-0">
+          <span className="library-book__label">{label}</span>
+          <span className="library-book__provenance">
+            {cover?.src ? "Edition cover" : "Cover not supplied"}
+            {volumes ? <><span aria-hidden> · </span>{volumes}</> : null}
+          </span>
+          {maturity ? <span className="mt-1 block text-xs font-semibold text-[color:var(--stage-accent)]">{maturity.label}</span> : null}
+        </span>
+        <span className="library-book__open-label" aria-hidden>
+          Open
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M4 10h12M12 6l4 4-4 4" />
+          </svg>
+        </span>
+      </span>
     </Link>
   );
 }

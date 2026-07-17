@@ -2,6 +2,7 @@ import { ApiError, fetchApi } from "@/lib/api/client";
 import type {
   BookRead,
   BookSummary,
+  CorpusStatusResponse,
   ChapterSummary,
   HadithSplitAudit,
   HadithSplitReviewItem,
@@ -19,6 +20,10 @@ import type {
   TransmissionEdgeEvidenceRead,
   TransmissionGraphRead,
 } from "@/lib/api/types";
+
+export async function getCorpusStatus(): Promise<CorpusStatusResponse> {
+  return fetchApi<CorpusStatusResponse>("/corpus-status", { next: { revalidate: 300 } });
+}
 
 export async function getBooks(params: {
   skip?: number;
@@ -78,7 +83,7 @@ export async function getBookHadiths(
   if (params.skip) query.set("skip", String(params.skip));
   query.set("limit", String(params.limit ?? 200));
   return fetchApi<HadithRead[]>(`/books/${bookId}/hadiths?${query.toString()}`, {
-    next: { revalidate: 60 },
+    cache: "no-store",
   });
 }
 
@@ -94,7 +99,7 @@ export async function getChapterHadiths(
 ): Promise<HadithRead[] | null> {
   try {
     return await fetchApi<HadithRead[]>(`/books/${bookId}/chapters/${chapterIndex}/hadiths`, {
-      next: { revalidate: 60 },
+      cache: "no-store",
     });
   } catch (error) {
     if (error instanceof ApiError && error.status === 404) return null;
@@ -105,7 +110,7 @@ export async function getChapterHadiths(
 export async function getHadith(publicId: string): Promise<HadithRead | null> {
   try {
     return await fetchApi<HadithRead>(`/hadiths/${encodeURIComponent(publicId)}`, {
-      next: { revalidate: 60 },
+      cache: "no-store",
     });
   } catch (error) {
     if (error instanceof ApiError && error.status === 404) return null;
@@ -304,6 +309,7 @@ export async function getTransmissionGraph(params: {
   // immediately (the backend TTL-caches the heavy aggregation itself).
   return fetchApi<TransmissionGraphRead>(`/transmission-graph?${query.toString()}`, {
     cache: "no-store",
+    signal: AbortSignal.timeout(45_000),
   });
 }
 

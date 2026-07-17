@@ -22,7 +22,7 @@ const SAMPLE_CHAIN: Transmitter[] = [
 
 export function IsnadChain() {
   return (
-    <div className="rounded-2xl border border-border bg-surface p-6">
+    <div className="rounded-md border border-border bg-surface p-6">
       <div className="flex items-baseline justify-between">
         <p className="text-sm font-semibold tracking-wide text-muted uppercase">Chain of narration</p>
         <p dir="rtl" lang="ar" className={`${amiri.className} text-lg text-accent`}>

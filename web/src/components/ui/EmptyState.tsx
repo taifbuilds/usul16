@@ -1,6 +1,6 @@
 export function EmptyState({ title, description }: { title: string; description?: string }) {
   return (
-    <div className="rounded-2xl border border-dashed border-border bg-surface px-6 py-12 text-center">
+    <div className="rounded-md border border-dashed border-border bg-surface px-6 py-12 text-center">
       <p className="font-medium text-foreground">{title}</p>
       {description ? <p className="mt-1 text-sm text-muted">{description}</p> : null}
     </div>

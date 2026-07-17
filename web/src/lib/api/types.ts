@@ -69,6 +69,28 @@ export interface HadithFootnote {
   page: number | null;
 }
 
+export interface HadithTranslationRead {
+  language: string;
+  translation_version: string;
+  rendered_isnad_en: string | null;
+  matn_translation: string;
+  status: "human_reviewed" | "published";
+  risk_level: "green";
+  risk_flags: Record<string, unknown>[] | null;
+  provider: string | null;
+  model: string | null;
+  provenance_json: Record<string, unknown> | null;
+}
+
+export interface TranslationPublicationEvidence {
+  status: string;
+  risk_level: string;
+  risk_flags: Record<string, unknown>[] | null;
+  provider: string | null;
+  model: string | null;
+  provenance_json: Record<string, unknown> | null;
+}
+
 export interface HadithRead {
   id: number;
   public_id: string;
@@ -91,6 +113,7 @@ export interface HadithRead {
   extraction_method: string;
   extraction_confidence: number;
   review_status: string;
+  translation: HadithTranslationRead | null;
 }
 
 export interface NarratorSummaryRead {
@@ -493,6 +516,10 @@ export interface SearchResult {
   page: PageRead;
   book: BookSummary;
   snippet: string;
+  match_type: "arabic" | "english" | "book";
+  hadith_public_id: string | null;
+  hadith_printed_number: string | null;
+  translation_evidence: TranslationPublicationEvidence | null;
 }
 
 export interface SearchResponse {
@@ -506,6 +533,22 @@ export interface LibraryStats {
   books_catalogued: number;
   pages_digitized: number;
   authors: number;
+}
+
+export interface CorpusBookStatus {
+  book_id: number;
+  source_book_id: string;
+  title_original: string;
+  pages_digitized: number;
+  visible_hadiths: number;
+  parsed_chains: number;
+  chains_needing_review: number;
+  public_english_translations: number;
+  approved_split_reviews: number;
+}
+
+export interface CorpusStatusResponse {
+  books: CorpusBookStatus[];
 }
 
 export interface TransmissionGraphNode {

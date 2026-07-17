@@ -4,6 +4,7 @@ import {
   getHadithSplitReviewStats,
 } from "@/lib/api/books";
 import { SplitReviewClient } from "@/components/review/SplitReviewClient";
+import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
@@ -14,6 +15,8 @@ export default async function SplitReviewPage({
 }: {
   searchParams?: Promise<{ source_book_id?: string; limit?: string; flag?: string }>;
 }) {
+  if (process.env.ENABLE_REVIEW_UI !== "true") notFound();
+
   const params = searchParams ? await searchParams : {};
   const sourceBookId = params.source_book_id ?? DEFAULT_SOURCE_BOOK_ID;
   const limit = Number(params.limit ?? 30);
