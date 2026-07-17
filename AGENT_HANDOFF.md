@@ -2223,6 +2223,62 @@ attached a multi-thousand-word translation to a much smaller report.
   (mostly `number_mismatch`/`missing_placeholder`, which may be apparatus differences
   rather than misalignments) and the 17 scoring 0.80-0.88.
 
+## HubeAli-preference pass + a QA blind spot (Claude, 2026-07-17)
+
+User direction: use HubeAli for the missing reports. Measured headroom first: HubeAli was
+ALREADY the automatic fallback (`_choose_static_translation` takes Sarwar, else HubeAli;
+51 of the 60 rows in the global-match pass were HubeAli). Preferring it harder unlocks
+almost nothing, because translator choice is not the blocker. Of the 111 then untranslated:
+
+- `39` identity failed, best global candidate `<0.60`
+- `37` identity failed, best candidate `0.60-0.88`
+- `16` QA-blocked while ALREADY using HubeAli, no alternative translator exists
+- `10` identity failed, `>=0.88` but rejected by the symmetry/containment guard
+- `6` QA-blocked on Sarwar, HubeAli fails too
+- `3` QA-blocked on Sarwar where HubeAli would pass
+
+### QA blind spot found (important, affects the whole number_mismatch bucket)
+
+`number_tokens` in `translation/text.py` matches `[0-9٠-٩۰-۹]+` — DIGITS ONLY. Al-Kafi's
+Arabic spells numerals as words (`خَمْسٍ وَ سِتِّينَ`), so the Arabic side contributes ZERO
+number tokens and `number_mismatch` cannot compare the actual quantities. The flag fires
+only on digits appearing in the English (list prefixes, dates). Consequences:
+
+- The `7,123` "number differences" the 2026-07-16 pass tried to normalize are largely this
+  artefact — which is consistent with that pass being rolled back.
+- A `number_mismatch` PASS is not evidence the numbers agree. It was about to publish
+  `alkafi-1282` whose HubeAli English says "fifty-six" against Arabic reading
+  `خَمْسٍ وَ سِتِّينَ` (sixty-five). Al-Sadiq died in 148 AH aged 65; the Arabic is right and
+  HubeAli is wrong. Any future numeric QA for this corpus must parse spelled-out Arabic
+  numerals, not digits.
+
+### Applied by Claude on 2026-07-17
+
+- Backup: `eshia-research/eshia_research.before-hubeali-forced-2rows.20260717-110253.db`
+  (`2,311,577,600` bytes).
+- Hand-verified all 3 candidates against the Arabic numeral-by-numeral, then imported 2:
+  - `alkafi-1292`: Arabic 54 / year 183 / 35 years — HubeAli "fifty-four" / "one hundred
+    and eighty three" / "thirty five". All agree. IMPORTED.
+  - `alkafi-2782`: Arabic 70,000 walls / 1,000 years — HubeAli "seventy thousand barriers"
+    / "a thousand years". Agrees. IMPORTED.
+  - `alkafi-1282`: HubeAli age contradicts the Arabic. NOT IMPORTED; stays withheld.
+- For these rows Thaqalayn's own `en_sarwar` field carries a DIFFERENT report than its
+  Arabic (1282/1292 show an unrelated "why we became Shi'a" report; 2782 shows a Rida
+  report). Their Sarwar alignment is wrong for these rows, so HubeAli is the correct
+  English. `--force_translator` in the manifest hides `en_sarwar` so the normal chooser
+  picks HubeAli; all QA/publishability rules still apply.
+- Coverage `15,225 / 15,336` -> `15,227 / 15,336` (`99.2893%`). Untranslated `111` -> `109`.
+- `quick_check` ok, `0` fk violations, suite `351 passed`. Live: 1292 and 2782 publish as
+  HubeAli; 1282 correctly returns `translation: null`.
+
+### Bottom line on reaching 15,336
+
+Not reachable from Thaqalayn. `86` of the remaining `109` have no verified counterpart in
+their edition at any threshold, and that is edition divergence, not translator choice or
+effort. The remaining honest work is human adjudication per report against the print
+editions, plus review of the `25` QA-blocked rows — noting the number-check blind spot
+above means those flags must be re-judged by eye, not cleared in bulk.
+
 ## Open Cautions
 
 ### Remaining-88 deep scan correction (Codex, 2026-07-16)

@@ -101,6 +101,13 @@ def main() -> int:
             if row is None:
                 rejected.append((public_id, "remote row not found"))
                 continue
+            if entry.get("force_translator") == "HubeAli":
+                # parse_static_row prefers Sarwar whenever present. For a few
+                # rows Thaqalayn's Sarwar field carries a different report than
+                # its Arabic, so the correct English is the HubeAli one. Hiding
+                # the Sarwar field makes the normal chooser select HubeAli;
+                # every downstream QA and publishability rule still applies.
+                row = dict(row, en_sarwar="")
             record = parse_static_row(row)
             if record is None or not record.usable_translation:
                 rejected.append((public_id, "remote row has no usable translation"))

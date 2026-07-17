@@ -1,0 +1,28 @@
+[
+ {
+  "public_id": "alkafi-1292",
+  "vol": 1,
+  "score": 0.8929,
+  "margin": 0.2143,
+  "remote_vol": 1,
+  "remote_path": "/books/al-kafi:1:4:120:9",
+  "has_sarwar": true,
+  "has_hubeali": true,
+  "url": "https://thaqalayn.net/books/al-kafi:1:4:120:9",
+  "force_translator": "HubeAli",
+  "manual_verification": "Arabic numerals spelled as words were checked by hand against the HubeAli English; all numbers agree. QA's number check reads digits only and cannot see them."
+ },
+ {
+  "public_id": "alkafi-2782",
+  "vol": 2,
+  "score": 0.9394,
+  "margin": 0.2121,
+  "remote_vol": 2,
+  "remote_path": "/books/al-kafi:2:1:155:1",
+  "has_sarwar": true,
+  "has_hubeali": true,
+  "url": "https://thaqalayn.net/books/al-kafi:2:1:155:1",
+  "force_translator": "HubeAli",
+  "manual_verification": "Arabic numerals spelled as words were checked by hand against the HubeAli English; all numbers agree. QA's number check reads digits only and cannot see them."
+ }
+]
