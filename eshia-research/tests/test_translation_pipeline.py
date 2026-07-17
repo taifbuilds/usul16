@@ -1,3 +1,5 @@
+import hashlib
+
 import pytest
 from sqlalchemy.orm import Session, sessionmaker
 
@@ -18,6 +20,7 @@ from eshia_research.translation import TRANSLATION_VERSION
 from eshia_research.translation.isnad_renderer import render_hadith_isnad
 from eshia_research.translation.planner import build_translation_plan, persist_translation_plan
 from eshia_research.translation.qa import assess_translation
+from eshia_research.translation.publication import source_hashes_are_current
 from eshia_research.translation.text import sha256_text
 from eshia_research.translation.thaqalayn_importer import (
     ThaqalaynRecord,
@@ -267,3 +270,37 @@ def test_isnad_renderer_preserves_arabic_name_when_uncurated(db: Session):
     assert rendered.text == "Chain 1: عدة من أصحابنا."
     assert "name_preserved_arabic" in rendered.risk_flags
     assert "unresolved_name:missing_rank1" in rendered.risk_flags
+
+
+def test_source_hashes_are_current_requires_the_canonical_hasher(db: Session):
+    """Source hashes must come from sha256_text, which collapses whitespace.
+
+    A raw hashlib.sha256 of the same text agrees with sha256_text whenever the
+    text is already whitespace-clean, so a writer using the wrong hasher looks
+    correct until it meets text carrying a stray double space or newline. That
+    is how ten published Sarwar translations were pinned unverifiably and went
+    invisible on 2026-07-16; see the source-hash repair note in AGENT_HANDOFF.
+    """
+
+    book = add_book(db)
+    # Irregular whitespace is the trigger: a double space inside the matn.
+    hadith = add_hadith(db, book, "alkafi-1", 1, "قال أبو عبد الله ع:  العلم نور.")
+
+    def pin(hasher) -> HadithTranslation:
+        return HadithTranslation(
+            hadith_id=hadith.id,
+            language="en",
+            translation_version=TRANSLATION_VERSION,
+            source_full_sha256=hasher(hadith.full_text_raw),
+            source_isnad_sha256=hasher(hadith.isnad_raw),
+            source_matn_sha256=hasher(hadith.matn_raw),
+            matn_translation="Knowledge is light.",
+            status="published",
+            risk_level="green",
+        )
+
+    raw_sha256 = lambda text: hashlib.sha256(text.encode("utf-8")).hexdigest()  # noqa: E731
+
+    assert raw_sha256(hadith.matn_raw) != sha256_text(hadith.matn_raw)
+    assert source_hashes_are_current(pin(sha256_text), hadith) is True
+    assert source_hashes_are_current(pin(raw_sha256), hadith) is False

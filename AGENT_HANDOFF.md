@@ -2039,6 +2039,103 @@ Applied and verified by Codex on 2026-07-15:
 - Backup completed at `2,280,108,032` bytes with SHA-256 `3BCC9392240271EA3DB5B6FAF4E467DB14933A42E0454DED3242FDB3AF950925`.
 - QA-normalization caution: an initial broad normalization of all `7,176` rows was immediately reversed after the deeper Arabic-extent audit found that the legacy numeric bucket mixes apparatus differences with genuine overmerges/wrong alignments. `rollback_alkafi_external_source_qa_normalization.py --apply` restored exactly the pre-normalization `risk_flags`, provenance/metadata, QA versions, and timestamps from the recorded backup; post-rollback logical diffs versus the backup are `0` for translations and segments, and no text column was touched. Selective alignment-aware normalization replaces the broad plan.
 
+## Non-canonical translation source-hash repair (Claude, 2026-07-17)
+
+Undocumented prior work found first. The 2026-07-16 afternoon session left seven
+backups (`before-75-source-alignment-quarantine` 141231, `before-deep-human-source-repair`
+134621, `before-structural-source-repair` 145546, `before-final-human-source-republication`
+150546, `before-final-boundary-repair-wave` 155500, `before-extent33-source-repair`
+155900/160300, `before-extent33-sarwar-republication` 161000) that NO section of this file
+records. That breaches the Update Protocol above. Two measured consequences:
+
+- Visible Al-Kafi rows moved `15,335` -> `15,336` and rejected `26` -> `25` during
+  `structural-source-repair` (between 145546 and 155500): one previously rejected
+  fragment was restored to visible. This may well be correct, but it is unaudited and
+  every count in this file above still says `15,335`.
+- The published coverage figure recorded on 2026-07-16 (`15,211 / 15,335`, missing `124`)
+  is stale. Measured through the real gate on 2026-07-17: `15,180 / 15,336` public,
+  missing `156`.
+
+### The bug
+
+`eshia_research.translation.text.sha256_text` hashes WHITESPACE-COLLAPSED text
+(`clean_ws`). Three scratch scripts define a LOCAL `sha256_text` that shadows it and
+hashes the raw string instead:
+
+- `apply_alkafi_extent33_sarwar_republication.py` (writes source hashes)
+- `apply_alkafi_editorial_contamination_quarantine.py` (writes source hashes)
+- `apply_alkafi_structural_extent_repairs.py` (verify-only, does not write)
+
+`apply_alkafi_extent33_sarwar_republication.py` republished 30 rows on 2026-07-16 using
+its raw hasher. The 20 whose Arabic was already whitespace-clean were unaffected (both
+conventions agree there). The 10 carrying a stray double space or newline got a hash the
+public gate can never reproduce, so `source_hashes_are_current` failed and they stayed
+invisible. That pass believed it recovered 30 reports; it actually recovered 20.
+
+These 10 are published, green, correctly attributed Muhammad Sarwar translations. Their
+Arabic never changed: the stored hash equals the RAW hash of the CURRENT text, which is
+proof of no drift. This was never Arabic drift, contrary to the first reading.
+
+### Planned DB edit recorded before applying
+
+- Scope: re-pin `source_full_sha256` / `source_isnad_sha256` / `source_matn_sha256` with
+  the canonical `sha256_text` for exactly the 10 Al-Kafi rows whose stored hash matches
+  the raw convention. Writes only those three columns plus a
+  `source_hash_convention_repair` provenance note. Changes ZERO Arabic and ZERO English
+  characters.
+- Fail-closed rule: a row is touched ONLY when its stored hash equals the raw hash of the
+  current text (proving the text is unchanged). Any row matching neither convention is
+  genuine drift and is reported, never rewritten.
+- Targets: `alkafi-934`, `alkafi-1073`, `alkafi-4295`, `alkafi-5698`, `alkafi-5743`,
+  `alkafi-6681`, `alkafi-9383`, `alkafi-11329`, `alkafi-12933`, `alkafi-14751`.
+- Deliberately NOT touched: `alkafi-11096`, `alkafi-11210`, `alkafi-14040`, `alkafi-15260`
+  match neither convention (genuine drift) and are rejected/red on other grounds anyway.
+- Script: `eshia-research/scratch_audit/repair_noncanonical_translation_source_hashes.py`
+  (dry-run by default, `--apply` to write).
+- Dry run: examined 15,274 rows, selected exactly 10, all 10 currently hidden from readers.
+- Backup target before apply:
+  `eshia-research/eshia_research.before-noncanonical-hash-repair.20260717-094508.db`
+- Backup completed at `2,311,577,600` bytes with SHA-256
+  `FF605EEE2CCE43EA442F1A9D4D924CDE3D857CE2BC55DCE4A010DDC60ECD2412`.
+
+### Applied by Claude on 2026-07-17
+
+- Re-pinned exactly the 10 rows. Public Al-Kafi English coverage
+  `15,180 / 15,336` -> `15,190 / 15,336` (`99.0480%`); missing `156` -> `146`.
+- Proved a no-op on content by diffing every row against the backup:
+  `matn_raw`, `isnad_raw`, `full_text_raw`, `review_status`, `matn_translation`,
+  `full_translation`, `status`, `risk_level`, and `risk_flags` all changed on `0` rows.
+  Only `source_*_sha256` changed, on exactly the 10 expected `public_id`s.
+- Idempotent: rerunning the dry run now selects `0` non-canonical rows and still
+  reports the same `4` genuinely drifted rows, untouched.
+- Integrity: `PRAGMA quick_check` = `ok`; `PRAGMA foreign_key_check` = `0` violations.
+- Live API confirms `alkafi-934`, `alkafi-1073`, `alkafi-4295`, and `alkafi-14751` now
+  serve `status=published`, `provider=thaqalayn-api`, translator `Muhammad Sarwar`.
+  `alkafi-11096` (genuine drift) correctly still returns `translation: null` — the gate
+  still fails closed.
+- Regression test added:
+  `test_source_hashes_are_current_requires_the_canonical_hasher` in
+  `tests/test_translation_pipeline.py`. It pins the same hadith with both hashers and
+  asserts the raw one fails the gate. Full backend suite: `351 passed, 1 warning`.
+
+### Standing caution
+
+Any code writing `source_*_sha256` MUST use `eshia_research.translation.text.sha256_text`.
+Never re-implement it: a local raw `hashlib.sha256` silently agrees on whitespace-clean
+text and diverges only on the minority of rows with irregular whitespace, so the damage
+is invisible in testing and shows up as translations that vanish from the reader. The two
+writer scripts named above still contain the shadowing definition and are left as applied
+audit artifacts — do NOT re-run them without switching them to the canonical hasher.
+
+### Still open from the 2026-07-16 undocumented work
+
+- The `15,335` -> `15,336` visible-count change (one fragment un-rejected during
+  `structural-source-repair`) is still unaudited. Every count in the sections above
+  predates it. Someone should confirm that row is a genuine printed report.
+- `alkafi-11096`, `alkafi-11210`, `alkafi-14040`, `alkafi-15260` carry real source drift
+  (stored hash matches neither convention). They are rejected/red on other grounds, so
+  they are not public, but the drift itself is unexplained.
+
 ## Open Cautions
 
 ### Remaining-88 deep scan correction (Codex, 2026-07-16)
