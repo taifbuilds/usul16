@@ -2136,6 +2136,93 @@ audit artifacts — do NOT re-run them without switching them to the canonical h
   (stored hash matches neither convention). They are rejected/red on other grounds, so
   they are not public, but the drift itself is unexplained.
 
+## Global-match translation recovery (Claude, 2026-07-17)
+
+User direction: match thaqalayn.net, which shows an English translation for every report.
+
+### The windowed matcher was hiding real matches
+
+`_match_volume` scans only a bounded window (`WINDOW_BACK`/`WINDOW_FORWARD`) around a
+running cursor. Where the editions diverge enough that a report's counterpart sits far
+outside that window, it is never scored. The `no_reliable_alignment: 62` verdict in
+`alkafi_post_deep_scan_queue_20260716.json` was therefore substantially an artefact of
+HOW WE SEARCHED, not evidence the translation was absent.
+
+An unbounded search of all 15,385 ThaqalaynData rows against the 146 untranslated reports
+found 70 with a >=0.88 match, 44 of them >=0.95. Do not trust the old "no reliable
+alignment" label without re-running an unbounded search.
+
+### What thaqalayn.net actually has (measured, not assumed)
+
+- 15,385 rows, `0` with no English at all. Their 100% is real.
+- Muhammad Sarwar covers only `14,175 / 15,385` (`92.14%`). They reach 100% via HubeAli.
+- Volume 7 Sarwar is `890 / 1,734` (`51.33%`) -- the real Sarwar gap.
+- **Volume 8 `en_sarwar` is contaminated**: `457 / 597` (`76.55%`) of its "Sarwar" rows
+  carry HubeAli-style `(azwj)/(saww)/(asws)` markers, against `0.00%` in volumes 1-7.
+  That field is not Sarwar. This confirms the earlier "no verified Sarwar volume 8"
+  finding — do not import volume-8 `en_sarwar` as Sarwar.
+
+### Identity contract (guards against the containment trap)
+
+Word coverage is asymmetric: a long remote report that merely CONTAINS a short local matn
+scores 1.0 forward while being a different report. Required, all four:
+
+- forward coverage >= 0.88, reverse coverage >= 0.50, length ratio in [0.30, 1.30]
+- same volume, no remote row used twice, no remote row owned by another local report
+
+This rejected 10 of the 70, including `alkafi-14752` (600 local words vs 4,026 remote,
+fwd 0.97 / rev 0.15) and `alkafi-14755` (549 vs 3,348). Publishing those would have
+attached a multi-thousand-word translation to a much smaller report.
+
+### Planned DB edit recorded before applying
+
+- Scope: import English for 60 verified Al-Kafi reports via
+  `import_thaqalayn_al_kafi(matches=...)`, a new seam that accepts externally established
+  pairings and still applies every existing QA, publishability, hashing and provenance
+  rule. Hashes go through the canonical `sha256_text`.
+- Translator mix: Muhammad Sarwar `9`, HubeAli `51`. This knowingly relaxes the
+  2026-07-15 Sarwar-only instruction, on explicit user direction to match thaqalayn.net,
+  which itself serves HubeAli for these reports. Attribution stays per-row and visible.
+- Of the 60, QA passes `35` and blocks `25` (`number_mismatch`, `missing_placeholder`,
+  `translation_too_long/short`). The 25 are NOT overridden: that is the same flag bucket
+  the 2026-07-16 broad normalization tried to clear and then rolled back after finding it
+  mixes apparatus differences with genuine overmerges. Only the 35 publish.
+- Scripts: `scratch_audit/import_globally_matched_thaqalayn_rows.py` (identity contract +
+  import), dry-run by default.
+- Backup target before apply:
+  `eshia-research/eshia_research.before-global-match-import.20260717-100233.db`
+- Backup completed at `2,311,577,600` bytes with SHA-256
+  `31969A0A7BE5E24D1BE22C6F068B12BAB2B0AB438482E70FFB3695C9AE0B5B2B`.
+
+### Applied by Claude on 2026-07-17
+
+- Imported `35`; QA skipped `25`; `0` errors; `0` skipped as low-confidence or existing.
+- Public Al-Kafi English coverage `15,190 / 15,336` -> `15,225 / 15,336` (`99.2762%`).
+  Untranslated `146` -> `111`.
+- Integrity: `PRAGMA quick_check` = `ok`; `PRAGMA foreign_key_check` = `0`.
+- Backend suite `351 passed, 1 warning`. Live API + reader verified for `alkafi-11096`,
+  `alkafi-11141`, `alkafi-11142`: `published`, `provider=thaqalayn-data`, translator
+  `HubeAli` rendered on the page, no mojibake.
+- The 10 rows in the earlier `STALE SOURCE HASH` class are gone; that bucket is now empty.
+
+### The remaining 111, and why 15,336 is not reachable from this source
+
+- `61` have no translation row at all -- their best global candidate scores below the
+  identity contract, mostly `<0.60`. There is no Thaqalayn entry that IS these reports.
+- `28` rejected misnumbered Sarwar scans, `9` AI-marker quarantined, `8` project-authored
+  and cleared, `3` stale+rejected, `2` planned/unscored.
+- The blocker is edition divergence, not translator availability and not effort. The local
+  eShia edition and Thaqalayn's edition split reports differently; this is the same
+  15,335-vs-16,199 counting divergence the methodology page documents. Closing the last
+  111 by attaching each report's nearest candidate would publish translations of text that
+  is not the report displayed, which the product's source-verifiability forbids. If the
+  gap must close, it needs a human adjudicating each report against the print editions --
+  a research task, not a matching threshold.
+- Re-running an unbounded search will NOT find more: it has already been run against all
+  15,385 rows. The next honest gain is hand-review of the `25` QA-blocked rows above
+  (mostly `number_mismatch`/`missing_placeholder`, which may be apparatus differences
+  rather than misalignments) and the 17 scoring 0.80-0.88.
+
 ## Open Cautions
 
 ### Remaining-88 deep scan correction (Codex, 2026-07-16)

@@ -654,14 +654,42 @@ def import_thaqalayn_al_kafi(
     min_score: float = MIN_MATCH_SCORE,
     job_key: str = JOB_KEY,
     replace_providers: set[str] | None = None,
+    matches: list[TranslationMatch] | None = None,
 ) -> ImportStats:
-    remote_by_volume = remote_by_volume if remote_by_volume is not None else fetch_al_kafi_records()
-    matches, stats = build_matches(
-        db,
-        source_book_id=source_book_id,
-        remote_by_volume=remote_by_volume,
-        min_score=min_score,
-    )
+    """Import Thaqalayn English into local Al-Kafi reports.
+
+    ``matches`` lets a caller supply pairings established by another method and
+    reuse this function's QA, publishability, hashing and provenance rules
+    unchanged.  ``_match_volume`` only ever compares a bounded window of remote
+    rows, so a counterpart sitting far from the running cursor is never scored;
+    a caller that has identified such a pair by an unbounded, symmetric search
+    passes it here rather than re-implementing the write path.  Supplied
+    matches still face every publishability and QA gate below.
+    """
+
+    if matches is not None:
+        stats = ImportStats(
+            fetched=sum(len(rows) for rows in (remote_by_volume or {}).values()),
+            local_hadiths=len(matches),
+            matched=len(matches),
+        )
+        for match in matches:
+            stats.by_volume.setdefault(
+                match.volume,
+                {"local": 0, "remote": 0, "matched": 0, "unmatched_local": 0, "unmatched_remote": 0},
+            )
+            stats.by_volume[match.volume]["matched"] += 1
+        stats.sample_matches = matches[:10]
+    else:
+        remote_by_volume = (
+            remote_by_volume if remote_by_volume is not None else fetch_al_kafi_records()
+        )
+        matches, stats = build_matches(
+            db,
+            source_book_id=source_book_id,
+            remote_by_volume=remote_by_volume,
+            min_score=min_score,
+        )
     if dry_run:
         stats.skipped_qa = len([match for match in matches if not match.publishable])
         stats.skipped_low_confidence = len([match for match in matches if match.score < min_score])
