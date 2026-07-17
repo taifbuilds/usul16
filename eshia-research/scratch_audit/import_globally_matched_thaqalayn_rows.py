@@ -124,9 +124,26 @@ def main() -> int:
             fwd = coverage(ours, Counter(theirs))
             rev = coverage(theirs, Counter(ours))
             ratio = (len(ours) / len(theirs)) if theirs else 0.0
-            if not (fwd >= FWD_MIN and rev >= REV_MIN and RATIO_LO <= ratio <= RATIO_HI):
+
+            if entry.get("evidence") == "anchor_bijection":
+                # Identity here rests on POSITION, not on the similarity score:
+                # the report sits between two anchors whose counterparts are
+                # verified, and exactly one unclaimed remote row lies between
+                # them, so identity follows by elimination. Text agreement is
+                # corroboration. Word-level coverage understates short reports
+                # badly -- trailing punctuation and honorific formatting are
+                # whole tokens -- so the textual bar is lower here, while the
+                # extent bar stays tight because a ratio far from 1 means the
+                # editions split the report differently.
+                fwd_min, rev_min, lo, hi = 0.60, 0.60, 0.70, 1.40
+                contract = "anchor_bijection"
+            else:
+                fwd_min, rev_min, lo, hi = FWD_MIN, REV_MIN, RATIO_LO, RATIO_HI
+                contract = "global_symmetric"
+
+            if not (fwd >= fwd_min and rev >= rev_min and lo <= ratio <= hi):
                 rejected.append(
-                    (public_id, f"identity contract failed fwd={fwd:.2f} rev={rev:.2f} ratio={ratio:.2f}")
+                    (public_id, f"{contract} contract failed fwd={fwd:.2f} rev={rev:.2f} ratio={ratio:.2f}")
                 )
                 continue
 
@@ -139,7 +156,7 @@ def main() -> int:
                 local_matn_words=match_words(hadith.matn_raw),
                 remote=record,
             )
-            if score < MIN_MATCH_SCORE:
+            if contract != "anchor_bijection" and score < MIN_MATCH_SCORE:
                 rejected.append((public_id, f"importer score {score:.3f} < {MIN_MATCH_SCORE}"))
                 continue
 
@@ -159,7 +176,10 @@ def main() -> int:
                     model=record.model,
                     source_name=record.source_name,
                     translator=record.translator,
-                    matcher_version="global_symmetric_match_v1",
+                    matcher_version=(
+                        "anchor_bijection_v1" if contract == "anchor_bijection"
+                        else "global_symmetric_match_v1"
+                    ),
                     qa_risk_level=qa.risk_level,
                     qa_flags=[flag.__dict__ for flag in qa.flags],
                 )

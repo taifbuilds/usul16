@@ -2279,6 +2279,56 @@ effort. The remaining honest work is human adjudication per report against the p
 editions, plus review of the `25` QA-blocked rows — noting the number-check blind spot
 above means those flags must be re-judged by eye, not cleared in bulk.
 
+## Anchor-bijection recovery (Claude, 2026-07-17)
+
+User idea, and it was the right one: stop matching each report as an isolated string and
+use POSITION the way a reader would. If a report sits between two reports whose Thaqalayn
+counterparts are verified, its counterpart must lie between those two — and if exactly one
+unclaimed remote row sits in that span, identity follows by ELIMINATION. This is the
+"one-to-one gaps bounded by direct Arabic anchors" method the 2026-07-16 session already
+permitted. It is NOT number-joining: anchors are verified Arabic matches and only a strict
+1:1 gap counts.
+
+Result: `16` bijections out of the 109 then-missing; `10` passed text corroboration;
+`6` correctly rejected as edition split/merge; `5` published after QA.
+
+### Why the similarity scores were misleading
+
+Eyeballing the candidates showed our Arabic and Thaqalayn's are often IDENTICAL apart from
+a trailing space or honorific formatting (`ع` vs `( عليه السلام )`). Word-level coverage
+counts those as whole tokens, which crushes the score on 4-6 word reports — `alkafi-11160`
+scored 0.80 on two strings that differ only by a trailing period. Low similarity on SHORT
+reports is a tokenizer artefact, not disagreement. The anchor-bijection contract therefore
+lowers the textual bar (fwd/rev >= 0.60) while KEEPING the extent bar tight (ratio
+0.70-1.40), because a ratio far from 1 is the real signal that the editions split the
+report differently.
+
+Data issue found, not a translation gap: `alkafi-14406`'s matn has the printed colophon
+(`هَذَا آخِرُ كِتَابِ الدِّيَاتِ ...`) glued onto the hadith text. That is editorial apparatus
+and should not be in `matn_raw`. Worth a targeted look for other end-of-kitab rows.
+
+### Applied by Claude on 2026-07-17
+
+- Backup: `eshia-research/eshia_research.before-anchor-bijection.20260717-111805.db`
+  (`2,311,577,600` bytes).
+- Imported `5` (all HubeAli); `2` QA-blocked; `3` below the importer's confidence floor.
+- Coverage `15,227 / 15,336` -> `15,232 / 15,336` (`99.3219%`). Untranslated `109` -> `104`.
+- `quick_check` ok, `0` fk violations, suite `351 passed`, live reader verified.
+- Manifest: `scratch_audit/alkafi_anchor_bijection_manifest_20260717.json`.
+
+### Where the remaining 104 stand
+
+`80` sit in gaps that are NOT 1:1 (several local reports against several remote rows), and
+`13` have no bounding anchors. Both are consequences of only `1,774` reports being
+anchorable: only `thaqalayn-data` rows carry a `/books/al-kafi:` provenance path, and the
+~13k `thaqalayn-api` rows do not. Recovering their remote row by exact normalised Arabic
+added just `1` anchor, because the two editions' Arabic is not byte-identical.
+
+**The highest-value next step** is fuzzy-anchoring those ~13k API rows to their static
+counterparts. Every extra anchor narrows the surrounding gaps, and many of the 80 would
+collapse into 1:1 bijections. That is the honest route to most of the remaining 104 —
+better than loosening any threshold.
+
 ## Open Cautions
 
 ### Remaining-88 deep scan correction (Codex, 2026-07-16)
