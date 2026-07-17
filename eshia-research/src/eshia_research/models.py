@@ -1,6 +1,6 @@
 import datetime as dt
 
-from sqlalchemy import JSON, DateTime, ForeignKey, Integer, String, Text, UniqueConstraint
+from sqlalchemy import Boolean, Float, JSON, DateTime, ForeignKey, Integer, String, Text, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from eshia_research.db import Base
@@ -802,6 +802,273 @@ class PersonResolutionExternalReview(Base):
     decision: Mapped["PersonResolutionDecision | None"] = relationship()
     chain_node: Mapped["ChainNode"] = relationship()
     matched_person: Mapped["Person | None"] = relationship()
+
+
+class HadithTranslation(Base):
+    """A versioned translation of one hadith with source hashes and QA status.
+
+    Arabic remains authoritative. A translation row is publishable only while
+    its stored source hashes still match the current hadith text.
+    """
+
+    __tablename__ = "hadith_translations"
+    __table_args__ = (
+        UniqueConstraint(
+            "hadith_id",
+            "language",
+            "translation_version",
+            name="uq_hadith_translation_version",
+        ),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    hadith_id: Mapped[int] = mapped_column(ForeignKey("hadiths.id"), index=True)
+    language: Mapped[str] = mapped_column(String(16), default="en", index=True)
+    translation_version: Mapped[str] = mapped_column(String(32), default="matn_en_v1", index=True)
+    source_full_sha256: Mapped[str] = mapped_column(String(64), index=True)
+    source_isnad_sha256: Mapped[str | None] = mapped_column(String(64), nullable=True, index=True)
+    source_matn_sha256: Mapped[str] = mapped_column(String(64), index=True)
+    rendered_isnad_en: Mapped[str | None] = mapped_column(Text, nullable=True)
+    matn_translation: Mapped[str | None] = mapped_column(Text, nullable=True)
+    full_translation: Mapped[str | None] = mapped_column(Text, nullable=True)
+    # planned | draft | machine_verified | human_reviewed | published | stale | rejected
+    status: Mapped[str] = mapped_column(String(32), default="planned", index=True)
+    # unscored | green | amber | red
+    risk_level: Mapped[str] = mapped_column(String(32), default="unscored", index=True)
+    risk_flags: Mapped[list | None] = mapped_column(JSON, nullable=True)
+    provider: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    model: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    prompt_version: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    glossary_version: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    qa_version: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    input_tokens: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    output_tokens: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    cost_estimate_usd: Mapped[float | None] = mapped_column(Float, nullable=True)
+    provenance_json: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    updated_at: Mapped[dt.datetime] = mapped_column(
+        DateTime(timezone=True), default=utcnow, onupdate=utcnow
+    )
+
+    hadith: Mapped["Hadith"] = relationship()
+    segments: Mapped[list["TranslationSegment"]] = relationship(
+        back_populates="translation", cascade="all, delete-orphan"
+    )
+
+
+class TranslationSegment(Base):
+    """A separately translatable source segment.
+
+    The first production path is one matn segment for most hadiths and split
+    matn segments for very long reports. Isnads are rendered deterministically
+    and are not sent through this table unless a complex chain needs review.
+    """
+
+    __tablename__ = "translation_segments"
+    __table_args__ = (
+        UniqueConstraint(
+            "hadith_id",
+            "language",
+            "translation_version",
+            "segment_kind",
+            "segment_index",
+            "source_sha256",
+            name="uq_translation_segment_source",
+        ),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    hadith_id: Mapped[int] = mapped_column(ForeignKey("hadiths.id"), index=True)
+    translation_id: Mapped[int | None] = mapped_column(
+        ForeignKey("hadith_translations.id"), nullable=True, index=True
+    )
+    language: Mapped[str] = mapped_column(String(16), default="en", index=True)
+    translation_version: Mapped[str] = mapped_column(String(32), default="matn_en_v1", index=True)
+    # matn | isnad_complex | footnote | quran_quote
+    segment_kind: Mapped[str] = mapped_column(String(32), index=True)
+    segment_index: Mapped[int] = mapped_column(Integer, default=0)
+    source_text: Mapped[str] = mapped_column(Text)
+    source_sha256: Mapped[str] = mapped_column(String(64), index=True)
+    translation_text: Mapped[str | None] = mapped_column(Text, nullable=True)
+    # planned | translated | qa_failed | machine_verified | human_reviewed | published | stale
+    status: Mapped[str] = mapped_column(String(32), default="planned", index=True)
+    risk_level: Mapped[str] = mapped_column(String(32), default="unscored", index=True)
+    risk_flags: Mapped[list | None] = mapped_column(JSON, nullable=True)
+    metadata_json: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    updated_at: Mapped[dt.datetime] = mapped_column(
+        DateTime(timezone=True), default=utcnow, onupdate=utcnow
+    )
+
+    hadith: Mapped["Hadith"] = relationship()
+    translation: Mapped["HadithTranslation | None"] = relationship(back_populates="segments")
+
+
+class TranslationGlossary(Base):
+    """Versioned Arabic -> English terminology policy for translation prompts."""
+
+    __tablename__ = "translation_glossary"
+    __table_args__ = (
+        UniqueConstraint("term_norm", "language", "version", name="uq_translation_glossary_term"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    term_ar: Mapped[str] = mapped_column(String(512))
+    term_norm: Mapped[str] = mapped_column(String(512), index=True)
+    language: Mapped[str] = mapped_column(String(16), default="en", index=True)
+    term_en: Mapped[str] = mapped_column(String(512))
+    # technical | narrator_title | formula | quran | legal | theological
+    term_type: Mapped[str] = mapped_column(String(32), default="technical", index=True)
+    # preferred | preserve_arabic | avoid | reviewer_note
+    policy: Mapped[str] = mapped_column(String(32), default="preferred", index=True)
+    notes: Mapped[str | None] = mapped_column(Text, nullable=True)
+    version: Mapped[str] = mapped_column(String(64), default="core_en_v1", index=True)
+    active: Mapped[bool] = mapped_column(Boolean, default=True, index=True)
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    updated_at: Mapped[dt.datetime] = mapped_column(
+        DateTime(timezone=True), default=utcnow, onupdate=utcnow
+    )
+
+
+class TranslationMemory(Base):
+    """Approved source/translation pairs reused before making new model calls."""
+
+    __tablename__ = "translation_memory"
+    __table_args__ = (
+        UniqueConstraint("language", "source_sha256", name="uq_translation_memory_source"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    language: Mapped[str] = mapped_column(String(16), default="en", index=True)
+    source_sha256: Mapped[str] = mapped_column(String(64), index=True)
+    source_text: Mapped[str] = mapped_column(Text)
+    source_norm: Mapped[str] = mapped_column(Text)
+    translation_text: Mapped[str] = mapped_column(Text)
+    source_hadith_id: Mapped[int | None] = mapped_column(
+        ForeignKey("hadiths.id"), nullable=True, index=True
+    )
+    # machine_verified | human_reviewed | published
+    status: Mapped[str] = mapped_column(String(32), default="machine_verified", index=True)
+    reviewer: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    usage_count: Mapped[int] = mapped_column(Integer, default=0)
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    updated_at: Mapped[dt.datetime] = mapped_column(
+        DateTime(timezone=True), default=utcnow, onupdate=utcnow
+    )
+
+    source_hadith: Mapped["Hadith | None"] = relationship()
+
+
+class TranslationJob(Base):
+    """A resumable, auditable translation batch plan."""
+
+    __tablename__ = "translation_jobs"
+    __table_args__ = (UniqueConstraint("job_key", name="uq_translation_job_key"),)
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    job_key: Mapped[str] = mapped_column(String(128), index=True)
+    source_book_id: Mapped[str] = mapped_column(String(64), index=True)
+    language: Mapped[str] = mapped_column(String(16), default="en", index=True)
+    # planned | running | completed | failed | cancelled
+    status: Mapped[str] = mapped_column(String(32), default="planned", index=True)
+    provider: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    model: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    prompt_version: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    glossary_version: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    scope_json: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    batch_policy_json: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    hadith_count: Mapped[int] = mapped_column(Integer, default=0)
+    segment_count: Mapped[int] = mapped_column(Integer, default=0)
+    input_chars: Mapped[int] = mapped_column(Integer, default=0)
+    estimated_input_tokens: Mapped[int] = mapped_column(Integer, default=0)
+    estimated_output_tokens: Mapped[int] = mapped_column(Integer, default=0)
+    estimated_cost_usd: Mapped[float | None] = mapped_column(Float, nullable=True)
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    updated_at: Mapped[dt.datetime] = mapped_column(
+        DateTime(timezone=True), default=utcnow, onupdate=utcnow
+    )
+    started_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    completed_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+    items: Mapped[list["TranslationJobItem"]] = relationship(
+        back_populates="job", cascade="all, delete-orphan"
+    )
+
+
+class TranslationJobItem(Base):
+    """One hadith/segment scheduled inside a translation job."""
+
+    __tablename__ = "translation_job_items"
+    __table_args__ = (
+        UniqueConstraint("job_id", "item_index", name="uq_translation_job_item_index"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    job_id: Mapped[int] = mapped_column(ForeignKey("translation_jobs.id"), index=True)
+    hadith_id: Mapped[int] = mapped_column(ForeignKey("hadiths.id"), index=True)
+    segment_id: Mapped[int | None] = mapped_column(
+        ForeignKey("translation_segments.id"), nullable=True, index=True
+    )
+    item_index: Mapped[int] = mapped_column(Integer)
+    source_sha256: Mapped[str] = mapped_column(String(64), index=True)
+    # planned | translated | qa_failed | verified | skipped | failed
+    status: Mapped[str] = mapped_column(String(32), default="planned", index=True)
+    risk_level: Mapped[str] = mapped_column(String(32), default="unscored", index=True)
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    updated_at: Mapped[dt.datetime] = mapped_column(
+        DateTime(timezone=True), default=utcnow, onupdate=utcnow
+    )
+
+    job: Mapped["TranslationJob"] = relationship(back_populates="items")
+    hadith: Mapped["Hadith"] = relationship()
+    segment: Mapped["TranslationSegment | None"] = relationship()
+
+
+class TranslationAttempt(Base):
+    """One provider call or imported result attempt for a translation job."""
+
+    __tablename__ = "translation_attempts"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    job_id: Mapped[int] = mapped_column(ForeignKey("translation_jobs.id"), index=True)
+    item_id: Mapped[int | None] = mapped_column(
+        ForeignKey("translation_job_items.id"), nullable=True, index=True
+    )
+    provider: Mapped[str] = mapped_column(String(64))
+    model: Mapped[str] = mapped_column(String(128))
+    status: Mapped[str] = mapped_column(String(32), default="pending", index=True)
+    request_json: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    response_json: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    error_text: Mapped[str | None] = mapped_column(Text, nullable=True)
+    input_tokens: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    output_tokens: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    cost_estimate_usd: Mapped[float | None] = mapped_column(Float, nullable=True)
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+    job: Mapped["TranslationJob"] = relationship()
+    item: Mapped["TranslationJobItem | None"] = relationship()
+
+
+class TranslationReview(Base):
+    """Human or machine review decision for a translation or segment."""
+
+    __tablename__ = "translation_reviews"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    translation_id: Mapped[int] = mapped_column(ForeignKey("hadith_translations.id"), index=True)
+    segment_id: Mapped[int | None] = mapped_column(
+        ForeignKey("translation_segments.id"), nullable=True, index=True
+    )
+    reviewer: Mapped[str] = mapped_column(String(128), index=True)
+    # approve | request_changes | reject | flag_source_issue
+    decision_type: Mapped[str] = mapped_column(String(64), index=True)
+    severity: Mapped[str] = mapped_column(String(32), default="info", index=True)
+    notes: Mapped[str | None] = mapped_column(Text, nullable=True)
+    qa_flags_json: Mapped[list | None] = mapped_column(JSON, nullable=True)
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+    translation: Mapped["HadithTranslation"] = relationship()
+    segment: Mapped["TranslationSegment | None"] = relationship()
 
 
 class CrawlLog(Base):

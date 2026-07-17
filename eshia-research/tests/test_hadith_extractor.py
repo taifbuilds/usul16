@@ -61,6 +61,103 @@ def test_parse_page_text_detects_printed_hadith_numbers():
     assert "متن أول" in hadiths[0].text
 
 
+def test_parse_page_text_restores_number_after_flattened_page_number():
+    units = parse_page_text(
+        "2- عدة من أصحابنا عن أحمد قال: متن. "
+        "65 3- علي بن إبراهيم عن أبيه قال: متن آخر."
+    )
+
+    hadiths = [unit for unit in units if unit.kind == "hadith"]
+
+    assert [unit.number for unit in hadiths] == ["٢", "٣"]
+    assert not hadiths[1].text.startswith("65")
+
+
+def test_parse_page_text_discards_outer_number_before_real_marker():
+    units = parse_page_text(
+        "8- عدة من أصحابنا عن أحمد قال: متن. "
+        "15- 9- محمد بن يحيى عن أحمد قال: التالي."
+    )
+
+    hadiths = [unit for unit in units if unit.kind == "hadith"]
+
+    assert [unit.number for unit in hadiths] == ["٨", "٩"]
+    assert not hadiths[1].text.startswith("9-")
+
+
+def test_parse_page_text_detects_numbered_variant_without_dash():
+    units = parse_page_text(
+        "5- علي عن أبيه قال: متن. "
+        "6 ورواه- عن زرارة قال: متن ثان."
+    )
+
+    hadiths = [unit for unit in units if unit.kind == "hadith"]
+
+    assert [unit.number for unit in hadiths] == ["٥", "٦"]
+    assert hadiths[1].text.startswith("ورواه")
+
+
+def test_parse_page_text_detects_numbered_fi_riwaya_without_dash():
+    units = parse_page_text(
+        "1- عدة من أصحابنا عن أحمد قال: متن. "
+        "2 و في رواية- عبد الأعلى عن أبي عبد الله قال: متن ثان."
+    )
+
+    hadiths = [unit for unit in units if unit.kind == "hadith"]
+
+    assert [unit.number for unit in hadiths] == ["١", "٢"]
+    assert hadiths[1].text.startswith("و في رواية")
+
+
+def test_citation_page_before_fi_riwaya_is_not_a_hadith_boundary():
+    units = parse_page_text(
+        "1- محمد بن يحيى عن أحمد قال: متن[2].\n"
+        "[2] المحاسن ص 414 في رواية أخرى عن عبد الرحمن قال: شرح النسخة."
+    )
+
+    assert [unit.number for unit in units if unit.kind == "hadith"] == ["١"]
+
+
+def test_parse_page_text_keeps_numbered_editorial_note_out_of_hadiths():
+    units, parser = parse_page_state(
+        "1- علي عن أبيه قال: متن[2].\n"
+        "[2] الحج: 28. قوله: شرح الآية."
+    )
+
+    assert [unit.number for unit in units if unit.kind == "hadith"] == ["١"]
+    assert any(unit.kind == "footnote" for unit in units)
+    assert parser.saw_hadith is True
+
+
+def test_multiline_trailing_footnote_does_not_close_cross_page_hadith():
+    units, _parser = parse_page_state(
+        "1- علي عن أبيه قال: متن ينتهي في الصفحة التالية[2].\n"
+        "[2] قوله: شرح أول.\n"
+        "وتتمة الشرح في السطر التالي."
+    )
+
+    assert [unit.kind for unit in units] == ["hadith", "footnote"]
+    assert "وتتمة الشرح" in units[1].text
+    last_main = next(unit for unit in reversed(units) if unit.kind != "footnote")
+    assert last_main.kind == "hadith"
+
+
+def test_bare_dotted_footnote_marker_does_not_prefix_next_hadith_number():
+    units = parse_page_text(
+        "564- علي عن أبيه قال: متن طويل[3].\n"
+        "[3].\n"
+        "565- أبان عن أبي بصير عن أبي عبد الله قال: متن تال."
+    )
+
+    assert [unit.number for unit in units if unit.kind == "hadith"] == ["٥٦٤", "٥٦٥"]
+
+
+def test_small_bracketed_footnote_marker_is_not_outer_large_hadith_serial():
+    units = parse_page_text("[3] 565- أبان عن أبي بصير عن أبي عبد الله قال: متن.")
+
+    assert [unit.number for unit in units if unit.kind == "hadith"] == ["٥٦٥"]
+
+
 def test_parse_page_text_does_not_index_numbered_bab_heading_as_hadith():
     units = parse_page_text(
         "١ ـ باب الاحداث الموجبة للطهارة\n"
@@ -70,6 +167,17 @@ def test_parse_page_text_does_not_index_numbered_bab_heading_as_hadith():
 
     assert units[0].kind == "heading"
     assert [unit.number for unit in units if unit.kind == "hadith"] == ["١"]
+
+
+def test_parse_page_text_treats_standalone_hadith_title_as_heading():
+    units = parse_page_text(
+        "منكم ثم قال تتمة الحديث السابق.\n"
+        "حَدِيثُ قَوْمِ صَالِحٍ ع\n"
+        "213- علي بن إبراهيم عن أبيه قال: متن جديد."
+    )
+
+    assert [unit.kind for unit in units] == ["continuation", "heading", "hadith"]
+    assert units[1].text == "حَدِيثُ قَوْمِ صَالِحٍ ع"
 
 
 def test_parse_page_text_does_not_index_reference_list_as_hadith():
@@ -146,6 +254,18 @@ def test_split_isnad_matn_handles_terminal_fi_report():
 
     assert isnad == "محمد بن يعقوب عن علي عن أبيه عن حريز عن زرارة عن أبي جعفر وأبي عبد الله عليهما السلام"
     assert matn.startswith("في الشاة")
+
+
+def test_split_isnad_matn_handles_vocalised_fi_after_imam_marker():
+    isnad, matn = split_isnad_matn(
+        "\u0623\u064e\u0628\u064f\u0648 \u0639\u064e\u0644\u0650\u064a\u0651\u064d \u0627\u0644\u0652\u0623\u064e\u0634\u0652\u0639\u064e\u0631\u0650\u064a\u0651\u064f \u0639\u064e\u0646\u0652 \u0645\u064f\u062d\u064e\u0645\u0651\u064e\u062f\u0650 \u0628\u0652\u0646\u0650 \u0639\u064e\u0628\u0652\u062f\u0650 \u0627\u0644\u0652\u062c\u064e\u0628\u0651\u064e\u0627\u0631\u0650 "
+        "\u0639\u064e\u0646\u0652 \u0635\u064e\u0641\u0652\u0648\u064e\u0627\u0646\u064e \u0628\u0652\u0646\u0650 \u064a\u064e\u062d\u0652\u064a\u064e\u0649 \u0639\u064e\u0646\u0652 \u0639\u0650\u064a\u0635\u0650 \u0628\u0652\u0646\u0650 \u0627\u0644\u0652\u0642\u064e\u0627\u0633\u0650\u0645\u0650 "
+        "\u0639\u064e\u0646\u0652 \u0623\u064e\u0628\u0650\u064a \u0639\u064e\u0628\u0652\u062f\u0650 \u0627\u0644\u0644\u0651\u064e\u0647\u0650 \u0639 \u0641\u0650\u064a \u0627\u0644\u0652\u0647\u064e\u0631\u0650\u0645\u0650 \u0627\u0644\u0651\u064e\u0630\u0650\u064a \u0648\u064e\u0642\u064e\u0639\u064e\u062a\u0652 \u062b\u064e\u0646\u064e\u0627\u064a\u064e\u0627\u0647\u064f."
+    )
+
+    assert isnad is not None
+    assert isnad.endswith("\u0623\u064e\u0628\u0650\u064a \u0639\u064e\u0628\u0652\u062f\u0650 \u0627\u0644\u0644\u0651\u064e\u0647\u0650 \u0639")
+    assert matn.startswith("\u0641\u0650\u064a \u0627\u0644\u0652\u0647\u064e\u0631\u0650\u0645\u0650")
 
 
 def test_split_isnad_matn_does_not_split_deep_matn_an_as_chain():

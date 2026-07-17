@@ -1,0 +1,1505 @@
+[
+  {
+    "public_id": "alkafi-1",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 1,
+    "best_id": 2,
+    "best_score": 0.9433962264150944,
+    "second_id": 27,
+    "second_score": 0.625,
+    "margin": 0.31839622641509435,
+    "url": "https://thaqalayn.net/hadith/1/1/0/1",
+    "english": "“When Allah (swt) created the intellect (al-'Aql) He made it speak and said to it, ‘Come forward', so it came forward. He then said, 'Go back' and it went back. Then Allah said, 'I swear by My Honor and Glory that I have not created any creation more beloved to Me than you. I will not perfect you in anyone except those whom I love. I will command you [to obey me] and prohibit you [from disobeying me] and I will punish you [for disobeying me] and I will reward you [for obeying me].",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/1",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['2', '3'] do not match translation numbers []."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 2, 3."
+      }
+    ],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-2",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 2,
+    "best_id": 3,
+    "best_score": 0.88,
+    "second_id": 13,
+    "second_score": 0.4594594594594595,
+    "margin": 0.4205405405405405,
+    "url": "https://thaqalayn.net/hadith/1/1/0/2",
+    "english": "“Once Jibril came to Adam (as) and said, ‘I am ordered to offer you three choices. You may choose one and leave the other two. Adam then asked, “What are those three things?” Jibril replied, ‘They are intelligence, modesty and religion.’ Adam then said, “I choose Intelligence.” Jibril then asked modesty and religion to return and leave Intelligence with Adam. They said to Jibril, ‘O Jibril, we are commanded to be with Intelligence wherever it may exist. Jibril then said, “It then is up to you.” He then ascended to the heavens.",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/2",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['1'] do not match translation numbers []."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 1."
+      }
+    ],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-3",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 3,
+    "best_id": 4,
+    "best_score": 0.9117647058823529,
+    "second_id": 215,
+    "second_score": 0.6176470588235294,
+    "margin": 0.2941176470588235,
+    "url": "https://thaqalayn.net/hadith/1/1/0/3",
+    "english": "Abu 'Abdillah (al-Sadiq) (as) was asked, 'What is intellect (al-'Aql)?'. He said, ‘It is what someone worships ar-Rahman with and attains paradise.’ I then asked, 'What was the thing within Mu'awiya?'. He replied, ‘That was heinousness, that was devilry and it is similar to the intellect but it is not intellect.’",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/3",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['2', '3'] do not match translation numbers []."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 2, 3."
+      }
+    ],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-4",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 4,
+    "best_id": 5,
+    "best_score": 0.95,
+    "second_id": 1330,
+    "second_score": 0.6,
+    "margin": 0.35,
+    "url": "https://thaqalayn.net/hadith/1/1/0/4",
+    "english": "“The friend of every person is his intellect and his enemy is ignorance.”",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/4",
+    "qa_risk": "green",
+    "qa_flags": [],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-5",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 5,
+    "best_id": 6,
+    "best_score": 0.9615384615384616,
+    "second_id": 934,
+    "second_score": 0.5769230769230769,
+    "margin": 0.3846153846153847,
+    "url": "https://thaqalayn.net/hadith/1/1/0/5",
+    "english": "“I told Abul Hasan (al-Ridha) (as), 'We know of a people who have love [for the Ahlul-bayt] but they do not have much determination [in understanding their imamate], they make such claims.' He then replied, 'They are not of the ones that Allah has admonished. Indeed Allah has said: Take heed, Oh people of vision.'\" (59:2)",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/5",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['4'] do not match translation numbers ['59', '2']."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 4."
+      }
+    ],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-6",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 6,
+    "best_id": 7,
+    "best_score": 1.0,
+    "second_id": 13,
+    "second_score": 0.8181818181818182,
+    "margin": 0.18181818181818177,
+    "url": "https://thaqalayn.net/hadith/1/1/0/6",
+    "english": "“Whoever has intelligence has religion and whoever has religion enters paradise.\"",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/6",
+    "qa_risk": "green",
+    "qa_flags": [],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-7",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 7,
+    "best_id": 8,
+    "best_score": 1.0,
+    "second_id": 521,
+    "second_score": 0.8,
+    "margin": 0.19999999999999996,
+    "url": "https://thaqalayn.net/hadith/1/1/0/7",
+    "english": "“On the Day of Judgment, Allah will hold everyone accountable according to the degree of intelligence He had given them in their worldly life.”",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/7",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['5'] do not match translation numbers []."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 5."
+      }
+    ],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-8",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 8,
+    "best_id": 9,
+    "best_score": 0.9719626168224299,
+    "second_id": 934,
+    "second_score": 0.38317757009345793,
+    "margin": 0.5887850467289719,
+    "url": "https://thaqalayn.net/hadith/1/1/0/8",
+    "english": "\"So-and-so is from his worship, religion, and virtue.\" He said, \"What about his intellect?\" I replied, \"I do not know.\" He said, \"Indeed, the reward is based on the measure of intellect. A man from the Children of Israel used to worship Allah on an island of the sea, green and lush, with plenty of trees and visible water. And an angel from the angels passed by him and said, 'O my Lord, show me the reward of Your servant.' Allah, the Exalted, showed him that. The angel then felt small in comparison and was inspired by Allah to accompany him. So the angel came to him in human form and said to him, 'Who are you?' He replied, 'I am a worshiper. I have heard of your location and your worship in this place, so I have come to worship Allah with you.' He was with him that day. When morning came, the angel said to him, 'Indeed, your place is pure and only suitable for worship.' The worshiper replied, 'This place has a defect.' The angel asked, 'What is it?' He said, 'Our Lord does not have livestock, so if He had a donkey, we would graze it in this location, for this grass would go to waste.' The angel responded, 'What does your Lord have to do with a donkey?' The worshiper said, 'If He had a donkey, this grass would not go to waste.' Allah then revealed to the angel, 'I reward him based on the measure of his intellect.'\"",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/8",
+    "qa_risk": "green",
+    "qa_flags": [],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-9",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 9,
+    "best_id": 10,
+    "best_score": 1.0,
+    "second_id": 430,
+    "second_score": 0.6086956521739131,
+    "margin": 0.3913043478260869,
+    "url": "https://thaqalayn.net/hadith/1/1/0/9",
+    "english": "Rasulullah (sw) said, “If you would hear good things about a man, you should examine how good his intelligence is, because he will be recompensed according to his intelligence.”",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/9",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['1'] do not match translation numbers []."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 1."
+      }
+    ],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-10",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 10,
+    "best_id": 11,
+    "best_score": 0.925,
+    "second_id": 934,
+    "second_score": 0.5806451612903226,
+    "margin": 0.3443548387096774,
+    "url": "https://thaqalayn.net/hadith/1/1/0/10",
+    "english": "“I mentioned to Abu ‘Abdillah (al-Sadiq) (as) a man who was afflicted with doubts in his ablution and prayer (constantly repeating them) and added that he is an intelligent man.” Abu 'Abdillah then said, ‘What kind of intelligence does he have, when he obeys Satan?’. I asked him, 'How is he obeying Satan?'. He replied, 'Ask him about this which he is doing, from which thing is it. He will certainly say to you, “It comes from the work of Satan.”",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/10",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['2', '3'] do not match translation numbers []."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 2, 3."
+      }
+    ],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-11",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 11,
+    "best_id": 12,
+    "best_score": 0.9180327868852459,
+    "second_id": 13,
+    "second_score": 0.5294117647058824,
+    "margin": 0.38862102217936356,
+    "url": "https://thaqalayn.net/hadith/1/1/0/11",
+    "english": "“Allah has not distributed anything among the servants more excellent than intelligence. The sleeping of a person of intelligence is better than the vigil of an ignorant person, and the staying of a person of intelligence (at home) is better than the journeying of an ignorant person. Allah did not send any prophet or messenger before completing his intelligence and letting it become better than the intelligence of all of his nation. Whatever the Prophet (sw) preserves in his soul is better than the struggle of all the striving people. A servant would not fulfill the obligations of Allah until he has an understanding about Him. All the worshippers will not be able to achieve with the virtue of their worships what a person and people of intelligence achieve. They (the people of intelligence) are the people of proper understanding, whom Allah, the most High, mentioned: “Only People of understanding realize this.” [2:269]",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/11",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['1', '2'] do not match translation numbers ['2', '269']."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 1, 2."
+      }
+    ],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-12",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 12,
+    "best_id": 13,
+    "best_score": 0.8234536082474226,
+    "second_id": 521,
+    "second_score": 0.20618556701030927,
+    "margin": 0.6172680412371134,
+    "url": "https://thaqalayn.net/hadith/1/1/0/12",
+    "english": "“Abu al-Hassan Musa ibn Ja’far stated the following to me. ‘O Hisham, Allah has given good news to the people of reason and understanding in His book in the following words, “ Give the good news to those of My servants who hear certain words but follow only the good words. These are the ones whom Allah has given guidance and they are the people of understanding. 39:20 Holy Quran “O Hisham, it is certain that Allah has established complete (legal) authority for people (to refer to) in the form of intelligence, supported the messengers through the (ability) to communicate and has guided them to His own Lordship with proofs. Saying, “Your Lord is the only Lord. There is no God but He, the Beneficent, the Merciful (2:163) “(Of the signs of His existence are the creation of heavens and earth, the alternation of nights and days, the ships that sail in the sea for the benefit of the people. (Also of such signs are) the water that God sends from the sky to revive the dead earth where He has scattered all kinds of animals, the winds of all directions and the clouds that are rendered for service between the sky and the earth. Such are evidence (of His existence) for those who use their intelligence. (2:164) “O Hisham, Allah has mentioned the above facts as proof of His existence and that such facts depend upon the will of one who has designed them saying: “God has made the day and the night, the sun and the moon, and all the stars subservient to you by His command. In this there is evidence of the truth for people of understanding. (16:12) “It is He, Who created you from clay, turning it into a living germ, then into a clot of blood, and then brings you forth as a child. He then made you grow into manhood and become old. He causes some of you to live for the appointed time and some of you to die before so that perhaps you may have understanding (40:67). “In the heavens and the earth there is evidence (of the Truth) for the believers (45:3). In your creation and in that of the beasts living on earth there is evidence of the Truth for the people who have strong faith (45:4). In the alternation of the night and the day, the sustenance which God has sent down from the sky to revive the barren earth, and in the changing of the direction of the winds there is evidence of the truth for the people of understanding (45:5). “Know that God brings the dead earth back to life. We have explained Our revelations to you so that you may perhaps have understanding (57:17). “In the earth there are adjacent pieces of land, vineyards, farms, date-palms of single and many roots which are all watered by the same water. We have made some yield a better food than others. All this is evidence (of the existence of God) for the people who understand. (13:4) “Also, of the evidence of His existence are His showing you lightening which gives you fear and hope and His sending water down from the sky which revives the earth after its death. In this there is evidence (of the truth) for the people of understanding. (30:24) “(Muhammad), say, “Let me tell you about what your Lord has commanded: Do not consider anything equal to God; Be kind to your parents; Do not murder your children out of fear of poverty, for We give sustenance to you and to them. Do not even approach indecency either in public or in private. Take not a life, which God has made sacred except by way of justice and law. Thus does He command you that you may learn wisdom. (6:151) “God has told you this parable about yourselves: Could your slaves share your wealth equally with you and could you fear them as you fear yourselves? Thus, do We clarify the evidence (of the truth) for the people of understanding (30:28). “O Hisham, Allah then has given good advise to the people of intelligence and has encouraged them to become interested in the life to come saying, “The worldly life is but useless amusement and sport (compared to) the life hereafter which is far better and is only for the pious. Will you not then understand? (6:32) “O Hisham, Allah then has given warnings to those who do not think about the punishment that may come upon them from Allah saying, “Then We totally destroyed the others (37:136). You pass by (their ruined town) in the morning and at night (37:137). Will you then not understand? (37:138) “We will bring torment from the sky on this town because of the evil-deeds of its inhabitants” (29:34). We left manifest evidence (of the truth) there for the people of understanding. (29:35) “O Hisham, intelligence comes with knowledge.” Allah has said, “These are parables which, We tell to human beings, but only the learned ones understand them. (29:43) “O Hisham, Allah has then expressed dislike towards those who do not understand in the following words: “When certain people are asked to follow the revelations of God, they say, ‘We would rather follow what our fathers have followed,’ even though their fathers had no understanding and could not find the true guidance (2:170) “Preaching to unbelievers is like talking to someone who cannot hear anything except yells and shouts. They are deaf, dumb, and blind; they have no understanding. (2:171) “Some of them will look at you, but are you supposed to guide the blind even if they have no vision? (10:43) “Do you think that most of them listen and understand? They are like cattle or even more, straying and confused. (25:44) “They will not fight you united except with the protection of fortified towns or from behind walls. They are strong among themselves. You think that they are united, but in fact, their hearts are divided. They are a people who have no understanding (59:14) “Would you order people to do good deeds and forget to do them yourselves even though you read the Book? Why do you not think?” (2:44) “O Hisham, Allah then has expressed dislike towards the multitudes saying, “Most of the people in the land will lead you away from God’s guidance if you follow them; they only follow their own conjecture and preach falsehood (6:116) “If you ask them, “Who has created the heavens and the earth,” they will certainly say, “God has created them.” Say, “It is only God who deserves all praise, but most of them do not know” (31:25) “If you ask them, “Who has sent down water from the sky to revive the dead earth?” They will say, “God has done it.” Say, “It is only God who deserves all praise, but many of them do not understand.” (29:63) “O Hisham, Allah then has praised those fewer in numbers saying, “Only few of my servants are grateful.” (34:13) He has said, “How few are they?” “A believing person from the people of the Pharaoh who concealed his faith said, “Would you kill a man just because he says God is my Lord?” (40:28) “No one believed in him, except a few. (11:40) Tell them, (Muhammad), “God certainly has the Power to show such miracles but many of them are ignorant.” (6:37). “Many of them have no understanding. (5:103) Many of them do not realize.” “O Hisham, Allah has mentioned the people of intelligence in the best manners with the best of characteristics saying, “God gives wisdom to the ones whom He wants. Whoever is given wisdom, has, certainly, received much good. Only people of intelligence can grasp this (2:269). “ . those who have a firm grounding in knowledge say, “We believe in it. All its verses are from our Lord.” No one can grasp this fact except the people of Intelligence . .” (3:7) “The creation of the heavens and the earth and the alternation of the day and the night are evidence (of the existence of God) for people of Intelligence. (3:190) “Can a person, who knows that what is revealed to you from your Lord is the truth, be considered equal to a blind person? Only those who have understanding take heed (13:19). “Can this one be considered equal to one who worships God during the night, prostrating and standing, who has fear of the Day of Judgment, and who has hope in the mercy of his Lord? Say, “Are those who know equal to those who do not know? Only the people of Intelligence take heed” (39:9). “It is a blessed Book which We have revealed for you so that you will reflect upon its verses and so the people of understanding will take heed (38:29). “To Moses We had given guidance and to the children of Israel We had given the Book (40:53) as their inheritance and as a guide and a reminder to the people of understanding (40:54) “Keep on reminding them. This benefits the believers” (51:55). “O Hisham, Allah says in His book, “This is a reminder for the ones who understands, listens, and sees.” (50:37) It means intelligence. “We gave wisdom to Luqman so that he would give thanks to God . .” (31:12) Understand is intelligence. “O Hisham, Luqman said to his son, “ Venerate the truth you will be the most intelligent among man. Cleverness before intelligence has a very small value. My son, the world is a very deep ocean in which many people have drowned. You must take piety before God as the ship, faith as supplies therein, trust in God as the sales, intelligence as the captain, knowledge as the guide and patience as passengers.” “O Hisham, for everything there is a guide. The guide for intelligence is thinking. The guide for thinking is silence. For everything there is a means for mobility the means of mobility for intelligence is humble attitude. To disobey a prohibition is enough proof of ones ignorance. “O Hisham, Allah send His messengers to people for no other reason but that they would have understanding about Him. Those who obey Him better have better understanding about Him. Those who are more knowledgeable in the commandment of Allah are the ones who have more powerful intelligence and those who have more powerful intelligence are at a higher degree of excellence in this world and in the next life. “O Hisham, Allah has placed two kinds of authority over man. The apparent and manifest authority and the internal and hidden authority The prophets and messengers are the apparent and manifest authorities and intelligence is the hidden and internal authority. “O Hisham, a man of intelligence is one whose thankfulness doe not diminish because of a large wealth and prohibited matters can not overpower his patience. “O Hisham, one who would support three things against an other three kinds of things he would be leading to the destruction of his own intelligence. (1) Darkening of one’s ability to think with day dreaming, (2) the abolishment of the sparks of one’s wisdom with excessive bluffs and (3) the extinguishing of the lights of the lessons from experience by the desires of one’s soul. It would be like supporting ones desire to destroy ones own intelligence. One who would destroy his own intelligence he has destroyed his own worldly life as well as the life to come. “O Hisham how would you expect to have pure deeds before Allah when you have such things that keep you away from the facts that matter to Allah, your Lord, and you have obeyed your desires against your own intelligence. “O Hisham, maintaining patience in loneliness is a sign of the strength of intelligence. One who has understanding about Allah he keeps himself aside from the people of this world and those interested in it. He becomes interested in what is with Allah. Allah then gives him comfort in his fear and company when he is lonely. Allah gives him riches in his poverty and honor without the existence of his tribesmen. “O Hisham, truth is set up so that Allah is obeyed. There is no salvation without obedience to Allah. Obedience comes only from knowledge, which comes from learning that receives strength from intelligence. The only knowledge of value is that of one who knows about the Lord and intelligence discerns the valuable of knowledge. “O Hisham, smaller degrees of deeds with knowledge are accepted with double value and large amounts of deeds from those who follow their desires and ignorance are rejected. “O Hisham, a person of intelligence is pleased with little things of the world with wisdom but he does not agree with a little wisdom with all of the world and, thus, such people strike a gainful bargain. “O Hisham, the people of intelligence stay away from what is more than the basic necessities of life how then they would not stay away from the sins in this world. To stay away from what is more than the bare necessities is only extra virtue but staying away from sins is obligatory. “O Hisham, a man of intelligence observes the world and the people of the world and finds out that the worldly gains come only through hard works and labor. He finds out that gains of the life hereafter also come through hard work and labor he then accepts the one that is more durable. “O Hisham, people of intelligence hold themselves back from the worldly things and strengthen interest in the gains of the life hereafter. They have learned that the worldly gains are sought after and are wanted and so also are the gains of the lifer hereafter. One who seeks the gains of the life hereafter the world will seek him to deliver to him his livelihood but one who seeks the worldly gains the hereafter would also seek to find him. Death will then approach him and it will destroy his world and leave him with no opportunity in the life hereafter (because he had gained nothing). “O Hisham, one who wants self-sufficiency without property, comfort for his heart from the evil of jealousy and the safety of his religion he should pray to Allah, the Most Glorious, to perfect his intelligence. The person of intelligence is satisfied with the basic necessities and one who agrees with basic necessities he is self-sufficient and free of needs and one who is not satisfied with basic necessities he is never free from wants. “O Hisham, Allah has stated the following on behalf of the people of virtue, “They say, “Lord, do not cause our hearts to deviate from Your guidance, and grant us mercy. You are the Most Awarding One.” (3:8) They know that hearts may deviate and turn towards blindness and destruction. It is certain that those who do not fear Allah have no understanding about Him. One who does not have proper understanding about Allah one’s heart does not establish any stable gnosis about Allah with clear awareness of such gnosis that one would find in his heart. No one can be as such except those whose deeds would confirm their words and their privacy would agree with their public activities. This is because Allah, Sacrosanct are whose names, has not shown what is private and unknown form intelligence except through what is public from it and speaks for it. “O Hisham, the commander of the true believers, Imam Ali (a.s) has said, “Allah is worshipped better by no means other than intelligence. No one’s intelligence reaches perfection until therewith is found various qualities. Disbelief and evil should not emerge therefrom. Wisdom and goodness should be expected to exist therewith. The extra of the property of a person of intelligence is given in charity, the extra of his words is restrained and his share of the worldly things is only the basic necessities. He never considers himself as to have learned enough. To be with Allah, although in a very humble state, is far better to him than to live very much honored with others. Humbleness is more beloved to him than being taken as a dignitary. He considers virtuous deeds of others a great deal and his own virtuous deeds as insignificant. He considers all the other people better than his self and his own self as the worse of all and this is the totality of all things.” “O Hisham, a man of intelligence never speaks a lie even though it may satisfy his desires.” “O Hisham, one who does not maintain honorable kindness he has no religion and one can not have such noble character without intelligence. A person of the greatest value among people is one who does not consider the worldly gains his fortune. Nothing can become an adequate price for your bodies other than paradise. Do not sell it for any thing other than paradise. “O Hisham, the commander of the true believers, Imam Ali (a.s) has said, “Three noble qualities in man are of the signs of the existence of intelligence. He replies when questioned and he speaks up only when everyone else fails to speak and offers his advise when it is beneficial to his people. One who has none of these qualities is a fool.” He also has said, “No one other a person who has all of the above or some of such qualities should chair a gathering and if one does so without any of such qualities he is a fool.” Imam Hassan ibn Ali (a.s) has said, “If you would ask for help do so from a proper source.” He was asked, “O grandson of the holy Prophet, ‘Who are the proper sources?” He replied, “They are those about whom Allah has spoken in His book saying, “Only those who have understanding will take heed and they are the people of intelligence.” Imam Ali ibn al-Husayn (a.s) has said, “Sitting in the company of virtuous people leads one to virtue and association with the scholars is a means of strengthening one’s intelligence. Obedience to the authorities that practice justice is an honor. The investment of wealth for profit is a dignifying practice. Guiding one who asks for guidance is an expression of gratitude. To restrain ones harmful manners and deeds is because of the perfection of one’s intelligence in which there is comfort for the body in the short and long terms.” “O Hisham, a man of intelligence does not speak to one who is feared to call him a liar. He does not ask those that he fears may deny him. He does not count on what is not within his abilities. He does not maintain any hope in that which may involve severity and harshness. He does not take any steps towards which he fears may not be achieved due to his inability.”",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/12",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['3', '4', '5', '6', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '1', '2', '3', '4', '5', '6', '1', '2', '1', '2', '3', '4', '1', '2', '3', '4', '5'] do not match translation numbers ['39', '20', '2', '163', '2', '164', '16', '12', '40', '67', '45', '3', '45', '4', '45', '5', '57', '17', '13', '4', '30', '24', '6', '151', '30', '28', '6', '32', '37', '136', '37', '137', '37', '138', '29', '34', '29', '35', '29', '43', '2', '170', '2', '171', '10', '43', '25', '44', '59', '14', '2', '44', '6', '116', '31', '25', '29', '63', '34', '13', '40', '28', '11', '40', '6', '37', '5', '103', '2', '269', '3', '7', '3', '190', '13', '19', '39', '9', '38', '29', '40', '53', '40', '54', '51', '55', '50', '37', '31', '12', '1', '2', '3', '3', '8']."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 1, 10, 11, 12, 13, 14, 15, 16, 2, 3, 4, 5, 6, 7, 8, 9."
+      }
+    ],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-13",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 13,
+    "best_id": 14,
+    "best_score": 0.8928571428571429,
+    "second_id": 886,
+    "second_score": 0.42857142857142855,
+    "margin": 0.46428571428571436,
+    "url": "https://thaqalayn.net/hadith/1/1/0/13",
+    "english": "“Intelligence is a complete cover (protection) for one and extra knowledge and skills are evident beauty. Compensate your physical shortcomings with your extra knowledge and skills. Fight your desires with help from your intelligence and in so doing friendship is surrendered to and love becomes manifest for you.”",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/13",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['6', '7', '8'] do not match translation numbers []."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 6, 7, 8."
+      }
+    ],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-14",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 14,
+    "best_id": 15,
+    "best_score": 0.6870967741935484,
+    "second_id": 13,
+    "second_score": 0.2032258064516129,
+    "margin": 0.4838709677419355,
+    "url": "https://thaqalayn.net/hadith/1/1/0/14",
+    "english": "\"I was with Abu Abdullah (a.s) and a group of his followers were also present. The discussion turned to the topics of intellect and ignorance. Abu Abdullah (a.s) said: 'Recognize intellect and its soldiers, and ignorance and its soldiers, and you will be guided.' Sama’ah said: 'I said, \"May I be your ransom, we know only what you have taught us.\"' Abu Abdullah (a.s) replied: 'Indeed, Allah the Mighty and Majestic created intellect, and it was the first creation among the spiritual beings, on the right side of the Throne, from His light. Then He said to it, \"Move back,\" and it moved back. Then He said to it, \"Come forward,\" and it came forward. Then Allah, blessed and exalted, said: \"I created you as a great creation and honored you over all My creations.\" Then He created ignorance from the dark, salty sea. He said to it, \"Move back,\" and it moved back. Then He said to it, \"Come forward,\" but it did not come forward. He said to it, \"Did you act arrogantly?\" So He cursed it. Then He made for intellect seventy-five soldiers. When ignorance saw the honor Allah had bestowed upon intellect and what He had given it, it harbored enmity towards it. Ignorance said: \"O Lord, this is a creation like me. You created it, honored it, and strengthened it, and I am its opposite. I have no power over it, so give me soldiers like those You have given it.\" Allah said: \"Yes, but if you disobey after that, I will expel you and your soldiers from My mercy.\" Ignorance said: \"I am satisfied.\" So He gave it seventy-five soldiers. <br>Among what He gave to intellect from the seventy-five soldiers were: goodness, which is the minister of intellect, and He made its opposite evil, which is the minister of ignorance; faith, and its opposite disbelief; affirmation, and its opposite denial; hope, and its opposite despair; justice, and its opposite injustice; contentment, and its opposite discontent; gratitude, and its opposite ingratitude; greed, and its opposite hopelessness; reliance (on Allah), and its opposite covetousness; compassion, and its opposite hardness; mercy, and its opposite anger; knowledge, and its opposite ignorance; understanding, and its opposite folly; chastity, and its opposite promiscuity; asceticism, and its opposite desire; gentleness, and its opposite coarseness; fear, and its opposite audacity; humility, and its opposite arrogance; deliberation, and its opposite hastiness; forbearance, and its opposite foolishness; silence, and its opposite verbosity; surrender, and its opposite arrogance; acceptance, and its opposite doubt; patience, and its opposite impatience; forgiveness, and its opposite vengeance; wealth, and its opposite poverty; remembrance, and its opposite forgetfulness; preservation, and its opposite neglect; kindness, and its opposite cutting off; contentment, and its opposite greed; sharing, and its opposite withholding; friendship, and its opposite enmity; loyalty, and its opposite betrayal; obedience, and its opposite disobedience; submission, and its opposite insolence; safety, and its opposite affliction; love, and its opposite hatred; truthfulness, and its opposite lying; truth, and its opposite falsehood; trustworthiness, and its opposite treachery; sincerity, and its opposite hypocrisy; discernment, and its opposite dullness; understanding, and its opposite stupidity; recognition, and its opposite denial; diplomacy, and its opposite disclosure; safeguarding the unseen, and its opposite cunning; concealment, and its opposite revelation; prayer, and its opposite neglect; fasting, and its opposite breaking the fast; striving (in Allah's way), and its opposite retreat; pilgrimage, and its opposite breaking the covenant; protection of speech, and its opposite slander; righteousness to parents, and its opposite disobedience; reality, and its opposite ostentation; virtue, and its opposite vice; concealment, and its opposite display; precaution, and its opposite publicity; fairness, and its opposite bias; preparation, and its opposite transgression; cleanliness, and its opposite filthiness; modesty, and its opposite shamelessness; moderation, and its opposite aggression; rest, and its opposite fatigue; ease, and its opposite difficulty; blessing, and its opposite curse; well-being, and its opposite affliction; uprightness, and its opposite excess; wisdom, and its opposite desire; dignity, and its opposite frivolity; happiness, and its opposite misery; repentance, and its opposite insistence (on sin); seeking forgiveness, and its opposite deception; preservation, and its opposite neglect; supplication, and its opposite disdain; activity, and its opposite laziness; joy, and its opposite sadness; unity, and its opposite separation; generosity, and its opposite stinginess. <br>These qualities from the soldiers of the intellect are not all found together in anyone except in a prophet, or the successor of a prophet, or a believer whose heart Allah has tested for faith. As for the rest of our followers, none of them is free from having some of these soldiers until they are complete and cleansed from the soldiers of ignorance. At that time, they will be in the highest degree with the prophets and successors. This can only be achieved by recognizing intellect and its soldiers and avoiding ignorance and its soldiers. May Allah grant us and you success in obeying Him and seeking His pleasure.'\"",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/14",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['1', '2', '3', '4', '5', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'] do not match translation numbers []."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 1, 10, 2, 3, 4, 5, 6, 7, 8, 9."
+      }
+    ],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-15",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 15,
+    "best_id": 16,
+    "best_score": 1.0,
+    "second_id": 934,
+    "second_score": 0.625,
+    "margin": 0.375,
+    "url": "https://thaqalayn.net/hadith/1/1/0/15",
+    "english": "\"Rasulullah (sawwas) never spoke to people according to his own level of intellect.\" He (the Imam) also said that Rasulullah (sawwas) said, \"We, the community of Prophets, were commanded to speak to people according to their level of intellect.\"",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/15",
+    "qa_risk": "green",
+    "qa_flags": [],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-16",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 16,
+    "best_id": 17,
+    "best_score": 0.9090909090909091,
+    "second_id": 87,
+    "second_score": 0.5454545454545454,
+    "margin": 0.36363636363636365,
+    "url": "https://thaqalayn.net/hadith/1/1/0/16",
+    "english": "“Greed motivates the hearts of the ignorant people, longings and yearning keep them as hostages and deceit clings to them.”",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/16",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['2'] do not match translation numbers []."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 2."
+      }
+    ],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-17",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 17,
+    "best_id": 18,
+    "best_score": 1.0,
+    "second_id": 13,
+    "second_score": 0.8888888888888888,
+    "margin": 0.11111111111111116,
+    "url": "https://thaqalayn.net/hadith/1/1/0/17",
+    "english": "\"The most perfect of people in intellect are the best of them in character.\"",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/17",
+    "qa_risk": "green",
+    "qa_flags": [],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-18",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 18,
+    "best_id": 19,
+    "best_score": 1.0,
+    "second_id": 934,
+    "second_score": 0.6206896551724138,
+    "margin": 0.3793103448275862,
+    "url": "https://thaqalayn.net/hadith/1/1/0/18",
+    "english": "“We were in the presence of Imam al-Rida (a.s) that a discussion about intelligence took place and the Imam said, “O abu Hashim, intelligence is a present from Allah but discipline is a skill and burden. One who would pretend as a well disciplined one he would certainly establish full control in it. But to pretend as a person of intelligence would increase in him nothing but more ignorance.”",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/18",
+    "qa_risk": "green",
+    "qa_flags": [],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-19",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 19,
+    "best_id": 20,
+    "best_score": 1.0,
+    "second_id": 934,
+    "second_score": 0.6486486486486487,
+    "margin": 0.3513513513513513,
+    "url": "https://thaqalayn.net/hadith/1/1/0/19",
+    "english": "‘May I be your ransom, I have a neighbor who does a lot of salaat, gives a lot in charity and very often does hajj and there is no flaw with him.’ He asked, 'O Ibn Ishaq how is his intelligence?'. I then said, 'May I be your ransom, he does not have any intelligence'. So he said, 'Nothing from what he does will be raised up (to heavens).'",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/19",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['1'] do not match translation numbers []."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 1."
+      }
+    ],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-20",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 20,
+    "best_id": 21,
+    "best_score": 0.8877551020408163,
+    "second_id": 934,
+    "second_score": 0.4489795918367347,
+    "margin": 0.4387755102040816,
+    "url": "https://thaqalayn.net/hadith/1/1/0/20",
+    "english": "“Ibn Sukayt asked Imam abu al-Hassan (a.s), ‘Why did Allah sent Moses with the miracle appearing through his staff and through his hand and means of magic, Jesus with means of medical tasks and Prophet Muhammad (may Allah send blessings upon him, his family and all the prophets) with means of speech and sermons?’” “When Moses was sent magic was very popular among the people. He showed a magic of such form that was not possible for others to perform. He was given such means that destroyed the magical effects of those people’s magic and established the truth of the message of Allah among them. Allah sent Jesus at a time when serious illnesses existed among the people and they needed medical treatment. Jesus brought from Allah what the people did not have. He brought from Allah the means to bring the dead back to life, cure the sick and the lepers by the permission of Allah and thus, establish the truthfulness of the message of Allah among the people.” The Imam explained. Allah sent Prophet Muhammad (s.a.) at a time when oratory and speech was very popular among the people –I think he said poetry. He brought from Allah to the people the good advise and wisdom that showed the falsehood in their speeches and thus established the truthfulness of the message of Allah among them.” Ibn al-Sukayt then said, “I swear by Allah that I have never seen anyone like you. What is the proof to establish the truthfulness of the message of Allah among people today?” The Imam then said, ‘It is intelligence. Through intelligence one recognizes those who speak the truth from Allah, thus, one acknowledges their truthfulness and those who lie in the name of Allah their lies come to light.” Ibn al-Sukayt then said, “This by Allah is the answer.”",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/20",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['2', '3'] do not match translation numbers []."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 2, 3."
+      }
+    ],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-21",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 21,
+    "best_id": 22,
+    "best_score": 0.9696969696969697,
+    "second_id": 640,
+    "second_score": 0.6,
+    "margin": 0.36969696969696975,
+    "url": "https://thaqalayn.net/hadith/1/1/0/21",
+    "english": "\"When our Qa’im (Imam al-Mahdi) rises, Allah will place His hand over the heads of His servants and He will place their intelligence together and complete their understanding.”",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/21",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['2'] do not match translation numbers []."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 2."
+      }
+    ],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-22",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 22,
+    "best_id": 23,
+    "best_score": 0.95,
+    "second_id": 1,
+    "second_score": 0.7777777777777778,
+    "margin": 0.17222222222222217,
+    "url": "https://thaqalayn.net/hadith/1/1/0/22",
+    "english": "“The hujjah (proof) of Allah over the worshippers is the Prophet (sw) and the hujjah (proof) between Allah and the people is the intellect (al-'Aql).”",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/22",
+    "qa_risk": "green",
+    "qa_flags": [],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-23",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 23,
+    "best_id": 24,
+    "best_score": 0.7916666666666666,
+    "second_id": 13,
+    "second_score": 0.3888888888888889,
+    "margin": 0.40277777777777773,
+    "url": "https://thaqalayn.net/hadith/1/1/0/23",
+    "english": "“Intelligence is the support for man. From intelligence come intelligence, understanding, memorization and knowledge and with intelligence he gains perfection. Intelligence is his guide, his instructor and the key to his affairs. When his intelligence is supported with light he becomes a scholar, a keeper (of knowledge), an intelligent re-caller and a man of understanding. Through intelligence he learns the answer to how, why and where or when. He learns who helps and who harm him. When he learns these (facts) he learns the channels, the connections and the differentiating factors. He then establishes pure faith in the oneness of Allah and acknowledges the need to obey Him. When he does so he finds the proper remedy for what he has lost and the right approach to whatever may come in. He knows well his present involvement, for what reason is he here, wherefrom has he come and to what end is he going. He will have all these because of intelligence.”",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/23",
+    "qa_risk": "green",
+    "qa_flags": [],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-24",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 24,
+    "best_id": 25,
+    "best_score": 1.0,
+    "second_id": 1118,
+    "second_score": 0.7058823529411765,
+    "margin": 0.2941176470588235,
+    "url": "https://thaqalayn.net/hadith/1/1/0/24",
+    "english": "“Intelligence (al-'Aql) is the guide of a believer.”",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/24",
+    "qa_risk": "green",
+    "qa_flags": [],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-25",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 25,
+    "best_id": 26,
+    "best_score": 1.0,
+    "second_id": 1,
+    "second_score": 0.6923076923076923,
+    "margin": 0.3076923076923077,
+    "url": "https://thaqalayn.net/hadith/1/1/0/25",
+    "english": "Rasulullah (sw) said, \"Oh Ali, no poverty is more sever than ignorance and no wealth is more profitable than intelligence.”",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/25",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['1'] do not match translation numbers []."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 1."
+      }
+    ],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-26",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 26,
+    "best_id": 27,
+    "best_score": 0.9459459459459459,
+    "second_id": 2,
+    "second_score": 0.8333333333333334,
+    "margin": 0.11261261261261257,
+    "url": "https://thaqalayn.net/hadith/1/1/0/26",
+    "english": "“When Allah (swt) created the intellect (al-'Aql) He made it speak and said to it, ‘Come forward', so it came forward. He then said, 'Go back' and it went back. Then Allah said, 'I swear by My Honor and Glory that I have not created any creation more beloved to Me than you. I will not perfect you in anyone except those whom I love. I will command you [to obey me] and prohibit you [from disobeying me] and I will reward you [for obeying me] and I will punish you [for disobeying me].'\"",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/26",
+    "qa_risk": "green",
+    "qa_flags": [],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-28",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 28,
+    "best_id": 29,
+    "best_score": 1.0,
+    "second_id": 215,
+    "second_score": 0.6666666666666666,
+    "margin": 0.33333333333333337,
+    "url": "https://thaqalayn.net/hadith/1/1/0/28",
+    "english": "“Rasulullah (sw) said, ‘When you find a man who prays and fasts a great deal do not become proud of him until you see how his intelligence he is.”",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/28",
+    "qa_risk": "green",
+    "qa_flags": [],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-31",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 31,
+    "best_id": 32,
+    "best_score": 1.0,
+    "second_id": 827,
+    "second_score": 0.6190476190476191,
+    "margin": 0.38095238095238093,
+    "url": "https://thaqalayn.net/hadith/1/1/0/31",
+    "english": "‘Self glorification is an indication of the weakness of one’s intelligence.’",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/31",
+    "qa_risk": "green",
+    "qa_flags": [],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-33",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 33,
+    "best_id": 34,
+    "best_score": 0.9534883720930233,
+    "second_id": 215,
+    "second_score": 0.627906976744186,
+    "margin": 0.32558139534883723,
+    "url": "https://thaqalayn.net/hadith/1/1/0/33",
+    "english": "“There is nothing (or no difference) between belief and disbelief, but lack of intelligence.\" So he asked him, “How is that so oh son of Rasulullah (sw)?”. He replied, \"Indeed, when a servant raises his desire to a creation, if he had sincerely intended it for Allah, the one he seeks would respond even faster than that.\"",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/33",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['1', '2', '3'] do not match translation numbers []."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 1, 2, 3."
+      }
+    ],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-36",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 36,
+    "best_id": 37,
+    "best_score": 1.0,
+    "second_id": 934,
+    "second_score": 0.5142857142857142,
+    "margin": 0.48571428571428577,
+    "url": "https://thaqalayn.net/hadith/1/1/0/36",
+    "english": "“No wealth is more profitable than intelligence, and no poverty is more limiting than foolishness and never is showing-off in a matter more beneficial than consulting it [with others].\"",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/1/0/36",
+    "qa_risk": "green",
+    "qa_flags": [],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-394",
+    "kind": "hubeali",
+    "volume": 1,
+    "sequence": 395,
+    "best_id": 395,
+    "best_score": 0.845679012345679,
+    "second_id": 13,
+    "second_score": 0.32098765432098764,
+    "margin": 0.5246913580246914,
+    "url": "https://thaqalayn.net/hadith/1/3/30/1",
+    "english": "“Once in Kufa, after Amir al-Mu’minin Ali’s (a.s.), return from Siffin, a man came to him and sat with his legs folded underneath in front of the Imam and said, ‘O Amir al-Mu’minin, tell us about our journey against the people of Sham (Syria). Was it because of Allah’s decree and determination or not?’ ‘Amir al-Mu’minin Ali said, “Yes, O Shaykh, every hill that you climbed and every valley that you crossed was because of the decree and the determination of Allah.”’ The Shaykh then said, ‘Will my tiring efforts be counted in the sight of Allah, O Amir al-Mu’minin?’ “The Imam said, ‘Be patient, O Shaykh. I swear by Allah that He will grant you a great reward for your journey wherever you traveled, for your stay wherever you rested and for your return when you were headed back. In none of these conditions that you went through were you coerced or compelled.’ The Shaykh then said, ‘How can we not be considered compelled or coerced when all of our journey, rest and return were because of the decree and determination of Allah?’ “The Imam said, ‘Do you think it was all due to unavoidable decree and binding determination? Had it been so all the reward, punishment, commandments, orders and warnings from Allah would remain invalid and meaningless. The promise and warnings would fall apart. No one could blame the sinners and no one would praise the people of good deeds. The sinners could have been more deserving than the people of good deeds could, and the latter ones could have deserved more punishment. Such can only be the belief of the idol worshippers, the enemies of the Beneficent, of the party of Satan, the determinist of this Ummah (nation) and her Zoroastrians. ‘Allah, the Most Holy, the Most High, has obligated people on the basis of their freedom and choice. His prohibitions serve as warnings. He rewards a great deal for very little of deeds. Disobedience to Him is not due to His weakness or His defeat. Obedience to Him is not due to compulsion and coercion. He has not given the power to people in the absolute sense. He has not created the heavens and the earth and all that is between them without a purpose. He has not sent the messengers and the prophets to warn and promise people just to play a trick. Such could only be the belief of the unbelievers. Woe is for the unbelievers to suffer in the fire.’ “The Shaykh then recited the following lines that he composed instantaneously: ‘You are the Imam whose obedience, one day, we hope, Salvation it will bring and forgiveness from the Beneficent (God). Explain you did our issue that was vague. May your Lord reward (your) favor with (His) favor.’”",
+    "canonical_route_match": true,
+    "canonical_url": "https://thaqalayn.net/hadith/1/3/30/1",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['1', '2', '3'] do not match translation numbers []."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 1, 2, 3."
+      }
+    ],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-1160",
+    "kind": "missing",
+    "volume": 1,
+    "sequence": 1161,
+    "best_id": 1157,
+    "best_score": 1.0,
+    "second_id": 991,
+    "second_score": 0.6153846153846154,
+    "margin": 0.3846153846153846,
+    "url": "https://thaqalayn.net/hadith/1/4/108/77",
+    "english": "“I asked abu Ja‘far (a.s.) about the words of Allah, the Most High. “(Among) the servants of the Beneficent God are those who walk gently on the earth . .” (25:63) The Imam (a.s.) said, “They are the executors of the will (The Holy Prophet (s.a) who are afraid of their enemies.” Al-Husayn ibn Muhammad has narrated from Mu‘alla ibn Muhammad from Bastam ibn Murra from ishaq ibn Hassa’n from al-Haytham ibn Waqid from Ali ibn al-Husayn al-‘Abdi from Sa‘d al-’Iskaf from Asbagh ibn Nabata that he asked Amir al-Mu’minin (a.s.) about the words of Allah, the Most High. “. . to give thanks to Me first and then to them, (parents) to Me all things proceed (31:14).The Imam (a.s.) said, “The parents who must be thanked are the ones who provide knowledge, and leave wisdom as their legacy and people are commanded to obey them. Allah then has said, “. . to Me all things proceed.” (31:14) People proceed to Allah and the guide to such goal are the parents. Allah then has directed His words to ibn Hantama and his friend saying in particular and in general, “If they try to force you to consider things equal to Me,. .” (31:15) It speaks of the will of The Holy Prophet (s.a). It demands not to ignore the command to obey him (Ali (a.s.) otherwise, do not obey them (parents) and do not listen to them. Then Allah has directed His words to the parents. “Maintain lawful relations with them in this world. .” (31:15) It says that propagate the virtue and excellence of the (spiritual) parents and call people to their guidance which is also mentioned in these words of Allah. “. . and follow the path of those who turn in repentance to Me. To Me you will all return. .” (31:15) The Imam (a.s.) said, “To Allah then to us. You must be pious before Allah and do not disobey the parents. To please them is to please Allah and to cause them anger is to cause anger to Allah.”",
+    "canonical_route_match": false,
+    "canonical_url": "https://thaqalayn.net/hadith/1/4/108/77",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['6'] do not match translation numbers ['25', '63', '31', '14', '31', '14', '31', '15', '31', '15', '31', '15']."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 6."
+      },
+      {
+        "code": "translation_too_long",
+        "severity": "warning",
+        "detail": "Translation has 344 words for 18 source words."
+      }
+    ],
+    "blocking": [
+      {
+        "code": "translation_too_long",
+        "severity": "warning",
+        "detail": "Translation has 344 words for 18 source words."
+      }
+    ],
+    "current_status": null,
+    "current_risk": null
+  },
+  {
+    "public_id": "alkafi-2695",
+    "kind": "missing",
+    "volume": 2,
+    "sequence": 2697,
+    "best_id": 1248,
+    "best_score": 1.0,
+    "second_id": 2016,
+    "second_score": 0.7368421052631579,
+    "margin": 0.26315789473684215,
+    "url": "https://thaqalayn.net/hadith/1/1/139/20",
+    "english": "“Abu ‘Abd Allah (a.s.) stated to me a Hadith and I said, ‘May Allah keep my soul in service for your cause, did you not have a (Za’m) about me a while ago of such and such nature?’ The Imam said, ‘No.’ The narrator has said that it became very hard for me to understand and I said, ‘Yes, by Allah you did have such (Za’m) about me.’ The Imam said, ‘No, by Allah, I did not have such (Za’m) about you.’ The narrator has said that it became even more difficult for me to understand and I said, ‘Yes, by Allah, you did say it.’ The Imam said, ‘Yes, I did say but do you not know that all (Za’m) in the Quran signify lies?’ (The word Za ’m in Arabic may mean to believe, to think, to guess, to surmise and so forth. The Imam (a.s.) explained to the narrator that in the Quran this word is used to mean something not true and that he (the Imam) had not used the word “Za’m” in the sense the Holy Quran has used)",
+    "canonical_route_match": false,
+    "canonical_url": "https://thaqalayn.net/hadith/2/1/139/20",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['2'] do not match translation numbers []."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 2."
+      },
+      {
+        "code": "translation_too_long",
+        "severity": "warning",
+        "detail": "Translation has 184 words for 23 source words."
+      }
+    ],
+    "blocking": [
+      {
+        "code": "translation_too_long",
+        "severity": "warning",
+        "detail": "Translation has 184 words for 23 source words."
+      }
+    ],
+    "current_status": null,
+    "current_risk": null
+  },
+  {
+    "public_id": "alkafi-2782",
+    "kind": "missing",
+    "volume": 2,
+    "sequence": 2784,
+    "best_id": 1334,
+    "best_score": 0.9545454545454546,
+    "second_id": 1336,
+    "second_score": 0.8636363636363636,
+    "margin": 0.09090909090909094,
+    "url": "https://thaqalayn.net/hadith/1/1/155/1",
+    "english": "“Once I was in the presence of al-Rida (a.s.) and he stated to me as follows: ‘O Muhammad, in the time of the children of Israel there were four believing people. One of them once went to the house where the other three had gathered together for a meeting on a certain issue among them. He knocked the door and a slave came to him. He then asked, ‘Where is your master?’ The slave replied, ‘He is not home.’ The man returned back and the slave went inside. His master asked, ‘Who was at the door?’ The slave replied, ‘It was so and so and I told him that you were not home.’ He remained quiet without regretting or blaming the slave for his false reply, nor did the other two show any concern for the return of their friend from the door and they continued talking. Next morning the man (their friend) came to the door very early and met the other three when they were leaving to go to a certain property that belonged to one of them. He offered them his greeting of peace and said, ‘I also want to come with you.’ They agreed but did not apologize to him for their attitude the day before. The man was needy or weak. On a certain part of the way a piece of cloud appeared over their heads with shadows and they thought it might rain. They began to move faster. When the cloud reached exactly over their heads an announcer announced from the cloud, ‘O fire, strike them. I am Jibril (Gabriel), the Messenger of Allah. ’ Suddenly, fire from the cloud snatched the three away and the man remained frightened and astonished for what had happened to the other people. He did not know the reason. He came to the city and met Yusha’ ibn Nun (peace be upon him). He explained to him what he had seen and heard. Yusha’ asked, ‘Did you not know that Allah had become angry with them, after that He was happy with them? It was because of the way they behaved toward you.’ He asked, ‘What had they done to me?’ Yusha’ informed him of their behavior and the man said, ‘I, however, am ready to forgive them.’ Yusha’ said, ‘Had this happened before it could have benefited them but now it does not benefit them and perhaps it may benefit them afterwards.’”",
+    "canonical_route_match": false,
+    "canonical_url": "https://thaqalayn.net/hadith/2/1/155/1",
+    "qa_risk": "amber",
+    "qa_flags": [
+      {
+        "code": "translation_too_long",
+        "severity": "warning",
+        "detail": "Translation has 405 words for 33 source words."
+      }
+    ],
+    "blocking": [
+      {
+        "code": "translation_too_long",
+        "severity": "warning",
+        "detail": "Translation has 405 words for 33 source words."
+      }
+    ],
+    "current_status": null,
+    "current_risk": null
+  },
+  {
+    "public_id": "alkafi-4734",
+    "kind": "missing",
+    "volume": 3,
+    "sequence": 4737,
+    "best_id": 937,
+    "best_score": 0.8973509933774835,
+    "second_id": 1873,
+    "second_score": 0.24503311258278146,
+    "margin": 0.652317880794702,
+    "url": "https://thaqalayn.net/hadith/1/3/95/8",
+    "english": "Yazid ibn Khalifah al-Harithiy who has said the following: ... (Fatwah best explains this hadith)",
+    "canonical_route_match": false,
+    "canonical_url": "https://thaqalayn.net/hadith/3/3/95/8",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['1', '2', '1', '2', '3', '4', '1', '2'] do not match translation numbers []."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 1, 2, 3, 4."
+      },
+      {
+        "code": "translation_too_short",
+        "severity": "warning",
+        "detail": "Translation has 15 words for 606 source words."
+      }
+    ],
+    "blocking": [
+      {
+        "code": "translation_too_short",
+        "severity": "warning",
+        "detail": "Translation has 15 words for 606 source words."
+      }
+    ],
+    "current_status": null,
+    "current_risk": null
+  },
+  {
+    "public_id": "alkafi-5669",
+    "kind": "missing",
+    "volume": 3,
+    "sequence": 5674,
+    "best_id": 1873,
+    "best_score": 0.9347826086956522,
+    "second_id": 372,
+    "second_score": 0.2717391304347826,
+    "margin": 0.6630434782608696,
+    "url": "https://thaqalayn.net/hadith/1/4/100/1",
+    "english": "“Abu ’Abd Allah (a.s.), asked me, ‘What does the enemy narrate?’ I then asked, ‘I pray to Allah to keep my soul in service for your cause, what kind of narration do you mean?’ He said, ‘It is about their Adhan, Ruku‘, and sajdah?’ I then said, ‘They say, “Ubay ibn Ka‘b has seen them in a dream.’” The Imam said, ‘They have spoken a lie. The religion of Allah, the Most Majestic, the Most Glorious, is by far more exalted than being seen in a dream.’ The narrator has said that Sadir al- Sayrafiy then said, ‘I pray to Allah to keep my soul in service for your cause, please enlighten us about it.’ Abu ‘Abd Allah (a.s.), then said, ‘When Allah, the most Majestic, the most Glorious, took His prophet for a journey to His seven heavens, in the first heaven He granted him blessing and in the second one He taught him his obligations. Allah sent down a carriage that was made of light with forty kinds of the kinds of light therein, surrounded by the Throne of Allah that covers the eyesight of the on-lookers. One of those lights is yellow from which yellowness is yellow. Another one is red because of which redness is red, yet another one is white because of which whiteness is white. The rest of them are like the number of the creatures in the form of light and colors. In that carriage, there are rings and chains of silver. Thereafter He took him up in the heaven. The angels moved in all directions of the heaven and fell down in prostration saying, “He is free of all defects and Most Holy. How similar is this light to the light of our Lord!”’ Jibril (Gabriel) then said, ‘Allah is greater than can be described, Allah is greater than can be described.’ Then the doors of the heaven opened, the angels gathered and saluted to the Holy Prophet in large groups saying, “O Muhammad, how is your brother? When you go back to earth tell that we salute him.” The Holy Prophet asked them, “Do you know him?” They replied, “How can we forget him. We were made (by Allah) to establish a covenant and commitment to (follow and) support him; support you and his followers until the Day of Judgment. We look on the faces of his followers five times every day - meaning thereby during the five times Salah (prayer). We say, ‘Allahumma Salli ‘Ala Muhammad wa ‘Ali Muhammad (O Allah grant Muhammad and his family a compensation worthy of their serving Your cause).”’ The Messenger of Allah thereafter has said, “Then my Lord granted me forty kinds of kinds of light of which no one resembled the ones given to me before. He gave me more rings and chains and took me to the second heaven. When I arrived near the second heaven’s door, the angels moved to all directions of the heaven and fell down in prostration saying, ‘Free of all defects and Most Holy is the Lord of the angels and the spirit. How similar is this light to the light of our Lord!’ Jibril then said, ‘I testify that no one, other than Allah, deserves to be worshipped.’ The angels then gathered asking, ‘O Jibril, who is this with you?’ He replied, ‘This is Muhammad.’ They then asked, ‘Is he already commissioned to serve as the Messenger of Allah?’ He replied, ‘Yes, he is commissioned.’” The Holy Prophet has said that they then came to me, welcoming with salutations and saying, “Tell your brother we salute him.” I asked them, “Do you know him?” They replied, “How can we forget him? We were made (by Allah) to establish a covenant and commitment to (follow and) support him; support you and his followers until the Day of Judgment. We look on the faces of his followers five times every day” - meaning thereby during the five times Salah (prayer). “The Messenger of Allah has said, “My Lord then gave me another forty kinds of the kinds of light of which no one was similar to the light given to me before, and increased the number of rings and chains. Then He took me up to the second heaven. The angels moved to all directions in the heaven and fell down in prostration saying, ‘Free of all defects and Most Holy is the Lord of the angels and the spirit. What is this light that is so similar to the light of our Lord?’ Jibril then said twice, ‘I testify that only Allah deserves worship. The angels gathered and said, ‘O Jibril, who is he with you?’ He (Jibril) replied, ‘He is Muhammad.’ They asked, ‘Is he commissioned (as messenger of Allah)?’ Jibril answered, ‘Yes, he is commissioned.’” The Holy prophet, has said, “They (angels) came to me as if wanting to hold me in their arms and saluted me and said, ‘Convey our salutations to you brother.’ I asked, ‘Do you know him?’ They replied, ‘Why we would not know him? We are made to establish a solemn covenant of support in your favor, in his favor and in favor of his followers until the Day of Judgment. We look at the faces of his followers five times every day and night.’ They meant thereby the times of each of five daily Salah (prayer).” The Messenger of Allah has said, “My Lord then gave me another forty kinds of the kinds of light of which no one was similar to the light given to me before. Then He took me up to the third heaven. The angels moved to all directions in the heaven and fell down in prostration saying, ‘Free of all defects and Most Holy is the Lord of the angels and the spirit. What is this light that is so similar to the light of our Lord?’ Jibril then said twice, ‘I testify that Muhammad is the Messenger of Allah.’ The angels all gathered and said, ‘Welcome, we greet you, O the first. Welcome, O the last, welcome, O the one who brings about resurrection and welcome the one who brings about distribution (distributor of heavens and hell (one of the title of Imam AJi)), Muhammad is the best of the prophets and Ali is the best of the executors of the wills of the prophets of Allah.’” “The Holy Prophet has said, “They then saluted me and asked about my brother and I said, ‘He is on earth. Do you know him?’ They replied, ‘How can we forget him? We every year perform Hajj of Bayt al-Ma‘mur where there is a white board on which there are the names of Muhammad, Ali, al-Hassan, al-Husayn, all A’immah and their followers till the Day of Judgment. We congratulate them every day and night five times’ - meaning thereby the five times Salah (prayer) - ‘and they wipe their heads with their hands.’” The Holy Prophet has said, “My Lord then increased the number of the kinds of lights for me by another forty kinds of light of which no one resembled the ones given to me before. He then took me higher until I reached the fourth heaven where the angels did not say anything. I heard a low intensity sound as if vibrating inside the chests. The angels then gathered, the doors of the heaven opened and they came to welcome me. Jibril then said, ‘Come for Salah (prayer), come for Salah (prayer). Come to wellbeing, come to wellbeing.’ The angels then said, ‘They are two very familiar sounds.’ Jibril then said, ‘Salah (prayer) is about to be performed, Salah (prayer) is about to be performed.’ The angels said, ‘It is for his followers until the Day of Judgment.’ The angels then gathered and asked, ‘How is your brother?’ I replied, ‘Do you know him?’ They replied, ‘We know him and his followers. They are lights around the Throne of Allah and in al-Bayt al-Ma‘mur, there is a board of light [on which there is a writing of light] and in this writing there are the names of Muhammad, Ali, al-Hassan, al-Husayn, all ’A’immah and their followers until the Day of Judgment from whom not even one man is increased or decreased. This (written document) is our covenant and a document of commitment which is read to us every Friday.’ Thereafter it was said to me, ‘Raise your head, O Muhammad.’ I raised my head, I saw the levels of the heaven opened up, and the curtains rose. I then was told, ‘Look downward.’ I looked downward and I saw a house like your house, this one, a sacred precinct like this holy precinct. If I were to drop something down from my hand, it would only fall on this house but not on another place. It then was said to me, ‘O Muhammad, this is the holy place and you are the Holy person; for every similitude there is something similar.’ Allah then sent Wahy to me, ‘O Muhammad go near the S’ ad (a fountain at the foot of the Throne) wash the parts of your body that are used during sajdah, cleanse them and perform Salah (prayer) for the sake of your Lord.’” The Messenger of Allah then went near the S’ ad, water that flows at the right foot of the Throne. The Messenger of Allah touched the water with his right hand and for this reason Wudu’ is with the right hand. Allah, the Most Majestic, the Most Glorious, then sent Wahy to him (Muhammad), “Wash your face; you look to My greatness, then wash your right arm and then your left arm; you receive My words (book) in your hand. Thereafter wipe your head with your hand while still moist with the water of Wudu’ and your feet up to your ankles; I like to bless you and allow you to step where no one, other than you, has ever stepped.” This is the reason for Adhan and Wudu’. Then Allah, the Most Majestic, the Most Glorious, sent Wahy to him, “O Muhammad, face the direction of the black-stone and speak of My greatness an equal number of times as the number of My curtains.” For this reason, the number of Takbir is seven, equal to the number of seven curtains. At the end of the curtains, he commenced Salah (prayer) and for this reason, commencement became a Sunnah (a noble tradition). The curtains are of parallel levels and in between every two level, there are oceans of light. This is the light, which Allah sent to Muhammad, O Allah grant compensation to Muhammad and his family worthy of their services to Your cause. For this reason, the number of (Takbir for) commencement is three because of the opening of the curtains three times. The number of Takbir, (altogether before commencement), are seven and the number of commencement three times. When he completed all Takbir and (takbir of) commencement, Allah sent him Wahy to call Him by His name and for this reason, the phrase “In the name of Allah, the Beneficent, the Merciful” is placed before every Chapter of the Holy Quran. Then Allah sent him Wahy to praise Him. When he said, “All praise belongs to Allah, Lord of the worlds,” the Holy Prophet to himself said, “My thanks (to Allah).” Allah, the Most Majestic, the Most Glorious, sent him Wahy saying, “You just discontinued My praise. Call Me by My name.” For this reason the phrase “most Beneficent, most Merciful” has come twice in al-Hamd (Chapter 1 of the Quran). When the Holy Prophet reached the last word in al-Hamd’ he said, “All praise belongs to Allah, Lord of the worlds and all thanks.” Allah then sent him Wahy, “You discontinued speaking of Me. Call Me by My name.” For this reason, at the beginning of every Chapter there is the phrase, “In the name of Allah, the Beneficent, the Merciful.” Thereafter Allah, the Most Majestic, the Most Glorious, sent him Wahy, “O Muhammad, read about the relationship of your Lord, the most Holy, the most High. “(I begin) in the Name of Allah, the Beneficent, the Merciful. (112:1) (O Muhammad,) you must say, \"He is Allah, Who is one only (112:2). Allah is Absolute (112:3). He does not have any child nor is He a child of others (112:4). There is no one equal to Him. (112:5).” “Then Wahy was held back from him and the Messenger of Allah said, “One the only One who is self- sufficient.” Allah then sent him Wahy, “He does not have any child nor is He a child of others (112:4). There is no one equal to Him. (112:5).” Then Wahy was held back from him and the Messenger of Allah said, “Thus is Allah. Thus is Allah, our Lord.” When he said this Allah sent him Wahy, “Kneel down for Ruku‘ for the sake of your Lord, O Muhammad.” He knelt down for RukuL Allah then sent Wahy, while he was in Ruku‘ position, to say, “My Lord, the great, is free of all defects.” He said this three times, Then Allah sent him Wahy, “Raise your head, O Muhammad.” The Messenger of Allah did as he was told to do and stood up straight. Allah, the Most Majestic, the Most Glorious, sent Wahy, “Bow down in prostration for the sake of your Lord, O Muhammad.” The Messenger of Allah bowed down in prostration, then Allah, the Most Majestic, the Most Glorious, sent Wahy, say, “My Lord, the most High, is free of all defects.” He said it three times. Then Allah sent Wahy, “Sit upright, O Muhammad.” He did as he was told. When he sat upright he looked at (signs of) His greatness that appeared to him, then, on his own he bowed down in prostration without anyone’s command. He said three times, “Allah is free of all defects.” Allah then sent Wahy that said, “Stand up straight.” He obeyed but he did not see (of the signs) of greatness that had seen before and for this reason in Salah (prayer) every Rak‘at has one Ruku‘ and two sajdah. Allah, the Most Majestic, the Most Glorious, then sent Wahy, “Read All praise belong to Allah, Cherisher of the worlds” (the first Chapter of the Holy Quran) and he read as he had done before. Allah, the Most Majestic, the Most Glorious, then sent Wahy, “Read Chapter 97 of the Holy Quran; this Chapter speaks, of your relationship and the relationship of your family, until the Day of Judgment.” In Ruku‘ he did just as he had done before, then he did one sajdah. When he raised his head (signs of) greatness appeared to him, he then bowed down in prostration by his own choice, without anyone’s command and again he said, “Allah is free of all defects.” Allah sent Wahy, “Raise your head, O Muhammad, your Lord has made you steadfast.” When he wanted to stand up, he was told, “Sit down in your place, O Muhammad.” He then sat down. Allah sent Wahy, “O Muhammad, when I grant you a favor, you should call Me by My name.” He was inspired to say, “In the name of Allah, with (the help of) Allah, no one, other than Allah, deserves to be worshipped, and all beautiful names belong to Allah.” Then Allah sent Wahy, “O Muhammad, ask compensation for yourself and say, ‘ Allahumma Salli ‘Ala Muhammad wa ‘Ali Muhammad (O Allah grant Muhammad and his family a compensation worthy of their serving Your cause),”’ which he did as he was told. He then noticed rows of angels and messenger and prophets of Allah and it was said to him, “O Muhammad, salute them.” He then said, “I pray to Allah to grant you peace, mercy and blessings.” Allah then sent Wahy, “You and your descendants are the peace, salutations, mercy and blessing.” Allah then sent Wahy, “Do not pay any attention to the left.” The first verse that he heard after Chapter 112 and 97 of the Holy Quran was the verse about the people of the right hand and people of the left hand. For this reason one salutation is toward the direction of Qiblah and for this reason there is Shukr (expression of thanks) in sajdah for Takbir and his saying, “Allah listens to all those who praise Him” because the Holy Prophet heard a great deal of voices of angels saying al- Tasbih, al-Tahmid and al-Tahlil. For this reason he said, “Allah listens to all of those who praise Him.” For this reason, in the first and second Rak‘at if something invalidating Wudu’ takes place, one needs to perform them all over again. This is the first obligation in the prayer at noontime, that is, Salah (prayer) at noontime.’”",
+    "canonical_route_match": false,
+    "canonical_url": "https://thaqalayn.net/hadith/3/4/100/1",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['1'] do not match translation numbers ['1', '112', '1', '112', '2', '112', '3', '112', '4', '112', '5', '112', '4', '112', '5', '97', '112', '97']."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 1."
+      },
+      {
+        "code": "translation_too_long",
+        "severity": "warning",
+        "detail": "Translation has 2808 words for 399 source words."
+      }
+    ],
+    "blocking": [
+      {
+        "code": "translation_too_long",
+        "severity": "warning",
+        "detail": "Translation has 2808 words for 399 source words."
+      }
+    ],
+    "current_status": null,
+    "current_risk": null
+  },
+  {
+    "public_id": "alkafi-6959",
+    "kind": "missing",
+    "volume": 4,
+    "sequence": 6964,
+    "best_id": 984,
+    "best_score": 0.9736842105263158,
+    "second_id": 851,
+    "second_score": 0.5526315789473685,
+    "margin": 0.42105263157894735,
+    "url": "https://thaqalayn.net/hadith/1/3/44/2",
+    "english": "“I once asked abu ‘Abd Allah (a.s.), about the case of a woman who goes out with people other than her guardian. He (the Imam) said, ‘It is not harmful. If she has her husband or a son or brother who can go with her; but if she cannot provide their expenses, then it is not proper for her to sit without al-Hajj, and it is not proper for them to stop her from performing al-Hajj.’”",
+    "canonical_route_match": false,
+    "canonical_url": "https://thaqalayn.net/hadith/4/3/44/2",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['1'] do not match translation numbers []."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 1."
+      },
+      {
+        "code": "provider_refusal_text",
+        "severity": "critical",
+        "detail": "Provider text found: cannot provide."
+      }
+    ],
+    "blocking": [
+      {
+        "code": "provider_refusal_text",
+        "severity": "critical",
+        "detail": "Provider text found: cannot provide."
+      }
+    ],
+    "current_status": null,
+    "current_risk": null
+  },
+  {
+    "public_id": "alkafi-8322",
+    "kind": "missing",
+    "volume": 5,
+    "sequence": 8328,
+    "best_id": 169,
+    "best_score": 0.9222222222222223,
+    "second_id": 20,
+    "second_score": 0.31851851851851853,
+    "margin": 0.6037037037037037,
+    "url": "https://thaqalayn.net/hadith/1/2/1/1",
+    "english": "1. Ali ibn Ibrahim has narrated from his father from Harun ibn Muslim Mas’adah ibn Sadaqah who has said the following: “Once, Sufyan al-Thawriy visited abu ‘ Abd Allah (a.s.). He saw the Imam wearing a cloth that was pure white like the membrane between an egg shell and its contents. He then said to the Imam, ‘This is not the kind of cloth you should wear.’ He (the Imam) said, ‘Listen to me and pay proper attention to what I say; it is good for you now and in future if you like to die following the Sunnah and truth and not in heresy. I can tell you that the Messenger of Allah lived at a time when poverty was rampant. When living conditions improve the people most deserving to benefit from the worldly facilities are the virtuous people and not the sinful ones, the believing people and not the hypocrites, the Muslims and not those who reject Islam. What then is it that you, O Thawriy, dislike? When you see me in this condition, you must take notice that, I swear by Allah, from the time I reached the age of maturity, there has never been an evening or morning when Allah had a right in my properties that He had commanded me to payoff and I had not already paid it off.’ He (the narrator) has said that then a group of people who showed themselves to people to be abstaining from the worldly matters and called people to become like them in treating their bodies with harshness said to the Imam, ‘Our fellow companion has become tonguetied before you and is unable to present his argument properly.’ He (the Imam) then asked them, ‘What is the argument that you think you have?’ They replied, ‘It is from the book of Allah.’ He (the Imam) then said, ‘You then must present it; it is the most rightful fact to follow and upon which one must act.’ They said, ‘Allah, most Blessed, most High, speaking of a group of people of the companions of the Holy Prophet has said, “They give preference to others over their own-selves even though they particularly are in need of what they give away to the needy. Whoever controls the greed of his soul is of those who find true happiness.” (59:10) He has praised their deeds and in another passage He has said, “They offer food for His love to the destitute, the orphan and captives. . . .” (76:8) We think this much from the Holy Quran is enough to support our argument.’ A man from among the people present then said, ‘We know that you abstain from good food but at the same time ask people to give away from their properties so that you in turn benefit from such properties given away.’ “Abu ‘Abd Allah (a.s.), then said, ‘You should leave alone the matters that do not benefit you. You however must tell me this. Do you have the knowledge of the abrogating and abrogated matters of the Holy Quran; what are the unequivocal and ambiguous matters in which strayed those who strayed and faced destruction, those who were doomed to face destruction of the members of this nation?’ They or certain ones among them replied, ‘We do not know all of such matters.’ He (the Imam) then said, ‘This is where you have difficulties. The same case applies to Ahadith of the Messenger of Allah. However, what you mentioned of the matters that Allah, most Majestic, most Glorious, has spoken to us in His book about a people and their good deeds, you must take notice, such deeds were permissible and lawful. It was not prohibited for them, and their reward for such deeds is with Allah, most Majestic, most Glorious. (It was not obligatory on them) because Allah, most Holy, has commanded to do what is opposite to what they had done. Therefore, His prohibition was abrogating their practice; Allah, most Blessed, most High, out of His mercy toward the believing people, stopped them from harming themselves, their dependents, the weak ones, the small ones like children, the old men and women who are not able to bear hunger. If the loaf of my bread is given away while I have no other loaf of bread, then the lives of such ones (of my dependents) are jeopardized because of hunger. For this reason the Messenger of Allah, O Allah, grant compensation to Muhammad and his family worthy of their services to Your cause, has said, “If one has five dates in his possession or five loaves and he wants to give charity, the best charity to give is to spend it on one’s parents, then on his own self and dependents, thirdly on his relatives, fourthly on his neighbors, fifthly he should spend it in the way of Allah which is of the lowest degree of rewards.” The Messenger of Allah once, when one of the people of al-Ansar at the time of his death had set free five or six of his slaves and had no other possession and had left behind small children, said, “Had you informed me before about what he has done, I would not have given you permission to bury him in the graveyard of the Muslims due to his leaving behind small children with their hands spread before people for help.’” He (the Imam) then said, ‘My father has narrated to me that the Messenger of Allah has said, “Begin, when giving charity, with your dependents, the nearest ones first and so on.” Allah, most Majestic, most Wise, has also said, “. . . those who when giving charity do not exceed proper limits and nor do they act stringently, but give charity in a moderate manner.” (25:67) Is it not true that Allah, most Blessed, most High, has said what is other than what I see you call people to do and to give others preference over their own selves, while He has called what you want people to do as exceeding the proper limits in spending? In more than a verse of His book He says, “He does not love those who exceed proper limits in spending.” (6:141 and 7:31) He has prohibited from acting as exceeding proper limits in spending and acting very stringently. He has told them to act moderately in between the two manners of spending. One must not give away all of his belongings and then begin to pray to Allah to grant him sustenance. His prayer then is not answered as it is mentioned in a Hadith, narrated from the Holy Prophet (a.s.), that says, “The prayers of certain individuals of my followers are not answered. Of such people is one who prays against his parents, one who prays against his debtor who borrowed money without writing down for the record and appointing two witnesses for what he has borrowed, one who prays against his wife when Allah, most Majestic, most Glorious, in His laws has already authorized him to dissolve the contract of his marriage and one who sits at home without work, then prays to Allah, most Majestic, most Glorious, for sustenance but does not go out to work for a living. Allah, most Majestic, most Glorious, says to him, “My servant, have I not made ways for you to seek means of living and go around in the land by the help of your healthy bodily abilities so that you would not leave any excuse between Me and yourself in matters of your seeking to make a living and in obedience to My command and to avoid becoming a burden on your family? Now you have no excuse. I may grant you sustenance or make you suffer stringent conditions.” Another person is a wealthy one who spends all of his wealth and then begins to pray to Allah for his sustenance. Allah, most Majestic, most Glorious, says, “Had I not given you a great wealth? Why did you not act moderately as I had commanded you to do and avoid exceeding the proper limits of spending manners? I had already prohibited you to do so.” Yet there is another person who prays against good relationships with his relatives. Allah, most Majestic, most Glorious, then taught his Prophet how to spend in charity. Once there were a few Awqiyyah (certain units of measurement) of gold and he did not like to keep them with him for the night while they are not given away to deserving people. So he gave them away and in the morning there was nothing left with him. A person came to him asking for help but he had nothing to give him. The person asking for help blamed him for his inability to provide any help and he became sad; nothing was left there with him to help and he was a very kindhearted person. Allah most High, disciplined His prophet, by means of commanding him, “You must not keep your hands tied up to your neck and you must not expand them altogether so much so that you then remain blamed and unable to provide any help.” (17:31) He says, “People ask you for help and they do not accept your excuses. If you give away all the properties you remain unable to help the needy.” These are of the Ahadith of the Messenger of Allah verified by the book which is confirmed by the believing people of the book. Abu Bakr at the time of his death, when asked to make a will, made a will about one-fifth of his legacy saying, “One-fifth is a great deal.” Allah, most High, has approved wills about one-fifth. So he made a will about one-fifth. Allah, most Majestic, most Glorious, had given the right to make a will about one-third of one’s legacy at the time of one’s death. If he knew that one-third is better for him he would have made a will for one-third. People other than abu Bakr, as you know their excellence and restraint from the worldly matters, were Salman and abu Dharr, may Allah be happy with them. Salman’s manners were such that whenever he received a gift he would keep aside one year’s expenses thereof until receiving his gift of the coming year. It was said to him, “O abu ‘ Abd Allah, why is it that with all the restraint you exercise in the worldly matters and you do not know whether you will die today or tomorrow, you still keep one year’s amount of your expenses aside from the gift you receive?” His answer was as follows, “Why do you not wish for me one more year of living instead of fearing for my death within a year?”’ He (the Imam) then said, ‘O ignorant people, have you not noticed that one’s soul becomes lazy and weak (in worship) when he does not have dependable means of living but when he gains his means of living his soul gains comfort. Abu Dharr owned camels and sheep. He would get milk from them and also use their meat for food whenever he wanted for his family and for his guests or for the people from whom he received water. Whenever he thought they desired he would slaughter for them a camel for food or of the sheep to satisfy their desire for meat. He would distribute the meat among them and himself would get one share without anything more than others. Who is more restraining from the worldly matters than these people? The Messenger of Allah has said about them all that he has said but he has not mentioned anything about their dispossessing themselves altogether of their belongings by giving away everything in charity, just as you command people to give away all of their belongings to give preference to others over themselves and families. ‘O people, you must take notice that I heard my father narrating from his ancestors, ‘Alayhim al- Salam, from the Messenger of Allah, O Allah, grant compensation to Muhammad and his family worthy of their services to Your cause, who one day said, “No other thing is as astonishing to me as the condition of a believing person. If his body is cut into pieces by scissors, it is because it is for his good and if everything between the east and west is made to become of his belongings is because it is for his good. Everything that Allah, most Majestic, most Glorious, does for him is for his good.” I like to know what I have said to you today had any effect on you or I increase my sayings. Have you not noticed that Allah, most Majestic, most Glorious, at the beginning of Islam had made it compulsory on the Muslims to fight each one against ten pagans without turning his back to the enemy and those who did so would have filled his seat with hellfire. He then changed their condition out of mercy and kindness to them and told them to fight each one of them against two men of the pagans. It was a measure of relief in favor of the believers from Allah, most Majestic, most Glorious. This was an abrogation of one Muslims’ fighting against ten pagans. ‘You should tell me about the judges who rule against one of you to pay the expenses of his wife. Are they unjust judges if the defendant said, “I am a zahid (one who restrains from worldly matters) and I do not possess anything?” If you said such judges are unjust people, Islam will call you unjust, and if you said they are judges of justice, then you have defeated yourselves. By what means will you reject the validity of the will that leaves more than one-third for the poor out of the legacy of a deceased? You must answer to me about this. If all people were Zuhhad (restraining from worldly matters) as you like them to be without needing anything from the worldly matters, then who would receive the charities, expiation for disregard of one’s swearing and vows and charities like Zakat of gold, silver, dates, raisin and other items subject to Zakat like camel, cow, sheep and other goods? If it were as you say that no one should keep anything of the worldly things but instead send it as his supplies for the next life even though he may urgently need such items, what you maintain is bad and you have made people to follow what you follow due to ignorance of the book of Allah, most Majestic, most Glorious, the Sunnah of the Holy Prophet of Allah and his Ahadith (sayings) which are verified by the divinely revealed book, and you have rejected them due to your ignorance and your disregard of the unique passages of the Holy Quran, the explanation of abrogating and abrogated matters, the unequivocal and ambiguous, the command and prohibitions therein. You must tell me if you know about Sulayman (the prophet) son of Dawud ‘Alayhi al-Salam, when he asked Allah to give him a kingdom which no one after him would ever have. Allah, most Majestic, most Glorious, gave him such kingdom. He spoke the truth and acted thereupon. We do not find Allah, most Majestic, most Glorious, blaming him for possessing such kingdom, neither any of the believing people have ever blamed him for possessing such a kingdom. Before him lived Dawud, the prophet with great kingdom and strong control. There is Joseph, the prophet (a.s.), who said to the king of Egypt, “Appoint me a supervisor of the treasures of the land; I am a knowledgeable keeper.” (12:56) He became the person in charge of the kingdom of the king up to Yemen. People would come for food supplies to him during food shortages and famine. We do not find any one to blame him for it. Dhul Qarnayn was a servant of Allah who loved Allah and Allah loved him. He prepared for him means and made him to possess the east and west of the land. He spoke the truth and acted thereupon. We do not find any one to blame him for it. You people must discipline yourselves by the disciplines of Allah, most Majestic, most Glorious, for the believing people. Follow the commands and prohibitions of Allah, and leave alone what has become confusing for you and you have no knowledge thereof. Leave issues of knowledge to the people of knowledge; you will be rewarded and excused before Allah, most Blessed, most High. You must seek to learn the knowledge of abrogating and abrogated matters of the Holy Quran, its unequivocal and ambiguous matters thereof. You must learn what Allah has made lawful and what He has made unlawful. This takes you closer to Allah and farther from ignorance. You must leave alone ignorance to its people. People of ignorance are many and people of knowledge are fewer. Allah, most Majestic, most Glorious, has said, “Over every person of knowledge there is one more knowledgeable. ” (12: 76)’”",
+    "canonical_route_match": false,
+    "canonical_url": "https://thaqalayn.net/hadith/5/2/1/1",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['1', '2', '3', '4', '1', '2', '3', '4', '5', '6'] do not match translation numbers ['1', '59', '10', '76', '8', '25', '67', '6', '141', '7', '31', '17', '31', '12', '56', '12', '76']."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 1, 2, 3, 4, 5, 6."
+      },
+      {
+        "code": "translation_too_long",
+        "severity": "warning",
+        "detail": "Translation has 2854 words for 438 source words."
+      }
+    ],
+    "blocking": [
+      {
+        "code": "translation_too_long",
+        "severity": "warning",
+        "detail": "Translation has 2854 words for 438 source words."
+      }
+    ],
+    "current_status": null,
+    "current_risk": null
+  },
+  {
+    "public_id": "alkafi-8963",
+    "kind": "missing",
+    "volume": 5,
+    "sequence": 8969,
+    "best_id": 792,
+    "best_score": 1.0,
+    "second_id": 643,
+    "second_score": 0.5606060606060606,
+    "margin": 0.43939393939393945,
+    "url": "https://thaqalayn.net/hadith/1/2/99/9",
+    "english": "“This is concerning my question before abu ‘Abd Allah (a.s.), about the case of a man who made an advance payment for things of clearly described age and appointed time and not clearly described ages; then he was given below the condition. He (the Imam) said, ‘If it is with fine consent from him and from you it is not unlawful.’ I then asked about a man who made an advance payment to buy sheep of three years and less than three years and others for an appointed time. He (the Imam) said, ‘It is not harmful.’ ‘In case he cannot provide all of them, can he ask the party to accept half or one-third and take back the capital for the remaining sheep in the form of dirhams?’ He (the Imam) said, ‘It is not unlawful but they must not take up his condition without fine consent of the owner.’”",
+    "canonical_route_match": false,
+    "canonical_url": "https://thaqalayn.net/hadith/5/2/99/9",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "provider_refusal_text",
+        "severity": "critical",
+        "detail": "Provider text found: cannot provide."
+      }
+    ],
+    "blocking": [
+      {
+        "code": "provider_refusal_text",
+        "severity": "critical",
+        "detail": "Provider text found: cannot provide."
+      }
+    ],
+    "current_status": null,
+    "current_risk": null
+  },
+  {
+    "public_id": "alkafi-9558",
+    "kind": "missing",
+    "volume": 5,
+    "sequence": 9564,
+    "best_id": 1449,
+    "best_score": 1.0,
+    "second_id": 169,
+    "second_score": 0.3116279069767442,
+    "margin": 0.6883720930232557,
+    "url": "https://thaqalayn.net/hadith/1/3/37/2",
+    "english": "2. Ali ibn Ibrahim has narrated from Muhammad ibn ‘Isa from Yunus from Hisham ibn al-Hakam who has said the following: “He (the Imam) (a.s.), has said, ‘Allah, most High has made marriage lawful on the basis of His servants’ ability to pay mahr (dower) and their ability to provide maintenance, so He has said, “Marry whomever of women you like, two, three or four and if you fear of failure to maintain justice then marry only one or a slave-girl that you own.” (4:3) Allah has also said, “Anyone of you who is not able to pay mahr (dower) to marry chaste believing woman he can marry of the slave-girls that you own of the young believing woman.” (4:128) Allah has said, “If you seek advantage from the women then pay their compensation as an obligation and it is not unlawful if you settle among yourselves.” (4:24) Allah has made marriage lawful for those who are able to pay mahr (dower) according to their financial resources and their ability to provide maintenance for four or for three or two or just one. Those who cannot provide expenses for one they can marry slave-girls whom they own. If one cannot maintain women, marry free women or buy a slave-girl; Allah has made al-Mut‘ah lawful by means of whatever is easy of mahr (dower) to pay in which providing maintenance and all expenses is not necessary. Allah makes each one self-sufficient by means of whatever He has given them in the form of their abilities to pay mahr (dower) with (or without) constraint in expenses for maintenance and the ability to refrain from indecent activities and the ability to refrain. From Allah, most Majestic, most Glorious, are good resources, capabilities and guidance to lawful goals by means of what He has given them so they can maintain chastity, remain away from unlawful matters by means of what He has given them and has made them free of needing unlawful matters and by whatever He has given them and has explained to them. Thus He has set limits upon them, like punishment by lashing and stoning, Li ‘an (condemnation) and separation. Had Allah not met the needs of each group by the resources that are made available to them and the lawful ways He would not set any of such limitation upon them. “The permanent manner of marriage and owning slave-girls are well-known among people because of being practiced so often. The issue of al-Mut‘ah is not clear for many people because of the prohibition of the One who prohibited it even though permission for it exists in the revelation (al- Quran) and is mentioned in the universal Sunnah for those who may like to find the reason and like to know it. Marriage in the manner of al-Mut‘ah is permissible for rich and poor with equal measure of lawfulness of marriage as they are equal in completing the obligation of al-Hajj and al-Mut‘ah in al- Hajj. The offering animal is for both rich and poor to offer. In this respect rich and poor are equal. It is because obligatory matters are sanctioned on the basis of the ability of those with the least amount of abilities to include both rich and poor. It is not fair to sanction obligatory matters on the basis of the abilities of people, otherwise, weakness and strength become confused. They are sanctioned on the basis of the least amount of abilities, thereafter the stronger ones are exhorted to compete in good deeds in optional matters because of their strength in their persons and wealth. Al-Mut‘ah is lawful for rich and poor, for those with limited abilities and for those with four wives or those who are married with slave-girls, if one likes. It is lawful for those who can only find enough for mahr (dower) of al- Mut‘ah and mahr (dower) is whatever they agree on within the limits of marriage for rich and poor regardless of being very little or a great deal.’”",
+    "canonical_route_match": false,
+    "canonical_url": "https://thaqalayn.net/hadith/5/3/37/2",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['1', '2'] do not match translation numbers ['2', '4', '3', '4', '128', '4', '24']."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 1, 2."
+      },
+      {
+        "code": "provider_refusal_text",
+        "severity": "critical",
+        "detail": "Provider text found: cannot provide."
+      }
+    ],
+    "blocking": [
+      {
+        "code": "provider_refusal_text",
+        "severity": "critical",
+        "detail": "Provider text found: cannot provide."
+      }
+    ],
+    "current_status": null,
+    "current_risk": null
+  },
+  {
+    "public_id": "alkafi-10316",
+    "kind": "missing",
+    "volume": 5,
+    "sequence": 10322,
+    "best_id": 1216,
+    "best_score": 0.9264705882352942,
+    "second_id": 1222,
+    "second_score": 0.45588235294117646,
+    "margin": 0.4705882352941177,
+    "url": "https://thaqalayn.net/hadith/1/3/190/4",
+    "english": "“Abu al-Hassan (a.s.), sent me to a woman of the Zubayr family to see her because he wanted to marry her. When I went to her she spoke to me softly and then said, ‘Bring the lamp closer to me.’ I took it close to her. Sa‘idah has said, ‘I looked at her - there was someone else with Sa‘idah also - and asked if she agreed.’ He (the narrator) has said that abu al-Hassan (a.s.), married her and she lived with him (the Imam) until he (the Imam) died. When his slave-girls learned about it (this marriage) they began to hold his sleeves and clothes and he remained quiet, smiled and did not say anything to them. It is mentioned that he (the Imam) said, ‘No other thing is like free women.’”",
+    "canonical_route_match": false,
+    "canonical_url": "https://thaqalayn.net/hadith/5/3/190/4",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['2'] do not match translation numbers []."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 2."
+      }
+    ],
+    "blocking": [],
+    "current_status": null,
+    "current_risk": null
+  },
+  {
+    "public_id": "alkafi-10372",
+    "kind": "missing",
+    "volume": 5,
+    "sequence": 10378,
+    "best_id": 2087,
+    "best_score": 1.0,
+    "second_id": 20,
+    "second_score": 0.21518987341772153,
+    "margin": 0.7848101265822784,
+    "url": "https://thaqalayn.net/hadith/1/3/191/1",
+    "english": "1. (It is of words of Yunus) Ali ibn Ibrahim has narrated from his father from ‘Isma’il ibn Marrar and others from Yunus who has said the following: (This passage is of the words of Yunus, not a Hadith from ’A’immah ‘Alayhim al-Salam, thus, it is not translated.)",
+    "canonical_route_match": false,
+    "canonical_url": "https://thaqalayn.net/hadith/5/3/191/1",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['1', '1'] do not match translation numbers ['1']."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 1."
+      },
+      {
+        "code": "translation_too_short",
+        "severity": "warning",
+        "detail": "Translation has 48 words for 1340 source words."
+      }
+    ],
+    "blocking": [
+      {
+        "code": "translation_too_short",
+        "severity": "warning",
+        "detail": "Translation has 48 words for 1340 source words."
+      }
+    ],
+    "current_status": null,
+    "current_risk": null
+  },
+  {
+    "public_id": "alkafi-13307",
+    "kind": "missing",
+    "volume": 7,
+    "sequence": 13313,
+    "best_id": 268,
+    "best_score": 1.0,
+    "second_id": 355,
+    "second_score": 0.37662337662337664,
+    "margin": 0.6233766233766234,
+    "url": "https://thaqalayn.net/hadith/1/2/9/1",
+    "english": "1. (Translator’s Note: This passage is of the words of Yunus, not a Hadith from ’ A’immah ‘Alayhim al- Salam, thus, it is not translated.)",
+    "canonical_route_match": false,
+    "canonical_url": "https://thaqalayn.net/hadith/7/2/9/1",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 1."
+      },
+      {
+        "code": "translation_too_short",
+        "severity": "warning",
+        "detail": "Translation has 25 words for 285 source words."
+      }
+    ],
+    "blocking": [
+      {
+        "code": "translation_too_short",
+        "severity": "warning",
+        "detail": "Translation has 25 words for 285 source words."
+      }
+    ],
+    "current_status": null,
+    "current_risk": null
+  },
+  {
+    "public_id": "alkafi-13394",
+    "kind": "missing",
+    "volume": 7,
+    "sequence": 13400,
+    "best_id": 355,
+    "best_score": 0.9083094555873925,
+    "second_id": 364,
+    "second_score": 0.36070381231671556,
+    "margin": 0.547605643270677,
+    "url": "https://thaqalayn.net/hadith/1/2/23/16",
+    "english": "“Abu ‘Abd Allah (a.s.), has said, ‘When four grandmothers come together, two from the side of the mother and two from the side of the father, one by means of raffle is reduced from the side of the mother, then one-sixth will be distributed among the three. Also if four grandfathers come together, one by means of raffle is reduced from the side of the mother, and the one-sixth is distributed among the three.’” [Note: The next several pages of the Arabic text are the words of our scholars and are not translated.]",
+    "canonical_route_match": false,
+    "canonical_url": "https://thaqalayn.net/hadith/7/2/23/16",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['1', '1'] do not match translation numbers []."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 1."
+      },
+      {
+        "code": "translation_too_short",
+        "severity": "warning",
+        "detail": "Translation has 93 words for 1250 source words."
+      }
+    ],
+    "blocking": [
+      {
+        "code": "translation_too_short",
+        "severity": "warning",
+        "detail": "Translation has 93 words for 1250 source words."
+      }
+    ],
+    "current_status": null,
+    "current_risk": null
+  },
+  {
+    "public_id": "alkafi-13498",
+    "kind": "missing",
+    "volume": 7,
+    "sequence": 13504,
+    "best_id": 459,
+    "best_score": 0.9182156133828996,
+    "second_id": 185,
+    "second_score": 0.24907063197026022,
+    "margin": 0.6691449814126393,
+    "url": "https://thaqalayn.net/hadith/1/2/41/8",
+    "english": "8. Muhammad ibn ’Isma‘il has narrated from al-Fadl ibn Shadhan from abu Thabit from Hanan ibn Sadir from ibn abu Ya’fur from Ishaq ibn ‘Ammar who has narrated the following: “Once, a Mawla (slave) of Ali (a.s.), died. He said, ‘You must find out if there is anyone who inherits him.’ It was said that he has two daughters who are owned in Yamamah. He (the Imam) bought them from the assets of the deceased and gave to them the rest of the legacy.’” [Note: The next several passages of the Arabic text are the words of Fadl ibn Shadhan and are not translated.]",
+    "canonical_route_match": false,
+    "canonical_url": "https://thaqalayn.net/hadith/7/2/41/8",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['1'] do not match translation numbers ['8']."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 1."
+      },
+      {
+        "code": "translation_too_short",
+        "severity": "warning",
+        "detail": "Translation has 104 words for 592 source words."
+      }
+    ],
+    "blocking": [
+      {
+        "code": "translation_too_short",
+        "severity": "warning",
+        "detail": "Translation has 104 words for 592 source words."
+      }
+    ],
+    "current_status": null,
+    "current_risk": null
+  },
+  {
+    "public_id": "alkafi-14141",
+    "kind": "hubeali",
+    "volume": 7,
+    "sequence": 14147,
+    "best_id": 437,
+    "best_score": 0.9473684210526315,
+    "second_id": 784,
+    "second_score": 0.8421052631578947,
+    "margin": 0.10526315789473684,
+    "url": "https://thaqalayn.net/hadith/1/2/36/10",
+    "english": "“Abu ‘Abd Allah (a.s.), has said, ‘If one kills his father, he is executed for him; but if his father kills him the father is not executed for his son’s murder, however he cannot inherit from him.’” [Note: The next few passages of the Arabic text are the words of Fadl ibn Shadhan and are not translated.]",
+    "canonical_route_match": false,
+    "canonical_url": "https://thaqalayn.net/hadith/7/2/36/10",
+    "qa_risk": "green",
+    "qa_flags": [],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-14374",
+    "kind": "hubeali",
+    "volume": 7,
+    "sequence": 14380,
+    "best_id": 574,
+    "best_score": 0.9411764705882353,
+    "second_id": 733,
+    "second_score": 0.5882352941176471,
+    "margin": 0.3529411764705882,
+    "url": "https://thaqalayn.net/hadith/1/5/7/4",
+    "english": "“This is about the case of four men who testify against al-Muhsin (married male) to have committed fornication; then one of them retracts his testimony after the man is executed. Abu ‘Abd Allah (a.s.), has said, ‘If the fourth cites doubt, he is subjected to penalty, but if he says it was intentional then he is put to death.’”",
+    "canonical_route_match": false,
+    "canonical_url": "https://thaqalayn.net/hadith/7/5/7/4",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['1'] do not match translation numbers []."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 1."
+      }
+    ],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-14375",
+    "kind": "hubeali",
+    "volume": 7,
+    "sequence": 14381,
+    "best_id": 575,
+    "best_score": 0.96875,
+    "second_id": 733,
+    "second_score": 0.5769230769230769,
+    "margin": 0.39182692307692313,
+    "url": "https://thaqalayn.net/hadith/1/5/7/5",
+    "english": "“I once asked abu ‘Abd Allah (a.s.), about the case of four witnesses who testify against a man to have committed fornication and when he is executed, one of them retracts his testimony. He (the Imam) said, ‘The fourth one among them is executed and the other three must pay three-fourth of wergild to his family of the fourth witness.’”",
+    "canonical_route_match": false,
+    "canonical_url": "https://thaqalayn.net/hadith/7/5/7/5",
+    "qa_risk": "green",
+    "qa_flags": [],
+    "blocking": [],
+    "current_status": "published",
+    "current_risk": "green"
+  },
+  {
+    "public_id": "alkafi-14453",
+    "kind": "missing",
+    "volume": 7,
+    "sequence": 14459,
+    "best_id": 593,
+    "best_score": 0.9090909090909091,
+    "second_id": 301,
+    "second_score": 0.4772727272727273,
+    "margin": 0.43181818181818177,
+    "url": "https://thaqalayn.net/hadith/1/5/11/1",
+    "english": "“I once asked Isma’il ibn Ja’far, ’When it is permissible for a boy to testify?’ He said, ’It is permissible when he becomes ten years old.’ I then asked, ‘Can he issue a command?’ He said, ‘The Messenger of Allah (sw) went to bed with ‘A’ishah when she was ten years old, and it is not permissible to go to bed with a girl unless she is a woman. When a boy becomes ten years old his commanding is permissible and his testimony is admissible.’”",
+    "canonical_route_match": false,
+    "canonical_url": "https://thaqalayn.net/hadith/7/5/11/1",
+    "qa_risk": "green",
+    "qa_flags": [],
+    "blocking": [],
+    "current_status": null,
+    "current_risk": null
+  },
+  {
+    "public_id": "alkafi-14755",
+    "kind": "missing",
+    "volume": 8,
+    "sequence": 14761,
+    "best_id": 5,
+    "best_score": 1.0,
+    "second_id": 2,
+    "second_score": 0.268370607028754,
+    "margin": 0.7316293929712461,
+    "url": "https://thaqalayn.net/hadith/1/1/4/1",
+    "english": "‘I came up to Abu Ja’far (asws), so I said, ‘O son (asws) of the Messenger (saww) of Allah (azwj), the differing among the Shiites in this Doctrine causes me pain’. He (asws) said: ‘O Jabir, shall I (asws) not suffice you with the meanings of their differences, from where they are differing, and from which perspective they are separating?’ I said, ‘Yes, O son (asws) of the Messenger (saww) of Allah (azwj)’. He (asws) said: ‘So do not differ if they differ, O Jabir. The one who fights against the Master (asws) of the Era (Imam (asws) of his time) is like the one who has fought against the Messenger (saww) of Allah (azwj) in his (saww) days. O Jabir, listen attentively’. I said, ‘As you (asws) like’. He (asws) said: ‘Listen attentively, and make it reach to wherever your ride takes you, that Amir-ul-Momineen (asws) preached to the People at Al-Medina, seven days after the passing away of the Messenger (saww) of Allah (azwj), and that was when he (asws) was free from collecting the Quran and compiling it. He (asws) said: ‘Praise be to Allah (azwj) Who has Prevented the imaginations to grasp Him (azwj) except for His (azwj) Existence, and Veiled the intellects to think about His (azwj) Essence due to the restrictions of Him (azwj) having no similarities or images. But He (azwj) is the One in Whose Essence there are not differences nor any division into a number of parts due to the Perfection. He (azwj) is separate from the things, not due to being in a different place, and He (azwj) is in things, not being mixed within them, and He (azwj) Knows these, not by the use of tools. And He (azwj) is not Knowledgeable except by it, and there is nothing between Him (azwj) and His (azwj) Knowledge, any other knowledge. He (azwj) is the Knowledgeable by Himself (azwj). If it is said that He (azwj) was, it would be interpreted as the eternal existence, and if it is said that He (azwj) will never cease (to exist), it would be interpreted as the negation of the non-existence. He (azwj) is Glorious, and higher than the words of those who worship other than Him (azwj) and have taken a god other than Him (azwj). He (azwj) is Higher and Greater. We (asws) Praise Him (azwj) with a Praise of those of His (azwj) creatures who has Pleased Him (azwj), and He (azwj) has Made it to be more than Obligatory upon Himself (azwj) to Accept it. And I (asws) hereby testify that there is no God but Allah (azwj), One, with no Associates for Himself (azwj), and I (asws) testify that Muhammad (saww) is His (azwj) servant and His (azwj) Messenger. These two testimonies elevate the words and increase the deeds. Light is the Scale from which these two are raised from, and heavy is the Scale on which these two are placed. And by these two is the victory of the Paradise, and the salvation from the Fire, and the Permission upon the (crossing of) the Bridge. And it is by the testimony that you will be entering the Paradise, and by the Prayers that you will be consuming the Mercy. Send the greetings frequently upon your Prophet (saww) “[33:56] Surely Allah and His angels bless the Prophet; O you who believe! call for (Divine) blessings on him and salute him with a (becoming) salutation”. O you people! There is no nobility higher than Al-Islam, nor a prestige more honourable than the piety, nor a stronghold better than devoutness, nor an intercessor more excellent than repentance, nor a robe more majestic than good health, nor a protection more secure than safety, nor a wealth better at dispelling poverty than contentment with conviction/cetainity, nor a treasure more enriching than being satisfied. And the one lives at the subsistence level and the reduction in comfort, so he has made the preparations for the rest, and the desires is the key to the fatigue, and the monopolisation follows from affliction, and the jealousy is a scourge on the Religion, and the greed is an invitation to the indulgence in the sins and the reason for the deprivation, and the transgression is a driver to the destruction, and greed gathers all the defects. Perhaps a failed greed, a false hope leads to the dispossession and a business trade to incur a loss. The one who gets involved in the matters without looking at the consequences will be exposed to misfortunes, and the most evil of the collars (humiliation) for a Believer is the sin. O you people! There is no treasure more beneficial than the knowledge, and no honour higher than the forbearance, and no nobility more eloquent than the ethics, and no affliction greater than anger, and no majesty more decorative than the intellect, and nothing is more disgraceful than the lies, and no protection safer than silence, and no absentee which is nearer than the death. O you people! The one who looks at his own faults will be too pre-occupied to look at the faults of the others, and the one who is contented with the sustenance of Allah (azwj) will not despair upon what is in the hands of the others, and the one who unsheathes the sword of rebellion will be killed by it, and the one who drills a pit for his brother will fall into it himself, and the one who discloses the veiled (privacy) of others will uncover the privacy of his own house, and the one who forgets his own mistakes will magnify the mistakes of the others, and the one who wonders at his own opinion will go astray, and the one who considers himself to be needless due to his intellect will make mistakes, and the one who is arrogant to the people will be humiliated, and the one who is a fool to the people will be hated, and the one who mixes with the villains will be degraded, and the one who burdens himself with what he cannot endure will be frustrated. O you people! There is no wealth more valuable than the intellect, and no poverty which is more intense than the ignorance, and no preacher which is more profound than the sound advice, and no reasoning like the contemplation, and no worship like the pondering, and no demonstration more reliable than the consultation, and no isolation more severe than the self-conceit, nor piety like refraining from the Prohibitions, and no forbearance like patience and silence. O you people! In the human being there are ten qualities, which are revealed by his tongue and becomes witness to his hidden thoughts, it is a ruler by which he decides between what to be said, and the words by which he returns the answer, and an intercessor (limbs) by which he achieves the needs, and a describer (senses) by which he recognises the things, and a commander (decision) by which he commands for the good, and a preacher by which he prohibits from the ugly (deeds), and a consoler by which he gives solace to the sorrows, and a conscious by which he clears the malice, and an articulator by which he gives pleasure to the ears. O you people! There is no good in keeping silent about the ‘الْحُكْمِ’ (the Command) just as there is no good in speaking out of ignorance. And know, O you people, that the one who does not control his tongue will regret, and the one who does not learn will be ignorant, and the one who does not forbear will not content, and the one who is not deterred does not learn, and the one who does not know is insulted, and the one who is insulted is not respected, and the one who is not respected is taunted, and the one who acquires wealth from where he has no right to do so will spend it extravagantly in other that the right way, and the one who does not desist when he is praised will desist when he is condemned, and the one who does not give in comfort will also be refused when in the need, and the one who seeks the honour without being deserving of it will be disgraced, the one who overcomes with injustice will also be overpowered, and the one who opposed the truth will necessitate weakness for himself, and the one who ponders will be dignified, and the one who is arrogant will be belittled, and the one who is not good will not be praised. O you people! The death is (better) before the lowliness, and the endurance before the apathy, and the accounting before the Punishment, and the grave is better than the poverty, lowering the sight is better than looking at a great deal, and the time, a day is for you and a day against you. So if it is for you, do not be ungrateful, and if it is against you, observe patience. So with both of them you will be Examined. (And in another copy – ‘And with both of them you will be Tested’) O you people! The strangest of what is in the human being is his heart, and in it are matters of wisdom and the antibodies to the one who opposes it. When there is prosperity for him, greed humiliates him, and if greed excites him, the thriftiness destroys him, when despair overpowers him, the remorse kills him, and when the anger presents itself, the rage intensifies, and when he is happy and satisfied he forgets to conserve, and when fear seizes him he gets preoccupied by caution, and when security is widened for him his honour makes him complacent (and in another copy ‘pride takes him over’), and when new bounties come up for him pride takes him over, and when he is benefitted by money his richness makes him oppressive, and when poverty bites him he is preoccupied by the affliction (and in another copy ‘he strives in the weeping’), and when he is inflicted by hardship anxiety injures him, and when the hunger exhausts him he is disabled by the weakness, and when he over-eats he is upset by indigestion, so every deficiency is harmful to him, and every excess spoils him. O you people! The one who is miserly will be disgraced and the one who is generous will be the master, and the one who increases his wealth becomes the leader and the one who increases his forbearance becomes noble, and the one who ponders regarding the Essence of Allah (azwj) becomes an Atheist, and the one who frequents in something becomes known for it, and the one frequently jokes will be taken lightly, and the one who frequently laughs his prestige goes away, the one who has no ethics will corrupt. The best deed is the maintenance of honour by wealth. There is none who sits with the ignorant ones who is reasonable, for the one who sits with the ignorant ones should ready himself for (a lot of) talk (against him)’. And he (asws) said: ‘Neither did the rich one obtain salvation from death by his wealth, nor did the poor one due to his scarcity’. O you people! Had the death been (a commodity) which could be bought, the good and the honourable ones of the world, as well as the wicked and the greedy ones would have bought it. O you people! There are witnesses for the hearts which hold them back from being the people of excesses, and there is insight for the understanding, which alerts the self and caution it from the danger. And for the heart there are memories of desires, and the intellect admonishes and prohibits from it. And in the experiences there is an appellant, which is a reliable guide to the right way. It is sufficient for yourself what you would not like it to happen to others, and it is upon you that the same should be for your believing brother, and in it upon him, likewise. The one who considers his own opinion to be self-sufficing from him would endanger him, and the pondering before the deeds would keep you safe from remorse. And the one who welcomes different opinions would understand the places of mistakes. And the one who refrains from the useless matters his opinion would balance the intellects. The one who fortifies his carnal desires so he has kept his respect, and the one who restrains his tongue is trusted by the people and will achieve his needs. And in the alteration of the situations the jewels of the men become known, and the passing days make apparent the inner selves. And there is no enjoyment in the swiftness of lightning for the one who goes through darkness. And the one who is recognised by the wisdom, the eyes will notice him with reverence and prestige. The most noble of riches is the avoidance of wishes, and the patience is a shield against poverty, and the greed is a sign of poverty, and the stinginess is the gown of destitution, and the cordiality with the relatives is beneficial, and the sympathy of the poor is better than the disloyal rich. Counselling is like a cave for the one who listens to it, and the one who does not restrain his eyes, his regrets increase. And the (passage of) time has made it to be more than obligatory for the one who avails it, to thank it. The tongue does very little justice in displaying the ugly and the good. The one who constricts his ethics, his family get tired of him. And the one who seeks, achieves it for a long time, and very little of what is wished is sincere. Modesty clothes you with dignity, and in the extensiveness of the morals is a treasure for the sustenance, and how many from the people remain in their sins until the end of their days. And the one who robes himself with bashfulness as his clothing his faults are hidden from the people. And intend moderation in your speech, for the one who intends it will incur light expenses, and in the opposition to the ego is guidance for you. And the one who recognises the ‘days’ (his end) will never be oblivious from the preparation. Nay! Along with every sip (of drink) is (possibility of) choking, and in every morsel is (the possibility of) suffocation. Bounties cannot be achieved except by the decline of other (bounties), and for every breath is life, and for every grain is a consumer, and you are the morsel of the death. And know, O you people! The ones who walks upon the face of the earth will end up in its belly, and the nights and the days, they dispute (they accelerate) regarding the destruction of the life-span. O you people! Ingratitude for the bounties is wickedness, and the company of the ignorant is ominous. The softness of the speech is from the prestige. And from the (acts of) worship are displayed by the tongue (make it heard) and increase the greetings. Beware of deceit for it is from the manners of the villains. Every seeker does not get a share, nor does every absentee return. Its not certain that one will get what he wishes and the lost is recovered. Seek (the company) of friends before setting of and ensure (good) neighbourhood before (moving into) the house. Indeed! The one who moves fast will catche up with the slower ones. Conceal the private (matters) of your brother just as he knows regarding you. Forgive the mistakes of your friend for the day that your enemy comes to dominate you. The one who is angry with the one over whom he has no power to injure, his grief would be prolonged and it will punish his soul. The one who fears his Lord (azwj) will refrain from committing injustices. The one who is good with the words would display his pride. And the one who does not recognise the good from the evil, is like an animal. Indeed the corruption destroys the provisions (of the Hereafter). How little is the difficulty (of today) as compared with the great destitution tomorrow. Far it is! Far it is from being compared. And what is your antipathy due to, except for your indulgence in acts of disobedience and the sins. So how close is the rest to the tiredness, and the misery from the Bounties. The hardships are not painful after which there is the Paradise, and the goodtime is not the (lasting) comfort after which there is the Fire. And every bounty apart from the Paradise is insignificant, and every affliction apart from the Fire is healthy. And turning away from correcting the consciences leads to the major sins. Purification of the deeds is more difficult than the deed itself, and the sincerity of the intention from the corruption is more difficulty upon the performer of the deed than the lengthy Jihaad. Far it is! Had it not been for the piety I (asws) would have been the shrewdest of the Arabs. O you people! Allah (azwj) the High Promised His (azwj) Prophet (saww) Muhammad (saww) the Means (Al-Waseela), and His (azwj) Promise is True, and Allah (azwj) does not Go against His (azwj) Promise. Surely Al-Waseela is on the steps of the Paradise and is at the peak of the nearness (to Allah (azwj)), and is a total security at the very end of it. There are a thousand staircases, and what is in between one staircase and the other there is a travel distance by a fine horse of a hundred years. And in between these is a staircase of gems going up to a staircase of jewels, to a staircase of aquamarines, to a staircase of pearls, to a staircase of rubies, to a staircase of emeralds, to a staircase of corals, to a staircase of camphor, to a staircase of ambergris, to a staircase of aloe, to a staircase of gold, to a staircase of clouds, to a staircase of air, to a staircase of Light which encompasses all of the Gardens. And on that Day the Messenger (saww) of Allah (azwj) would be seated wearing two Garments – a Garment of the Mercy of Allah (azwj) and a Garment of the Light of Allah (azwj). On him (saww) will be a Crown of the Prophet-hood and a Garland of the Message, the Light of which will illuminate the whole of the Pausing Place (Station in the Hereafter). And on that Day, I (asws) will be upon the High Level, and it will be lower than his (saww) Level, and on me (asws) would be two Garments – a Garment of purple Light and a Garment of Camphor. And the Messengers (as) and the Prophets (saww) would have paused upon my (asws) staircase, with the Flags of the Eras and the Proof of the ages on our (asws) right, and they (as) will have Majestic Garments of Light and the Prestige. There is no Angel of Proximity, and no Messenger Prophet (saww) who will look at us (asws) except that he will be stunned by our (asws) Light. And stranger than our (asws) Illumination and our (asws) Majesty is the Al-Waseela on our (asws) right, and on the right of the Messenger (saww) of Allah (azwj) will be a cloud stretching out as far as the eye can see. A Call will come out from it: ‘O people of the Pausing Place! Goodness is for the ones who loved the successor (asws) and believed in the Prophet (saww), the ‘Ummy’ of the Arabs. And the one who disbelieved, so the Fire is Prepared for him. And on the left of Al-Waseela, from the left of the Messenger (saww) of Allah (azwj) will be a shade. A Call will come out from it: ‘O people of the Pausing Place! Goodness is for the ones who loved the successor (asws) and believed in the ‘Ummy’ Prophet (saww), the one (saww) for whom is the High Kingdom. There is no success for anyone, nor happiness for the soul, and the Paradise except for the one who is meeting his Creator (azwj) with the sincerity for these two (asws) and the follower of the stars (Imams (asws)) from these two (asws). Be convinced, O people of Al-Wilayah of Allah (azwj), of the whitening of your faces, and the prestige of your seating, and the honour of your return and your success today, with bliss, facing each other. And O people of the deviation, and the diverters from Allah (azwj), Mighty is His (azwj) Remembrance, and from His (azwj) Messenger (saww), and from His (azwj) Path, and the Flags of the eras, be convinced of the blackening of your faces, and the Wrath of your Lord (azwj), a Recompense of what you used to do before. And there is none from the Messengers (as) who preceded and none from the Prophets (as) of the past except that he (as) had informed his (as) community of the Messenger (saww) to come after him (as), and the good news of the Messenger (saww) of Allah (azwj), and bequeathed to his (as) community, and described him (saww) to his (as) community his (saww) qualities, and that they should follow him (saww) and be upon his (saww) Law, so that they would not stray with regards to him (saww) after him (as). So the ones who would face destruction and straying afterwards would only be after the occurrence of the reasons and the warnings, and having been acquainted with the evidence, and the arguments having been established. So the communities lived in hope about the Messengers (as) and the Prophets (as) to come, if they were in difficult circumstances in the absence of a Prophet (as) after their Prophet (as), in their great difficulties and disasters, so they were at the time in a state of hope. And there have never been a difficulty which was greater, and nor a disaster greater like the difficulties with the Messenger of Allah (saww), because Allah (azwj) Ended the Warnings, and the Reasons, and Cut-off through him (saww) the Arguments, and the Reasons between Him (azwj) and His (azwj) creatures, and Made him (saww) to be His (azwj) Door which was between Him (azwj) and His (azwj) servants, and as His (azwj) Authority which nothing would be Acceptable except by him (saww), nor any nearness to Him (azwj) except by being obedient to him (saww). And He (azwj) Said Decisively in His (azwj) Book: “[4:80] Whoever obeys the Messenger, he indeed obeys Allah and whoever turns back, so We have not sent you as a keeper over them”. So He (azwj) Joined obedience to Himself (azwj) with obedience to him (saww), and disobedience to Himself (azwj) with disobedience to him (saww). So that was the Evidence which was Delegated to him (saww), and a Testimony against the one who obeys him (saww), and disobeys him (saww), and between that in other places from the Great Book. So the Blessed and the High Said in the Incitement to follow him (saww), and the Exhortation with regards to his (saww) ratification, and the acceptance of his (saww) Call: “[3:31] Say, (O Muhammad, tell to mankind): If you love Allah, follow me; Allah will love you and forgive you your sins”. So following him (saww) achieves the Love of Allah (azwj) and His (azwj) Pleasure, and the Forgiveness of the sins, and the completeness of the success, and the necessitation of the Paradise. And in the turning away from him (saww) achieves the Enmity of Allah (azwj), and His (azwj) Wrath, and His (azwj) Harshness, and remoteness from Him (azwj), and a dwelling in the Fire and that is His (azwj) Statement: “[11:17] and whoever of the (different) parties disbelieves in it, the Fire will be their promised meeting-place”, meaning the striving against him (saww) and disobedience to him (saww). Allah (azwj), Blessed is His (azwj) Name, Tested His (azwj) servants by me (asws), and killed those that opposed Him (azwj) by my (asws) hand, and annihilated those that strived against Him (azwj) by my (asws) sword, and Made me (asws) to be a Means of nearness to Him (azwj) (Zulfat) for the Believers, and a ground of death for the toughest tyrants, and His (azwj) Sword against the criminals, and Strengthened by me (asws) the back of His (azwj) Messenger (saww), and Honoured me (asws) by helping him (saww), and Privileged me (asws) with his (saww) knowledge, and Gifted me (asws) with his (saww) Laws, and Favoured me (asws) for his (saww) successorship, and Chose me (asws) for his (saww) Caliphate in his (saww) community. So he (saww) said when he (saww) mobilised the Emigrants and the Helpers in their gathering: ‘O you people! Surely, Ali (asws) is from me (saww) like Haroun (as) was from Musa (as) except that there is no Prophet (as) to come after me (saww). So the Believers understood that the Messenger (saww) was speaking on behalf of Allah (azwj). They recognised me (asws) that I (asws) was not his (saww) brother by his (saww) father (as) or his (saww) mother (as) as was the case with Haroun (saww) who was the brother of Musa (as) from his (as) father and his (as) mother (as), nor was I (asws) a Prophet (as). The Prophet-hood has ended. But, that was from him (saww) appointing me (asws) as the Caliph just as Musa (as) had appointed Haroun (as) as the Caliph when he (as) said: “[7:142] Take my place among my people, and act well and do not follow the way of the mischief-makers.” And his (saww) words when a group spoke saying, ‘We are the friends of the Messenger of Allah (azwj)’. So the Messenger (saww) of Allah (azwj) went out to the Farewell Pilgrimage, then came up to Ghadeer Khumm. So he (saww) ordered for something resembling a Pulpit to be prepared to him (saww). Then he (saww) ascended it, grabbed my (asws) arm and raised it to the extent that the whiteness of his (saww) armpits were seen, and said in a raised voice in that forum: ‘The one to whom I (saww) was the Master of, so Ali (asws) is his Master. Our Allah (azwj)! Befriend the one who befriends him (asws), and be Inimical to the one who is an enemy to him (asws). Thus, upon my (asws) Wilayah is the Wilayah of Allah (azwj), and upon my (asws) enmity is the enmity against Allah (azwj). And Allah (azwj), Mighty and Majestic Revealed in that day: “[5:3] This day have I perfected for you your religion and completed My favor on you and chosen for you Islam as a religion”. So upon my (asws) Wilayah was the completion of the Religion, and the Pleasure of the Lord (azwj), Majestic is His (azwj) Remembrance. And Allah (azwj), Blessed and High, Revealed it especially for me (asws) and Honoured the Gifting it for me (asws) as (a sign of) greatness, and its gifting from the Messenger of Allah (saww), and it is the Statement of the High: “[6:62] Then are men returned unto Allah, their protector, the (only) reality: Is not His the command? and He is the swiftest in taking account.” If I (asws) were to mention my (asws) merits, its loftiness would be great, and it’s listening prolonged. And about me (asws), two miserable ones before me (asws) disputed with me (asws) regarding that in which they had no rights over it, and they rode its misguidance, and believed in the ignorance. So evil is what was to them, what they returned to, and evil is what they made as a cradle for themselves. They cursed each other in their own houses, and each one of them distanced himself from his companion saying to him when he met him, ‘Alas! If only there was the distance between the East and the West between me and between you’. So evil is the friend who answered him, the miserable one upon his ragged condition, “[25:28] O woe is me! would that I had not taken such a one for a friend. [25:29] He verily led me astray from the Reminder after it had reached me. Satan was ever man’s deserter in the hour of need”. So I (asws) am the Reminder from which he went astray, and the Way from which he deviated, and the Belief which he denied, and the Quran from which he fled, and the Religion which he belied, and the Path from which he digressed. And the debris which they lived upon in their constant pride, they were on it on the verge of the Fire (prepared) for them - an evil return amongst the wicked group, to a condemned destination. They will be shouting curses at each other grumbling in regret. There will be no rest for these two; nor a respite from their inevitable Punishment. The people never ceased to be the worshippers of the idols and being the custodians of the idols, establishing rituals for them, and designated certain offerings for them in order to seek nearness to them. And they made for them titles such as ‘Al-Baheyra, and Al-Waseyla, and Al-Sa’ebat, and Al-Haam’. They distributed these idols by casting lots by arrows, wondering about Allah (azwj) Mighty is His (azwj) Remembrance. They were confused about the guidance, hastening to the remoteness, and they had been overcome by Satan (la) who had flooded them with the darkness of ignorance, having breastfed them with ignorance and weaned them with misguidance. Allah (azwj) Brought us (asws) out to them as a Mercy, and Informed about us (asws) as being higher than them, and Removed the Veil of Light from us (asws) for those that sought us (asws), and Preferred the ones who followed it (the Light), and we (asws) were a support for the ones who ratified it. So honour followed after the disgrace, and the plenty after the scarcity. And their hearts and their eyes revered them, and the tyrants yielded to them, and its respective communities became the people of the Bounties, being worthy of mention, and prestigious, and ease, and security after fear, and ‘جَمْعٍ’ union after having been separated. And Ma’d Bin Adnan was illuminated (famous) due to us (asws) and we (asws) inserted them in the Door of Guidance, and we (asws) entered them into the House of Peace, and we (asws) clothed them with the garment of Belief, and they became famous due to us (asws) in the worlds, and the effects of the righteous people appeared for them in the days of the Messenger (saww), from a striving protector, and an obedient worshipper, and an ascetic retreater, and they preserved the trusts and became as such until when Allah (azwj) Mighty and Majestic Called back His (azwj) Prophet (saww) and Raised him (saww) to Himself (azwj). That was not after him (saww) except like a moment of pulse, or a glimmer of lightning for them to return back and turn back upon their heels, and sought revenge by forming battalions, and they blocked the Door and destroyed the houses, and changed the effects of the Messenger of Allah (saww), and turned away from his (saww) rulings, and distanced themselves from his (saww) Light, and they changed his (saww) Caliph with an alternate. They took to him, and they were unjust in doing so, and they thought that the one whom they had chosen from the descendants of Abu Kohafa (Abu Bakr) is higher in status than the one (asws) whom the Messenger (saww) of Allah (azwj) had chosen to be in his (saww) place, and that the Emigrants from the progeny of Abu Kohafa were better than the Emigrants and the Helpers of the Rabbi of the Law Hashim Bin Abd Manaf (as). Nay! The first false testimony which occurred in Al-Islam was their testimony that their companion (Abu Bakr) is the one whom the Messenger (saww) of Allah (azwj) had made to be the Caliph. So when the matter of Sa’d Bin Ubada was what it was, they retracted from that and said that the Messenger (saww) of Allah (azwj) passed away and did not appoint a Caliph. So the Messenger of Allah (saww), the good, the Blessed, was the first one in Al-Islam against who the false testimony was borne. And after a little while they found out the evil of what (they came to know and found out the consequences of the evil of what) the former ones had established. And they had an alternative and an opportunity to recover from the death, and had the time to turn around from the lure of pride, and be in a tranquil condition, and the realisation of the deeds. Allah (azwj) had respited Shaddaad Bin Aad, and Thamud Bin Abbuwad, and Bal’am Bin Ba’our, and Bestowed upon them His (azwj) Favours, both apparent as well as hidden, Supplied them with the wealth, and the (prolongation) of their lives, and Granted them the land, so that due to these Blessings they would Remember the Signs of Allah (azwj), and they would recognise and be awed by Him (azwj), and turn to Him (azwj), and bring an end to their arrogance. So before they reached their (allocated) time, and enjoy their meal, Allah (azwj) Mighty and Majestic Grabbed them and cut them down. Some of them from sandstorm, some were overtaken by a scream, and some from being burned by the shadow, and some from the tremors, and some from sinking of the earth. Allah (azwj) was not Unjust to them, but they had been unjust to their own selves. Indeed! For every term there is a writing. So when the writing reaches its term, and it is uncovered for you about what would befall the unjust ones, and what the greatest losers have got to, you will run towards Allah (azwj) Mighty and Majestic from what they had been involved in and to what they are proceeding to. Nay! And I (asws) am among you, O you people, like Haroun (as) was in the people of the Pharaoh (la), and like the Door of Hitta in the Children of Israel, and like the Ark of Noah (as) in the people of Noah (as). I (asws) am the Great News (Al-Nabaa Al-Azeem), and the Great Truthful (Al-Siddique Al-Akbar), And after a little while you will come to know what had been Promised to you. And is this anything else but (was committed) for a morsel of food, and a sip of drink, light sleep. Then the disgrace will be necessitated upon them in the world, and on the Day of Judgement they will be returning to intense Punishment. And Allah (azwj) is not Oblivious (forgetful) of what they have done. So what is the Recompense for the one who turned away from His (azwj) Proof (asws), and denied His (azwj) Argument, and opposed His (azwj) Guides (asws), and turned away from His (azwj) Light and stormed (his way) into the darkness, and exchanged water for the mirage, and Bounties for the Punishment, and the success for the misery, and prosperity for the poverty, and the ease for the hardship. Nay! This is the Recompense of what they had sown and done before. So be certain of the Promise and of its reality, and be assured of what has been Promised on the Day of the coming of the ‘Scream’ (Dooms Day), with the Truth. “[50:42] The day when they shall hear the cry in truth; that is the day of coming forth. [50:43] Surely We give life and cause to die, and to Us is the eventuAl-coming [50:44] The day on which the earth shall cleave asunder under them, they will make haste; that is a gathering together easy to Us”.",
+    "canonical_route_match": false,
+    "canonical_url": "https://thaqalayn.net/hadith/8/1/4/1",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['1', '2', '1', '2', '3', '4', '5', '6'] do not match translation numbers ['33', '56', '4', '80', '3', '31', '11', '17', '7', '142', '5', '3', '6', '62', '25', '28', '25', '29', '50', '42', '50', '43', '50', '44']."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 1, 2, 3, 4, 5, 6."
+      },
+      {
+        "code": "translation_too_long",
+        "severity": "warning",
+        "detail": "Translation has 6015 words for 542 source words."
+      }
+    ],
+    "blocking": [
+      {
+        "code": "translation_too_long",
+        "severity": "warning",
+        "detail": "Translation has 6015 words for 542 source words."
+      }
+    ],
+    "current_status": null,
+    "current_risk": null
+  }
+]

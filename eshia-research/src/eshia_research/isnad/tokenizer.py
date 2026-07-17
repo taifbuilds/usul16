@@ -29,7 +29,11 @@ import re
 
 from eshia_research.normalise import normalise_arabic_persian, strip_diacritics
 
-MAX_EXPANDED_CHAINS = 8
+# Real Al-Kafi co-narrator lists reach 24 unambiguous combinations (for
+# example several named reporters transmitting from either of two Imams).
+# Keeping the old cap of 8 silently retained only the first route. 32 covers
+# every canonical Al-Kafi case while still bounding combinatorial expansion.
+MAX_EXPANDED_CHAINS = 32
 
 # --- token/node types -------------------------------------------------------
 NAMED = "named_narrator"
@@ -214,6 +218,10 @@ _MURSAL_PHRASES = {_n("روي"), _n("روى"), _n("يروى")}
 _DIGIT_RE = re.compile(r"[0-9٠-٩۰-۹]")
 _TAHWIL_RE = re.compile(r"\sح(?:\s|$)")
 _JAMIAN_RE = re.compile(r"(?:^|\s)" + _n("جميعا") + r"(?=\s|$)")
+_PARALLEL_PERIOD_RE = re.compile(
+    r"\S\s*\.\s+و?(?=[^.\n]{0,80}(?:^|\s)(?:بن|ابن)(?:\s|$))"
+    r"(?=[^.\n]{0,80}(?:^|\s)عن(?:\s|$))"
+)
 
 _SCHOLAR_HONORIFIC_RE = re.compile(
     "|".join(
@@ -420,7 +428,7 @@ def _tokenize_single(text: str, flags: set[str]) -> list[TokenizedChain]:
         text = _WS_RE.sub(" ", _JAMIAN_RE.sub(" ", text)).strip()
     # A mid-isnad period is eShia's usual punctuation for a parallel route
     # («…الصفار. وسعد بن عبد الله عن…»).
-    if re.search(r"\S\s*\.\s+\S", text):
+    if _PARALLEL_PERIOD_RE.search(text):
         flags.add("multi_route")
 
     segments = _split_segments(text)

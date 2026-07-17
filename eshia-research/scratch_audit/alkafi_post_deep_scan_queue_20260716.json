@@ -1,0 +1,1998 @@
+{
+  "summary": {
+    "remaining": 124,
+    "reasons": {
+      "edition_split_or_merge": 5,
+      "no_reliable_alignment": 62,
+      "english_arabic_content_mismatch": 1,
+      "source_explicitly_not_translated": 6,
+      "ambiguous_alignment": 32,
+      "no_verified_sarwar_volume8": 18
+    },
+    "by_volume": {
+      "1": 2,
+      "2": 3,
+      "3": 4,
+      "5": 15,
+      "6": 61,
+      "7": 21,
+      "8": 18
+    }
+  },
+  "records": [
+    {
+      "public_id": "alkafi-1173",
+      "sequence": 1174,
+      "volume": 1,
+      "page_start": 432,
+      "printed_number": "٩١",
+      "source_url": "https://lib.eshia.ir/11005/1/432",
+      "reason": "edition_split_or_merge",
+      "detail": "Strong Arabic overlap but local and source report extents differ materially.",
+      "best_candidate": {
+        "remote_id": 1168,
+        "score": 0.941747572815534,
+        "margin": 0.5055773600495765,
+        "source_url": "https://thaqalayn.net/hadith/1/4/108/88"
+      }
+    },
+    {
+      "public_id": "alkafi-1443",
+      "sequence": 1444,
+      "volume": 1,
+      "page_start": 548,
+      "printed_number": "٢٨",
+      "source_url": "https://lib.eshia.ir/11005/1/548",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 225,
+        "score": 0.21561338289962825,
+        "margin": 0.045825617606244984,
+        "source_url": "https://thaqalayn.net/hadith/1/3/2/6"
+      }
+    },
+    {
+      "public_id": "alkafi-2782",
+      "sequence": 2784,
+      "volume": 2,
+      "page_start": 364,
+      "printed_number": "١",
+      "source_url": "https://lib.eshia.ir/11005/2/364",
+      "reason": "english_arabic_content_mismatch",
+      "detail": "High Arabic identity but the attached English describes another report.",
+      "best_candidate": {
+        "remote_id": 1334,
+        "score": 0.9545454545454546,
+        "margin": 0.09090909090909094,
+        "source_url": "https://thaqalayn.net/hadith/1/1/155/1"
+      }
+    },
+    {
+      "public_id": "alkafi-2957",
+      "sequence": 2959,
+      "volume": 2,
+      "page_start": 431,
+      "printed_number": "٢",
+      "source_url": "https://lib.eshia.ir/11005/2/431",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 69,
+        "score": 0.2007042253521127,
+        "margin": 0.01408450704225353,
+        "source_url": "https://thaqalayn.net/hadith/1/1/17/1"
+      }
+    },
+    {
+      "public_id": "alkafi-3794",
+      "sequence": 3797,
+      "volume": 2,
+      "page_start": 674,
+      "printed_number": "٥",
+      "source_url": "https://lib.eshia.ir/11005/2/674",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 69,
+        "score": 0.22895622895622897,
+        "margin": 0.023569023569023573,
+        "source_url": "https://thaqalayn.net/hadith/1/1/17/1"
+      }
+    },
+    {
+      "public_id": "alkafi-4618",
+      "sequence": 4621,
+      "volume": 3,
+      "page_start": 216,
+      "printed_number": "٣",
+      "source_url": "https://lib.eshia.ir/11005/3/216",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 372,
+        "score": 0.255,
+        "margin": 0.015000000000000013,
+        "source_url": "https://thaqalayn.net/hadith/1/2/9/1"
+      }
+    },
+    {
+      "public_id": "alkafi-4734",
+      "sequence": 4737,
+      "volume": 3,
+      "page_start": 251,
+      "printed_number": "٨",
+      "source_url": "https://lib.eshia.ir/11005/3/251",
+      "reason": "source_explicitly_not_translated",
+      "detail": "The source explicitly declines or substitutes for a translation.",
+      "best_candidate": {
+        "remote_id": 937,
+        "score": 0.8973509933774835,
+        "margin": 0.652317880794702,
+        "source_url": "https://thaqalayn.net/hadith/1/3/95/8"
+      }
+    },
+    {
+      "public_id": "alkafi-5669",
+      "sequence": 5674,
+      "volume": 3,
+      "page_start": 482,
+      "printed_number": "١",
+      "source_url": "https://lib.eshia.ir/11005/3/482",
+      "reason": "edition_split_or_merge",
+      "detail": "Strong Arabic overlap but local and source report extents differ materially.",
+      "best_candidate": {
+        "remote_id": 1873,
+        "score": 0.9347826086956522,
+        "margin": 0.6630434782608696,
+        "source_url": "https://thaqalayn.net/hadith/1/4/100/1"
+      }
+    },
+    {
+      "public_id": "alkafi-5975",
+      "sequence": 5980,
+      "volume": 3,
+      "page_start": 569,
+      "printed_number": "٣",
+      "source_url": "https://lib.eshia.ir/11005/3/569",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 2178,
+        "score": 0.6764705882352942,
+        "margin": 0.20588235294117652,
+        "source_url": "https://thaqalayn.net/hadith/1/5/47/3"
+      }
+    },
+    {
+      "public_id": "alkafi-8198",
+      "sequence": 8204,
+      "volume": 5,
+      "page_start": 23,
+      "printed_number": "١",
+      "source_url": "https://lib.eshia.ir/11005/5/23",
+      "reason": "edition_split_or_merge",
+      "detail": "Strong Arabic overlap but local and source report extents differ materially.",
+      "best_candidate": {
+        "remote_id": 27,
+        "score": 0.8551401869158879,
+        "margin": 0.4813537791488976,
+        "source_url": "https://thaqalayn.net/hadith/1/1/7/1"
+      }
+    },
+    {
+      "public_id": "alkafi-8233",
+      "sequence": 8239,
+      "volume": 5,
+      "page_start": 39,
+      "printed_number": "٤",
+      "source_url": "https://lib.eshia.ir/11005/5/39",
+      "reason": "edition_split_or_merge",
+      "detail": "Strong Arabic overlap but local and source report extents differ materially.",
+      "best_candidate": {
+        "remote_id": 62,
+        "score": 0.8364197530864198,
+        "margin": 0.6327160493827161,
+        "source_url": "https://thaqalayn.net/hadith/1/1/15/4"
+      }
+    },
+    {
+      "public_id": "alkafi-8322",
+      "sequence": 8328,
+      "volume": 5,
+      "page_start": 65,
+      "printed_number": "١",
+      "source_url": "https://lib.eshia.ir/11005/5/65",
+      "reason": "edition_split_or_merge",
+      "detail": "Strong Arabic overlap but local and source report extents differ materially.",
+      "best_candidate": {
+        "remote_id": 169,
+        "score": 0.9222222222222223,
+        "margin": 0.6037037037037037,
+        "source_url": "https://thaqalayn.net/hadith/1/2/1/1"
+      }
+    },
+    {
+      "public_id": "alkafi-9983",
+      "sequence": 9989,
+      "volume": 5,
+      "page_start": 470,
+      "printed_number": "١٤",
+      "source_url": "https://lib.eshia.ir/11005/5/470",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 2081,
+        "score": 0.6,
+        "margin": 0.06666666666666665,
+        "source_url": "https://thaqalayn.net/hadith/1/3/186/5"
+      }
+    },
+    {
+      "public_id": "alkafi-9984",
+      "sequence": 9990,
+      "volume": 5,
+      "page_start": 470,
+      "printed_number": "١٥",
+      "source_url": "https://lib.eshia.ir/11005/5/470",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 2087,
+        "score": 0.5789473684210527,
+        "margin": 0.03349282296650724,
+        "source_url": "https://thaqalayn.net/hadith/1/3/191/1"
+      }
+    },
+    {
+      "public_id": "alkafi-9985",
+      "sequence": 9991,
+      "volume": 5,
+      "page_start": 470,
+      "printed_number": "١٦",
+      "source_url": "https://lib.eshia.ir/11005/5/470",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 844,
+        "score": 0.5416666666666666,
+        "margin": 0.04166666666666663,
+        "source_url": "https://thaqalayn.net/hadith/1/2/107/12"
+      }
+    },
+    {
+      "public_id": "alkafi-10004",
+      "sequence": 10010,
+      "volume": 5,
+      "page_start": 474,
+      "printed_number": "١",
+      "source_url": "https://lib.eshia.ir/11005/5/474",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 20,
+        "score": 0.4523809523809524,
+        "margin": 0.0,
+        "source_url": "https://thaqalayn.net/hadith/1/1/4/1"
+      }
+    },
+    {
+      "public_id": "alkafi-10030",
+      "sequence": 10036,
+      "volume": 5,
+      "page_start": 480,
+      "printed_number": "٣",
+      "source_url": "https://lib.eshia.ir/11005/5/480",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 1222,
+        "score": 0.5625,
+        "margin": 0.05030487804878048,
+        "source_url": "https://thaqalayn.net/hadith/1/3/190/10"
+      }
+    },
+    {
+      "public_id": "alkafi-10032",
+      "sequence": 10038,
+      "volume": 5,
+      "page_start": 481,
+      "printed_number": "١",
+      "source_url": "https://lib.eshia.ir/11005/5/481",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 20,
+        "score": 0.5714285714285714,
+        "margin": 0.015873015873015817,
+        "source_url": "https://thaqalayn.net/hadith/1/1/4/1"
+      }
+    },
+    {
+      "public_id": "alkafi-10033",
+      "sequence": 10039,
+      "volume": 5,
+      "page_start": 481,
+      "printed_number": "٢",
+      "source_url": "https://lib.eshia.ir/11005/5/481",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 20,
+        "score": 0.4772727272727273,
+        "margin": 0.0,
+        "source_url": "https://thaqalayn.net/hadith/1/1/4/1"
+      }
+    },
+    {
+      "public_id": "alkafi-10034",
+      "sequence": 10040,
+      "volume": 5,
+      "page_start": 481,
+      "printed_number": "٣",
+      "source_url": "https://lib.eshia.ir/11005/5/481",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 169,
+        "score": 0.45454545454545453,
+        "margin": 0.022727272727272707,
+        "source_url": "https://thaqalayn.net/hadith/1/2/1/1"
+      }
+    },
+    {
+      "public_id": "alkafi-10043",
+      "sequence": 10049,
+      "volume": 5,
+      "page_start": 483,
+      "printed_number": "٥",
+      "source_url": "https://lib.eshia.ir/11005/5/483",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 20,
+        "score": 0.5172413793103449,
+        "margin": 0.017241379310344862,
+        "source_url": "https://thaqalayn.net/hadith/1/1/4/1"
+      }
+    },
+    {
+      "public_id": "alkafi-10068",
+      "sequence": 10074,
+      "volume": 5,
+      "page_start": 490,
+      "printed_number": "١",
+      "source_url": "https://lib.eshia.ir/11005/5/490",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 2087,
+        "score": 0.5357142857142857,
+        "margin": 0.10714285714285715,
+        "source_url": "https://thaqalayn.net/hadith/1/3/191/1"
+      }
+    },
+    {
+      "public_id": "alkafi-10219",
+      "sequence": 10225,
+      "volume": 5,
+      "page_start": 528,
+      "printed_number": "٤",
+      "source_url": "https://lib.eshia.ir/11005/5/528",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 20,
+        "score": 0.5526315789473685,
+        "margin": 0.0,
+        "source_url": "https://thaqalayn.net/hadith/1/1/4/1"
+      }
+    },
+    {
+      "public_id": "alkafi-10372",
+      "sequence": 10378,
+      "volume": 5,
+      "page_start": 570,
+      "printed_number": "١",
+      "source_url": "https://lib.eshia.ir/11005/5/570",
+      "reason": "source_explicitly_not_translated",
+      "detail": "The source explicitly declines or substitutes for a translation.",
+      "best_candidate": {
+        "remote_id": 2087,
+        "score": 1.0,
+        "margin": 0.7848101265822784,
+        "source_url": "https://thaqalayn.net/hadith/1/3/191/1"
+      }
+    },
+    {
+      "public_id": "alkafi-10544",
+      "sequence": 10550,
+      "volume": 6,
+      "page_start": 43,
+      "printed_number": "٥",
+      "source_url": "https://lib.eshia.ir/11005/6/43",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 171,
+        "score": 0.6,
+        "margin": 0.14285714285714285,
+        "source_url": "https://thaqalayn.net/hadith/1/1/30/5"
+      }
+    },
+    {
+      "public_id": "alkafi-10608",
+      "sequence": 10614,
+      "volume": 6,
+      "page_start": 56,
+      "printed_number": "١",
+      "source_url": "https://lib.eshia.ir/11005/6/56",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 234,
+        "score": 0.7560975609756098,
+        "margin": 0.050215208034433245,
+        "source_url": "https://thaqalayn.net/hadith/1/2/3/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11141",
+      "sequence": 11147,
+      "volume": 6,
+      "page_start": 186,
+      "printed_number": "٢",
+      "source_url": "https://lib.eshia.ir/11005/6/186",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 382,
+        "score": 0.6,
+        "margin": 0.11282051282051281,
+        "source_url": "https://thaqalayn.net/hadith/1/2/29/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11142",
+      "sequence": 11148,
+      "volume": 6,
+      "page_start": 186,
+      "printed_number": "٣",
+      "source_url": "https://lib.eshia.ir/11005/6/186",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 382,
+        "score": 0.3880597014925373,
+        "margin": 0.05970149253731344,
+        "source_url": "https://thaqalayn.net/hadith/1/2/29/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11143",
+      "sequence": 11149,
+      "volume": 6,
+      "page_start": 186,
+      "printed_number": "٤",
+      "source_url": "https://lib.eshia.ir/11005/6/186",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 382,
+        "score": 0.4666666666666667,
+        "margin": 0.09629629629629632,
+        "source_url": "https://thaqalayn.net/hadith/1/2/29/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11144",
+      "sequence": 11150,
+      "volume": 6,
+      "page_start": 186,
+      "printed_number": "٥",
+      "source_url": "https://lib.eshia.ir/11005/6/186",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 476,
+        "score": 0.75,
+        "margin": 0.050000000000000044,
+        "source_url": "https://thaqalayn.net/hadith/1/2/46/9"
+      }
+    },
+    {
+      "public_id": "alkafi-11145",
+      "sequence": 11151,
+      "volume": 6,
+      "page_start": 186,
+      "printed_number": "٦",
+      "source_url": "https://lib.eshia.ir/11005/6/186",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 2395,
+        "score": 0.4827586206896552,
+        "margin": 0.03448275862068967,
+        "source_url": "https://thaqalayn.net/hadith/1/7/69/2"
+      }
+    },
+    {
+      "public_id": "alkafi-11146",
+      "sequence": 11152,
+      "volume": 6,
+      "page_start": 186,
+      "printed_number": "٧",
+      "source_url": "https://lib.eshia.ir/11005/6/186",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 607,
+        "score": 0.40540540540540543,
+        "margin": 0.024453024453024497,
+        "source_url": "https://thaqalayn.net/hadith/1/2/66/2"
+      }
+    },
+    {
+      "public_id": "alkafi-11147",
+      "sequence": 11153,
+      "volume": 6,
+      "page_start": 187,
+      "printed_number": "٨",
+      "source_url": "https://lib.eshia.ir/11005/6/187",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 382,
+        "score": 0.42857142857142855,
+        "margin": 0.08163265306122447,
+        "source_url": "https://thaqalayn.net/hadith/1/2/29/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11148",
+      "sequence": 11154,
+      "volume": 6,
+      "page_start": 187,
+      "printed_number": "٩",
+      "source_url": "https://lib.eshia.ir/11005/6/187",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 382,
+        "score": 0.45,
+        "margin": 0.016666666666666663,
+        "source_url": "https://thaqalayn.net/hadith/1/2/29/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11149",
+      "sequence": 11155,
+      "volume": 6,
+      "page_start": 187,
+      "printed_number": "١٠",
+      "source_url": "https://lib.eshia.ir/11005/6/187",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 704,
+        "score": 0.75,
+        "margin": 0.1071428571428571,
+        "source_url": "https://thaqalayn.net/hadith/1/3/2/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11150",
+      "sequence": 11156,
+      "volume": 6,
+      "page_start": 187,
+      "printed_number": "١١",
+      "source_url": "https://lib.eshia.ir/11005/6/187",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 382,
+        "score": 0.45714285714285713,
+        "margin": 0.07416413373860181,
+        "source_url": "https://thaqalayn.net/hadith/1/2/29/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11151",
+      "sequence": 11157,
+      "volume": 6,
+      "page_start": 188,
+      "printed_number": "١٢",
+      "source_url": "https://lib.eshia.ir/11005/6/188",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 382,
+        "score": 0.4838709677419355,
+        "margin": 0.09677419354838712,
+        "source_url": "https://thaqalayn.net/hadith/1/2/29/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11152",
+      "sequence": 11158,
+      "volume": 6,
+      "page_start": 188,
+      "printed_number": "١٣",
+      "source_url": "https://lib.eshia.ir/11005/6/188",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 382,
+        "score": 0.52,
+        "margin": 0.06,
+        "source_url": "https://thaqalayn.net/hadith/1/2/29/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11153",
+      "sequence": 11159,
+      "volume": 6,
+      "page_start": 188,
+      "printed_number": "١٤",
+      "source_url": "https://lib.eshia.ir/11005/6/188",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 382,
+        "score": 0.4642857142857143,
+        "margin": 0.0,
+        "source_url": "https://thaqalayn.net/hadith/1/2/29/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11154",
+      "sequence": 11160,
+      "volume": 6,
+      "page_start": 188,
+      "printed_number": "١٥",
+      "source_url": "https://lib.eshia.ir/11005/6/188",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 382,
+        "score": 0.5,
+        "margin": 0.02777777777777779,
+        "source_url": "https://thaqalayn.net/hadith/1/2/29/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11155",
+      "sequence": 11161,
+      "volume": 6,
+      "page_start": 188,
+      "printed_number": "١٦",
+      "source_url": "https://lib.eshia.ir/11005/6/188",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 431,
+        "score": 0.5161290322580645,
+        "margin": 0.0,
+        "source_url": "https://thaqalayn.net/hadith/1/2/40/13"
+      }
+    },
+    {
+      "public_id": "alkafi-11156",
+      "sequence": 11162,
+      "volume": 6,
+      "page_start": 189,
+      "printed_number": "١٧",
+      "source_url": "https://lib.eshia.ir/11005/6/189",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 943,
+        "score": 0.46,
+        "margin": 0.020000000000000018,
+        "source_url": "https://thaqalayn.net/hadith/1/5/9/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11157",
+      "sequence": 11163,
+      "volume": 6,
+      "page_start": 189,
+      "printed_number": "١",
+      "source_url": "https://lib.eshia.ir/11005/6/189",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 382,
+        "score": 0.6666666666666666,
+        "margin": 0.0,
+        "source_url": "https://thaqalayn.net/hadith/1/2/29/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11158",
+      "sequence": 11164,
+      "volume": 6,
+      "page_start": 189,
+      "printed_number": "٢",
+      "source_url": "https://lib.eshia.ir/11005/6/189",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 653,
+        "score": 0.75,
+        "margin": 0.0,
+        "source_url": "https://thaqalayn.net/hadith/1/2/73/27"
+      }
+    },
+    {
+      "public_id": "alkafi-11159",
+      "sequence": 11165,
+      "volume": 6,
+      "page_start": 189,
+      "printed_number": "٣",
+      "source_url": "https://lib.eshia.ir/11005/6/189",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 32,
+        "score": 0.5416666666666666,
+        "margin": 0.0,
+        "source_url": "https://thaqalayn.net/hadith/1/1/4/5"
+      }
+    },
+    {
+      "public_id": "alkafi-11160",
+      "sequence": 11166,
+      "volume": 6,
+      "page_start": 189,
+      "printed_number": "٤",
+      "source_url": "https://lib.eshia.ir/11005/6/189",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 636,
+        "score": 0.7777777777777778,
+        "margin": 0.0,
+        "source_url": "https://thaqalayn.net/hadith/1/2/73/10"
+      }
+    },
+    {
+      "public_id": "alkafi-11161",
+      "sequence": 11167,
+      "volume": 6,
+      "page_start": 190,
+      "printed_number": "١",
+      "source_url": "https://lib.eshia.ir/11005/6/190",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 382,
+        "score": 0.37168141592920356,
+        "margin": 0.008849557522123908,
+        "source_url": "https://thaqalayn.net/hadith/1/2/29/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11162",
+      "sequence": 11168,
+      "volume": 6,
+      "page_start": 190,
+      "printed_number": "٢",
+      "source_url": "https://lib.eshia.ir/11005/6/190",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 382,
+        "score": 0.5185185185185185,
+        "margin": 0.037037037037037035,
+        "source_url": "https://thaqalayn.net/hadith/1/2/29/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11163",
+      "sequence": 11169,
+      "volume": 6,
+      "page_start": 190,
+      "printed_number": "٣",
+      "source_url": "https://lib.eshia.ir/11005/6/190",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 22,
+        "score": 0.5,
+        "margin": 0.0,
+        "source_url": "https://thaqalayn.net/hadith/1/1/3/7"
+      }
+    },
+    {
+      "public_id": "alkafi-11164",
+      "sequence": 11170,
+      "volume": 6,
+      "page_start": 190,
+      "printed_number": "٤",
+      "source_url": "https://lib.eshia.ir/11005/6/190",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 660,
+        "score": 0.5483870967741935,
+        "margin": 0.06451612903225801,
+        "source_url": "https://thaqalayn.net/hadith/1/2/73/34"
+      }
+    },
+    {
+      "public_id": "alkafi-11165",
+      "sequence": 11171,
+      "volume": 6,
+      "page_start": 191,
+      "printed_number": "٥",
+      "source_url": "https://lib.eshia.ir/11005/6/191",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 382,
+        "score": 0.5833333333333334,
+        "margin": 0.08333333333333337,
+        "source_url": "https://thaqalayn.net/hadith/1/2/29/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11170",
+      "sequence": 11176,
+      "volume": 6,
+      "page_start": 191,
+      "printed_number": "١",
+      "source_url": "https://lib.eshia.ir/11005/6/191",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 47,
+        "score": 0.65,
+        "margin": 0.09999999999999998,
+        "source_url": "https://thaqalayn.net/hadith/1/1/6/4"
+      }
+    },
+    {
+      "public_id": "alkafi-11171",
+      "sequence": 11177,
+      "volume": 6,
+      "page_start": 192,
+      "printed_number": "٢",
+      "source_url": "https://lib.eshia.ir/11005/6/192",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 39,
+        "score": 0.5454545454545454,
+        "margin": 0.0,
+        "source_url": "https://thaqalayn.net/hadith/1/1/4/12"
+      }
+    },
+    {
+      "public_id": "alkafi-11172",
+      "sequence": 11178,
+      "volume": 6,
+      "page_start": 192,
+      "printed_number": "٣",
+      "source_url": "https://lib.eshia.ir/11005/6/192",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 382,
+        "score": 0.43859649122807015,
+        "margin": 0.05288220551378442,
+        "source_url": "https://thaqalayn.net/hadith/1/2/29/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11173",
+      "sequence": 11179,
+      "volume": 6,
+      "page_start": 192,
+      "printed_number": "٤",
+      "source_url": "https://lib.eshia.ir/11005/6/192",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 382,
+        "score": 0.4864864864864865,
+        "margin": 0.02702702702702703,
+        "source_url": "https://thaqalayn.net/hadith/1/2/29/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11174",
+      "sequence": 11180,
+      "volume": 6,
+      "page_start": 193,
+      "printed_number": "٥",
+      "source_url": "https://lib.eshia.ir/11005/6/193",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 1725,
+        "score": 0.3728813559322034,
+        "margin": 0.01694915254237289,
+        "source_url": "https://thaqalayn.net/hadith/1/6/21/16"
+      }
+    },
+    {
+      "public_id": "alkafi-11175",
+      "sequence": 11181,
+      "volume": 6,
+      "page_start": 193,
+      "printed_number": "٦",
+      "source_url": "https://lib.eshia.ir/11005/6/193",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 382,
+        "score": 0.45454545454545453,
+        "margin": 0.045454545454545414,
+        "source_url": "https://thaqalayn.net/hadith/1/2/29/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11176",
+      "sequence": 11182,
+      "volume": 6,
+      "page_start": 193,
+      "printed_number": "١",
+      "source_url": "https://lib.eshia.ir/11005/6/193",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 382,
+        "score": 0.4175824175824176,
+        "margin": 0.06593406593406592,
+        "source_url": "https://thaqalayn.net/hadith/1/2/29/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11177",
+      "sequence": 11183,
+      "volume": 6,
+      "page_start": 194,
+      "printed_number": "٢",
+      "source_url": "https://lib.eshia.ir/11005/6/194",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 47,
+        "score": 0.5909090909090909,
+        "margin": 0.0,
+        "source_url": "https://thaqalayn.net/hadith/1/1/6/4"
+      }
+    },
+    {
+      "public_id": "alkafi-11178",
+      "sequence": 11184,
+      "volume": 6,
+      "page_start": 194,
+      "printed_number": "٣",
+      "source_url": "https://lib.eshia.ir/11005/6/194",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 136,
+        "score": 0.45652173913043476,
+        "margin": 0.017497348886532316,
+        "source_url": "https://thaqalayn.net/hadith/1/1/23/4"
+      }
+    },
+    {
+      "public_id": "alkafi-11179",
+      "sequence": 11185,
+      "volume": 6,
+      "page_start": 194,
+      "printed_number": "٤",
+      "source_url": "https://lib.eshia.ir/11005/6/194",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 382,
+        "score": 0.39285714285714285,
+        "margin": 0.01785714285714285,
+        "source_url": "https://thaqalayn.net/hadith/1/2/29/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11180",
+      "sequence": 11186,
+      "volume": 6,
+      "page_start": 195,
+      "printed_number": "٥",
+      "source_url": "https://lib.eshia.ir/11005/6/195",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 382,
+        "score": 0.4857142857142857,
+        "margin": 0.0,
+        "source_url": "https://thaqalayn.net/hadith/1/2/29/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11181",
+      "sequence": 11187,
+      "volume": 6,
+      "page_start": 195,
+      "printed_number": "٦",
+      "source_url": "https://lib.eshia.ir/11005/6/195",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 382,
+        "score": 0.3695652173913043,
+        "margin": 0.04997758852532497,
+        "source_url": "https://thaqalayn.net/hadith/1/2/29/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11182",
+      "sequence": 11188,
+      "volume": 6,
+      "page_start": 195,
+      "printed_number": "٧",
+      "source_url": "https://lib.eshia.ir/11005/6/195",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 12,
+        "score": 0.4666666666666667,
+        "margin": 0.0,
+        "source_url": "https://thaqalayn.net/hadith/1/1/1/12"
+      }
+    },
+    {
+      "public_id": "alkafi-11183",
+      "sequence": 11189,
+      "volume": 6,
+      "page_start": 195,
+      "printed_number": "٨",
+      "source_url": "https://lib.eshia.ir/11005/6/195",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 382,
+        "score": 0.375,
+        "margin": 0.041666666666666685,
+        "source_url": "https://thaqalayn.net/hadith/1/2/29/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11184",
+      "sequence": 11190,
+      "volume": 6,
+      "page_start": 196,
+      "printed_number": "٩",
+      "source_url": "https://lib.eshia.ir/11005/6/196",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 382,
+        "score": 0.3958333333333333,
+        "margin": 0.012499999999999956,
+        "source_url": "https://thaqalayn.net/hadith/1/2/29/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11185",
+      "sequence": 11191,
+      "volume": 6,
+      "page_start": 196,
+      "printed_number": "١٠",
+      "source_url": "https://lib.eshia.ir/11005/6/196",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 674,
+        "score": 0.4594594594594595,
+        "margin": 0.05405405405405406,
+        "source_url": "https://thaqalayn.net/hadith/1/2/74/12"
+      }
+    },
+    {
+      "public_id": "alkafi-11186",
+      "sequence": 11192,
+      "volume": 6,
+      "page_start": 196,
+      "printed_number": "١١",
+      "source_url": "https://lib.eshia.ir/11005/6/196",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 1888,
+        "score": 0.6956521739130435,
+        "margin": 0.04347826086956519,
+        "source_url": "https://thaqalayn.net/hadith/1/7/4/3"
+      }
+    },
+    {
+      "public_id": "alkafi-11187",
+      "sequence": 11193,
+      "volume": 6,
+      "page_start": 196,
+      "printed_number": "١٢",
+      "source_url": "https://lib.eshia.ir/11005/6/196",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 268,
+        "score": 0.53125,
+        "margin": 0.03125,
+        "source_url": "https://thaqalayn.net/hadith/1/2/8/2"
+      }
+    },
+    {
+      "public_id": "alkafi-11188",
+      "sequence": 11194,
+      "volume": 6,
+      "page_start": 197,
+      "printed_number": "١٣",
+      "source_url": "https://lib.eshia.ir/11005/6/197",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 271,
+        "score": 0.5,
+        "margin": 0.025000000000000022,
+        "source_url": "https://thaqalayn.net/hadith/1/2/8/5"
+      }
+    },
+    {
+      "public_id": "alkafi-11189",
+      "sequence": 11195,
+      "volume": 6,
+      "page_start": 197,
+      "printed_number": "١٤",
+      "source_url": "https://lib.eshia.ir/11005/6/197",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 382,
+        "score": 0.45,
+        "margin": 0.0076923076923077205,
+        "source_url": "https://thaqalayn.net/hadith/1/2/29/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11190",
+      "sequence": 11196,
+      "volume": 6,
+      "page_start": 197,
+      "printed_number": "١٥",
+      "source_url": "https://lib.eshia.ir/11005/6/197",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 26,
+        "score": 0.36363636363636365,
+        "margin": 0.018181818181818188,
+        "source_url": "https://thaqalayn.net/hadith/1/1/3/11"
+      }
+    },
+    {
+      "public_id": "alkafi-11191",
+      "sequence": 11197,
+      "volume": 6,
+      "page_start": 197,
+      "printed_number": "١",
+      "source_url": "https://lib.eshia.ir/11005/6/197",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 671,
+        "score": 0.7894736842105263,
+        "margin": 0.052631578947368474,
+        "source_url": "https://thaqalayn.net/hadith/1/2/74/9"
+      }
+    },
+    {
+      "public_id": "alkafi-11192",
+      "sequence": 11198,
+      "volume": 6,
+      "page_start": 197,
+      "printed_number": "٢",
+      "source_url": "https://lib.eshia.ir/11005/6/197",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 382,
+        "score": 0.5555555555555556,
+        "margin": 0.08333333333333337,
+        "source_url": "https://thaqalayn.net/hadith/1/2/29/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11193",
+      "sequence": 11199,
+      "volume": 6,
+      "page_start": 198,
+      "printed_number": "٣",
+      "source_url": "https://lib.eshia.ir/11005/6/198",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 571,
+        "score": 0.5652173913043478,
+        "margin": 0.04347826086956519,
+        "source_url": "https://thaqalayn.net/hadith/1/2/62/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11194",
+      "sequence": 11200,
+      "volume": 6,
+      "page_start": 198,
+      "printed_number": "٤",
+      "source_url": "https://lib.eshia.ir/11005/6/198",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 1916,
+        "score": 0.5714285714285714,
+        "margin": 0.0,
+        "source_url": "https://thaqalayn.net/hadith/1/7/9/5"
+      }
+    },
+    {
+      "public_id": "alkafi-11195",
+      "sequence": 11201,
+      "volume": 6,
+      "page_start": 198,
+      "printed_number": "٥",
+      "source_url": "https://lib.eshia.ir/11005/6/198",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 616,
+        "score": 0.5862068965517241,
+        "margin": 0.03448275862068961,
+        "source_url": "https://thaqalayn.net/hadith/1/2/68/3"
+      }
+    },
+    {
+      "public_id": "alkafi-11196",
+      "sequence": 11202,
+      "volume": 6,
+      "page_start": 198,
+      "printed_number": "١",
+      "source_url": "https://lib.eshia.ir/11005/6/198",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 943,
+        "score": 0.4153846153846154,
+        "margin": 0.015384615384615385,
+        "source_url": "https://thaqalayn.net/hadith/1/5/9/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11197",
+      "sequence": 11203,
+      "volume": 6,
+      "page_start": 198,
+      "printed_number": "٢",
+      "source_url": "https://lib.eshia.ir/11005/6/198",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 943,
+        "score": 0.5454545454545454,
+        "margin": 0.09090909090909088,
+        "source_url": "https://thaqalayn.net/hadith/1/5/9/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11198",
+      "sequence": 11204,
+      "volume": 6,
+      "page_start": 199,
+      "printed_number": "٣",
+      "source_url": "https://lib.eshia.ir/11005/6/199",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 382,
+        "score": 0.5588235294117647,
+        "margin": 0.08155080213903743,
+        "source_url": "https://thaqalayn.net/hadith/1/2/29/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11199",
+      "sequence": 11205,
+      "volume": 6,
+      "page_start": 199,
+      "printed_number": "٤",
+      "source_url": "https://lib.eshia.ir/11005/6/199",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 943,
+        "score": 0.42105263157894735,
+        "margin": 0.02631578947368418,
+        "source_url": "https://thaqalayn.net/hadith/1/5/9/1"
+      }
+    },
+    {
+      "public_id": "alkafi-11200",
+      "sequence": 11206,
+      "volume": 6,
+      "page_start": 199,
+      "printed_number": "٥",
+      "source_url": "https://lib.eshia.ir/11005/6/199",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 186,
+        "score": 0.7222222222222222,
+        "margin": 0.11111111111111105,
+        "source_url": "https://thaqalayn.net/hadith/1/1/32/2"
+      }
+    },
+    {
+      "public_id": "alkafi-11201",
+      "sequence": 11207,
+      "volume": 6,
+      "page_start": 199,
+      "printed_number": "١",
+      "source_url": "https://lib.eshia.ir/11005/6/199",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 32,
+        "score": 0.5,
+        "margin": 0.0,
+        "source_url": "https://thaqalayn.net/hadith/1/1/4/5"
+      }
+    },
+    {
+      "public_id": "alkafi-11793",
+      "sequence": 11799,
+      "volume": 6,
+      "page_start": 321,
+      "printed_number": "٣",
+      "source_url": "https://lib.eshia.ir/11005/6/321",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 1273,
+        "score": 0.65625,
+        "margin": 0.1723790322580645,
+        "source_url": "https://thaqalayn.net/hadith/1/5/70/3"
+      }
+    },
+    {
+      "public_id": "alkafi-13039",
+      "sequence": 13045,
+      "volume": 6,
+      "page_start": 554,
+      "printed_number": "٢",
+      "source_url": "https://lib.eshia.ir/11005/6/554",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 2509,
+        "score": 0.6060606060606061,
+        "margin": 0.15151515151515155,
+        "source_url": "https://thaqalayn.net/hadith/1/8/13/2"
+      }
+    },
+    {
+      "public_id": "alkafi-13307",
+      "sequence": 13313,
+      "volume": 7,
+      "page_start": 83,
+      "printed_number": "١",
+      "source_url": "https://lib.eshia.ir/11005/7/83",
+      "reason": "source_explicitly_not_translated",
+      "detail": "The source explicitly declines or substitutes for a translation.",
+      "best_candidate": {
+        "remote_id": 268,
+        "score": 1.0,
+        "margin": 0.6233766233766234,
+        "source_url": "https://thaqalayn.net/hadith/1/2/9/1"
+      }
+    },
+    {
+      "public_id": "alkafi-13308",
+      "sequence": 13314,
+      "volume": 7,
+      "page_start": 84,
+      "printed_number": "٢",
+      "source_url": "https://lib.eshia.ir/11005/7/84",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 301,
+        "score": 0.29310344827586204,
+        "margin": 0.0,
+        "source_url": "https://thaqalayn.net/hadith/1/2/16/3"
+      }
+    },
+    {
+      "public_id": "alkafi-13360",
+      "sequence": 13366,
+      "volume": 7,
+      "page_start": 104,
+      "printed_number": "٨",
+      "source_url": "https://lib.eshia.ir/11005/7/104",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 355,
+        "score": 0.5393700787401575,
+        "margin": 0.07846472894591883,
+        "source_url": "https://thaqalayn.net/hadith/1/2/23/16"
+      }
+    },
+    {
+      "public_id": "alkafi-13394",
+      "sequence": 13400,
+      "volume": 7,
+      "page_start": 114,
+      "printed_number": "١٦",
+      "source_url": "https://lib.eshia.ir/11005/7/114",
+      "reason": "source_explicitly_not_translated",
+      "detail": "The source explicitly declines or substitutes for a translation.",
+      "best_candidate": {
+        "remote_id": 355,
+        "score": 0.9083094555873925,
+        "margin": 0.547605643270677,
+        "source_url": "https://thaqalayn.net/hadith/1/2/23/16"
+      }
+    },
+    {
+      "public_id": "alkafi-13402",
+      "sequence": 13408,
+      "volume": 7,
+      "page_start": 120,
+      "printed_number": "٨",
+      "source_url": "https://lib.eshia.ir/11005/7/120",
+      "reason": "source_explicitly_not_translated",
+      "detail": "The source explicitly declines or substitutes for a translation.",
+      "best_candidate": {
+        "remote_id": 364,
+        "score": 0.8536585365853658,
+        "margin": 0.41258109550792477,
+        "source_url": "https://thaqalayn.net/hadith/1/2/24/9"
+      }
+    },
+    {
+      "public_id": "alkafi-13498",
+      "sequence": 13504,
+      "volume": 7,
+      "page_start": 148,
+      "printed_number": "٨",
+      "source_url": "https://lib.eshia.ir/11005/7/148",
+      "reason": "source_explicitly_not_translated",
+      "detail": "The source explicitly declines or substitutes for a translation.",
+      "best_candidate": {
+        "remote_id": 459,
+        "score": 0.9182156133828996,
+        "margin": 0.6691449814126393,
+        "source_url": "https://thaqalayn.net/hadith/1/2/41/8"
+      }
+    },
+    {
+      "public_id": "alkafi-13666",
+      "sequence": 13672,
+      "volume": 7,
+      "page_start": 190,
+      "printed_number": "٥",
+      "source_url": "https://lib.eshia.ir/11005/7/190",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 665,
+        "score": 0.5416666666666666,
+        "margin": 0.04166666666666663,
+        "source_url": "https://thaqalayn.net/hadith/1/5/23/7"
+      }
+    },
+    {
+      "public_id": "alkafi-13683",
+      "sequence": 13689,
+      "volume": 7,
+      "page_start": 195,
+      "printed_number": "٥",
+      "source_url": "https://lib.eshia.ir/11005/7/195",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 459,
+        "score": 0.40425531914893614,
+        "margin": 0.04255319148936165,
+        "source_url": "https://thaqalayn.net/hadith/1/2/41/8"
+      }
+    },
+    {
+      "public_id": "alkafi-13721",
+      "sequence": 13727,
+      "volume": 7,
+      "page_start": 205,
+      "printed_number": "٢",
+      "source_url": "https://lib.eshia.ir/11005/7/205",
+      "reason": "ambiguous_alignment",
+      "detail": "A possible candidate exists but does not meet the reviewed publication threshold.",
+      "best_candidate": {
+        "remote_id": 581,
+        "score": 0.6666666666666666,
+        "margin": 0.04166666666666663,
+        "source_url": "https://thaqalayn.net/hadith/1/5/8/3"
+      }
+    },
+    {
+      "public_id": "alkafi-13792",
+      "sequence": 13798,
+      "volume": 7,
+      "page_start": 218,
+      "printed_number": "٤",
+      "source_url": "https://lib.eshia.ir/11005/7/218",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 355,
+        "score": 0.5526315789473685,
+        "margin": 0.016917293233082775,
+        "source_url": "https://thaqalayn.net/hadith/1/2/23/16"
+      }
+    },
+    {
+      "public_id": "alkafi-13895",
+      "sequence": 13901,
+      "volume": 7,
+      "page_start": 238,
+      "printed_number": "١",
+      "source_url": "https://lib.eshia.ir/11005/7/238",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 301,
+        "score": 0.4642857142857143,
+        "margin": 0.01691729323308272,
+        "source_url": "https://thaqalayn.net/hadith/1/2/16/3"
+      }
+    },
+    {
+      "public_id": "alkafi-13896",
+      "sequence": 13902,
+      "volume": 7,
+      "page_start": 238,
+      "printed_number": "٢",
+      "source_url": "https://lib.eshia.ir/11005/7/238",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 185,
+        "score": 0.3619047619047619,
+        "margin": 0.06190476190476191,
+        "source_url": "https://thaqalayn.net/hadith/1/1/35/7"
+      }
+    },
+    {
+      "public_id": "alkafi-13958",
+      "sequence": 13964,
+      "volume": 7,
+      "page_start": 252,
+      "printed_number": "٦",
+      "source_url": "https://lib.eshia.ir/11005/7/252",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 185,
+        "score": 0.3409090909090909,
+        "margin": 0.007575757575757569,
+        "source_url": "https://thaqalayn.net/hadith/1/1/35/7"
+      }
+    },
+    {
+      "public_id": "alkafi-14198",
+      "sequence": 14204,
+      "volume": 7,
+      "page_start": 309,
+      "printed_number": "٤",
+      "source_url": "https://lib.eshia.ir/11005/7/309",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 301,
+        "score": 0.4117647058823529,
+        "margin": 0.019607843137254888,
+        "source_url": "https://thaqalayn.net/hadith/1/2/16/3"
+      }
+    },
+    {
+      "public_id": "alkafi-14281",
+      "sequence": 14287,
+      "volume": 7,
+      "page_start": 333,
+      "printed_number": "٤",
+      "source_url": "https://lib.eshia.ir/11005/7/333",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 458,
+        "score": 0.4857142857142857,
+        "margin": 0.0,
+        "source_url": "https://thaqalayn.net/hadith/1/2/41/7"
+      }
+    },
+    {
+      "public_id": "alkafi-14287",
+      "sequence": 14293,
+      "volume": 7,
+      "page_start": 334,
+      "printed_number": "١٠",
+      "source_url": "https://lib.eshia.ir/11005/7/334",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 185,
+        "score": 0.2222222222222222,
+        "margin": 0.005847953216374269,
+        "source_url": "https://thaqalayn.net/hadith/1/1/35/7"
+      }
+    },
+    {
+      "public_id": "alkafi-14288",
+      "sequence": 14294,
+      "volume": 7,
+      "page_start": 338,
+      "printed_number": "١١",
+      "source_url": "https://lib.eshia.ir/11005/7/338",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 459,
+        "score": 0.19101123595505617,
+        "margin": 0.01685393258426965,
+        "source_url": "https://thaqalayn.net/hadith/1/2/41/8"
+      }
+    },
+    {
+      "public_id": "alkafi-14360",
+      "sequence": 14366,
+      "volume": 7,
+      "page_start": 361,
+      "printed_number": "٤",
+      "source_url": "https://lib.eshia.ir/11005/7/361",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 733,
+        "score": 0.3137254901960784,
+        "margin": 0.009803921568627472,
+        "source_url": "https://thaqalayn.net/hadith/1/6/19/9"
+      }
+    },
+    {
+      "public_id": "alkafi-14365",
+      "sequence": 14371,
+      "volume": 7,
+      "page_start": 362,
+      "printed_number": "٩",
+      "source_url": "https://lib.eshia.ir/11005/7/362",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 355,
+        "score": 0.32061068702290074,
+        "margin": 0.015267175572519054,
+        "source_url": "https://thaqalayn.net/hadith/1/2/23/16"
+      }
+    },
+    {
+      "public_id": "alkafi-14403",
+      "sequence": 14409,
+      "volume": 7,
+      "page_start": 376,
+      "printed_number": "١٨",
+      "source_url": "https://lib.eshia.ir/11005/7/376",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 79,
+        "score": 0.46938775510204084,
+        "margin": 0.020408163265306145,
+        "source_url": "https://thaqalayn.net/hadith/1/1/15/1"
+      }
+    },
+    {
+      "public_id": "alkafi-14406",
+      "sequence": 14412,
+      "volume": 7,
+      "page_start": 377,
+      "printed_number": "٢١",
+      "source_url": "https://lib.eshia.ir/11005/7/377",
+      "reason": "no_reliable_alignment",
+      "detail": "Arabic similarity or runner-up separation is insufficient.",
+      "best_candidate": {
+        "remote_id": 185,
+        "score": 0.45161290322580644,
+        "margin": 0.032258064516129004,
+        "source_url": "https://thaqalayn.net/hadith/1/1/35/7"
+      }
+    },
+    {
+      "public_id": "alkafi-14752",
+      "sequence": 14758,
+      "volume": 8,
+      "page_start": 2,
+      "printed_number": "١",
+      "source_url": "https://lib.eshia.ir/11005/8/2",
+      "reason": "no_verified_sarwar_volume8",
+      "detail": "Only HubeAli-derived or attribution-uncertain English was found.",
+      "best_candidate": null
+    },
+    {
+      "public_id": "alkafi-14755",
+      "sequence": 14761,
+      "volume": 8,
+      "page_start": 18,
+      "printed_number": "٤",
+      "source_url": "https://lib.eshia.ir/11005/8/18",
+      "reason": "no_verified_sarwar_volume8",
+      "detail": "Only HubeAli-derived or attribution-uncertain English was found.",
+      "best_candidate": {
+        "remote_id": 5,
+        "score": 1.0,
+        "margin": 0.7316293929712461,
+        "source_url": "https://thaqalayn.net/hadith/1/1/4/1"
+      }
+    },
+    {
+      "public_id": "alkafi-14772",
+      "sequence": 14778,
+      "volume": 8,
+      "page_start": 58,
+      "printed_number": "٢١",
+      "source_url": "https://lib.eshia.ir/11005/8/58",
+      "reason": "no_verified_sarwar_volume8",
+      "detail": "Only HubeAli-derived or attribution-uncertain English was found.",
+      "best_candidate": {
+        "remote_id": 23,
+        "score": 0.8631578947368421,
+        "margin": 0.5847853037304181,
+        "source_url": "https://thaqalayn.net/hadith/1/1/21/1"
+      }
+    },
+    {
+      "public_id": "alkafi-14778",
+      "sequence": 14784,
+      "volume": 8,
+      "page_start": 69,
+      "printed_number": "٢٧",
+      "source_url": "https://lib.eshia.ir/11005/8/69",
+      "reason": "no_verified_sarwar_volume8",
+      "detail": "Only HubeAli-derived or attribution-uncertain English was found.",
+      "best_candidate": {
+        "remote_id": 29,
+        "score": 0.8046875,
+        "margin": 0.546875,
+        "source_url": "https://thaqalayn.net/hadith/1/1/27/1"
+      }
+    },
+    {
+      "public_id": "alkafi-14842",
+      "sequence": 14848,
+      "volume": 8,
+      "page_start": 110,
+      "printed_number": "٩١",
+      "source_url": "https://lib.eshia.ir/11005/8/110",
+      "reason": "no_verified_sarwar_volume8",
+      "detail": "Only HubeAli-derived or attribution-uncertain English was found.",
+      "best_candidate": {
+        "remote_id": 93,
+        "score": 0.6615969581749049,
+        "margin": 0.3377103184987916,
+        "source_url": "https://thaqalayn.net/hadith/1/1/91/1"
+      }
+    },
+    {
+      "public_id": "alkafi-14902",
+      "sequence": 14908,
+      "volume": 8,
+      "page_start": 157,
+      "printed_number": "١٤٩",
+      "source_url": "https://lib.eshia.ir/11005/8/157",
+      "reason": "no_verified_sarwar_volume8",
+      "detail": "Only HubeAli-derived or attribution-uncertain English was found.",
+      "best_candidate": null
+    },
+    {
+      "public_id": "alkafi-14943",
+      "sequence": 14949,
+      "volume": 8,
+      "page_start": 168,
+      "printed_number": "١٩٠",
+      "source_url": "https://lib.eshia.ir/11005/8/168",
+      "reason": "no_verified_sarwar_volume8",
+      "detail": "Only HubeAli-derived or attribution-uncertain English was found.",
+      "best_candidate": {
+        "remote_id": 191,
+        "score": 0.8324873096446701,
+        "margin": 0.36474537416079916,
+        "source_url": "https://thaqalayn.net/hadith/1/1/190/1"
+      }
+    },
+    {
+      "public_id": "alkafi-14955",
+      "sequence": 14961,
+      "volume": 8,
+      "page_start": 179,
+      "printed_number": "٢٠٢",
+      "source_url": "https://lib.eshia.ir/11005/8/179",
+      "reason": "no_verified_sarwar_volume8",
+      "detail": "Only HubeAli-derived or attribution-uncertain English was found.",
+      "best_candidate": {
+        "remote_id": 203,
+        "score": 0.8687782805429864,
+        "margin": 0.4972186475154635,
+        "source_url": "https://thaqalayn.net/hadith/1/1/202/1"
+      }
+    },
+    {
+      "public_id": "alkafi-14989",
+      "sequence": 14995,
+      "volume": 8,
+      "page_start": 197,
+      "printed_number": "٢٣٥",
+      "source_url": "https://lib.eshia.ir/11005/8/197",
+      "reason": "no_verified_sarwar_volume8",
+      "detail": "Only HubeAli-derived or attribution-uncertain English was found.",
+      "best_candidate": {
+        "remote_id": 5,
+        "score": 0.2936170212765957,
+        "margin": 0.01702127659574465,
+        "source_url": "https://thaqalayn.net/hadith/1/1/4/1"
+      }
+    },
+    {
+      "public_id": "alkafi-14999",
+      "sequence": 15005,
+      "volume": 8,
+      "page_start": 203,
+      "printed_number": "٢٤٥",
+      "source_url": "https://lib.eshia.ir/11005/8/203",
+      "reason": "no_verified_sarwar_volume8",
+      "detail": "Only HubeAli-derived or attribution-uncertain English was found.",
+      "best_candidate": {
+        "remote_id": 2,
+        "score": 0.3153153153153153,
+        "margin": 0.003003003003002991,
+        "source_url": "https://thaqalayn.net/hadith/1/1/1/1"
+      }
+    },
+    {
+      "public_id": "alkafi-15010",
+      "sequence": 15016,
+      "volume": 8,
+      "page_start": 210,
+      "printed_number": "٢٥٦",
+      "source_url": "https://lib.eshia.ir/11005/8/210",
+      "reason": "no_verified_sarwar_volume8",
+      "detail": "Only HubeAli-derived or attribution-uncertain English was found.",
+      "best_candidate": {
+        "remote_id": 256,
+        "score": 0.8373205741626795,
+        "margin": 0.4402617506332677,
+        "source_url": "https://thaqalayn.net/hadith/1/1/256/1"
+      }
+    },
+    {
+      "public_id": "alkafi-15145",
+      "sequence": 15151,
+      "volume": 8,
+      "page_start": 267,
+      "printed_number": "٣٩١",
+      "source_url": "https://lib.eshia.ir/11005/8/267",
+      "reason": "no_verified_sarwar_volume8",
+      "detail": "Only HubeAli-derived or attribution-uncertain English was found.",
+      "best_candidate": {
+        "remote_id": 391,
+        "score": 0.875,
+        "margin": 0.3097826086956522,
+        "source_url": "https://thaqalayn.net/hadith/1/1/391/1"
+      }
+    },
+    {
+      "public_id": "alkafi-15185",
+      "sequence": 15191,
+      "volume": 8,
+      "page_start": 285,
+      "printed_number": "٤٣١",
+      "source_url": "https://lib.eshia.ir/11005/8/285",
+      "reason": "no_verified_sarwar_volume8",
+      "detail": "Only HubeAli-derived or attribution-uncertain English was found.",
+      "best_candidate": {
+        "remote_id": 431,
+        "score": 0.7440758293838863,
+        "margin": 0.3317535545023697,
+        "source_url": "https://thaqalayn.net/hadith/1/1/431/1"
+      }
+    },
+    {
+      "public_id": "alkafi-15215",
+      "sequence": 15221,
+      "volume": 8,
+      "page_start": 300,
+      "printed_number": "٤٥٩",
+      "source_url": "https://lib.eshia.ir/11005/8/300",
+      "reason": "no_verified_sarwar_volume8",
+      "detail": "Only HubeAli-derived or attribution-uncertain English was found.",
+      "best_candidate": {
+        "remote_id": 459,
+        "score": 0.5479876160990712,
+        "margin": 0.2198142414860681,
+        "source_url": "https://thaqalayn.net/hadith/1/1/459/1"
+      }
+    },
+    {
+      "public_id": "alkafi-15259",
+      "sequence": 15265,
+      "volume": 8,
+      "page_start": 318,
+      "printed_number": "٥٠٢",
+      "source_url": "https://lib.eshia.ir/11005/8/318",
+      "reason": "no_verified_sarwar_volume8",
+      "detail": "Only HubeAli-derived or attribution-uncertain English was found.",
+      "best_candidate": {
+        "remote_id": 502,
+        "score": 0.4625,
+        "margin": 0.16857028753993614,
+        "source_url": "https://thaqalayn.net/hadith/1/1/502/1"
+      }
+    },
+    {
+      "public_id": "alkafi-15294",
+      "sequence": 15300,
+      "volume": 8,
+      "page_start": 338,
+      "printed_number": "٥٣٦",
+      "source_url": "https://lib.eshia.ir/11005/8/338",
+      "reason": "no_verified_sarwar_volume8",
+      "detail": "Only HubeAli-derived or attribution-uncertain English was found.",
+      "best_candidate": {
+        "remote_id": 536,
+        "score": 0.8704819277108434,
+        "margin": 0.5473111960035264,
+        "source_url": "https://thaqalayn.net/hadith/1/1/536/1"
+      }
+    },
+    {
+      "public_id": "alkafi-15349",
+      "sequence": 15355,
+      "volume": 8,
+      "page_start": 392,
+      "printed_number": "٥٩١",
+      "source_url": "https://lib.eshia.ir/11005/8/392",
+      "reason": "no_verified_sarwar_volume8",
+      "detail": "Only HubeAli-derived or attribution-uncertain English was found.",
+      "best_candidate": {
+        "remote_id": 591,
+        "score": 0.8552036199095022,
+        "margin": 0.5250149406642193,
+        "source_url": "https://thaqalayn.net/hadith/1/1/590/1"
+      }
+    },
+    {
+      "public_id": "alkafi-15355",
+      "sequence": 15361,
+      "volume": 8,
+      "page_start": 396,
+      "printed_number": "٥٩٧",
+      "source_url": "https://lib.eshia.ir/11005/8/396",
+      "reason": "no_verified_sarwar_volume8",
+      "detail": "Only HubeAli-derived or attribution-uncertain English was found.",
+      "best_candidate": {
+        "remote_id": 2,
+        "score": 0.8709677419354839,
+        "margin": 0.6705069124423964,
+        "source_url": "https://thaqalayn.net/hadith/1/1/1/1"
+      }
+    }
+  ]
+}

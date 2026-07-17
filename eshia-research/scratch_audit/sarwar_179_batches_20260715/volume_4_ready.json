@@ -1,0 +1,197 @@
+[
+  {
+    "public_id": "alkafi-6283",
+    "sequence": 6288,
+    "volume": 4,
+    "page_start": 80,
+    "page_end": 80,
+    "printed_number": "١",
+    "local_source_url": "https://lib.eshia.ir/11005/4/80",
+    "arabic": "عَلِيُّ بْنُ مُحَمَّدٍ عَنْ بَعْضِ أَصْحَابِنَا عَنْ مُحَمَّدِ بْنِ عِيسَى بْنِ عُبَيْدٍ عَنْ إِبْرَاهِيمَ بْنِ مُحَمَّدٍ الْمَدَنِيِّ عَنْ عِمْرَانَ الزَّعْفَرَانِيِّ قَالَ: قُلْتُ لِأَبِي عَبْدِ اللَّهِ ع إِنَّ السَّمَاءَ تُطْبِقُ عَلَيْنَا بِالْعِرَاقِ الْيَوْمَ وَ الْيَوْمَيْنِ وَ الثَّلَاثَةَ فَأَيَّ يَوْمٍ نَصُومُ قَالَ انْظُرِ الْيَوْمَ الَّذِي صُمْتَ مِنَ السَّنَةِ الْمَاضِيَةِ وَ صُمْ يَوْمَ الْخَامِسِ.\n______________________________\n«بقية الحاشية من الصفحة الماضية»\nابى جعفر محمّد بن عليّ بن الحسين بن بابويه و شيخنا أبي عبد اللّه الحسين بن عليّ بن الحسين أيدهما اللّه و شيخنا أبى محمّد هارون بن موسى أيده اللّه.",
+    "matn": "قُلْتُ لِأَبِي عَبْدِ اللَّهِ ع إِنَّ السَّمَاءَ تُطْبِقُ عَلَيْنَا بِالْعِرَاقِ الْيَوْمَ وَ الْيَوْمَيْنِ وَ الثَّلَاثَةَ فَأَيَّ يَوْمٍ نَصُومُ قَالَ انْظُرِ الْيَوْمَ الَّذِي صُمْتَ مِنَ السَّنَةِ الْمَاضِيَةِ وَ صُمْ يَوْمَ الْخَامِسِ. ______________________________ «بقية الحاشية من الصفحة الماضية» ابى جعفر محمّد بن عليّ بن الحسين بن بابويه و شيخنا أبي عبد اللّه الحسين بن عليّ بن الحسين أيدهما اللّه و شيخنا أبى محمّد هارون بن موسى أيده اللّه.",
+    "decision": "ready_sarwar",
+    "identity": {
+      "method": "one_to_one_between_direct_arabic_anchors",
+      "before": {
+        "public_id": "alkafi-6282",
+        "remote_id": 6302,
+        "score": 1.0
+      },
+      "after": {
+        "public_id": "alkafi-6284",
+        "remote_id": 6304,
+        "score": 1.0
+      },
+      "local_gap_count": 1,
+      "remote_gap_count": 1,
+      "score": 0.6153846153846154,
+      "remote_id": 6303
+    },
+    "source": {
+      "kind": "thaqalayn_static_sarwar",
+      "translator": "Muhammad Sarwar",
+      "source_url": "https://thaqalayn.net/books/al-kafi:4:2:8:1",
+      "remote_id": 6303
+    },
+    "english": "1. Ali ibn Muhammad has narrated from certain persons of our people from Muhammad ibn ‘Isa [ibn ‘Ubayd] from Ibrahim ibn Muhammad al-Madaniy from ‘Imran Za‘faraniy who has said the following: “I once said to abu ‘ Abd Allah, ‘Alayhi al-Salam, that in Iraq the sky remains cloudy for one, two or three days. Which day must we fast?’ He (the Imam) said, ‘Think which day you fasted last year and fast on fifth day.”’",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers [] do not match translation numbers ['1']."
+      }
+    ],
+    "blocking_qa": []
+  },
+  {
+    "public_id": "alkafi-6703",
+    "sequence": 6708,
+    "volume": 4,
+    "page_start": 198,
+    "page_end": 201,
+    "printed_number": "٢",
+    "local_source_url": "https://lib.eshia.ir/11005/4/198",
+    "arabic": "وَ رُوِيَ أَنَّ أَمِيرَ الْمُؤْمِنِينَ ص قَالَ فِي خُطْبَةٍ لَهُ‌ وَ لَوْ أَرَادَ اللَّهُ جَلَّ ثَنَاؤُهُ بِأَنْبِيَائِهِ حَيْثُ بَعَثَهُمْ أَنْ يَفْتَحَ لَهُمْ كُنُوزَ الذِّهْبَانِ وَ مَعَادِنَ الْعِقْيَانِ‌[3] وَ مَغَارِسَ الْجِنَانِ وَ أَنْ يَحْشُرَ طَيْرَ السَّمَاءِ وَ وَحْشَ الْأَرْضِ مَعَهُمْ لَفَعَلَ وَ لَوْ فَعَلَ لَسَقَطَ الْبَلَاءُ وَ بَطَلَ الْجَزَاءُ وَ اضْمَحَلَّتِ الْأَنْبَاءُ وَ لَمَا وَجَبَ لِلْقَائِلِينَ أُجُورُ الْمُبْتَلَيْنَ‌[4] وَ لَا لَحِقَ الْمُؤْمِنِينَ ثَوَابُ الْمُحْسِنِينَ وَ لَا لَزِمَتِ الْأَسْمَاءُ أَهَالِيَهَا عَلَى مَعْنًى مُبِينٍ‌[5] وَ لِذَلِكَ لَوْ أَنْزَلَ اللَّهُ‌ مِنَ السَّماءِ آيَةً فَظَلَّتْ أَعْناقُهُمْ لَها خاضِعِينَ‌ وَ لَوْ فَعَلَ لَسَقَطَ الْبَلْوَى عَنِ النَّاسِ أَجْمَعِينَ وَ لَكِنَّ اللَّهَ جَلَّ ثَنَاؤُهُ جَعَلَ رُسُلَهُ أُولِي قُوَّةٍ فِي عَزَائِمِ نِيَّاتِهِمْ وَ ضَعَفَةً فِيمَا تَرَى الْأَعْيُنُ مِنْ حَالاتِهِمْ مِنْ قَنَاعَةٍ تَمْلَأُ الْقُلُوبَ وَ الْعُيُونَ غَنَاؤُهُ‌[6] وَ خَصَاصَةٍ تَمْلَأُ الْأَسْمَاعَ وَ الْأَبْصَارَ أَذَاؤُهُ وَ لَوْ كَانَتِ الْأَنْبِيَاءُ أَهْلَ قُوَّةٍ لَا تُرَامُ وَ عِزَّةٍ لَا تُضَامُ وَ مُلْكٍ يُمَدُّ نَحْوَهُ أَعْنَاقُ الرِّجَالِ وَ يُشَدُّ إِلَيْهِ عُقَدُ\nالرِّحَالِ‌[1] لَكَانَ أَهْوَنَ عَلَى الْخَلْقِ فِي الِاخْتِبَارِ وَ أَبْعَدَ لَهُمْ فِي الِاسْتِكْبَارِ وَ لآَمَنُوا عَنْ رَهْبَةٍ قَاهِرَةٍ لَهُمْ أَوْ رَغْبَةٍ مَائِلَةٍ بِهِمْ فَكَانَتِ النِّيَّاتُ مُشْتَرَكَةً وَ الْحَسَنَاتُ مُقْتَسَمَةً وَ لَكِنَّ اللَّهَ أَرَادَ أَنْ يَكُونَ الِاتِّبَاعُ لِرُسُلِهِ وَ التَّصْدِيقُ بِكُتُبِهِ وَ الْخُشُوعُ لِوَجْهِهِ وَ الِاسْتِكَانَةُ لِأَمْرِهِ وَ الِاسْتِسْلَامُ لِطَاعَتِهِ‌[2] أُمُوراً لَهُ خَاصَّةً لَا تَشُوبُهَا مِنْ غَيْرِهَا شَائِبَةٌ وَ كُلَّمَا كَانَتِ الْبَلْوَى وَ الِاخْتِبَارُ أَعْظَمَ كَانَتِ الْمَثُوبَةُ وَ الْجَزَاءُ أَجْزَلَ أَ لَا تَرَوْنَ أَنَّ اللَّهَ جَلَّ ثَنَاؤُهُ اخْتَبَرَ الْأَوَّلِينَ مِنْ لَدُنِ آدَمَ إِلَى الْآخِرِينَ مِنْ هَذَا الْعَالَمِ بِأَحْجَارٍ لَا تَضُرُّ وَ لَا تَنْفَعُ وَ لَا تُبْصِرُ وَ لَا تَسْمَعُ فَجَعَلَهَا بَيْتَهُ الْحَرَامَ الَّذِي جَعَلَهُ لِلنَّاسِ قِيَاماً ثُمَّ وَضَعَهُ‌[3] بِأَوْعَرِ بِقَاعِ الْأَرْضِ حَجَراً[4] وَ أَقَلِّ نَتَائِقِ الدُّنْيَا مَدَراً وَ أَضْيَقِ بُطُونِ الْأَوْدِيَةِ مَعَاشاً وَ أَغْلَظِ مَحَالِّ الْمُسْلِمِينَ مِيَاهاً بَيْنَ جِبَالٍ خَشِنَةٍ وَ رِمَالٍ دَمِثَةٍ وَ عُيُونٍ وَشِلَةٍ وَ قُرًى مُنْقَطِعَةٍ وَ أَثَرٍ[5] مِنْ مَوَاضِعِ قَطْرِ السَّمَاءِ دَاثِرٍ لَيْسَ يَزْكُو بِهِ خُفٌّ وَ لَا ظِلْفٌ وَ لَا حَافِرٌ[6] ثُمَّ أَمَرَ آدَمَ وَ وُلْدَهُ أَنْ يَثْنُوا أَعْطَافَهُمْ نَحْوَهُ فَصَارَ مَثَابَةً لِمُنْتَجَعِ أَسْفَارِهِمْ وَ غَايَةً لِمُلْقَى رِحَالِهِمْ تَهْوِي إِلَيْهِ ثِمَارُ الْأَفْئِدَةِ مِنْ مَفَاوِزِ قِفَارٍ مُتَّصِلَةٍ وَ جَزَائِرِ بِحَارٍ مُنْقَطِعَةٍ وَ مَهَاوِي فِجَاجٍ عَمِيقَةٍ حَتَّى يَهُزُّوا مَنَاكِبَهُمْ ذُلُلًا يُهَلِّلُونَ لِلَّهِ حَوْلَهُ وَ يَرْمُلُونَ عَلَى أَقْدَامِهِمْ شُعْثاً غُبْراً لَهُ قَدْ نَبَذُوا الْقُنُعَ وَ السَّرَابِيلَ‌\nوَرَاءَ ظُهُورِهِمْ‌[1] وَ حَسَرُوا بِالشُّعُورِ حَلْقاً عَنْ رُءُوسِهِمُ ابْتِلَاءً عَظِيماً وَ اخْتِبَاراً كَبِيراً وَ امْتِحَاناً شَدِيداً وَ تَمْحِيصاً بَلِيغاً وَ قُنُوتاً مُبِيناً[2] جَعَلَهُ اللَّهُ سَبَباً لِرَحْمَتِهِ وَ وُصْلَةً وَ وَسِيلَةً إِلَى جَنَّتِهِ وَ عِلَّةً لِمَغْفِرَتِهِ وَ ابْتِلَاءً لِلْخَلْقِ بِرَحْمَتِهِ وَ لَوْ كَانَ اللَّهُ تَبَارَكَ وَ تَعَالَى وَضَعَ بَيْتَهُ الْحَرَامَ وَ مَشَاعِرَهُ الْعِظَامَ بَيْنَ جَنَّاتٍ وَ أَنْهَارٍ وَ سَهْلٍ وَ قَرَارٍ جَمَّ الْأَشْجَارِ دَانِيَ الثِّمَارِ مُلْتَفَّ النَّبَاتِ مُتَّصِلَ الْقُرَى مِنْ بُرَّةٍ سَمْرَاءَ وَ رَوْضَةٍ خَضْرَاءَ وَ أَرْيَافٍ مُحْدِقَةٍ وَ عِرَاصٍ مُغْدِقَةٍ وَ زُرُوعٍ نَاضِرَةٍ وَ طُرُقٍ عَامِرَةٍ وَ حَدَائِقَ كَثِيرَةٍ لَكَانَ قَدْ صَغُرَ الْجَزَاءُ عَلَى حَسَبِ ضَعْفِ الْبَلَاءِ ثُمَّ لَوْ كَانَتِ الْأَسَاسُ الْمَحْمُولُ عَلَيْهَا وَ الْأَحْجَارُ الْمَرْفُوعُ بِهَا بَيْنَ زُمُرُّدَةٍ خَضْرَاءَ وَ يَاقُوتَةٍ حَمْرَاءَ وَ نُورٍ وَ ضِيَاءٍ لَخَفَّفَ ذَلِكَ مُصَارَعَةَ الشَّكِّ فِي الصُّدُورِ[3] وَ لَوَضَعَ مُجَاهَدَةَ إِبْلِيسَ عَنِ الْقُلُوبِ وَ لَنَفَى مُعْتَلَجَ الرَّيْبِ مِنَ النَّاسِ وَلَكِنَّ اللَّهَ عَزَّ وَ جَلَّ يَخْتَبِرُ عَبِيدَهُ-\n« تهوى إليه ثمار الافئدة» استعارة لطيفة و نظر إلى قوله سبحانه حكاية عن خليله عليه السلام:\n« فَاجْعَلْ أَفْئِدَةً مِنَ النَّاسِ تَهْوِي إِلَيْهِمْ وَ ارْزُقْهُمْ مِنَ الثَّمَراتِ». و القفر من المفازة: ما لا ماء فيه و لا كلاء. و في مقابلة الاتصال بالانقطاع من لطف الايهام ما لا يخفى. و في قوله:« و مهاوى فجاج عميقة» اشارة إلى رفعته و علوه و نظر الى قوله سبحانه:« يَأْتِينَ مِنْ كُلِّ فَجٍّ عَمِيقٍ».( فى). و المفاوز جمع مفازة و هي الفلاة. و المهاوى: المساقط. و الفج: الطريق بين الجبلين. و الهمز: التحريك و هو كناية عن الشوق نحوه و السفر إليه و الرمل- محركة-: الهرولة. و الشعث: انتشار الامر و اغبرار الرأس و تلبد الشعر.( فى)\nبِأَنْوَاعِ الشَّدَائِدِ وَ يَتَعَبَّدُهُمْ بِأَلْوَانِ الْمَجَاهِدِ وَ يَبْتَلِيهِمْ بِضُرُوبِ الْمَكَارِهِ إِخْرَاجاً لِلتَّكَبُّرِ مِنْ قُلُوبِهِمْ وَ إِسْكَاناً لِلتَّذَلُّلِ فِي أَنْفُسِهِمْ وَ لِيَجْعَلَ ذَلِكَ أَبْوَاباً فُتُحاً إِلَى فَضْلِهِ وَ أَسْبَاباً ذُلُلًا لِعَفْوِهِ وَ فِتْنَتِهِ كَمَا قَالَ‌ الم. أَ حَسِبَ النَّاسُ‌ أَنْ يُتْرَكُوا أَنْ يَقُولُوا آمَنَّا وَ هُمْ لا يُفْتَنُونَ. وَ لَقَدْ فَتَنَّا الَّذِينَ مِنْ قَبْلِهِمْ فَلَيَعْلَمَنَّ اللَّهُ‌ الَّذِينَ صَدَقُوا وَ لَيَعْلَمَنَّ الْكاذِبِينَ‌[1].",
+    "matn": "وَ لَوْ أَرَادَ اللَّهُ جَلَّ ثَنَاؤُهُ بِأَنْبِيَائِهِ حَيْثُ بَعَثَهُمْ أَنْ يَفْتَحَ لَهُمْ كُنُوزَ الذِّهْبَانِ وَ مَعَادِنَ الْعِقْيَانِ‌[3] وَ مَغَارِسَ الْجِنَانِ وَ أَنْ يَحْشُرَ طَيْرَ السَّمَاءِ وَ وَحْشَ الْأَرْضِ مَعَهُمْ لَفَعَلَ وَ لَوْ فَعَلَ لَسَقَطَ الْبَلَاءُ وَ بَطَلَ الْجَزَاءُ وَ اضْمَحَلَّتِ الْأَنْبَاءُ وَ لَمَا وَجَبَ لِلْقَائِلِينَ أُجُورُ الْمُبْتَلَيْنَ‌[4] وَ لَا لَحِقَ الْمُؤْمِنِينَ ثَوَابُ الْمُحْسِنِينَ وَ لَا لَزِمَتِ الْأَسْمَاءُ أَهَالِيَهَا عَلَى مَعْنًى مُبِينٍ‌[5] وَ لِذَلِكَ لَوْ أَنْزَلَ اللَّهُ‌ مِنَ السَّماءِ آيَةً فَظَلَّتْ أَعْناقُهُمْ لَها خاضِعِينَ‌ وَ لَوْ فَعَلَ لَسَقَطَ الْبَلْوَى عَنِ النَّاسِ أَجْمَعِينَ وَ لَكِنَّ اللَّهَ جَلَّ ثَنَاؤُهُ جَعَلَ رُسُلَهُ أُولِي قُوَّةٍ فِي عَزَائِمِ نِيَّاتِهِمْ وَ ضَعَفَةً فِيمَا تَرَى الْأَعْيُنُ مِنْ حَالاتِهِمْ مِنْ قَنَاعَةٍ تَمْلَأُ الْقُلُوبَ وَ الْعُيُونَ غَنَاؤُهُ‌[6] وَ خَصَاصَةٍ تَمْلَأُ الْأَسْمَاعَ وَ الْأَبْصَارَ أَذَاؤُهُ وَ لَوْ كَانَتِ الْأَنْبِيَاءُ أَهْلَ قُوَّةٍ لَا تُرَامُ وَ عِزَّةٍ لَا تُضَامُ وَ مُلْكٍ يُمَدُّ نَحْوَهُ أَعْنَاقُ الرِّجَالِ وَ يُشَدُّ إِلَيْهِ عُقَدُ\nالرِّحَالِ‌[1] لَكَانَ أَهْوَنَ عَلَى الْخَلْقِ فِي الِاخْتِبَارِ وَ أَبْعَدَ لَهُمْ فِي الِاسْتِكْبَارِ وَ لآَمَنُوا عَنْ رَهْبَةٍ قَاهِرَةٍ لَهُمْ أَوْ رَغْبَةٍ مَائِلَةٍ بِهِمْ فَكَانَتِ النِّيَّاتُ مُشْتَرَكَةً وَ الْحَسَنَاتُ مُقْتَسَمَةً وَ لَكِنَّ اللَّهَ أَرَادَ أَنْ يَكُونَ الِاتِّبَاعُ لِرُسُلِهِ وَ التَّصْدِيقُ بِكُتُبِهِ وَ الْخُشُوعُ لِوَجْهِهِ وَ الِاسْتِكَانَةُ لِأَمْرِهِ وَ الِاسْتِسْلَامُ لِطَاعَتِهِ‌[2] أُمُوراً لَهُ خَاصَّةً لَا تَشُوبُهَا مِنْ غَيْرِهَا شَائِبَةٌ وَ كُلَّمَا كَانَتِ الْبَلْوَى وَ الِاخْتِبَارُ أَعْظَمَ كَانَتِ الْمَثُوبَةُ وَ الْجَزَاءُ أَجْزَلَ أَ لَا تَرَوْنَ أَنَّ اللَّهَ جَلَّ ثَنَاؤُهُ اخْتَبَرَ الْأَوَّلِينَ مِنْ لَدُنِ آدَمَ إِلَى الْآخِرِينَ مِنْ هَذَا الْعَالَمِ بِأَحْجَارٍ لَا تَضُرُّ وَ لَا تَنْفَعُ وَ لَا تُبْصِرُ وَ لَا تَسْمَعُ فَجَعَلَهَا بَيْتَهُ الْحَرَامَ الَّذِي جَعَلَهُ لِلنَّاسِ قِيَاماً ثُمَّ وَضَعَهُ‌[3] بِأَوْعَرِ بِقَاعِ الْأَرْضِ حَجَراً[4] وَ أَقَلِّ نَتَائِقِ الدُّنْيَا مَدَراً وَ أَضْيَقِ بُطُونِ الْأَوْدِيَةِ مَعَاشاً وَ أَغْلَظِ مَحَالِّ الْمُسْلِمِينَ مِيَاهاً بَيْنَ جِبَالٍ خَشِنَةٍ وَ رِمَالٍ دَمِثَةٍ وَ عُيُونٍ وَشِلَةٍ وَ قُرًى مُنْقَطِعَةٍ وَ أَثَرٍ[5] مِنْ مَوَاضِعِ قَطْرِ السَّمَاءِ دَاثِرٍ لَيْسَ يَزْكُو بِهِ خُفٌّ وَ لَا ظِلْفٌ وَ لَا حَافِرٌ[6] ثُمَّ أَمَرَ آدَمَ وَ وُلْدَهُ أَنْ يَثْنُوا أَعْطَافَهُمْ نَحْوَهُ فَصَارَ مَثَابَةً لِمُنْتَجَعِ أَسْفَارِهِمْ وَ غَايَةً لِمُلْقَى رِحَالِهِمْ تَهْوِي إِلَيْهِ ثِمَارُ الْأَفْئِدَةِ مِنْ مَفَاوِزِ قِفَارٍ مُتَّصِلَةٍ وَ جَزَائِرِ بِحَارٍ مُنْقَطِعَةٍ وَ مَهَاوِي فِجَاجٍ عَمِيقَةٍ حَتَّى يَهُزُّوا مَنَاكِبَهُمْ ذُلُلًا يُهَلِّلُونَ لِلَّهِ حَوْلَهُ وَ يَرْمُلُونَ عَلَى أَقْدَامِهِمْ شُعْثاً غُبْراً لَهُ قَدْ نَبَذُوا الْقُنُعَ وَ السَّرَابِيلَ‌\nوَرَاءَ ظُهُورِهِمْ‌[1] وَ حَسَرُوا بِالشُّعُورِ حَلْقاً عَنْ رُءُوسِهِمُ ابْتِلَاءً عَظِيماً وَ اخْتِبَاراً كَبِيراً وَ امْتِحَاناً شَدِيداً وَ تَمْحِيصاً بَلِيغاً وَ قُنُوتاً مُبِيناً[2] جَعَلَهُ اللَّهُ سَبَباً لِرَحْمَتِهِ وَ وُصْلَةً وَ وَسِيلَةً إِلَى جَنَّتِهِ وَ عِلَّةً لِمَغْفِرَتِهِ وَ ابْتِلَاءً لِلْخَلْقِ بِرَحْمَتِهِ وَ لَوْ كَانَ اللَّهُ تَبَارَكَ وَ تَعَالَى وَضَعَ بَيْتَهُ الْحَرَامَ وَ مَشَاعِرَهُ الْعِظَامَ بَيْنَ جَنَّاتٍ وَ أَنْهَارٍ وَ سَهْلٍ وَ قَرَارٍ جَمَّ الْأَشْجَارِ دَانِيَ الثِّمَارِ مُلْتَفَّ النَّبَاتِ مُتَّصِلَ الْقُرَى مِنْ بُرَّةٍ سَمْرَاءَ وَ رَوْضَةٍ خَضْرَاءَ وَ أَرْيَافٍ مُحْدِقَةٍ وَ عِرَاصٍ مُغْدِقَةٍ وَ زُرُوعٍ نَاضِرَةٍ وَ طُرُقٍ عَامِرَةٍ وَ حَدَائِقَ كَثِيرَةٍ لَكَانَ قَدْ صَغُرَ الْجَزَاءُ عَلَى حَسَبِ ضَعْفِ الْبَلَاءِ ثُمَّ لَوْ كَانَتِ الْأَسَاسُ الْمَحْمُولُ عَلَيْهَا وَ الْأَحْجَارُ الْمَرْفُوعُ بِهَا بَيْنَ زُمُرُّدَةٍ خَضْرَاءَ وَ يَاقُوتَةٍ حَمْرَاءَ وَ نُورٍ وَ ضِيَاءٍ لَخَفَّفَ ذَلِكَ مُصَارَعَةَ الشَّكِّ فِي الصُّدُورِ[3] وَ لَوَضَعَ مُجَاهَدَةَ إِبْلِيسَ عَنِ الْقُلُوبِ وَ لَنَفَى مُعْتَلَجَ الرَّيْبِ مِنَ النَّاسِ وَلَكِنَّ اللَّهَ عَزَّ وَ جَلَّ يَخْتَبِرُ عَبِيدَهُ-\n« تهوى إليه ثمار الافئدة» استعارة لطيفة و نظر إلى قوله سبحانه حكاية عن خليله عليه السلام:\n« فَاجْعَلْ أَفْئِدَةً مِنَ النَّاسِ تَهْوِي إِلَيْهِمْ وَ ارْزُقْهُمْ مِنَ الثَّمَراتِ». و القفر من المفازة: ما لا ماء فيه و لا كلاء. و في مقابلة الاتصال بالانقطاع من لطف الايهام ما لا يخفى. و في قوله:« و مهاوى فجاج عميقة» اشارة إلى رفعته و علوه و نظر الى قوله سبحانه:« يَأْتِينَ مِنْ كُلِّ فَجٍّ عَمِيقٍ».( فى). و المفاوز جمع مفازة و هي الفلاة. و المهاوى: المساقط. و الفج: الطريق بين الجبلين. و الهمز: التحريك و هو كناية عن الشوق نحوه و السفر إليه و الرمل- محركة-: الهرولة. و الشعث: انتشار الامر و اغبرار الرأس و تلبد الشعر.( فى)\nبِأَنْوَاعِ الشَّدَائِدِ وَ يَتَعَبَّدُهُمْ بِأَلْوَانِ الْمَجَاهِدِ وَ يَبْتَلِيهِمْ بِضُرُوبِ الْمَكَارِهِ إِخْرَاجاً لِلتَّكَبُّرِ مِنْ قُلُوبِهِمْ وَ إِسْكَاناً لِلتَّذَلُّلِ فِي أَنْفُسِهِمْ وَ لِيَجْعَلَ ذَلِكَ أَبْوَاباً فُتُحاً إِلَى فَضْلِهِ وَ أَسْبَاباً ذُلُلًا لِعَفْوِهِ وَ فِتْنَتِهِ كَمَا قَالَ‌ الم. أَ حَسِبَ النَّاسُ‌ أَنْ يُتْرَكُوا أَنْ يَقُولُوا آمَنَّا وَ هُمْ لا يُفْتَنُونَ. وَ لَقَدْ فَتَنَّا الَّذِينَ مِنْ قَبْلِهِمْ فَلَيَعْلَمَنَّ اللَّهُ‌ الَّذِينَ صَدَقُوا وَ لَيَعْلَمَنَّ الْكاذِبِينَ‌[1].",
+    "decision": "ready_sarwar",
+    "identity": {
+      "method": "one_to_one_between_direct_arabic_anchors",
+      "before": {
+        "public_id": "alkafi-6702",
+        "remote_id": 6723,
+        "score": 0.9939393939393939
+      },
+      "after": {
+        "public_id": "alkafi-6704",
+        "remote_id": 6725,
+        "score": 1.0
+      },
+      "local_gap_count": 1,
+      "remote_gap_count": 1,
+      "score": 0.855072463768116,
+      "remote_id": 6724
+    },
+    "source": {
+      "kind": "thaqalayn_static_sarwar",
+      "translator": "Muhammad Sarwar",
+      "source_url": "https://thaqalayn.net/books/al-kafi:4:3:6:2",
+      "remote_id": 6724
+    },
+    "english": "2. It is narrated that ’Amir al-Mu’minin once said in his sermon the following: “’Amir al-Mu’minin, ‘Alayhi al-Salam, has said that if Allah, Glorious is whose praise, wanted, He could have opened to His prophets the treasures of gold (stored), mines of pure growing gold, placed at their disposal, gardens of plantations, flocks of birds from the skies and animals on land. Had He done so, trial and testing system would have failed as well, the system of reward; the news (about the hereafter) vanished, people resting would have been the same as those under trial and assessment. The believers would not receive any reward as people of good deeds, nor do any name and terminology make any clear sense. In addition, if Allah were to send from the sky miracles to force their neck down to submission, He could have done so, but trial and test would have remained without basis in the case of all people. However, Allah, Glorious is whose praise, made His messengers to possess determination in their intentions, but weak to the eyes of people. “It is due to such determination that their (prophet’s) ability to exercise moderation fills up the hearts and eyes with satisfaction, with feeling of self-sufficiency and their exercising of self-abnegation fills up the ears and eyes (without question). Had the prophets been powerful beyond the power of others, had they had incompatible might and a kingdom that every man desired, and every one sought to achieve, it would have been easy to examine the creatures and far for the creatures to assume arrogance. They (people) would believe them for crushing fear from them or for the attractive interest found with them (the prophets). In such case, the intentions and good deeds remained subject to equal division and distribution. Allah, however, wanted that following of His messengers, acknowledgement of His books, expressing humbleness before Him, seeking comfort with His commands, submission to His orders, remain especially for Him alone, without any confusion or doubts to affect its purity of being just for Him. The more there is trial and greater test, the reward and compensation is worthier and appreciable. Have you not noticed that Allah, Glorious is whose praise, has tried and tested from Adam to the last ones of this world by means of stones that do not harm anyone or benefit them, do not see or hear? Thus, He has made it His sacred house, which He has made for people a place of worship. He then has made its location in a most barren land with rocks, the least in terms of fertility, the narrowest of valleys and means of living, the most difficult in availability of water for Muslims. It is among the rough hills, fine sands, fountains of very little water and towns that are cut off from each other, with very little traces of the drops from the sky which do not even reach anyone’s shoes or cloven-hoofs or hooves. He then commanded Adam and his offspring to ready themselves to turn to it. It then became the turning point for the destination of their journey, the final destination for them to rest. To this destination, the fruits of hearts fall from the wilderness, and vast extended land, from the cut off island in the oceans, from the deep valley of faraway places. They move their shoulders with humbleness, declaring around it (the House) that no one except Allah deserves worship. They walk on sand, on foot, dusty and tired for His sake. (One can see them) without head covering and (normal) dress, their heads shaven for the great trial, and tremendous test, intense examination, slow purification and sifting and with clear appeals. Allah has made it a means to achieve His kindness, a connection and means to reach His paradise, a reason to gain His forgiveness. It is a trial for His creatures through His kindness. The reward would have been very little and small if the trial had been of a certain lesser degree. This could happen if Allah, the most Blessed, the most High, were to place His Sacred House and other great monumental landmarks among the gardens, canals, open flat lands, thick groves of trees, easily accessible fruits, plentiful grass, connected towns, with brown colored fields, green gardens, countryside houses surrounded with beautiful yards, delightful farms, well built roads and many gardens. “The trial would turn into ease and comfort if the foundations on which it is carried, the stones with which it is raised were of green emerald, red ruby, lights and rays. This would reduce the creeping of doubts in the chests, make the struggle of Satan against the hearts very weak, nullify the pricking of doubts and hesitation by the people. Allah, the Most Majestic, the Most Glorious, however, tests and examines His servants by various kinds of difficult examinations. He makes them to prove their loyalty as worshippers by a hard struggle. He tries by means of hardships to expel arrogance from their hearts and settle humbleness in their souls, so that it can open the door to His favors and provide easy means for His forgiveness and His trial, as He has said, ’Do people think that they will be left without trial just because they have said, “We have believed?” We certainly placed under test and trial those who lived before them so that Allah would find who was truthful and who were the liars.’” (29:1-2)",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['3', '4', '5', '6', '1', '2', '3', '4', '5', '6', '1', '2', '3', '1'] do not match translation numbers ['2', '29', '1', '2']."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 1, 2, 3, 4, 5, 6."
+      }
+    ],
+    "blocking_qa": []
+  },
+  {
+    "public_id": "alkafi-8104",
+    "sequence": 8110,
+    "volume": 4,
+    "page_start": 561,
+    "page_end": 562,
+    "printed_number": "٦",
+    "local_source_url": "https://lib.eshia.ir/11005/4/561",
+    "arabic": "عِدَّةٌ مِنْ أَصْحَابِنَا عَنْ سَهْلِ بْنِ زِيَادٍ عَنْ مُوسَى بْنِ جَعْفَرٍ عَنْ عُمَرَ بْنِ‌\nسَعِيدٍ عَنِ الْحَسَنِ بْنِ صَدَقَةَ عَنْ عَمَّارِ بْنِ مُوسَى قَالَ: دَخَلْتُ أَنَا وَ أَبُو عَبْدِ اللَّهِ ع مَسْجِدَ الْفَضِيخِ فَقَالَ يَا عَمَّارُ تَرَى هَذِهِ الْوَهْدَةَ[1] قُلْتُ نَعَمْ قَالَ كَانَتِ امْرَأَةُ جَعْفَرٍ الَّتِي خَلَفَ‌[2] عَلَيْهَا أَمِيرُ الْمُؤْمِنِينَ ع قَاعِدَةً فِي هَذَا الْمَوْضِعِ وَ مَعَهَا ابْنَاهَا مِنْ جَعْفَرٍ فَبَكَتْ فَقَالَ لَهَا ابْنَاهَا مَا يُبْكِيكِ يَا أُمَّهْ قَالَتْ بَكَيْتُ لِأَمِيرِ الْمُؤْمِنِينَ ع فَقَالا لَهَا تَبْكِينَ لِأَمِيرِ الْمُؤْمِنِينَ وَ لَا تَبْكِينَ لِأَبِينَا قَالَتْ لَيْسَ هَذَا هَكَذَا وَ لَكِنْ ذُكِرْتُ حَدِيثاً حَدَّثَنِي بِهِ أَمِيرُ الْمُؤْمِنِينَ ع فِي هَذَا الْمَوْضِعِ فَأَبْكَانِي قَالا وَ مَا هُوَ قَالَتْ كُنْتُ أَنَا وَ أَمِيرُ الْمُؤْمِنِينَ فِي هَذَا الْمَسْجِدِ فَقَالَ لِي تَرَيْنَ هَذِهِ الْوَهْدَةَ قُلْتُ نَعَمْ قَالَ كُنْتُ أَنَا وَ رَسُولُ اللَّهِ ص قَاعِدَيْنِ فِيهَا إِذْ وَضَعَ رَأْسَهُ فِي حَجْرِي ثُمَّ خَفَقَ حَتَّى غَطَّ[3] وَ حَضَرَتْ صَلَاةُ الْعَصْرِ فَكَرِهْتُ أَنْ أُحَرِّكَ رَأْسَهُ عَنْ فَخِذِي فَأَكُونَ قَدْ آذَيْتُ رَسُولَ اللَّهِ ص حَتَّى ذَهَبَ الْوَقْتُ وَ فَاتَتْ فَانْتَبَهَ رَسُولُ اللَّهِ ص فَقَالَ يَا عَلِيُّ صَلَّيْتَ قُلْتُ لَا قَالَ وَ لِمَ ذَلِكَ قُلْتُ كَرِهْتُ أَنْ أُوذِيَكَ قَالَ فَقَامَ وَ اسْتَقْبَلَ الْقِبْلَةَ وَ مَدَّ يَدَيْهِ كِلْتَيْهِمَا وَ قَالَ اللَّهُمَّ رُدَّ الشَّمْسَ إِلَى وَقْتِهَا حَتَّى يُصَلِّيَ عَلِيٌّ فَرَجَعَتِ الشَّمْسُ إِلَى وَقْتِ الصَّلَاةِ حَتَّى صَلَّيْتُ الْعَصْرَ ثُمَّ انْقَضَّتْ انْقِضَاضَ الْكَوْكَبِ‌[4].\n\\sُ يا من له ردت ذكاء و لم يفز\\z بنظيرها من قبل الا يوشع‌\\z\\E و أخرجه صاحب الغدير- مد ظله- في كتابه القيم ج 3 ص 127 عن أعلام العامّة ما يزيد على أربعين رجلا فليراجع.",
+    "matn": "دَخَلْتُ أَنَا وَ أَبُو عَبْدِ اللَّهِ ع مَسْجِدَ الْفَضِيخِ فَقَالَ يَا عَمَّارُ تَرَى هَذِهِ الْوَهْدَةَ[1] قُلْتُ نَعَمْ قَالَ كَانَتِ امْرَأَةُ جَعْفَرٍ الَّتِي خَلَفَ‌[2] عَلَيْهَا أَمِيرُ الْمُؤْمِنِينَ ع قَاعِدَةً فِي هَذَا الْمَوْضِعِ وَ مَعَهَا ابْنَاهَا مِنْ جَعْفَرٍ فَبَكَتْ فَقَالَ لَهَا ابْنَاهَا مَا يُبْكِيكِ يَا أُمَّهْ قَالَتْ بَكَيْتُ لِأَمِيرِ الْمُؤْمِنِينَ ع فَقَالا لَهَا تَبْكِينَ لِأَمِيرِ الْمُؤْمِنِينَ وَ لَا تَبْكِينَ لِأَبِينَا قَالَتْ لَيْسَ هَذَا هَكَذَا وَ لَكِنْ ذُكِرْتُ حَدِيثاً حَدَّثَنِي بِهِ أَمِيرُ الْمُؤْمِنِينَ ع فِي هَذَا الْمَوْضِعِ فَأَبْكَانِي قَالا وَ مَا هُوَ قَالَتْ كُنْتُ أَنَا وَ أَمِيرُ الْمُؤْمِنِينَ فِي هَذَا الْمَسْجِدِ فَقَالَ لِي تَرَيْنَ هَذِهِ الْوَهْدَةَ قُلْتُ نَعَمْ قَالَ كُنْتُ أَنَا وَ رَسُولُ اللَّهِ ص قَاعِدَيْنِ فِيهَا إِذْ وَضَعَ رَأْسَهُ فِي حَجْرِي ثُمَّ خَفَقَ حَتَّى غَطَّ[3] وَ حَضَرَتْ صَلَاةُ الْعَصْرِ فَكَرِهْتُ أَنْ أُحَرِّكَ رَأْسَهُ عَنْ فَخِذِي فَأَكُونَ قَدْ آذَيْتُ رَسُولَ اللَّهِ ص حَتَّى ذَهَبَ الْوَقْتُ وَ فَاتَتْ فَانْتَبَهَ رَسُولُ اللَّهِ ص فَقَالَ يَا عَلِيُّ صَلَّيْتَ قُلْتُ لَا قَالَ وَ لِمَ ذَلِكَ قُلْتُ كَرِهْتُ أَنْ أُوذِيَكَ قَالَ فَقَامَ وَ اسْتَقْبَلَ الْقِبْلَةَ وَ مَدَّ يَدَيْهِ كِلْتَيْهِمَا وَ قَالَ اللَّهُمَّ رُدَّ الشَّمْسَ إِلَى وَقْتِهَا حَتَّى يُصَلِّيَ عَلِيٌّ فَرَجَعَتِ الشَّمْسُ إِلَى وَقْتِ الصَّلَاةِ حَتَّى صَلَّيْتُ الْعَصْرَ ثُمَّ انْقَضَّتْ انْقِضَاضَ الْكَوْكَبِ‌[4]. \\sُ يا من له ردت ذكاء و لم يفز\\z بنظيرها من قبل الا يوشع‌\\z\\E و أخرجه صاحب الغدير- مد ظله- في كتابه القيم ج 3 ص 127 عن أعلام العامّة ما يزيد على أربعين رجلا فليراجع.",
+    "decision": "ready_sarwar",
+    "identity": {
+      "method": "one_to_one_between_direct_arabic_anchors",
+      "before": {
+        "public_id": "alkafi-8103",
+        "remote_id": 8122,
+        "score": 1.0
+      },
+      "after": {
+        "public_id": "alkafi-8105",
+        "remote_id": 8124,
+        "score": 1.0
+      },
+      "local_gap_count": 1,
+      "remote_gap_count": 1,
+      "score": 0.84251968503937,
+      "remote_id": 8123
+    },
+    "source": {
+      "kind": "thaqalayn_static_sarwar",
+      "translator": "Muhammad Sarwar",
+      "source_url": "https://thaqalayn.net/books/al-kafi:4:3:221:6",
+      "remote_id": 8123
+    },
+    "english": "6. A number of our people have narrated from Sahl ibn Ziyad from Musa ibn Ja’far from ‘Umar ibn Sa‘id from al-Hassan ibn Sadaqah from ‘Ammar ibn Musa who has said the following: “I once visited abu ‘Abd Allah, ‘Alayhi al-Salam, and I entered Masjid of al-Fadikh. He (the Imam) asked, ‘O ‘Ammar, do you see this depression of land?’ I replied, ‘Yes, I see it.’ He (the Imam) then said, ‘Wife of Ja’far who married ’Amir al-Mu’minin once was sitting at this place with her two sons from Ja’far. She wept and her sons asked, ‘Mother, what has made you weep?’ She replied, ‘I wept for ’Amir al-Mu’minin.’ They asked, ‘Mother, why do you weep for ’Amir al-Mu’minin but not for our father?’ She replied, ‘It is not that way. I wept because of a Hadith I remembered from ’Amir al- Mu’minin narrated to me at this place and that made me weep.’ They asked, ‘What is that Hadith?’ She then said, ‘Once ’Amir al-Mu’minin and I were in this Masjid. He asked, ‘Do you see this depression in the land?’ I replied, ‘Yes, I see it.’ He then said, ‘Once the Messenger of Allah, O Allah, grant compensation to Muhammad and his family worthy of their services to Your cause, and I were sitting in there. He (the Messenger of Allah) placed his head in my lap and went to sleep until he began to snore. It became time for al-‘Asr salat (prayer) but I did not like to move his head from my lap which may have caused any trouble to the Messenger of Allah. Time went by and al-‘Asr salat (prayer) was missed. The Messenger of Allah woke up and asked, ‘O Ali, did you perform salat (prayer)?’ I replied, ‘No, I did not do so.’ He asked, ‘Why did you not perform salat (prayer)?’ I replied, ‘I did not like to cause you any trouble.’ He (the Imam) said, ‘He (the Messenger of Allah) stood up facing the direction of Ka‘bah and stretched his both hands and said, “O Allah, return the sun to its time so Ali, ‘Alayhi al-Salam, can perform his salat (prayer).” The sun returned to the time for salat (prayer) for such a period of time in which he could perform al-‘Asr salat (prayer) and then it went by like a star.’”",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['1', '2', '3', '4', '3', '127'] do not match translation numbers ['6']."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 1, 2, 3, 4."
+      }
+    ],
+    "blocking_qa": []
+  },
+  {
+    "public_id": "alkafi-8122",
+    "sequence": 8128,
+    "volume": 4,
+    "page_start": 567,
+    "page_end": 568,
+    "printed_number": "٣",
+    "local_source_url": "https://lib.eshia.ir/11005/4/567",
+    "arabic": "عِدَّةٌ مِنْ أَصْحَابِنَا عَنْ سَهْلِ بْنِ زِيَادٍ عَنْ أَبِي هَاشِمٍ الْجَعْفَرِيِّ قَالَ: بَعَثَ إِلَيَّ أَبُو الْحَسَنِ ع فِي مَرَضِهِ وَ إِلَى مُحَمَّدِ بْنِ حَمْزَةَ فَسَبَقَنِي إِلَيْهِ مُحَمَّدُ بْنُ حَمْزَةَ وَ أَخْبَرَنِي مُحَمَّدٌ مَا زَالَ يَقُولُ ابْعَثُوا إِلَى الْحَيْرِ ابْعَثُوا إِلَى الْحَيْرِ فَقُلْتُ لِمُحَمَّدٍ أَ لَا قُلْتَ لَهُ أَنَا أَذْهَبُ إِلَى الْحَيْرِ ثُمَّ دَخَلْتُ عَلَيْهِ وَ قُلْتُ لَهُ جُعِلْتُ فِدَاكَ أَنَا أَذْهَبُ إِلَى الْحَيْرِ فَقَالَ انْظُرُوا فِي ذَاكَ ثُمَّ قَالَ لِي إِنَّ مُحَمَّداً لَيْسَ لَهُ سِرٌّ مِنْ زَيْدِ بْنِ عَلِيٍّ وَ أَنَا أَكْرَهُ أَنْ يَسْمَعَ ذَلِكَ-\nقَالَ فَذَكَرْتُ ذَلِكَ- لِعَلِيِّ بْنِ بِلَالٍ فَقَالَ مَا كَانَ يَصْنَعُ بِالْحَيْرِ وَ هُوَ الْحَيْرُ فَقَدِمْتُ الْعَسْكَرَ فَدَخَلْتُ عَلَيْهِ فَقَالَ لِي اجْلِسْ حِينَ أَرَدْتُ الْقِيَامَ فَلَمَّا رَأَيْتُهُ أَنِسَ بِي ذَكَرْتُ لَهُ قَوْلَ عَلِيِّ بْنِ بِلَالٍ فَقَالَ لِي أَ لَا قُلْتَ لَهُ إِنَّ رَسُولَ اللَّهِ ص كَانَ يَطُوفُ بِالْبَيْتِ وَ يُقَبِّلُ الْحَجَرَ وَ حُرْمَةُ النَّبِيِّ وَ الْمُؤْمِنِ أَعْظَمُ مِنْ حُرْمَةِ الْبَيْتِ وَ أَمَرَهُ اللَّهُ عَزَّ وَ جَلَّ أَنْ يَقِفَ بِعَرَفَةَ وَ إِنَّمَا هِيَ مَوَاطِنُ يُحِبُّ اللَّهُ أَنْ يُذْكَرَ فِيهَا فَأَنَا أُحِبُّ أَنْ يُدْعَى اللَّهُ لِي حَيْثُ يُحِبُّ اللَّهُ أَنْ يُدْعَى فِيهَا وَ ذَكَرَ عَنْهُ أَنَّهُ قَالَ وَ لَمْ أَحْفَظْ عَنْهُ قَالَ إِنَّمَا هَذِهِ مَوَاضِعُ يُحِبُّ اللَّهُ أَنْ يُتَعَبَّدَ لَهُ فِيهَا فَأَنَا أُحِبُّ أَنْ يُدْعَى لِي حَيْثُ يُحِبُّ اللَّهُ أَنْ يُعْبَدَ هَلَّا قُلْتَ لَهُ كَذَا [وَ كَذَا] قَالَ قُلْتُ جُعِلْتُ فِدَاكَ لَوْ كُنْتُ أُحْسِنُ مِثْلَ هَذَا لَمْ أَرُدَّ الْأَمْرَ عَلَيْكَ هَذِهِ أَلْفَاظُ أَبِي هَاشِمٍ لَيْسَتْ أَلْفَاظَهُ‌[1].\n« انظروا في ذلك» و لعلّ السر في الامر بالنظر في الذهاب لما مر من شدة امر التقية و انه لا بدّ أن يكون الذاهب اليه غير ابى هاشم لكونه من المشاهير، ثمّ قال عليه السلام لابى هاشم: ان محمّد بن حمزة ليس له شر من زيد بن على بالشين المعجمة على ما في الأصل اي ليس له شر من جهته و انما هو من قبل نفسه حيث لم يجب امامه في الذهاب إلى الحائر« و ليس له سر» بالسين المهملة على ما في نسخة فانه لو كان له سر منه لقال مبادرا: انا اذهب الى الحائر و قبله بلا تأمل و تفكر فان الولد سر ابيه و هذا السر اما متابعة الامام او الاعتقاد بزيارة الحائر او الاستشفاء به و لما كان في هذا الكلام منه عليه السلام نوع ايماء الى مذمة محمّد بن حمزة و سوء صنيعه بامامه أشار عليه السلام الى خفائه و عدم اسماعه إيّاه فقال:\n« بقية الحاشية في الصفحة الآتية»« بقية الحاشية من الصفحة الماضية»« و انا اكره إلخ» لئلا يخبره به أبو هاشم فيدخل عليه ما شاء اللّه ثمّ ذكر الواقعة لعلى بن بلال و هو من وكلائه و معتمده و شاوره في امر الذهاب الى الحائر فنهى عنه معللا بانه عليه السلام غير محتاج إليه لكونه حائرا بنفسه صانعا له و لما سمع ذلك منه قدم العسكر و دخل عليه مرة اخرى و ذكر له قول عليّ بن بلال، قال له:« الا قلت إن رسول اللّه صلّى اللّه عليه و آله إلخ» و ملخص قوله عليه السلام:\nإن ما قال لك عليّ بن بلال و ان كان حقا من جهة أن النبيّ صلّى اللّه عليه و آله و سلم و الأئمّة عليهم السلام بل المؤمن أيضا أعظم حرمة عند اللّه عزّ و جلّ من المواطن إلّا أن له سبحانه في الأرض بقاعا و مواطن يحب ان يذكر فيها و من جملتها الحائر فانا أحبّ أن يدعى لي فيها فلذلك امرت بالذهاب الى الحائر للاستشفاء و قوله:« و ذكر عنه انه قال إلخ» كلام سهل بن زياد و غرضه انه يقول ما ذكرته هو الذي سمعت أبا هاشم و اما غيرى ذكر عنه انه قال:« انما هي مواضع إلخ» مكان قوله:\n« انما هي مواطن إلخ»- مع ضميمة« هلا قلت له كذا»« قال» جعلت فداك- الى قوله- لم ارد عليك و لكنى لم احفظه عن أبي هاشم بهذا الوجه و قوله:« هذه الفاظ ابى هاشم» أي قوله:« جعلت فداك إلخ» الفاظ أبى هاشم لا الفاظ ذلك الغير او ان هذا الخبر من الفاظ ابى هاشم لا الفاظ ابى الحسن عليه السلام فكانه نقله بالمعنى و اللّه اعلم. المجلسيّ- عليه الرحمة- انتهى.",
+    "matn": "بَعَثَ إِلَيَّ أَبُو الْحَسَنِ ع فِي مَرَضِهِ وَ إِلَى مُحَمَّدِ بْنِ حَمْزَةَ فَسَبَقَنِي إِلَيْهِ مُحَمَّدُ بْنُ حَمْزَةَ وَ أَخْبَرَنِي مُحَمَّدٌ مَا زَالَ يَقُولُ ابْعَثُوا إِلَى الْحَيْرِ ابْعَثُوا إِلَى الْحَيْرِ فَقُلْتُ لِمُحَمَّدٍ أَ لَا قُلْتَ لَهُ أَنَا أَذْهَبُ إِلَى الْحَيْرِ ثُمَّ دَخَلْتُ عَلَيْهِ وَ قُلْتُ لَهُ جُعِلْتُ فِدَاكَ أَنَا أَذْهَبُ إِلَى الْحَيْرِ فَقَالَ انْظُرُوا فِي ذَاكَ ثُمَّ قَالَ لِي إِنَّ مُحَمَّداً لَيْسَ لَهُ سِرٌّ مِنْ زَيْدِ بْنِ عَلِيٍّ وَ أَنَا أَكْرَهُ أَنْ يَسْمَعَ ذَلِكَ- قَالَ فَذَكَرْتُ ذَلِكَ- لِعَلِيِّ بْنِ بِلَالٍ فَقَالَ مَا كَانَ يَصْنَعُ بِالْحَيْرِ وَ هُوَ الْحَيْرُ فَقَدِمْتُ الْعَسْكَرَ فَدَخَلْتُ عَلَيْهِ فَقَالَ لِي اجْلِسْ حِينَ أَرَدْتُ الْقِيَامَ فَلَمَّا رَأَيْتُهُ أَنِسَ بِي ذَكَرْتُ لَهُ قَوْلَ عَلِيِّ بْنِ بِلَالٍ فَقَالَ لِي أَ لَا قُلْتَ لَهُ إِنَّ رَسُولَ اللَّهِ ص كَانَ يَطُوفُ بِالْبَيْتِ وَ يُقَبِّلُ الْحَجَرَ وَ حُرْمَةُ النَّبِيِّ وَ الْمُؤْمِنِ أَعْظَمُ مِنْ حُرْمَةِ الْبَيْتِ وَ أَمَرَهُ اللَّهُ عَزَّ وَ جَلَّ أَنْ يَقِفَ بِعَرَفَةَ وَ إِنَّمَا هِيَ مَوَاطِنُ يُحِبُّ اللَّهُ أَنْ يُذْكَرَ فِيهَا فَأَنَا أُحِبُّ أَنْ يُدْعَى اللَّهُ لِي حَيْثُ يُحِبُّ اللَّهُ أَنْ يُدْعَى فِيهَا وَ ذَكَرَ عَنْهُ أَنَّهُ قَالَ وَ لَمْ أَحْفَظْ عَنْهُ قَالَ إِنَّمَا هَذِهِ مَوَاضِعُ يُحِبُّ اللَّهُ أَنْ يُتَعَبَّدَ لَهُ فِيهَا فَأَنَا أُحِبُّ أَنْ يُدْعَى لِي حَيْثُ يُحِبُّ اللَّهُ أَنْ يُعْبَدَ هَلَّا قُلْتَ لَهُ كَذَا [وَ كَذَا] قَالَ قُلْتُ جُعِلْتُ فِدَاكَ لَوْ كُنْتُ أُحْسِنُ مِثْلَ هَذَا لَمْ أَرُدَّ الْأَمْرَ عَلَيْكَ هَذِهِ أَلْفَاظُ أَبِي هَاشِمٍ لَيْسَتْ أَلْفَاظَهُ‌[1]. « انظروا في ذلك» و لعلّ السر في الامر بالنظر في الذهاب لما مر من شدة امر التقية و انه لا بدّ أن يكون الذاهب اليه غير ابى هاشم لكونه من المشاهير، ثمّ قال عليه السلام لابى هاشم: ان محمّد بن حمزة ليس له شر من زيد بن على بالشين المعجمة على ما في الأصل اي ليس له شر من جهته و انما هو من قبل نفسه حيث لم يجب امامه في الذهاب إلى الحائر« و ليس له سر» بالسين المهملة على ما في نسخة فانه لو كان له سر منه لقال مبادرا: انا اذهب الى الحائر و قبله بلا تأمل و تفكر فان الولد سر ابيه و هذا السر اما متابعة الامام او الاعتقاد بزيارة الحائر او الاستشفاء به و لما كان في هذا الكلام منه عليه السلام نوع ايماء الى مذمة محمّد بن حمزة و سوء صنيعه بامامه أشار عليه السلام الى خفائه و عدم اسماعه إيّاه فقال: « بقية الحاشية في الصفحة الآتية»« بقية الحاشية من الصفحة الماضية»« و انا اكره إلخ» لئلا يخبره به أبو هاشم فيدخل عليه ما شاء اللّه ثمّ ذكر الواقعة لعلى بن بلال و هو من وكلائه و معتمده و شاوره في امر الذهاب الى الحائر فنهى عنه معللا بانه عليه السلام غير محتاج إليه لكونه حائرا بنفسه صانعا له و لما سمع ذلك منه قدم العسكر و دخل عليه مرة اخرى و ذكر له قول عليّ بن بلال، قال له:« الا قلت إن رسول اللّه صلّى اللّه عليه و آله إلخ» و ملخص قوله عليه السلام: إن ما قال لك عليّ بن بلال و ان كان حقا من جهة أن النبيّ صلّى اللّه عليه و آله و سلم و الأئمّة عليهم السلام بل المؤمن أيضا أعظم حرمة عند اللّه عزّ و جلّ من المواطن إلّا أن له سبحانه في الأرض بقاعا و مواطن يحب ان يذكر فيها و من جملتها الحائر فانا أحبّ أن يدعى لي فيها فلذلك امرت بالذهاب الى الحائر للاستشفاء و قوله:« و ذكر عنه انه قال إلخ» كلام سهل بن زياد و غرضه انه يقول ما ذكرته هو الذي سمعت أبا هاشم و اما غيرى ذكر عنه انه قال:« انما هي مواضع إلخ» مكان قوله: « انما هي مواطن إلخ»- مع ضميمة« هلا قلت له كذا»« قال» جعلت فداك- الى قوله- لم ارد عليك و لكنى لم احفظه عن أبي هاشم بهذا الوجه و قوله:« هذه الفاظ ابى هاشم» أي قوله:« جعلت فداك إلخ» الفاظ أبى هاشم لا الفاظ ذلك الغير او ان هذا الخبر من الفاظ ابى هاشم لا الفاظ ابى الحسن عليه السلام فكانه نقله بالمعنى و اللّه اعلم. المجلسيّ- عليه الرحمة- انتهى.",
+    "decision": "ready_sarwar",
+    "identity": {
+      "method": "one_to_one_between_direct_arabic_anchors",
+      "before": {
+        "public_id": "alkafi-8121",
+        "remote_id": 8140,
+        "score": 1.0
+      },
+      "after": {
+        "public_id": "alkafi-8123",
+        "remote_id": 8142,
+        "score": 0.9382716049382716
+      },
+      "local_gap_count": 1,
+      "remote_gap_count": 1,
+      "score": 0.4603174603174603,
+      "remote_id": 8141
+    },
+    "source": {
+      "kind": "thaqalayn_static_sarwar",
+      "translator": "Muhammad Sarwar",
+      "source_url": "https://thaqalayn.net/books/al-kafi:4:3:226:3",
+      "remote_id": 8141
+    },
+    "english": "3. A number of our people have narrated from Sahl ibn Ziyad from abu Hashim al-Ja’fariy who has said the following: “Once, abu al-Hassan, ‘Alayhi al-Salam, during his illness, called me and Muhammad ibn Hamzah. Muhammad ibn Hamzah went to him before me. Muhammad told me that he (the Imam) still says, ‘You must send someone to al-Hayr (shrine of Imam al-Husayn) to pray there so I get well soon.’ I then asked Muhammad, ‘Did you not tell him (the Imam) that I am going to al-Hayr?’ I then went to the Imam and said, ‘I pray to Allah to keep my soul in service for your cause, I am going to al-Hayr.’ He (the Imam) said, ‘You must consider it properly.’ He (the Imam) then said, ‘Muhammad does not possess the secret (belief in the divine authority of Imam) from Zayd ibn Ali, (his father) and I do not like that he hears this.’ He (the narrator) has said that he mentioned this to Ali ibn Bilal. He said, ‘What does he (Imam) want from al-Hayr (shrine of Imam al-Hassan)? He himself is al-Hayr.’ I then went to the army camp near his home. He (the Imam) said, ‘Sit down’, when I wanted to stand up to leave. When I found that he was comfortable with me, I then mentioned to him the words of Ali ibn Bilal. He (the Imam) said to me, ‘Why did you not tell him that the Messenger of Allah, O Allah, grant compensation to Muhammad and his family worthy of their services to Your cause, would perform Tawaf around the House and kiss the Black Stone? The greatness of the prophet and believers is greater than the greatness of the House. Allah, the Most Majestic, the Most Glorious, commanded him to stay in ‘Arafah. Allah loves wherein He loves to be spoken of. I love that prayer is made for me before Allah wherein Allah loves prayers that are made before Him.’ He (the narrator) has said that he mentioned certain things from the Imam that I did not save from him. He (the Imam) said, ‘These are places wherein Allah loves that He is worshipped. I thus love that prayers be made for me wherein Allah loves to be worshipped. Why did you not say so and so to him.’ He, abu Hashim has said that I then said, ‘I pray to Allah to keep my soul in service for your cause. Could I do as good as this (what you said), I would not bring the matter before you.’ These are the words of abu Hashim, not the words of Imam.”",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['1'] do not match translation numbers ['3']."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 1."
+      }
+    ],
+    "blocking_qa": []
+  }
+]

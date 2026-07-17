@@ -1,0 +1,3049 @@
+{
+  "extraction_version": "alkafi_opening_sarwar_pdf_blocks_v1",
+  "records": [
+    {
+      "current_translation": {
+        "matn_sha256": "58d137ab67bf4200e51f289bdedb2d19ddc1e0e41e93fc8b4d3be026e982bb5b",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "Abu Ja'far Muhammad ibn Ya’qub has narrated from a number of our people of whom one is Muhammad ibn Yahya al-‘Attar who narrated from Ahmad ibn Muhammad from Hassan ibn Mahbub from 'Ala' ibn Razin from Muhammad ibn Muslim from abu Ja’far, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "b49b8ab826a220508108720d905a78cdbddfd27caad84bac555e487cddf61a44",
+      "english_matn": "“When Allah created Intelligence He induced it to speak and said, ‘Come forward.’ Intelligence then did come forward. He then said, ‘Go back.’ Intelligence then did go back. Thereupon Allah said, ‘I swear by My Honor and Glory that I have not created any creature more beloved to Me than you. I will not perfect you in anyone except those whom I love. I, however, will command only you to do (certain) things and prohibit only you from committing certain others. I will grant blessings (rewards) to you only and will hold only you responsible for the consequences (of your acts).’”",
+      "english_matn_sha256": "5de9c09ca5ec2d84d344cf2f132c5c2d4fc05e3fa9ddf1d24eb71ea06d1ec5da",
+      "identity": {
+        "arabic_sequence_score": 0.98418278,
+        "english_chain_token_f1": 0.83333333,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/10",
+      "page_end": 10,
+      "page_start": 10,
+      "printed_number": "١",
+      "public_id": "alkafi-1",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['2', '3'] do not match translation numbers [].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 2, 3.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 1,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "7b67ae81df1d81c853429e326dc58e2b2d7f2a0b5b0d2edfbb00120da564f0f3",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/1",
+          "english_chain_sha256": "d1db88b40b26c884f509915afe6a0eb13af046eaf77c3fb4b87a0c76b6d780a3",
+          "record_id": 2,
+          "record_sha256": "db893d3188385aa68d4f7d115e70ac7ac636dc101bc6dfb64dc0ef4c281ad40a",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "3c146d56a5d9f2ad3886679a55a86bd01a7c5db702e82b1535a2b3c15628ed6f",
+          "marker": "Hadith 1, Chapter 1, hadith 1",
+          "matn_sha256": "5de9c09ca5ec2d84d344cf2f132c5c2d4fc05e3fa9ddf1d24eb71ea06d1ec5da",
+          "pages": [
+            12
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": "unprefixed_h1_marker_and_printed_chain_labels"
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "54a3d170b2c2f136ec611234dc3556732df4b41c7547a6dd197d718b6dd92a7b",
+      "source_isnad_sha256": "d67016a3b9acb1146bbbd22e1fd01886fe0c67012195e8c80d31c607edc2214d",
+      "source_matn_sha256": "a8df3bfe0ecdfe75cf90ecd2f38e1e537df8c0e08642814d7030e707752b47ea",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "2f2a1b7bc5fcd96b102da09a9e7120d011744af523b621b378569c9dd769dbf9",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "Ali ibn Muhammad has narrated from Sahl ibn Ziyad, from 'Amr ibn 'Uthman, from Mufaddal Ali ibn Salih from Sa‘d ibn Tarif from Asbagh ibn Nubatah, from (Imam) Ali, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "9e3293a76fc9b61e8886b81267381193f46d38c59064df68a577480db591b48b",
+      "english_matn": "“Once Jibril (Gabriel) came to Adam, recipient of divine supreme covenant, and said, ‘I am ordered to offer you three choices. You may choose one and leave the other two.’ Adam then asked, ‘What are those three things?’ Gabriel replied, ‘They are Intelligence, Bashfulness and Religion.’ Adam then said, ‘I choose Intelligence.’ Jibril (Gabriel) then asked Bashfulness and Religion to return and leave Intelligence with Adam. They said to Jibril, ‘O Jibril, we are commanded to be with Intelligence wherever it may exist. Jibril then said, ‘It then is up to you.’ He then ascended to heaven.”",
+      "english_matn_sha256": "ff773769b9bc341e0f079fb0e1178691af0a3ea1443fd35e681336e2be0f38ed",
+      "identity": {
+        "arabic_sequence_score": 0.97115385,
+        "english_chain_token_f1": 0.87272727,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/10",
+      "page_end": 11,
+      "page_start": 10,
+      "printed_number": "٢",
+      "public_id": "alkafi-2",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['1'] do not match translation numbers [].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 1.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 2,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "cea24e9c34cb7336ca6d95060ed540ef4bd3cdf3d2c9efde1c1cfed989f92326",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/2",
+          "english_chain_sha256": "b1bfd5407a37dc461ca1b3717c44998e57a8148fcac5a7b74820c065018ec5c3",
+          "record_id": 3,
+          "record_sha256": "3f7223f4ca37b57e3fab7a2a6d68404e5642f9226c1168f9f8c4bef896b4d91a",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "704192431f9afc599e7d8f7fb2b5014e6a3f68ebf1d3210bd1f0b747b5280a37",
+          "marker": "H 2, Ch. 1, h2",
+          "matn_sha256": "ff773769b9bc341e0f079fb0e1178691af0a3ea1443fd35e681336e2be0f38ed",
+          "pages": [
+            12
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "ce62a217e22053a6c9212cb0edebe3f09e092e0ec24d59569e06ee36fe81ceeb",
+      "source_isnad_sha256": "4719a4c2b40f0d863b512ec5ceb15e636d34a77e04234f8cda18affe9a7d6fbb",
+      "source_matn_sha256": "3301758142806268e787f928afe126adad2e08548032f99ff4c869a1301b4fd6",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "e9f81835fde8839db3e945ed7d976690178e5dfec7fc8bd6b069ce7ebd56dca5",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "Ahmad ibn 'Idris has narrated from Muhammad ibn ‘Abd al-Jabbar, from certain persons of our people in a marfu’ manner, who have ascribed it to abu 'Abd Allah, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "30dc98022c095ea5ef14c5fbd0161499e78d9aef4a90743b6d197f8ccb7e064c",
+      "english_matn": "“When I asked abu ‘Abd Allah, ‘what is Intelligence,’ He replied, ‘It is a fact with whose help one worships Allah, the Merciful, and attains paradise.’ I then asked, ‘What was the thing with Mu’awiya?’ ‘It was shrewdness. It was mischief which is similar to Intelligence but is not Intelligence,’ the Imam replied.”",
+      "english_matn_sha256": "e1ea9bf143717b538fb5da762a5ec80648c009754588ce77a24f8e8623defd2d",
+      "identity": {
+        "arabic_sequence_score": 0.97478992,
+        "english_chain_token_f1": 0.72340426,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/11",
+      "page_end": 11,
+      "page_start": 11,
+      "printed_number": "٣",
+      "public_id": "alkafi-3",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['2', '3'] do not match translation numbers [].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 2, 3.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 3,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "f0fc2385f8d81c3e29e7c9c80878437f3076292014d00e6133ba1a8d1a0e1f12",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/3",
+          "english_chain_sha256": "362d3129e61fe0cc082b829594b55a02fa4263fcd52cc625294714b698a25e0f",
+          "record_id": 4,
+          "record_sha256": "70698130ab3e92ac0d969e83379dab1c2316221a361d43648ab95105f7a8b98d",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "6ab2e686a5afab1a64b3f8b176af2e4c878d1bf896e011ac46365500a88dc8eb",
+          "marker": "H 3, Ch. 1, h3",
+          "matn_sha256": "e1ea9bf143717b538fb5da762a5ec80648c009754588ce77a24f8e8623defd2d",
+          "pages": [
+            12
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "97ad12a3b5fa1f3b3ad38cb4fac4f05fa8b0a84e4abe9f27c9f26b12d06dc93f",
+      "source_isnad_sha256": "c2a32567808ac22ff731d4007fa25eb9052425786d0dd7c246a7985bfa5ff416",
+      "source_matn_sha256": "5690845f632a68bf73bf43f699e9f827f338c90258565e66e5b50894b6dd9821",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "ad8b4a143fad3b4a028fa2a8841a17f85c2638c302cd8ec959de1d03513c675d",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "Muhammad ibn Yahya has narrated from Ahmad ibn Muhammad ibn ‘Isa from ibn Faddal from al-Hassan ibn al-Jahm who has said the following:",
+      "english_isnad_sha256": "6e4b0eefbb630895cb3b2d4e825cde0f291fde413759fe1dfee7e2e23ebda1fa",
+      "english_matn": "“I heard (Imam) al-Rida, recipient of divine supreme covenant, saying, ‘The friend of a person is his/her intelligence and the enemy of a person is his/her Ignorance.’”",
+      "english_matn_sha256": "5d79ecb8950b74dee163d23cf1dd8a5d3facdcc297fe8ecf213998613a1ef7e0",
+      "identity": {
+        "arabic_sequence_score": 0.95287958,
+        "english_chain_token_f1": 0.81818182,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/11",
+      "page_end": 11,
+      "page_start": 11,
+      "printed_number": "٤",
+      "public_id": "alkafi-4",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "green",
+        "flags": [],
+        "publication_flags": [],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 4,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "455bdd40878e26d9713785f9fb9823a8de22231cd8901df22c1b18cc15d8feab",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/4",
+          "english_chain_sha256": "fc066901ef8001baa89d8dda0b6f44f8d7ecc8b1e9299dc323c625def440d093",
+          "record_id": 5,
+          "record_sha256": "6ad0c12026d772a702158eb9e04cbd779f20f48f7c5bbf03f11122fd40c118f9",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "0ce545a8377025a91c95d278593b08bef261f0783db9eb655c0ddc474925af70",
+          "marker": "H 4, Ch. 1, h4",
+          "matn_sha256": "5d79ecb8950b74dee163d23cf1dd8a5d3facdcc297fe8ecf213998613a1ef7e0",
+          "pages": [
+            12
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "90f12ab899c2c0fe88955d55d487e071b3dd98966885011579b094a71f2d7ea1",
+      "source_isnad_sha256": "99fa7792945c1bc48dd9601a8c9737c25d57e8f3e85920ea07081d726874a30e",
+      "source_matn_sha256": "632013e6ad2d1dd2227d6987dc148416c16f03ef60bbeee5979c1025ec5abab2",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "d6882875b11fa92f8257b85c467a3d9b869de0d006ace543617fa99d18fc073b",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "It is narrated from him from Ahmad ibn Muhammad from ibn Faddal from al- Hassan ibn al-Jahm who has said the following:",
+      "english_isnad_sha256": "b868573eeed15514acbe39c5bbcbd12b755344c190e99723f4fa98cb074fde20",
+      "english_matn": "“Once, I said to abu al-Hassan, ‘We know certain people who have a great deal of love for Ahl al-Bayt (family of the Holy Prophet), recipient of divine supreme covenant, but they do not have much determination and understanding of the cause of Imamat (Leadership with Divine Authority).’ The Imam replied, ‘They are not of the ones that Allah has admonished. What Allah has said is, ‘people of Intelligence and understanding take a lesson.’”",
+      "english_matn_sha256": "13d00d8dfd8d85648cfe7bee5919a8138fcc3cad0339f9ba9624d11205757a92",
+      "identity": {
+        "arabic_sequence_score": 0.97280967,
+        "english_chain_token_f1": 0.83333333,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/11",
+      "page_end": 11,
+      "page_start": 11,
+      "printed_number": "٥",
+      "public_id": "alkafi-5",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['4'] do not match translation numbers [].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 4.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 5,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "8c8f8dd39f42119482426c004906a319b455dc3702eecb9f7a16a55c248cebca",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/5",
+          "english_chain_sha256": "a75b4d4223018a31c5559f299e66b473b446c026939bc99ce3a4c11242032409",
+          "record_id": 6,
+          "record_sha256": "c376303dc669337f2c466d7dd7c45f00d463746f94df7ab1e1378bb82bf69f9e",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "482992ddeddcdbca5c360a24de0bb2e1143c771a046565ae7a3a19f7ccb63448",
+          "marker": "H 5, Ch. 1, h5",
+          "matn_sha256": "13d00d8dfd8d85648cfe7bee5919a8138fcc3cad0339f9ba9624d11205757a92",
+          "pages": [
+            13
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": "h5_marker_shared_pdf_block_with_arabic_column"
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "2fa51432b187bd39a9e66852dbd122e20db415c5f6fc24ada91fc69715a3b843",
+      "source_isnad_sha256": "58d8551d69f3768ec91f87834903445b8d614b020a70aac7f85491d8a2686f17",
+      "source_matn_sha256": "32eb3dd1036a3df6add2e8482437316d39f84fabf955ef40a8e0856aeae8bc8d",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "1cc3ae310064a47ea1fa5d9bc3e8e45a5fb90afe4e497e003b04ca9222d10083",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "Ahmad ibn Idris has narrated from Muhammad ibn Hassa’n from abu Muhammad al-Razi from Sayf ibn ‘Umayra from Ishaq ibn ‘Ammar from abu ‘Abd Allah, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "e5dd401b217aca6462a87bf4078d3d92d3ee48ba69422426f5f37cc35af5f64e",
+      "english_matn": "“One who has Intelligence has religion also and one who has religion enters paradise.”",
+      "english_matn_sha256": "d6c1b7909e10fbc84ea2205fa9e1a58c081c5205130d9759d8bc99ecbb39c2fe",
+      "identity": {
+        "arabic_sequence_score": 0.96296296,
+        "english_chain_token_f1": 0.80769231,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/11",
+      "page_end": 11,
+      "page_start": 11,
+      "printed_number": "٦",
+      "public_id": "alkafi-6",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "green",
+        "flags": [],
+        "publication_flags": [],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 6,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "4b5a4f6b6afe73f530070915bca5569526f973d5c6198f777d2c639c3d2f0a70",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/6",
+          "english_chain_sha256": "f8f7058cb3d4e55419c1e033a178bf36f6b1c15a60dc4b236cd4c03e5157f159",
+          "record_id": 7,
+          "record_sha256": "dcbb08d1e2b52f6958cd59d71b7dd2f62b54236101517101aa3ff2f266c9bd9e",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "f65dd582d29d0a1f2c86dab333645f17ffc958f5c8654e918b2a050f19200f47",
+          "marker": "H 6, Ch. 1, h6",
+          "matn_sha256": "d6c1b7909e10fbc84ea2205fa9e1a58c081c5205130d9759d8bc99ecbb39c2fe",
+          "pages": [
+            13
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "3d74637aa8a44ba59a0b5a07d934f254f7ed3fe844397ff9d5b978e32048c380",
+      "source_isnad_sha256": "3a65fab75d91554054ebfc9bf0b8903d7f1435100edc6f3dc1b88290c3e7e0e2",
+      "source_matn_sha256": "a5cb5b285ce69bb068d13d69a96cb9a95693e5e6aa9103e60ceb56816661498f",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "6e5f77c61a8cb6dda05869123f1258d115d7a0f9ebc1498a32e6c398cf68d30b",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "A number of our people have narrated from Ahmad ibn Muhammad ibn Khalid from al-Hassan ibn Ali ibn Yaqtin from Muhammad ibn Sinan ibn abu al-Jarud from abu Ja‘far, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "9d549db416d2ce9d0dfd9a0ee0c06aaf64eda3bef65b13cef92e9e45b7f9e7ce",
+      "english_matn": "“Allah, on the Day of Judgment, will hold everyone accountable, proportionate to the degree of the Intelligence that He had given them in their worldly life.”",
+      "english_matn_sha256": "8b69f409cded833faa02cf90f147d3f90517ffa72db0783f5e8a1c77002e4c71",
+      "identity": {
+        "arabic_sequence_score": 0.97106109,
+        "english_chain_token_f1": 0.87096774,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/11",
+      "page_end": 11,
+      "page_start": 11,
+      "printed_number": "٧",
+      "public_id": "alkafi-7",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['5'] do not match translation numbers [].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 5.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 7,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "2d4975562ed988be6520a4d61b1bf66b66443fb34ff15a399ed0929124b81683",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/7",
+          "english_chain_sha256": "ce46bed467f32a6f266061a7d87e43ef744b4020bc61aae5803a24b7f10819b2",
+          "record_id": 8,
+          "record_sha256": "a19362506a9b423b210dd86f52c70793b8f890b42809b44278926e096c5b61b7",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "799a850749d0e6868228d10794f0f299fab614bc2e747b5ffca3ece11f7e2a83",
+          "marker": "H 7, Ch. 1, h7",
+          "matn_sha256": "8b69f409cded833faa02cf90f147d3f90517ffa72db0783f5e8a1c77002e4c71",
+          "pages": [
+            13
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "21c41ed4ee23c07f4a2e8c3b352ab94cd145c058c920dd3d454ef1b9cb90369b",
+      "source_isnad_sha256": "c8015aee33472d6bfb9a5a423ea0b74a3c76381e1a7f129afe0454e7aaadb7cb",
+      "source_matn_sha256": "e11ecd86ba6b603497444d0bc38a5d6213281431b1ec0d7381d0ba732f4c073c",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "5293547885537f6e4f80501f6ac4249215bf2645bf79c8a42085387d81901cd1",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "Ali ibn Muhammad ibn ‘Abd Allah has narrated from Ibrahim ibn Ishaq al- Ahmar from Muhammad ibn Sulayman al-Daylami his father who has said the following:",
+      "english_isnad_sha256": "ed97ad9d835161d4a3239a381f7321f06357bd283575a00d8ebf379a82204afd",
+      "english_matn": "“Once I mentioned a certain person’s Intelligence, worship, religion and merits before Imam abu ‘Abd Allah, recipient of divine supreme covenant. The Imam, recipient of divine supreme covenant, asked, ‘How is his Intelligence?’ I replied, ‘I do not know.’ Then the Imam said, ‘The degree of reward is based on the degree of intelligence. A man of Banu Israel worshipped Allah on an island in the ocean. The island was lush green, with many trees and abundant water. Once an angel passed by the worshipper and asked Allah to show how much reward and blessings the worshipper would receive for his good deeds. Allah showed the rewards due to the worshipper to the angel and the angel considered them to be very little. Allah then told the angel to stay with the worshipper as a companion. The angel then appeared to the worshipper in the form of a human being. The worshipper asked, “Who are you?” “I have heard about your great deeds of worship and your spiritual position at this place and I wish to join you to worship Allah along with you,” the angel replied. He spent that day with the worshipper and the next day the angel said to the worshipper, “Your place is beautiful and it should only be used for worship.” “Yes, it is but it has one defect,” the worshipper responded. “What is that?” the angel inquired. “Our Lord does not have an animal. I wish He had a donkey so we could look after the donkey to graze all the grass around. All this grass is a waste,” the worshipper replied. “Is it true that your Lord does not have any donkeys?” asked the angel. “Had our Lord had a donkey all this grass would not have turned into waste,” the worshipper answered with sadness. Allah then revealed to the angel, “We will reward him according to the degree of his Intelligence.’”",
+      "english_matn_sha256": "622ae11f85824c61c1637860b63d3c0d6a53abeb77a825ee88b96cafd33df32e",
+      "identity": {
+        "arabic_sequence_score": 0.99334812,
+        "english_chain_token_f1": 0.69387755,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/11",
+      "page_end": 12,
+      "page_start": 11,
+      "printed_number": "٨",
+      "public_id": "alkafi-8",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "green",
+        "flags": [],
+        "publication_flags": [],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 8,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "b1477dd5db85ce7b57472c2cdb3e6b0ae6f8860b95a4b35c1b2f134558665952",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/8",
+          "english_chain_sha256": "7c84c7b08ddd146d9236702a8e2d0449963f8bbced44302c9fb8a495bbb375d3",
+          "record_id": 9,
+          "record_sha256": "24ce62f4df88b8d6535c39dbae95fd85567442a067399b247b04a47dfd3a1551",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "374e394a23370c07f1605234488b33de157c512a38434c5e7abb120b4c6391dc",
+          "marker": "H 8, Ch. 1, h8",
+          "matn_sha256": "622ae11f85824c61c1637860b63d3c0d6a53abeb77a825ee88b96cafd33df32e",
+          "pages": [
+            13
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "d7f5305b9e16f4a2f6fd1e05f6d7ddb7fd04b395e230c54f969d9eba574f70d8",
+      "source_isnad_sha256": "33c1da60775325d586ed2a5bdf315c105a8dca21ca6d5863d6b9d81b9044b473",
+      "source_matn_sha256": "4f77b4a3a1c7e505013f5ed5c6f8bfc5706e2fc4a817d4d8f4e2c68fa2d9f101",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "623f1ca4aa74e27e4857f24685a12f0cd839a3e7def649754cdfcb2a197a7e70",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "Ali ibn Ibrahim has narrated from his father from al-Nawfali from al-Sakuni from abu ‘Abd Allah, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "ad9a13b38038162624a61723c2787150b1641a21a1f15bac04474743a19b57d9",
+      "english_matn": "“The Holy Prophet has said, ‘If you hear good things about a man, you should examine how good his Intelligence is; he will be rewarded according to his Intelligence.’”",
+      "english_matn_sha256": "48a6d9d9d2430bff64d852bde1273986173d736f17fee28d76849dfe587a372f",
+      "identity": {
+        "arabic_sequence_score": 0.90836653,
+        "english_chain_token_f1": 0.76470588,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/12",
+      "page_end": 12,
+      "page_start": 12,
+      "printed_number": "٩",
+      "public_id": "alkafi-9",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['1'] do not match translation numbers [].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 1.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 9,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "c4633381e6440d1451a606f5b6930032b805158437d256d546891f0af037f549",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/9",
+          "english_chain_sha256": "47e19d5bb99c494a800753fe5b059e7085abf07888d323e133eec347cd6f273e",
+          "record_id": 10,
+          "record_sha256": "0f07dddad765374b5a439459f4a3e0ddf6be2013bea47b2f9c84e5a455f4a506",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "cea0358b84004b1ac07cc4351510312c1f174662ab7b837e04367ef0cd40886c",
+          "marker": "H 9, Ch. 1, h9",
+          "matn_sha256": "48a6d9d9d2430bff64d852bde1273986173d736f17fee28d76849dfe587a372f",
+          "pages": [
+            13,
+            14
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "d218dc4b117213de5d5b5715ac4b310f0c3b5800dd60baf2b5ae58a6eef7e035",
+      "source_isnad_sha256": "9b63025daac9ab3c7365d4101e3f989323f5508fe16e4f461f81358764003b12",
+      "source_matn_sha256": "95d5670dd0981d67512cfd183850020cc2356b185373a3a79af611c7a9bc83f5",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "78000d73b12772a7b6b7fa44ff31bd2c0acf6b742e53e9244faa1e5618de47f1",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "Muhammad ibn Yahya has narrated from Ahmad ibn Muhammad from ibn Mahbub from ‘Abd Allah ibn Sinan who has said the following:",
+      "english_isnad_sha256": "30be683ca0ac36a46bc3f452f915f06ccc661413681832b37f0f6d595fc06f8c",
+      "english_matn": "“I mentioned a person, who would overdo acts of his Wudu and prayer, to Imam abu ‘Abd Allah, recipient of divine supreme covenant, and added that he is a man of good Intelligence. The Imam, recipient of divine supreme covenant, then said, ‘What kind of intelligence is it that allows him to obey Satan?’ I then asked the Imam, ‘How would he be considered as obeying Satan?’ The Imam, recipient of divine supreme covenant, said, ‘Ask him wherefrom this thing (overdoing) comes to him. He will certainly say, “It comes from Satan.’”",
+      "english_matn_sha256": "0ce00b4a0694e028fd4fd3bbe4ed94daaac703ef07d73354202128a46c601e4a",
+      "identity": {
+        "arabic_sequence_score": 0.97892272,
+        "english_chain_token_f1": 0.86666667,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/12",
+      "page_end": 12,
+      "page_start": 12,
+      "printed_number": "١٠",
+      "public_id": "alkafi-10",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['2', '3'] do not match translation numbers [].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 2, 3.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 10,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "5129251a2eacc48f0180edb0097d88f6e35e8f1ea4cd1954f48f53a5a01e9700",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/10",
+          "english_chain_sha256": "f5c0094ebba7809731682da3d701b87e3956609ce9bd2950243adf6f5544fd85",
+          "record_id": 11,
+          "record_sha256": "bda1aa281fe3d8019c86829420912f6f525fca01756c7c0dc9091a69bb894e2a",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "bfc087f1d49e1d678f3ca6dd8244575d3a2ea732222737fd1625dd8e9187941e",
+          "marker": "H 10, Ch. 1, h10",
+          "matn_sha256": "0ce00b4a0694e028fd4fd3bbe4ed94daaac703ef07d73354202128a46c601e4a",
+          "pages": [
+            14
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "3de0f9d1b4714eb31e0c87acd09f0a03a8bcb89314d7b59c4a6db854b17cd4d8",
+      "source_isnad_sha256": "0ec380100e241be7462dc9b49c07065e1b1058ab15bbdc945561bbf4394c7c7a",
+      "source_matn_sha256": "717541071931e7fd18adaf496e6d0ac45823116548bba957477681add2f288ca",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "a610fdf6e609f31680b60dad45b7294139c658d7d7a9ade8a53812fc9e6f99a1",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "A number of our people have narrated Ahmad ibn Muhammad ibn Khalid from certain persons of his people in a marfu’ manner from the Holy Prophet, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "8f177c72555c9cd88fce5358730fe1fd6a141bac03ee44ee8de709705e72cd69",
+      "english_matn": "“Allah has not distributed anything among people more excellent than Intelligence. An Intelligent person’s sleeping is better than an ignorant person’s worshipping for the whole night. An Intelligent person’s staying at home is better than an ignorant person’s journey in search of success and good deeds. Allah did not send any prophet or messenger before the completion of his Intelligence and before allowing it to become greater than the Intelligence of all of his followers. A prophet’s mere thinking is better than the achievement of all the people striving for virtue and good deeds. People do not fulfill their obligations to Allah without having an understanding of Him. All the worshippers will not be able to achieve with the virtue of their worship what a person of intelligence achieves. It is the people of intelligence who are considered people of proper understanding in chapter 2:269 of the Holy Quran, ‘Only People of understanding realize this.’”",
+      "english_matn_sha256": "a0dd9ba016669c749db7f755fdd398996946a56819f73712d17c1a81ec3fff0b",
+      "identity": {
+        "arabic_sequence_score": 0.96286812,
+        "english_chain_token_f1": 0.81632653,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/12",
+      "page_end": 13,
+      "page_start": 12,
+      "printed_number": "١١",
+      "public_id": "alkafi-11",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['1', '2'] do not match translation numbers ['2', '269'].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 1, 2.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 11,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "ddea5462024a4fa0e0cebfcfa8f7092a286e442da6d1b52323de6ad315e52e34",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/11",
+          "english_chain_sha256": "be50ed9c00bebc09b860584a4e029e9f5724535ed4250482e020c8590963d3ab",
+          "record_id": 12,
+          "record_sha256": "692b48d683f12a6a98b9e5b5145929949e67464786a6f63dce601dfc16bc2c7e",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "e813ad1f0fca3a898473026cd6a8978afbb668985e632b8ccddf150ff552d773",
+          "marker": "H 11, Ch. 1, h11",
+          "matn_sha256": "a0dd9ba016669c749db7f755fdd398996946a56819f73712d17c1a81ec3fff0b",
+          "pages": [
+            14
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "6704c9049d11c6811a27154d08047372c1c4317ea1dfd8fe775090397d259eb3",
+      "source_isnad_sha256": "afe70558a1e36792a2046e9b09a672877231bf8549c20297ad011c6a8670d5aa",
+      "source_matn_sha256": "f8a30132abee4f9410a40079c89f1e01ca6e3d2b550df7c73d13b92c1ac769e8",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "bb50b55e6b3a61d5dcd10ca5490fc4c166e230c17060c103536777926a7ffc07",
+        "model": "hubeali",
+        "provider": "thaqalayn-data",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "Abu ‘Abd Allah al-Ash‘ari has narrated from certain persons of our people in a marfu’ manner from Hisham ibn al-Hakam who has said the following:",
+      "english_isnad_sha256": "27ba14ecc4d215120629703a4bccee76f3b19d44f87152157ffb8069208ac238",
+      "english_matn": "“Abu al-Hassan Musa ibn Ja’far, recipient of divine supreme covenant, said to me the following, ‘O Hisham, Allah has given good news to the people of reason (intelligence) and understanding in His book in the following words, “Give the good news to those of My servants who hear certain words but follow only the good words. These are the ones whom Allah has given guidance and they are the people of understanding.” (39:20 Holy Quran) “O Hisham, it is certain that Allah, the Most Gracious, the Most High, has made Intelligence a criterion for people (to refer to) in discerning right from wrong He supported the messengers with the (ability) to communicate and has guided them to His own Lordship with proofs saying, ‘Your Lord is the only Lord. No one deserves worship except Allah, the Beneficent, the Merciful.’ (2:163) “Of the signs of His existence are the creation of the heavens and earth, the alternation of nights and days, the ships that sail in the sea for the benefit of the people. (Also of such signs are) the water that Allah sends from the sky to revive the dead earth where He has scattered all kinds of animals, the winds of all directions and the clouds that are rendered for service between the sky and the earth. Such are evidence (of His existence) for those who use their Intelligence.” (2:164) “O Hisham, Allah has mentioned the above facts as proof of His existence and that those facts depend upon the will of One Who has designed them saying: ‘Allah has made the day and the night, the sun and the moon, and all the stars subservient to you by His command. In this there is evidence of the truth for people of understanding.’ (16:12) “It is He Who created you from clay, turning it into a living germ, then into a clot of blood, and then brings you forth as a child. He then makes you grow into manhood and become old. He causes certain ones of you to live for the appointed time and others of you to die before, so that perhaps you may have understanding.” (40:67) “In the heavens and the earth there is evidence (of the Truth) for the believers (45:3). In your creation and in that of the beasts living on earth there is evidence of the Truth for the people who have strong faith (45:4). In the alternation of the night and the day, the sustenance, which Allah has sent down from the sky to revive the barren earth and in the changing of the direction of the winds there is evidence of the truth for the people of understanding.” (45:5) “Know that Allah brings the dead earth back to life. We have explained Our revelations to you so that you may perhaps have understanding.” (57:17) “In the earth there are adjacent pieces of land, vineyards, farms, date palms of single and many roots which are all watered by the same water. We have made some yield a better food than others. All this is evidence (of the existence of Allah) for the people who understand.” (13:4) “Also, of the evidence of His existence are His showing you lightning, which gives you fear and hope, and His sending water down from the sky, which revives the earth after its death. In this there is evidence (of the truth) for the people of understanding.” (30:24) “(Muhammad), say, ‘Allow me to tell you about what your Lord has commanded: Do not consider anything equal to Allah; be kind to your parents; do not murder your children out of fear of poverty; We give sustenance to you and to them. Do not even approach indecency either in public or in private. Take not a life, which Allah has made sacred except by way of justice and law. Thus does He command you that you may learn wisdom.” (6:151) “Allah has told you this parable about yourselves: Could your slaves share your wealth equally with you and could you fear them as you fear yourselves? Thus do We clarify the evidence (of the truth) for the people of understanding.” (30:28). “O Hisham, Allah then has given good advice to the people of intelligence and has encouraged them to become interested in the life to come. He has said, “The worldly life is but useless amusement and childish playthings (compared to) the life here- after which is far better and is only for the pious ones. Will you not then understand?” (6:32) “O Hisham, Allah then has given warnings to those who do not think about the punishment that may come upon them from Allah saying, ‘Then We totally destroyed the others. (37:136) You do pass by (their ruined town) in the morning and at night (37:137) why do you then not understand?’ (37:138) “We will bring torment from the sky on this town because of the evil deeds of its inhabitants.\" (29:34) ‘We left manifest evidence (of the truth) there for the people of understanding.’ (29:35) “O Hisham, intelligence comes with knowledge. Allah has said, ‘These are parables which We tell to human beings, but only the learned ones understand them.’ (29:43) “O Hisham, Allah has then expressed dislikes toward those who do not understand saying, ‘When certain people are asked to follow the revelations of Allah, they say, “We would rather follow what our fathers have followed,” even though their fathers had no understanding and could not find the true guidance.’ (2:170) “Preaching to unbelievers is like talking to someone who cannot hear anything except yells and shouts. They are deaf, dumb, and blind; they have no understanding.” (2:171) “Certain ones of them listen to you, but are you to make the deaf hear even if they have no understanding?” (10:43) “Do you think that most of them listen and understand? They are like cattle or even more straying and confused.” (25:44) “They will not fight you united except with the protection of fortified towns or from behind walls. Their fight among them is strong. You think they are united, but in fact, their hearts are divided. They are a people who have no understanding.” (59:14) “Would you order people to do good deeds and forget to do them yourselves even though you read the Book? Why do you not think?” (2:44) “O Hisham, Allah then has expressed dislikes towards the multitudes saying, ‘Most of the people in the land will lead you away from Allah's guidance if you follow them; they only follow their own conjecture and preach falsehood.’ (6:116) “If you ask them, ‘Who has created the heavens and the earth,’ they will certainly say, ‘Allah has created them.’ Say, ‘It is only Allah who deserves all praise, but most of them do not know.’” (31:25) “(If you) ask them, ‘Who has sent down water from the sky to revive the dead earth?’ They will say, ‘Allah has done it.’ Say, ‘It is only Allah Who deserves all praise,’ but many of them do not understand.” (29:63) “O Hisham, Allah then has praised those fewer in number saying; ‘Only few of My servants are grateful.’ (34:13) He has said, ‘How few are they?’ (38:24) “A believing person from the people of the Pharaoh who concealed his faith said, ‘Would you kill a man just because he says Allah is my Lord?’ (40:28) “No one believed in him, except a few.” (11:40) “(Muhammad), tell them, ‘Allah certainly has the Power to show such miracles but many of them are ignorant.’ (6:37) “Many of them have no understanding.” (5:103) “Many of them do not realize.” “O Hisham, Allah has then mentioned the people of Intelligence in the best manners with the best of characteristics saying, ‘Allah gives wisdom to whoever He wants. Whoever is given wisdom, has, certainly, received much good. Only people of Intelligence can grasp this.’ (2:269) “. . . Those who have a firm grounding in knowledge say, ‘We believe in it. All its verses are from our Lord.’ No one can grasp this fact except the people of Intelligence.” (3:7) “The creation of the heavens and the earth and the alternation of the day and the night are evidence (of the existence of Allah) for people of Intelligence.” (3:190) “Can a person who knows that what is revealed to you from your Lord is the truth, be considered equal to a blind person? Only those who have understanding take heed.” (13:19) “Can this one be considered equal to one who worships Allah during the night, prostrating and standing, who has fear of the Day of Judgment and who has hope in the mercy of his Lord?” Say, ‘Are those who know equal to those who do not know?’ Only the people of Intelligence take heed.” (39:9) “It is a blessed Book which We have revealed for you so that they will reflect upon its verses and the people of understanding will take heed.” (38:29) “To Moses We had given guidance and to the children of Israel We had given the Book (40:53) as their inheritance and as a guide and a reminder to the people of understanding.” (40:54) “Keep on reminding them. This benefits the believers.” (51:55). “O Hisham, Allah says in His book, ‘This is a reminder for the ones who understand, listen, and see.’ (50:37) It means Intelligence. “‘We gave wisdom to Luqman (31:12),’ means: Allah gave Luqman Intelligence and understanding. “O Hisham, Luqman said to his son, ‘Revere the truth; you will be the most intelligent among man. Cleverness in the presence of Intelligence has a very small value. My son, the world is a very deep ocean in which many people have drowned. You must take piety before Allah as a ship, faith as supplies therein, trust in Allah as the sails, Intelligence as captain, knowledge as guide and patience as passengers.’ “O Hisham, for everything there is a guide. The guide for Intelligence is thinking. The guide for thinking is silence. For everything there is a means of mobility. The means of mobility for Intelligence is humble attitude. To disobey a prohibition (of Allah) is enough proof of one’s ignorance.” “O Hisham, Allah sent His messengers to people for no reason other than their acquiring understanding about Him. Those who obey Him better have better understanding about Him. Those who are more knowledgeable in the commandment of Allah are the ones who have more powerful Intelligence, and those who have more powerful Intelligence are of a higher degree of excellence in this world and in the next life. “O Hisham, Allah has established two complete kinds of authority and criteria for people (to refer to) to discern right from wrong: (a) The apparent, the manifest authority and criteria, and (b) the internal, the hidden authority and criteria. “The prophets and messengers and ‘A’immah are the apparent, manifest authorities and criteria and Intelligence is the hidden, the internal authority and criterion. “O Hisham, a man of Intelligence is one whose thankfulness does not diminish because of large wealth and prohibited matters cannot overpower his patience. “O Hisham, one who supports three things against another three kinds of things he leads to the destruction of his own Intelligence: (1) Darkening of one’s ability to think with daydreaming, (2) the abolishment of the sparks of one’s wisdom with excessive bluffs and (3) the extinguishing of the lights of good lessons from experience by the desires of one’s soul. It is like supporting one’s desire to destroy one’s own Intelligence. One who destroys his own Intelligence has destroyed his own worldly life as well as the life to come. “O Hisham, how can you expect to have pure deeds before Allah when you have such things that keep you away from the facts that matter to Allah, your Lord, and you have obeyed your desires against your own Intelligence? “O Hisham, maintaining patience in loneliness is a sign of the strength of Intelligence. One who has understanding about Allah keeps himself aside from the people of this world and those interested in it. He becomes interested in what is with Allah. Allah then gives him comfort in his fear and company when he is lonely. Allah gives him riches in his poverty and honor without the existence of his tribesmen. “O Hisham, truth is established to obey Allah. There is no salvation without obedience to Allah. Obedience comes only from knowledge, which comes from learning that receives strength from Intelligence. The only knowledge of value is that of one who knows about the Lord and Intelligence discerns the valuable knowledge. “O Hisham, smaller degrees of deeds with knowledge are accepted with double value, and deeds, even in great deals, of those who ignorantly follow their desires are rejected. “O Hisham, a person of Intelligence is pleased with little things of the world with wisdom, but he does not agree with a little wisdom with the entire world and, in this way, such people strike a gainful bargain. “O Hisham, the people of Intelligence stay away from what is more than the basic lawful necessities of life. How then would they not stay away from the sins in this world? To stay away from what is more than the bare necessities of life is only extra virtue but staying away from sins is obligatory. “O Hisham, a man of Intelligence observes the world and the people of the world and finds out that the worldly gains come only through hard work and labor. He finds out that gains of the life hereafter also come through hard work and labor. He then accepts the kind of gain that is more durable. “O Hisham, people of Intelligence hold themselves back from the worldly things and strengthen their interest in the gains of the life hereafter. They have learned that the worldly gains are sought after and are wanted and so also are the gains of the life hereafter. One who seeks the gains of the life hereafter the world will seek him to deliver to him his livelihood, but one who seeks the worldly gains, the hereafter would also seek to find him. Death will then approach him and it will destroy his world and leave him with no opportunity in the life hereafter (because he did not seek such achievements). “O Hisham, one who wants self-sufficiency without property, comfort for his heart from the evil of jealousy and the safety of his religion should pray to Allah, the Most Glorious, to perfect his Intelligence. The person of Intelligence is satisfied with the basic necessities and one who agrees with basic necessities is self-sufficient and free of needs. One who is not satisfied with basic necessities is never free from want. “O Hisham, Allah has stated the following on behalf of the people of virtue, who say, ‘Lord, do not cause our hearts to deviate from Your guidance, and grant us mercy. You are the Most Awarding One.’ (3:8) They know that hearts may deviate and turn toward blindness and destruction. “It is certain that those who do not fear Allah have no understanding about Him. One who does not have proper understanding about Allah, his heart does not establish about Allah any stable knowledge of the degree of certainty whereby one with clear awareness can find and realize the fact of such quality in his heart. No one can be as such except those whose deeds confirm their words, and their privacy agrees with their public activities. This is because Allah, Sacrosanct are Whose names, has not shown what is private and unknown of Intelligence except through what is public and speaks for it. “O Hisham, the commander of the true believers, Imam Ali, recipient of divine supreme covenant, has said, ‘Allah is worshipped better by no means other than Intelligence. No one’s Intelligence reaches perfection until therewith are found various qualities. Disbelief and evil should not emerge there-from. Wisdom and goodness should be expected to exist therewith. The extra of the property of a person of Intelligence is given in charity, the extra of his words are restrained and his share of the worldly things is only the basic necessities. He never considers himself to have learned enough. To be with Allah, although in a very humble state, is far better to him (a person of Intelligence) than to live very much honored with others. Humbleness is more beloved to him than being treated as a dignitary. He considers virtuous deeds of others a great deal and his own virtuous deeds as insignificant. He considers all the other people better than himself and his own self as the worst of all, and this is summing up (victory over) all things.’ “O Hisham, a man of Intelligence never speaks a lie even though it (lies) may satisfy his desires. “O Hisham, one who does not maintain honorable kindness has no religion and one cannot have such noble character without Intelligence. A person of the greatest value among people is one who does not consider the worldly gains his fortune. Nothing can become an adequate price for your body other than paradise. Do not sell (yourself) for anything other than paradise. “O Hisham, the commander of the true believers, Imam Ali, recipient of divine supreme covenant, has said, ‘Three noble qualities in man are of the signs of the existence of Intelligence. He (a) replies when questioned, (b) speaks up only when everyone else fails to speak and (c) offers his advice when it is beneficial to his people. One who has none of these qualities is a fool.’ He also has said, ‘No one other than a person who has all of the above or a few of such qualities should chair a gathering, and if one does so without having any of such qualities is a fool.’ “Imam Hassan ibn Ali, recipient of divine supreme covenant, has said, ‘If you ask for help do so from a proper source.’ He was asked, ‘O grandson of the Holy Prophet, who are the proper sources?’ He replied, ‘They are those about whom Allah has spoken in His book saying, “Only those who have understanding will take heed and they are the people of Intelligence.’” “Imam Ali ibn al-Hussein, recipient of divine supreme covenant, has said, ‘Sitting in the company of virtuous people leads one to virtue, and association with the scholars is a means of strengthening one’s Intelligence. Obedience to the authorities that practice justice is an honor. The investment of wealth for profit is a dignifying practice. Guiding one who asks for guidance is an expression of gratitude. To restrain one’s harmful manners and deeds is the perfection of one’s Intelligence in which there is comfort for the body in the short and long terms.’ “O Hisham, a man of Intelligence does not speak to one who is feared for his calling one a liar. He does not ask for help from those that he fears may deny him. He does not count on what is not within his abilities. He does not maintain any hope in that which may involve agony and harshness. He does not take any steps toward that which he fears may not be achieved due to his inability.”",
+      "english_matn_sha256": "97977d205fa8772921b74bb9007dba74bcf6802f9f9d09e8bff8f7f425266043",
+      "identity": {
+        "arabic_sequence_score": 0.97337833,
+        "english_chain_token_f1": 0.92682927,
+        "long_report_cross_check": "The long Hisham ibn al-Hakam report spans PDF pages 14-19.  Its English chain identity is checked independently of the long Arabic body, and the canonical URL and adjacent report order are asserted; no threshold is relaxed.",
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/13",
+      "page_end": 20,
+      "page_start": 13,
+      "printed_number": "١٢",
+      "public_id": "alkafi-12",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['3', '4', '5', '6', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '1', '2', '3', '4', '5', '6', '1', '2', '1', '2', '3', '4', '1', '2', '3', '4', '5'] do not match translation numbers ['39', '20', '2', '163', '2', '164', '16', '12', '40', '67', '45', '3', '45', '4', '45', '5', '57', '17', '13', '4', '30', '24', '6', '151', '30', '28', '6', '32', '37', '136', '37', '137', '37', '138', '29', '34', '29', '35', '29', '43', '2', '170', '2', '171', '10', '43', '25', '44', '59', '14', '2', '44', '6', '116', '31', '25', '29', '63', '34', '13', '38', '24', '40', '28', '11', '40', '6', '37', '5', '103', '2', '269', '3', '7', '3', '190', '13', '19', '39', '9', '38', '29', '40', '53', '40', '54', '51', '55', '50', '37', '31', '12', '1', '2', '3', '3', '8'].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 1, 10, 11, 12, 13, 14, 15, 16, 2, 3, 4, 5, 6, 7, 8, 9.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 12,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "b2809d67a5be7ee04628e43aab3cac12240f66535ba04955faef552f913df4d1",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/12",
+          "english_chain_sha256": "5468e7dd7487af3db5df6f410114b07372304b9ecafafcc91c5e9a601efbe264",
+          "record_id": 13,
+          "record_sha256": "df8020d5a10fb2406d2d71a640cf43e2564bced3096fb1ece09a237ba0bf55d7",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "5255e056d47eb974592f021a40d6a77795cc81e82e43988b8715087e7a8320c3",
+          "marker": "H 12, Ch. 1, h12",
+          "matn_sha256": "97977d205fa8772921b74bb9007dba74bcf6802f9f9d09e8bff8f7f425266043",
+          "pages": [
+            14,
+            15,
+            16,
+            17,
+            18,
+            19
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "651f12422c4386616d9854e01f1399853b78f4c8c35ab5d0be33f77d80def676",
+      "source_isnad_sha256": "f796a070655069294afb1c219722994f40863f8bcbd92fad749fb48272e09735",
+      "source_matn_sha256": "3e687a484c58828b1d43b74b89710e0bc3f7a405bfcb96059d07ef80507bc20e",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "4a822bf848768a83a5523bc986b7baeffe79e451c8a42cc7a8a4df2fcad1c22e",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "Ali ibn Muhammad has narrated from Sahl ibn Ziyad in a marfu‘ manner Amir al-Mu’minin Ali, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "14a3f895e781f1ba92413482b393b76c14f96a8fdc1e4267317a575ac390fb5d",
+      "english_matn": "“Intelligence for one is a complete cover (protection). Extra knowledge and skills are evident beauty. Veil your physical shortcomings with your extra knowledge and skills. Fight your desires with help from your Intelligence. In so doing friendship is secured and love becomes manifest for you.”",
+      "english_matn_sha256": "d7d8876010852b1586a09ef8132111e9df2b64666ee2c89e2ee8917389b99a39",
+      "identity": {
+        "arabic_sequence_score": 0.96551724,
+        "english_chain_token_f1": 0.82352941,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/20",
+      "page_end": 20,
+      "page_start": 20,
+      "printed_number": "١٣",
+      "public_id": "alkafi-13",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['6', '7', '8'] do not match translation numbers [].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 6, 7, 8.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 13,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "4e6d15c05182fab9db99e28ba69e74f0285fac11f2daec373d042c4637980f38",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/13",
+          "english_chain_sha256": "01c54b99f58af401b2f989aea3159cfbfcc65db284c5a1f33f42c603d2b8cd8c",
+          "record_id": 14,
+          "record_sha256": "7650acc49230b46683dd171c0ee13eb1f263599bea8c6b7ec30bf5d33bde0690",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "c3cf71e1182869eb002ed028d55ab62f91af6b2eb7e0cb5bf677a6c90157a01c",
+          "marker": "H 13, Ch. 1, h13",
+          "matn_sha256": "d7d8876010852b1586a09ef8132111e9df2b64666ee2c89e2ee8917389b99a39",
+          "pages": [
+            20
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "bc856383ea2a720c3907ab7e93b5972e794806855e90c9a39c2074a17ddf2d3a",
+      "source_isnad_sha256": "5072ac6cae895ece25a3db03e6f2d9486e57e94a490419ce807b4c9592172274",
+      "source_matn_sha256": "964f2824b32e6f7ae65d44526fa4b62424c16b34f8408aa705a2f5d5e41df536",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "0ca1dc33197e13116f46b5a36b208a56ede295a2dc21f1ea196518879b079e43",
+        "model": "hubeali",
+        "provider": "thaqalayn-data",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "A number of our people have narrated from Ahmad ibn Muhammad from Ali ibn Hadid from Sama’a ibn Mihran who has said the following:",
+      "english_isnad_sha256": "23621e9f130365d6d7ceb63efa9c207b1da45133f71c95f8db74928d74114ad8",
+      "english_matn": "“Once with a gathering of his followers I was in the presence of Imam abu ‘Abd Allah, recipient of divine supreme covenant. A discussion on Intelligence and Ignorance began to emerge among them. Thereupon, Imam abu ‘Abd Allah said, ‘First, you must recognize Intelligence and its army as well as Ignorance and its army, only then do you find proper guidance.’ I then said, ‘May Allah keep my soul in service to your cause, we only learn what you teach us.’ The Imam, recipient of divine supreme covenant, said, ‘Allah, the Glorious, the Majestic from His light created Intelligence and it was the first creature of the spiritual world on the right side of the Throne. He then told him to move backwards and Intelligence moved backwards. He then told him to come forward. Intelligence came forward. Allah, the Most Holy, the Most High said, “I have created you a great creature and honored you above all others of My creatures.’” The Imam, recipient of divine supreme covenant, continued, ‘Allah then created Ignorance from a salty dark ocean and told it, “Move backwards,” it moved backwards. He then called it to come forward but it did not come forward. He then said to it, “Did you shun coming forward?” He then pronounced it condemned. He then assigned seventy-five armies for Intelligence. When Ignorance saw all the honors Allah had granted to Intelligence it bore hidden animosity toward Intelligence and said, “Lord this creature is just like me. You created and honored it and gave it power. However, I have no power against it. Give me also likewise armies.” The Lord then said, “I will give you also an army but if you disobey Me I will then expel you and your army from My mercy.” Ignorance then said, “I agree.” Allah gave it seventy five armies and it was out of the army of Intelligence.’” The Armies of Intelligence Goodness is the minister of Intelligence Belief Professing Hope Justice Consent Thankfulness Expectation Reliance Soft-heartedness Mercy Knowledge Understanding Chastity Restraint Relenting Cautiousness The Armies of Ignorance Evil is the minister of Ignorance Disbelief Refusal Despair Injustice Disapproval Ungratefulness Hopelessness Greed Hard-heartedness Anger Ignorance Foolishness Recklessness Yearning Relentlessness Boldness 9 Humbleness Relaxation Forbearance Quietness Peacefulness Acceptance Patience Forgiving Self-reliance Remembrance Sympathy Self-contentedness Munificence Affection Loyalty Obedience Subservience Security Love Truthfulness Truth Trustworthiness Sincerity Sharp-wittedness Comprehension Cognizance Safekeeping Security unseen Protectiveness Prayer Fasting Hard work Hajj Soundness of words Kindness to parents Factualness Legitimacy Guardedness Concealment Fairness Peacefulness Cleanliness Bashfulness Impartiality Comfort Ease Blessedness Tranquility Stability Wisdom Dignity Fortunateness Repentance Seeking forgiveness Conservativeness Invocation Vitality Happiness Friendliness Generosity Arrogance Haste Silliness Bluffing Contempt Doubt Impatience Revenge Poverty Forgetfulness Detachment Covetousness Avariciousness Animosity Infidelity Disobedience Supremacy Affliction Hatred Duplicity Falsehood Treachery Distortion Feeble-mindedness Simple-mindedness Refusal Feeling evil satisfaction Intemperance Unmasking Failing to pray Consuming food Passivity Disregard of covenant Scandal Rudeness to parents Bragging Wickedness Frivolity Flamboyance Taking sides Rebelliousness Filthiness Ill-manners Aggression Exhaustion Hardship Lack of blessings Suffering Aggrandizement Desires Meanness Misfortune Persistence Keeping pride Heedlessness Withholding Lethargy Sorrow Aversion Stinginess “No one other than a prophet or his successor or a true believer, whose strength of faith Allah has already tested, can have the whole army of Intelligence with all such characteristics. However, certain persons of our followers and friends may acquire a few of such characteristics so that they may reach perfection, repulse the army of Ignorance and purify themselves from evil. In such a case they will also step at the high degree and level of the prophets and the successors of the prophets. This progress can be made only after knowing, with certainty, Intelligence and its armies and Ignorance and its armies. May Allah provide us and you the opportunity to obey Him and work to please Him.”",
+      "english_matn_sha256": "18299df0a1fb839e763c0286fad0e74daf7326b1aa8f45186e00e91f10daab9c",
+      "identity": {
+        "arabic_sequence_score": 0.99432415,
+        "english_chain_token_f1": 0.68571429,
+        "long_report_cross_check": null,
+        "manual_evidence": {
+          "adjacent_report_numbers": [
+            13,
+            15
+          ],
+          "reason": "Long report spanning the alternating columns on PDF pages 20-22; the PDF and API chains independently name Ahmad ibn Muhammad, Ali ibn Hadid, Sama'a and Mihran, and the canonical report is between the separately aligned H13 and H15 records.",
+          "required_chain_token_groups": [
+            [
+              "ahmad"
+            ],
+            [
+              "muhammad"
+            ],
+            [
+              "ali"
+            ],
+            [
+              "hadid",
+              "hadeed"
+            ],
+            [
+              "samaa",
+              "samaah"
+            ],
+            [
+              "mihran",
+              "mehran"
+            ]
+          ]
+        },
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/20",
+      "page_end": 23,
+      "page_start": 20,
+      "printed_number": "١٤",
+      "public_id": "alkafi-14",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['1', '2', '3', '4', '5', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'] do not match translation numbers ['9'].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 1, 10, 2, 3, 4, 5, 6, 7, 8, 9.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 14,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "80c1c19d446dbb41d6300c55728793c0967f4aef0d74b51837a06adf6e5d7a21",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/14",
+          "english_chain_sha256": "771a3a4bcb82f3e1705b169efcb05e34fd1ec849fa225db14e96c863df6442f4",
+          "record_id": 15,
+          "record_sha256": "22fff184a7528ab03cc792037bddfc4da7373c117983b73031ac54e537857167",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "d18975a9c0fb37ce27c4bac3091240c7745d275fd424184671dd6c2f14edad9e",
+          "marker": "H 14, Ch. 1, h14",
+          "matn_sha256": "18299df0a1fb839e763c0286fad0e74daf7326b1aa8f45186e00e91f10daab9c",
+          "pages": [
+            20,
+            21,
+            22
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "041e69c8f084066ef479bc7792e54cdc947244899bcd60b7a11e02cd9df20581",
+      "source_isnad_sha256": "4326a3bb2f712f72d6822d73f61cd67fb3441f1b07fb4c41bae90f1b7bfe68e9",
+      "source_matn_sha256": "c8aad575ebcf71ab51a0cde68d59dc2d975e7b8168afd118e24ee771a4d149e0",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "0e7f19d4f3da3807a1e957e266f8ce24b519d7e8326611aa0a57f0b75c3fdec4",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "A group of our people has narrated from Ahmad ibn Muhammad ibn ‘Isa from al-Hassan ibn Ali ibn Faddal from certain persons of our people from abu ‘Abd Allah who has said the following:",
+      "english_isnad_sha256": "fe81b9efb817e638233532bef6f6467c4783878fca6bfeb00c33665080dbf824",
+      "english_matn": "“The Holy Prophet never spoke to people from the height and with the full power of his Intelligence. The Holy Prophet, recipient of divine supreme covenant, has said, ‘We, the community of the prophets, are commanded to speak to people up to the level of their Intelligence and understanding.’”",
+      "english_matn_sha256": "c3c8ab1f73c128e3231c2ce27e07699f29af472cd383d64f0a55464264264006",
+      "identity": {
+        "arabic_sequence_score": 0.90080429,
+        "english_chain_token_f1": 0.74576271,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/23",
+      "page_end": 23,
+      "page_start": 23,
+      "printed_number": "١٥",
+      "public_id": "alkafi-15",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "green",
+        "flags": [],
+        "publication_flags": [],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 15,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "b5edbb05f825085166bd2a2891e98981c02c02a18c44d0ffd6cc12e00c1146be",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/15",
+          "english_chain_sha256": "c3923985998a158393187aa7d2b94ccd96348c0928c549335632dca0d9fb328d",
+          "record_id": 16,
+          "record_sha256": "8ec100f1c8c20b132722fc6d923e33768360618b05e4ba56c69a2c39c9efb447",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "d76e18a61ce85ab3256bae17b357d71d42668b622a7d6b16ba9a7be9adbe4f26",
+          "marker": "H 15, Ch. 1, h15",
+          "matn_sha256": "c3c8ab1f73c128e3231c2ce27e07699f29af472cd383d64f0a55464264264006",
+          "pages": [
+            22
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "4a1cc8dbacad5d1c5e417e3b30dd28d11eef92454bbace3d7ff320a4df183dc6",
+      "source_isnad_sha256": "755c1b1264eb44ed40b3636b332b3ed1d39a03455ad74cded3f8f884d49e797a",
+      "source_matn_sha256": "9891e79ba18667d4e8030c5f4019fe7bf02e479f4e0961e56fa95e89725886de",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "cf5648dadcadf9ff9c5948e55e1c2b28f4e397dda26d0647b422cafa30e5b4f4",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "Ali ibn Muhammad has narrated from Sahl ibn Ziyad from al-Nawfali from al- Sakuni from Ja‘far from his father, recipient of divine supreme covenant, from Amir al-Mu’minin Ali, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "ce8a6be188a95404ac731a0d48cd419fd7b5f46330371a4f765eb719fce39beb",
+      "english_matn": "“Greed motivates the hearts of ignorant people; longings and yearnings keep them as hostages, and deceit clings to them.”",
+      "english_matn_sha256": "b14cc644d9b465ef170a487559e954f2e1043aaf5b9f4ddaf3591994706d2c48",
+      "identity": {
+        "arabic_sequence_score": 0.92592593,
+        "english_chain_token_f1": 0.79245283,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/23",
+      "page_end": 23,
+      "page_start": 23,
+      "printed_number": "١٦",
+      "public_id": "alkafi-16",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['2'] do not match translation numbers [].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 2.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 16,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "b7acb8e1b35d4f4b45841e4faba16891cdbc49fd48de401905fe994f38e61436",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/16",
+          "english_chain_sha256": "1efbc56c2f2c9aee21404c9f90316c0fb296d69fa37b1cf67a2e77a5bbaf849d",
+          "record_id": 17,
+          "record_sha256": "3e7d42ccbfdfa2cdad4dd98ef737d658221554a961d5530a92c7179810a94ee7",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "bf328a7ef0ecf0a77cc17b16dfb51e9a4f293a5537c59255836f7d1d660118ac",
+          "marker": "H 16, Ch. 1, h16",
+          "matn_sha256": "b14cc644d9b465ef170a487559e954f2e1043aaf5b9f4ddaf3591994706d2c48",
+          "pages": [
+            22
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "6f1abba13bdac0fbb3d99d0a08e39aa57b4dec979ff2ebc8d91b5926a9eb3ca6",
+      "source_isnad_sha256": "f48a02350306c630a544b688bcd31cf504edf1ed22f6c4132c0b7f674bc4c8e6",
+      "source_matn_sha256": "f7e83672365534517a30b51441702c6c5646fb46d174f25f235920388b7841ba",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "64419c41481b4c3eb6d82d7efdac5dc83ab304be2213cdcbc24eb56bcf39554c",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "Ali ibn Ibrahim has narrated from his father from Ja‘far ibn Muhammad al- Ash‘ari from ‘Ubayd Allah al-Dihqan from Durust from Ibrahim ibn ‘Abd al- Hamid from abu ‘Abd Allah, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "341d9c6d62a3669ec6ed3637372fdb2999bd21c1639193480cace7160a6b25be",
+      "english_matn": "“The most perfect in Intelligence are those who are the best in moral discipline.”",
+      "english_matn_sha256": "f7acec0149394077ed109b839bbc3d7f225d48bc1ef481db077dcd49c343da72",
+      "identity": {
+        "arabic_sequence_score": 0.96385542,
+        "english_chain_token_f1": 0.78688525,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/23",
+      "page_end": 23,
+      "page_start": 23,
+      "printed_number": "١٧",
+      "public_id": "alkafi-17",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "green",
+        "flags": [],
+        "publication_flags": [],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 17,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "5b88e794aa147527b5a002ca0417773cdf742227968245fc7d945914e87b2269",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/17",
+          "english_chain_sha256": "ca505ddd1fad33a806df54edb437ee805df66a86298803298494e17684ec0e20",
+          "record_id": 18,
+          "record_sha256": "fd85d65aeeb6a1e8352832f55b927a73dd95cfbabc81efd97c3a381220ab7df3",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "18fb138cafe4271f4dcb457cbaf15e4df8d84bfeabec6711beed9c75d4bc5e6e",
+          "marker": "H 17, Ch. 1, h17",
+          "matn_sha256": "f7acec0149394077ed109b839bbc3d7f225d48bc1ef481db077dcd49c343da72",
+          "pages": [
+            22
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "d23e31b176844e0e69826dd1d49cff3b1deea96dedfb512ab07d33f3dd5a8ff7",
+      "source_isnad_sha256": "23ae3416dd84b73e344a26ba24e291beee879f5bed4e6da478849b79692d44f0",
+      "source_matn_sha256": "8dc853a6a987ac945bce7d41949d9c0171dae87dcffdc5a2701c9427a7f9acbb",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "3fb16b4b82247b8f99e58ee3ed8154718e8f8a347e87230541f6ca1a6216b307",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "Ali has narrated from his father from abu Hashim al-Ja‘fari who has said the following:",
+      "english_isnad_sha256": "0b74195d0895a1f6680307e189aa935e53b895e69f3f159d67cee2e4ef2c337b",
+      "english_matn": "“Once, we were in the presence of Imam al-Rida, recipient of divine supreme covenant, when a discussion about Intelligence and discipline took place and the Imam said, ‘O abu Hashim, Intelligence is a present from Allah but discipline is a skill and burden. One who pretends to be a well-disciplined one demonstrates it (discipline) with commanding skill and full control. But to pretend to be a person of Intelligence increases for one nothing but Ignorance.’”",
+      "english_matn_sha256": "fa97985884b6b61fac200c1b7126b8fae4c291d3acc2aa9a1cee7e3cdd837ef6",
+      "identity": {
+        "arabic_sequence_score": 0.96989967,
+        "english_chain_token_f1": 1.0,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/23",
+      "page_end": 24,
+      "page_start": 23,
+      "printed_number": "١٨",
+      "public_id": "alkafi-18",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "green",
+        "flags": [],
+        "publication_flags": [],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 18,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "7223e308f5ea9f8425af92cb6952230538439ef4e5ee3155e016c7b4a677c5f9",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/18",
+          "english_chain_sha256": "21e8141b8352f31d9e07163567c98719f79f8ce57a3af73be91ffcb256d55102",
+          "record_id": 19,
+          "record_sha256": "ee124430543a0d51eeb0596bc7a9912ffb11aa12c7bca253063a84c8ead60b84",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "1f9a9a1579c452cbb69b4b809575690331b2ddd637b16c1387a81cd832ba8d7c",
+          "marker": "H 18, Ch. 1, h18",
+          "matn_sha256": "fa97985884b6b61fac200c1b7126b8fae4c291d3acc2aa9a1cee7e3cdd837ef6",
+          "pages": [
+            22
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "db4568e439cec91b8f68a1207b41abd716fb694e52256ce6d18f9b239c982941",
+      "source_isnad_sha256": "58b432709c0fab974f9ea244fbca64563ffa5cffb25dfe85a484019362c1d7c2",
+      "source_matn_sha256": "af4f44f7d3a3ea5573d798461ca8b0f415943daad5c7dbe972780884a327b0b3",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "e45d1498ef58f2057fad9378ef65bf2fd93773dc07422325b5c8c03191adbd34",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "Ali ibn Ibrahim has narrated from his father from Yahya ibn al-Mubarak from ‘Abd Allah ibn Jabla from ibn Ishaq ibn ‘Ammar from abu ‘Abd Allah recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "7ab1127cbbc2fe6fc9417380e27218f3feaf1bb11bab747b1adf53a5ef225f5b",
+      "english_matn": "“Once I asked Imam abu ‘Abd Allah, recipient of divine supreme covenant, ‘May Allah keep my soul in service for your cause, I have a neighbor who prays a great deal, generously gives charity and very often visits Makka and he seems to be acceptable.’ The Imam, recipient of divine supreme covenant, asked, ‘How is his Intelligence, O ibn Ishaq?’ I then said, ‘May Allah keep my soul in service to your cause, he does not have much Intelligence.’ ‘Nothing from what he does will be raised up (to heaven),’ replied the Imam.”",
+      "english_matn_sha256": "6cab23815d7dbe3a41cff7de3a527017c162f636cd609d53702ab1b05810ac3e",
+      "identity": {
+        "arabic_sequence_score": 0.97788698,
+        "english_chain_token_f1": 0.7037037,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/24",
+      "page_end": 24,
+      "page_start": 24,
+      "printed_number": "١٩",
+      "public_id": "alkafi-19",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['1'] do not match translation numbers [].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 1.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 19,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "b6969c816a90d1cf4ce940897addbd1ce345a6c0c8ea115c2293b08341215efe",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/19",
+          "english_chain_sha256": "9b080071814182c764d20e188cc85697e1a53e2b074b7b7c6417338729152e5c",
+          "record_id": 20,
+          "record_sha256": "9a6b9c563a537b6369b3c85e62df35c74d3aee8007b86ad3a39bb6c47b7fdaa3",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "46fd5907072d5c3fca47108cec88ddf68014df9cbfcdcd760778c5c67e742efa",
+          "marker": "H 19, Ch. 1, h19",
+          "matn_sha256": "6cab23815d7dbe3a41cff7de3a527017c162f636cd609d53702ab1b05810ac3e",
+          "pages": [
+            22
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "4edffb322072c15ea9ed1f3ca34c8cad879cee7b96750e3ed738c20fc89e24e8",
+      "source_isnad_sha256": "98924ec748d8cf82586021b68252474ac81b5a936882cd05233abeaa2e09294f",
+      "source_matn_sha256": "084a2191c1dd8864b512d0d8921d02850f68c23af76dbf9fe290bc1883b53693",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "049a6c9f7f39b5f1c5a088d9cf1894cc5bc98fd38f9dfd23bcf96d11abe8c57b",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "Al-Husayn ibn Muhammad has narrated from Ahmad ibn Muhammad al-Sayyari from abu Ya‘qub al-Baghdadi who has said the following:",
+      "english_isnad_sha256": "4e9919379eecf45651c61e84f4d93f7ddf1e54596314e721f78750fe88c22136",
+      "english_matn": "“Once ibn Sikkiyt asked Imam abu al-Hassan, recipient of divine supreme covenant, ‘Why did Allah send Moses with miracles that appeared through his staff and his hand and means of magic? Why did He send Jesus with miraculous means of medical tasks and Prophet Muhammad, recipient of divine supreme covenant, with miracles that appeared in his speech and sermons?’ “The Imam, recipient of divine supreme covenant, replied, ‘When Moses was sent, magic was very popular among the people. He showed a magic of such form that was not possible for others to perform. He was given such means that destroyed the magical effects of other people’s magic and established the truth of the message of Allah among them. Allah sent Jesus at a time when serious (chronic) illnesses existed among the people and they needed medical treatment. Jesus brought from Allah what the people did not have. He brought from Allah the means to bring the dead back to life, cure the sick and the lepers by the permission of Allah. Thus, he established the truth of the message of Allah among the people. “Allah sent Prophet Muhammad, recipient of divine supreme covenant, at a time when oratory and speech were very popular among the people - I think he said poetry (uncertainty is from narrator). He brought to the people from Allah the good advice and wisdom that showed the falsehood in their speeches. Thus, he established the truthfulness of the message of Allah among them.’ Ibn al-Sikkiyt then said, ‘I swear by Allah that I have never seen anyone like you. What is the proof to establish the truth of the message of Allah among people today?’ The Imam then said, ‘It is Intelligence. Intelligence recognizes those who speak the truth from Allah, thus, one acknowledges their truth. Intelligence recognizes the lies of those who lie in the name of Allah,’ Ibn al-Sikkiyt then said, ‘This, by Allah, is the answer.’”",
+      "english_matn_sha256": "f391aefb7d785c59be84305b5166d40ecb4e51c3f75e96add438e86f50e077ce",
+      "identity": {
+        "arabic_sequence_score": 0.95526316,
+        "english_chain_token_f1": 1.0,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/24",
+      "page_end": 25,
+      "page_start": 24,
+      "printed_number": "٢٠",
+      "public_id": "alkafi-20",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['2', '3'] do not match translation numbers [].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 2, 3.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 20,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "8c7344c8ccdf4a283fcbdc336e75a96b3b412063a06869636e9a53fa7d640dce",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/20",
+          "english_chain_sha256": "493307fb8206efb9940531c081bf61ba2ea6f08472148d2a2444a8c4186e6263",
+          "record_id": 21,
+          "record_sha256": "26eb12a451fdedf2ba09b6ab1c3c3106c4b1b8f66e6f80737735d9cc5cf3eb01",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "d849f77d910a79e175bc813e0d1bf9fa2c386ab44cb7d2af57fdb24149914d08",
+          "marker": "H 20, Ch. 1, h20",
+          "matn_sha256": "f391aefb7d785c59be84305b5166d40ecb4e51c3f75e96add438e86f50e077ce",
+          "pages": [
+            23
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "acd56d1e2a8b02efbf0d16d6f5c57fbfe1e1c4ec30af8808856ba2bfea8cbaab",
+      "source_isnad_sha256": "c5e79d572f9f6cecff9d81229a7fd1fe989ce0b6d2e23dcf78435cd4f15f27dc",
+      "source_matn_sha256": "5f1bf16e7b886d595095beeb110008d57e7f9acd41e3961b921e894da9c972b5",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "ff2d6291ff107d364c39834fc297c85ff8f25714b404545db2023bf60a4d7bd9",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "Al-Husayn ibn Muhammad has narrated from Mu‘alla ibn Muhammad from al- Washsha’ from al-Muthanna al-Hannat from al-Qutayba al-A'sha’ from ibn abu Ya‘fur from a slave of clan of Shayban from abu Ja‘far, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "aedb3bd3d1173fa569d3137c8fb5357642cab7964ab3a2b54a84c9189c38392d",
+      "english_matn": "“When al-Qa’im (the one who will rise with Divine Authority), the guardian, of our family will appear in public, Allah will place His hand over the heads of His servants. Thus, He will join their Intelligence together and complete their understanding.”",
+      "english_matn_sha256": "bd570ac16e2fc69b37e6bfa35d46dfed18d3a88f92f4ded34aba86deffac4e94",
+      "identity": {
+        "arabic_sequence_score": 0.97297297,
+        "english_chain_token_f1": 0.81578947,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/25",
+      "page_end": 25,
+      "page_start": 25,
+      "printed_number": "٢١",
+      "public_id": "alkafi-21",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['2'] do not match translation numbers [].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 2.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 21,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "366acea0966d230588728762711c1ce003eca35c501b46e3f58d7e4035789aae",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/21",
+          "english_chain_sha256": "be425c70c71e1efb675befde7b348e33162c8afd869b72a36ec08f40c2fe9d50",
+          "record_id": 22,
+          "record_sha256": "c73694adf050df61bd8e4a2aefd370c4545b6321ca969efe1d7476e3d841791b",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "e7d47667a826298bb709d29ffc0862ff45aa198cf0fa7fab98c367ac91f01739",
+          "marker": "H 21, Ch. 1, h21",
+          "matn_sha256": "bd570ac16e2fc69b37e6bfa35d46dfed18d3a88f92f4ded34aba86deffac4e94",
+          "pages": [
+            23
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "a26861916c1f13e8db0a4566b05d776824a970438c866220d7153a5b81c30dc9",
+      "source_isnad_sha256": "44e4ad5a2c53849f621cfb7c9762aa938e21a60162c9470bee1b10902159e8b0",
+      "source_matn_sha256": "8bed1fe12001f018e9dbb242892bacfb193bf6e4ccb6d848bb15e4221f826fa6",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "768ead09b8f1398ca07d3f788e83c6267b93863211a53feff12ba037740124d7",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "Ali ibn Muhammad has narrated from Sahl ibn Ziyad from Muhammad ibn Sulayman from Ali ibn Ibrahim from ‘Abd Allah ibn Sinan from abu ‘Abd Allah, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "cfdd2ec0d877af8d4031ce98b15558d662517d1946fdaf6f11e55d137d3a1a34",
+      "english_matn": "“The authority of Allah among the people (His criterion to discern right from wrong) is the Prophet, recipient of divine supreme covenant, and the authority to judge between Allah and the people is Intelligence.”",
+      "english_matn_sha256": "3fde0011d700c0eb63295080b94358429275260e7ea5c9f96d1f7beb80c747e7",
+      "identity": {
+        "arabic_sequence_score": 0.96703297,
+        "english_chain_token_f1": 0.74509804,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/25",
+      "page_end": 25,
+      "page_start": 25,
+      "printed_number": "٢٢",
+      "public_id": "alkafi-22",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "green",
+        "flags": [],
+        "publication_flags": [],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 22,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "53cc5d6fded7a7c2c0b39f82ebc40da7123590fdbcb9d46b66ab0478d74f3d9a",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/22",
+          "english_chain_sha256": "a2a254f8455a7dbc600e43282af490e0329675d6cd0556cd9f4ea4a27ce06957",
+          "record_id": 23,
+          "record_sha256": "72b2a36aa164146d96e1c21111b591be8cd783717a2805868b463e0c60b86cd3",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "ce29c2210f068883ad94e37771fcc4c597d25de78a76572d8d3b99f537908e87",
+          "marker": "H 22, Ch. 1, h22",
+          "matn_sha256": "3fde0011d700c0eb63295080b94358429275260e7ea5c9f96d1f7beb80c747e7",
+          "pages": [
+            23
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "dc8084047cff940a109fa74b676ed0d431d2735662c14e4275a5ffaac7a9c2fe",
+      "source_isnad_sha256": "547095f02f76be469865756ca1ee940b311df4880b7f8f535d0a8ae747fe7ebb",
+      "source_matn_sha256": "754e416a4a2b7a6b47e2b98bd029314df0226b636f885278b3bde409f72e3ea1",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "24de59790fb1a24d69984a273b44573b6579239a5975f105b5ae43d35294afea",
+        "model": "hubeali",
+        "provider": "thaqalayn-data",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "A number of our people have narrated from Ahmad ibn Muhammad in a mursal manner from abu ‘Abd Allah, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "e58bfc9adbfe7c79b9fadb26b3b9692623e8171c1230b268f69265d1ab99b508",
+      "english_matn": "“Intelligence is the support for man. From Intelligence come insightfulness, understanding, memory and knowledge; and with Intelligence he gains perfection. Intelligence is his guide, his instructor and the key to his affairs. When his Intelligence is supported with light, he becomes a scholar, a keeper (of knowledge), an intelligent recaller and a man of understanding. Through Intelligence he learns the answer to how, why, where or when. He learns who helps and who harms him. When he learns these (facts) he learns the channels, the connections and the differentiating factors. He then establishes pure belief in the oneness of Allah and acknowledges the need to obey Him. When he does so he finds the proper remedy for what he has lost and the right approach to whatever may confront him. He knows well his present involvement, why he is here, where he has come from and to what end he is headed. He will have all these because of Intelligence.”",
+      "english_matn_sha256": "e7a91f13c1f464e21eb393d215f58bf69d9a9112a3eee5612f8ca34498412510",
+      "identity": {
+        "arabic_sequence_score": 0.98847631,
+        "english_chain_token_f1": 0.73684211,
+        "long_report_cross_check": null,
+        "manual_evidence": {
+          "adjacent_report_numbers": [
+            22,
+            24
+          ],
+          "reason": "The PDF uses 'a number of our people' while the API modernizes the same mursal chain; both name Ahmad ibn Muhammad and Abu Abd Allah, and the canonical report is between the separately aligned H22 and H24 records.",
+          "required_chain_token_groups": [
+            [
+              "ahmad"
+            ],
+            [
+              "muhammad"
+            ],
+            [
+              "abd",
+              "abdillah"
+            ]
+          ]
+        },
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/25",
+      "page_end": 25,
+      "page_start": 25,
+      "printed_number": "٢٣",
+      "public_id": "alkafi-23",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "green",
+        "flags": [],
+        "publication_flags": [],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 23,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "678a2b3176c00be526fa09380341cb03431f97c2db27aa4b0557494407013f2f",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/23",
+          "english_chain_sha256": "871a9faa88e1f38b74925ed42efb010bf3e661a8b32ff543e5bd3b4488910841",
+          "record_id": 24,
+          "record_sha256": "90fa14cb9dd9adef5ed90b6dc84f330424cfdc3ca32f4b9746ea7ccac25b43dc",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "63d52637cc6ad3b8f20a1ee3f28ceb97dc367b8322add8b8defdb58e82879de1",
+          "marker": "H 23, Ch. 1, h23",
+          "matn_sha256": "e7a91f13c1f464e21eb393d215f58bf69d9a9112a3eee5612f8ca34498412510",
+          "pages": [
+            23,
+            24
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "2e4cf0f22a9188c2161e96a581fe04e801f939b41dca0688d5d4f57c898cbd95",
+      "source_isnad_sha256": "566818c9741fc12b512de610d62dee1bad056d536f79ea1e723498770377cf68",
+      "source_matn_sha256": "b7791ddd8f418c5cf26139c0e8b33bc9cf19107de34ceac1030d45100d6918ab",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "1dfedf17ea6a97811f86848e8eb0056a19aeb43001e028348828995c3c05806d",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "Ali ibn Muhammad has narrated from Sahl ibn Ziyad from ’Isma‘il ibn Mihran from certain persons of his people from abu ‘Abd Allah, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "d1f08444f1aad710ae3b68fa6c5cc7f289d3383f1eaa9ebc241853f8457f99d0",
+      "english_matn": "“Intelligence is the guide of a true believer.”",
+      "english_matn_sha256": "65946757459e6ecffbd281e0ab6d99e3e2b764c123026895842be198eaafa70c",
+      "identity": {
+        "arabic_sequence_score": 0.94478528,
+        "english_chain_token_f1": 0.71111111,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/25",
+      "page_end": 25,
+      "page_start": 25,
+      "printed_number": "٢٤",
+      "public_id": "alkafi-24",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "green",
+        "flags": [],
+        "publication_flags": [],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 24,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "f5b548c76e7b44db699ff5e6c1731a46bc9ff1c420cbf1499f64eda827ff4f35",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/24",
+          "english_chain_sha256": "e5a4e6aeca0bdef12ce1b5dae493caefb1b13cbe47fc874e4674a7b55ff493b4",
+          "record_id": 25,
+          "record_sha256": "387c4c734fb526a8cd02687ae3a6191fe18fcd00058659cbab0e740bed8d6128",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "1dc47e24867ac203bc6eaed187855d947094959ca0407d3998cd42592ee88f0e",
+          "marker": "H 24, Ch. 1, h24",
+          "matn_sha256": "65946757459e6ecffbd281e0ab6d99e3e2b764c123026895842be198eaafa70c",
+          "pages": [
+            24
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "c88f900036139dbf73be25d5c8e54c0431850055b2f0e03bf25ec4ce8070f98a",
+      "source_isnad_sha256": "dd1a1bf79ebd0c72b8c8bc9fff0bf44cd41c0416bf6db5a95a42c9ff80dda661",
+      "source_matn_sha256": "145218af566b0d4174aca3afe0d3c103de7f6082ebdad15cf738136b6aef0067",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "ae36bc22aeddab586253a1055a4f02bdceae295d07101e59d072d761c2570c63",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "Al-Husayn ibn Muhammad has narrated from Mu‘alla ibn Muhammad from al- Washsha’ from Hammad ibn ‘Uthman from al-Sariy ibn Khalid from abu ‘Abd Allah, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "90720f3243787bbbaf01406450fdc8410adfdca39cc00262cfb1e35062e514eb",
+      "english_matn": "“The Messenger of Allah has said, ‘O Ali, no poverty is more severe than Ignorance and no property is more valuable than Intelligence.”",
+      "english_matn_sha256": "591d38b5823b9f74ce018c1a45361ae3cceb825c931ab09ae3b414a0749aad18",
+      "identity": {
+        "arabic_sequence_score": 0.91449814,
+        "english_chain_token_f1": 0.80769231,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/25",
+      "page_end": 26,
+      "page_start": 25,
+      "printed_number": "٢٥",
+      "public_id": "alkafi-25",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['1'] do not match translation numbers [].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 1.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 25,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "5908b91ebf01cb56429011906497f007e942ea02b9667640b2ed6f062150e290",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/25",
+          "english_chain_sha256": "5a3f83a11a68ab164b86d861d408b006dbb403be4dfcd6df71434423a6eefcd0",
+          "record_id": 26,
+          "record_sha256": "7a12880a02fb9c15693a48ae887d6c239491b7c8b0309e1ee1a6bd0d707a3751",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "ff83173190600d10c519da4eb4ec7a460a18d1c306ab118c9739c23aa2440075",
+          "marker": "H 25, Ch. 1, h25",
+          "matn_sha256": "591d38b5823b9f74ce018c1a45361ae3cceb825c931ab09ae3b414a0749aad18",
+          "pages": [
+            24
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "53078e4f9d80ee8083a7918d4545f3d65d578d1463390d03018022615cb7426d",
+      "source_isnad_sha256": "9205cee354ae7d5b12deb277b3733f39f67c72ae1990a39a732e904845d0e529",
+      "source_matn_sha256": "598381900b1006d66f135717e4a8c838ae4d7a1db47218fcad833f82e661d562",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "84a14e49b80fffd38dc754e688701063de9d794ed9ca4bc00546b69f002f436f",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "Muhammad ibn al-Hassan has narrated from Sahl ibn Ziyad from ibn abu Najran from al-‘Ala’ ibn Razin from Muhammad ibn Muslim from abu Ja‘far, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "dda009770591351f8138d0405b2aa720cb779a1ae2f7964dfe499778ba0b8e2d",
+      "english_matn": "“When Allah created Intelligence He said, ‘Come forward.’ It came forward. He then said, ‘Go back.’ It went back. Then Allah said, ‘I swear by My Honor and Glory that I have not created any creature more beautiful than you. I will command only you to do certain things and prohibit only you from doing certain things. I will grant blessings (rewards) to you only and will hold only you responsible for the consequences of your deeds.’”",
+      "english_matn_sha256": "094743910db3c7420b98f84901d5da662e44cb999d2764b949108e85fe1dc207",
+      "identity": {
+        "arabic_sequence_score": 0.97637795,
+        "english_chain_token_f1": 0.86792453,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/26",
+      "page_end": 26,
+      "page_start": 26,
+      "printed_number": "٢٦",
+      "public_id": "alkafi-26",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "green",
+        "flags": [],
+        "publication_flags": [],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 26,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "fe3662011a54bf79f65bfb74a9ca4ee27057e5a596b3cdeb994fbb6994c7f3df",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/26",
+          "english_chain_sha256": "002ee7a292ae08efe2267be684f6a522dc6157b819e345914d42b77c1a494f86",
+          "record_id": 27,
+          "record_sha256": "57e9d26631ac7765086baee3ab855deef0503fb341019e97ea35345e72b9201a",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "105635e3db35b3d32313cd7f3b1a0eb410af62f796abfbe08cb916a0dfd8f1de",
+          "marker": "H 26, Ch. 1, h26",
+          "matn_sha256": "094743910db3c7420b98f84901d5da662e44cb999d2764b949108e85fe1dc207",
+          "pages": [
+            24
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "3fe459de8118c63a813ad51ebb5b3903a87c72c277aa2abdf170bb39fb4e30cd",
+      "source_isnad_sha256": "88c9fc8b6465cca715800ab19fcc0047b9da723e5891848d6f74c604d4e2361d",
+      "source_matn_sha256": "b3ff7f66ecb3d6a3202ed1d1782d56643efb27f7a41288042837c45dc2c13e11",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "8ce24a028b45120c3cda885f08b817ebc053e52576cb4f0807c225cd22fb92ec",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "A number of our people have narrated from Ahmad ibn Muhammad from al- Haytham ibn abu Masruq al-Nahdi from al-Husayn ibn Khalid from Ishaq ibn ‘Ammar who has said the following:",
+      "english_isnad_sha256": "8600b2728cbe6d5962cf7b48df44c32b4e68a016b6ac1b79fd3e2517cdaa05ad",
+      "english_matn": "“Once I said to abu ‘Abd Allah, recipient of divine supreme covenant, ‘A man comes to me and I speak to him. As soon as I speak only a part of what I want to say he understands all that I want to say. There are other people who come to me and I speak to them all that I want to speak and only then do they understand all of my statements and explain to me what I meant. There are still others to whom I speak at length but they ask me to repeat what I have already expressed to them.’ The Imam, recipient of divine supreme covenant, then said, ‘O Ishaq, do you know why this is?’ I replied, ‘No, I do not know.’ The Imam then said the following, ‘Those to whom you speak only part of what you want to say and they understand the rest are those whose Intelligence is mixed to take shape with their nature (Nutfah). Those who understand you only when you complete your speech are those whose Intelligence is mixed with them in the womb of their mothers. Those who ask you to repeat what you already said are those whose Intelligence is combined with them when they grow up. It is such people who ask you to repeat your statement.’”",
+      "english_matn_sha256": "ce52db88e6f862c198687c1ee31ed39b44789a8669f08e4c2252c9bc9a9c9a2a",
+      "identity": {
+        "arabic_sequence_score": 0.98954704,
+        "english_chain_token_f1": 1.0,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/26",
+      "page_end": 26,
+      "page_start": 26,
+      "printed_number": "٢٧",
+      "public_id": "alkafi-27",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "green",
+        "flags": [],
+        "publication_flags": [],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 27,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "396a4a320a0976aed73ebb05cdb99908c4e69a30f97efc909a56c1e48d01e6a8",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/27",
+          "english_chain_sha256": "a423f11577b3a7eb72814b81b64f058f75d997e7a0a5c5a97510a8634a70475f",
+          "record_id": 28,
+          "record_sha256": "86b9c2caced42cfefa9929cf8d824c9c73cc1bc5e7a409e83c01177a3eb55491",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "e1e751a8ee73c17a847926900b15dc43c181144d606b2be92158c11d97633e5e",
+          "marker": "H 27, Ch. 1, h27",
+          "matn_sha256": "ce52db88e6f862c198687c1ee31ed39b44789a8669f08e4c2252c9bc9a9c9a2a",
+          "pages": [
+            24
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "f1ad19c0b6a5323832d6e82b880656806b996669303072ee67e920a102b7e9ce",
+      "source_isnad_sha256": "0ea66cadb9b2ae09c3e21868ef6fb246ebb6626aa0aef6c46ae8405d9285d637",
+      "source_matn_sha256": "63b53f8898864df47a7e3871f4adf022aa725e5c546c5626ee680106f02459ae",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "9fb63c0f786caeb8ede99ba86e57f20fad31c6a2cda7c7a712479ed800e6034c",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "A number of our people have narrated from Ahmad ibn Muhammad from certain persons of our people in a marfu‘ manner from abu ‘Abd Allah, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "53dc03dd9dcc26cf6843c530a9d041ec955e4f6435b85ca5c729170bbb19826e",
+      "english_matn": "“The Holy Prophet, recipient of divine supreme covenant, has said, ‘When you find a man who prays and fasts a great deal, do not become proud of him until you see how his Intelligence is.’”",
+      "english_matn_sha256": "8107a2be6bc7d6a2223f4c95994627a5eed21870c6f34cb834a9a4f60e645084",
+      "identity": {
+        "arabic_sequence_score": 0.91449814,
+        "english_chain_token_f1": 0.83333333,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/26",
+      "page_end": 26,
+      "page_start": 26,
+      "printed_number": "٢٨",
+      "public_id": "alkafi-28",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "green",
+        "flags": [],
+        "publication_flags": [],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 28,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "b5551b916c3f86ab807c8b73dc4960b98013740ff8af1dacae429833941300b1",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/28",
+          "english_chain_sha256": "00ddbb406bf88fbe2acb004c7cdfd8f30742740335470973bd0b21d78b46e8cd",
+          "record_id": 29,
+          "record_sha256": "67a88449bccb3badb3c6a4233e3ccd421b68c61a822d396b0242696bdb5f8736",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "4a007dd47745811a0b47995ed8377bf660957449034c34dc7e9c94d65c44e326",
+          "marker": "H 28, Ch. 1, h28",
+          "matn_sha256": "8107a2be6bc7d6a2223f4c95994627a5eed21870c6f34cb834a9a4f60e645084",
+          "pages": [
+            25
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "e833c444a0c6928ab73aa5b363d8b9d2796f77061d6b6de1125dda00b82bd435",
+      "source_isnad_sha256": "5d19d00f5396800846d954fee6872ef39602cfa432e1ea4c67ee43f9ee97e8f3",
+      "source_matn_sha256": "f9eac59686b48974879c7442c50c999b61381667dbe641385bd899f9df03861c",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "ddfff315719e4f55291320164ab22a50800d17e7fd246df2256eae6c49f6085c",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "Certain persons of our people have narrated in a marfu’ manner from Mufaddal ibn ‘Umar from abu ‘Abd Allah, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "2546f0f16c93a0a96c00d8af4bb26017b1915daf189f134586e567d6972b7e86",
+      "english_matn": "“O Mufaddal one can never gain success until he understands and one can never understand until he acquires knowledge. One who understands can very soon excel. One who exercises patience can very soon triumph. Knowledge serves one as a shield, truth is honor, ignorance is humility, sharp-wittedness is glory, generosity is success and moral excellence attracts friendship. One who possesses the wisdom of his time does not become frustrated by confusion. Strong determination creates pessimism. In the task of connecting a man and wisdom the existence of the scholar is the blessing. The ignorant ones face misfortunes in between: without wisdom and the scholar. Allah is the guardian of those who know Him. He is the enemy of those who pretend to know Him. A person of Intelligence is forgiving and an ignorant person is treacherous. If you like to be honored you must become kindhearted. If you like to be insulted then show harshness in your manners. One whose origin is noble is kindhearted. One whose element is rough, his liver is thick. The extremist falls into crisis. One who is afraid of the consequences desists from involvement in what he has no knowledge of. One who engages in an affair without knowing anything about it is headed to his own loss. One who does not know does not understand; and one who does not understand, does not agree to become peaceful. One who does not agree and submit is not respected; and one who is not respected is broken. One who is so broke is blamable; and one who is in such a condition must become regretful for his own self.”",
+      "english_matn_sha256": "c0383f1454e2a98c3fd09ab8ad43de3729e89c4b6c2b149c06d203d1877de996",
+      "identity": {
+        "arabic_sequence_score": 0.99164345,
+        "english_chain_token_f1": 0.86486486,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/26",
+      "page_end": 27,
+      "page_start": 26,
+      "printed_number": "٢٩",
+      "public_id": "alkafi-29",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['2', '1', '2', '3', '4', '5', '6', '7'] do not match translation numbers [].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 1, 2, 3, 4, 5, 6, 7.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 29,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "47b2d6f897d38d741fd10afa3f25376cf2bce9f6c714492d8189650feced677b",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/29",
+          "english_chain_sha256": "3d9c3151f3d16e9bddc389676d401d2c289c691f3be126205bcb0070c6e18531",
+          "record_id": 30,
+          "record_sha256": "e996c8bce5b5628824d37dba3dd958a70f1a77642bfb11d4f5140b5143db5d12",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "1c232a23371e58305ed903a4171063ecc0294ab0c7d427456c0236e8930f0345",
+          "marker": "H 29, Ch. 1, h29",
+          "matn_sha256": "c0383f1454e2a98c3fd09ab8ad43de3729e89c4b6c2b149c06d203d1877de996",
+          "pages": [
+            25
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "c91a71636b2aa48dc9eecb9b5c442d4947049b9794dd93fdb8e0e43b8982bd9d",
+      "source_isnad_sha256": "fb4fb07cea99bbc9c16100e79b8a96bde8c08929361359f61775404af70fec3c",
+      "source_matn_sha256": "1c3ad347cef21428e15a05b66958a4a4d7806ae4aee965569464c006139cdf93",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "3d373d4a60811bac6027821d61916f0701d20c79d9b3dca69060ce78aa63a7b6",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "Muhammad ibn Yahya has narrated from in a marfu‘ manner from Amir al- Mu’minin Ali, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "a0646f205c9ecb5200945e93c062b14faacf5c3d5116c6f534f403e85278a774",
+      "english_matn": "“If one guarantees for me to firmly establish in himself one good quality I will credit him for it and forgive his other shortcomings. But I will not forgive him for his losing Intelligence and religion; abandoning religion is departing peace and security. Thus, life with fear and insecurity is unpleasant. Loss of Intelligence is loss of life. A person without Intelligence can be compared with no other thing but the dead.”",
+      "english_matn_sha256": "7b752957ee2021cefeed0e393fc47ccc8bd27dfa1971b5cd192e4f20bcf8f87e",
+      "identity": {
+        "arabic_sequence_score": 0.97709924,
+        "english_chain_token_f1": 0.78571429,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/27",
+      "page_end": 27,
+      "page_start": 27,
+      "printed_number": "٣٠",
+      "public_id": "alkafi-30",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['8'] do not match translation numbers [].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 8.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 30,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "9d841cd2aa7680fc325076305e46928af26dd180cc78acd8d75405283a276a08",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/30",
+          "english_chain_sha256": "c630a83b02cb34f066d717f220fadfed130188a7856561bea5f344a955dc60bb",
+          "record_id": 31,
+          "record_sha256": "4c895401b663fb7b1e1c604701d3da35b5b8e37f4a467ef6015762b8d599664a",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "481105afff9114daab19b7dddcc807da7afbba7b20586ef58743fadc3d7013c3",
+          "marker": "H 30, Ch. 1, h30",
+          "matn_sha256": "7b752957ee2021cefeed0e393fc47ccc8bd27dfa1971b5cd192e4f20bcf8f87e",
+          "pages": [
+            25
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "50139b98ed0c420ba41810b875710005e3ace1d45114a3874db0f00b93ae490b",
+      "source_isnad_sha256": "67eea445b5ccefb67ac411c8921c32f30c6d014de5b33784e03952a9e652e766",
+      "source_matn_sha256": "4cf2a1aa991799da093a6f1a06dc819d09833db3623aeaa60f3d894f674d8cf4",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "ed295ce9ae13d1e6403cca29f947fd500946e017bef8d777bf583e2a9f611e9a",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "Ali ibn Ibrahim ibn Hashim has narrated from Musa ibn Ibrahim from al- Muharibi from al-Hassan ibn Musa from Musa ibn ‘Abd Allah from Maymun ibn Ali from abu ‘Abd Allah, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "41cabf3f95e98d3ddbb1bf81c6372986ba60876665d46ff4927fe5467b3d3bd6",
+      "english_matn": "“Amir al-Mu’minin Ali, recipient of divine supreme covenant, has said, ‘Self glorification is an indication of the weakness of one’s Intelligence.’”",
+      "english_matn_sha256": "2cff680c8b8db6078d74a7a4ba30df727782528ab0e2f266471a34b6dbb17fde",
+      "identity": {
+        "arabic_sequence_score": 0.94039735,
+        "english_chain_token_f1": 0.8,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/27",
+      "page_end": 27,
+      "page_start": 27,
+      "printed_number": "٣١",
+      "public_id": "alkafi-31",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "green",
+        "flags": [],
+        "publication_flags": [],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 31,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "7e56a900cf6e0fa1c9e51db57fa67986dbcac9ab291ba0e0b7a320a119935543",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/31",
+          "english_chain_sha256": "64128ff81bb20ad943b55bf0554827d2dd708520599fe7038d809c095c3f335a",
+          "record_id": 32,
+          "record_sha256": "025b79b9bc8e80cb9c96f8510930cd0e6f0f1a51f44729f0b2a5dcf2add6e3f7",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "989648ae94b793e27d45add5f997c591e0e2c7fe0664b7381e858b112df386d0",
+          "marker": "H 31, Ch. 1, h31",
+          "matn_sha256": "2cff680c8b8db6078d74a7a4ba30df727782528ab0e2f266471a34b6dbb17fde",
+          "pages": [
+            25
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "ab947accd7d0d1eb28d844837f582034c852792bd70bb7e3eadd4cf78babc5ee",
+      "source_isnad_sha256": "97552633cd016dffe9c085ad6755796b367ea615d9403fbe888243154bc49ccc",
+      "source_matn_sha256": "d16ccda44537c2ae5293a12d66db00c9946520ed8cc1dc0b76d2a341b5a23d08",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "f0f420ba07650d2ff0935f656b2f89cbee68bb4ce67153494c30812acbc86a5b",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "Abu ‘Abd Allah al-‘Asimiy has narrated from Ali ibn al-Hassan from Ali ibn Asbat from al-Hassan ibn al-Jahm from abu al-Hassan al-Rida, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "7b3412f7c1fcaf2375b4a195941a2b7fc904d2d764bb37328f27e850b3c913b7",
+      "english_matn": "“Our people mentioned Intelligence and spoke about it in the presence of Imam al-Rida, recipient of divine supreme covenant, and he said, ‘Of the religious people, those who have no Intelligence deserve no credit.’ I then asked, ‘May Allah keep my soul in your service, of the people who support this cause (al-walayah) we know a group who are considered acceptable in our opinion but they do not have such Intelligence.’ The Imam then said, ‘They are not of the people whom Allah has addressed when He created Intelligence and said to it, “Come forward.” It came forward. He then said, ‘Go back.’ It went back. Then Allah said, “I swear by My Honor and Glory that I have not created anything better and more beloved to Me than you. I will grant blessings (rewards) to you only and will hold only you responsible for the consequences (of your deeds).’”",
+      "english_matn_sha256": "3fbf4cf541f6febd9e8ec961cea63876f9e9535f5825b523db2acd32a091338b",
+      "identity": {
+        "arabic_sequence_score": 0.97204969,
+        "english_chain_token_f1": 0.76923077,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/27",
+      "page_end": 28,
+      "page_start": 27,
+      "printed_number": "٣٢",
+      "public_id": "alkafi-32",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['9'] do not match translation numbers [].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 9.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 32,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "f92886698f3fe4fdc3874f2157ab3e9ac426785549acce1c42186209255941b5",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/32",
+          "english_chain_sha256": "e0056ca9f85e82e47e3adf40b59ecbbeba24e87a20dc9471e6263f476085296e",
+          "record_id": 33,
+          "record_sha256": "696cd54de1109d5c394f897c94c35f5bd365845f2c63b5eca3f5298ac545db97",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "c72eb667debef1cf4b039252c8f27a15fb5ece0d2403e001302181b8b7e31967",
+          "marker": "H 32, Ch. 1, h32",
+          "matn_sha256": "3fbf4cf541f6febd9e8ec961cea63876f9e9535f5825b523db2acd32a091338b",
+          "pages": [
+            25,
+            26
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "b5696d2849acf3da3e9640bb4fe9d38b070eac1052f038247a6c7bbe3c8e51ad",
+      "source_isnad_sha256": "c77aaa4646ec1e9e6be23b304e01d778a0d42004c37d76e358b88063c6f534fc",
+      "source_matn_sha256": "9ddb65a1679f726e05b8bc5b683726f6d7bd35117a8e56387a6e73702888b461",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "6e321f5ab021fed74f57b0d93eaf019f93dd7d4c9d842e46b39860c2c4c7016b",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "Ali ibn Muhammad has narrated from Ahmad ibn Muhammad ibn Khalid from his father from certain persons of our people from abu ‘Abd Allah, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "32238fe4b78fdf6e5907408d5567f6468237934104a1346aa9ef096b0edd4301",
+      "english_matn": "“The only thing (standing) between belief and disbelief is lack of Intelligence. People asked the Imam, ‘How is that, O great- great-great-great grandson of the Holy Prophet?’ The Imam replied, ‘Human beings center their expectations on other creatures. If they become sincere to Allah He will grant their wish and fulfill their expectations more quickly.’”",
+      "english_matn_sha256": "52913aa3b60a3623f85ff3614b5fffda511b89834bc7d6c2d8f94f200b7b8214",
+      "identity": {
+        "arabic_sequence_score": 0.97547684,
+        "english_chain_token_f1": 0.73913043,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/28",
+      "page_end": 28,
+      "page_start": 28,
+      "printed_number": "٣٣",
+      "public_id": "alkafi-33",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['1', '2', '3'] do not match translation numbers [].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 1, 2, 3.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 33,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "97d096fe16fd6fea54bbe265df28358dc0e4cc5a30c9b1dd61d59809c5e2ab82",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/33",
+          "english_chain_sha256": "b953d315f6a48a329d340071b84e05f9d08c646b28fa966c5afa6a7e903b2187",
+          "record_id": 34,
+          "record_sha256": "1ad95acb6a9cea9196de4841f9121d34f8d61fe03f2aa4531a656e8f6587d550",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "a48998d3a5ea5103f306414352c6b09bbbc03221230ba8ca70e755b343b3695e",
+          "marker": "H 33, Ch. 1, h33",
+          "matn_sha256": "52913aa3b60a3623f85ff3614b5fffda511b89834bc7d6c2d8f94f200b7b8214",
+          "pages": [
+            26
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": null
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "39894362779855f1d7b812f5d50b0c69ce38b1c91d1de9db39ee51974f5edb7b",
+      "source_isnad_sha256": "a3a79d9f45d2f439fc637487a830f27961ccc67d3f69282a46a28698db5e1fb2",
+      "source_matn_sha256": "d7caabc72021e5210b4fd1816c548b025a648a588fcdcdefbdbc470b8b2e49ec",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_translation": {
+        "matn_sha256": "cacb0d301c425ee92e14e5bde5d6fd206641c8be4b370934e799aba118eb2c7c",
+        "model": "muhammad-sarwar",
+        "provider": "thaqalayn-api",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "english_isnad": "A number of our people have narrated from Sahl ibn Ziyad from ‘Ubayd Allah al-Dihqan from Ahmad ibn ‘Umar al-Halabi from Yahya ibn ‘Imran from abu ‘Abd Allah, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "5558a8915a4abc0a57e70c13536713183fad32bac34865ca152c26572369779b",
+      "english_matn": "“Amir al-Mu’minin Ali, recipient of divine supreme covenant, would often say, ‘Through Intelligence the depths of wisdom are approached and with wisdom the depths of Intelligence are reached. Good policies are of the virtuous moral discipline.’ He would also say, ‘Thinking is life for the intelligent heart just as light helps one to walk in darkness with ease and without waiting for a long time.’”",
+      "english_matn_sha256": "54c801f815d5a19eb6ac3e045402b4b197882589458c91bd30ece0334e91d129",
+      "identity": {
+        "arabic_sequence_score": 0.96577947,
+        "english_chain_token_f1": 0.68656716,
+        "long_report_cross_check": null,
+        "manual_evidence": null,
+        "minimum_arabic_score": 0.9,
+        "minimum_english_chain_token_f1": 0.6
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/28",
+      "page_end": 28,
+      "page_start": 28,
+      "printed_number": "٣٤",
+      "public_id": "alkafi-34",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['4'] do not match translation numbers [].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 4.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 34,
+      "source_evidence": {
+        "api_identity": {
+          "arabic_sha256": "41eb430f2592e73fe8e3af567c3617caf14b1ee16a373859215ad43e67952006",
+          "canonical_url": "https://thaqalayn.net/hadith/1/1/0/34",
+          "english_chain_sha256": "a1e573aa84326e44c71941e7e06319ea587e9625b44d9d2df27f9bfcdc2e3eb3",
+          "record_id": 35,
+          "record_sha256": "2fddc664d82fe530964bfbbd88746210d657ac911d07293aaf9eb4c3878ed232",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+        },
+        "classification": "verbatim_external_matn_excerpt",
+        "pdf": {
+          "full_record_sha256": "ebd2ed3a3d328c1869e17ccfceb191d12c063ab6d2947ca6b6be3ad03941662c",
+          "marker": "H 34, Ch. 1, h34",
+          "matn_sha256": "54c801f815d5a19eb6ac3e045402b4b197882589458c91bd30ece0334e91d129",
+          "pages": [
+            26
+          ],
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "special_case": "bounded_before_printed_subreport_a"
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "cb69860c326ccad118f63a6ad7d5f5c1a7161f814f8e2ce358d285c209e01ff2",
+      "source_isnad_sha256": "49a816624c4be299e88f51ca0521ee4aa48fb01b66db18ae3e067f65b5c7a198",
+      "source_matn_sha256": "2c52fb9440a4f4845b6018769c7e9bc473f53edd5bc852f18c91eed36c1c2741",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    }
+  ],
+  "schema_version": 1,
+  "sources": {
+    "api_snapshot": {
+      "path": "C:\\Users\\taifh\\AppData\\Local\\Temp\\sarwar-alkafi-audit\\thaqalayn-api-alkafi.json",
+      "sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+      "source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+    },
+    "pdf": {
+      "path": "C:\\Users\\taifh\\AppData\\Local\\Temp\\sarwar-alkafi-almurtaza\\volume-1.pdf",
+      "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+      "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf"
+    }
+  },
+  "summary": {
+    "arabic_score_range": [
+      0.90080429,
+      0.99432415
+    ],
+    "blocking_qa_count": 0,
+    "current_provider_counts": {
+      "thaqalayn-api": 31,
+      "thaqalayn-data": 3
+    },
+    "english_chain_score_range": [
+      0.68571429,
+      1.0
+    ],
+    "long_report_cross_checks": [
+      12
+    ],
+    "manual_identity_evidence": [
+      14,
+      23
+    ],
+    "public_ids": [
+      "alkafi-1",
+      "alkafi-2",
+      "alkafi-3",
+      "alkafi-4",
+      "alkafi-5",
+      "alkafi-6",
+      "alkafi-7",
+      "alkafi-8",
+      "alkafi-9",
+      "alkafi-10",
+      "alkafi-11",
+      "alkafi-12",
+      "alkafi-13",
+      "alkafi-14",
+      "alkafi-15",
+      "alkafi-16",
+      "alkafi-17",
+      "alkafi-18",
+      "alkafi-19",
+      "alkafi-20",
+      "alkafi-21",
+      "alkafi-22",
+      "alkafi-23",
+      "alkafi-24",
+      "alkafi-25",
+      "alkafi-26",
+      "alkafi-27",
+      "alkafi-28",
+      "alkafi-29",
+      "alkafi-30",
+      "alkafi-31",
+      "alkafi-32",
+      "alkafi-33",
+      "alkafi-34"
+    ],
+    "selected": 34,
+    "source_book_id": "11005",
+    "source_classification": "verbatim_external_matn_excerpt",
+    "target_model": "muhammad-sarwar-published",
+    "target_provider": "sarwar-published-scan",
+    "translator": "Muhammad Sarwar"
+  }
+}

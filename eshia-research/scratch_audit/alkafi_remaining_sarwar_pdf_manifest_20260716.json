@@ -1,0 +1,3191 @@
+{
+  "blocked": [],
+  "extraction_version": "alkafi_remaining_sarwar_pdf_blocks_v1",
+  "records": [
+    {
+      "current_segment": {
+        "metadata_sha256": "714418e0aef732bac2776192e7562c4b0b1f793ebfd55eeaeb80f4c87cb1d3e6",
+        "risk_level": "green",
+        "segment_id": 32,
+        "source_sha256": "fcc847f4d5e156965cb5d408aba1c9ba4e1fd01dfc6c790b663d567e029b9eb6",
+        "status": "published",
+        "translation_id": 29,
+        "translation_sha256": "c96328f40580a47f67de8c36aab9654702c774fac1340db89cb3489a9727471a"
+      },
+      "current_translation": {
+        "matn_sha256": "c96328f40580a47f67de8c36aab9654702c774fac1340db89cb3489a9727471a",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "bf12a9b26c060f8175848ec6f2f1e05cb2b2231691118f9794945fbc421dee8d",
+        "provider": "thaqalayn-api",
+        "rendered_isnad_sha256": "698556f315de24a2a781808b4e5eadfefbe2b4706c31ee3bf49d1135bf00c747",
+        "risk_level": "green",
+        "source_full_sha256": "542a19fd5dc8ef30dd84d7f9662dc7d5cce29232d5dc5dc92ee8ada32eac2e88",
+        "source_isnad_sha256": "044fd893dc7d0023fca80acb368f2272413a4520b8d0e7a1aa967bfa37d61c7d",
+        "source_matn_sha256": "fcc847f4d5e156965cb5d408aba1c9ba4e1fd01dfc6c790b663d567e029b9eb6",
+        "status": "published",
+        "translation_id": 29
+      },
+      "english_isnad": "Ali ibn Muhammad has narrated from certain persons of his people from ibn abu ‘Umayr from al-Nadr ibn Suwayd from Humran and Safwan ibn Mihran al-Jammal who have said we heard Imam abu ‘Abd Allah, recipient of divine supreme covenant, say the following:",
+      "english_isnad_sha256": "d8a241b1be2bbe7a3e33cdb7f2335879767829f5841aaa5ecb4364319e337afb",
+      "english_matn": "“No wealth is more profitable than Intelligence, no poverty is more crushing than foolishness and no effort of seeking support is more supportive than seeking consultation.”",
+      "english_matn_sha256": "19a2bfa56c61ad770e2aa21ab419c687797e07b182e62646f0273c93e1417247",
+      "identity": {
+        "arabic_local_extent": "full_report",
+        "arabic_sequence_score": 0.97247706,
+        "arabic_shorter_sequence_coverage": 1.0,
+        "english_chain_token_f1": 0.66666667,
+        "english_full_similarity": 0.74701987,
+        "english_matn_similarity": 0.7183908,
+        "local_sequence_evidence": {
+          "printed_number": "٣٦",
+          "public_id": "alkafi-36",
+          "sequence_in_book": 36,
+          "volume": 1
+        },
+        "pdf_extent_evidence": {
+          "extent_kind": "subreport_b",
+          "following_marker": "H 35, Ch. 1, h1",
+          "marker": "H 34, Ch. 1, h34 (b)",
+          "pages": [
+            27
+          ],
+          "physical_volume": 1,
+          "preceding_marker": "H 33, Ch. 1, h33",
+          "printed_hadith_number": 34
+        },
+        "thresholds": {
+          "minimum_arabic_sequence_score": 0.8,
+          "minimum_arabic_shorter_sequence_coverage": 0.98,
+          "minimum_english_chain_token_f1": 0.55,
+          "minimum_english_full_similarity": 0.65,
+          "minimum_english_matn_similarity": 0.55
+        }
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/29",
+      "page_end": 29,
+      "page_start": 29,
+      "printed_number": "٣٦",
+      "public_id": "alkafi-36",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "green",
+        "flags": [],
+        "publication_flags": [],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 36,
+      "source_evidence": {
+        "classification": "verbatim_external_matn_excerpt",
+        "human_source_identity": {
+          "arabic_sha256": "e9534f2cab24f511b55be1d9590dda948483bf4f111f0bea5ab67fb5ac2a68af",
+          "english_isnad_sha256": "698556f315de24a2a781808b4e5eadfefbe2b4706c31ee3bf49d1135bf00c747",
+          "english_matn_sha256": "c96328f40580a47f67de8c36aab9654702c774fac1340db89cb3489a9727471a",
+          "provider": "thaqalayn-api",
+          "record_id": 37,
+          "record_sha256": "2188c557fe3ba3085ad7ec8dfe5a49d8b2be26af421c75e5782a6efa0a6d6f73",
+          "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni",
+          "source_url": "https://thaqalayn.net/hadith/1/1/0/36",
+          "stored_english_sha256": "c96328f40580a47f67de8c36aab9654702c774fac1340db89cb3489a9727471a",
+          "translator": "Muhammad Sarwar"
+        },
+        "pdf": {
+          "english_isnad_sha256": "d8a241b1be2bbe7a3e33cdb7f2335879767829f5841aaa5ecb4364319e337afb",
+          "extent_kind": "subreport_b",
+          "following_marker": "H 35, Ch. 1, h1",
+          "full_record_sha256": "4d17c2f70db84c80352a74943c50668defd8725b3c074db6630886d8bea533f1",
+          "layout_operations": [
+            {
+              "operation": "join_hyphenated_pdf_line_wraps",
+              "reason": "Remove layout-only whitespace after a line-final hyphen.",
+              "scope": "PDF block extraction"
+            },
+            {
+              "detail": "bounded after the unique printed H34 subreport (b) label and before the following H35 marker; the final English quotation excludes the intervening end-of-book headings",
+              "extent_kind": "subreport_b",
+              "operation": "bound_pdf_report_extent"
+            }
+          ],
+          "marker": "H 34, Ch. 1, h34 (b)",
+          "matn_sha256": "19a2bfa56c61ad770e2aa21ab419c687797e07b182e62646f0273c93e1417247",
+          "pages": [
+            27
+          ],
+          "physical_volume": 1,
+          "preceding_marker": "H 33, Ch. 1, h33",
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf"
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "542a19fd5dc8ef30dd84d7f9662dc7d5cce29232d5dc5dc92ee8ada32eac2e88",
+      "source_isnad_sha256": "044fd893dc7d0023fca80acb368f2272413a4520b8d0e7a1aa967bfa37d61c7d",
+      "source_matn_sha256": "fcc847f4d5e156965cb5d408aba1c9ba4e1fd01dfc6c790b663d567e029b9eb6",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [
+          {
+            "operation": "join_hyphenated_pdf_line_wraps",
+            "reason": "Remove layout-only whitespace after a line-final hyphen.",
+            "scope": "PDF block extraction"
+          },
+          {
+            "detail": "bounded after the unique printed H34 subreport (b) label and before the following H35 marker; the final English quotation excludes the intervening end-of-book headings",
+            "extent_kind": "subreport_b",
+            "operation": "bound_pdf_report_extent"
+          }
+        ],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_segment": {
+        "metadata_sha256": "414ff3db303ae60369fb8b2c70bad5b4751b52de255524178013317b5f0da540",
+        "risk_level": "green",
+        "segment_id": 33,
+        "source_sha256": "9724351d0a9a3f2d0683b4ef2243c21b0fc8eb34e0b5804ac43d4df95a981da4",
+        "status": "published",
+        "translation_id": 30,
+        "translation_sha256": "5bc132f8cb8e36d7563625953c4a48adeccdf5f9ef89e76cf75b8872852186cf"
+      },
+      "current_translation": {
+        "matn_sha256": "5bc132f8cb8e36d7563625953c4a48adeccdf5f9ef89e76cf75b8872852186cf",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "934904f4aa9428907fc05b20d4a74dbf4fc2fd75260b8364204cc95eb34e4792",
+        "provider": "thaqalayn-data",
+        "rendered_isnad_sha256": null,
+        "risk_level": "green",
+        "source_full_sha256": "ee1f630c0067470be925e2eafa3b4a948767307711a6abb07aa36182ac5b627a",
+        "source_isnad_sha256": "f59bdf33183adfb90bfb4b2dff15486080b6f3eb06fa61f69de50276c95e0016",
+        "source_matn_sha256": "9724351d0a9a3f2d0683b4ef2243c21b0fc8eb34e0b5804ac43d4df95a981da4",
+        "status": "published",
+        "translation_id": 30
+      },
+      "english_isnad": "Muhammad ibn Ya‘qub has narrated from Ali ibn Ibrahim ibn Hashim from his father from al-Hassan ibn abu al-Husayn al-Farisi from ‘Abd al-Rahman ibn Zayd from his father from abu ‘Abd Allah, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "454f208579274ba395ba72b136de1c67bba94643d3b287daa24cd6b5b0d6df23",
+      "english_matn": "“The Messenger of Allah has said, ‘Seeking knowledge is obligatory for every Muslim. (People should) know that Allah loves those who seek knowledge.’”",
+      "english_matn_sha256": "f0558876b0b6fd5ae2f7638f8f5f1ee4a189eae0fc073606bf93f73eded544cf",
+      "identity": {
+        "arabic_local_extent": "matn",
+        "arabic_sequence_score": 0.88709677,
+        "arabic_shorter_sequence_coverage": 1.0,
+        "english_chain_token_f1": 0.87323944,
+        "english_full_similarity": 0.95863053,
+        "english_matn_similarity": 0.92363636,
+        "local_sequence_evidence": {
+          "printed_number": "١",
+          "public_id": "alkafi-37",
+          "sequence_in_book": 37,
+          "volume": 1
+        },
+        "pdf_extent_evidence": {
+          "extent_kind": "marker_bound",
+          "following_marker": "H 36, Ch. 1, h2",
+          "marker": "H 35, Ch. 1, h1",
+          "pages": [
+            28
+          ],
+          "physical_volume": 1,
+          "preceding_marker": "H 34, Ch. 1, h34",
+          "printed_hadith_number": 35
+        },
+        "thresholds": {
+          "minimum_arabic_sequence_score": 0.8,
+          "minimum_arabic_shorter_sequence_coverage": 0.98,
+          "minimum_english_chain_token_f1": 0.55,
+          "minimum_english_full_similarity": 0.65,
+          "minimum_english_matn_similarity": 0.55
+        }
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/30",
+      "page_end": 30,
+      "page_start": 30,
+      "printed_number": "١",
+      "public_id": "alkafi-37",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['1'] do not match translation numbers [].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 1.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 37,
+      "source_evidence": {
+        "classification": "verbatim_external_matn_excerpt",
+        "human_source_identity": {
+          "arabic_sha256": "712a30bba8eb21ede53e8a0c7d88d312f49b0135a16fdec5acdc7cc07fa6bcea",
+          "english_isnad_sha256": "1f93e1d530283a48e9736b7016362de3059efa288765bb2538434780e463a20d",
+          "english_matn_sha256": "537b52ba8ce88a487c5c8fb4afa2727626b2678fbd73f47498424e10a16c2f17",
+          "provider": "thaqalayn-data",
+          "record_id": 37,
+          "record_sha256": "11ae01842c2f39c232fbc5a9ebd9a8bac72ac845d75e7a17b8ac1d7695ea1329",
+          "snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "snapshot_source_url": "https://thaqalayndata.netlify.app",
+          "source_url": "https://thaqalayn.net/books/al-kafi:1:2:1:1",
+          "stored_english_sha256": "5bc132f8cb8e36d7563625953c4a48adeccdf5f9ef89e76cf75b8872852186cf",
+          "translator": "Muhammad Sarwar"
+        },
+        "pdf": {
+          "english_isnad_sha256": "454f208579274ba395ba72b136de1c67bba94643d3b287daa24cd6b5b0d6df23",
+          "extent_kind": "marker_bound",
+          "following_marker": "H 36, Ch. 1, h2",
+          "full_record_sha256": "3f15ef1cfcfc525093d14156ca24646233869ef84c85d8fc9440da5fdef7e0ff",
+          "layout_operations": [
+            {
+              "operation": "join_hyphenated_pdf_line_wraps",
+              "reason": "Remove layout-only whitespace after a line-final hyphen.",
+              "scope": "PDF block extraction"
+            },
+            {
+              "detail": "bounded from selected H marker to its final English quotation",
+              "extent_kind": "marker_bound",
+              "operation": "bound_pdf_report_extent"
+            }
+          ],
+          "marker": "H 35, Ch. 1, h1",
+          "matn_sha256": "f0558876b0b6fd5ae2f7638f8f5f1ee4a189eae0fc073606bf93f73eded544cf",
+          "pages": [
+            28
+          ],
+          "physical_volume": 1,
+          "preceding_marker": "H 34, Ch. 1, h34",
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf"
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "ee1f630c0067470be925e2eafa3b4a948767307711a6abb07aa36182ac5b627a",
+      "source_isnad_sha256": "f59bdf33183adfb90bfb4b2dff15486080b6f3eb06fa61f69de50276c95e0016",
+      "source_matn_sha256": "9724351d0a9a3f2d0683b4ef2243c21b0fc8eb34e0b5804ac43d4df95a981da4",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [
+          {
+            "operation": "join_hyphenated_pdf_line_wraps",
+            "reason": "Remove layout-only whitespace after a line-final hyphen.",
+            "scope": "PDF block extraction"
+          },
+          {
+            "detail": "bounded from selected H marker to its final English quotation",
+            "extent_kind": "marker_bound",
+            "operation": "bound_pdf_report_extent"
+          }
+        ],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_segment": {
+        "metadata_sha256": "357b92dd3825d7dce1c0724fc20e8921103f5b9296ee8fc5d5567b86c393e310",
+        "risk_level": "green",
+        "segment_id": 34,
+        "source_sha256": "bd60d209085baa9d55b9333bc919f6fa479d221571d0e1c351b9dff2b2f72774",
+        "status": "published",
+        "translation_id": 31,
+        "translation_sha256": "f6b8be73d9b62a1e5eab333bf17fd6e26be7d05b04532528f016bc274dd6b97f"
+      },
+      "current_translation": {
+        "matn_sha256": "f6b8be73d9b62a1e5eab333bf17fd6e26be7d05b04532528f016bc274dd6b97f",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "12a1a8b8d4da5f8e0329527560dea11ca4aefd519439b6ef619ee3f4ae77b101",
+        "provider": "thaqalayn-data",
+        "rendered_isnad_sha256": null,
+        "risk_level": "green",
+        "source_full_sha256": "afabc12d36d0e9c8788598878f04f5b7c6b0b0cc6c74578b1197ff18108b8069",
+        "source_isnad_sha256": "2e65440574ef154b8c793f6d2e26176d6c3afcab62ec750be17951fc41fbdd82",
+        "source_matn_sha256": "bd60d209085baa9d55b9333bc919f6fa479d221571d0e1c351b9dff2b2f72774",
+        "status": "published",
+        "translation_id": 31
+      },
+      "english_isnad": "Muhammad ibn Yahya has narrated from Muhammad ibn al-Husayn from Muhammad ibn ‘Abd Allah from ‘Isa ibn ‘Abd Allah al-‘Amri from abu ‘Abd Allah, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "15a47b0f42faabe490c7beb061286bc00e3ab023518578f82f7126d4b26b6267",
+      "english_matn": "“Seeking knowledge is obligatory.”",
+      "english_matn_sha256": "1a4fe660aee7cba5c0b55664c58a577de8508998274c37c1b427907401c301a3",
+      "identity": {
+        "arabic_local_extent": "matn",
+        "arabic_sequence_score": 1.0,
+        "arabic_shorter_sequence_coverage": 1.0,
+        "english_chain_token_f1": 0.73469388,
+        "english_full_similarity": 0.98200514,
+        "english_matn_similarity": 1.0,
+        "local_sequence_evidence": {
+          "printed_number": "٢",
+          "public_id": "alkafi-38",
+          "sequence_in_book": 38,
+          "volume": 1
+        },
+        "pdf_extent_evidence": {
+          "extent_kind": "marker_bound",
+          "following_marker": "H 37, Ch. 1, h3",
+          "marker": "H 36, Ch. 1, h2",
+          "pages": [
+            28
+          ],
+          "physical_volume": 1,
+          "preceding_marker": "H 35, Ch. 1, h1",
+          "printed_hadith_number": 36
+        },
+        "thresholds": {
+          "minimum_arabic_sequence_score": 0.8,
+          "minimum_arabic_shorter_sequence_coverage": 0.98,
+          "minimum_english_chain_token_f1": 0.55,
+          "minimum_english_full_similarity": 0.65,
+          "minimum_english_matn_similarity": 0.55
+        }
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/30",
+      "page_end": 30,
+      "page_start": 30,
+      "printed_number": "٢",
+      "public_id": "alkafi-38",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "green",
+        "flags": [],
+        "publication_flags": [],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 38,
+      "source_evidence": {
+        "classification": "verbatim_external_matn_excerpt",
+        "human_source_identity": {
+          "arabic_sha256": "c274461d0f109c7824da8be2675c856eafc1eb917b3d87abdf93b57db2c1957d",
+          "english_isnad_sha256": "f9e2ced8c8552ae81ff36d0909b103f05885e21a42a01c7c2485cc5598ab8820",
+          "english_matn_sha256": "1a4fe660aee7cba5c0b55664c58a577de8508998274c37c1b427907401c301a3",
+          "provider": "thaqalayn-data",
+          "record_id": 38,
+          "record_sha256": "0df9f27a83233a677b312cdc9ade9fa53e5c677b101092e7a780699f70eb0e51",
+          "snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "snapshot_source_url": "https://thaqalayndata.netlify.app",
+          "source_url": "https://thaqalayn.net/books/al-kafi:1:2:1:2",
+          "stored_english_sha256": "f6b8be73d9b62a1e5eab333bf17fd6e26be7d05b04532528f016bc274dd6b97f",
+          "translator": "Muhammad Sarwar"
+        },
+        "pdf": {
+          "english_isnad_sha256": "15a47b0f42faabe490c7beb061286bc00e3ab023518578f82f7126d4b26b6267",
+          "extent_kind": "marker_bound",
+          "following_marker": "H 37, Ch. 1, h3",
+          "full_record_sha256": "1b8465abfb752ae53a2dc6cdd18148542d57d6f8b2565d71276494831c0cfe2b",
+          "layout_operations": [
+            {
+              "operation": "join_hyphenated_pdf_line_wraps",
+              "reason": "Remove layout-only whitespace after a line-final hyphen.",
+              "scope": "PDF block extraction"
+            },
+            {
+              "detail": "bounded from selected H marker to its final English quotation",
+              "extent_kind": "marker_bound",
+              "operation": "bound_pdf_report_extent"
+            }
+          ],
+          "marker": "H 36, Ch. 1, h2",
+          "matn_sha256": "1a4fe660aee7cba5c0b55664c58a577de8508998274c37c1b427907401c301a3",
+          "pages": [
+            28
+          ],
+          "physical_volume": 1,
+          "preceding_marker": "H 35, Ch. 1, h1",
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf"
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "afabc12d36d0e9c8788598878f04f5b7c6b0b0cc6c74578b1197ff18108b8069",
+      "source_isnad_sha256": "2e65440574ef154b8c793f6d2e26176d6c3afcab62ec750be17951fc41fbdd82",
+      "source_matn_sha256": "bd60d209085baa9d55b9333bc919f6fa479d221571d0e1c351b9dff2b2f72774",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [
+          {
+            "operation": "join_hyphenated_pdf_line_wraps",
+            "reason": "Remove layout-only whitespace after a line-final hyphen.",
+            "scope": "PDF block extraction"
+          },
+          {
+            "detail": "bounded from selected H marker to its final English quotation",
+            "extent_kind": "marker_bound",
+            "operation": "bound_pdf_report_extent"
+          }
+        ],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_segment": {
+        "metadata_sha256": "45afb2428c4a1c17395e5d257cc204bc45801823ed1909b43e2fc6a232859b66",
+        "risk_level": "green",
+        "segment_id": 35,
+        "source_sha256": "a2497da882e14b22c06967903aced790a799a67f3d9c1139c1e606b4c3250b41",
+        "status": "published",
+        "translation_id": 32,
+        "translation_sha256": "b6fa28ff6336db2cf204c905bbc59915697edce4d6784b3d1625061d9f08556c"
+      },
+      "current_translation": {
+        "matn_sha256": "b6fa28ff6336db2cf204c905bbc59915697edce4d6784b3d1625061d9f08556c",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "612a32322f646edee52b4b0127e19cdcb0b6816f39537e86bfdab355be7ffff8",
+        "provider": "thaqalayn-data",
+        "rendered_isnad_sha256": null,
+        "risk_level": "green",
+        "source_full_sha256": "02112ed7c2257adada355c703429b1ea3810f2a87e09b9ef5dde40064a659cf4",
+        "source_isnad_sha256": "a71e3a2f5ac376af8232d1e615ef7707e097f8aaeb44b2b7fbd30adae4725c73",
+        "source_matn_sha256": "a2497da882e14b22c06967903aced790a799a67f3d9c1139c1e606b4c3250b41",
+        "status": "published",
+        "translation_id": 32
+      },
+      "english_isnad": "Ali ibn Ibrahim has narrated from Muhammad ibn ‘Isa from Yunus ibn ‘Abd al-Rahman from certain persons of his people who have said the following:",
+      "english_isnad_sha256": "2d4b25ce724fff3593ef01004e3b8e15e74625a79c8144d5f70fdd0f181b022b",
+      "english_matn": "“Once abu al-Hassan, recipient of divine supreme covenant, was asked, ‘Is it permissible for people to not seek what (religious knowledge) they need?’ The Imam, recipient of divine supreme covenant, said, ‘No, (it is not permissible to disregard learning).’”",
+      "english_matn_sha256": "1c9ce2e0c7fe75da2469391199e726f7c3f487c0c208d18e4d50343eaf44dc22",
+      "identity": {
+        "arabic_local_extent": "matn",
+        "arabic_sequence_score": 0.92035398,
+        "arabic_shorter_sequence_coverage": 1.0,
+        "english_chain_token_f1": 0.95238095,
+        "english_full_similarity": 0.96210873,
+        "english_matn_similarity": 0.9378882,
+        "local_sequence_evidence": {
+          "printed_number": "٣",
+          "public_id": "alkafi-39",
+          "sequence_in_book": 39,
+          "volume": 1
+        },
+        "pdf_extent_evidence": {
+          "extent_kind": "marker_bound",
+          "following_marker": "H 38, Ch. 1, h4",
+          "marker": "H 37, Ch. 1, h3",
+          "pages": [
+            28
+          ],
+          "physical_volume": 1,
+          "preceding_marker": "H 36, Ch. 1, h2",
+          "printed_hadith_number": 37
+        },
+        "thresholds": {
+          "minimum_arabic_sequence_score": 0.8,
+          "minimum_arabic_shorter_sequence_coverage": 0.98,
+          "minimum_english_chain_token_f1": 0.55,
+          "minimum_english_full_similarity": 0.65,
+          "minimum_english_matn_similarity": 0.55
+        }
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/30",
+      "page_end": 30,
+      "page_start": 30,
+      "printed_number": "٣",
+      "public_id": "alkafi-39",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "green",
+        "flags": [],
+        "publication_flags": [],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 39,
+      "source_evidence": {
+        "classification": "verbatim_external_matn_excerpt",
+        "human_source_identity": {
+          "arabic_sha256": "f0d9cf783debe36e5ef01ad9cf7e7061e58ff4b7adeed65a4b755c1dd237dbd9",
+          "english_isnad_sha256": "c3385574851251a938139d94550313dffc30b50e82376950b4527d4d5a30dd44",
+          "english_matn_sha256": "1c4cecb73aa9897f77dc4b3dca49158f2f6d48715c5ef8ce7aa733230b7d67da",
+          "provider": "thaqalayn-data",
+          "record_id": 39,
+          "record_sha256": "a738e7b6d3451ffbb491e8203368d9b6cc2212c22f3f8b17af769af8b456f6be",
+          "snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "snapshot_source_url": "https://thaqalayndata.netlify.app",
+          "source_url": "https://thaqalayn.net/books/al-kafi:1:2:1:3",
+          "stored_english_sha256": "b6fa28ff6336db2cf204c905bbc59915697edce4d6784b3d1625061d9f08556c",
+          "translator": "Muhammad Sarwar"
+        },
+        "pdf": {
+          "english_isnad_sha256": "2d4b25ce724fff3593ef01004e3b8e15e74625a79c8144d5f70fdd0f181b022b",
+          "extent_kind": "marker_bound",
+          "following_marker": "H 38, Ch. 1, h4",
+          "full_record_sha256": "0ae9173fde710e477b6ca5d349c3a3a7463ff9730c14c46971cbf9f508a9c325",
+          "layout_operations": [
+            {
+              "operation": "join_hyphenated_pdf_line_wraps",
+              "reason": "Remove layout-only whitespace after a line-final hyphen.",
+              "scope": "PDF block extraction"
+            },
+            {
+              "detail": "bounded from selected H marker to its final English quotation",
+              "extent_kind": "marker_bound",
+              "operation": "bound_pdf_report_extent"
+            }
+          ],
+          "marker": "H 37, Ch. 1, h3",
+          "matn_sha256": "1c9ce2e0c7fe75da2469391199e726f7c3f487c0c208d18e4d50343eaf44dc22",
+          "pages": [
+            28
+          ],
+          "physical_volume": 1,
+          "preceding_marker": "H 36, Ch. 1, h2",
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf"
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "02112ed7c2257adada355c703429b1ea3810f2a87e09b9ef5dde40064a659cf4",
+      "source_isnad_sha256": "a71e3a2f5ac376af8232d1e615ef7707e097f8aaeb44b2b7fbd30adae4725c73",
+      "source_matn_sha256": "a2497da882e14b22c06967903aced790a799a67f3d9c1139c1e606b4c3250b41",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [
+          {
+            "operation": "join_hyphenated_pdf_line_wraps",
+            "reason": "Remove layout-only whitespace after a line-final hyphen.",
+            "scope": "PDF block extraction"
+          },
+          {
+            "detail": "bounded from selected H marker to its final English quotation",
+            "extent_kind": "marker_bound",
+            "operation": "bound_pdf_report_extent"
+          }
+        ],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_segment": {
+        "metadata_sha256": "4f8cd269dae79b11cc3ba74404af580b908e698fab59532f286a9b7f665f5ab8",
+        "risk_level": "green",
+        "segment_id": 36,
+        "source_sha256": "198eb32662b458d833c0ac53f943a38f9ac0ce5cfcc38f26056362f9d3f1c8ea",
+        "status": "published",
+        "translation_id": 33,
+        "translation_sha256": "0858f5ac0cdbd3ab019edaf5545131c1abefb461bdeeb4aea34b7b63cddfcae1"
+      },
+      "current_translation": {
+        "matn_sha256": "0858f5ac0cdbd3ab019edaf5545131c1abefb461bdeeb4aea34b7b63cddfcae1",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "67c15081d5bdec3ae94c346a47716b3d0b963ade9d9cd52408b3765e71b2e652",
+        "provider": "thaqalayn-data",
+        "rendered_isnad_sha256": null,
+        "risk_level": "green",
+        "source_full_sha256": "7f17734f66b5f14e96cc633760ed1c6e9797df7b307ac17d7577d82a3897868c",
+        "source_isnad_sha256": "f0f299d0bfc475a0d7ac044162f8e50fc76b0f68052433eb74d9fccf3e38338a",
+        "source_matn_sha256": "198eb32662b458d833c0ac53f943a38f9ac0ce5cfcc38f26056362f9d3f1c8ea",
+        "status": "published",
+        "translation_id": 33
+      },
+      "english_isnad": "A number of our people have narrated from Ahmad ibn Muhammad al-Barqi from Ya’qub ibn Yazid from abu ‘Abd Allah, a man of our people narrated in a marfu‘ manner from abu ‘Abd Allah , recipient of divine supreme covenant, from the Holy Prophet, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "053f93e1133eae7e90e84cdd3a1250941216b0c14231ed2227856df01220b161",
+      "english_matn": "“Seeking knowledge is obligatory.” In another Hadith Imam abu ‘Abd Allah, recipient of divine supreme covenant, has narrated from the Holy Prophet who has said, “Seeking knowledge is obligatory for every Muslim. Allah, certainly, loves those who seek knowledge.”",
+      "english_matn_sha256": "1f286484556866ce3e95c1975cb851b4708120ed913c8c823bd8eb7bd88933a5",
+      "identity": {
+        "arabic_local_extent": "matn",
+        "arabic_sequence_score": 0.84137931,
+        "arabic_shorter_sequence_coverage": 1.0,
+        "english_chain_token_f1": 0.86842105,
+        "english_full_similarity": 0.94157303,
+        "english_matn_similarity": 0.91627907,
+        "local_sequence_evidence": {
+          "printed_number": "٥",
+          "public_id": "alkafi-41",
+          "sequence_in_book": 41,
+          "volume": 1
+        },
+        "pdf_extent_evidence": {
+          "extent_kind": "marker_bound",
+          "following_marker": "H 40, Ch. 1, h6",
+          "marker": "H 39, Ch. 1, h5",
+          "pages": [
+            28,
+            29
+          ],
+          "physical_volume": 1,
+          "preceding_marker": "H 38, Ch. 1, h4",
+          "printed_hadith_number": 39
+        },
+        "thresholds": {
+          "minimum_arabic_sequence_score": 0.8,
+          "minimum_arabic_shorter_sequence_coverage": 0.98,
+          "minimum_english_chain_token_f1": 0.55,
+          "minimum_english_full_similarity": 0.65,
+          "minimum_english_matn_similarity": 0.55
+        }
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/30",
+      "page_end": 31,
+      "page_start": 30,
+      "printed_number": "٥",
+      "public_id": "alkafi-41",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "green",
+        "flags": [],
+        "publication_flags": [],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 41,
+      "source_evidence": {
+        "classification": "verbatim_external_matn_excerpt",
+        "human_source_identity": {
+          "arabic_sha256": "93782e342eba7ed52d4f53ade56818ecec57caf9f16d5af3f5f4960f7f5134fe",
+          "english_isnad_sha256": "4551c52367761c45db7649b1b37369da252c35269411e0f387fb60679608a59c",
+          "english_matn_sha256": "ddd10d5036ecfadc0d44b6a8a27047c52a160b08248cc48da4155df9672e051b",
+          "provider": "thaqalayn-data",
+          "record_id": 41,
+          "record_sha256": "3b226ed597ef719ca5a7c54026c9809dd91b5d3bc2b4f5734a400718f1008391",
+          "snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "snapshot_source_url": "https://thaqalayndata.netlify.app",
+          "source_url": "https://thaqalayn.net/books/al-kafi:1:2:1:5",
+          "stored_english_sha256": "0858f5ac0cdbd3ab019edaf5545131c1abefb461bdeeb4aea34b7b63cddfcae1",
+          "translator": "Muhammad Sarwar"
+        },
+        "pdf": {
+          "english_isnad_sha256": "053f93e1133eae7e90e84cdd3a1250941216b0c14231ed2227856df01220b161",
+          "extent_kind": "marker_bound",
+          "following_marker": "H 40, Ch. 1, h6",
+          "full_record_sha256": "f0e3a9683118243c413de720329f6ba3beb721d7e3488b6fba3e7b679227f470",
+          "layout_operations": [
+            {
+              "operation": "join_hyphenated_pdf_line_wraps",
+              "reason": "Remove layout-only whitespace after a line-final hyphen.",
+              "scope": "PDF block extraction"
+            },
+            {
+              "detail": "bounded from selected H marker to its final English quotation",
+              "extent_kind": "marker_bound",
+              "operation": "bound_pdf_report_extent"
+            }
+          ],
+          "marker": "H 39, Ch. 1, h5",
+          "matn_sha256": "1f286484556866ce3e95c1975cb851b4708120ed913c8c823bd8eb7bd88933a5",
+          "pages": [
+            28,
+            29
+          ],
+          "physical_volume": 1,
+          "preceding_marker": "H 38, Ch. 1, h4",
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf"
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "7f17734f66b5f14e96cc633760ed1c6e9797df7b307ac17d7577d82a3897868c",
+      "source_isnad_sha256": "f0f299d0bfc475a0d7ac044162f8e50fc76b0f68052433eb74d9fccf3e38338a",
+      "source_matn_sha256": "198eb32662b458d833c0ac53f943a38f9ac0ce5cfcc38f26056362f9d3f1c8ea",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [
+          {
+            "operation": "join_hyphenated_pdf_line_wraps",
+            "reason": "Remove layout-only whitespace after a line-final hyphen.",
+            "scope": "PDF block extraction"
+          },
+          {
+            "detail": "bounded from selected H marker to its final English quotation",
+            "extent_kind": "marker_bound",
+            "operation": "bound_pdf_report_extent"
+          }
+        ],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_segment": {
+        "metadata_sha256": "61794a4276ac1cfed2ba7328e5aefb218f8e6728ae25c7960bd77f035a63bce0",
+        "risk_level": "green",
+        "segment_id": 37,
+        "source_sha256": "91413f4fab52307f1e6d54d914a6546733f7221e5a7c859383e4d7fbf0f02267",
+        "status": "published",
+        "translation_id": 34,
+        "translation_sha256": "b4dbc56b2871c247ab5fac113ac44f5efaf5e8537856a035cd96801545b6c666"
+      },
+      "current_translation": {
+        "matn_sha256": "b4dbc56b2871c247ab5fac113ac44f5efaf5e8537856a035cd96801545b6c666",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "82e1f3819ea2899565051b25bfa205535434afce4e1fbb08fb9cf70616f35e57",
+        "provider": "thaqalayn-data",
+        "rendered_isnad_sha256": null,
+        "risk_level": "green",
+        "source_full_sha256": "0b20cce68472b50de79ce8907df6df99baf69227a496df12f6c668555c67100b",
+        "source_isnad_sha256": "6494c042c2d20de8f5965c534fc929f3da62569fd0381cdbc1a30dbe8b589271",
+        "source_matn_sha256": "91413f4fab52307f1e6d54d914a6546733f7221e5a7c859383e4d7fbf0f02267",
+        "status": "published",
+        "translation_id": 34
+      },
+      "english_isnad": "Ali ibn Muhammad ibn ‘Abd Allah has narrated from Ahmad ibn Muhammad ibn Khalid from ‘Uthman ibn ‘Isa from Ali ibn abu Hamza who has said the following:",
+      "english_isnad_sha256": "f916afc7cbd7297138a45a6cb97906fe7536abef6ea7077070dbd96cf627b21a",
+      "english_matn": "“I heard Imam abu ‘Abd Allah, recipient of divine supreme covenant, saying, ‘Acquire a good understanding of religion; those of you who do not have good understanding in religion are like the Bedouins. Allah has said in His book, “Why do not certain people from each group of believers seek to become specialists in religious learning and, after completing their studies, guide their group so that they will have fear of Allah.’”",
+      "english_matn_sha256": "7bb63dae548f5adf333982709645978b697f7839550fa4e213ffb82f0e476378",
+      "identity": {
+        "arabic_local_extent": "matn",
+        "arabic_sequence_score": 0.96750903,
+        "arabic_shorter_sequence_coverage": 1.0,
+        "english_chain_token_f1": 0.93023256,
+        "english_full_similarity": 0.95908658,
+        "english_matn_similarity": 0.94429708,
+        "local_sequence_evidence": {
+          "printed_number": "٦",
+          "public_id": "alkafi-42",
+          "sequence_in_book": 42,
+          "volume": 1
+        },
+        "pdf_extent_evidence": {
+          "extent_kind": "marker_bound",
+          "following_marker": "H 41, Ch. 1, h7",
+          "marker": "H 40, Ch. 1, h6",
+          "pages": [
+            29
+          ],
+          "physical_volume": 1,
+          "preceding_marker": "H 39, Ch. 1, h5",
+          "printed_hadith_number": 40
+        },
+        "thresholds": {
+          "minimum_arabic_sequence_score": 0.8,
+          "minimum_arabic_shorter_sequence_coverage": 0.98,
+          "minimum_english_chain_token_f1": 0.55,
+          "minimum_english_full_similarity": 0.65,
+          "minimum_english_matn_similarity": 0.55
+        }
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/31",
+      "page_end": 31,
+      "page_start": 31,
+      "printed_number": "٦",
+      "public_id": "alkafi-42",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['1', '2'] do not match translation numbers [].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 1, 2.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 42,
+      "source_evidence": {
+        "classification": "verbatim_external_matn_excerpt",
+        "human_source_identity": {
+          "arabic_sha256": "dab2c3deb586415dc958fa439fae912fce4a424820f2291ba03ed7012e7b0e92",
+          "english_isnad_sha256": "29440e77114668a66beb6bae8190684870218f9a20687b9137a619b33ca8d7ca",
+          "english_matn_sha256": "ef6df35b04a049b73230527ca39047806e7e5b5998e38a861f023df58ce6de01",
+          "provider": "thaqalayn-data",
+          "record_id": 42,
+          "record_sha256": "914aa76b563bbc8d6f7ab60ca77124a58788a176a24acb7dd25e66a434db67f0",
+          "snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "snapshot_source_url": "https://thaqalayndata.netlify.app",
+          "source_url": "https://thaqalayn.net/books/al-kafi:1:2:1:6",
+          "stored_english_sha256": "b4dbc56b2871c247ab5fac113ac44f5efaf5e8537856a035cd96801545b6c666",
+          "translator": "Muhammad Sarwar"
+        },
+        "pdf": {
+          "english_isnad_sha256": "f916afc7cbd7297138a45a6cb97906fe7536abef6ea7077070dbd96cf627b21a",
+          "extent_kind": "marker_bound",
+          "following_marker": "H 41, Ch. 1, h7",
+          "full_record_sha256": "44d9ee1fa39a3fb75201918e30cf0325dc6e4375ef44cc01268edaeced47a551",
+          "layout_operations": [
+            {
+              "operation": "join_hyphenated_pdf_line_wraps",
+              "reason": "Remove layout-only whitespace after a line-final hyphen.",
+              "scope": "PDF block extraction"
+            },
+            {
+              "detail": "bounded from selected H marker to its final English quotation",
+              "extent_kind": "marker_bound",
+              "operation": "bound_pdf_report_extent"
+            }
+          ],
+          "marker": "H 40, Ch. 1, h6",
+          "matn_sha256": "7bb63dae548f5adf333982709645978b697f7839550fa4e213ffb82f0e476378",
+          "pages": [
+            29
+          ],
+          "physical_volume": 1,
+          "preceding_marker": "H 39, Ch. 1, h5",
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf"
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "0b20cce68472b50de79ce8907df6df99baf69227a496df12f6c668555c67100b",
+      "source_isnad_sha256": "6494c042c2d20de8f5965c534fc929f3da62569fd0381cdbc1a30dbe8b589271",
+      "source_matn_sha256": "91413f4fab52307f1e6d54d914a6546733f7221e5a7c859383e4d7fbf0f02267",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [
+          {
+            "operation": "join_hyphenated_pdf_line_wraps",
+            "reason": "Remove layout-only whitespace after a line-final hyphen.",
+            "scope": "PDF block extraction"
+          },
+          {
+            "detail": "bounded from selected H marker to its final English quotation",
+            "extent_kind": "marker_bound",
+            "operation": "bound_pdf_report_extent"
+          }
+        ],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_segment": {
+        "metadata_sha256": "eb2423de42208f6591ee5da692cb0f592c00904ef867234e26e62192886750d7",
+        "risk_level": "green",
+        "segment_id": 38,
+        "source_sha256": "5dffe3c7326dbb746d88aab5ae7e7e6bfad685feb7cf2991bb6b4428ea3ed7d8",
+        "status": "published",
+        "translation_id": 35,
+        "translation_sha256": "30d3ad9e97a2d3902428e5ca4b403077175e6f508dc1d4cf57d79f4e03796877"
+      },
+      "current_translation": {
+        "matn_sha256": "30d3ad9e97a2d3902428e5ca4b403077175e6f508dc1d4cf57d79f4e03796877",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "582418aba09632ad9ec028781d1653d3d652e4fbeac11114990d2ac5b6b3fbb8",
+        "provider": "thaqalayn-data",
+        "rendered_isnad_sha256": null,
+        "risk_level": "green",
+        "source_full_sha256": "4cb0f561075540d623fbb14ca0b3f2be2b52c348016874af6d604faaf78fb410",
+        "source_isnad_sha256": "b00d3a5f8a6ac36fdfbf303064bcd7d355881665756b664b39b33121facf3d08",
+        "source_matn_sha256": "5dffe3c7326dbb746d88aab5ae7e7e6bfad685feb7cf2991bb6b4428ea3ed7d8",
+        "status": "published",
+        "translation_id": 35
+      },
+      "english_isnad": "Al-Husayn ibn Muhammad has narrated from Ja‘far ibn Muhammad from al-Qasim ibn al-Rabi’ from Mufaddl ibn ‘Umar who has said the following:",
+      "english_isnad_sha256": "1cf5feea0e0f6dfaab0a12d5e92aa1a5bea5b35ca991a9ba1226580288343397",
+      "english_matn": "“I heard abu ‘Abd Allah, recipient of divine supreme covenant, saying, ‘It is necessary for you to have good understanding of religion of Allah. Do not be like Bedouins; on the Day of Judgment Allah will not look to those who do not gain a good understanding of religion, and none of their deeds will be cleansed.’”",
+      "english_matn_sha256": "0dd0044689913a1e969e74a7aa4bddd00b8621ce1aadd3b2db0abe7646ace03b",
+      "identity": {
+        "arabic_local_extent": "matn",
+        "arabic_sequence_score": 0.96170213,
+        "arabic_shorter_sequence_coverage": 1.0,
+        "english_chain_token_f1": 0.89473684,
+        "english_full_similarity": 0.86279357,
+        "english_matn_similarity": 0.80297398,
+        "local_sequence_evidence": {
+          "printed_number": "٧",
+          "public_id": "alkafi-43",
+          "sequence_in_book": 43,
+          "volume": 1
+        },
+        "pdf_extent_evidence": {
+          "extent_kind": "marker_bound",
+          "following_marker": "H 42, Ch. 1, h8",
+          "marker": "H 41, Ch. 1, h7",
+          "pages": [
+            29
+          ],
+          "physical_volume": 1,
+          "preceding_marker": "H 40, Ch. 1, h6",
+          "printed_hadith_number": 41
+        },
+        "thresholds": {
+          "minimum_arabic_sequence_score": 0.8,
+          "minimum_arabic_shorter_sequence_coverage": 0.98,
+          "minimum_english_chain_token_f1": 0.55,
+          "minimum_english_full_similarity": 0.65,
+          "minimum_english_matn_similarity": 0.55
+        }
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/31",
+      "page_end": 31,
+      "page_start": 31,
+      "printed_number": "٧",
+      "public_id": "alkafi-43",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['3', '4'] do not match translation numbers [].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 3, 4.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 43,
+      "source_evidence": {
+        "classification": "verbatim_external_matn_excerpt",
+        "human_source_identity": {
+          "arabic_sha256": "f9a44c8a01df53824dcacf03443695242f66e2f93d7ae9d6399e4b14c5b1bb0b",
+          "english_isnad_sha256": "d0c8131b58c5fd8a62236670189ca961a634e60a845fc1b4f658d321ad8e4945",
+          "english_matn_sha256": "48a1dc2e543d4a6b89e9fdbe84a8e88248069aeb90a0b8c29078165fa30a59c1",
+          "provider": "thaqalayn-data",
+          "record_id": 43,
+          "record_sha256": "b0b46d736573b8165deff9fdf9cad4a4c43a0551a8f5dfed369cfe70b2a47347",
+          "snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "snapshot_source_url": "https://thaqalayndata.netlify.app",
+          "source_url": "https://thaqalayn.net/books/al-kafi:1:2:1:7",
+          "stored_english_sha256": "30d3ad9e97a2d3902428e5ca4b403077175e6f508dc1d4cf57d79f4e03796877",
+          "translator": "Muhammad Sarwar"
+        },
+        "pdf": {
+          "english_isnad_sha256": "1cf5feea0e0f6dfaab0a12d5e92aa1a5bea5b35ca991a9ba1226580288343397",
+          "extent_kind": "marker_bound",
+          "following_marker": "H 42, Ch. 1, h8",
+          "full_record_sha256": "433f0acd858c543ebb04819acb6504248f6bad4d1b08ab8be7e624525b65bc12",
+          "layout_operations": [
+            {
+              "operation": "join_hyphenated_pdf_line_wraps",
+              "reason": "Remove layout-only whitespace after a line-final hyphen.",
+              "scope": "PDF block extraction"
+            },
+            {
+              "detail": "bounded from selected H marker to its final English quotation",
+              "extent_kind": "marker_bound",
+              "operation": "bound_pdf_report_extent"
+            }
+          ],
+          "marker": "H 41, Ch. 1, h7",
+          "matn_sha256": "0dd0044689913a1e969e74a7aa4bddd00b8621ce1aadd3b2db0abe7646ace03b",
+          "pages": [
+            29
+          ],
+          "physical_volume": 1,
+          "preceding_marker": "H 40, Ch. 1, h6",
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf"
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "4cb0f561075540d623fbb14ca0b3f2be2b52c348016874af6d604faaf78fb410",
+      "source_isnad_sha256": "b00d3a5f8a6ac36fdfbf303064bcd7d355881665756b664b39b33121facf3d08",
+      "source_matn_sha256": "5dffe3c7326dbb746d88aab5ae7e7e6bfad685feb7cf2991bb6b4428ea3ed7d8",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [
+          {
+            "operation": "join_hyphenated_pdf_line_wraps",
+            "reason": "Remove layout-only whitespace after a line-final hyphen.",
+            "scope": "PDF block extraction"
+          },
+          {
+            "detail": "bounded from selected H marker to its final English quotation",
+            "extent_kind": "marker_bound",
+            "operation": "bound_pdf_report_extent"
+          }
+        ],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_segment": {
+        "metadata_sha256": "f0ef7bec545f8ecb458981334c261314be2feeadf78d699ad518b7e6ca6c6ff4",
+        "risk_level": "green",
+        "segment_id": 39,
+        "source_sha256": "3addb87c9307b049ccf7a09ef3558826183d27c3263f49a37e6d8eb90464dd0e",
+        "status": "published",
+        "translation_id": 36,
+        "translation_sha256": "2914ac41cb7485dad861504e6f59239bab0d1e2f64c6d8dd28bafb97ac53ff07"
+      },
+      "current_translation": {
+        "matn_sha256": "2914ac41cb7485dad861504e6f59239bab0d1e2f64c6d8dd28bafb97ac53ff07",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "f713d05a9fed6c967e5bdbc1155d6b835fd0961fdb7764460ad41b7e6d707069",
+        "provider": "thaqalayn-data",
+        "rendered_isnad_sha256": null,
+        "risk_level": "green",
+        "source_full_sha256": "63af633794a7b86bf7835f4595724d24c1c0c8f7c5b7ad7d5fabc9c2c8795b9b",
+        "source_isnad_sha256": "71c56e5a800906ee4778c9d36306d132db711b83b4bd6ccc9c99b65b16ebbe1d",
+        "source_matn_sha256": "3addb87c9307b049ccf7a09ef3558826183d27c3263f49a37e6d8eb90464dd0e",
+        "status": "published",
+        "translation_id": 36
+      },
+      "english_isnad": "Muhammad ibn ’Isma‘il has narrated from al-Fadl ibn Shadhan from ibn abu ‘Umayr from Jamil ibn Durraj from Aban ibn Taghlib from abu ‘Abd Allah, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "eb34c01b94d1a14b69ecbd239634b2a25e1ebd5ba639963eb5681ae3d00bb18a",
+      "english_matn": "“I like to teach my associates and followers to have good understanding of religion even if it may become necessary to use my whip on their heads.”",
+      "english_matn_sha256": "4611b5515f57f554f1c11d0803060feddeb2fff6593ebf1e117b2e25e9010ed3",
+      "identity": {
+        "arabic_local_extent": "matn",
+        "arabic_sequence_score": 1.0,
+        "arabic_shorter_sequence_coverage": 1.0,
+        "english_chain_token_f1": 0.90196078,
+        "english_full_similarity": 0.94516129,
+        "english_matn_similarity": 0.88501742,
+        "local_sequence_evidence": {
+          "printed_number": "٨",
+          "public_id": "alkafi-44",
+          "sequence_in_book": 44,
+          "volume": 1
+        },
+        "pdf_extent_evidence": {
+          "extent_kind": "marker_bound",
+          "following_marker": "H 43, Ch. 1, h9",
+          "marker": "H 42, Ch. 1, h8",
+          "pages": [
+            29
+          ],
+          "physical_volume": 1,
+          "preceding_marker": "H 41, Ch. 1, h7",
+          "printed_hadith_number": 42
+        },
+        "thresholds": {
+          "minimum_arabic_sequence_score": 0.8,
+          "minimum_arabic_shorter_sequence_coverage": 0.98,
+          "minimum_english_chain_token_f1": 0.55,
+          "minimum_english_full_similarity": 0.65,
+          "minimum_english_matn_similarity": 0.55
+        }
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/31",
+      "page_end": 31,
+      "page_start": 31,
+      "printed_number": "٨",
+      "public_id": "alkafi-44",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['5'] do not match translation numbers [].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 5.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 44,
+      "source_evidence": {
+        "classification": "verbatim_external_matn_excerpt",
+        "human_source_identity": {
+          "arabic_sha256": "b93917f8b8c34919fc8ed1b799afcf4aaf658512ff23599e51810f790db3bfb1",
+          "english_isnad_sha256": "67058f3e0e00ca762fd700ce2a42796c1ce144423344f57f09f6d37f114fc855",
+          "english_matn_sha256": "df0c58960f84b5bd1f0fb13eacdec48c0e297683fca29cd4e56a1badd55b78f0",
+          "provider": "thaqalayn-data",
+          "record_id": 44,
+          "record_sha256": "0504f5d1d0c2e1c68db136c4aa9908d7d6e2772320cc020f62245b1c519b7f9c",
+          "snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "snapshot_source_url": "https://thaqalayndata.netlify.app",
+          "source_url": "https://thaqalayn.net/books/al-kafi:1:2:1:8",
+          "stored_english_sha256": "2914ac41cb7485dad861504e6f59239bab0d1e2f64c6d8dd28bafb97ac53ff07",
+          "translator": "Muhammad Sarwar"
+        },
+        "pdf": {
+          "english_isnad_sha256": "eb34c01b94d1a14b69ecbd239634b2a25e1ebd5ba639963eb5681ae3d00bb18a",
+          "extent_kind": "marker_bound",
+          "following_marker": "H 43, Ch. 1, h9",
+          "full_record_sha256": "fca17e031fe3f41bd1ef01cc2a85321954c31c13f7264c58a1b4b3b9eaffbdcb",
+          "layout_operations": [
+            {
+              "operation": "join_hyphenated_pdf_line_wraps",
+              "reason": "Remove layout-only whitespace after a line-final hyphen.",
+              "scope": "PDF block extraction"
+            },
+            {
+              "detail": "bounded from selected H marker to its final English quotation",
+              "extent_kind": "marker_bound",
+              "operation": "bound_pdf_report_extent"
+            }
+          ],
+          "marker": "H 42, Ch. 1, h8",
+          "matn_sha256": "4611b5515f57f554f1c11d0803060feddeb2fff6593ebf1e117b2e25e9010ed3",
+          "pages": [
+            29
+          ],
+          "physical_volume": 1,
+          "preceding_marker": "H 41, Ch. 1, h7",
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf"
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "63af633794a7b86bf7835f4595724d24c1c0c8f7c5b7ad7d5fabc9c2c8795b9b",
+      "source_isnad_sha256": "71c56e5a800906ee4778c9d36306d132db711b83b4bd6ccc9c99b65b16ebbe1d",
+      "source_matn_sha256": "3addb87c9307b049ccf7a09ef3558826183d27c3263f49a37e6d8eb90464dd0e",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [
+          {
+            "operation": "join_hyphenated_pdf_line_wraps",
+            "reason": "Remove layout-only whitespace after a line-final hyphen.",
+            "scope": "PDF block extraction"
+          },
+          {
+            "detail": "bounded from selected H marker to its final English quotation",
+            "extent_kind": "marker_bound",
+            "operation": "bound_pdf_report_extent"
+          }
+        ],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_segment": {
+        "metadata_sha256": "d79fab87be0a7fe800828ccf2d6f6371743be92986d2ad279300f7e5b97954a6",
+        "risk_level": "green",
+        "segment_id": 40,
+        "source_sha256": "eb0ef577185da64e40bc905a36639bdb269c451173c2e9f1b94624cd03efdc6d",
+        "status": "published",
+        "translation_id": 37,
+        "translation_sha256": "4aa01ea00724f01a332a8ea693a3085a1fa1aff5d47fc52a1f781f3bf37b52ec"
+      },
+      "current_translation": {
+        "matn_sha256": "4aa01ea00724f01a332a8ea693a3085a1fa1aff5d47fc52a1f781f3bf37b52ec",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "15a1424d5d0845e398f55e7d334cc664c451aaf5e90d38781ca7af26d603c676",
+        "provider": "thaqalayn-data",
+        "rendered_isnad_sha256": null,
+        "risk_level": "green",
+        "source_full_sha256": "ca0a48951cafb5e61c12957aba710feb0406c98f31a2843bb1e0f12e2e7a4aaf",
+        "source_isnad_sha256": "29b20707b5257dddde3f4e43d84edc02f45b0f7852c361a3b8339dcd63d28fac",
+        "source_matn_sha256": "eb0ef577185da64e40bc905a36639bdb269c451173c2e9f1b94624cd03efdc6d",
+        "status": "published",
+        "translation_id": 37
+      },
+      "english_isnad": "Ali ibn Muhammad has narrated from Sahl ibn Ziyad from Muhammad ibn ‘Isa from one who narrated to him from abu ‘Abd Allah , recipient of divine supreme covenant, the following:",
+      "english_isnad_sha256": "10502ce2c78cd0c40e45bddd912c53737ad1f6cda0ca4117aabcbc343fc77f56",
+      "english_matn": "“The narrator has said that a man once said to the Imam, recipient of divine supreme covenant, ‘May Allah keep my soul in your service, what (do you say) about a man who believes in this fact (the Leadership of Ahl al-Bayt with Divine Authority) but keeps at home and does not acquaint himself with his brethren?’ “Abu ‘Abd Allah, recipient of divine supreme covenant, said, ‘How then does he achieve good understanding of his religion?’”",
+      "english_matn_sha256": "3cfca4596721009c4498cc679825c9ae9c14703c949b6320385adaa386d8ce92",
+      "identity": {
+        "arabic_local_extent": "matn",
+        "arabic_sequence_score": 1.0,
+        "arabic_shorter_sequence_coverage": 1.0,
+        "english_chain_token_f1": 0.87804878,
+        "english_full_similarity": 0.8800905,
+        "english_matn_similarity": 0.82982172,
+        "local_sequence_evidence": {
+          "printed_number": "٩",
+          "public_id": "alkafi-45",
+          "sequence_in_book": 45,
+          "volume": 1
+        },
+        "pdf_extent_evidence": {
+          "extent_kind": "marker_bound",
+          "following_marker": "H 44, Ch. 2, h1",
+          "marker": "H 43, Ch. 1, h9",
+          "pages": [
+            29
+          ],
+          "physical_volume": 1,
+          "preceding_marker": "H 42, Ch. 1, h8",
+          "printed_hadith_number": 43
+        },
+        "thresholds": {
+          "minimum_arabic_sequence_score": 0.8,
+          "minimum_arabic_shorter_sequence_coverage": 0.98,
+          "minimum_english_chain_token_f1": 0.55,
+          "minimum_english_full_similarity": 0.65,
+          "minimum_english_matn_similarity": 0.55
+        }
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/31",
+      "page_end": 31,
+      "page_start": 31,
+      "printed_number": "٩",
+      "public_id": "alkafi-45",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "green",
+        "flags": [],
+        "publication_flags": [],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 45,
+      "source_evidence": {
+        "classification": "verbatim_external_matn_excerpt",
+        "human_source_identity": {
+          "arabic_sha256": "2c2b03933244fb2644d243b6479ba3261e7f6845211650529aaba37824a4585f",
+          "english_isnad_sha256": "3e30c7d2db52fd5556a32ff7de62f0628d75abaf578b78577a02e737e4973114",
+          "english_matn_sha256": "10ad9f78731a09af2014f5a56ae8e95e0e20821786a0e9b43b0c109244bab49f",
+          "provider": "thaqalayn-data",
+          "record_id": 45,
+          "record_sha256": "038f1a7653222afe4553dbe58127db16e556fd6370790d4b76d7e643a6cd2c83",
+          "snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "snapshot_source_url": "https://thaqalayndata.netlify.app",
+          "source_url": "https://thaqalayn.net/books/al-kafi:1:2:1:9",
+          "stored_english_sha256": "4aa01ea00724f01a332a8ea693a3085a1fa1aff5d47fc52a1f781f3bf37b52ec",
+          "translator": "Muhammad Sarwar"
+        },
+        "pdf": {
+          "english_isnad_sha256": "10502ce2c78cd0c40e45bddd912c53737ad1f6cda0ca4117aabcbc343fc77f56",
+          "extent_kind": "marker_bound",
+          "following_marker": "H 44, Ch. 2, h1",
+          "full_record_sha256": "b3e1801b3672fffe50927a2d462359fc82419bf1d09738559a727d6e7ec03509",
+          "layout_operations": [
+            {
+              "operation": "join_hyphenated_pdf_line_wraps",
+              "reason": "Remove layout-only whitespace after a line-final hyphen.",
+              "scope": "PDF block extraction"
+            },
+            {
+              "detail": "bounded from selected H marker to its final English quotation",
+              "extent_kind": "marker_bound",
+              "operation": "bound_pdf_report_extent"
+            }
+          ],
+          "marker": "H 43, Ch. 1, h9",
+          "matn_sha256": "3cfca4596721009c4498cc679825c9ae9c14703c949b6320385adaa386d8ce92",
+          "pages": [
+            29
+          ],
+          "physical_volume": 1,
+          "preceding_marker": "H 42, Ch. 1, h8",
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf"
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "ca0a48951cafb5e61c12957aba710feb0406c98f31a2843bb1e0f12e2e7a4aaf",
+      "source_isnad_sha256": "29b20707b5257dddde3f4e43d84edc02f45b0f7852c361a3b8339dcd63d28fac",
+      "source_matn_sha256": "eb0ef577185da64e40bc905a36639bdb269c451173c2e9f1b94624cd03efdc6d",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [
+          {
+            "operation": "join_hyphenated_pdf_line_wraps",
+            "reason": "Remove layout-only whitespace after a line-final hyphen.",
+            "scope": "PDF block extraction"
+          },
+          {
+            "detail": "bounded from selected H marker to its final English quotation",
+            "extent_kind": "marker_bound",
+            "operation": "bound_pdf_report_extent"
+          }
+        ],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_segment": {
+        "metadata_sha256": "a4bb6b1a25b5bab8c648f099ac6767538f65fe69f11f4fc600cfce59e86668fb",
+        "risk_level": "green",
+        "segment_id": 41,
+        "source_sha256": "e20774d9d560d029cb61e46bf49317b00c4760cc5b01f945e639982173a1ffc6",
+        "status": "published",
+        "translation_id": 38,
+        "translation_sha256": "b2f1d436e7c3c60dad3cadcc1078874211a48ee1977dc4f05c806021b6f589fc"
+      },
+      "current_translation": {
+        "matn_sha256": "b2f1d436e7c3c60dad3cadcc1078874211a48ee1977dc4f05c806021b6f589fc",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "65f9e6da8e8377100baecb3f4035066d3476bce031e36c1f7f62c8cab47aae3f",
+        "provider": "thaqalayn-data",
+        "rendered_isnad_sha256": null,
+        "risk_level": "green",
+        "source_full_sha256": "84b49bef828a3dd5efae5c5d5da2ec4b2a38da96ada50ac08d84aa4591a83c70",
+        "source_isnad_sha256": "c057d2b94d0e0762df9453d47c06e286d54b0558cf2075550ab73038aaa7233f",
+        "source_matn_sha256": "e20774d9d560d029cb61e46bf49317b00c4760cc5b01f945e639982173a1ffc6",
+        "status": "published",
+        "translation_id": 38
+      },
+      "english_isnad": "Al-Hassan ibn Muhammad has narrated from Mu‘alla ibn Muhammad from al-Hassan ibn Ali al-Washsha’ from Hammad ibn ‘Uthman from abu ‘Abd Allah, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "573e4560daaa70e3356dbf036d403a4f901536db00eeb8d1330af9daed627f20",
+      "english_matn": "“When Allah wants goodness for a person He grants him Fiqh (good understanding of religion).”",
+      "english_matn_sha256": "5ed620b965fdd6730b010732d5c0563a04ad2dbcd012babe660dc49362ebc7df",
+      "identity": {
+        "arabic_local_extent": "matn",
+        "arabic_sequence_score": 1.0,
+        "arabic_shorter_sequence_coverage": 1.0,
+        "english_chain_token_f1": 0.89795918,
+        "english_full_similarity": 0.98406375,
+        "english_matn_similarity": 0.96,
+        "local_sequence_evidence": {
+          "printed_number": "٣",
+          "public_id": "alkafi-48",
+          "sequence_in_book": 48,
+          "volume": 1
+        },
+        "pdf_extent_evidence": {
+          "extent_kind": "marker_bound",
+          "following_marker": "H 47, Ch. 2, h4",
+          "marker": "H 46, Ch. 2, h3",
+          "pages": [
+            30
+          ],
+          "physical_volume": 1,
+          "preceding_marker": "H 45, Ch. 2, h2",
+          "printed_hadith_number": 46
+        },
+        "thresholds": {
+          "minimum_arabic_sequence_score": 0.8,
+          "minimum_arabic_shorter_sequence_coverage": 0.98,
+          "minimum_english_chain_token_f1": 0.55,
+          "minimum_english_full_similarity": 0.65,
+          "minimum_english_matn_similarity": 0.55
+        }
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/32",
+      "page_end": 32,
+      "page_start": 32,
+      "printed_number": "٣",
+      "public_id": "alkafi-48",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "green",
+        "flags": [],
+        "publication_flags": [],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 48,
+      "source_evidence": {
+        "classification": "verbatim_external_matn_excerpt",
+        "human_source_identity": {
+          "arabic_sha256": "7c570c6b750f9c7ea02acb3f73d411f7b798c36958af6fb1cd76540eaee4c50e",
+          "english_isnad_sha256": "1eef010faafb43f0a85738f01af16132ebe4db7289485d9d347013a49430b67c",
+          "english_matn_sha256": "d7739122466e823b1afeb793f766ba0fdc0a2f857518cafbba5198309c04f802",
+          "provider": "thaqalayn-data",
+          "record_id": 48,
+          "record_sha256": "3c0852c45374e450809c6fd8fef8d1d4f0b6d27fea04a4434d864e0ac9c18b4b",
+          "snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "snapshot_source_url": "https://thaqalayndata.netlify.app",
+          "source_url": "https://thaqalayn.net/books/al-kafi:1:2:2:3",
+          "stored_english_sha256": "b2f1d436e7c3c60dad3cadcc1078874211a48ee1977dc4f05c806021b6f589fc",
+          "translator": "Muhammad Sarwar"
+        },
+        "pdf": {
+          "english_isnad_sha256": "573e4560daaa70e3356dbf036d403a4f901536db00eeb8d1330af9daed627f20",
+          "extent_kind": "marker_bound",
+          "following_marker": "H 47, Ch. 2, h4",
+          "full_record_sha256": "dbdccc02db967a00ec3924656c2f5e4ca4927a4c33d91c820a478f7f0069c361",
+          "layout_operations": [
+            {
+              "operation": "join_hyphenated_pdf_line_wraps",
+              "reason": "Remove layout-only whitespace after a line-final hyphen.",
+              "scope": "PDF block extraction"
+            },
+            {
+              "detail": "bounded from selected H marker to its final English quotation",
+              "extent_kind": "marker_bound",
+              "operation": "bound_pdf_report_extent"
+            }
+          ],
+          "marker": "H 46, Ch. 2, h3",
+          "matn_sha256": "5ed620b965fdd6730b010732d5c0563a04ad2dbcd012babe660dc49362ebc7df",
+          "pages": [
+            30
+          ],
+          "physical_volume": 1,
+          "preceding_marker": "H 45, Ch. 2, h2",
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf"
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "84b49bef828a3dd5efae5c5d5da2ec4b2a38da96ada50ac08d84aa4591a83c70",
+      "source_isnad_sha256": "c057d2b94d0e0762df9453d47c06e286d54b0558cf2075550ab73038aaa7233f",
+      "source_matn_sha256": "e20774d9d560d029cb61e46bf49317b00c4760cc5b01f945e639982173a1ffc6",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [
+          {
+            "operation": "join_hyphenated_pdf_line_wraps",
+            "reason": "Remove layout-only whitespace after a line-final hyphen.",
+            "scope": "PDF block extraction"
+          },
+          {
+            "detail": "bounded from selected H marker to its final English quotation",
+            "extent_kind": "marker_bound",
+            "operation": "bound_pdf_report_extent"
+          }
+        ],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_segment": {
+        "metadata_sha256": "38e19c8f8f1db8c68127e7e41244bdcf2fe34669807c6a0ae0ea7c133f261909",
+        "risk_level": "green",
+        "segment_id": 42,
+        "source_sha256": "8c5b14b0906ec278f49746ca6e31c3470faaa3c51e49115e978e7515d69bcf84",
+        "status": "published",
+        "translation_id": 39,
+        "translation_sha256": "e9a32ade7587ea2580af096a967a3e421957e5634e218ba73ba3d0b6dd7864d7"
+      },
+      "current_translation": {
+        "matn_sha256": "e9a32ade7587ea2580af096a967a3e421957e5634e218ba73ba3d0b6dd7864d7",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "39bf32edf92eb7b0bf00f70e4c81fd030460cac441c7f99dbe8fed318dead18c",
+        "provider": "thaqalayn-data",
+        "rendered_isnad_sha256": null,
+        "risk_level": "green",
+        "source_full_sha256": "47991b089cb36036566902f7096f4e09801b50b62f73fc3cd621c76e57c7b776",
+        "source_isnad_sha256": "95893cde5e135e8575a497a1d80f645af6e202250da08d41169ac2d932c5531e",
+        "source_matn_sha256": "8c5b14b0906ec278f49746ca6e31c3470faaa3c51e49115e978e7515d69bcf84",
+        "status": "published",
+        "translation_id": 39
+      },
+      "english_isnad": "Muhammad ibn ’Isma‘il has narrated from Fadl ibn Shadhan from Hammad ibn ‘Isa from Rab‘i ibn ‘Abd Allah from a man from abu Ja‘far, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "82028d6ac96c9bf1364e952c65771a4dd29c215282bddde78034296b9a82e44f",
+      "english_matn": "“The entirety of excellence and perfection is in (a) good understanding of religion, (b) exercising patience in hardships and (c) proper planning for one’s means of living.”",
+      "english_matn_sha256": "5c1037512d4ef264e980d74dda43a453a4bff48f1fe108cf4c0798e5b307941c",
+      "identity": {
+        "arabic_local_extent": "matn",
+        "arabic_sequence_score": 1.0,
+        "arabic_shorter_sequence_coverage": 1.0,
+        "english_chain_token_f1": 0.89361702,
+        "english_full_similarity": 0.91909385,
+        "english_matn_similarity": 0.84444444,
+        "local_sequence_evidence": {
+          "printed_number": "٤",
+          "public_id": "alkafi-49",
+          "sequence_in_book": 49,
+          "volume": 1
+        },
+        "pdf_extent_evidence": {
+          "extent_kind": "marker_bound",
+          "following_marker": "H 48, Ch. 2, h5",
+          "marker": "H 47, Ch. 2, h4",
+          "pages": [
+            30
+          ],
+          "physical_volume": 1,
+          "preceding_marker": "H 46, Ch. 2, h3",
+          "printed_hadith_number": 47
+        },
+        "thresholds": {
+          "minimum_arabic_sequence_score": 0.8,
+          "minimum_arabic_shorter_sequence_coverage": 0.98,
+          "minimum_english_chain_token_f1": 0.55,
+          "minimum_english_full_similarity": 0.65,
+          "minimum_english_matn_similarity": 0.55
+        }
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/1/32",
+      "page_end": 32,
+      "page_start": 32,
+      "printed_number": "٤",
+      "public_id": "alkafi-49",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['4'] do not match translation numbers [].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 4.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 49,
+      "source_evidence": {
+        "classification": "verbatim_external_matn_excerpt",
+        "human_source_identity": {
+          "arabic_sha256": "425b975e344548282e0d63cec06958d19dd813e7dfb675c79fe978c6f7543acc",
+          "english_isnad_sha256": "17f1c22720fab26807decb0cb92754e7bc7d3e13cb7b7e9718fdab6ed580f3f8",
+          "english_matn_sha256": "d4e069ba322fc68b75b1b34dd6590253a458d857489ca44feddf7d7c3ecc7cd2",
+          "provider": "thaqalayn-data",
+          "record_id": 49,
+          "record_sha256": "9f9c8a509f9fccfb4e36391e4eb90adaa28eef3fdcde42667c86c60b557af185",
+          "snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "snapshot_source_url": "https://thaqalayndata.netlify.app",
+          "source_url": "https://thaqalayn.net/books/al-kafi:1:2:2:4",
+          "stored_english_sha256": "e9a32ade7587ea2580af096a967a3e421957e5634e218ba73ba3d0b6dd7864d7",
+          "translator": "Muhammad Sarwar"
+        },
+        "pdf": {
+          "english_isnad_sha256": "82028d6ac96c9bf1364e952c65771a4dd29c215282bddde78034296b9a82e44f",
+          "extent_kind": "marker_bound",
+          "following_marker": "H 48, Ch. 2, h5",
+          "full_record_sha256": "d9138f3f4e49aba1de4b8280b1acfa8aaa9bba62731b92fd93607e1b9ffb5c87",
+          "layout_operations": [
+            {
+              "operation": "join_hyphenated_pdf_line_wraps",
+              "reason": "Remove layout-only whitespace after a line-final hyphen.",
+              "scope": "PDF block extraction"
+            },
+            {
+              "detail": "bounded from selected H marker to its final English quotation",
+              "extent_kind": "marker_bound",
+              "operation": "bound_pdf_report_extent"
+            }
+          ],
+          "marker": "H 47, Ch. 2, h4",
+          "matn_sha256": "5c1037512d4ef264e980d74dda43a453a4bff48f1fe108cf4c0798e5b307941c",
+          "pages": [
+            30
+          ],
+          "physical_volume": 1,
+          "preceding_marker": "H 46, Ch. 2, h3",
+          "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf"
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "47991b089cb36036566902f7096f4e09801b50b62f73fc3cd621c76e57c7b776",
+      "source_isnad_sha256": "95893cde5e135e8575a497a1d80f645af6e202250da08d41169ac2d932c5531e",
+      "source_matn_sha256": "8c5b14b0906ec278f49746ca6e31c3470faaa3c51e49115e978e7515d69bcf84",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [
+          {
+            "operation": "join_hyphenated_pdf_line_wraps",
+            "reason": "Remove layout-only whitespace after a line-final hyphen.",
+            "scope": "PDF block extraction"
+          },
+          {
+            "detail": "bounded from selected H marker to its final English quotation",
+            "extent_kind": "marker_bound",
+            "operation": "bound_pdf_report_extent"
+          }
+        ],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 1
+    },
+    {
+      "current_segment": {
+        "metadata_sha256": "c16ec09e89040a57f61920dd13bbec431c689f4029c1ca21c59234e438834106",
+        "risk_level": "green",
+        "segment_id": 43,
+        "source_sha256": "cdfaf79318ab0127767ddc35c779b8b0a5ef9c17a906ea13311454893edee33f",
+        "status": "published",
+        "translation_id": 40,
+        "translation_sha256": "56f7d9e747b5ce30c61790b3796e8a0bc728ba2e03df92a017621556caf4a4a6"
+      },
+      "current_translation": {
+        "matn_sha256": "56f7d9e747b5ce30c61790b3796e8a0bc728ba2e03df92a017621556caf4a4a6",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "f0208c16b0f85a11d11df31dfcd5ac3b317e24818c7ccb8d139a24c325415eb2",
+        "provider": "thaqalayn-data",
+        "rendered_isnad_sha256": null,
+        "risk_level": "green",
+        "source_full_sha256": "cabb2bb3159dc15ef397d1697a10161f01065595289c42fb5fd603fbcc0d77e1",
+        "source_isnad_sha256": "4b32b3d54212e3d55d47ac2a618ab29b6f3ae1390f22867c73f3ff0979d473dc",
+        "source_matn_sha256": "cdfaf79318ab0127767ddc35c779b8b0a5ef9c17a906ea13311454893edee33f",
+        "status": "published",
+        "translation_id": 40
+      },
+      "english_isnad": "Ali ibn Ibrahim has narrated from his father from Hammad ibn ‘Isa from Rib’i ibn ‘Abd Allah from a man from Ali ibn al-Husayn, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "b04278e543c5363bf098482924ad2fc59383798788e063f46466cd1d8adb9b85",
+      "english_matn": "“Allah, the Majestic, the Glorious, created the prophets from the clay of ‘Illiyiyyn (paradise), both their bodies and souls. He made the hearts of the believers from such clay and He made their bodies from a world lower than that world. He created the unbelievers, both their bodies and souls from the clay of Sijjin (fire). He thus mixed the two clays. For this reason children of unbelievers become believers and vice versa. For this reason the believers get afflicted with evil and unbelievers receive good things. Thus, the hearts of the believers incline to that from which they are created and the hearts of the unbelievers incline to that from which they are created.”",
+      "english_matn_sha256": "fa10dce92adb792f1df3e964defa59cd1b41595cfd07066be40f91c5882b7eb0",
+      "identity": {
+        "arabic_local_extent": "matn",
+        "arabic_sequence_score": 1.0,
+        "arabic_shorter_sequence_coverage": 1.0,
+        "english_chain_token_f1": 0.96,
+        "english_full_similarity": 1.0,
+        "english_matn_similarity": 1.0,
+        "local_sequence_evidence": {
+          "printed_number": "١",
+          "public_id": "alkafi-1444",
+          "sequence_in_book": 1445,
+          "volume": 2
+        },
+        "pdf_extent_evidence": {
+          "extent_kind": "marker_bound",
+          "following_marker": "H 1439, CH 1a, h 2",
+          "marker": "H 1438, CH 1a, h 1",
+          "pages": [
+            17
+          ],
+          "physical_volume": 2,
+          "preceding_marker": "",
+          "printed_hadith_number": 1438
+        },
+        "thresholds": {
+          "minimum_arabic_sequence_score": 0.8,
+          "minimum_arabic_shorter_sequence_coverage": 0.98,
+          "minimum_english_chain_token_f1": 0.55,
+          "minimum_english_full_similarity": 0.65,
+          "minimum_english_matn_similarity": 0.55
+        }
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/2/2",
+      "page_end": 2,
+      "page_start": 2,
+      "printed_number": "١",
+      "public_id": "alkafi-1444",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['1', '2', '3'] do not match translation numbers [].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 1, 2, 3.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 1445,
+      "source_evidence": {
+        "classification": "verbatim_external_matn_excerpt",
+        "human_source_identity": {
+          "arabic_sha256": "f8b16912da1388c4220b259bd69bc965255c89dd51d88f178b8e9ec34a081da5",
+          "english_isnad_sha256": "15b5c343881fc5a73d677eed7dc73eb7a63aa508fadc7b559109d2818d1de19b",
+          "english_matn_sha256": "fa10dce92adb792f1df3e964defa59cd1b41595cfd07066be40f91c5882b7eb0",
+          "provider": "thaqalayn-data",
+          "record_id": 1464,
+          "record_sha256": "61fa34d8f85375e75235b416b22b26b7e245412dacbd012f8fa5a176a645c2fe",
+          "snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "snapshot_source_url": "https://thaqalayndata.netlify.app",
+          "source_url": "https://thaqalayn.net/books/al-kafi:2:1:1:1",
+          "stored_english_sha256": "56f7d9e747b5ce30c61790b3796e8a0bc728ba2e03df92a017621556caf4a4a6",
+          "translator": "Muhammad Sarwar"
+        },
+        "pdf": {
+          "english_isnad_sha256": "b04278e543c5363bf098482924ad2fc59383798788e063f46466cd1d8adb9b85",
+          "extent_kind": "marker_bound",
+          "following_marker": "H 1439, CH 1a, h 2",
+          "full_record_sha256": "a720b849a822e5424e75dd207faa1da3de78869b7390810246940c196ffcb052",
+          "layout_operations": [
+            {
+              "operation": "join_hyphenated_pdf_line_wraps",
+              "reason": "Remove layout-only whitespace after a line-final hyphen.",
+              "scope": "PDF block extraction"
+            },
+            {
+              "field": "english_isnad",
+              "from": "m an",
+              "occurrences": 1,
+              "operation": "join_pdf_text_layer_word_fragment",
+              "reason": "The printed word crosses a malformed PDF text-layer line boundary; the pinned human-source record corroborates 'man'.",
+              "to": "man"
+            },
+            {
+              "detail": "bounded from selected H marker to its final English quotation",
+              "extent_kind": "marker_bound",
+              "operation": "bound_pdf_report_extent"
+            }
+          ],
+          "marker": "H 1438, CH 1a, h 1",
+          "matn_sha256": "fa10dce92adb792f1df3e964defa59cd1b41595cfd07066be40f91c5882b7eb0",
+          "pages": [
+            17
+          ],
+          "physical_volume": 2,
+          "preceding_marker": "",
+          "sha256": "f65ed085faa56d6901763e138c7ce7232e344e04e5373ed1863218ff074d084a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-2.pdf"
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "cabb2bb3159dc15ef397d1697a10161f01065595289c42fb5fd603fbcc0d77e1",
+      "source_isnad_sha256": "4b32b3d54212e3d55d47ac2a618ab29b6f3ae1390f22867c73f3ff0979d473dc",
+      "source_matn_sha256": "cdfaf79318ab0127767ddc35c779b8b0a5ef9c17a906ea13311454893edee33f",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [
+          {
+            "operation": "join_hyphenated_pdf_line_wraps",
+            "reason": "Remove layout-only whitespace after a line-final hyphen.",
+            "scope": "PDF block extraction"
+          },
+          {
+            "field": "english_isnad",
+            "from": "m an",
+            "occurrences": 1,
+            "operation": "join_pdf_text_layer_word_fragment",
+            "reason": "The printed word crosses a malformed PDF text-layer line boundary; the pinned human-source record corroborates 'man'.",
+            "to": "man"
+          },
+          {
+            "detail": "bounded from selected H marker to its final English quotation",
+            "extent_kind": "marker_bound",
+            "operation": "bound_pdf_report_extent"
+          }
+        ],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 2
+    },
+    {
+      "current_segment": {
+        "metadata_sha256": "56262817b6a995f68e08c20f6ccb88cf0d824691c81c3e85df106b548afed4f0",
+        "risk_level": "green",
+        "segment_id": 44,
+        "source_sha256": "6f2a458ebef092766487c4d05eee9c1ff40e0ee77f1ea3149aff9b40491fd947",
+        "status": "published",
+        "translation_id": 41,
+        "translation_sha256": "2be5dbcfddffb06e47c1cd60349e3f4b3138393ae3afa373efffd325ee96e915"
+      },
+      "current_translation": {
+        "matn_sha256": "2be5dbcfddffb06e47c1cd60349e3f4b3138393ae3afa373efffd325ee96e915",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "4694507e9c424a6b87d3027d7adf2b3f65f5f767b21d7bc04046e38dd824a7a4",
+        "provider": "thaqalayn-data",
+        "rendered_isnad_sha256": null,
+        "risk_level": "green",
+        "source_full_sha256": "9ef77b89f7a965104545e872007cdc700d52a6eee21de09840de367094bd5ef4",
+        "source_isnad_sha256": "741b1da50649b08e05138cce76a01d34e31ee4892589e2bca270b042549e56bc",
+        "source_matn_sha256": "6f2a458ebef092766487c4d05eee9c1ff40e0ee77f1ea3149aff9b40491fd947",
+        "status": "published",
+        "translation_id": 41
+      },
+      "english_isnad": "Muhammad ibn Yahya has narrated from Muhammad ibn al-Hassan from al-Nadr ibn Shu’ayb from ‘Abd al-Ghaffar al-Jaziyy from abu ‘Abd Allah, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "df04ceb385f520d4fbbb0e9e24359a68f6bfd6fca714734f692b45cebaf153fb",
+      "english_matn": "“Allah, the Majestic, the Glorious, created the believers from the clay of paradise. He created the unbelievers from the clay of fire. He then said, ‘When Allah, the Majestic, the Glorious, decides to grant good to one of His servants, He purifies his spirit and body. Whenever he hears any good thing he recognizes it. Whenever he hears any bad things he dislikes them.’ I (the narrator) then heard him saying, ‘The clays are of three kinds: (a) one is the clay of the prophets from which the believers are also created, except that the prophets are made of the superior kind of clay. The prophets are the roots and the believers are the branches and for this reason they are more excellent than the believers. The believers are created from a stickier kind of clay. Thus Allah, the Majestic, the Glorious will not keep them apart from their followers.’ The Imam than said, ‘The clay of those who insult (‘A’immah) are from a black clay that smells foul. The weak ones are made from soil. The believers do not change their faith nor do evil doers (those who insult ‘A’immah, recipients of divine supreme covenant) do so and Allah has a definite goal behind it.’”",
+      "english_matn_sha256": "734e89e565d6013d5c56f61e375feb53ef816912c5560f9c513ca615f26c326a",
+      "identity": {
+        "arabic_local_extent": "matn",
+        "arabic_sequence_score": 1.0,
+        "arabic_shorter_sequence_coverage": 1.0,
+        "english_chain_token_f1": 0.96,
+        "english_full_similarity": 1.0,
+        "english_matn_similarity": 1.0,
+        "local_sequence_evidence": {
+          "printed_number": "٢",
+          "public_id": "alkafi-1445",
+          "sequence_in_book": 1446,
+          "volume": 2
+        },
+        "pdf_extent_evidence": {
+          "extent_kind": "marker_bound",
+          "following_marker": "H 1440, CH 1a, h 3",
+          "marker": "H 1439, CH 1a, h 2",
+          "pages": [
+            17
+          ],
+          "physical_volume": 2,
+          "preceding_marker": "H 1438, CH 1a, h 1",
+          "printed_hadith_number": 1439
+        },
+        "thresholds": {
+          "minimum_arabic_sequence_score": 0.8,
+          "minimum_arabic_shorter_sequence_coverage": 0.98,
+          "minimum_english_chain_token_f1": 0.55,
+          "minimum_english_full_similarity": 0.65,
+          "minimum_english_matn_similarity": 0.55
+        }
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/2/3",
+      "page_end": 3,
+      "page_start": 3,
+      "printed_number": "٢",
+      "public_id": "alkafi-1445",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['2', '3'] do not match translation numbers [].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 2, 3.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 1446,
+      "source_evidence": {
+        "classification": "verbatim_external_matn_excerpt",
+        "human_source_identity": {
+          "arabic_sha256": "66b2283296d6058ad8ffe447b15c342c8dd05802cfd868592fd2e0a390218b5f",
+          "english_isnad_sha256": "2ebd6f31815c0a37be80f189505b78f70fc4fe6ae651b41e9a4a7baacfe2c42c",
+          "english_matn_sha256": "e3b699186681e8a9e20a67a0d5a713dd8ffacd5bef8b6f0d1ee008ccd20468e7",
+          "provider": "thaqalayn-data",
+          "record_id": 1465,
+          "record_sha256": "0fab17cea9a52bef188de7d2f7eca886edc6d0b3cdbfdb475592b3c541396267",
+          "snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "snapshot_source_url": "https://thaqalayndata.netlify.app",
+          "source_url": "https://thaqalayn.net/books/al-kafi:2:1:1:2",
+          "stored_english_sha256": "2be5dbcfddffb06e47c1cd60349e3f4b3138393ae3afa373efffd325ee96e915",
+          "translator": "Muhammad Sarwar"
+        },
+        "pdf": {
+          "english_isnad_sha256": "df04ceb385f520d4fbbb0e9e24359a68f6bfd6fca714734f692b45cebaf153fb",
+          "extent_kind": "marker_bound",
+          "following_marker": "H 1440, CH 1a, h 3",
+          "full_record_sha256": "42a69a50b59a22638231258926a2d2020537f31dd114b3e97a26e6a2848c155f",
+          "layout_operations": [
+            {
+              "operation": "join_hyphenated_pdf_line_wraps",
+              "reason": "Remove layout-only whitespace after a line-final hyphen.",
+              "scope": "PDF block extraction"
+            },
+            {
+              "detail": "bounded from selected H marker to its final English quotation",
+              "extent_kind": "marker_bound",
+              "operation": "bound_pdf_report_extent"
+            }
+          ],
+          "marker": "H 1439, CH 1a, h 2",
+          "matn_sha256": "734e89e565d6013d5c56f61e375feb53ef816912c5560f9c513ca615f26c326a",
+          "pages": [
+            17
+          ],
+          "physical_volume": 2,
+          "preceding_marker": "H 1438, CH 1a, h 1",
+          "sha256": "f65ed085faa56d6901763e138c7ce7232e344e04e5373ed1863218ff074d084a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-2.pdf"
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "9ef77b89f7a965104545e872007cdc700d52a6eee21de09840de367094bd5ef4",
+      "source_isnad_sha256": "741b1da50649b08e05138cce76a01d34e31ee4892589e2bca270b042549e56bc",
+      "source_matn_sha256": "6f2a458ebef092766487c4d05eee9c1ff40e0ee77f1ea3149aff9b40491fd947",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [
+          {
+            "operation": "join_hyphenated_pdf_line_wraps",
+            "reason": "Remove layout-only whitespace after a line-final hyphen.",
+            "scope": "PDF block extraction"
+          },
+          {
+            "detail": "bounded from selected H marker to its final English quotation",
+            "extent_kind": "marker_bound",
+            "operation": "bound_pdf_report_extent"
+          }
+        ],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 2
+    },
+    {
+      "current_segment": {
+        "metadata_sha256": "d797fd47d5fb769e6f0a10f474d17d4d9800a703111766f074c593a7a0de92cf",
+        "risk_level": "green",
+        "segment_id": 45,
+        "source_sha256": "040a4c4cf889765f87a7d603064553bc2cf6dc5e0f51dcf8840fc63a1e2eb251",
+        "status": "published",
+        "translation_id": 42,
+        "translation_sha256": "a667af7db41eae7a328ed345bd9f0547258ea78571366a6ee42a90250e533672"
+      },
+      "current_translation": {
+        "matn_sha256": "a667af7db41eae7a328ed345bd9f0547258ea78571366a6ee42a90250e533672",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "ae6231de08f3e608e6dcccd8831fb8687c56aed0978c7f0e189487394c54c601",
+        "provider": "thaqalayn-data",
+        "rendered_isnad_sha256": null,
+        "risk_level": "green",
+        "source_full_sha256": "58d863cd9111b61431b837a91801c3e8953d6ecb373368746ab84729ea6c80e6",
+        "source_isnad_sha256": "cf4f295276c09ce937568fdc7575718193a88f8208a0f4ea3ce7c3d5d077e557",
+        "source_matn_sha256": "040a4c4cf889765f87a7d603064553bc2cf6dc5e0f51dcf8840fc63a1e2eb251",
+        "status": "published",
+        "translation_id": 42
+      },
+      "english_isnad": "Ali ibn Ibrahim has narrated from his father from ibn Mahbub from Salih ibn Sahl who has said that I asked abu abu ‘Abd Allah, recipient of divine supreme covenant, the following:",
+      "english_isnad_sha256": "8b695bbf5a16cbdd8c79778f534663c0133f779cd9e4d4aad4257fb3a511f7d0",
+      "english_matn": "“May Allah keep my soul of service to you, from what kind of material has Allah, the Majestic, the Glorious, created the clay of the believers? He then replied, ‘He has created them with the clay from which the prophets were made. Thus, they never become unclean.’”",
+      "english_matn_sha256": "e12f8305d9c331d61fe048358edfa11df7c2dacc0b63e9dac47970af91f37ffd",
+      "identity": {
+        "arabic_local_extent": "matn",
+        "arabic_sequence_score": 0.94736842,
+        "arabic_shorter_sequence_coverage": 1.0,
+        "english_chain_token_f1": 0.95454545,
+        "english_full_similarity": 1.0,
+        "english_matn_similarity": 1.0,
+        "local_sequence_evidence": {
+          "printed_number": "٣",
+          "public_id": "alkafi-1446",
+          "sequence_in_book": 1447,
+          "volume": 2
+        },
+        "pdf_extent_evidence": {
+          "extent_kind": "marker_bound",
+          "following_marker": "H 1441, CH 1a, h 4",
+          "marker": "H 1440, CH 1a, h 3",
+          "pages": [
+            17
+          ],
+          "physical_volume": 2,
+          "preceding_marker": "H 1439, CH 1a, h 2",
+          "printed_hadith_number": 1440
+        },
+        "thresholds": {
+          "minimum_arabic_sequence_score": 0.8,
+          "minimum_arabic_shorter_sequence_coverage": 0.98,
+          "minimum_english_chain_token_f1": 0.55,
+          "minimum_english_full_similarity": 0.65,
+          "minimum_english_matn_similarity": 0.55
+        }
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/2/3",
+      "page_end": 3,
+      "page_start": 3,
+      "printed_number": "٣",
+      "public_id": "alkafi-1446",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['4'] do not match translation numbers [].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 4.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 1447,
+      "source_evidence": {
+        "classification": "verbatim_external_matn_excerpt",
+        "human_source_identity": {
+          "arabic_sha256": "d7399c3fde1ab57c9e1fa49e63606f333035f35639bbeba7ea9a02f1a1785345",
+          "english_isnad_sha256": "d81155cb1ad716639bf1c4a6e1ac6745630bdbe0604649af1fc22e2d4cc894ea",
+          "english_matn_sha256": "e12f8305d9c331d61fe048358edfa11df7c2dacc0b63e9dac47970af91f37ffd",
+          "provider": "thaqalayn-data",
+          "record_id": 1466,
+          "record_sha256": "02838205f10dbe4d914b496b911aa51285eca36d68f5c6c77040228a53fcfb35",
+          "snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "snapshot_source_url": "https://thaqalayndata.netlify.app",
+          "source_url": "https://thaqalayn.net/books/al-kafi:2:1:1:3",
+          "stored_english_sha256": "a667af7db41eae7a328ed345bd9f0547258ea78571366a6ee42a90250e533672",
+          "translator": "Muhammad Sarwar"
+        },
+        "pdf": {
+          "english_isnad_sha256": "8b695bbf5a16cbdd8c79778f534663c0133f779cd9e4d4aad4257fb3a511f7d0",
+          "extent_kind": "marker_bound",
+          "following_marker": "H 1441, CH 1a, h 4",
+          "full_record_sha256": "4383c4e1b1542edd20b2349dafea399d43fcb7d94427ffef84c3e3c02553d125",
+          "layout_operations": [
+            {
+              "operation": "join_hyphenated_pdf_line_wraps",
+              "reason": "Remove layout-only whitespace after a line-final hyphen.",
+              "scope": "PDF block extraction"
+            },
+            {
+              "detail": "bounded from selected H marker to its final English quotation",
+              "extent_kind": "marker_bound",
+              "operation": "bound_pdf_report_extent"
+            }
+          ],
+          "marker": "H 1440, CH 1a, h 3",
+          "matn_sha256": "e12f8305d9c331d61fe048358edfa11df7c2dacc0b63e9dac47970af91f37ffd",
+          "pages": [
+            17
+          ],
+          "physical_volume": 2,
+          "preceding_marker": "H 1439, CH 1a, h 2",
+          "sha256": "f65ed085faa56d6901763e138c7ce7232e344e04e5373ed1863218ff074d084a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-2.pdf"
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "58d863cd9111b61431b837a91801c3e8953d6ecb373368746ab84729ea6c80e6",
+      "source_isnad_sha256": "cf4f295276c09ce937568fdc7575718193a88f8208a0f4ea3ce7c3d5d077e557",
+      "source_matn_sha256": "040a4c4cf889765f87a7d603064553bc2cf6dc5e0f51dcf8840fc63a1e2eb251",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [
+          {
+            "operation": "join_hyphenated_pdf_line_wraps",
+            "reason": "Remove layout-only whitespace after a line-final hyphen.",
+            "scope": "PDF block extraction"
+          },
+          {
+            "detail": "bounded from selected H marker to its final English quotation",
+            "extent_kind": "marker_bound",
+            "operation": "bound_pdf_report_extent"
+          }
+        ],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 2
+    },
+    {
+      "current_segment": {
+        "metadata_sha256": "ab762b01feedf519514f35a2356699281e57438e900b7e5d0f809fc09250c876",
+        "risk_level": "green",
+        "segment_id": 46,
+        "source_sha256": "4ccab982ab36c561ca39b730f29625dd637409b45ae19e5d56a579a86886c6ab",
+        "status": "published",
+        "translation_id": 43,
+        "translation_sha256": "0d68b50a0db8dbf823a324e42297735e5255cd857b89eadef818ebbfca4460ab"
+      },
+      "current_translation": {
+        "matn_sha256": "0d68b50a0db8dbf823a324e42297735e5255cd857b89eadef818ebbfca4460ab",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "d4b1fa8478f07ae6584a5416d4e807b6b0375ea0b97164140b14cb93fd1d1cc4",
+        "provider": "thaqalayn-data",
+        "rendered_isnad_sha256": null,
+        "risk_level": "green",
+        "source_full_sha256": "87afb5f5880386863761fd8b00c30f2ba148572081fd15cdcdca7910fcdda3c3",
+        "source_isnad_sha256": "13baebb699345ea6943667f761ff540639ce6e4b6ba3d5abba3da2c297031d81",
+        "source_matn_sha256": "4ccab982ab36c561ca39b730f29625dd637409b45ae19e5d56a579a86886c6ab",
+        "status": "published",
+        "translation_id": 43
+      },
+      "english_isnad": "Muhammad ibn Yahya and others have narrated from Ahmad ibn Muhammad ibn Khalaf from abu Nahshal who has said that Muhammad ibn ‘Isma’il narrated from abu Hamza al-Thumali who has the following:",
+      "english_isnad_sha256": "d8a74d682cba641ff7889cb940fdecc154a77ad3ded421d557371ad9f33eb1fb",
+      "english_matn": "“I heard abu Ja’far, recipient of divine supreme covenant, saying, ‘Allah, the Majestic, the Glorious, created us from the top most of paradise. He made the hearts of our followers from that which He had created us. He created their bodies from that which is below, thus, their hearts incline to us; they are made from what He had made us.’ He then recited this verse of the Holy Quran. ‘However, the records of the deeds of the virtuous ones will certainly be in Illiyin (83:18). Would that you had known what Illiyin is! (19). It is a comprehensively written Book (of records) (20). The ones nearest to Allah will bring it to the public (83:21).’ He then said, ‘Allah has created our enemies from Sijjin (the fire) and He has created the hearts of their followers from what He had created them. He created the bodies of their followers (followers of our enemies) from other matters. Thus, their hearts (the hearts of the followers of our enemies) incline to them (to our enemies) because they are created from what they (our enemies) are created.’ Then he recited this verse of the Holy Quran: ‘Let them know that the records of the sinners’ deeds are in Sijin (83:7). Would that you had known what Sijin is! (8). It is a comprehensively written Book (of records) (9). Woe, on that day, to those who have rejected Allah's revelations (10) and those who have rejected the Day of Judgment (83:11).’”",
+      "english_matn_sha256": "652456ba8f5e6bc84156812fcae36200989084d43dbebdcd78fddb53f8308183",
+      "identity": {
+        "arabic_local_extent": "matn",
+        "arabic_sequence_score": 0.91798942,
+        "arabic_shorter_sequence_coverage": 1.0,
+        "english_chain_token_f1": 1.0,
+        "english_full_similarity": 0.99729181,
+        "english_matn_similarity": 0.99688958,
+        "local_sequence_evidence": {
+          "printed_number": "٤",
+          "public_id": "alkafi-1447",
+          "sequence_in_book": 1448,
+          "volume": 2
+        },
+        "pdf_extent_evidence": {
+          "extent_kind": "marker_bound",
+          "following_marker": "H 1442, CH 1a, h 5",
+          "marker": "H 1441, CH 1a, h 4",
+          "pages": [
+            18
+          ],
+          "physical_volume": 2,
+          "preceding_marker": "H 1440, CH 1a, h 3",
+          "printed_hadith_number": 1441
+        },
+        "thresholds": {
+          "minimum_arabic_sequence_score": 0.8,
+          "minimum_arabic_shorter_sequence_coverage": 0.98,
+          "minimum_english_chain_token_f1": 0.55,
+          "minimum_english_full_similarity": 0.65,
+          "minimum_english_matn_similarity": 0.55
+        }
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/2/4",
+      "page_end": 4,
+      "page_start": 4,
+      "printed_number": "٤",
+      "public_id": "alkafi-1447",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['1', '2'] do not match translation numbers ['83', '18', '19', '20', '83', '21', '83', '7', '8', '9', '10', '83', '11'].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 1, 2.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 1448,
+      "source_evidence": {
+        "classification": "verbatim_external_matn_excerpt",
+        "human_source_identity": {
+          "arabic_sha256": "7c781a0fa00d0990f7020cad2bfbb2b084ee137e6be92072474b900dbf6300c0",
+          "english_isnad_sha256": "d8a74d682cba641ff7889cb940fdecc154a77ad3ded421d557371ad9f33eb1fb",
+          "english_matn_sha256": "957d4630b189a74c27219217f8c5bd01979830af50f02f6b71e08903476741d0",
+          "provider": "thaqalayn-data",
+          "record_id": 1467,
+          "record_sha256": "971ffbb235448beff63d386ff1e454df08d6befd8c2e92a0c9eb91360d4b7390",
+          "snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "snapshot_source_url": "https://thaqalayndata.netlify.app",
+          "source_url": "https://thaqalayn.net/books/al-kafi:2:1:1:4",
+          "stored_english_sha256": "0d68b50a0db8dbf823a324e42297735e5255cd857b89eadef818ebbfca4460ab",
+          "translator": "Muhammad Sarwar"
+        },
+        "pdf": {
+          "english_isnad_sha256": "d8a74d682cba641ff7889cb940fdecc154a77ad3ded421d557371ad9f33eb1fb",
+          "extent_kind": "marker_bound",
+          "following_marker": "H 1442, CH 1a, h 5",
+          "full_record_sha256": "5c354c0a1e4a40b5b35fb6d439e0d271e645099001f18d16804c9ba34575c11e",
+          "layout_operations": [
+            {
+              "operation": "join_hyphenated_pdf_line_wraps",
+              "reason": "Remove layout-only whitespace after a line-final hyphen.",
+              "scope": "PDF block extraction"
+            },
+            {
+              "detail": "bounded from selected H marker to its final English quotation",
+              "extent_kind": "marker_bound",
+              "operation": "bound_pdf_report_extent"
+            }
+          ],
+          "marker": "H 1441, CH 1a, h 4",
+          "matn_sha256": "652456ba8f5e6bc84156812fcae36200989084d43dbebdcd78fddb53f8308183",
+          "pages": [
+            18
+          ],
+          "physical_volume": 2,
+          "preceding_marker": "H 1440, CH 1a, h 3",
+          "sha256": "f65ed085faa56d6901763e138c7ce7232e344e04e5373ed1863218ff074d084a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-2.pdf"
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "87afb5f5880386863761fd8b00c30f2ba148572081fd15cdcdca7910fcdda3c3",
+      "source_isnad_sha256": "13baebb699345ea6943667f761ff540639ce6e4b6ba3d5abba3da2c297031d81",
+      "source_matn_sha256": "4ccab982ab36c561ca39b730f29625dd637409b45ae19e5d56a579a86886c6ab",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [
+          {
+            "operation": "join_hyphenated_pdf_line_wraps",
+            "reason": "Remove layout-only whitespace after a line-final hyphen.",
+            "scope": "PDF block extraction"
+          },
+          {
+            "detail": "bounded from selected H marker to its final English quotation",
+            "extent_kind": "marker_bound",
+            "operation": "bound_pdf_report_extent"
+          }
+        ],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 2
+    },
+    {
+      "current_segment": {
+        "metadata_sha256": "ce2f70aaccabf95db3e6ca3f9abda310bf79d2a7080d5c69af4e967d4d06af3f",
+        "risk_level": "green",
+        "segment_id": 47,
+        "source_sha256": "57e75106e0250a503ba54eb299fcb51d66d715ada54fe0c3bf1f0e3edaa97f92",
+        "status": "published",
+        "translation_id": 44,
+        "translation_sha256": "efa278d3666500aa68ed5248c3f70d33a4c863da8b1df4af8526f464962e1249"
+      },
+      "current_translation": {
+        "matn_sha256": "efa278d3666500aa68ed5248c3f70d33a4c863da8b1df4af8526f464962e1249",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "0ab3f70c65ba3560af112990c93df7f636eb80d54c451651069db052147f6d3d",
+        "provider": "thaqalayn-data",
+        "rendered_isnad_sha256": null,
+        "risk_level": "green",
+        "source_full_sha256": "cce3b7b777a081f3acbdc6a2ce0744b41336a0c4b9e59510df5401cbf0bc6816",
+        "source_isnad_sha256": "9b7756968c20d7787127248b7485c8adf8a94f63f51e3817e84c934f235e69d8",
+        "source_matn_sha256": "57e75106e0250a503ba54eb299fcb51d66d715ada54fe0c3bf1f0e3edaa97f92",
+        "status": "published",
+        "translation_id": 44
+      },
+      "english_isnad": "A number of our people have narrated from Sahl ibn Ziyad, who has narrated from more than one person from al-Husayn ibn al-Hassan. All of the above have narrated from Muhammad ibn ‘Uwarma from Muhammad ibn Ali from ‘Isma’il ibn Yasar from ‘Uthman ibn Yusuf who has said that, reported to him ‘Abd Allah ibn Kaysan, from abu ‘Abd Allah, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "a601931eb755d8cc1ce2085cc4250734afbaf49ee3badea12b47ba81345d4d6c",
+      "english_matn": "“Once I said to the Imam, ‘May Allah keep my soul in service for your cause, I am your servant, abu ‘Abd Allah ibn Kaysan.’ The Imam said, ‘I know your genealogy. However, I do not know you (so well).’ I said, ‘I was born in the mountains and grew up in the land of Persia. I associate with people in business and other occasions. I, thus, associate with a man and find his appearance very good, to be of good manners and more trustworthy. When I investigate I find him to be one of your enemies. I also associate with another man who has bad manners, is less trustworthy and hot tempered. I then investigate and find him to be of your supporters and followers. Why is it so?’ “He (the Imam) said, ‘O ibn Kaysan, Allah, the Majestic, the Glorious, took a clay from paradise and also from fire and then mixed them together. Then He separated this from that and that from this. The good appearances, good manners and trustworthiness that you find in them (our enemies) is because of the touch of the clay from paradise but they will return to that from which they are made. The deceitfulness, bad manners and hot-temperament that you find in them (our supporters and followers) is because of the touch of the clay from fire, however, they will return to that from which they were made.’”",
+      "english_matn_sha256": "69cee08296b154132a7ed718757bf37d4e1b71eb7ebadd560d00917e567e4b26",
+      "identity": {
+        "arabic_local_extent": "matn",
+        "arabic_sequence_score": 0.95992876,
+        "arabic_shorter_sequence_coverage": 1.0,
+        "english_chain_token_f1": 0.98181818,
+        "english_full_similarity": 0.99936869,
+        "english_matn_similarity": 0.99918831,
+        "local_sequence_evidence": {
+          "printed_number": "٥",
+          "public_id": "alkafi-1448",
+          "sequence_in_book": 1449,
+          "volume": 2
+        },
+        "pdf_extent_evidence": {
+          "extent_kind": "marker_bound",
+          "following_marker": "H 1443, CH 1a, h 6",
+          "marker": "H 1442, CH 1a, h 5",
+          "pages": [
+            18
+          ],
+          "physical_volume": 2,
+          "preceding_marker": "H 1441, CH 1a, h 4",
+          "printed_hadith_number": 1442
+        },
+        "thresholds": {
+          "minimum_arabic_sequence_score": 0.8,
+          "minimum_arabic_shorter_sequence_coverage": 0.98,
+          "minimum_english_chain_token_f1": 0.55,
+          "minimum_english_full_similarity": 0.65,
+          "minimum_english_matn_similarity": 0.55
+        }
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/2/4",
+      "page_end": 5,
+      "page_start": 4,
+      "printed_number": "٥",
+      "public_id": "alkafi-1448",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['3', '4', '5'] do not match translation numbers [].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 3, 4, 5.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 1449,
+      "source_evidence": {
+        "classification": "verbatim_external_matn_excerpt",
+        "human_source_identity": {
+          "arabic_sha256": "368fdd71dcdb217dddb0866d95317b8b5aa958cbae38c9cb3a4932335d6e5d05",
+          "english_isnad_sha256": "bbe7bc72e9d821f288d41aa1513de69cff0883657559b90342fead4bfcd68a39",
+          "english_matn_sha256": "81d6b423c7d2bbe8c66361c25cb9e6ec5e79c4ea8fbb05553bb209286a588680",
+          "provider": "thaqalayn-data",
+          "record_id": 1468,
+          "record_sha256": "a3cbd58970028097360ab163f22d0b4294515ef95b8d37683627544fa64383bb",
+          "snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "snapshot_source_url": "https://thaqalayndata.netlify.app",
+          "source_url": "https://thaqalayn.net/books/al-kafi:2:1:1:5",
+          "stored_english_sha256": "efa278d3666500aa68ed5248c3f70d33a4c863da8b1df4af8526f464962e1249",
+          "translator": "Muhammad Sarwar"
+        },
+        "pdf": {
+          "english_isnad_sha256": "a601931eb755d8cc1ce2085cc4250734afbaf49ee3badea12b47ba81345d4d6c",
+          "extent_kind": "marker_bound",
+          "following_marker": "H 1443, CH 1a, h 6",
+          "full_record_sha256": "264dc1efb0f1263c1ff795573f9eedec0b442b2774479ecacb59516b999cd887",
+          "layout_operations": [
+            {
+              "operation": "join_hyphenated_pdf_line_wraps",
+              "reason": "Remove layout-only whitespace after a line-final hyphen.",
+              "scope": "PDF block extraction"
+            },
+            {
+              "detail": "bounded from selected H marker to its final English quotation",
+              "extent_kind": "marker_bound",
+              "operation": "bound_pdf_report_extent"
+            }
+          ],
+          "marker": "H 1442, CH 1a, h 5",
+          "matn_sha256": "69cee08296b154132a7ed718757bf37d4e1b71eb7ebadd560d00917e567e4b26",
+          "pages": [
+            18
+          ],
+          "physical_volume": 2,
+          "preceding_marker": "H 1441, CH 1a, h 4",
+          "sha256": "f65ed085faa56d6901763e138c7ce7232e344e04e5373ed1863218ff074d084a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-2.pdf"
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "cce3b7b777a081f3acbdc6a2ce0744b41336a0c4b9e59510df5401cbf0bc6816",
+      "source_isnad_sha256": "9b7756968c20d7787127248b7485c8adf8a94f63f51e3817e84c934f235e69d8",
+      "source_matn_sha256": "57e75106e0250a503ba54eb299fcb51d66d715ada54fe0c3bf1f0e3edaa97f92",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [
+          {
+            "operation": "join_hyphenated_pdf_line_wraps",
+            "reason": "Remove layout-only whitespace after a line-final hyphen.",
+            "scope": "PDF block extraction"
+          },
+          {
+            "detail": "bounded from selected H marker to its final English quotation",
+            "extent_kind": "marker_bound",
+            "operation": "bound_pdf_report_extent"
+          }
+        ],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 2
+    },
+    {
+      "current_segment": {
+        "metadata_sha256": "fc398aee72e3b660ecbd88fdcedf8e429d4c288ac655bf14110be323995078b1",
+        "risk_level": "green",
+        "segment_id": 48,
+        "source_sha256": "2c7887b53ecac7a2c2f05eafef9692cae057bebbaa13719bf360698ee906d4b1",
+        "status": "published",
+        "translation_id": 45,
+        "translation_sha256": "d5abd42e05ac6f356cced8e17350ec51e3779f2c5e2f0173642d74fe56bb63c1"
+      },
+      "current_translation": {
+        "matn_sha256": "d5abd42e05ac6f356cced8e17350ec51e3779f2c5e2f0173642d74fe56bb63c1",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "392e763c24ecb38694305032a53fec8360049e04cf94a2a17f499e437c5184cb",
+        "provider": "thaqalayn-data",
+        "rendered_isnad_sha256": null,
+        "risk_level": "green",
+        "source_full_sha256": "f5e166abcd308ea697071ad4c6dbe6992efaf6a352a2be283da5933a057005e1",
+        "source_isnad_sha256": "be68b65b1710e91826a10991d368b2badd2a412a37f2c4b5ffb7abd03c164d7b",
+        "source_matn_sha256": "2c7887b53ecac7a2c2f05eafef9692cae057bebbaa13719bf360698ee906d4b1",
+        "status": "published",
+        "translation_id": 45
+      },
+      "english_isnad": "Muhammad ibn Yahya has narrated from Ahmad ibn Muhammad from Muhammad ibn Khalid from Salih ibn Sahl who has said the following:",
+      "english_isnad_sha256": "e83242b5699b488d31a6db3e5891b580e6529928c809fbd9b9a82b6b767c842f",
+      "english_matn": "“I asked abu ‘Abd Allah, ‘Are the believers made from the clay from which the prophets were made?’ He said, ‘Yes, that is correct.’”",
+      "english_matn_sha256": "c1989f420c345208e787a7a45a4dc84af30537b3a0d91ff750fc9ec1e84c51d6",
+      "identity": {
+        "arabic_local_extent": "matn",
+        "arabic_sequence_score": 0.90526316,
+        "arabic_shorter_sequence_coverage": 1.0,
+        "english_chain_token_f1": 1.0,
+        "english_full_similarity": 1.0,
+        "english_matn_similarity": 1.0,
+        "local_sequence_evidence": {
+          "printed_number": "٦",
+          "public_id": "alkafi-1449",
+          "sequence_in_book": 1450,
+          "volume": 2
+        },
+        "pdf_extent_evidence": {
+          "extent_kind": "marker_bound",
+          "following_marker": "H 1444, CH 1a, h 7",
+          "marker": "H 1443, CH 1a, h 6",
+          "pages": [
+            18
+          ],
+          "physical_volume": 2,
+          "preceding_marker": "H 1442, CH 1a, h 5",
+          "printed_hadith_number": 1443
+        },
+        "thresholds": {
+          "minimum_arabic_sequence_score": 0.8,
+          "minimum_arabic_shorter_sequence_coverage": 0.98,
+          "minimum_english_chain_token_f1": 0.55,
+          "minimum_english_full_similarity": 0.65,
+          "minimum_english_matn_similarity": 0.55
+        }
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/2/5",
+      "page_end": 5,
+      "page_start": 5,
+      "printed_number": "٦",
+      "public_id": "alkafi-1449",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "green",
+        "flags": [],
+        "publication_flags": [],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 1450,
+      "source_evidence": {
+        "classification": "verbatim_external_matn_excerpt",
+        "human_source_identity": {
+          "arabic_sha256": "6ca5da3d29ff2fd7e742beee375c323fbe26aa7c5b2ca9168a0e209e220e7ea4",
+          "english_isnad_sha256": "e83242b5699b488d31a6db3e5891b580e6529928c809fbd9b9a82b6b767c842f",
+          "english_matn_sha256": "c1989f420c345208e787a7a45a4dc84af30537b3a0d91ff750fc9ec1e84c51d6",
+          "provider": "thaqalayn-data",
+          "record_id": 1469,
+          "record_sha256": "04df4128339ca680fdcb222f50ae26f4e398941cbc69fc1e7107ab8b23dfeb07",
+          "snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "snapshot_source_url": "https://thaqalayndata.netlify.app",
+          "source_url": "https://thaqalayn.net/books/al-kafi:2:1:1:6",
+          "stored_english_sha256": "d5abd42e05ac6f356cced8e17350ec51e3779f2c5e2f0173642d74fe56bb63c1",
+          "translator": "Muhammad Sarwar"
+        },
+        "pdf": {
+          "english_isnad_sha256": "e83242b5699b488d31a6db3e5891b580e6529928c809fbd9b9a82b6b767c842f",
+          "extent_kind": "marker_bound",
+          "following_marker": "H 1444, CH 1a, h 7",
+          "full_record_sha256": "0fcc4ebf547f71e71cea3d0f4797c610849666743650439307f8d9949f186473",
+          "layout_operations": [
+            {
+              "operation": "join_hyphenated_pdf_line_wraps",
+              "reason": "Remove layout-only whitespace after a line-final hyphen.",
+              "scope": "PDF block extraction"
+            },
+            {
+              "detail": "bounded from selected H marker to its final English quotation",
+              "extent_kind": "marker_bound",
+              "operation": "bound_pdf_report_extent"
+            }
+          ],
+          "marker": "H 1443, CH 1a, h 6",
+          "matn_sha256": "c1989f420c345208e787a7a45a4dc84af30537b3a0d91ff750fc9ec1e84c51d6",
+          "pages": [
+            18
+          ],
+          "physical_volume": 2,
+          "preceding_marker": "H 1442, CH 1a, h 5",
+          "sha256": "f65ed085faa56d6901763e138c7ce7232e344e04e5373ed1863218ff074d084a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-2.pdf"
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "f5e166abcd308ea697071ad4c6dbe6992efaf6a352a2be283da5933a057005e1",
+      "source_isnad_sha256": "be68b65b1710e91826a10991d368b2badd2a412a37f2c4b5ffb7abd03c164d7b",
+      "source_matn_sha256": "2c7887b53ecac7a2c2f05eafef9692cae057bebbaa13719bf360698ee906d4b1",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [
+          {
+            "operation": "join_hyphenated_pdf_line_wraps",
+            "reason": "Remove layout-only whitespace after a line-final hyphen.",
+            "scope": "PDF block extraction"
+          },
+          {
+            "detail": "bounded from selected H marker to its final English quotation",
+            "extent_kind": "marker_bound",
+            "operation": "bound_pdf_report_extent"
+          }
+        ],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 2
+    },
+    {
+      "current_segment": {
+        "metadata_sha256": "aa56bc4e7e0919c05d145d5a21cacf540c8c6531c9acf630d2fd7715cb16c76b",
+        "risk_level": "green",
+        "segment_id": 53,
+        "source_sha256": "c7303b29eb54728c9d1cc89aaa75d26f19525c740b82d4c9048f62594715b280",
+        "status": "published",
+        "translation_id": 50,
+        "translation_sha256": "db65d84ce3ec8c736466ef7d832c5f0b828917e5d2d07b1f8a59d44a2e897163"
+      },
+      "current_translation": {
+        "matn_sha256": "db65d84ce3ec8c736466ef7d832c5f0b828917e5d2d07b1f8a59d44a2e897163",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "e5ab44edd7ec86b050e7cbe3a0d21f3c5f1abc21f4a9d30f20a1d542d88e2db1",
+        "provider": "thaqalayn-data",
+        "rendered_isnad_sha256": null,
+        "risk_level": "green",
+        "source_full_sha256": "13c7fa4f5aec59e8ffc0061fc63b38d89205ee9876fafd72397413a66e2cd3d9",
+        "source_isnad_sha256": "232cb9b897aea420bbab1f843be298ce49f86521702bcceadd3bdd5e83fdb612",
+        "source_matn_sha256": "c7303b29eb54728c9d1cc89aaa75d26f19525c740b82d4c9048f62594715b280",
+        "status": "published",
+        "translation_id": 50
+      },
+      "english_isnad": "Muhammad ibn Yahya has narrated from Muhammad ibn al-Husayn from Ali ibn ‘Isma’il from Muhammad ibn ‘Isma’il from Sa’dan ibn Muslim from Salih ibn Sahl from abu ‘Abd Allah, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "440d46e94b1056752ff68ae784748e7e5e63d1e165957c74c7d9023d1b0c3e6f",
+      "english_matn": "“The messenger of Allah was asked, ‘By what means have you surpassed other descendents of Adam?’ He said, ‘I was the first one to affirm my faith in my Lord. Allah established a covenant with the prophets and made them to bear testimony against their own souls when the Lord asked, “Am I not your Lord.” They all said, “Yes, You are the Lord.” I was the first one to answer that question positively.’”",
+      "english_matn_sha256": "eff9b0649398bd415e6a5d44604865fc411b007cc1b1219df1f8519b62c76eff",
+      "identity": {
+        "arabic_local_extent": "matn",
+        "arabic_sequence_score": 0.94166667,
+        "arabic_shorter_sequence_coverage": 1.0,
+        "english_chain_token_f1": 0.96666667,
+        "english_full_similarity": 1.0,
+        "english_matn_similarity": 1.0,
+        "local_sequence_evidence": {
+          "printed_number": "٣",
+          "public_id": "alkafi-1459",
+          "sequence_in_book": 1460,
+          "volume": 2
+        },
+        "pdf_extent_evidence": {
+          "extent_kind": "marker_bound",
+          "following_marker": "H 1454, CH 3, h 1",
+          "marker": "H 1453, CH 1c, h 3",
+          "pages": [
+            25
+          ],
+          "physical_volume": 2,
+          "preceding_marker": "H 1452, CH 1c, h 2",
+          "printed_hadith_number": 1453
+        },
+        "thresholds": {
+          "minimum_arabic_sequence_score": 0.8,
+          "minimum_arabic_shorter_sequence_coverage": 0.98,
+          "minimum_english_chain_token_f1": 0.55,
+          "minimum_english_full_similarity": 0.65,
+          "minimum_english_matn_similarity": 0.55
+        }
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/2/12",
+      "page_end": 12,
+      "page_start": 12,
+      "printed_number": "٣",
+      "public_id": "alkafi-1459",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "green",
+        "flags": [],
+        "publication_flags": [],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 1460,
+      "source_evidence": {
+        "classification": "verbatim_external_matn_excerpt",
+        "human_source_identity": {
+          "arabic_sha256": "ba3dd144d095819e3b445d88bd636f33c77a84d850475e98348106c9303a82f0",
+          "english_isnad_sha256": "737fd5464cab72cd585366d5e58809787a2f6b5679da244fc1a05d72fcb35b27",
+          "english_matn_sha256": "eff9b0649398bd415e6a5d44604865fc411b007cc1b1219df1f8519b62c76eff",
+          "provider": "thaqalayn-data",
+          "record_id": 1479,
+          "record_sha256": "853f6900a7bcf71ef1ac23fabd6c332286f39ab5bc8de581e9ec21d9cba8501b",
+          "snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "snapshot_source_url": "https://thaqalayndata.netlify.app",
+          "source_url": "https://thaqalayn.net/books/al-kafi:2:1:4:3",
+          "stored_english_sha256": "db65d84ce3ec8c736466ef7d832c5f0b828917e5d2d07b1f8a59d44a2e897163",
+          "translator": "Muhammad Sarwar"
+        },
+        "pdf": {
+          "english_isnad_sha256": "440d46e94b1056752ff68ae784748e7e5e63d1e165957c74c7d9023d1b0c3e6f",
+          "extent_kind": "marker_bound",
+          "following_marker": "H 1454, CH 3, h 1",
+          "full_record_sha256": "920e1ae4b368df30fcb942cecc5bbd5a71d7f41a0d217b06a21535d6ac22bfcb",
+          "layout_operations": [
+            {
+              "operation": "join_hyphenated_pdf_line_wraps",
+              "reason": "Remove layout-only whitespace after a line-final hyphen.",
+              "scope": "PDF block extraction"
+            },
+            {
+              "detail": "bounded from selected H marker to its final English quotation",
+              "extent_kind": "marker_bound",
+              "operation": "bound_pdf_report_extent"
+            }
+          ],
+          "marker": "H 1453, CH 1c, h 3",
+          "matn_sha256": "eff9b0649398bd415e6a5d44604865fc411b007cc1b1219df1f8519b62c76eff",
+          "pages": [
+            25
+          ],
+          "physical_volume": 2,
+          "preceding_marker": "H 1452, CH 1c, h 2",
+          "sha256": "f65ed085faa56d6901763e138c7ce7232e344e04e5373ed1863218ff074d084a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-2.pdf"
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "13c7fa4f5aec59e8ffc0061fc63b38d89205ee9876fafd72397413a66e2cd3d9",
+      "source_isnad_sha256": "232cb9b897aea420bbab1f843be298ce49f86521702bcceadd3bdd5e83fdb612",
+      "source_matn_sha256": "c7303b29eb54728c9d1cc89aaa75d26f19525c740b82d4c9048f62594715b280",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [
+          {
+            "operation": "join_hyphenated_pdf_line_wraps",
+            "reason": "Remove layout-only whitespace after a line-final hyphen.",
+            "scope": "PDF block extraction"
+          },
+          {
+            "detail": "bounded from selected H marker to its final English quotation",
+            "extent_kind": "marker_bound",
+            "operation": "bound_pdf_report_extent"
+          }
+        ],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 2
+    },
+    {
+      "current_segment": {
+        "metadata_sha256": "f0fac366edcd54de1b983e6d33b3b736cc35f9c41fb57a0c6e947ef7adefd0aa",
+        "risk_level": "green",
+        "segment_id": 54,
+        "source_sha256": "5880a7f4f78991e3ab3c71fba1c4db79c32d21b0ac08989e8199ab5ff45f74f6",
+        "status": "published",
+        "translation_id": 51,
+        "translation_sha256": "fcffdb625528e79ec84385c4c7531e59cfb34c02ae7bc136bcb8aa52b2131f7e"
+      },
+      "current_translation": {
+        "matn_sha256": "fcffdb625528e79ec84385c4c7531e59cfb34c02ae7bc136bcb8aa52b2131f7e",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "3a0661e15a15761c766ccca8588cd1d38b9a794ec307433d78dfe4959b001764",
+        "provider": "thaqalayn-data",
+        "rendered_isnad_sha256": null,
+        "risk_level": "green",
+        "source_full_sha256": "7f03f30a4dc4b7578d16fbf5a049483a24b86dca1e40ca8a6dc0e25ba4079d73",
+        "source_isnad_sha256": "2fea93b9abc1759d496ddd77195fa249e428bdd6078af7810f4ce4ee900fbcaf",
+        "source_matn_sha256": "5880a7f4f78991e3ab3c71fba1c4db79c32d21b0ac08989e8199ab5ff45f74f6",
+        "status": "published",
+        "translation_id": 51
+      },
+      "english_isnad": "Ali ibn Ibrahim has narrated from his father from ibn abu ‘Umayr from certain persons of our people from abu Basir who has said the following:",
+      "english_isnad_sha256": "df96ce4173eb9e818e2460781410ba1f784a8d51ff412e7b171e8e78b58e90e4",
+      "english_matn": "“Once I asked abu ‘Abd Allah, recipient of divine supreme covenant, ‘How did they answer when they (offspring of Adam) were small particles?’ The Imam said, ‘Allah placed in them the ability to answer Him when He questioned them at the time of establishing a covenant with them.’”",
+      "english_matn_sha256": "00b717a64f20eab1c3e2e318a1cf2d8df2df55149c96e76ccb0b720c5cafa3b5",
+      "identity": {
+        "arabic_local_extent": "matn",
+        "arabic_sequence_score": 0.93793103,
+        "arabic_shorter_sequence_coverage": 1.0,
+        "english_chain_token_f1": 1.0,
+        "english_full_similarity": 1.0,
+        "english_matn_similarity": 1.0,
+        "local_sequence_evidence": {
+          "printed_number": "١",
+          "public_id": "alkafi-1460",
+          "sequence_in_book": 1461,
+          "volume": 2
+        },
+        "pdf_extent_evidence": {
+          "extent_kind": "marker_bound",
+          "following_marker": "H 1455, CH 4, h 1",
+          "marker": "H 1454, CH 3, h 1",
+          "pages": [
+            25
+          ],
+          "physical_volume": 2,
+          "preceding_marker": "H 1453, CH 1c, h 3",
+          "printed_hadith_number": 1454
+        },
+        "thresholds": {
+          "minimum_arabic_sequence_score": 0.8,
+          "minimum_arabic_shorter_sequence_coverage": 0.98,
+          "minimum_english_chain_token_f1": 0.55,
+          "minimum_english_full_similarity": 0.65,
+          "minimum_english_matn_similarity": 0.55
+        }
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/2/12",
+      "page_end": 12,
+      "page_start": 12,
+      "printed_number": "١",
+      "public_id": "alkafi-1460",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "green",
+        "flags": [],
+        "publication_flags": [],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 1461,
+      "source_evidence": {
+        "classification": "verbatim_external_matn_excerpt",
+        "human_source_identity": {
+          "arabic_sha256": "137fd57e5d038ec16c2626a578f3a294319455480e4019889993cfa6bc918f57",
+          "english_isnad_sha256": "df96ce4173eb9e818e2460781410ba1f784a8d51ff412e7b171e8e78b58e90e4",
+          "english_matn_sha256": "b857a28518ccc898d05cd498ad734ddd7c1f886adaceaa308c5b18bc3b2563a5",
+          "provider": "thaqalayn-data",
+          "record_id": 1480,
+          "record_sha256": "b52235b5508ef53201c40fd75db0c906536719c4b407dd1bba35ace9a92212c4",
+          "snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "snapshot_source_url": "https://thaqalayndata.netlify.app",
+          "source_url": "https://thaqalayn.net/books/al-kafi:2:1:5:1",
+          "stored_english_sha256": "fcffdb625528e79ec84385c4c7531e59cfb34c02ae7bc136bcb8aa52b2131f7e",
+          "translator": "Muhammad Sarwar"
+        },
+        "pdf": {
+          "english_isnad_sha256": "df96ce4173eb9e818e2460781410ba1f784a8d51ff412e7b171e8e78b58e90e4",
+          "extent_kind": "marker_bound",
+          "following_marker": "H 1455, CH 4, h 1",
+          "full_record_sha256": "3ec17c315bd371f1555720dd52d2444aed1620991d2f261bb6a3f6ec6acde924",
+          "layout_operations": [
+            {
+              "operation": "join_hyphenated_pdf_line_wraps",
+              "reason": "Remove layout-only whitespace after a line-final hyphen.",
+              "scope": "PDF block extraction"
+            },
+            {
+              "detail": "bounded from selected H marker to its final English quotation",
+              "extent_kind": "marker_bound",
+              "operation": "bound_pdf_report_extent"
+            }
+          ],
+          "marker": "H 1454, CH 3, h 1",
+          "matn_sha256": "00b717a64f20eab1c3e2e318a1cf2d8df2df55149c96e76ccb0b720c5cafa3b5",
+          "pages": [
+            25
+          ],
+          "physical_volume": 2,
+          "preceding_marker": "H 1453, CH 1c, h 3",
+          "sha256": "f65ed085faa56d6901763e138c7ce7232e344e04e5373ed1863218ff074d084a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-2.pdf"
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "7f03f30a4dc4b7578d16fbf5a049483a24b86dca1e40ca8a6dc0e25ba4079d73",
+      "source_isnad_sha256": "2fea93b9abc1759d496ddd77195fa249e428bdd6078af7810f4ce4ee900fbcaf",
+      "source_matn_sha256": "5880a7f4f78991e3ab3c71fba1c4db79c32d21b0ac08989e8199ab5ff45f74f6",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [
+          {
+            "operation": "join_hyphenated_pdf_line_wraps",
+            "reason": "Remove layout-only whitespace after a line-final hyphen.",
+            "scope": "PDF block extraction"
+          },
+          {
+            "detail": "bounded from selected H marker to its final English quotation",
+            "extent_kind": "marker_bound",
+            "operation": "bound_pdf_report_extent"
+          }
+        ],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 2
+    },
+    {
+      "current_segment": {
+        "metadata_sha256": "035357ca9e2c18d8c7a5dd6e6db01622797fd29a9d0212a075c106b8fafb2831",
+        "risk_level": "green",
+        "segment_id": 55,
+        "source_sha256": "16c80626de6122aaa8107dc82f9c0cd41843415620cbe85f871e250bb66e97b4",
+        "status": "published",
+        "translation_id": 52,
+        "translation_sha256": "ecd86f623d1e0db2ad94bd7c28a686ab6b73b26b71a37f2c320eefb5d896b250"
+      },
+      "current_translation": {
+        "matn_sha256": "ecd86f623d1e0db2ad94bd7c28a686ab6b73b26b71a37f2c320eefb5d896b250",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "f985b96830f10add369cba33b9c1687d933de0bf670ed30602ec98e08dc149ec",
+        "provider": "thaqalayn-data",
+        "rendered_isnad_sha256": null,
+        "risk_level": "green",
+        "source_full_sha256": "85e5f031b67212a9c66b38798ce3bfc2d33eab6abfbc745daca59423209e8748",
+        "source_isnad_sha256": "47f95edcdd1c749ddf126cbea832b48429b55f1ade1799c76b40548444d0aab8",
+        "source_matn_sha256": "16c80626de6122aaa8107dc82f9c0cd41843415620cbe85f871e250bb66e97b4",
+        "status": "published",
+        "translation_id": 52
+      },
+      "english_isnad": "Ali ibn Ibrahim has narrated from his father from ibn abu ‘Umayr from Hisham ibn Salim from abu ‘Abd Allah, recipient of divine supreme covenant, who has said the following:",
+      "english_isnad_sha256": "695439a3fd32066e15b13411ad8f52c8e0a69a6b1d63982bd1e21cb0a16d1602",
+      "english_matn": "“I asked ( the Imam) about the words of Allah, ‘. . . the invention of Allah (had a certain) nature with which He created all people. . . .’ (30:30) The Imam, recipient of divine supreme covenant, said, ‘It (invention, Fitrat) refers to belief in Oneness of Allah (belief in Allah only is placed in their nature).’”",
+      "english_matn_sha256": "8166e715648878d42cb5995f6dd7a040422dc338208602746ebb70adfcef1811",
+      "identity": {
+        "arabic_local_extent": "matn",
+        "arabic_sequence_score": 1.0,
+        "arabic_shorter_sequence_coverage": 1.0,
+        "english_chain_token_f1": 0.95,
+        "english_full_similarity": 1.0,
+        "english_matn_similarity": 1.0,
+        "local_sequence_evidence": {
+          "printed_number": "١",
+          "public_id": "alkafi-1461",
+          "sequence_in_book": 1462,
+          "volume": 2
+        },
+        "pdf_extent_evidence": {
+          "extent_kind": "marker_bound",
+          "following_marker": "H 1456, CH 4, h 2",
+          "marker": "H 1455, CH 4, h 1",
+          "pages": [
+            25
+          ],
+          "physical_volume": 2,
+          "preceding_marker": "H 1454, CH 3, h 1",
+          "printed_hadith_number": 1455
+        },
+        "thresholds": {
+          "minimum_arabic_sequence_score": 0.8,
+          "minimum_arabic_shorter_sequence_coverage": 0.98,
+          "minimum_english_chain_token_f1": 0.55,
+          "minimum_english_full_similarity": 0.65,
+          "minimum_english_matn_similarity": 0.55
+        }
+      },
+      "local_source_url": "https://lib.eshia.ir/11005/2/12",
+      "page_end": 12,
+      "page_start": 12,
+      "printed_number": "١",
+      "public_id": "alkafi-1461",
+      "qa": {
+        "blocking_flags": [],
+        "diagnostic_risk": "red",
+        "flags": [
+          {
+            "code": "number_mismatch",
+            "detail": "Source numbers ['1'] do not match translation numbers ['30', '30'].",
+            "severity": "critical"
+          },
+          {
+            "code": "missing_placeholder",
+            "detail": "Missing marker(s) in translation: 1.",
+            "severity": "critical"
+          }
+        ],
+        "publication_flags": [
+          {
+            "code": "external_source_numbering_difference",
+            "detail": "The source edition's printed verse/note numbers differ from local Arabic footnote markers; the verbatim published excerpt was not rewritten.",
+            "severity": "info"
+          },
+          {
+            "code": "external_source_footnote_marker_difference",
+            "detail": "Local Arabic editorial footnote markers are not interpolated into the checksum-pinned published English excerpt.",
+            "severity": "info"
+          }
+        ],
+        "publication_risk": "green",
+        "qa_version": "translation_qa_v1",
+        "source_purity": "passed"
+      },
+      "sequence": 1462,
+      "source_evidence": {
+        "classification": "verbatim_external_matn_excerpt",
+        "human_source_identity": {
+          "arabic_sha256": "c566c76c1f31378eba32e946ea570a46b93f86fadf5ca387bbe1d5c3ca843688",
+          "english_isnad_sha256": "df0755a709e84b9e4cf56107fc20a308856157361a4b574ee5a254dac5199b84",
+          "english_matn_sha256": "19330196131ecbbee05314ca340381969303c70913442a9768be50716dd40e16",
+          "provider": "thaqalayn-data",
+          "record_id": 1481,
+          "record_sha256": "42db9f3ce67e36eccc58231be3e655e58b4be6b1637c3f7e1826313daeefcf94",
+          "snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "snapshot_source_url": "https://thaqalayndata.netlify.app",
+          "source_url": "https://thaqalayn.net/books/al-kafi:2:1:6:1",
+          "stored_english_sha256": "ecd86f623d1e0db2ad94bd7c28a686ab6b73b26b71a37f2c320eefb5d896b250",
+          "translator": "Muhammad Sarwar"
+        },
+        "pdf": {
+          "english_isnad_sha256": "695439a3fd32066e15b13411ad8f52c8e0a69a6b1d63982bd1e21cb0a16d1602",
+          "extent_kind": "marker_bound",
+          "following_marker": "H 1456, CH 4, h 2",
+          "full_record_sha256": "c3b1286cb53465ddab85bd60b977b098b27784423bf3c01de40252ad5c151cfa",
+          "layout_operations": [
+            {
+              "operation": "join_hyphenated_pdf_line_wraps",
+              "reason": "Remove layout-only whitespace after a line-final hyphen.",
+              "scope": "PDF block extraction"
+            },
+            {
+              "detail": "bounded from selected H marker to its final English quotation",
+              "extent_kind": "marker_bound",
+              "operation": "bound_pdf_report_extent"
+            }
+          ],
+          "marker": "H 1455, CH 4, h 1",
+          "matn_sha256": "8166e715648878d42cb5995f6dd7a040422dc338208602746ebb70adfcef1811",
+          "pages": [
+            25
+          ],
+          "physical_volume": 2,
+          "preceding_marker": "H 1454, CH 3, h 1",
+          "sha256": "f65ed085faa56d6901763e138c7ce7232e344e04e5373ed1863218ff074d084a",
+          "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-2.pdf"
+        },
+        "translator": "Muhammad Sarwar"
+      },
+      "source_full_sha256": "85e5f031b67212a9c66b38798ce3bfc2d33eab6abfbc745daca59423209e8748",
+      "source_isnad_sha256": "47f95edcdd1c749ddf126cbea832b48429b55f1ade1799c76b40548444d0aab8",
+      "source_matn_sha256": "16c80626de6122aaa8107dc82f9c0cd41843415620cbe85f871e250bb66e97b4",
+      "target": {
+        "classification": "verbatim_external_matn_excerpt",
+        "editorial_operations": [
+          {
+            "operation": "join_hyphenated_pdf_line_wraps",
+            "reason": "Remove layout-only whitespace after a line-final hyphen.",
+            "scope": "PDF block extraction"
+          },
+          {
+            "detail": "bounded from selected H marker to its final English quotation",
+            "extent_kind": "marker_bound",
+            "operation": "bound_pdf_report_extent"
+          }
+        ],
+        "model": "muhammad-sarwar-published",
+        "provider": "sarwar-published-scan",
+        "risk_level": "green",
+        "status": "published"
+      },
+      "volume": 2
+    }
+  ],
+  "schema_version": 1,
+  "sources": {
+    "api_snapshot": {
+      "path": "C:\\Users\\taifh\\AppData\\Local\\Temp\\sarwar-alkafi-audit\\thaqalayn-api-alkafi.json",
+      "sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+      "source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni"
+    },
+    "pdfs": {
+      "1": {
+        "path": "C:\\Users\\taifh\\AppData\\Local\\Temp\\sarwar-alkafi-almurtaza\\volume-1.pdf",
+        "sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+        "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf"
+      },
+      "2": {
+        "path": "C:\\Users\\taifh\\AppData\\Local\\Temp\\sarwar-alkafi-almurtaza\\volume-2.pdf",
+        "sha256": "f65ed085faa56d6901763e138c7ce7232e344e04e5373ed1863218ff074d084a",
+        "source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-2.pdf"
+      }
+    },
+    "static_snapshot": {
+      "path": "C:\\Users\\taifh\\AppData\\Local\\Temp\\thaqalayn-al-kafi-static-full-fromzip.json",
+      "sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+      "source_url": "https://thaqalayndata.netlify.app"
+    }
+  },
+  "summary": {
+    "blocked": 0,
+    "blocked_public_ids": [],
+    "blocking_qa_count": 0,
+    "current_provider_counts": {
+      "thaqalayn-api": 1,
+      "thaqalayn-data": 19
+    },
+    "expected": 20,
+    "identity_score_ranges": {
+      "arabic_sequence_score": [
+        0.84137931,
+        1.0
+      ],
+      "arabic_shorter_sequence_coverage": [
+        1.0,
+        1.0
+      ],
+      "english_chain_token_f1": [
+        0.66666667,
+        1.0
+      ],
+      "english_full_similarity": [
+        0.74701987,
+        1.0
+      ],
+      "english_matn_similarity": [
+        0.7183908,
+        1.0
+      ]
+    },
+    "public_ids": [
+      "alkafi-36",
+      "alkafi-37",
+      "alkafi-38",
+      "alkafi-39",
+      "alkafi-41",
+      "alkafi-42",
+      "alkafi-43",
+      "alkafi-44",
+      "alkafi-45",
+      "alkafi-48",
+      "alkafi-49",
+      "alkafi-1444",
+      "alkafi-1445",
+      "alkafi-1446",
+      "alkafi-1447",
+      "alkafi-1448",
+      "alkafi-1449",
+      "alkafi-1459",
+      "alkafi-1460",
+      "alkafi-1461"
+    ],
+    "selected": 20,
+    "source_book_id": "11005",
+    "source_classification": "verbatim_external_matn_excerpt",
+    "target_model": "muhammad-sarwar-published",
+    "target_provider": "sarwar-published-scan",
+    "translator": "Muhammad Sarwar"
+  }
+}

@@ -1,4 +1,5 @@
 import datetime as dt
+from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -98,6 +99,21 @@ class HadithFootnote(BaseModel):
     page: int | None = None
 
 
+class HadithTranslationRead(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    language: str
+    translation_version: str
+    rendered_isnad_en: str | None
+    matn_translation: str
+    status: Literal["human_reviewed", "published"]
+    risk_level: Literal["green"]
+    risk_flags: list | None = None
+    provider: str | None = None
+    model: str | None = None
+    provenance_json: dict | None = None
+
+
 class HadithRead(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
@@ -124,6 +140,7 @@ class HadithRead(BaseModel):
     extraction_method: str
     extraction_confidence: int
     review_status: str
+    translation: HadithTranslationRead | None = None
 
 
 class NarratorSummaryRead(BaseModel):
@@ -550,10 +567,23 @@ class ChapterSummary(BaseModel):
     end_sequence: int
 
 
+class TranslationPublicationEvidenceRead(BaseModel):
+    status: Literal["human_reviewed", "published"]
+    risk_level: Literal["green"]
+    risk_flags: list | None = None
+    provider: str | None = None
+    model: str | None = None
+    provenance_json: dict | None = None
+
+
 class SearchResult(BaseModel):
     page: PageRead
     book: BookSummary
     snippet: str
+    match_type: str = "arabic"
+    hadith_public_id: str | None = None
+    hadith_printed_number: str | None = None
+    translation_evidence: TranslationPublicationEvidenceRead | None = None
 
 
 class SearchResponse(BaseModel):
@@ -567,6 +597,22 @@ class LibraryStats(BaseModel):
     books_catalogued: int
     pages_digitized: int
     authors: int
+
+
+class CorpusBookStatus(BaseModel):
+    book_id: int
+    source_book_id: str
+    title_original: str
+    pages_digitized: int
+    visible_hadiths: int
+    parsed_chains: int
+    chains_needing_review: int
+    public_english_translations: int
+    approved_split_reviews: int
+
+
+class CorpusStatusResponse(BaseModel):
+    books: list[CorpusBookStatus]
 
 
 class TransmissionGraphNode(BaseModel):

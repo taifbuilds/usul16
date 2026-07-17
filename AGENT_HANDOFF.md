@@ -1341,7 +1341,22 @@ etc.) is the honest answer, not backlog. **Do not chase 100%.**
 - 328 conflict-method persons + the unanchored famous hubs (Ibn Abi Umayr,
   Mu'awiya b. Ammar, Hisham b. al-Hakam) would benefit from real companionship
   anchors sourced from the Mu'jam — NOT hand-fabricated. Their generations stay
-  advisory until then.
+  advisory until then. INVESTIGATED 2026-07-11 and deliberately deferred (it is a
+  real multi-session research task, not a safe quick win): (a) `rijal_occurrences`
+  is too noisy to anchor on — Ibn Abi Umayr has 1 clean «أبي الحسن موسى»
+  narrates_from, but Mu'awiya has 0 parsed and Hisham's "occurrences" are whole
+  isnad+matn snippets, not names. (b) The clean source is the ENTRY PROSE: the
+  text literally states «لقي أبا الحسن موسى ... روى عن الرضا» (Ibn Abi Umayr) and
+  «روى عن أبي جعفر و أبي عبد الله و العبد الصالح» (Mu'awiya) — narrates-from an
+  Imam at layer G ⇒ person at G+1, the same rule as companionship. But a prose
+  extractor needs care: normalization maps «روى»→«روی» (Farsi yeh), the Imam
+  honorifics sit in comma-separated teacher LISTS after «روی عن», bare «أبي جعفر»/
+  «أبي الحسن»/«أبي محمد» are ambiguous and must be skipped, and precision is hard
+  to validate because prose-narration entries barely overlap the ~4,100 Tusi-
+  anchored ground-truth set. A WRONG hard anchor on a famous narrator regresses
+  accuracy (it can wrongly veto/disambiguate), so this needs its own holdout
+  validation contract (cross-check derived layers vs Tusi anchors AND against
+  death-date arithmetic) before any apply. Do it as a dedicated session.
 - Barqi/Sahl 'iddah roster seeds still at confidence 75 (verify vs muqaddima).
 - Boroujerdi Tartib Asanid al-Kafi gold-eval still unbuilt.
 
@@ -1673,6 +1688,141 @@ Check split audit if backend is running:
 Invoke-RestMethod 'http://127.0.0.1:8000/hadith-split-reviews/audit?source_book_id=11005' | ConvertTo-Json -Depth 5
 ```
 
+Planned DB edit recorded by Codex on 2026-07-11 before applying:
+
+- Scope: reconcile the Al-Kafi hadith index with a complete corrected-parser scan of all eight volumes.
+- Intended source-row changes: recover 6 swallowed numbered reports, reject 3 additional editorial/commentary false rows, refresh the 6 anchor rows and 3 cross-page continuation targets, and correct 6 rows whose printed number/isnad retained an outer page or verse number.
+- ID policy: preserve every existing `hadiths.id` and `public_id`; recovered reports use deterministic suffixed public IDs and are inserted into a contiguous internal `sequence_in_book` ordering.
+- Derived-data policy: delete chains/resolution evidence belonging only to the 3 newly rejected false rows; synchronize genuine existing chain/node rows in place so their node IDs and valid external/admin decisions remain linked; add chains for the 6 recovered reports; then refresh resolver-derived data.
+- Validated dry run: parser draft `15,335`; current visible `15,332`; exactly 9 page mismatches explained by 6 missing reports and 3 false visible rows. Parser volume counts: `1,442 / 2,344 / 2,182 / 2,192 / 2,201 / 2,666 / 1,711 / 597`.
+- Backup target before apply: `eshia-research/eshia_research.before-alkafi-count-reconciliation.20260711-175031.db`
+
+Corrective derived-data plan recorded by Codex on 2026-07-12 before applying:
+
+- The full post-repair person-resolver rebuild passed invariants but regressed the independent Mu'jam corroboration floor from the validated backup's `61.7%` (`63,280/87,747` resolved) to `58.8%` (`58,319/87,752` resolved). Do not retain that regression.
+- Scope: restore the validated backup's `mention_resolutions` for chain-node IDs that still exist, retain fresh rows for the 22 genuinely new node IDs, exclude the 17 removed false/surplus node IDs, and restore the validated `person_generations`; then rerun machine review and evaluation.
+- This does not restore or overwrite source hadiths, corrected chain text, chain-node structure, external reviews, or admin decisions. It uses the same already verified pre-edit backup: `eshia-research/eshia_research.before-alkafi-count-reconciliation.20260711-175031.db`.
+
+Applied by Codex on 2026-07-12:
+
+- Corrected parser scan and main-DB reconciliation completed.
+- Final Al-Kafi counts: `15,361` stored, `26` rejected audit rows, `15,335` visible genuine printed units; corrected-parser draft also `15,335`, with zero page mismatches.
+- Visible volume counts: `1,442 / 2,344 / 2,182 / 2,192 / 2,201 / 2,666 / 1,711 / 597`.
+- Recovered 6 swallowed reports with stable suffixed IDs; rejected 3 newly proven editorial rows; refreshed 15 genuine rows; internal sequence is unique/contiguous while all existing public IDs remain stable.
+- Al-Kafi derived state: `17,184` chains, `87,752` nodes, `1,174` approved splits, `26` rejected splits, `0` needs-review, `suspicious_unreviewed=0`.
+- Invalid evidence removed with the false rows: 10 external reviews and 23 decisions. Remaining external rows: `10,040`; admin decisions: `10,021` (`3,961` overrides, `5,782` keep-ambiguous, `276` text/chain flags, `2` approve-current).
+- The full resolver rerun's corroboration regression (`58.8%`) was rejected. Validated resolutions were restored for unchanged node IDs and fresh rows retained for 22 new IDs. Final eval: `63,292/87,752` resolved (72.1%), Mu'jam corroboration `61.7%`, reliable generation violations `0/185`, bare-form leaks `0`.
+- Final `PRAGMA quick_check`: `ok`; all derived orphan checks: `0`; backend suite: `320 passed, 1 warning`.
+- Full report: `eshia-research/scratch_audit/alkafi_count_reconciliation_20260712.md`.
+- Live smoke after restart: backend health `ok` on `127.0.0.1:8000` (PID `9260`), frontend HTTP `200` on `127.0.0.1:3000` (listener PID `24276`); split-stats API returned `15,361 / 1,174 / 26 / 0` total/approved/rejected/needs-review.
+
+Planned DB edit recorded by Codex on 2026-07-12 before applying:
+
+- Scope: complete adjudication of all `1,060` Al-Kafi chains previously marked `needs_review`.
+- Repairs: 106 source-verified isnad/matn boundary corrections; restore the flattened printed number/body and manually reconstruct both routes for `alkafi-4680`; expand every unambiguous co-narrator combination up to the observed Al-Kafi maximum (24); preserve already-reviewed abbreviated/complex exceptions; mark `جميعاً` convergence chains as `reviewed_complex` while retaining their raw isnad and `multi_route` flag rather than guessing topology.
+- ID/evidence policy: preserve existing chain/node IDs whenever tokens are unchanged; retain all external/admin evidence; refuse any destructive remap that touches such evidence; add new IDs only for newly materialized routes.
+- Validated dry run: 106 split repairs, 2 explicit complex approvals, 1 source/two-route repair; no remaining non-structural flag in the repair set. Focused tests: `53 passed`.
+- Backup target before apply: `eshia-research/eshia_research.before-alkafi-flagged-chain-repair.20260712-004051.db`.
+
+Applied by Codex on 2026-07-12:
+
+- Completed all `1,060` previously flagged chains across `1,030` Al-Kafi hadiths.
+- Applied 106 source-verified split repairs, restored the two independent routes
+  of `alkafi-4680`, and retokenized every affected hadith with the corrected
+  period/parallel-route detector and co-narrator expansion ceiling.
+- Final Al-Kafi state: `15,361` stored / `26` rejected / `15,335` visible,
+  parser draft `15,335`, page mismatches `0`; `17,299` chains and `88,380`
+  nodes; chain statuses `16,122` pending-clean, `248` approved, `892`
+  reviewed-complex, `37` reviewed-exception, and **`0` needs-review**.
+- Evidence-safe reconciliation preserved stable node IDs, migrated 9 external
+  reviews and 1 admin decision, collapsed 8 duplicate admin decisions, and
+  retired 46 external + 46 admin parser-artifact reviews whose old node text
+  was proven not to be isnad. Every retired case ID is retained in the hadith's
+  split-review audit note. Remaining external/admin rows: `9,994 / 9,967`.
+- Repaired all inherited external-review `decision_id` audit pointers. Final
+  foreign-key check, node-count check, duplicate checks, and all derived orphan
+  checks are `0`; `PRAGMA quick_check` is `ok`.
+- Full derived rebuild and token-safe restoration completed. Final evaluation:
+  `63,847/88,380` resolved (`72.2%`), Mu'jam corroboration floor `61.9%`,
+  reliable generation violations `0/185`, bare-form leaks `0`.
+- Machine review: `56,441` approve-current and `31,939` external-review cases.
+- Full backend suite: `322 passed, 1 warning`.
+- Live smoke: backend health `ok`, frontend HTTP `200`, live split stats
+  `15,361 / 1,284 / 26 / 0` total/approved/rejected/needs-review;
+  `alkafi-4680` exposes 2 chains / 10 nodes.
+- Full report:
+  `eshia-research/scratch_audit/alkafi_flagged_chain_repair_20260712.md`.
+
+Planned DB edit recorded by Codex on 2026-07-12 before continuing translation setup:
+
+- Scope: translation foundation only. Align the new empty translation schema with Alembic and persist one planned, stratified 300-hadith Al-Kafi English pilot job.
+- Important correction: an earlier CLI dry-run invoked the repo's existing `_init_db()` helper and created the empty translation tables before Alembic was stamped. Verified all new translation tables existed with `0` rows and no corpus/translation/job rows written.
+- Intended actions now: back up the DB, stamp/align Alembic to translation revision `e8f2c5d9a341`, then run `plan-translation-jobs --source-book-id 11005 --pilot-size 300 --apply --job-key alkafi-en-pilot-300-v1`.
+- Non-scope: no model/API calls, no generated English translations, no Arabic hadith/isnad/matn edits, no chain or rijal rebuilds.
+- Backup target before continuing: `eshia-research/eshia_research.before-translation-foundation.20260712-130405.db`.
+
+Applied by Codex on 2026-07-12:
+
+- Added first-class translation foundation:
+  - SQLAlchemy models and Alembic revision `e8f2c5d9a341_add_translation_tables.py`
+  - package `eshia_research.translation` with source hashing, segmentation, deterministic QA, English-formula isnad rendering, and token/cost job planning
+  - style guide: `eshia-research/docs/translation_style_guide.md`
+  - CLI commands: `plan-translation-jobs`, `render-english-isnad`, `qa-translations`
+- DB backup before final alignment/pilot write:
+  - `eshia-research/eshia_research.before-translation-foundation.20260712-130405.db`
+  - SHA256: `97F4B5DA7A419F44ABCE4451765615D78888753CBF132CC95B2750BDCC7DEDFB`
+- Alembic stamped/aligned to `e8f2c5d9a341`. The new translation tables had already been created empty by the earlier dry-run via `_init_db()`; they were verified at `0` rows before pilot write.
+- Persisted one representative Al-Kafi English pilot planning job only:
+  - job key: `alkafi-en-pilot-300-v1`
+  - `300` planned hadiths / `303` matn segments / `303` planned job items
+  - length mix: `150` short, `90` medium, `24` long, `16` very-long, `20` oversize
+  - volume spread: `39 / 39 / 38 / 38 / 37 / 37 / 36 / 36` hadiths across volumes 1-8
+  - source chars `119,915`; estimated input/output tokens `59,570 / 39,096`
+  - provider/model recorded as `pending`; no model/API calls made and no English translations generated
+- Post-apply DB verification:
+  - `PRAGMA quick_check`: `ok`
+  - `PRAGMA foreign_key_check`: `0`
+  - translation table counts: `hadith_translations=300`, `translation_segments=303`, `translation_jobs=1`, `translation_job_items=303`, attempts/reviews/glossary/memory all `0`
+  - `qa-translations` checked `0` rows because no draft translation text exists yet
+- Verification: backend suite `330 passed, 1 warning`.
+
+Planned DB edit recorded by Codex on 2026-07-12 before applying direct translations:
+
+- Scope: directly translate the first proof batch from `alkafi-en-pilot-300-v1`: pilot job items `1-12` / translation segments `1-12`.
+- Method: Codex direct translation in-session, not an external model/provider API. Store provenance as `provider='codex-direct'`, keep source hashes, run deterministic QA, and update only translation tables/job item status.
+- Non-scope: no Arabic hadith/isnad/matn edits, no chain or rijal rebuilds, no bulk pilot completion claim.
+- Backup target before apply: `eshia-research/eshia_research.before-direct-translation-batch1.20260712-131534.db`.
+- Backup SHA256: `0B7FA39A1B1E25460DBB4A8E491B9EB7585A9C8032140717B10322A9CE9F7ED7`.
+
+Applied by Codex on 2026-07-12:
+
+- User clarified they wanted Codex to translate directly in-session, not call an external provider/model API.
+- Direct translation batches written under `provider='codex-direct'`, `model='gpt-5-codex-direct'`, cost `0.0`, with one `translation_attempts` row per translated segment.
+- Completed direct English translations for `46` full hadiths in the Al-Kafi pilot job:
+  - `alkafi-1` through `alkafi-11`
+  - `alkafi-13`
+  - `alkafi-15` through `alkafi-22`
+  - `alkafi-24`, `alkafi-25`, `alkafi-26`, `alkafi-28`, `alkafi-31`
+  - `alkafi-33`, `alkafi-36`, `alkafi-37`, `alkafi-38`, `alkafi-39`, `alkafi-41`, `alkafi-42`, `alkafi-43`, `alkafi-44`, `alkafi-45`, `alkafi-48`, `alkafi-49`
+  - `alkafi-1444` through `alkafi-1449`
+  - `alkafi-1459`, `alkafi-1460`, `alkafi-1461`
+- Also translated segment `0` of long `alkafi-12`, but deliberately kept the hadith-level translation row `planned/unscored` with `matn_translation=NULL` so partial text is not mistaken for a complete hadith translation.
+- Current translation DB counts:
+  - `translation_segments`: `47` machine_verified/green, `256` planned/unscored
+  - `translation_job_items`: `47` verified/green, `256` planned/unscored
+  - `hadith_translations`: `46` machine_verified/green/codex-direct, `253` planned/unscored/no provider, `1` planned/unscored/codex-direct partial (`alkafi-12`)
+  - `translation_attempts`: `47` completed codex-direct
+- QA/integrity:
+  - `qa-translations --source-book-id 11005 --language en --limit 80`: checked `46`, all `green`
+  - `PRAGMA quick_check`: `ok`
+  - `PRAGMA foreign_key_check`: `0`
+  - focused translation tests: `8 passed`
+- Next direct translation recommendation: continue with complete one-segment reports first, and reserve very long reports (`alkafi-12`, `alkafi-14`, etc.) for dedicated long-form passes so partials never publish as complete.
+- Cross-check packet exported for ChatGPT review:
+  - `eshia-research/scratch_audit/alkafi_direct_translation_crosscheck_46_of_1000_20260712.txt`
+  - Contains Arabic isnad, Arabic matn, English isnad context, English matn translation, source location, source matn SHA256, and reviewer instructions.
+  - Honest scope: `46` complete green translations out of the requested `1,000`; no placeholder/fake translations included.
+
 CLI commands visible in `eshia-research/src/eshia_research/cli.py`:
 
 - `rebuild-chain-index`
@@ -1685,8 +1835,227 @@ CLI commands visible in `eshia-research/src/eshia_research/cli.py`:
 - `refine-tabaqat`
 - `refine-compiler-priors`
 - `refine-collective-context`
+- `plan-translation-jobs`
+- `render-english-isnad`
+- `qa-translations`
+
+## Translation reader UI (Codex, 2026-07-12)
+
+- Added the public translation slice to the existing hadith API responses used by printed-page, chapter, and permalink readers.
+- Publication gate is enforced server-side: only English `matn_en_v1` rows with a non-empty matn, `green` risk, status `machine_verified`, `human_reviewed`, or `published`, and matching full/isnad/matn source hashes are returned. Planned, partial, red/amber, rejected, and source-stale translations return as `translation: null`.
+- Added an unobtrusive native disclosure below the Arabic matn: `Read English translation` / `Hide English translation`. Arabic remains visible and authoritative; the English panel is LTR, shows the deterministic English isnad when available, and clearly labels machine-verified drafts versus human-reviewed/published text.
+- No disabled or unavailable translation control is rendered on untranslated hadiths. Future complete green batches appear automatically without further frontend changes.
+- Verification:
+  - focused backend API tests: `30 passed, 1 warning`
+  - full backend suite: `331 passed, 1 warning`
+  - frontend lint: passed
+  - frontend production build: passed on Next.js `16.2.9`
+  - real DB smoke: `alkafi-1` exposed a green `machine_verified` translation; partial `alkafi-12` correctly exposed none
+
+Live start follow-up by Codex on 2026-07-12:
+
+- While starting the local app, the live API initially hid `alkafi-1`'s verified translation because the publication gate required `source_isnad_sha256` to be truthy before comparing it. Fixed the gate to compare against the expected hash directly, allowing `None == None` for matn-only/no-separate-isnad rows while preserving full/isnad/matn stale-source protection.
+- Added regression coverage for the no-isnad publishable case in `tests/test_api_books.py`.
+- Verification:
+  - focused backend API tests: `30 passed, 1 warning`
+  - `git diff --check`: no whitespace errors, CRLF warnings only
+  - live smoke: backend `http://127.0.0.1:8000/hadiths/alkafi-1` returns the `machine_verified` translation, and frontend `http://127.0.0.1:3000/hadith/alkafi-1` contains `Read English translation`.
+
+## Thaqalayn Al-Kafi Translation Import (Codex, 2026-07-12)
+
+- Added `eshia_research.translation.thaqalayn_importer` and CLI command `import-thaqalayn-alkafi`.
+- Source: public Thaqalayn API v2 Al-Kafi volume endpoints (`Al-Kafi-Volume-1-Kulayni` through `Al-Kafi-Volume-8-Kulayni`), translator recorded as Muhammad Sarwar, provider `thaqalayn-api`, model `muhammad-sarwar`.
+- Matching method: forward-only per-volume Arabic word coverage plus exact normalized substring checks, minimum score `0.88`, matcher version `thaqalayn_match_v1`.
+- Import policy:
+  - does not overwrite existing green current translations unless `--overwrite-current` is explicitly supplied
+  - stores source hashes against the local Arabic hadith so public API stale-source protection still applies
+  - treats edition footnote/number mismatches as provenance QA flags, not fatal blockers
+  - blocks empty output, provider-refusal text, untranslated Arabic blocks, and suspicious length collapse/expansion
+- Backup before write:
+  - `eshia-research/eshia_research.before-thaqalayn-import.20260712-144548.db`
+  - SHA256 `6D2A046B245A6C04FDB928AD316E09263E08EDB70621791F406FA7159850C5A6`
+- Applied import result:
+  - fetched Thaqalayn rows: `14,245`
+  - local visible Al-Kafi reports considered: `15,335`
+  - confident Arabic matches: `13,292`
+  - imported new green rows: `13,209`
+  - skipped existing green Codex-direct rows: `46`
+  - blocked by import QA: `37`
+  - unmatched local reports: `2,043`
+  - unmatched Thaqalayn rows: `953`
+  - errors: `0`
+- Current green English translation counts after import:
+  - total: `13,255`
+  - Thaqalayn/Sarwar: `13,209`
+  - Codex-direct: `46`
+- Public API now includes translation `provider`, `model`, and `provenance_json`; reader UI shows source attribution, e.g. `Muhammad Sarwar, via Thaqalayn`, linked to the Thaqalayn source URL.
+- Verification:
+  - focused importer/pipeline/API tests: `40 passed, 1 warning`
+  - full backend suite: `333 passed, 1 warning`
+  - DB `PRAGMA quick_check`: `ok`
+  - DB `PRAGMA foreign_key_check`: `0`
+  - frontend production build: passed on Next.js `16.2.9`
+  - frontend lint: blocked by pre-existing unrelated React lint findings in `SiteHeader.tsx` and `ThemeToggle.tsx`, plus an unused `Rise` import in `app/page.tsx`
+  - live smoke: backend `http://127.0.0.1:8000/hadiths/alkafi-47` returns Thaqalayn provenance; frontend `http://127.0.0.1:3000/hadith/alkafi-47?fresh=1` contains `Muhammad Sarwar, via Thaqalayn`
+
+## Thaqalayn Al-Kafi Translation Rematch (Codex, 2026-07-13)
+
+- Fixed the reader label so public users see translation source attribution instead of the internal `Machine-verified draft` status.
+- Corrected Thaqalayn provenance semantics: Muhammad Sarwar / Thaqalayn imports are now stored as `published`, not machine-generated drafts.
+- Upgraded the Arabic matcher to `thaqalayn_match_v2`:
+  - evaluates the strongest candidate in the bounded sequence window instead of accepting the first adequate candidate
+  - permits a 64-row look-back for small cross-edition reorderings
+  - retains sequence-proximity tie-breaking and the existing `0.88` threshold / QA gates
+- Added regression tests for best-candidate selection, cross-edition reordering, and published status.
+- Backup before the live rematch:
+  - `eshia-research/eshia_research.before-thaqalayn-rematch.20260713-143318.db`
+  - SHA256 `5849E4FE4F282E7831AF6DE8071E47A549B8C36D3CAE1F02983998EC114FB912`
+- Applied result:
+  - fetched Thaqalayn rows: `14,245`
+  - local visible Al-Kafi reports: `15,335`
+  - confident matches: `13,398`
+  - newly imported publishable rows: `104`
+  - existing Thaqalayn rows relabelled as published: `13,209`
+  - current public translations: `13,359` (`87.11%`)
+  - missing translations: `1,976` (`1,937` unmatched plus `39` blocked by QA)
+  - all `13,359` public rows match the current full/isnad/matn source hashes
+- The remaining gap cannot be filled honestly from this Thaqalayn/Sarwar source alone: the API supplies `1,090` fewer rows than the verified local edition, with the largest structural gap in volume 7 (`1,711` local vs `891` remote). Do not attach translations to uncertain reports merely to claim complete coverage.
+- Integrity/live checks:
+  - SQLite `quick_check`: `ok`
+  - foreign-key violations: `0`
+  - `alkafi-1152` API: `provider=thaqalayn-api`, `status=published`, live Thaqalayn source URL
+  - reader: English toggle and `Muhammad Sarwar, via Thaqalayn` present; `Machine-verified draft` absent
+
+## ThaqalaynData Al-Kafi Translation Completion Pass (Codex, 2026-07-14)
+
+Planned DB edit recorded by Codex on 2026-07-14 before applying:
+
+- Scope: import additional Al-Kafi English translations from the CC0 ThaqalaynData static dataset, using Sarwar first and HubeAli only where Sarwar is absent; replace existing public `codex-direct` pilot translations when a publishable ThaqalaynData human translation is available; preserve existing current Thaqalayn/Sarwar rows.
+- Source cache: `C:\Users\taifh\AppData\Local\Temp\thaqalayn-al-kafi-static-full-fromzip.json`, generated from the `narmafraz/ThaqalaynData` GitHub archive and the complete Al-Kafi manifest (`15,385` refs; `15,381` usable human translation rows).
+- Dry-run result: `15,381` remote rows; `15,335` visible local Al-Kafi reports; `15,062` confident Arabic matches; `273` unmatched local reports; `139` QA-blocked matched rows.
+- Expected public gain from current DB state: `1,777` new translations plus replacement of all `46` public `codex-direct` rows, leaving about `199` visible Al-Kafi reports still untranslated/blocked.
+- Command: `import-thaqalayn-alkafi --source static --static-cache-path %TEMP%\thaqalayn-al-kafi-static-full-fromzip.json --replace-provider codex-direct --apply`.
+- Backup target before apply: `eshia-research/eshia_research.before-thaqalayndata-completion.20260714-143000.db`.
+- Backup SHA256: `6746DC7839168AD41CD0A21F8A4689CB53523AC98EB0FA4ACCA06F52E082DA87`.
+
+Applied by Codex on 2026-07-14:
+
+- Applied ThaqalaynData static import with `--replace-provider codex-direct`.
+- Apply result: `15,381` fetched usable remote rows, `15,335` visible local Al-Kafi reports, `15,062` confident matches, `1,823` imported/updated rows, `13,203` existing Thaqalayn rows preserved, `36` new matched rows blocked by import QA, `273` unmatched local reports, `0` errors.
+- Public current Al-Kafi English coverage after import:
+  - `15,136 / 15,335` visible reports translated (`98.70%`)
+  - `199` visible reports still untranslated/blocked
+  - provider counts: `13,313` `thaqalayn-api`, `1,823` `thaqalayn-data`
+  - model/translator counts: `14,090` Muhammad Sarwar, `1,046` HubeAli
+  - all public rows are `published`; public `codex-direct` rows: `0`
+  - all public rows match current local source hashes; stale public rows: `0`
+- Remaining missing by volume: v1 `16`, v2 `6`, v3 `12`, v4 `7`, v5 `28`, v6 `87`, v7 `25`, v8 `18`.
+- Integrity/verification:
+  - `PRAGMA quick_check`: `ok`
+  - `PRAGMA foreign_key_check`: `0`
+  - focused backend tests: `48 passed, 1 warning`
+  - live API smoke: `alkafi-12` exposes `provider=thaqalayn-data`, `model=hubeali`, `status=published`, translator `HubeAli`
+  - backend and frontend restarted; backend health `ok`, frontend `http://127.0.0.1:3000/hadith/alkafi-12?fresh=1` HTTP `200`
+
+## Sarwar-only verified rematch (Codex, 2026-07-15)
+
+User direction: do not add further HubeAli translations; use Muhammad Sarwar as the primary English translation.
+
+Planned DB edit recorded before applying:
+
+- Scope: replace only current HubeAli fallbacks with a unique, unowned Muhammad Sarwar record from the official Thaqalayn API, and fill only currently unpublished rows meeting the same checks.
+- Required checks: Arabic score at least `0.88`, runner-up margin at least `0.03`, no remote-record ownership collision, no blocking translation-QA flag, and a verified live canonical Thaqalayn source page.
+- Dry-run result: `32` changes (`30` HubeAli-to-Sarwar replacements and `2` new Sarwar translations).
+- Rejected from this pass: low-confidence/ambiguous candidates, `14` missing-row candidates with blocking QA, and `3` strong candidates whose remote Sarwar record was already owned by a different local report.
+- Apply script: `eshia-research/scratch_audit/apply_verified_sarwar_api_rematch.py`.
+- Reviewed manifest: `eshia-research/scratch_audit/alkafi_sarwar_api_verified_manifest_20260715.json`.
+- Backup target before apply: `eshia-research/eshia_research.before-sarwar-verified-rematch.20260715-170238.db`.
+
+Applied and verified by Codex on 2026-07-15:
+
+- Backup created successfully; SHA256 `EAB10E3EF644AB0D9EAEE0992B6C3560444A3FCCB672AED9C7033D1A586DBEF9`.
+- Applied `32` records: `30` HubeAli fallbacks replaced by Muhammad Sarwar and `2` previously missing reports supplied with Muhammad Sarwar.
+- Current public coverage: `15,138 / 15,335` (`98.72%`); missing `197`.
+- Current public translator counts: Muhammad Sarwar `14,122`; HubeAli `1,016`.
+- No new HubeAli rows were added. Existing HubeAli rows remain only where this pass did not establish a collision-free, QA-safe Sarwar replacement.
+- Corrected legacy Thaqalayn API URLs so imported volumes 2-8 point to their actual live volume route instead of the upstream `/hadith/1/...` error.
+- Verification: SQLite `quick_check=ok`; foreign-key violations `0`; stale public source hashes `0`; rematch rerun selected `0` (idempotent); focused tests `50 passed, 1 warning`; live API source/model/status checks passed for `alkafi-1`, `alkafi-10316`, `alkafi-14141`, and `alkafi-14453`.
+
+## Launch hardening (Codex, 2026-07-13)
+
+- Public editorial writes now fail closed. `PUT /hadith-split-reviews/{public_id}` requires `X-Admin-Token`; an empty `API_ADMIN_TOKEN` disables writes with HTTP 503. API docs are disabled by default, CORS origins are environment-configured, and public review pages return 404 unless `ENABLE_REVIEW_UI=true`.
+- Added an administrator-token field to the private split-review client without persisting the secret in browser storage.
+- Search now queries public green/published English translations and links those hits to stable hadith records. Latin queries bypass the Arabic page scan and known collection names are searchable. Real DB `prayer` search improved from about `19.3s` to `0.15s`.
+- Added `/corpus-status` and the public `/methodology` page with live per-collection page, visible-hadith, chain-review, English-coverage, and approved-split counts. Book surfaces now identify Al-Kafi as the research beta and distinguish under-review, preview, page-text, and rijal-reference collections.
+- Replaced the unsupported global completeness claim with collection-specific maturity language and documented the 15,335 versus commonly cited 16,199 Al-Kafi counting issue.
+- Expanded copied citations with volume/page range, printed number, public ID, canonical URL, source URL, and access date.
+- Added global error recovery, a useful 404, page metadata/canonicals, robots/sitemap, security headers, request timeouts, and production environment/deployment gates.
+- Reduced narrator initial payloads (15 initial appearances, 25 initial transmission edges, source-linked 6,000-character rijal previews). Representative production narrator HTML dropped from about `530KB` before hardening to `247KB` before the final 15/25 reduction.
+- Increased graph aggregation cache TTL to one hour and documented prewarming plus edge/proxy rate limiting.
+- Fixed nested main landmarks, missing reader/hadith headings, reduced-motion gaps, animated layout padding, and undersized primary reader/search/graph/citation controls and footnote markers.
+- Added `docs/content-rights-register.md`. Arabic source, translation, and cover reuse permission remains an external public-launch gate until evidence is recorded.
+- Verification:
+  - full backend suite: `337 passed, 1 warning`
+  - frontend lint: passed
+  - frontend production build: passed on Next.js `16.2.9`
+  - production smoke: homepage, methodology, English search, stable hadith permalink all HTTP 200; `/review/splits` HTTP 404
+  - live write probe without admin configuration: HTTP 503, no mutation
+  - local servers restarted at `http://127.0.0.1:3000` and `http://127.0.0.1:8000`
+
+## Al-Kafi 179-report Sarwar recovery, phases 1-3 (Codex, 2026-07-16)
+
+- Scope approved for database write: import exactly the `109` clean `ready_sarwar` records in `eshia-research/scratch_audit/alkafi_sarwar_179_dossier_20260715.json`; do not modify the other `70` target reports or the separately deferred `18` reports.
+- Source mix: `62` records recovered from checksum-pinned published Muhammad Sarwar scans and `47` from ThaqalaynData rows explicitly attributed to Muhammad Sarwar. Volume mix: v1 `5`, v2 `2`, v3 `8`, v4 `4`, v5 `8`, v6 `75`, v7 `7`, v8 `0`.
+- Identity evidence is restricted to direct Arabic matches or one-to-one gaps bounded by direct Arabic anchors. The older API-URL/static-path planner was found invalid and is not used for any import decision.
+- Source-purity safeguard excludes `hubeali.com` and HubeAli-style `(azwj)`, `(saww)`, and `(asws)` markers. Twelve mislabeled volume-8 candidates were removed before the manifest was locked.
+- Reviewed dossier SHA-256: `6f656feb9334767668729dd5444472d10c997bf3327031927c6e4cbfac4e9b77`.
+- Backup target before apply: `eshia-research/eshia_research.before-sarwar-179-phases1-3.20260716-005431.db`.
+- Backup completed at `2,250,383,360` bytes with SHA-256 `4D14D27DC6CDC76ECEC86D0D2B29C68F5BF20CC8F1F2B8E97C93431056B791D9`.
+- Import completed atomically: `109` published/green translations, `109` published/green linked segments, `109` verified job items, and `109` completed zero-cost source-import attempts. Idempotent rerun reports `selected=0`.
+- Resulting Al-Kafi public English coverage: `15,247 / 15,335` (`99.4261%`), leaving `88`; translator counts are Muhammad Sarwar `14,231` and pre-existing HubeAli `1,016`.
+- Verification: no forbidden source markers in the new rows; stale public source hashes `0`; SQLite `quick_check=ok`; foreign-key violations `0`; focused translation/import/API tests `50 passed, 1 warning`; API spot checks passed for static-source `alkafi-211` and scan-recovery `alkafi-11141`.
+
+## Al-Kafi strict human-source translation enforcement (planned, 2026-07-16)
+
+- User explicitly prohibited all Codex-generated English and reported suspicious wording in the opening reports.
+- Deep audit found zero current/public Codex-marked hadith-level rows, but one surviving green Codex partial segment (`alkafi-12`, segment `12`), 47 Codex attempt payloads containing English, and the obsolete 303-item Codex pilot job still marked `running`.
+- Eight public rows contain project-authored English rather than a verbatim/bounded external excerpt and will be rejected/red with their English cleared: `alkafi-10724`, `alkafi-11166`, `alkafi-11167`, `alkafi-11168`, `alkafi-11169`, `alkafi-11277`, `alkafi-11999`, `alkafi-12739`.
+- `alkafi-1160` is retained because its public wording is an exact bounded excerpt of the external Sarwar field. `alkafi-1282` and `alkafi-1292` are retained as explicitly labelled numeric corrections, not newly translated prose.
+- Pinned-source dry run verified `13,363` Thaqalayn API rows and `1,840` ThaqalaynData rows against source snapshots, including harmless HTML-to-plain-text normalization; it found `12,041` legacy API citation URLs requiring volume repair and `15,203` current whole-matn segment metadata rows to pin with English/source hashes.
+- Cleanup script: `eshia-research/scratch_audit/retire_alkafi_codex_and_repair_provenance.py`; dry-run completed successfully. It redacts generated text from all 47 Codex attempt payloads, clears/rejects segment 12, cancels the pilot job, quarantines the eight authored rows, and pins/repairs external provenance.
+- Backend public policy is now centralized across reader, English search, and corpus metrics: only `human_reviewed`/`published`, green, nonempty, source-current, non-AI rows can publish. Frontend source labels now expose translator attribution honestly and translation-bearing fetches bypass stale caching.
+- Backup target before apply: `eshia-research/eshia_research.before-human-source-enforcement.20260716-123401.db`.
+- Backup completed at `2,251,923,456` bytes with SHA-256 `B087571137BB5F43EF9FD3AEF7B8D3D0B1959F4236D22F92BE6426341E9FC06A`.
+- Cleanup applied atomically: `47` generated attempt payloads redacted, the surviving Codex partial segment cleared/rejected, obsolete `303`-item pilot cancelled/retired, and all `8` project-authored public English rows cleared/rejected. The `15,203` remaining external rows now have pinned source-English hashes/metadata, and `12,041` legacy API citation URLs were repaired.
+- Planned follow-up DB edit: replace opening reports `alkafi-1` through `alkafi-34` with exact, bounded Muhammad Sarwar matn excerpts from the checksum-pinned published Volume 1 PDF; this is source transcription/alignment only, with no project-generated translation or paraphrase. Reviewed manifest: `eshia-research/scratch_audit/alkafi_opening_sarwar_pdf_manifest_20260716.json`, SHA-256 `e014622db49797548dd6d2ba620e84d873c9298cc57f1ea1490d8b9053d2248c`.
+- Opening-import source PDF SHA-256: `969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a`; identity is direct/anchored, with explicit manual evidence for reports 14 and 23. Dry run selected exactly `34`, with `0` blocking QA findings and `0` generated-English markers.
+- Backup target before opening import: `eshia-research/eshia_research.before-opening-sarwar-import.20260716-124003.db`.
+- Opening-import backup completed at `2,279,903,232` bytes with SHA-256 `3596F0BDD2A8EEF17CE3EC3EB7E3BC91EE32BE1CB9306FAD3F5ED10D62473747`.
+- Opening import applied atomically to `alkafi-1` through `alkafi-34`; all `34` rows/segments exactly match the pinned manifest and published Sarwar PDF excerpts. Immediate idempotency rerun selected `0`; import job `7` completed with `34` verified items/attempts and zero tokens/cost.
+- Follow-up publication hardening requires positive human-source metadata (named translator plus approved external-source classification), rejects any green row retaining a critical flag, and repeats that guard in the active frontend reader/search paths. Search responses now carry the minimal source evidence needed for the client-side gate.
+- Planned DB edit: normalize legacy draft-oriented QA false positives on exactly `7,176` checksum-verified external source rows (`7,123` number differences, `6,093` local footnote-marker differences, `3` literal narrative phrases). This changes only flags/provenance, preserves the original diagnostics in import attempts, and changes zero Arabic/English characters. Dry run leaves `0` green/public rows with critical flags.
+- Planned DB edit: quarantine `alkafi-1282` and `alkafi-1292`. Their English numbers were project corrections of the published Sarwar wording rather than verbatim external-source text; clear/reject them until a citable human-published correction is found. The bounded external excerpt `alkafi-1160` remains because every displayed word is an exact contiguous Sarwar source excerpt.
+- Backup target before QA normalization and the final two-row quarantine: `eshia-research/eshia_research.before-external-source-finalization.20260716-130630.db`.
+- Backup completed at `2,280,108,032` bytes with SHA-256 `3BCC9392240271EA3DB5B6FAF4E467DB14933A42E0454DED3242FDB3AF950925`.
+- QA-normalization caution: an initial broad normalization of all `7,176` rows was immediately reversed after the deeper Arabic-extent audit found that the legacy numeric bucket mixes apparatus differences with genuine overmerges/wrong alignments. `rollback_alkafi_external_source_qa_normalization.py --apply` restored exactly the pre-normalization `risk_flags`, provenance/metadata, QA versions, and timestamps from the recorded backup; post-rollback logical diffs versus the backup are `0` for translations and segments, and no text column was touched. Selective alignment-aware normalization replaces the broad plan.
 
 ## Open Cautions
+
+### Remaining-88 deep scan correction (Codex, 2026-07-16)
+
+- The deeper source audit discovered that the published Muhammad Sarwar scans and the ThaqalaynData/static edition use incompatible global `H`-number sequences in affected ranges. The prior 62 `sarwar-published-scan` rows joined genuine Sarwar text to the wrong local reports by number alone.
+- Corrective write scope: preserve the 62 translation/segment/job/attempt audit records but change the translations to `rejected/red`, segments and job items to `qa_failed/red`, and annotate provenance with `incompatible_edition_h_number`. The 47 static-source imports from the same batch remain untouched.
+- Dry run invariant: exactly 62 translations, 62 segments, 62 job items, and 62 attempts, spanning `alkafi-11141` through `alkafi-14406` by sorted public ID.
+- Backup target before correction: `eshia-research/eshia_research.before-reject-misnumbered-sarwar-scans.20260716-103847.db`.
+- After correction, the honest public coverage baseline will be `15,185 / 15,335`, leaving `150`; the deep scan must rebuild the recovery set against Arabic/content crosswalks and must never join these editions by global H-number alone.
+- Correction backup completed at `2,251,522,048` bytes with SHA-256 `7B695A892DEBB7379EE881D85C8B739C9BFB52F16248A7F56B39D555212C9BEE`; all 62 affected translations were marked `rejected/red` with preserved audit history.
+- Reviewed recovery scope after the full 150-row scan: import exactly 26 records from `eshia-research/scratch_audit/alkafi_deep_scan_recovery_manifest_20260716.json` (manifest SHA-256 `21998b7028a02a2e67640eec3a646011db106b761f951ead0e99587d3befbcf6`). This comprises 15 unchanged/HTML-cleaned Sarwar texts, 3 transparently corrected Sarwar texts, and 8 bounded/source-aligned editorial texts; volume 8 contributes zero.
+- Backup target before the 26-row recovery apply: `eshia-research/eshia_research.before-alkafi-deep-scan-recovery.20260716-104814.db`.
+- Recovery backup completed at `2,251,624,448` bytes with SHA-256 `013A2039E4F500F996B63CB999057A99B680D9AC7510DF77BB0A48A62E88A84B`.
+- The 26-row recovery committed atomically and reruns with `selected=0`. Two previously rejected scan-number rows (`alkafi-11167` and `alkafi-11168`) were independently recovered through the correct Arabic/content crosswalk, leaving 60 of the 62 misnumbered imports rejected.
+- Final verified public coverage after correction and recovery: `15,211 / 15,335` (`99.1914%`), leaving `124`. Public source/model breakdown includes `14,184` unchanged Muhammad Sarwar rows, `3` transparently corrected Sarwar rows, `8` Sarwar-scoped/source-aligned editorial rows, and `1,016` pre-existing HubeAli rows.
+- Remaining queue: `eshia-research/scratch_audit/alkafi_post_deep_scan_queue_20260716.json`; reasons are no reliable alignment `62`, ambiguous alignment `32`, no verified Sarwar volume 8 `18`, explicit source non-translation `6`, edition split/merge `5`, and English/Arabic content mismatch `1`.
+- Verification: stale public source hashes `0`; forbidden markers in the 26 new rows `0`; SQLite `quick_check=ok`; foreign-key violations `0`; focused tests `50 passed, 1 warning`; API checks passed for unchanged Sarwar `alkafi-1241`, scoped editorial `alkafi-11167`, and rejected/non-public `alkafi-11141`.
 
 - Do not use page breaks as hadith boundaries in Hadith View.
 - Do not treat every `قال`, `في`, or `أن` boundary as safe.

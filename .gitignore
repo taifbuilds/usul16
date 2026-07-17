@@ -1,5 +1,8 @@
 # Local tooling and secrets
 .claude/
+.codex/
+.impeccable/
+.agents/
 .env
 .env.*
 !.env.example
@@ -47,6 +50,14 @@ eshia-research/scratch_audit/external_assessment_*_needs_review_*.md
 eshia-research/scratch_audit/generation_audit_*.md
 eshia-research/scratch_audit/generation_audit_*.jsonl
 eshia-research/scratch_audit/eval_final_*.json
+
+# Bulk source/scan dumps. Multi-MB operational data in the same category as the
+# database snapshots above. The manifests and dossiers derived from them stay
+# tracked, including every file whose SHA-256 is pinned in AGENT_HANDOFF.md.
+eshia-research/scratch_audit/sarwar_scan_records_*.json
+eshia-research/scratch_audit/alkafi_translation_gap_*.json
+eshia-research/scratch_audit/alkafi_sarwar_api_target_audit_*.json
+eshia-research/scratch_audit/external_assessment_alkafi_10000_review_results_*.md
 
 # One-off local captures
 /bihar_detail.html

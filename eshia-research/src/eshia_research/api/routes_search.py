@@ -22,5 +22,15 @@ def search(
         # always true here by construction, unlike list_books/get_book which
         # need a real EXISTS check since most books have none.
         hit.book.has_content = True
-        results.append(SearchResult(page=hit.page, book=hit.book, snippet=hit.snippet))
+        results.append(
+            SearchResult(
+                page=hit.page,
+                book=hit.book,
+                snippet=hit.snippet,
+                match_type=hit.match_type,
+                hadith_public_id=hit.hadith_public_id,
+                hadith_printed_number=hit.hadith_printed_number,
+                translation_evidence=hit.translation_evidence,
+            )
+        )
     return SearchResponse(query=q, count=len(results), results=results)

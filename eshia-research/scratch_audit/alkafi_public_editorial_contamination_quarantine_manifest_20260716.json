@@ -1,0 +1,2168 @@
+{
+  "coordination_boundary": {
+    "excluded_owner": "33-row structural package",
+    "excluded_public_ids": [
+      "alkafi-211",
+      "alkafi-426",
+      "alkafi-934",
+      "alkafi-4134",
+      "alkafi-4227",
+      "alkafi-4772",
+      "alkafi-5698",
+      "alkafi-6228",
+      "alkafi-6681",
+      "alkafi-8169",
+      "alkafi-8321",
+      "alkafi-9383",
+      "alkafi-10373",
+      "alkafi-10596",
+      "alkafi-11096",
+      "alkafi-11210",
+      "alkafi-11329",
+      "alkafi-11403",
+      "alkafi-12112",
+      "alkafi-12933",
+      "alkafi-13279",
+      "alkafi-13592",
+      "alkafi-14040",
+      "alkafi-14529",
+      "alkafi-14607",
+      "alkafi-14751"
+    ],
+    "included_owner": "editorial_contamination_quarantine",
+    "rule": "Do not mutate excluded rows from this packet; their preconditions belong to the structural repair workflow."
+  },
+  "counts": {
+    "excluded_structural_records": 26,
+    "records": 27
+  },
+  "database_snapshot": {
+    "bytes": 2311577600,
+    "fail_closed_public_count": 15186,
+    "fail_closed_public_set_sha256": "53602195f770d41864be0c8c0fbc7f26dd663aa11934688cd1d2d454fe5a5195",
+    "mtime_ns": 1784212405833156800,
+    "path": "C:\\Users\\taifh\\Downloads\\Shia Hadith Project\\eshia-research\\eshia_research.db",
+    "sqlite_data_version": 1
+  },
+  "payload_sha256": "e072fbaff134fe4a89c98db1e57704ff27814b5fe56b36bb9ca3c2cf68ff980a",
+  "publication_action": {
+    "job_items": {
+      "risk_level": "red",
+      "status": "qa_failed"
+    },
+    "policy": "atomic, idempotent, exact precondition hashes, fail closed",
+    "required_flag": {
+      "code": "confirmed_editorial_extent_contamination",
+      "severity": "critical"
+    },
+    "segments": {
+      "risk_level": "red",
+      "status": "qa_failed"
+    },
+    "translation": {
+      "risk_level": "red",
+      "status": "rejected"
+    }
+  },
+  "purpose": "Fail-closed quarantine packet for the 27 additional public inline/appended editorial or truncation contaminants only",
+  "records": [
+    {
+      "category": "inline_or_appended_editorial_contamination",
+      "disposition": "definite_blocker",
+      "hadith": {
+        "current_arabic_hashes": {
+          "full_sha256": "651f12422c4386616d9854e01f1399853b78f4c8c35ab5d0be33f77d80def676",
+          "isnad_sha256": "f796a070655069294afb1c219722994f40863f8bcbd92fad749fb48272e09735",
+          "matn_sha256": "3e687a484c58828b1d43b74b89710e0bc3f7a405bfcb96059d07ef80507bc20e"
+        },
+        "id": 19489,
+        "page_end": 20,
+        "page_start": 13,
+        "printed_number": "١٢",
+        "sequence_in_book": 12,
+        "volume": 1
+      },
+      "public_id": "alkafi-12",
+      "reason": "Editorial footnote/commentary text is embedded in the Arabic hadith extent but absent from the published English extent.",
+      "record_sha256": "1a28a2399f0dbba235d3f0c9887c3d443377d2886171b95f13748a6d0d3d4f38",
+      "translation": {
+        "full_translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "id": 12,
+        "matn_translation_sha256": "97977d205fa8772921b74bb9007dba74bcf6802f9f9d09e8bff8f7f425266043",
+        "model": "muhammad-sarwar-published",
+        "provenance_sha256": "40a336aa3beebf457174227219c0b95f64f50e1a2f1c407922501ab789f95ccf",
+        "provider": "sarwar-published-scan",
+        "public_rendered_english_sha256": "33b0cc1ea077a604001f48e5d02a0cfa249cd7141b0476e3039b2d9c42d26c82",
+        "rendered_isnad_en_sha256": "27ba14ecc4d215120629703a4bccee76f3b19d44f87152157ffb8069208ac238",
+        "risk_flags_sha256": "df6b6e99bcb08420cd2f64fd99e1fdfed43e652bf501c747f06bb8a5d6c51287",
+        "risk_level": "green",
+        "source_hashes_current": true,
+        "source_pins": {
+          "classification": "verbatim_external_matn_excerpt",
+          "manifest_sha256": "e014622db49797548dd6d2ba620e84d873c9298cc57f1ea1490d8b9053d2248c",
+          "source_evidence.api_identity.arabic_sha256": "b2809d67a5be7ee04628e43aab3cac12240f66535ba04955faef552f913df4d1",
+          "source_evidence.api_identity.canonical_url": "https://thaqalayn.net/hadith/1/1/0/12",
+          "source_evidence.api_identity.english_chain_sha256": "5468e7dd7487af3db5df6f410114b07372304b9ecafafcc91c5e9a601efbe264",
+          "source_evidence.api_identity.record_id": 13,
+          "source_evidence.api_identity.record_sha256": "df8020d5a10fb2406d2d71a640cf43e2564bced3096fb1ece09a237ba0bf55d7",
+          "source_evidence.api_identity.snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "source_evidence.api_identity.snapshot_source_url": "https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-1-Kulayni",
+          "source_evidence.classification": "verbatim_external_matn_excerpt",
+          "source_evidence.pdf.full_record_sha256": "5255e056d47eb974592f021a40d6a77795cc81e82e43988b8715087e7a8320c3",
+          "source_evidence.pdf.matn_sha256": "97977d205fa8772921b74bb9007dba74bcf6802f9f9d09e8bff8f7f425266043",
+          "source_evidence.pdf.sha256": "969ff47af5fe9d0bf6ca542aa11f2d27130437b156448ee9cb4b141ba2f1d41a",
+          "source_evidence.pdf.source_url": "https://al-murtaza.org/wp-content/uploads/2021/08/Al-Kafi_Volume-1.pdf",
+          "source_evidence.translator": "Muhammad Sarwar",
+          "translator": "Muhammad Sarwar"
+        },
+        "status": "published",
+        "stored_source_hashes": {
+          "full_sha256": "651f12422c4386616d9854e01f1399853b78f4c8c35ab5d0be33f77d80def676",
+          "isnad_sha256": "f796a070655069294afb1c219722994f40863f8bcbd92fad749fb48272e09735",
+          "matn_sha256": "3e687a484c58828b1d43b74b89710e0bc3f7a405bfcb96059d07ef80507bc20e"
+        },
+        "translation_version": "matn_en_v1"
+      },
+      "translation_job_items": [
+        {
+          "id": 12,
+          "job_id": 1,
+          "risk_level": "red",
+          "segment_id": 12,
+          "source_sha256": "39c3db4078c0eba67fea00b46bac6cbf9f03729141a8524c3c2eb7ec3bdea311",
+          "status": "skipped"
+        },
+        {
+          "id": 13,
+          "job_id": 1,
+          "risk_level": "red",
+          "segment_id": 13,
+          "source_sha256": "203577f039072fcecf470077882bb466abbd1cf8b5f74bdbc73cc14f2c98baeb",
+          "status": "skipped"
+        },
+        {
+          "id": 14,
+          "job_id": 1,
+          "risk_level": "red",
+          "segment_id": 14,
+          "source_sha256": "bfed4322d9ded707f81a3074440a7f9234c832f892450d864f1f7ee24cc85523",
+          "status": "skipped"
+        },
+        {
+          "id": 15,
+          "job_id": 1,
+          "risk_level": "red",
+          "segment_id": 15,
+          "source_sha256": "575499a2fdedc5438952a6f7dad6382683c3d8b8d4e016e604e61f40832dccec",
+          "status": "skipped"
+        },
+        {
+          "id": 13628,
+          "job_id": 3,
+          "risk_level": "green",
+          "segment_id": 13376,
+          "source_sha256": "3e687a484c58828b1d43b74b89710e0bc3f7a405bfcb96059d07ef80507bc20e",
+          "status": "verified"
+        },
+        {
+          "id": 15618,
+          "job_id": 7,
+          "risk_level": "green",
+          "segment_id": 13376,
+          "source_sha256": "3e687a484c58828b1d43b74b89710e0bc3f7a405bfcb96059d07ef80507bc20e",
+          "status": "verified"
+        }
+      ],
+      "translation_segments": [
+        {
+          "id": 12,
+          "risk_level": "red",
+          "source_sha256": "39c3db4078c0eba67fea00b46bac6cbf9f03729141a8524c3c2eb7ec3bdea311",
+          "status": "qa_failed",
+          "translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "id": 13,
+          "risk_level": "unscored",
+          "source_sha256": "203577f039072fcecf470077882bb466abbd1cf8b5f74bdbc73cc14f2c98baeb",
+          "status": "planned",
+          "translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "id": 14,
+          "risk_level": "unscored",
+          "source_sha256": "bfed4322d9ded707f81a3074440a7f9234c832f892450d864f1f7ee24cc85523",
+          "status": "planned",
+          "translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "id": 15,
+          "risk_level": "unscored",
+          "source_sha256": "575499a2fdedc5438952a6f7dad6382683c3d8b8d4e016e604e61f40832dccec",
+          "status": "planned",
+          "translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "id": 13376,
+          "risk_level": "green",
+          "source_sha256": "3e687a484c58828b1d43b74b89710e0bc3f7a405bfcb96059d07ef80507bc20e",
+          "status": "published",
+          "translation_sha256": "97977d205fa8772921b74bb9007dba74bcf6802f9f9d09e8bff8f7f425266043"
+        }
+      ]
+    },
+    {
+      "category": "inline_or_appended_editorial_contamination",
+      "disposition": "definite_blocker",
+      "hadith": {
+        "current_arabic_hashes": {
+          "full_sha256": "898e1eaa21e94dfa52d6ea95f049437175a6ebade970b8a127ec673ba1c487de",
+          "isnad_sha256": "31468e603fdba44e7de4fb99f9c2aea44b7bba6667750b1b43c4de5b0f520b4c",
+          "matn_sha256": "b0b2a4774714a6d0118c268a51bea0cd1676601c0fcb1776f8d72f16f64d9bce"
+        },
+        "id": 19641,
+        "page_end": 56,
+        "page_start": 54,
+        "printed_number": "٦",
+        "sequence_in_book": 164,
+        "volume": 1
+      },
+      "public_id": "alkafi-164",
+      "reason": "Editorial footnote/commentary text is embedded in the Arabic hadith extent but absent from the published English extent.",
+      "record_sha256": "57fefc753c77057c7a0e9b6f994cb621ee1d9040c48894571b2c8bdca2423f6a",
+      "translation": {
+        "full_translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "id": 422,
+        "matn_translation_sha256": "19258413114b74e9888deb68d57ee0f6bf9bc11505c3004d2f0ce3b1172e8669",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "c8b28472f7c7c13fa785c73fa914bc747c7bac2862c1146199596f5338301a16",
+        "provider": "thaqalayn-api",
+        "public_rendered_english_sha256": "00a986e5aa143f24ef30ada5820cec42acffbcf1df4613111e5a8e6f2b32488f",
+        "rendered_isnad_en_sha256": "88ed59f1a66f3fb0653a79604b7b7f083b4454e21fe344519b7c691db4d3c7c0",
+        "risk_flags_sha256": "7643527217d2dd662ef316e7724e2b6a0fab758c29f646a5d30b15633c0db36b",
+        "risk_level": "green",
+        "source_hashes_current": true,
+        "source_pins": {
+          "qa_flag_normalization.blocker_dossier_sha256": "d7744e88ecf8632500073be4c4f685d7737e9978ec04ca5d5810ef96929c5a94",
+          "qa_flag_normalization.source_english_sha256": "19258413114b74e9888deb68d57ee0f6bf9bc11505c3004d2f0ce3b1172e8669",
+          "source": "thaqalayn-api",
+          "source_arabic_sha256": "12e2abf89ba95c0bb61c90ad2814599eb2492fc138bfa260854951c8dffe3548",
+          "source_english_sha256": "19258413114b74e9888deb68d57ee0f6bf9bc11505c3004d2f0ce3b1172e8669",
+          "source_plaintext_english_sha256": "19258413114b74e9888deb68d57ee0f6bf9bc11505c3004d2f0ce3b1172e8669",
+          "source_record_sha256": "c4b505bd68d90f5966928fc632cd09a826d77fdc659be0da973e40940ea7a969",
+          "source_snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "source_url": "https://thaqalayn.net/hadith/1/2/19/6",
+          "thaqalayn_id": 165,
+          "translation_classification": "external_source_normalized",
+          "translator": "Muhammad Sarwar"
+        },
+        "status": "published",
+        "stored_source_hashes": {
+          "full_sha256": "898e1eaa21e94dfa52d6ea95f049437175a6ebade970b8a127ec673ba1c487de",
+          "isnad_sha256": "31468e603fdba44e7de4fb99f9c2aea44b7bba6667750b1b43c4de5b0f520b4c",
+          "matn_sha256": "b0b2a4774714a6d0118c268a51bea0cd1676601c0fcb1776f8d72f16f64d9bce"
+        },
+        "translation_version": "matn_en_v1"
+      },
+      "translation_job_items": [
+        {
+          "id": 425,
+          "job_id": 2,
+          "risk_level": "green",
+          "segment_id": 425,
+          "source_sha256": "b0b2a4774714a6d0118c268a51bea0cd1676601c0fcb1776f8d72f16f64d9bce",
+          "status": "verified"
+        }
+      ],
+      "translation_segments": [
+        {
+          "id": 425,
+          "risk_level": "green",
+          "source_sha256": "b0b2a4774714a6d0118c268a51bea0cd1676601c0fcb1776f8d72f16f64d9bce",
+          "status": "published",
+          "translation_sha256": "19258413114b74e9888deb68d57ee0f6bf9bc11505c3004d2f0ce3b1172e8669"
+        }
+      ]
+    },
+    {
+      "category": "inline_or_appended_editorial_contamination",
+      "disposition": "definite_blocker",
+      "hadith": {
+        "current_arabic_hashes": {
+          "full_sha256": "168e5855ad6c7045143ea0f65c5315c71f467fbc60c4071f1ccd582fe1ac83d8",
+          "isnad_sha256": "814b27f4453e9d9742da3b43c202f75a5eae682728550311d3e47d1aa5465093",
+          "matn_sha256": "b442fefc6171d88ff482bd555ad3fa45be6571ceadc771b89c95b0eb656a7310"
+        },
+        "id": 19747,
+        "page_end": 102,
+        "page_start": 100,
+        "printed_number": "٣",
+        "sequence_in_book": 271,
+        "volume": 1
+      },
+      "public_id": "alkafi-270",
+      "reason": "Editorial footnote/commentary text is embedded in the Arabic hadith extent but absent from the published English extent.",
+      "record_sha256": "65910e6dadc34a070cb38d11da9607273903ebfdd601a8bc2924cef6ba2d7ebc",
+      "translation": {
+        "full_translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "id": 15144,
+        "matn_translation_sha256": "9504bc3246d1363048b0ef401d14daac19210c38b6aa211586e5e15b28988562",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "c79b811528c8d8de5f5295f3edd5357201e154667effe431d1124713f7d655ba",
+        "provider": "thaqalayn-data",
+        "public_rendered_english_sha256": "9504bc3246d1363048b0ef401d14daac19210c38b6aa211586e5e15b28988562",
+        "rendered_isnad_en_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "risk_flags_sha256": "d5992fc012c0fa5089a9c3de3a541c8dfb164be90aa2767f257d19233993ddf4",
+        "risk_level": "green",
+        "source_hashes_current": true,
+        "source_pins": {
+          "identity.after.remote_id": 273,
+          "identity.before.remote_id": 271,
+          "identity.remote_id": 272,
+          "qa_flag_normalization.blocker_dossier_sha256": "d7744e88ecf8632500073be4c4f685d7737e9978ec04ca5d5810ef96929c5a94",
+          "qa_flag_normalization.source_english_sha256": "9504bc3246d1363048b0ef401d14daac19210c38b6aa211586e5e15b28988562",
+          "remote_id": 272,
+          "reviewed_dossier_sha256": "6f656feb9334767668729dd5444472d10c997bf3327031927c6e4cbfac4e9b77",
+          "source": "ThaqalaynData static edition",
+          "source_arabic_sha256": "51c00a525e727ee5d802c56bcf012ce13ea5e26541a0a06004757b1e3a56fcbb",
+          "source_english_sha256": "9504bc3246d1363048b0ef401d14daac19210c38b6aa211586e5e15b28988562",
+          "source_plaintext_english_sha256": "9504bc3246d1363048b0ef401d14daac19210c38b6aa211586e5e15b28988562",
+          "source_record_sha256": "79d68d5b9e8b93ca50b422522d547dcedace8d41e8a6b8081440d5b630562fda",
+          "source_snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "source_url": "https://thaqalayn.net/books/al-kafi:1:3:10:3",
+          "thaqalayn_id": 272,
+          "translation_classification": "external_source_normalized",
+          "translator": "Muhammad Sarwar"
+        },
+        "status": "published",
+        "stored_source_hashes": {
+          "full_sha256": "168e5855ad6c7045143ea0f65c5315c71f467fbc60c4071f1ccd582fe1ac83d8",
+          "isnad_sha256": "814b27f4453e9d9742da3b43c202f75a5eae682728550311d3e47d1aa5465093",
+          "matn_sha256": "b442fefc6171d88ff482bd555ad3fa45be6571ceadc771b89c95b0eb656a7310"
+        },
+        "translation_version": "matn_en_v1"
+      },
+      "translation_job_items": [
+        {
+          "id": 15474,
+          "job_id": 5,
+          "risk_level": "green",
+          "segment_id": 15148,
+          "source_sha256": "b442fefc6171d88ff482bd555ad3fa45be6571ceadc771b89c95b0eb656a7310",
+          "status": "verified"
+        }
+      ],
+      "translation_segments": [
+        {
+          "id": 15148,
+          "risk_level": "green",
+          "source_sha256": "b442fefc6171d88ff482bd555ad3fa45be6571ceadc771b89c95b0eb656a7310",
+          "status": "published",
+          "translation_sha256": "9504bc3246d1363048b0ef401d14daac19210c38b6aa211586e5e15b28988562"
+        }
+      ]
+    },
+    {
+      "category": "inline_or_appended_editorial_contamination",
+      "disposition": "definite_blocker",
+      "hadith": {
+        "current_arabic_hashes": {
+          "full_sha256": "c76f347564144e6757f2172a023675dea4afe4d0582cc77f13d94069cd5d3404",
+          "isnad_sha256": "6921f01b8eb0af623b60419dde28857e433c897bc7edc219b70e45aea6861eff",
+          "matn_sha256": "dc94dea78506857356e6b86db5fa82fd0b36efd9b2c3515aec65bcbe07f79157"
+        },
+        "id": 19779,
+        "page_end": 112,
+        "page_start": 110,
+        "printed_number": "٧",
+        "sequence_in_book": 303,
+        "volume": 1
+      },
+      "public_id": "alkafi-302",
+      "reason": "Large unvocalized doctrinal commentary is spliced between the short report and its vocalized continuation.",
+      "record_sha256": "f2d53bbf919a90a1400a67b52495ccd4ce78fa987af0010a4f7f7d01abf86c55",
+      "translation": {
+        "full_translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "id": 13382,
+        "matn_translation_sha256": "20c43ce2a70987165b5f80d9842207dc585d2b198a7ed0452ecdf7d755f979fe",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "78a657fdacd65b76082a2fe6e0f4813a29adaf3e87a0736a135825a663a6700b",
+        "provider": "thaqalayn-data",
+        "public_rendered_english_sha256": "20c43ce2a70987165b5f80d9842207dc585d2b198a7ed0452ecdf7d755f979fe",
+        "rendered_isnad_en_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "risk_flags_sha256": "3a46d620dee91241b1aa72b6bd38d4a844dfc313448e8e75e7185b4b84de3ad2",
+        "risk_level": "green",
+        "source_hashes_current": true,
+        "source_pins": {
+          "qa_flag_normalization.blocker_dossier_sha256": "d7744e88ecf8632500073be4c4f685d7737e9978ec04ca5d5810ef96929c5a94",
+          "qa_flag_normalization.source_english_sha256": "20c43ce2a70987165b5f80d9842207dc585d2b198a7ed0452ecdf7d755f979fe",
+          "source": "thaqalayn-data",
+          "source_arabic_sha256": "3e994867709e69fb961afdbb2830c4014904c5758300bddc8b8f992302cced49",
+          "source_english_sha256": "20c43ce2a70987165b5f80d9842207dc585d2b198a7ed0452ecdf7d755f979fe",
+          "source_plaintext_english_sha256": "20c43ce2a70987165b5f80d9842207dc585d2b198a7ed0452ecdf7d755f979fe",
+          "source_record_sha256": "91c73bcfd5d542d810a107fd31d0568e156491fb5d96151cb23caf22cf745d7e",
+          "source_snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "source_url": "https://thaqalayn.net/books/al-kafi:1:3:14:7",
+          "thaqalayn_id": 304,
+          "translation_classification": "external_source_normalized",
+          "translator": "Muhammad Sarwar"
+        },
+        "status": "published",
+        "stored_source_hashes": {
+          "full_sha256": "c76f347564144e6757f2172a023675dea4afe4d0582cc77f13d94069cd5d3404",
+          "isnad_sha256": "6921f01b8eb0af623b60419dde28857e433c897bc7edc219b70e45aea6861eff",
+          "matn_sha256": "dc94dea78506857356e6b86db5fa82fd0b36efd9b2c3515aec65bcbe07f79157"
+        },
+        "translation_version": "matn_en_v1"
+      },
+      "translation_job_items": [
+        {
+          "id": 13665,
+          "job_id": 3,
+          "risk_level": "green",
+          "segment_id": 13386,
+          "source_sha256": "dc94dea78506857356e6b86db5fa82fd0b36efd9b2c3515aec65bcbe07f79157",
+          "status": "verified"
+        }
+      ],
+      "translation_segments": [
+        {
+          "id": 13386,
+          "risk_level": "green",
+          "source_sha256": "dc94dea78506857356e6b86db5fa82fd0b36efd9b2c3515aec65bcbe07f79157",
+          "status": "published",
+          "translation_sha256": "20c43ce2a70987165b5f80d9842207dc585d2b198a7ed0452ecdf7d755f979fe"
+        }
+      ]
+    },
+    {
+      "category": "inline_or_appended_editorial_contamination",
+      "disposition": "definite_blocker",
+      "hadith": {
+        "current_arabic_hashes": {
+          "full_sha256": "e9cdaeb5fb3e0174a7494c4e76bab849cf5a7058fd9aadc3a621b8da346886a2",
+          "isnad_sha256": "542c50fb15e8c7149deafc0c70ac31339cd45f7b49d564d2be322120b576a3ad",
+          "matn_sha256": "59652da1908617c1f870aea562ca2d84041434e05e25339dc473dbe469113157"
+        },
+        "id": 19944,
+        "page_end": 183,
+        "page_start": 181,
+        "printed_number": "٦",
+        "sequence_in_book": 468,
+        "volume": 1
+      },
+      "public_id": "alkafi-467",
+      "reason": "Editorial footnote/commentary text is embedded in the Arabic hadith extent but absent from the published English extent.",
+      "record_sha256": "9468b7645945d613f406c9d4066714c8bba36a71bc0c28b69e45b91daa2f3326",
+      "translation": {
+        "full_translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "id": 13396,
+        "matn_translation_sha256": "b749389f99166b321157e7c7a46c875a5cff60b6b2d1495e1ca492fc7e26c1bb",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "b9c1d9f0a6834891c42a97e6fa07b2326604a1714c688d116a03fa9342e76f0a",
+        "provider": "thaqalayn-data",
+        "public_rendered_english_sha256": "b749389f99166b321157e7c7a46c875a5cff60b6b2d1495e1ca492fc7e26c1bb",
+        "rendered_isnad_en_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "risk_flags_sha256": "0b0ae3ef658f6868f21d0f8079e95a19e0a0e968c252f420cb9c608b718503f6",
+        "risk_level": "green",
+        "source_hashes_current": true,
+        "source_pins": {
+          "qa_flag_normalization.blocker_dossier_sha256": "d7744e88ecf8632500073be4c4f685d7737e9978ec04ca5d5810ef96929c5a94",
+          "qa_flag_normalization.source_english_sha256": "b749389f99166b321157e7c7a46c875a5cff60b6b2d1495e1ca492fc7e26c1bb",
+          "source": "thaqalayn-data",
+          "source_arabic_sha256": "d294747285ce5abf0e855a1f3650afb88bc958f8e0f83ae58de0a2ce885b3792",
+          "source_english_sha256": "b749389f99166b321157e7c7a46c875a5cff60b6b2d1495e1ca492fc7e26c1bb",
+          "source_plaintext_english_sha256": "b749389f99166b321157e7c7a46c875a5cff60b6b2d1495e1ca492fc7e26c1bb",
+          "source_record_sha256": "fc8747bd7556f36a22137d08fd31a8cfdc88e0d64cf00e10f98a71b8bad83579",
+          "source_snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "source_url": "https://thaqalayn.net/books/al-kafi:1:4:7:6",
+          "thaqalayn_id": 473,
+          "translation_classification": "external_source_normalized",
+          "translator": "Muhammad Sarwar"
+        },
+        "status": "published",
+        "stored_source_hashes": {
+          "full_sha256": "e9cdaeb5fb3e0174a7494c4e76bab849cf5a7058fd9aadc3a621b8da346886a2",
+          "isnad_sha256": "542c50fb15e8c7149deafc0c70ac31339cd45f7b49d564d2be322120b576a3ad",
+          "matn_sha256": "59652da1908617c1f870aea562ca2d84041434e05e25339dc473dbe469113157"
+        },
+        "translation_version": "matn_en_v1"
+      },
+      "translation_job_items": [
+        {
+          "id": 13679,
+          "job_id": 3,
+          "risk_level": "green",
+          "segment_id": 13400,
+          "source_sha256": "59652da1908617c1f870aea562ca2d84041434e05e25339dc473dbe469113157",
+          "status": "verified"
+        }
+      ],
+      "translation_segments": [
+        {
+          "id": 13400,
+          "risk_level": "green",
+          "source_sha256": "59652da1908617c1f870aea562ca2d84041434e05e25339dc473dbe469113157",
+          "status": "published",
+          "translation_sha256": "b749389f99166b321157e7c7a46c875a5cff60b6b2d1495e1ca492fc7e26c1bb"
+        }
+      ]
+    },
+    {
+      "category": "inline_or_appended_editorial_contamination",
+      "disposition": "definite_blocker",
+      "hadith": {
+        "current_arabic_hashes": {
+          "full_sha256": "70df95a994262b4a604b927d7a402e1f7cf6f096bd6f5b0c722cf5f5d4c2a96a",
+          "isnad_sha256": "8c62510ca7399c85838fd2b0a3f352e0b27db952559d99d61943e945828c96a3",
+          "matn_sha256": "c7351b14d4c85dbbf703561371e5b39b256270aca64ed17e01f7988e2c2fcb81"
+        },
+        "id": 20109,
+        "page_end": 239,
+        "page_start": 238,
+        "printed_number": "١",
+        "sequence_in_book": 633,
+        "volume": 1
+      },
+      "public_id": "alkafi-632",
+      "reason": "Editorial notes are appended to the Arabic and the local Arabic ends before the published English report does.",
+      "record_sha256": "23510961a1e7fa426113f320bf721f5a389b739cdc92e3b6bb62325068f5b077",
+      "translation": {
+        "full_translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "id": 15145,
+        "matn_translation_sha256": "f6891f1d217bba46c4789bd171e10db2c46335db9c9d0728dcc155970be7a77a",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "9ce5dc006ffc079682ad2f507ff8c53f27c84cff1f50464bc004adf402822cab",
+        "provider": "thaqalayn-data",
+        "public_rendered_english_sha256": "f6891f1d217bba46c4789bd171e10db2c46335db9c9d0728dcc155970be7a77a",
+        "rendered_isnad_en_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "risk_flags_sha256": "4cb31a9f7ee4fa97cdb7521c13edd586326359070ede3794efc5972236729a54",
+        "risk_level": "green",
+        "source_hashes_current": true,
+        "source_pins": {
+          "identity.after.remote_id": 638,
+          "identity.before.remote_id": 636,
+          "identity.remote_id": 637,
+          "qa_flag_normalization.blocker_dossier_sha256": "d7744e88ecf8632500073be4c4f685d7737e9978ec04ca5d5810ef96929c5a94",
+          "qa_flag_normalization.source_english_sha256": "f6891f1d217bba46c4789bd171e10db2c46335db9c9d0728dcc155970be7a77a",
+          "remote_id": 637,
+          "reviewed_dossier_sha256": "6f656feb9334767668729dd5444472d10c997bf3327031927c6e4cbfac4e9b77",
+          "source": "ThaqalaynData static edition",
+          "source_arabic_sha256": "4c88198d6a8ef2b61ca5f6afc5731e2139b334f8cd04c57829d7ee5e65bad169",
+          "source_english_sha256": "f6891f1d217bba46c4789bd171e10db2c46335db9c9d0728dcc155970be7a77a",
+          "source_plaintext_english_sha256": "f6891f1d217bba46c4789bd171e10db2c46335db9c9d0728dcc155970be7a77a",
+          "source_record_sha256": "fff9537e29507df025f8fd07aed9fc4a481a1e9bb22690715ae1f2ed3025fef6",
+          "source_snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "source_url": "https://thaqalayn.net/books/al-kafi:1:4:40:1",
+          "thaqalayn_id": 637,
+          "translation_classification": "external_source_normalized",
+          "translator": "Muhammad Sarwar"
+        },
+        "status": "published",
+        "stored_source_hashes": {
+          "full_sha256": "70df95a994262b4a604b927d7a402e1f7cf6f096bd6f5b0c722cf5f5d4c2a96a",
+          "isnad_sha256": "8c62510ca7399c85838fd2b0a3f352e0b27db952559d99d61943e945828c96a3",
+          "matn_sha256": "c7351b14d4c85dbbf703561371e5b39b256270aca64ed17e01f7988e2c2fcb81"
+        },
+        "translation_version": "matn_en_v1"
+      },
+      "translation_job_items": [
+        {
+          "id": 15475,
+          "job_id": 5,
+          "risk_level": "green",
+          "segment_id": 15149,
+          "source_sha256": "c7351b14d4c85dbbf703561371e5b39b256270aca64ed17e01f7988e2c2fcb81",
+          "status": "verified"
+        }
+      ],
+      "translation_segments": [
+        {
+          "id": 15149,
+          "risk_level": "green",
+          "source_sha256": "c7351b14d4c85dbbf703561371e5b39b256270aca64ed17e01f7988e2c2fcb81",
+          "status": "published",
+          "translation_sha256": "f6891f1d217bba46c4789bd171e10db2c46335db9c9d0728dcc155970be7a77a"
+        }
+      ]
+    },
+    {
+      "category": "inline_or_appended_editorial_contamination",
+      "disposition": "definite_blocker",
+      "hadith": {
+        "current_arabic_hashes": {
+          "full_sha256": "78f8d66ec17e81736fe63dd22b18ccaa55c46f7ec82376a4f72dad0278b1e9f8",
+          "isnad_sha256": "666c1bec95e86b84aab99e1934625d794bf181ec51a445bf4ad70509e1c63098",
+          "matn_sha256": "65e0826bf02f1c6f16c68359f9682fccc5f57e05b43b23817ca7b9c9d7e22516"
+        },
+        "id": 20409,
+        "page_end": 366,
+        "page_start": 358,
+        "printed_number": "١٧",
+        "sequence_in_book": 933,
+        "volume": 1
+      },
+      "public_id": "alkafi-932",
+      "reason": "Editorial footnote/commentary text is embedded in the Arabic hadith extent but absent from the published English extent.",
+      "record_sha256": "2b6d098fce0842939f4d902ddca09a46729a437705c633d3e095b053e50f2f0b",
+      "translation": {
+        "full_translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "id": 1120,
+        "matn_translation_sha256": "0fea3a0ee59a446a9142accea142fe1b65920d15be83c656ee981063eba82052",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "9c334ef9c5e1176ae78d9a1130fd54627ab995643981757a7967f129cb647f5c",
+        "provider": "thaqalayn-api",
+        "public_rendered_english_sha256": "90b1a538140a59cd3b4c4b878fb650750999f4aa5a5cc1e0e962372df457787c",
+        "rendered_isnad_en_sha256": "f68bda6218f84522ca489438988c40c1e211e2aefc15d334aea29a6b9bf97130",
+        "risk_flags_sha256": "2f8a2785b875f06a0831c0b57b852965173fbe7b960cc957193fd372c696e890",
+        "risk_level": "green",
+        "source_hashes_current": true,
+        "source_pins": {
+          "qa_flag_normalization.blocker_dossier_sha256": "d7744e88ecf8632500073be4c4f685d7737e9978ec04ca5d5810ef96929c5a94",
+          "qa_flag_normalization.source_english_sha256": "0fea3a0ee59a446a9142accea142fe1b65920d15be83c656ee981063eba82052",
+          "source": "thaqalayn-api",
+          "source_arabic_sha256": "2c7c50006347c260c90bd979534d3817b8f41fb1d78aa72196a2825e92ac7938",
+          "source_english_sha256": "0fea3a0ee59a446a9142accea142fe1b65920d15be83c656ee981063eba82052",
+          "source_plaintext_english_sha256": "0fea3a0ee59a446a9142accea142fe1b65920d15be83c656ee981063eba82052",
+          "source_record_sha256": "c04a1fb446c42f558c662b12ccb3edb272513ae1cd2fa6c5fbe72edc6e162226",
+          "source_snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "source_url": "https://thaqalayn.net/hadith/1/4/81/17",
+          "thaqalayn_id": 934,
+          "translation_classification": "external_source_normalized",
+          "translator": "Muhammad Sarwar"
+        },
+        "status": "published",
+        "stored_source_hashes": {
+          "full_sha256": "78f8d66ec17e81736fe63dd22b18ccaa55c46f7ec82376a4f72dad0278b1e9f8",
+          "isnad_sha256": "666c1bec95e86b84aab99e1934625d794bf181ec51a445bf4ad70509e1c63098",
+          "matn_sha256": "65e0826bf02f1c6f16c68359f9682fccc5f57e05b43b23817ca7b9c9d7e22516"
+        },
+        "translation_version": "matn_en_v1"
+      },
+      "translation_job_items": [
+        {
+          "id": 1123,
+          "job_id": 2,
+          "risk_level": "green",
+          "segment_id": 1123,
+          "source_sha256": "65e0826bf02f1c6f16c68359f9682fccc5f57e05b43b23817ca7b9c9d7e22516",
+          "status": "verified"
+        }
+      ],
+      "translation_segments": [
+        {
+          "id": 1123,
+          "risk_level": "green",
+          "source_sha256": "65e0826bf02f1c6f16c68359f9682fccc5f57e05b43b23817ca7b9c9d7e22516",
+          "status": "published",
+          "translation_sha256": "0fea3a0ee59a446a9142accea142fe1b65920d15be83c656ee981063eba82052"
+        }
+      ]
+    },
+    {
+      "category": "inline_or_appended_editorial_contamination",
+      "disposition": "definite_blocker",
+      "hadith": {
+        "current_arabic_hashes": {
+          "full_sha256": "2fcc6d9e66778c8b6afc5cbc8cd8c2caf818f621c8f62b31282d4e0a45cc90fe",
+          "isnad_sha256": "27c63640c119793287d4092ba1e6592f356f06ff5fe18c81f717a3e840ca6d5e",
+          "matn_sha256": "d6a9054bc3d57baf34b2f57b632e9afa747cc7d7af06c59e705ac5b5e7f55846"
+        },
+        "id": 21752,
+        "page_end": 230,
+        "page_start": 226,
+        "printed_number": "١",
+        "sequence_in_book": 2277,
+        "volume": 2
+      },
+      "public_id": "alkafi-2275",
+      "reason": "Editorial footnote/commentary text is embedded in the Arabic hadith extent but absent from the published English extent.",
+      "record_sha256": "187c3a03ae13b89f2b3ff90a8f650cf709de9c5081f5b66a9696cbc2fa9cefb6",
+      "translation": {
+        "full_translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "id": 2309,
+        "matn_translation_sha256": "8cb7207142a08e023f04c5a96b2f8ca01dea043e1b10ae4a81c3f8deea1b40b5",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "3f29f1c1c29a7938e93d7d2bf3768b1a30dc3b86a7b2c0e02e35b3a2b6aea8a3",
+        "provider": "thaqalayn-api",
+        "public_rendered_english_sha256": "834d1a75daaf19f6b08b0a038af28b332d5645f2a19049495d68d5ed37437d90",
+        "rendered_isnad_en_sha256": "adfa32dfbd719fb272de7d8f425b392587b3720d341b88ef8c972e6e518fc557",
+        "risk_flags_sha256": "1fd6fb0f192fe94f745038c18e21bb0b2083e558b2c9a3a63edefb642126a269",
+        "risk_level": "green",
+        "source_hashes_current": true,
+        "source_pins": {
+          "qa_flag_normalization.blocker_dossier_sha256": "d7744e88ecf8632500073be4c4f685d7737e9978ec04ca5d5810ef96929c5a94",
+          "qa_flag_normalization.source_english_sha256": "8cb7207142a08e023f04c5a96b2f8ca01dea043e1b10ae4a81c3f8deea1b40b5",
+          "source": "thaqalayn-api",
+          "source_arabic_sha256": "7025a9b59083975f3f5c16531ac58a835e650a62599fc98bf1d5428493a04b44",
+          "source_english_sha256": "8cb7207142a08e023f04c5a96b2f8ca01dea043e1b10ae4a81c3f8deea1b40b5",
+          "source_plaintext_english_sha256": "8cb7207142a08e023f04c5a96b2f8ca01dea043e1b10ae4a81c3f8deea1b40b5",
+          "source_record_sha256": "b95c328322c9bffe5768b147661790c894dfa353c978f9a06f2f4ca75bf05f45",
+          "source_snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "source_url": "https://thaqalayn.net/hadith/2/1/99/1",
+          "thaqalayn_id": 829,
+          "translation_classification": "external_source_normalized",
+          "translator": "Muhammad Sarwar"
+        },
+        "status": "published",
+        "stored_source_hashes": {
+          "full_sha256": "2fcc6d9e66778c8b6afc5cbc8cd8c2caf818f621c8f62b31282d4e0a45cc90fe",
+          "isnad_sha256": "27c63640c119793287d4092ba1e6592f356f06ff5fe18c81f717a3e840ca6d5e",
+          "matn_sha256": "d6a9054bc3d57baf34b2f57b632e9afa747cc7d7af06c59e705ac5b5e7f55846"
+        },
+        "translation_version": "matn_en_v1"
+      },
+      "translation_job_items": [
+        {
+          "id": 2341,
+          "job_id": 2,
+          "risk_level": "green",
+          "segment_id": 2312,
+          "source_sha256": "d6a9054bc3d57baf34b2f57b632e9afa747cc7d7af06c59e705ac5b5e7f55846",
+          "status": "verified"
+        }
+      ],
+      "translation_segments": [
+        {
+          "id": 2312,
+          "risk_level": "green",
+          "source_sha256": "d6a9054bc3d57baf34b2f57b632e9afa747cc7d7af06c59e705ac5b5e7f55846",
+          "status": "published",
+          "translation_sha256": "8cb7207142a08e023f04c5a96b2f8ca01dea043e1b10ae4a81c3f8deea1b40b5"
+        }
+      ]
+    },
+    {
+      "category": "inline_or_appended_editorial_contamination",
+      "disposition": "definite_blocker",
+      "hadith": {
+        "current_arabic_hashes": {
+          "full_sha256": "5cef37c2a9cab4055438ed4381e33f143e50986ff86718c6bc22279d3c0a6da1",
+          "isnad_sha256": "24158a96e3fbb6bd0ccfe4b8bb213764d23cfdcdcfc8269b94047146d70d4280",
+          "matn_sha256": "76aecff9ad1e7a0c16d8156bcedc5bac1657bb65ae2b5465108a59fbe19b31e2"
+        },
+        "id": 22338,
+        "page_end": 393,
+        "page_start": 391,
+        "printed_number": "١",
+        "sequence_in_book": 2863,
+        "volume": 2
+      },
+      "public_id": "alkafi-2861",
+      "reason": "Editorial footnote/commentary text is embedded in the Arabic hadith extent but absent from the published English extent.",
+      "record_sha256": "ce1900a6b8925676a9d67960a8c4c4218e36ccb24ecea702970e1e9339db5e09",
+      "translation": {
+        "full_translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "id": 2867,
+        "matn_translation_sha256": "dcf348a1bd6c56a3f5c0c81408d7cb20b0635b2adc6e1a2bdf48704714860c29",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "d5eb7dad3a28b1f678e8de1871fc750758ff6041829d915f039fc23f1157005a",
+        "provider": "thaqalayn-api",
+        "public_rendered_english_sha256": "8783f8f660d2bee753965ee52733bce48a3ce60defaa018833f8ddd4203d2a0c",
+        "rendered_isnad_en_sha256": "e3e2b1852d2390b82437da343dcf67de794214ccf2f1c232e2653f1cb52e72a9",
+        "risk_flags_sha256": "e2d52aa805817adb2eaabe0bb04942728eb4378e65dbaf129083c442af369f39",
+        "risk_level": "green",
+        "source_hashes_current": true,
+        "source_pins": {
+          "identity_gate.editorial_exclusion.normalized_sha256": "1e5a3dfc949140612f7d193948eba00c823e223b73ef102de5b27a65104a65d8",
+          "identity_gate.editorial_exclusion.raw_sha256": "67d77c333e9f6ed9607a2dca84ef78486e2649140e13784f9045a4ef0ae07f53",
+          "manifest_sha256": "a6bbc979f4424321e7043c4edd780ab0e851bcf938c70be960970d2b60d9b9f5",
+          "snapshot_url": "https://thaqalayn.net/hadith/1/1/167/1",
+          "source": "thaqalayn-api",
+          "source_arabic_sha256": "1e14af1264d09db52e1efc415680cb13abfda87202c8d918dfad79571fe810ff",
+          "source_coordinate": "volume=2,id=1411",
+          "source_english_sha256": "dcf348a1bd6c56a3f5c0c81408d7cb20b0635b2adc6e1a2bdf48704714860c29",
+          "source_record_sha256": "58bf4cd12e89da5eebc05e2f700e7da5a9006962144672e794c9fc4aba2188b5",
+          "source_url": "https://thaqalayn.net/hadith/2/1/167/1",
+          "structural_repair_manifest_sha256": "8a27621a0fb5b9b5deebed6eff2ff19c439fd8fba4fd7f2acb208f30b6b235e1",
+          "translation_classification": "external_source_normalized",
+          "translator": "Muhammad Sarwar"
+        },
+        "status": "published",
+        "stored_source_hashes": {
+          "full_sha256": "5cef37c2a9cab4055438ed4381e33f143e50986ff86718c6bc22279d3c0a6da1",
+          "isnad_sha256": "24158a96e3fbb6bd0ccfe4b8bb213764d23cfdcdcfc8269b94047146d70d4280",
+          "matn_sha256": "76aecff9ad1e7a0c16d8156bcedc5bac1657bb65ae2b5465108a59fbe19b31e2"
+        },
+        "translation_version": "matn_en_v1"
+      },
+      "translation_job_items": [
+        {
+          "id": 2899,
+          "job_id": 2,
+          "risk_level": "red",
+          "segment_id": 2870,
+          "source_sha256": "d6a7b36174a5543be701fcb7bee1047c2fa8cbe6c924068a2ec9ffffe8a45011",
+          "status": "qa_failed"
+        },
+        {
+          "id": 15715,
+          "job_id": 10,
+          "risk_level": "green",
+          "segment_id": 2870,
+          "source_sha256": "76aecff9ad1e7a0c16d8156bcedc5bac1657bb65ae2b5465108a59fbe19b31e2",
+          "status": "verified"
+        }
+      ],
+      "translation_segments": [
+        {
+          "id": 2870,
+          "risk_level": "green",
+          "source_sha256": "76aecff9ad1e7a0c16d8156bcedc5bac1657bb65ae2b5465108a59fbe19b31e2",
+          "status": "published",
+          "translation_sha256": "dcf348a1bd6c56a3f5c0c81408d7cb20b0635b2adc6e1a2bdf48704714860c29"
+        }
+      ]
+    },
+    {
+      "category": "inline_or_appended_editorial_contamination",
+      "disposition": "definite_blocker",
+      "hadith": {
+        "current_arabic_hashes": {
+          "full_sha256": "a7f6af058920aca09dad3fc9aa08e3707fec9f7fcffd62b8616f35ca03d1425f",
+          "isnad_sha256": "f89fc48b21be945f8e96e7a4fd4daed37ee25044d5be8bc2daf7018ef105d19a",
+          "matn_sha256": "142cd73879ab2a9c0a7c0af73efac815551f3394bcb383705a439b1be8ef0459"
+        },
+        "id": 22534,
+        "page_end": 465,
+        "page_start": 464,
+        "printed_number": "٦",
+        "sequence_in_book": 3059,
+        "volume": 2
+      },
+      "public_id": "alkafi-3057",
+      "reason": "End-of-book colophon plus Persian/Arabic printed-blank-page notice is stored inside the hadith matn but omitted in English.",
+      "record_sha256": "bf3ff94753a95b809dcb4fb48152d86d6f7cb1039ed817be06850edbb1a011ae",
+      "translation": {
+        "full_translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "id": 15147,
+        "matn_translation_sha256": "f76f85467982f90c9340567fd20c8d4e120bf6e89b080fa388b6010e4277b824",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "c7272e002711e6dd1f2036beff9e7659a6f1802bdf4517375500e741ce76c4fd",
+        "provider": "thaqalayn-data",
+        "public_rendered_english_sha256": "f76f85467982f90c9340567fd20c8d4e120bf6e89b080fa388b6010e4277b824",
+        "rendered_isnad_en_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "risk_flags_sha256": "70e8f10b1ddc8f88c411ba3d3dbbf75d8373e4bb19f913920c880ae3ac58f7f9",
+        "risk_level": "green",
+        "source_hashes_current": true,
+        "source_pins": {
+          "identity.after.remote_id": 3074,
+          "identity.before.remote_id": 3072,
+          "identity.remote_id": 3073,
+          "qa_flag_normalization.blocker_dossier_sha256": "d7744e88ecf8632500073be4c4f685d7737e9978ec04ca5d5810ef96929c5a94",
+          "qa_flag_normalization.source_english_sha256": "f76f85467982f90c9340567fd20c8d4e120bf6e89b080fa388b6010e4277b824",
+          "remote_id": 3073,
+          "reviewed_dossier_sha256": "6f656feb9334767668729dd5444472d10c997bf3327031927c6e4cbfac4e9b77",
+          "source": "ThaqalaynData static edition",
+          "source_arabic_sha256": "3ec6cbeadecce55839c7ee8bf9384535c448b5e471c2808139ff819d4dce0916",
+          "source_english_sha256": "f76f85467982f90c9340567fd20c8d4e120bf6e89b080fa388b6010e4277b824",
+          "source_plaintext_english_sha256": "f76f85467982f90c9340567fd20c8d4e120bf6e89b080fa388b6010e4277b824",
+          "source_record_sha256": "d0665ff0b5eba8d26a509e484270ba10dc01a4c5c00dcc3be313d80497ef5e9b",
+          "source_snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "source_url": "https://thaqalayn.net/books/al-kafi:2:1:209:6",
+          "thaqalayn_id": 3073,
+          "translation_classification": "external_source_normalized",
+          "translator": "Muhammad Sarwar"
+        },
+        "status": "published",
+        "stored_source_hashes": {
+          "full_sha256": "a7f6af058920aca09dad3fc9aa08e3707fec9f7fcffd62b8616f35ca03d1425f",
+          "isnad_sha256": "f89fc48b21be945f8e96e7a4fd4daed37ee25044d5be8bc2daf7018ef105d19a",
+          "matn_sha256": "142cd73879ab2a9c0a7c0af73efac815551f3394bcb383705a439b1be8ef0459"
+        },
+        "translation_version": "matn_en_v1"
+      },
+      "translation_job_items": [
+        {
+          "id": 15477,
+          "job_id": 5,
+          "risk_level": "green",
+          "segment_id": 15151,
+          "source_sha256": "142cd73879ab2a9c0a7c0af73efac815551f3394bcb383705a439b1be8ef0459",
+          "status": "verified"
+        }
+      ],
+      "translation_segments": [
+        {
+          "id": 15151,
+          "risk_level": "green",
+          "source_sha256": "142cd73879ab2a9c0a7c0af73efac815551f3394bcb383705a439b1be8ef0459",
+          "status": "published",
+          "translation_sha256": "f76f85467982f90c9340567fd20c8d4e120bf6e89b080fa388b6010e4277b824"
+        }
+      ]
+    },
+    {
+      "category": "inline_or_appended_editorial_contamination",
+      "disposition": "definite_blocker",
+      "hadith": {
+        "current_arabic_hashes": {
+          "full_sha256": "ce943f4e6712a95ede47e99cd35fd039b0681f98129640f362969b3ba4d05ff1",
+          "isnad_sha256": "0c024cdad2b76401fafdb3787b26f460ad77cdd3a7129fdbdecc329e68fb939c",
+          "matn_sha256": "0a85225742aa65e898bb58d9e78f85959d440e593b3a702d2f97f8cef9a79d06"
+        },
+        "id": 23644,
+        "page_end": 86,
+        "page_start": 83,
+        "printed_number": "١",
+        "sequence_in_book": 4170,
+        "volume": 3
+      },
+      "public_id": "alkafi-4167",
+      "reason": "Long lexicographical commentary is spliced into the report and the local Arabic truncates mid-sentence while the published English continues.",
+      "record_sha256": "3cd63f05fd369644a97c15062a82ac70eb910c5eb43db5aa57e002c10aa26db2",
+      "translation": {
+        "full_translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "id": 15150,
+        "matn_translation_sha256": "9c9afd6a99b05dd936ac3018e7d74fc900a1ad77019f22774fc4fc7727455b05",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "c2af1a26a6ee6cfc37bf9f2e984799ac9dacc6dee9135960cb10d832aa2c3dbb",
+        "provider": "thaqalayn-data",
+        "public_rendered_english_sha256": "9c9afd6a99b05dd936ac3018e7d74fc900a1ad77019f22774fc4fc7727455b05",
+        "rendered_isnad_en_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "risk_flags_sha256": "7ad7f422f1cafebc3fb09290ef7369cbad86bb19ff6005e3573751495dde8699",
+        "risk_level": "green",
+        "source_hashes_current": true,
+        "source_pins": {
+          "identity.after.remote_id": 4184,
+          "identity.before.remote_id": 4182,
+          "identity.remote_id": 4183,
+          "qa_flag_normalization.blocker_dossier_sha256": "d7744e88ecf8632500073be4c4f685d7737e9978ec04ca5d5810ef96929c5a94",
+          "qa_flag_normalization.source_english_sha256": "9c9afd6a99b05dd936ac3018e7d74fc900a1ad77019f22774fc4fc7727455b05",
+          "remote_id": 4183,
+          "reviewed_dossier_sha256": "6f656feb9334767668729dd5444472d10c997bf3327031927c6e4cbfac4e9b77",
+          "source": "ThaqalaynData static edition",
+          "source_arabic_sha256": "d3e7aecfb9d22c11b705ef439f0b4c17928c7980f300ceabe519df5576a06503",
+          "source_english_sha256": "9c9afd6a99b05dd936ac3018e7d74fc900a1ad77019f22774fc4fc7727455b05",
+          "source_plaintext_english_sha256": "9c9afd6a99b05dd936ac3018e7d74fc900a1ad77019f22774fc4fc7727455b05",
+          "source_record_sha256": "9470f82e5bb8eb7c303f3f6bb518c561b955184935e5bd5307570453adfbb473",
+          "source_snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "source_url": "https://thaqalayn.net/books/al-kafi:3:2:9:1",
+          "thaqalayn_id": 4183,
+          "translation_classification": "external_source_normalized",
+          "translator": "Muhammad Sarwar"
+        },
+        "status": "published",
+        "stored_source_hashes": {
+          "full_sha256": "ce943f4e6712a95ede47e99cd35fd039b0681f98129640f362969b3ba4d05ff1",
+          "isnad_sha256": "0c024cdad2b76401fafdb3787b26f460ad77cdd3a7129fdbdecc329e68fb939c",
+          "matn_sha256": "0a85225742aa65e898bb58d9e78f85959d440e593b3a702d2f97f8cef9a79d06"
+        },
+        "translation_version": "matn_en_v1"
+      },
+      "translation_job_items": [
+        {
+          "id": 15480,
+          "job_id": 5,
+          "risk_level": "green",
+          "segment_id": 15154,
+          "source_sha256": "0a85225742aa65e898bb58d9e78f85959d440e593b3a702d2f97f8cef9a79d06",
+          "status": "verified"
+        }
+      ],
+      "translation_segments": [
+        {
+          "id": 15154,
+          "risk_level": "green",
+          "source_sha256": "0a85225742aa65e898bb58d9e78f85959d440e593b3a702d2f97f8cef9a79d06",
+          "status": "published",
+          "translation_sha256": "9c9afd6a99b05dd936ac3018e7d74fc900a1ad77019f22774fc4fc7727455b05"
+        }
+      ]
+    },
+    {
+      "category": "inline_or_appended_editorial_contamination",
+      "disposition": "definite_blocker",
+      "hadith": {
+        "current_arabic_hashes": {
+          "full_sha256": "ec29af7f16d3994106f8403235cb09f62e38da234a9706067c79a4a49dda06c5",
+          "isnad_sha256": "54a2a06d9fc2ba0314ddb21b2fa9cfdb4e62d6d5891b83eced22dfd31bf05365",
+          "matn_sha256": "56484c8efe2b0fc5886b7e2fbbe92e768e2adc0accb347bd3e059ee034a32763"
+        },
+        "id": 23654,
+        "page_end": 94,
+        "page_start": 92,
+        "printed_number": "١",
+        "sequence_in_book": 4180,
+        "volume": 3
+      },
+      "public_id": "alkafi-4177",
+      "reason": "Editorial footnote/commentary text is embedded in the Arabic hadith extent but absent from the published English extent.",
+      "record_sha256": "e6b84d65994384ebf2a28fa2a52419ba28c1c8c34660b8acf137661dc295597f",
+      "translation": {
+        "full_translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "id": 13636,
+        "matn_translation_sha256": "5aba726040b4dd5537277cc25ff4517aac615d1952fa1e5864f7bf4ca40f29be",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "6b3aa6fa1b0475019bc957e3cd04509cf2c703a90c71a9f393a98c4cff9ac9bd",
+        "provider": "thaqalayn-data",
+        "public_rendered_english_sha256": "5aba726040b4dd5537277cc25ff4517aac615d1952fa1e5864f7bf4ca40f29be",
+        "rendered_isnad_en_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "risk_flags_sha256": "7b9370acede36d5a2dbc110e158250b97e4bfbad748d2e71c132ad0b90bea6e0",
+        "risk_level": "green",
+        "source_hashes_current": true,
+        "source_pins": {
+          "qa_flag_normalization.blocker_dossier_sha256": "d7744e88ecf8632500073be4c4f685d7737e9978ec04ca5d5810ef96929c5a94",
+          "qa_flag_normalization.source_english_sha256": "5aba726040b4dd5537277cc25ff4517aac615d1952fa1e5864f7bf4ca40f29be",
+          "source": "thaqalayn-data",
+          "source_arabic_sha256": "634d1fb63799f3dfba229cdd844e35a34081b8539129a306b7ee162455597901",
+          "source_english_sha256": "5aba726040b4dd5537277cc25ff4517aac615d1952fa1e5864f7bf4ca40f29be",
+          "source_plaintext_english_sha256": "5aba726040b4dd5537277cc25ff4517aac615d1952fa1e5864f7bf4ca40f29be",
+          "source_record_sha256": "3e4ad88663207decd2bf7e2d890aea2d6aa1752df8aed24d520526549b066f48",
+          "source_snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "source_url": "https://thaqalayn.net/books/al-kafi:3:2:11:1",
+          "thaqalayn_id": 4193,
+          "translation_classification": "external_source_normalized",
+          "translator": "Muhammad Sarwar"
+        },
+        "status": "published",
+        "stored_source_hashes": {
+          "full_sha256": "ec29af7f16d3994106f8403235cb09f62e38da234a9706067c79a4a49dda06c5",
+          "isnad_sha256": "54a2a06d9fc2ba0314ddb21b2fa9cfdb4e62d6d5891b83eced22dfd31bf05365",
+          "matn_sha256": "56484c8efe2b0fc5886b7e2fbbe92e768e2adc0accb347bd3e059ee034a32763"
+        },
+        "translation_version": "matn_en_v1"
+      },
+      "translation_job_items": [
+        {
+          "id": 13930,
+          "job_id": 3,
+          "risk_level": "green",
+          "segment_id": 13640,
+          "source_sha256": "56484c8efe2b0fc5886b7e2fbbe92e768e2adc0accb347bd3e059ee034a32763",
+          "status": "verified"
+        }
+      ],
+      "translation_segments": [
+        {
+          "id": 13640,
+          "risk_level": "green",
+          "source_sha256": "56484c8efe2b0fc5886b7e2fbbe92e768e2adc0accb347bd3e059ee034a32763",
+          "status": "published",
+          "translation_sha256": "5aba726040b4dd5537277cc25ff4517aac615d1952fa1e5864f7bf4ca40f29be"
+        }
+      ]
+    },
+    {
+      "category": "inline_or_appended_editorial_contamination",
+      "disposition": "definite_blocker",
+      "hadith": {
+        "current_arabic_hashes": {
+          "full_sha256": "b473db5c07dd742f041088a73bb7aa7a0dc1a7c2b79ce71a74ebefb5bd366d94",
+          "isnad_sha256": "1cc6dcfdbd7f2cc16abef6358f17bb527fe77c7292539d8d75496a7627e1acf2",
+          "matn_sha256": "9a56a4c41f6875ba3e622082472ba94fdbd24acf5f196674af0fbbc078873da2"
+        },
+        "id": 25319,
+        "page_end": 538,
+        "page_start": 536,
+        "printed_number": "١",
+        "sequence_in_book": 5847,
+        "volume": 3
+      },
+      "public_id": "alkafi-5842",
+      "reason": "Editorial footnote/commentary text is embedded in the Arabic hadith extent but absent from the published English extent.",
+      "record_sha256": "082e0154b6630710abc672789b912d20368c3e9356f13175154f5e80811e3466",
+      "translation": {
+        "full_translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "id": 13714,
+        "matn_translation_sha256": "2efdfa1c9e9460487e71be54589698df59aebe2fff2a89bf47433c6dccbcd577",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "8bc79bab0ce57d107b5393ac2b97dc6f48a534b3806d31b015fa373e65bb2c6c",
+        "provider": "thaqalayn-data",
+        "public_rendered_english_sha256": "2efdfa1c9e9460487e71be54589698df59aebe2fff2a89bf47433c6dccbcd577",
+        "rendered_isnad_en_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "risk_flags_sha256": "dbb5946e8adb01de0d414c4948083c07aa3d82d8eb4b6dac6fb0bb0a5db95984",
+        "risk_level": "green",
+        "source_hashes_current": true,
+        "source_pins": {
+          "qa_flag_normalization.blocker_dossier_sha256": "d7744e88ecf8632500073be4c4f685d7737e9978ec04ca5d5810ef96929c5a94",
+          "qa_flag_normalization.source_english_sha256": "2efdfa1c9e9460487e71be54589698df59aebe2fff2a89bf47433c6dccbcd577",
+          "source": "thaqalayn-data",
+          "source_arabic_sha256": "372d8f539c17bca82b0ab47d01b63db9ec5bb01dffdd19859fde1b111c80c242",
+          "source_english_sha256": "2efdfa1c9e9460487e71be54589698df59aebe2fff2a89bf47433c6dccbcd577",
+          "source_plaintext_english_sha256": "2efdfa1c9e9460487e71be54589698df59aebe2fff2a89bf47433c6dccbcd577",
+          "source_record_sha256": "f5f8a709ad35220692b3c7cd62a6994beec296ce58f6eafc74863b82bec86390",
+          "source_snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "source_url": "https://thaqalayn.net/books/al-kafi:3:5:22:1",
+          "thaqalayn_id": 5862,
+          "translation_classification": "external_source_normalized",
+          "translator": "Muhammad Sarwar"
+        },
+        "status": "published",
+        "stored_source_hashes": {
+          "full_sha256": "b473db5c07dd742f041088a73bb7aa7a0dc1a7c2b79ce71a74ebefb5bd366d94",
+          "isnad_sha256": "1cc6dcfdbd7f2cc16abef6358f17bb527fe77c7292539d8d75496a7627e1acf2",
+          "matn_sha256": "9a56a4c41f6875ba3e622082472ba94fdbd24acf5f196674af0fbbc078873da2"
+        },
+        "translation_version": "matn_en_v1"
+      },
+      "translation_job_items": [
+        {
+          "id": 14008,
+          "job_id": 3,
+          "risk_level": "green",
+          "segment_id": 13718,
+          "source_sha256": "9a56a4c41f6875ba3e622082472ba94fdbd24acf5f196674af0fbbc078873da2",
+          "status": "verified"
+        }
+      ],
+      "translation_segments": [
+        {
+          "id": 13718,
+          "risk_level": "green",
+          "source_sha256": "9a56a4c41f6875ba3e622082472ba94fdbd24acf5f196674af0fbbc078873da2",
+          "status": "published",
+          "translation_sha256": "2efdfa1c9e9460487e71be54589698df59aebe2fff2a89bf47433c6dccbcd577"
+        }
+      ]
+    },
+    {
+      "category": "inline_or_appended_editorial_contamination",
+      "disposition": "definite_blocker",
+      "hadith": {
+        "current_arabic_hashes": {
+          "full_sha256": "6036ba869c3cfb1cfda18bfd9340581d2e585fcbaa483f84f85e4e4bc62d09c3",
+          "isnad_sha256": "2e19fe51910fb919dbfad610bb7165e6c3759fb68d992b674cdaf71cb05accb8",
+          "matn_sha256": "3ba488295bb86d347acb73431e883565d68e766428c300e84c834685f8f90ffd"
+        },
+        "id": 25773,
+        "page_end": 87,
+        "page_start": 83,
+        "printed_number": "١",
+        "sequence_in_book": 6301,
+        "volume": 4
+      },
+      "public_id": "alkafi-6296",
+      "reason": "Editorial footnote/commentary text is embedded in the Arabic hadith extent but absent from the published English extent.",
+      "record_sha256": "6002c7192a8d33946cc77af3be1e0153bb19aa7330904c3f06c76892c1b6033d",
+      "translation": {
+        "full_translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "id": 13726,
+        "matn_translation_sha256": "d1a6753f63bb8f40a82fe3ec14966377115cdcc019ea6e68ff9176d60dde649b",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "df20e89e8420e53904bf9e18e5e200670219139139e846b9c9cfb88e0d5ae25f",
+        "provider": "thaqalayn-data",
+        "public_rendered_english_sha256": "d1a6753f63bb8f40a82fe3ec14966377115cdcc019ea6e68ff9176d60dde649b",
+        "rendered_isnad_en_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "risk_flags_sha256": "a240eb7f2d46dddab938748573b40c613e738f3f63bf4123f39cf41720cb4354",
+        "risk_level": "green",
+        "source_hashes_current": true,
+        "source_pins": {
+          "qa_flag_normalization.blocker_dossier_sha256": "d7744e88ecf8632500073be4c4f685d7737e9978ec04ca5d5810ef96929c5a94",
+          "qa_flag_normalization.source_english_sha256": "d1a6753f63bb8f40a82fe3ec14966377115cdcc019ea6e68ff9176d60dde649b",
+          "source": "thaqalayn-data",
+          "source_arabic_sha256": "040b497e2c5f8ee76beff75752d797d8206af378cbce7257d7df5728b46f1e7c",
+          "source_english_sha256": "d1a6753f63bb8f40a82fe3ec14966377115cdcc019ea6e68ff9176d60dde649b",
+          "source_plaintext_english_sha256": "d1a6753f63bb8f40a82fe3ec14966377115cdcc019ea6e68ff9176d60dde649b",
+          "source_record_sha256": "6726a571b0508998a3990418edaffef8b7f6e5912acbbdeda59d8c01d04f457c",
+          "source_snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "source_url": "https://thaqalayn.net/books/al-kafi:4:2:10:1",
+          "thaqalayn_id": 6316,
+          "translation_classification": "external_source_normalized",
+          "translator": "Muhammad Sarwar"
+        },
+        "status": "published",
+        "stored_source_hashes": {
+          "full_sha256": "6036ba869c3cfb1cfda18bfd9340581d2e585fcbaa483f84f85e4e4bc62d09c3",
+          "isnad_sha256": "2e19fe51910fb919dbfad610bb7165e6c3759fb68d992b674cdaf71cb05accb8",
+          "matn_sha256": "3ba488295bb86d347acb73431e883565d68e766428c300e84c834685f8f90ffd"
+        },
+        "translation_version": "matn_en_v1"
+      },
+      "translation_job_items": [
+        {
+          "id": 14022,
+          "job_id": 3,
+          "risk_level": "green",
+          "segment_id": 13730,
+          "source_sha256": "3ba488295bb86d347acb73431e883565d68e766428c300e84c834685f8f90ffd",
+          "status": "verified"
+        }
+      ],
+      "translation_segments": [
+        {
+          "id": 13730,
+          "risk_level": "green",
+          "source_sha256": "3ba488295bb86d347acb73431e883565d68e766428c300e84c834685f8f90ffd",
+          "status": "published",
+          "translation_sha256": "d1a6753f63bb8f40a82fe3ec14966377115cdcc019ea6e68ff9176d60dde649b"
+        }
+      ]
+    },
+    {
+      "category": "inline_or_appended_editorial_contamination",
+      "disposition": "definite_blocker",
+      "hadith": {
+        "current_arabic_hashes": {
+          "full_sha256": "2f64c0cda8aae38e18ebbef353747481f2e3c6c48feb3ef85222a85a36d5da38",
+          "isnad_sha256": "5e5c988abca1eb827cfeca637bc6d2cf647e21a111cab810924d046c339e9005",
+          "matn_sha256": "86e23af4b603a22321494dff8f397901ab688a421acc07e8e91b8134cb592497"
+        },
+        "id": 26180,
+        "page_end": 201,
+        "page_start": 198,
+        "printed_number": "٢",
+        "sequence_in_book": 6708,
+        "volume": 4
+      },
+      "public_id": "alkafi-6703",
+      "reason": "Editorial footnote/commentary text is embedded in the Arabic hadith extent but absent from the published English extent.",
+      "record_sha256": "b9f37db68dd6a70a13dd84043e2f787a3a09c0d710fca86c1d41ddd52d325eaf",
+      "translation": {
+        "full_translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "id": 15158,
+        "matn_translation_sha256": "b8e7c67d47e3d67542a7ed7dcc65b6d552978d9cd9daf2a3b80a6deb4e78af83",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "4d5bf159b667ab606c8c264e203fb09df2d2bbb5fb45fbd0f14681ead103a290",
+        "provider": "thaqalayn-data",
+        "public_rendered_english_sha256": "b8e7c67d47e3d67542a7ed7dcc65b6d552978d9cd9daf2a3b80a6deb4e78af83",
+        "rendered_isnad_en_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "risk_flags_sha256": "895bb45c7e73607d1ffb616e02f5fff0ceb441eaacc73a4e91b44ca6b446bdad",
+        "risk_level": "green",
+        "source_hashes_current": true,
+        "source_pins": {
+          "identity.after.remote_id": 6725,
+          "identity.before.remote_id": 6723,
+          "identity.remote_id": 6724,
+          "qa_flag_normalization.blocker_dossier_sha256": "d7744e88ecf8632500073be4c4f685d7737e9978ec04ca5d5810ef96929c5a94",
+          "qa_flag_normalization.source_english_sha256": "b8e7c67d47e3d67542a7ed7dcc65b6d552978d9cd9daf2a3b80a6deb4e78af83",
+          "remote_id": 6724,
+          "reviewed_dossier_sha256": "6f656feb9334767668729dd5444472d10c997bf3327031927c6e4cbfac4e9b77",
+          "source": "ThaqalaynData static edition",
+          "source_arabic_sha256": "2f5c411d84b0f9b4d359700706325dd6fcc0ed0240f6cf66cb921244fc304f52",
+          "source_english_sha256": "b8e7c67d47e3d67542a7ed7dcc65b6d552978d9cd9daf2a3b80a6deb4e78af83",
+          "source_plaintext_english_sha256": "b8e7c67d47e3d67542a7ed7dcc65b6d552978d9cd9daf2a3b80a6deb4e78af83",
+          "source_record_sha256": "338b20317dd3be6a50b79289885c4918a246c9960b98b435610f34f3fba22240",
+          "source_snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "source_url": "https://thaqalayn.net/books/al-kafi:4:3:6:2",
+          "thaqalayn_id": 6724,
+          "translation_classification": "external_source_normalized",
+          "translator": "Muhammad Sarwar"
+        },
+        "status": "published",
+        "stored_source_hashes": {
+          "full_sha256": "2f64c0cda8aae38e18ebbef353747481f2e3c6c48feb3ef85222a85a36d5da38",
+          "isnad_sha256": "5e5c988abca1eb827cfeca637bc6d2cf647e21a111cab810924d046c339e9005",
+          "matn_sha256": "86e23af4b603a22321494dff8f397901ab688a421acc07e8e91b8134cb592497"
+        },
+        "translation_version": "matn_en_v1"
+      },
+      "translation_job_items": [
+        {
+          "id": 15488,
+          "job_id": 5,
+          "risk_level": "green",
+          "segment_id": 15162,
+          "source_sha256": "86e23af4b603a22321494dff8f397901ab688a421acc07e8e91b8134cb592497",
+          "status": "verified"
+        }
+      ],
+      "translation_segments": [
+        {
+          "id": 15162,
+          "risk_level": "green",
+          "source_sha256": "86e23af4b603a22321494dff8f397901ab688a421acc07e8e91b8134cb592497",
+          "status": "published",
+          "translation_sha256": "b8e7c67d47e3d67542a7ed7dcc65b6d552978d9cd9daf2a3b80a6deb4e78af83"
+        }
+      ]
+    },
+    {
+      "category": "inline_or_appended_editorial_contamination",
+      "disposition": "definite_blocker",
+      "hadith": {
+        "current_arabic_hashes": {
+          "full_sha256": "1a01c37fe3b66790a92a64cd67b2e6eec587f56e1fa138bc926f024f28d5ab3a",
+          "isnad_sha256": "bafa7082e526c1c1298ff008545159aef9c33ffeaac4cb80a5ea5ce3bc626721",
+          "matn_sha256": "e988144194ecc7aed4d6aa2f584aebf07e9e91cfe797980ec1e0c448288e74f5"
+        },
+        "id": 27581,
+        "page_end": 562,
+        "page_start": 561,
+        "printed_number": "٦",
+        "sequence_in_book": 8110,
+        "volume": 4
+      },
+      "public_id": "alkafi-8104",
+      "reason": "A modern verse/editorial citation to a later reference work is appended to the Arabic but omitted in English.",
+      "record_sha256": "1d51eab9141d9d020b35e4a1bdbbaee6ed740afd27eb47dea636617020dbf317",
+      "translation": {
+        "full_translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "id": 15159,
+        "matn_translation_sha256": "85e284020fa2b4868259b72214b3fec6dd0e64323f3ffa757281210f0c195167",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "340b834771fabec24aaeb46e1f81fd08e2fed990c22a3340d8caf6a731f1686b",
+        "provider": "thaqalayn-data",
+        "public_rendered_english_sha256": "85e284020fa2b4868259b72214b3fec6dd0e64323f3ffa757281210f0c195167",
+        "rendered_isnad_en_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "risk_flags_sha256": "c486f746a00945d229fb20f8975057de1b2dbe48b3a602e3342d51ce018dfa08",
+        "risk_level": "green",
+        "source_hashes_current": true,
+        "source_pins": {
+          "identity.after.remote_id": 8124,
+          "identity.before.remote_id": 8122,
+          "identity.remote_id": 8123,
+          "qa_flag_normalization.blocker_dossier_sha256": "d7744e88ecf8632500073be4c4f685d7737e9978ec04ca5d5810ef96929c5a94",
+          "qa_flag_normalization.source_english_sha256": "85e284020fa2b4868259b72214b3fec6dd0e64323f3ffa757281210f0c195167",
+          "remote_id": 8123,
+          "reviewed_dossier_sha256": "6f656feb9334767668729dd5444472d10c997bf3327031927c6e4cbfac4e9b77",
+          "source": "ThaqalaynData static edition",
+          "source_arabic_sha256": "59377311c9db80e2318c3ca44474f953243d06933575496f81ac75a9157c2193",
+          "source_english_sha256": "85e284020fa2b4868259b72214b3fec6dd0e64323f3ffa757281210f0c195167",
+          "source_plaintext_english_sha256": "85e284020fa2b4868259b72214b3fec6dd0e64323f3ffa757281210f0c195167",
+          "source_record_sha256": "279ea07900242eaba3beaea319e2bc4cc0ba6f575e5b0e9be9aa31a6aaed94ed",
+          "source_snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "source_url": "https://thaqalayn.net/books/al-kafi:4:3:221:6",
+          "thaqalayn_id": 8123,
+          "translation_classification": "external_source_normalized",
+          "translator": "Muhammad Sarwar"
+        },
+        "status": "published",
+        "stored_source_hashes": {
+          "full_sha256": "1a01c37fe3b66790a92a64cd67b2e6eec587f56e1fa138bc926f024f28d5ab3a",
+          "isnad_sha256": "bafa7082e526c1c1298ff008545159aef9c33ffeaac4cb80a5ea5ce3bc626721",
+          "matn_sha256": "e988144194ecc7aed4d6aa2f584aebf07e9e91cfe797980ec1e0c448288e74f5"
+        },
+        "translation_version": "matn_en_v1"
+      },
+      "translation_job_items": [
+        {
+          "id": 15489,
+          "job_id": 5,
+          "risk_level": "green",
+          "segment_id": 15163,
+          "source_sha256": "e988144194ecc7aed4d6aa2f584aebf07e9e91cfe797980ec1e0c448288e74f5",
+          "status": "verified"
+        }
+      ],
+      "translation_segments": [
+        {
+          "id": 15163,
+          "risk_level": "green",
+          "source_sha256": "e988144194ecc7aed4d6aa2f584aebf07e9e91cfe797980ec1e0c448288e74f5",
+          "status": "published",
+          "translation_sha256": "85e284020fa2b4868259b72214b3fec6dd0e64323f3ffa757281210f0c195167"
+        }
+      ]
+    },
+    {
+      "category": "inline_or_appended_editorial_contamination",
+      "disposition": "definite_blocker",
+      "hadith": {
+        "current_arabic_hashes": {
+          "full_sha256": "0b11b8fb64934f98b19e7d450caf940f21a3196963361d71416fee8e72bb80a6",
+          "isnad_sha256": "e2b27fe13b15776628bd2038e4e84e01daf6bf0c56e7ec4d430d8e1c4e9aef6a",
+          "matn_sha256": "2ca30732a56915b23caac9d13a20b74eab7d412f864b3043f1347f24a4e37988"
+        },
+        "id": 27599,
+        "page_end": 568,
+        "page_start": 567,
+        "printed_number": "٣",
+        "sequence_in_book": 8128,
+        "volume": 4
+      },
+      "public_id": "alkafi-8122",
+      "reason": "A long Majlisi marginal commentary, including page-continuation labels, is appended to the Arabic but omitted in English.",
+      "record_sha256": "705d7435ca217c745c79001431d5a30db826dc623dc37e7843acdf95681d95f6",
+      "translation": {
+        "full_translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "id": 15160,
+        "matn_translation_sha256": "0d26b4b2a4ea8f0fd0c676510ca2cb95b2adc376e08a459c4287312f92ef3693",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "ace30a669d5950903b25dcfa7e8618d3ad104e7e58a1217b2e009af0a765841a",
+        "provider": "thaqalayn-data",
+        "public_rendered_english_sha256": "0d26b4b2a4ea8f0fd0c676510ca2cb95b2adc376e08a459c4287312f92ef3693",
+        "rendered_isnad_en_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "risk_flags_sha256": "fe27a86fb0d5fca6d6a03755ce6933d534b0894b70c679a1f96a0bf618c0de23",
+        "risk_level": "green",
+        "source_hashes_current": true,
+        "source_pins": {
+          "identity.after.remote_id": 8142,
+          "identity.before.remote_id": 8140,
+          "identity.remote_id": 8141,
+          "qa_flag_normalization.blocker_dossier_sha256": "d7744e88ecf8632500073be4c4f685d7737e9978ec04ca5d5810ef96929c5a94",
+          "qa_flag_normalization.source_english_sha256": "0d26b4b2a4ea8f0fd0c676510ca2cb95b2adc376e08a459c4287312f92ef3693",
+          "remote_id": 8141,
+          "reviewed_dossier_sha256": "6f656feb9334767668729dd5444472d10c997bf3327031927c6e4cbfac4e9b77",
+          "source": "ThaqalaynData static edition",
+          "source_arabic_sha256": "3110993a3f8a3d44bebb6fd53d2459c82e9e810cd04a1171a3875c1d16045632",
+          "source_english_sha256": "0d26b4b2a4ea8f0fd0c676510ca2cb95b2adc376e08a459c4287312f92ef3693",
+          "source_plaintext_english_sha256": "0d26b4b2a4ea8f0fd0c676510ca2cb95b2adc376e08a459c4287312f92ef3693",
+          "source_record_sha256": "a11e0aac2197f996db1e6770f51d64fce16eda2bcb2818b111ff8652657dc8ee",
+          "source_snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "source_url": "https://thaqalayn.net/books/al-kafi:4:3:226:3",
+          "thaqalayn_id": 8141,
+          "translation_classification": "external_source_normalized",
+          "translator": "Muhammad Sarwar"
+        },
+        "status": "published",
+        "stored_source_hashes": {
+          "full_sha256": "0b11b8fb64934f98b19e7d450caf940f21a3196963361d71416fee8e72bb80a6",
+          "isnad_sha256": "e2b27fe13b15776628bd2038e4e84e01daf6bf0c56e7ec4d430d8e1c4e9aef6a",
+          "matn_sha256": "2ca30732a56915b23caac9d13a20b74eab7d412f864b3043f1347f24a4e37988"
+        },
+        "translation_version": "matn_en_v1"
+      },
+      "translation_job_items": [
+        {
+          "id": 15490,
+          "job_id": 5,
+          "risk_level": "green",
+          "segment_id": 15164,
+          "source_sha256": "2ca30732a56915b23caac9d13a20b74eab7d412f864b3043f1347f24a4e37988",
+          "status": "verified"
+        }
+      ],
+      "translation_segments": [
+        {
+          "id": 15164,
+          "risk_level": "green",
+          "source_sha256": "2ca30732a56915b23caac9d13a20b74eab7d412f864b3043f1347f24a4e37988",
+          "status": "published",
+          "translation_sha256": "0d26b4b2a4ea8f0fd0c676510ca2cb95b2adc376e08a459c4287312f92ef3693"
+        }
+      ]
+    },
+    {
+      "category": "inline_or_appended_editorial_contamination",
+      "disposition": "definite_blocker",
+      "hadith": {
+        "current_arabic_hashes": {
+          "full_sha256": "001ed0e0ab2099c2034de6e4118da8aa9090d8572b99241403020d72d7b2924d",
+          "isnad_sha256": "fc79e6dd078f10a14b5ecf648c24d53fe9aebb6ba917c4a8a2ebadf1392d41a2",
+          "matn_sha256": "76ba3d9184364d4a08cef57c2e659b6b8009cc3969b2e0b9f0e732f4c2b44837"
+        },
+        "id": 27666,
+        "page_end": 19,
+        "page_start": 13,
+        "printed_number": "١",
+        "sequence_in_book": 8195,
+        "volume": 5
+      },
+      "public_id": "alkafi-8189",
+      "reason": "Editorial footnote/commentary text is embedded in the Arabic hadith extent but absent from the published English extent.",
+      "record_sha256": "5f3f193d5a2ff3c8509b31e6d889319afd2498d8d61fd4d9965cac0b60aa8ad0",
+      "translation": {
+        "full_translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "id": 13817,
+        "matn_translation_sha256": "1a398bcf868cb510bba87145a96e9ecfb3b1c842c46d9140701db9dd0eccacab",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "1c7cbf6b5da06448719e7b160ca1f604e442711dc0d04595ca21482b36407c74",
+        "provider": "thaqalayn-data",
+        "public_rendered_english_sha256": "1a398bcf868cb510bba87145a96e9ecfb3b1c842c46d9140701db9dd0eccacab",
+        "rendered_isnad_en_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "risk_flags_sha256": "3d9b2f4dad6eb193014d4b8730f8f68868e9fe0b4ab1596c2d6be6e8e419034e",
+        "risk_level": "green",
+        "source_hashes_current": true,
+        "source_pins": {
+          "qa_flag_normalization.blocker_dossier_sha256": "d7744e88ecf8632500073be4c4f685d7737e9978ec04ca5d5810ef96929c5a94",
+          "qa_flag_normalization.source_english_sha256": "1a398bcf868cb510bba87145a96e9ecfb3b1c842c46d9140701db9dd0eccacab",
+          "source": "thaqalayn-data",
+          "source_arabic_sha256": "f3814a8a9efa76e54f0b0fd5a0a60a80bbd256ab40ad2f62464c830b073f3a6d",
+          "source_english_sha256": "1a398bcf868cb510bba87145a96e9ecfb3b1c842c46d9140701db9dd0eccacab",
+          "source_plaintext_english_sha256": "1a398bcf868cb510bba87145a96e9ecfb3b1c842c46d9140701db9dd0eccacab",
+          "source_record_sha256": "9318ee83fd4c424f8fbfcb232c61fe546b203248258e2d9046e7db1b4a2042c6",
+          "source_snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "source_url": "https://thaqalayn.net/books/al-kafi:5:1:4:1",
+          "thaqalayn_id": 8208,
+          "translation_classification": "external_source_normalized",
+          "translator": "Muhammad Sarwar"
+        },
+        "status": "published",
+        "stored_source_hashes": {
+          "full_sha256": "001ed0e0ab2099c2034de6e4118da8aa9090d8572b99241403020d72d7b2924d",
+          "isnad_sha256": "fc79e6dd078f10a14b5ecf648c24d53fe9aebb6ba917c4a8a2ebadf1392d41a2",
+          "matn_sha256": "76ba3d9184364d4a08cef57c2e659b6b8009cc3969b2e0b9f0e732f4c2b44837"
+        },
+        "translation_version": "matn_en_v1"
+      },
+      "translation_job_items": [
+        {
+          "id": 14115,
+          "job_id": 3,
+          "risk_level": "green",
+          "segment_id": 13821,
+          "source_sha256": "76ba3d9184364d4a08cef57c2e659b6b8009cc3969b2e0b9f0e732f4c2b44837",
+          "status": "verified"
+        }
+      ],
+      "translation_segments": [
+        {
+          "id": 13821,
+          "risk_level": "green",
+          "source_sha256": "76ba3d9184364d4a08cef57c2e659b6b8009cc3969b2e0b9f0e732f4c2b44837",
+          "status": "published",
+          "translation_sha256": "1a398bcf868cb510bba87145a96e9ecfb3b1c842c46d9140701db9dd0eccacab"
+        }
+      ]
+    },
+    {
+      "category": "inline_or_appended_editorial_contamination",
+      "disposition": "definite_blocker",
+      "hadith": {
+        "current_arabic_hashes": {
+          "full_sha256": "ccf72acdb3759f804fe377548e2ed99a64f8a76f1e47dbbde6324ccb8f2c0821",
+          "isnad_sha256": "8dec868b4d34d3eb8b4a4e215ae0dc8c5ebc8adc5099ac9a25fd066955b3a3f7",
+          "matn_sha256": "166793b49b2463e7ef21dc7097d78f54eff55953ebd788780c7dbb9d9f3a847b"
+        },
+        "id": 27707,
+        "page_end": 38,
+        "page_start": 36,
+        "printed_number": "١",
+        "sequence_in_book": 8236,
+        "volume": 5
+      },
+      "public_id": "alkafi-8230",
+      "reason": "Editorial footnote/commentary text is embedded in the Arabic hadith extent but absent from the published English extent.",
+      "record_sha256": "851204e3003510b42ce2ffe0809365a68bd7d5b89b4aeadc84179d012979547e",
+      "translation": {
+        "full_translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "id": 13822,
+        "matn_translation_sha256": "3eb4f831626ee04a484eecdc666b53831f9e22f33ee8b8eefa15d6f4744d1764",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "bf6085d2a53f5784d3f61915274346ddd2b85827a08f18536744aaa532f070c2",
+        "provider": "thaqalayn-data",
+        "public_rendered_english_sha256": "3eb4f831626ee04a484eecdc666b53831f9e22f33ee8b8eefa15d6f4744d1764",
+        "rendered_isnad_en_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "risk_flags_sha256": "fc4c331289aaabf2706f71937a44543061f3d528c827e5bbc9ff39dc177acbfd",
+        "risk_level": "green",
+        "source_hashes_current": true,
+        "source_pins": {
+          "qa_flag_normalization.blocker_dossier_sha256": "d7744e88ecf8632500073be4c4f685d7737e9978ec04ca5d5810ef96929c5a94",
+          "qa_flag_normalization.source_english_sha256": "3eb4f831626ee04a484eecdc666b53831f9e22f33ee8b8eefa15d6f4744d1764",
+          "source": "thaqalayn-data",
+          "source_arabic_sha256": "a751963eec8a0d882ee306b382f03231a840742a5e58af58e877b077c5cc23bb",
+          "source_english_sha256": "3eb4f831626ee04a484eecdc666b53831f9e22f33ee8b8eefa15d6f4744d1764",
+          "source_plaintext_english_sha256": "3eb4f831626ee04a484eecdc666b53831f9e22f33ee8b8eefa15d6f4744d1764",
+          "source_record_sha256": "69eb821c0d9ed3722bab07ffbe0f4686d6fd814ada508da304d03fc88968034d",
+          "source_snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "source_url": "https://thaqalayn.net/books/al-kafi:5:1:15:1",
+          "thaqalayn_id": 8248,
+          "translation_classification": "external_source_normalized",
+          "translator": "Muhammad Sarwar"
+        },
+        "status": "published",
+        "stored_source_hashes": {
+          "full_sha256": "ccf72acdb3759f804fe377548e2ed99a64f8a76f1e47dbbde6324ccb8f2c0821",
+          "isnad_sha256": "8dec868b4d34d3eb8b4a4e215ae0dc8c5ebc8adc5099ac9a25fd066955b3a3f7",
+          "matn_sha256": "166793b49b2463e7ef21dc7097d78f54eff55953ebd788780c7dbb9d9f3a847b"
+        },
+        "translation_version": "matn_en_v1"
+      },
+      "translation_job_items": [
+        {
+          "id": 14121,
+          "job_id": 3,
+          "risk_level": "green",
+          "segment_id": 13826,
+          "source_sha256": "166793b49b2463e7ef21dc7097d78f54eff55953ebd788780c7dbb9d9f3a847b",
+          "status": "verified"
+        }
+      ],
+      "translation_segments": [
+        {
+          "id": 13826,
+          "risk_level": "green",
+          "source_sha256": "166793b49b2463e7ef21dc7097d78f54eff55953ebd788780c7dbb9d9f3a847b",
+          "status": "published",
+          "translation_sha256": "3eb4f831626ee04a484eecdc666b53831f9e22f33ee8b8eefa15d6f4744d1764"
+        }
+      ]
+    },
+    {
+      "category": "inline_or_appended_editorial_contamination",
+      "disposition": "definite_blocker",
+      "hadith": {
+        "current_arabic_hashes": {
+          "full_sha256": "5409f4be69e10b0fedeb052357de3967166e0f2a69491d2231b08463e2bfb33a",
+          "isnad_sha256": "cef0db6889ad5cc08f82d6ad15a797030eb0bff9f57e35aa4276dc71cdba65ad",
+          "matn_sha256": "f8e65bd6ab24f725c84f8fb557a5aaa77ad304e6c9c324e6363bcf92449796b0"
+        },
+        "id": 29764,
+        "page_end": 548,
+        "page_start": 546,
+        "printed_number": "٦",
+        "sequence_in_book": 10293,
+        "volume": 5
+      },
+      "public_id": "alkafi-10287",
+      "reason": "Editorial footnote/commentary text is embedded in the Arabic hadith extent but absent from the published English extent.",
+      "record_sha256": "a1d7c262530e7438fdf10909bd218f893cbdc5a9d693b9644c124f41bd8326ec",
+      "translation": {
+        "full_translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "id": 15167,
+        "matn_translation_sha256": "283c1ba1f06af68e88e8f8df70ee288190434aaf6087ce7723a11e8845faa1d9",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "5d2f309553059f732eaaad049e131af47f3c82a8a1dc6d8ae8cc8f55d335c69b",
+        "provider": "thaqalayn-data",
+        "public_rendered_english_sha256": "283c1ba1f06af68e88e8f8df70ee288190434aaf6087ce7723a11e8845faa1d9",
+        "rendered_isnad_en_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "risk_flags_sha256": "b11f8489000097e913a9484b78ce00e01c435885e74d916cc3c2fb0fba2cd97b",
+        "risk_level": "green",
+        "source_hashes_current": true,
+        "source_pins": {
+          "identity.after.remote_id": 10298,
+          "identity.before.remote_id": 10296,
+          "identity.remote_id": 10297,
+          "qa_flag_normalization.blocker_dossier_sha256": "d7744e88ecf8632500073be4c4f685d7737e9978ec04ca5d5810ef96929c5a94",
+          "qa_flag_normalization.source_english_sha256": "283c1ba1f06af68e88e8f8df70ee288190434aaf6087ce7723a11e8845faa1d9",
+          "remote_id": 10297,
+          "reviewed_dossier_sha256": "6f656feb9334767668729dd5444472d10c997bf3327031927c6e4cbfac4e9b77",
+          "source": "ThaqalaynData static edition",
+          "source_arabic_sha256": "512690302841fa0b65d8daf8b98c0f9677044d0381d405dc163416036446faea",
+          "source_english_sha256": "283c1ba1f06af68e88e8f8df70ee288190434aaf6087ce7723a11e8845faa1d9",
+          "source_plaintext_english_sha256": "283c1ba1f06af68e88e8f8df70ee288190434aaf6087ce7723a11e8845faa1d9",
+          "source_record_sha256": "743458394f56dc4a761154e18099c5cbad5d9b17007f868293b8e73b873604c6",
+          "source_snapshot_sha256": "a0e57d41ae653a9f8d2b88dca4c0a3e149ce0a25b07ba3a880ffb461db920d43",
+          "source_url": "https://thaqalayn.net/books/al-kafi:5:3:186:6",
+          "thaqalayn_id": 10297,
+          "translation_classification": "external_source_normalized",
+          "translator": "Muhammad Sarwar"
+        },
+        "status": "published",
+        "stored_source_hashes": {
+          "full_sha256": "5409f4be69e10b0fedeb052357de3967166e0f2a69491d2231b08463e2bfb33a",
+          "isnad_sha256": "cef0db6889ad5cc08f82d6ad15a797030eb0bff9f57e35aa4276dc71cdba65ad",
+          "matn_sha256": "f8e65bd6ab24f725c84f8fb557a5aaa77ad304e6c9c324e6363bcf92449796b0"
+        },
+        "translation_version": "matn_en_v1"
+      },
+      "translation_job_items": [
+        {
+          "id": 15498,
+          "job_id": 5,
+          "risk_level": "green",
+          "segment_id": 15171,
+          "source_sha256": "f8e65bd6ab24f725c84f8fb557a5aaa77ad304e6c9c324e6363bcf92449796b0",
+          "status": "verified"
+        }
+      ],
+      "translation_segments": [
+        {
+          "id": 15171,
+          "risk_level": "green",
+          "source_sha256": "f8e65bd6ab24f725c84f8fb557a5aaa77ad304e6c9c324e6363bcf92449796b0",
+          "status": "published",
+          "translation_sha256": "283c1ba1f06af68e88e8f8df70ee288190434aaf6087ce7723a11e8845faa1d9"
+        }
+      ]
+    },
+    {
+      "category": "inline_or_appended_editorial_contamination",
+      "disposition": "definite_blocker",
+      "hadith": {
+        "current_arabic_hashes": {
+          "full_sha256": "136a794ecf41bc8e58b8395783215d4d80bd282c4d2daabfbb05d0bc8bedf117",
+          "isnad_sha256": "0eb11a0922145a363c98ca5347ded16d90f9d018bced9838cec602ba4b5f9ff9",
+          "matn_sha256": "5eb4f3ec92a128dde33706c0a0135aa0d95c372d8e523d36cd7e12ab1baaf78f"
+        },
+        "id": 34235,
+        "page_end": 42,
+        "page_start": 36,
+        "printed_number": "٧",
+        "sequence_in_book": 14764,
+        "volume": 8
+      },
+      "public_id": "alkafi-14758",
+      "reason": "Editorial footnote/commentary text is embedded in the Arabic hadith extent but absent from the published English extent.",
+      "record_sha256": "8eb1693a87efd4a55edc5d1528d6112704e0d500c4d842d3a91cc504b093d1b6",
+      "translation": {
+        "full_translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "id": 12731,
+        "matn_translation_sha256": "ce3f0e2b53a28fc74ed58e08d2c4094028855d20e3134e5f66a5c1364415cc50",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "78a4db863858825f8c1ef475c749e033ff94df331919ff567d8d2ac40780edee",
+        "provider": "thaqalayn-api",
+        "public_rendered_english_sha256": "21317670a7319797f7393bdfa9d908c993256409cb8a041e21dd95f8abf0e0cf",
+        "rendered_isnad_en_sha256": "9e52e254747047ae9f47257dc869a66e8bb47f7b17690154182aea7463617392",
+        "risk_flags_sha256": "6098a47c2c05a2eb09bf0d650d6014c338fe8713cb1814e800045a2c4f98e33b",
+        "risk_level": "green",
+        "source_hashes_current": true,
+        "source_pins": {
+          "qa_flag_normalization.blocker_dossier_sha256": "d7744e88ecf8632500073be4c4f685d7737e9978ec04ca5d5810ef96929c5a94",
+          "qa_flag_normalization.source_english_sha256": "ce3f0e2b53a28fc74ed58e08d2c4094028855d20e3134e5f66a5c1364415cc50",
+          "source": "thaqalayn-api",
+          "source_arabic_sha256": "36cd502bcc36fd396f8fe9f9d921bcfdd4ad762ee8262437e320ab25d94bc87d",
+          "source_english_sha256": "ce3f0e2b53a28fc74ed58e08d2c4094028855d20e3134e5f66a5c1364415cc50",
+          "source_plaintext_english_sha256": "ce3f0e2b53a28fc74ed58e08d2c4094028855d20e3134e5f66a5c1364415cc50",
+          "source_record_sha256": "ac17b9e8bdce584f9e0bdc7f682b3cc3e5d22e045db898ceb4a5619306fcdc00",
+          "source_snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "source_url": "https://thaqalayn.net/hadith/8/1/7/1",
+          "thaqalayn_id": 8,
+          "translation_classification": "external_source_normalized",
+          "translator": "Muhammad Sarwar"
+        },
+        "status": "published",
+        "stored_source_hashes": {
+          "full_sha256": "136a794ecf41bc8e58b8395783215d4d80bd282c4d2daabfbb05d0bc8bedf117",
+          "isnad_sha256": "0eb11a0922145a363c98ca5347ded16d90f9d018bced9838cec602ba4b5f9ff9",
+          "matn_sha256": "5eb4f3ec92a128dde33706c0a0135aa0d95c372d8e523d36cd7e12ab1baaf78f"
+        },
+        "translation_version": "matn_en_v1"
+      },
+      "translation_job_items": [
+        {
+          "id": 12944,
+          "job_id": 2,
+          "risk_level": "green",
+          "segment_id": 12734,
+          "source_sha256": "5eb4f3ec92a128dde33706c0a0135aa0d95c372d8e523d36cd7e12ab1baaf78f",
+          "status": "verified"
+        }
+      ],
+      "translation_segments": [
+        {
+          "id": 12734,
+          "risk_level": "green",
+          "source_sha256": "5eb4f3ec92a128dde33706c0a0135aa0d95c372d8e523d36cd7e12ab1baaf78f",
+          "status": "published",
+          "translation_sha256": "ce3f0e2b53a28fc74ed58e08d2c4094028855d20e3134e5f66a5c1364415cc50"
+        }
+      ]
+    },
+    {
+      "category": "inline_or_appended_editorial_contamination",
+      "disposition": "definite_blocker",
+      "hadith": {
+        "current_arabic_hashes": {
+          "full_sha256": "35b0bcd1de1e77abb48fd5825ae050c81042ee3c31ca59cc066fe78315d6f9b3",
+          "isnad_sha256": "69d1df09e79d190283becab1586bee046f25ef3a3bcadf24d222fc4adae98055",
+          "matn_sha256": "593c745b6601d77478b0c420effdd0f26013afba4e49a22cba415f7a507f69dc"
+        },
+        "id": 34236,
+        "page_end": 49,
+        "page_start": 42,
+        "printed_number": "٨",
+        "sequence_in_book": 14765,
+        "volume": 8
+      },
+      "public_id": "alkafi-14759",
+      "reason": "Editorial footnote/commentary text is embedded in the Arabic hadith extent but absent from the published English extent.",
+      "record_sha256": "197056fb33b8ef841da10849efbb16a7949e9437eafb9b899afd5639fd3526a0",
+      "translation": {
+        "full_translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "id": 12732,
+        "matn_translation_sha256": "75705266dc0e4027cddaa1e136adda6ebd779283a7d2af95ffed7161cecb238c",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "8830ba506a326450abeb21153b7c835f43fec0750140c4161ed168b02da6363d",
+        "provider": "thaqalayn-api",
+        "public_rendered_english_sha256": "bd9861ad56047cfc958cdb52ac81a6880512fe44bcc4c6be19a91ab1d6e6af5b",
+        "rendered_isnad_en_sha256": "12a34955675dd80e473830498075e7661a3a278500b4e60dbd3cce94c57b677f",
+        "risk_flags_sha256": "162f15f274135270cccd572a9c37c927e4524749c2283ed27138db8a5bb3b83d",
+        "risk_level": "green",
+        "source_hashes_current": true,
+        "source_pins": {
+          "qa_flag_normalization.blocker_dossier_sha256": "d7744e88ecf8632500073be4c4f685d7737e9978ec04ca5d5810ef96929c5a94",
+          "qa_flag_normalization.source_english_sha256": "75705266dc0e4027cddaa1e136adda6ebd779283a7d2af95ffed7161cecb238c",
+          "source": "thaqalayn-api",
+          "source_arabic_sha256": "bf365d7a67770d6c7c79423ab4bbaa32272352d52afe4826af955d9bc995a224",
+          "source_english_sha256": "75705266dc0e4027cddaa1e136adda6ebd779283a7d2af95ffed7161cecb238c",
+          "source_plaintext_english_sha256": "75705266dc0e4027cddaa1e136adda6ebd779283a7d2af95ffed7161cecb238c",
+          "source_record_sha256": "14e23b5775c1e103d620288cc1ce7f9da29fd15ca6070b7245b2db87b2575873",
+          "source_snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "source_url": "https://thaqalayn.net/hadith/8/1/8/1",
+          "thaqalayn_id": 9,
+          "translation_classification": "external_source_normalized",
+          "translator": "Muhammad Sarwar"
+        },
+        "status": "published",
+        "stored_source_hashes": {
+          "full_sha256": "35b0bcd1de1e77abb48fd5825ae050c81042ee3c31ca59cc066fe78315d6f9b3",
+          "isnad_sha256": "69d1df09e79d190283becab1586bee046f25ef3a3bcadf24d222fc4adae98055",
+          "matn_sha256": "593c745b6601d77478b0c420effdd0f26013afba4e49a22cba415f7a507f69dc"
+        },
+        "translation_version": "matn_en_v1"
+      },
+      "translation_job_items": [
+        {
+          "id": 12945,
+          "job_id": 2,
+          "risk_level": "green",
+          "segment_id": 12735,
+          "source_sha256": "593c745b6601d77478b0c420effdd0f26013afba4e49a22cba415f7a507f69dc",
+          "status": "verified"
+        }
+      ],
+      "translation_segments": [
+        {
+          "id": 12735,
+          "risk_level": "green",
+          "source_sha256": "593c745b6601d77478b0c420effdd0f26013afba4e49a22cba415f7a507f69dc",
+          "status": "published",
+          "translation_sha256": "75705266dc0e4027cddaa1e136adda6ebd779283a7d2af95ffed7161cecb238c"
+        }
+      ]
+    },
+    {
+      "category": "inline_or_appended_editorial_contamination",
+      "disposition": "definite_blocker",
+      "hadith": {
+        "current_arabic_hashes": {
+          "full_sha256": "9b61709d113e3362e8db75b771ef5d050c7138535e5701af4bf17cd386c76b25",
+          "isnad_sha256": "76a7a7e4e5cc8830ad5589361f30c258d161de607a21fd00437c92ef2f921b6c",
+          "matn_sha256": "852f570f95621301c8a22e5eb2f6ec434506b9c3c0d098d799bd521080339a3d"
+        },
+        "id": 34250,
+        "page_end": 67,
+        "page_start": 63,
+        "printed_number": "٢٢",
+        "sequence_in_book": 14779,
+        "volume": 8
+      },
+      "public_id": "alkafi-14773",
+      "reason": "Editorial footnote/commentary text is embedded in the Arabic hadith extent but absent from the published English extent.",
+      "record_sha256": "cf46ff795a12b3f2590b5b5e412adaee959ffb38d70c0bfd2c5d2c28e446e1bb",
+      "translation": {
+        "full_translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "id": 12739,
+        "matn_translation_sha256": "4740d382ee3d31ad40bc68e3f5866ff0ccbf106e3dd265f090ca43ac9dfea016",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "c8a0a1e8bc674df794fad054131dd182d59ac604c577e0d0306a7e27215fc066",
+        "provider": "thaqalayn-api",
+        "public_rendered_english_sha256": "6f6dba4aeddd697037aef0117f30d2909c2e781eddbd8ec046ed3e9f4f5ae989",
+        "rendered_isnad_en_sha256": "86b23bc3724fc61557cb872ac0b395130fd4349fcf70cbd2ee4b6b179b755e86",
+        "risk_flags_sha256": "0fa5c9c1a0e77607e87b387aaf71dbabe6d3dfe5e37a78b635378aa964877e39",
+        "risk_level": "green",
+        "source_hashes_current": true,
+        "source_pins": {
+          "qa_flag_normalization.blocker_dossier_sha256": "d7744e88ecf8632500073be4c4f685d7737e9978ec04ca5d5810ef96929c5a94",
+          "qa_flag_normalization.source_english_sha256": "4740d382ee3d31ad40bc68e3f5866ff0ccbf106e3dd265f090ca43ac9dfea016",
+          "source": "thaqalayn-api",
+          "source_arabic_sha256": "8311c811fd5c0d5821400558bc557cb05dcfb1288c5c974e962a1207fca76d15",
+          "source_english_sha256": "4740d382ee3d31ad40bc68e3f5866ff0ccbf106e3dd265f090ca43ac9dfea016",
+          "source_plaintext_english_sha256": "4740d382ee3d31ad40bc68e3f5866ff0ccbf106e3dd265f090ca43ac9dfea016",
+          "source_record_sha256": "9c473a88cf84b95bfd92d252ebf867e7eede35fc3d1aefc996f40ec53b24a24c",
+          "source_snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "source_url": "https://thaqalayn.net/hadith/8/1/22/1",
+          "thaqalayn_id": 24,
+          "translation_classification": "external_source_normalized",
+          "translator": "Muhammad Sarwar"
+        },
+        "status": "published",
+        "stored_source_hashes": {
+          "full_sha256": "9b61709d113e3362e8db75b771ef5d050c7138535e5701af4bf17cd386c76b25",
+          "isnad_sha256": "76a7a7e4e5cc8830ad5589361f30c258d161de607a21fd00437c92ef2f921b6c",
+          "matn_sha256": "852f570f95621301c8a22e5eb2f6ec434506b9c3c0d098d799bd521080339a3d"
+        },
+        "translation_version": "matn_en_v1"
+      },
+      "translation_job_items": [
+        {
+          "id": 12958,
+          "job_id": 2,
+          "risk_level": "green",
+          "segment_id": 12742,
+          "source_sha256": "852f570f95621301c8a22e5eb2f6ec434506b9c3c0d098d799bd521080339a3d",
+          "status": "verified"
+        }
+      ],
+      "translation_segments": [
+        {
+          "id": 12742,
+          "risk_level": "green",
+          "source_sha256": "852f570f95621301c8a22e5eb2f6ec434506b9c3c0d098d799bd521080339a3d",
+          "status": "published",
+          "translation_sha256": "4740d382ee3d31ad40bc68e3f5866ff0ccbf106e3dd265f090ca43ac9dfea016"
+        }
+      ]
+    },
+    {
+      "category": "inline_or_appended_editorial_contamination",
+      "disposition": "definite_blocker",
+      "hadith": {
+        "current_arabic_hashes": {
+          "full_sha256": "cc2583cf74680892df7bf748bd280de7d2d5f673b0ab7d5fa43c27dd5b0e02a7",
+          "isnad_sha256": "a0b56f01981b5367a8de9d1a2c10bbc0ae38188aba88f31d8261d23dc4e50544",
+          "matn_sha256": "6ef072a55e339920ac3369ccf7ea9fac81213686bdab75119b08913fdbd8f53a"
+        },
+        "id": 34333,
+        "page_end": 141,
+        "page_start": 131,
+        "printed_number": "١٠٣",
+        "sequence_in_book": 14862,
+        "volume": 8
+      },
+      "public_id": "alkafi-14856",
+      "reason": "Editorial footnote/commentary text is embedded in the Arabic hadith extent but absent from the published English extent.",
+      "record_sha256": "90e6e8a949135945374ff4b196d11f2a68a04e685d385e0c7269ac0c719aff2a",
+      "translation": {
+        "full_translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "id": 12804,
+        "matn_translation_sha256": "aecca3de5ed99cefb69b14634e76d9f7aa77575df25c6058fef47a7ee09a6f9a",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "f8533b6d589949582851b03cc62f7ece835b08c89808c93402d6898e1d15bc30",
+        "provider": "thaqalayn-api",
+        "public_rendered_english_sha256": "6a4f7d57409221101a0886e7cf3109f4c1aaedc118b6d64fd7dfc0664f88609b",
+        "rendered_isnad_en_sha256": "cf5fd5060a4289235ac996df7974ac806f79f91de1547eea79d4f62f972e92c6",
+        "risk_flags_sha256": "eea87e43e3b104fab871a6306e5518dc28d05840eaf585c4a76c243def558af7",
+        "risk_level": "green",
+        "source_hashes_current": true,
+        "source_pins": {
+          "qa_flag_normalization.blocker_dossier_sha256": "d7744e88ecf8632500073be4c4f685d7737e9978ec04ca5d5810ef96929c5a94",
+          "qa_flag_normalization.source_english_sha256": "aecca3de5ed99cefb69b14634e76d9f7aa77575df25c6058fef47a7ee09a6f9a",
+          "source": "thaqalayn-api",
+          "source_arabic_sha256": "8eddcd3488fc2d29b5a6a49b6e9f39f893ad12105e2fbb86f21472c056a9df70",
+          "source_english_sha256": "aecca3de5ed99cefb69b14634e76d9f7aa77575df25c6058fef47a7ee09a6f9a",
+          "source_plaintext_english_sha256": "aecca3de5ed99cefb69b14634e76d9f7aa77575df25c6058fef47a7ee09a6f9a",
+          "source_record_sha256": "3f37ab26fb669b92edadf24f60ad3a9552951770aac1b566b8685fa3b72aed82",
+          "source_snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "source_url": "https://thaqalayn.net/hadith/8/1/103/1",
+          "thaqalayn_id": 105,
+          "translation_classification": "external_source_normalized",
+          "translator": "Muhammad Sarwar"
+        },
+        "status": "published",
+        "stored_source_hashes": {
+          "full_sha256": "cc2583cf74680892df7bf748bd280de7d2d5f673b0ab7d5fa43c27dd5b0e02a7",
+          "isnad_sha256": "a0b56f01981b5367a8de9d1a2c10bbc0ae38188aba88f31d8261d23dc4e50544",
+          "matn_sha256": "6ef072a55e339920ac3369ccf7ea9fac81213686bdab75119b08913fdbd8f53a"
+        },
+        "translation_version": "matn_en_v1"
+      },
+      "translation_job_items": [
+        {
+          "id": 13036,
+          "job_id": 2,
+          "risk_level": "green",
+          "segment_id": 12807,
+          "source_sha256": "6ef072a55e339920ac3369ccf7ea9fac81213686bdab75119b08913fdbd8f53a",
+          "status": "verified"
+        }
+      ],
+      "translation_segments": [
+        {
+          "id": 12807,
+          "risk_level": "green",
+          "source_sha256": "6ef072a55e339920ac3369ccf7ea9fac81213686bdab75119b08913fdbd8f53a",
+          "status": "published",
+          "translation_sha256": "aecca3de5ed99cefb69b14634e76d9f7aa77575df25c6058fef47a7ee09a6f9a"
+        }
+      ]
+    },
+    {
+      "category": "inline_or_appended_editorial_contamination",
+      "disposition": "definite_blocker",
+      "hadith": {
+        "current_arabic_hashes": {
+          "full_sha256": "d52772b0645d27c24a25eaf3165ea19d63d2c82193ed903176fbde2d34426ed9",
+          "isnad_sha256": "097d53de4177d343dc16aba9d667edf65dee841a89d2cc1cadc3d14909fa0afe",
+          "matn_sha256": "cffbbf86e1caa5f261d2e918b0548920e6e5aba6b18a1f322095eb8a57eedd50"
+        },
+        "id": 34423,
+        "page_end": 173,
+        "page_start": 170,
+        "printed_number": "١٩٣",
+        "sequence_in_book": 14952,
+        "volume": 8
+      },
+      "public_id": "alkafi-14946",
+      "reason": "Editorial footnote/commentary text is embedded in the Arabic hadith extent but absent from the published English extent.",
+      "record_sha256": "d0489bd97a2f037e309dffb21e571233d5822e00f664a4700b2ba7340838ff21",
+      "translation": {
+        "full_translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "id": 12879,
+        "matn_translation_sha256": "de636bafd3a622a1e21444ff0f246054502722036d01c3e86b5ed17fa99ada34",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "eb77a4763aa06b010d0bbe1a990cb4867d7e5db80f69cfd6f721f2530bd521fd",
+        "provider": "thaqalayn-api",
+        "public_rendered_english_sha256": "e1e2dff978e784789427183c8bef7367a9158ac8bbc7ccbce5f22df067d86cd9",
+        "rendered_isnad_en_sha256": "d86dc8550ebd6b850cd5ea21fc2cdbc2fcc1a25190260d0d5e757aa1036ae23b",
+        "risk_flags_sha256": "e7ab66a872a430c7f0e52f55000fd8dc2f664353daaa79fad0fc92ba05579b11",
+        "risk_level": "green",
+        "source_hashes_current": true,
+        "source_pins": {
+          "qa_flag_normalization.blocker_dossier_sha256": "d7744e88ecf8632500073be4c4f685d7737e9978ec04ca5d5810ef96929c5a94",
+          "qa_flag_normalization.source_english_sha256": "de636bafd3a622a1e21444ff0f246054502722036d01c3e86b5ed17fa99ada34",
+          "source": "thaqalayn-api",
+          "source_arabic_sha256": "7a851eaa6945d4dd206730fe36929cc1f0c3bf0e02f1ac110d529a4413f019e7",
+          "source_english_sha256": "de636bafd3a622a1e21444ff0f246054502722036d01c3e86b5ed17fa99ada34",
+          "source_plaintext_english_sha256": "de636bafd3a622a1e21444ff0f246054502722036d01c3e86b5ed17fa99ada34",
+          "source_record_sha256": "d43b4b87e6b11b93872f97baf699a6f1509b8a7b29277bb9b848621520162dfb",
+          "source_snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "source_url": "https://thaqalayn.net/hadith/8/1/193/1",
+          "thaqalayn_id": 194,
+          "translation_classification": "external_source_normalized",
+          "translator": "Muhammad Sarwar"
+        },
+        "status": "published",
+        "stored_source_hashes": {
+          "full_sha256": "d52772b0645d27c24a25eaf3165ea19d63d2c82193ed903176fbde2d34426ed9",
+          "isnad_sha256": "097d53de4177d343dc16aba9d667edf65dee841a89d2cc1cadc3d14909fa0afe",
+          "matn_sha256": "cffbbf86e1caa5f261d2e918b0548920e6e5aba6b18a1f322095eb8a57eedd50"
+        },
+        "translation_version": "matn_en_v1"
+      },
+      "translation_job_items": [
+        {
+          "id": 13123,
+          "job_id": 2,
+          "risk_level": "green",
+          "segment_id": 12882,
+          "source_sha256": "cffbbf86e1caa5f261d2e918b0548920e6e5aba6b18a1f322095eb8a57eedd50",
+          "status": "verified"
+        }
+      ],
+      "translation_segments": [
+        {
+          "id": 12882,
+          "risk_level": "green",
+          "source_sha256": "cffbbf86e1caa5f261d2e918b0548920e6e5aba6b18a1f322095eb8a57eedd50",
+          "status": "published",
+          "translation_sha256": "de636bafd3a622a1e21444ff0f246054502722036d01c3e86b5ed17fa99ada34"
+        }
+      ]
+    },
+    {
+      "category": "inline_or_appended_editorial_contamination",
+      "disposition": "definite_blocker",
+      "hadith": {
+        "current_arabic_hashes": {
+          "full_sha256": "227f2de088e68d0ec275bfc67ee2f090bac08c15c721e9d805455f5070835e0a",
+          "isnad_sha256": "6e2fb5bab2684d3eb7f45feddd49f14509d9e209eae157b99e260666f8a55695",
+          "matn_sha256": "6d140d233e49bc1b22cede18f1fb1b5984f313459fe717c407f0c9afbe77d02e"
+        },
+        "id": 34444,
+        "page_end": 187,
+        "page_start": 185,
+        "printed_number": "٢١٣",
+        "sequence_in_book": 14973,
+        "volume": 8
+      },
+      "public_id": "alkafi-14967",
+      "reason": "Editorial footnote/commentary text is embedded in the Arabic hadith extent but absent from the published English extent.",
+      "record_sha256": "dde4b1e3b7f9151631c5afb51f39a5ef274339e7bcd3d97bf40b410d0c21ad81",
+      "translation": {
+        "full_translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "id": 12898,
+        "matn_translation_sha256": "615d168c207c8c8bbab2c50ea92478c8320221a76c5ef476016df157e3c139fe",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "89c9c4271a21322b104ac2fd1f2f7be03ff4384c2363a36c0e074184e2a97c4a",
+        "provider": "thaqalayn-api",
+        "public_rendered_english_sha256": "18ec0e5d1217a4072cac45336ccc2e574a4f8798949cabb7a07b9ffc3f241af0",
+        "rendered_isnad_en_sha256": "27b3e03f4ddf6d28636f712f12fc509498e43596c7244caeb4a09e39f57dfab2",
+        "risk_flags_sha256": "9865c8764086be7f494687c8a8448d3a962684e7c60791e41c3699f4392e4062",
+        "risk_level": "green",
+        "source_hashes_current": true,
+        "source_pins": {
+          "qa_flag_normalization.blocker_dossier_sha256": "d7744e88ecf8632500073be4c4f685d7737e9978ec04ca5d5810ef96929c5a94",
+          "qa_flag_normalization.source_english_sha256": "615d168c207c8c8bbab2c50ea92478c8320221a76c5ef476016df157e3c139fe",
+          "source": "thaqalayn-api",
+          "source_arabic_sha256": "19f24b6838e6087bfb876809156ad72a01232e6cbd3d9442217ecdf5670a52cf",
+          "source_english_sha256": "615d168c207c8c8bbab2c50ea92478c8320221a76c5ef476016df157e3c139fe",
+          "source_plaintext_english_sha256": "615d168c207c8c8bbab2c50ea92478c8320221a76c5ef476016df157e3c139fe",
+          "source_record_sha256": "26d05fbb399c89e41810abf1a6a5f87052229a28896cb08c2bf84ea7a86a7978",
+          "source_snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "source_url": "https://thaqalayn.net/hadith/8/1/213/1",
+          "thaqalayn_id": 214,
+          "translation_classification": "external_source_normalized",
+          "translator": "Muhammad Sarwar"
+        },
+        "status": "published",
+        "stored_source_hashes": {
+          "full_sha256": "227f2de088e68d0ec275bfc67ee2f090bac08c15c721e9d805455f5070835e0a",
+          "isnad_sha256": "6e2fb5bab2684d3eb7f45feddd49f14509d9e209eae157b99e260666f8a55695",
+          "matn_sha256": "6d140d233e49bc1b22cede18f1fb1b5984f313459fe717c407f0c9afbe77d02e"
+        },
+        "translation_version": "matn_en_v1"
+      },
+      "translation_job_items": [
+        {
+          "id": 13142,
+          "job_id": 2,
+          "risk_level": "green",
+          "segment_id": 12901,
+          "source_sha256": "6d140d233e49bc1b22cede18f1fb1b5984f313459fe717c407f0c9afbe77d02e",
+          "status": "verified"
+        }
+      ],
+      "translation_segments": [
+        {
+          "id": 12901,
+          "risk_level": "green",
+          "source_sha256": "6d140d233e49bc1b22cede18f1fb1b5984f313459fe717c407f0c9afbe77d02e",
+          "status": "published",
+          "translation_sha256": "615d168c207c8c8bbab2c50ea92478c8320221a76c5ef476016df157e3c139fe"
+        }
+      ]
+    },
+    {
+      "category": "inline_or_appended_editorial_contamination",
+      "disposition": "definite_blocker",
+      "hadith": {
+        "current_arabic_hashes": {
+          "full_sha256": "e0b12f4b4019f038e61c95f4f909396f7fd7b02439cad2fe5707789d29394423",
+          "isnad_sha256": "0a40f386a780264cc46d846d7e58296866eb99a8b187b655daf10d6353905e7b",
+          "matn_sha256": "94018404245306aa7108c62946b6581e84823e81f358eea7cb280a156e52cee2"
+        },
+        "id": 34785,
+        "page_end": 360,
+        "page_start": 352,
+        "printed_number": "٥٥٠",
+        "sequence_in_book": 15314,
+        "volume": 8
+      },
+      "public_id": "alkafi-15308",
+      "reason": "Editorial footnote/commentary text is embedded in the Arabic hadith extent but absent from the published English extent.",
+      "record_sha256": "8e6057cd7f9f5d4c7f5ed2ca2f4d9f32bc479d01b29d461f8fc48ae84cebdd76",
+      "translation": {
+        "full_translation_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "id": 13223,
+        "matn_translation_sha256": "e8d69405c79fc086e608a34bc7a29fbf5c87fc854db45572ad8af05cfca6dc67",
+        "model": "muhammad-sarwar",
+        "provenance_sha256": "ae90c87457bee9fc5ece853ca5c7be40aaf5c83dcfce668ddbd9326bf53ac057",
+        "provider": "thaqalayn-api",
+        "public_rendered_english_sha256": "224902fa39f729c4eaae43d89cea1f787b422aef4760ed4366fb01b071b2f418",
+        "rendered_isnad_en_sha256": "f83c09b3b96ff2a2db707da8d64695f3b6cc9e0fc531c7a5f3c5102830a7e1d5",
+        "risk_flags_sha256": "d39ecad7c6cb6cd5df58358852d75e999ae390adb2d22b85dabd05bc8a65d8a3",
+        "risk_level": "green",
+        "source_hashes_current": true,
+        "source_pins": {
+          "qa_flag_normalization.blocker_dossier_sha256": "d7744e88ecf8632500073be4c4f685d7737e9978ec04ca5d5810ef96929c5a94",
+          "qa_flag_normalization.source_english_sha256": "e8d69405c79fc086e608a34bc7a29fbf5c87fc854db45572ad8af05cfca6dc67",
+          "source": "thaqalayn-api",
+          "source_arabic_sha256": "cc3d469aaa093b68e622e877f9d84b2a8e0c8ee2241d0840aa4b10f62bd28d1c",
+          "source_english_sha256": "e8d69405c79fc086e608a34bc7a29fbf5c87fc854db45572ad8af05cfca6dc67",
+          "source_plaintext_english_sha256": "e8d69405c79fc086e608a34bc7a29fbf5c87fc854db45572ad8af05cfca6dc67",
+          "source_record_sha256": "46f5ce541ccea2bffcafa2df3578480e48bf8096528dd0344daee89399f447f8",
+          "source_snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+          "source_url": "https://thaqalayn.net/hadith/8/1/550/1",
+          "thaqalayn_id": 550,
+          "translation_classification": "external_source_normalized",
+          "translator": "Muhammad Sarwar"
+        },
+        "status": "published",
+        "stored_source_hashes": {
+          "full_sha256": "e0b12f4b4019f038e61c95f4f909396f7fd7b02439cad2fe5707789d29394423",
+          "isnad_sha256": "0a40f386a780264cc46d846d7e58296866eb99a8b187b655daf10d6353905e7b",
+          "matn_sha256": "94018404245306aa7108c62946b6581e84823e81f358eea7cb280a156e52cee2"
+        },
+        "translation_version": "matn_en_v1"
+      },
+      "translation_job_items": [
+        {
+          "id": 13467,
+          "job_id": 2,
+          "risk_level": "green",
+          "segment_id": 13226,
+          "source_sha256": "94018404245306aa7108c62946b6581e84823e81f358eea7cb280a156e52cee2",
+          "status": "verified"
+        }
+      ],
+      "translation_segments": [
+        {
+          "id": 13226,
+          "risk_level": "green",
+          "source_sha256": "94018404245306aa7108c62946b6581e84823e81f358eea7cb280a156e52cee2",
+          "status": "published",
+          "translation_sha256": "e8d69405c79fc086e608a34bc7a29fbf5c87fc854db45572ad8af05cfca6dc67"
+        }
+      ]
+    }
+  ],
+  "schema_version": "alkafi_editorial_contamination_quarantine_v1",
+  "source_audit_artifact": {
+    "file_sha256": "546f7f870f9da8bd269c7bf7b5903f1008f62058e0d5da0b2404781b5b044622",
+    "path": "C:\\Users\\taifh\\Downloads\\Shia Hadith Project\\eshia-research\\scratch_audit\\alkafi_public_extent_blockers_20260716.json",
+    "payload_sha256": "ee8669fefcb7fbb41d935b603d82624b9860efe6f516f10b8d7715aefc092730"
+  }
+}

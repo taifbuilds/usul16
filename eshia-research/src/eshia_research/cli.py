@@ -510,7 +510,6 @@ def materialize_same_person_links_cmd(
     """
     from eshia_research.rijal.identity_links import materialize_same_person_relations
 
-    _init_db()
     db = SessionLocal()
     try:
         stats = materialize_same_person_relations(db, commit=not dry_run)
@@ -551,7 +550,6 @@ def build_tabaqat_cmd(
     """
     from eshia_research.rijal.tabaqat import build_tabaqat
 
-    _init_db()
     db = SessionLocal()
     try:
         with Progress(*_progress_columns()) as progress:
@@ -626,7 +624,6 @@ def refine_compiler_priors_cmd(
     """
     from eshia_research.rijal.collective_resolver import refine_compiler_priors
 
-    _init_db()
     db = SessionLocal()
     try:
         stats = refine_compiler_priors(
@@ -1297,6 +1294,270 @@ def promote_person_review_results_cmd(
     typer.echo("Admin decisions:")
     for decision_type, count in stats.decision_counts.most_common():
         typer.echo(f"  {decision_type}: {count}")
+
+
+@app.command("plan-translation-jobs")
+def plan_translation_jobs_cmd(
+    source_book_id: str = typer.Option(
+        AL_KAFI_ISLAMIYYA_SOURCE_BOOK_ID,
+        "--source-book-id",
+        help="Source book ID to plan translation work for.",
+    ),
+    language: str = typer.Option("en", "--language", help="Target language code."),
+    limit: int | None = typer.Option(None, "--limit", help="Plan only the first N pending hadiths."),
+    pilot_size: int | None = typer.Option(
+        None,
+        "--pilot-size",
+        help="Plan a stratified pilot of this size instead of the first N rows.",
+    ),
+    include_existing: bool = typer.Option(
+        False,
+        "--include-existing",
+        help="Include rows that already have a current translation hash.",
+    ),
+    input_usd_per_mtok: float | None = typer.Option(
+        None,
+        "--input-usd-per-mtok",
+        help="Optional model input price per 1M tokens for cost estimates.",
+    ),
+    output_usd_per_mtok: float | None = typer.Option(
+        None,
+        "--output-usd-per-mtok",
+        help="Optional model output price per 1M tokens for cost estimates.",
+    ),
+    apply: bool = typer.Option(
+        False,
+        "--apply",
+        help="Persist a planned translation job and segment rows. Omit for dry-run.",
+    ),
+    provider: str | None = typer.Option(None, "--provider", help="Provider name to record on the job."),
+    model: str | None = typer.Option(None, "--model", help="Model name to record on the job."),
+    job_key: str | None = typer.Option(None, "--job-key", help="Explicit job key; otherwise deterministic."),
+) -> None:
+    """Plan token-efficient English translation batches without making model calls."""
+    from eshia_research.translation.planner import (
+        build_translation_plan,
+        format_plan,
+        persist_translation_plan,
+    )
+
+    _init_db()
+    db = SessionLocal()
+    try:
+        plan = build_translation_plan(
+            db,
+            source_book_id=source_book_id,
+            language=language,
+            limit=limit,
+            pilot_size=pilot_size,
+            skip_existing=not include_existing,
+            input_usd_per_mtok=input_usd_per_mtok,
+            output_usd_per_mtok=output_usd_per_mtok,
+        )
+        typer.echo(format_plan(plan))
+        if apply:
+            job = persist_translation_plan(
+                db,
+                plan,
+                provider=provider,
+                model=model,
+                job_key=job_key,
+            )
+            db.commit()
+            typer.echo(f"APPLIED: translation_job id={job.id}; job_key={job.job_key}")
+        else:
+            typer.echo("DRY-RUN: no translation job rows written.")
+    finally:
+        db.close()
+
+
+@app.command("render-english-isnad")
+def render_english_isnad_cmd(
+    public_id: str | None = typer.Option(None, "--public-id", help="Public hadith ID, e.g. alkafi-1."),
+    hadith_id: int | None = typer.Option(None, "--hadith-id", help="Internal hadith row ID."),
+) -> None:
+    """Render a hadith's chain with deterministic English transmission formulae."""
+    from eshia_research.models import Hadith
+    from eshia_research.translation.isnad_renderer import render_hadith_isnad
+
+    if public_id is None and hadith_id is None:
+        typer.echo("Provide --public-id or --hadith-id.", err=True)
+        raise typer.Exit(1)
+
+    _init_db()
+    db = SessionLocal()
+    try:
+        target_id = hadith_id
+        if target_id is None:
+            target_id = db.query(Hadith.id).filter(Hadith.public_id == public_id).scalar()
+        if target_id is None:
+            typer.echo("Hadith not found.", err=True)
+            raise typer.Exit(1)
+        rendered = render_hadith_isnad(db, target_id)
+    finally:
+        db.close()
+
+    typer.echo(rendered.text or "(no rendered chain)")
+    if rendered.risk_flags:
+        typer.echo("Risk flags:")
+        for flag in rendered.risk_flags:
+            typer.echo(f"  {flag}")
+
+
+@app.command("qa-translations")
+def qa_translations_cmd(
+    source_book_id: str = typer.Option(
+        AL_KAFI_ISLAMIYYA_SOURCE_BOOK_ID,
+        "--source-book-id",
+        help="Source book ID whose stored translations should be checked.",
+    ),
+    language: str = typer.Option("en", "--language", help="Target language code."),
+    limit: int | None = typer.Option(None, "--limit", help="Only check the first N translations."),
+    apply: bool = typer.Option(
+        False,
+        "--apply",
+        help="Write QA risk flags back to hadith_translations. Omit for dry-run.",
+    ),
+) -> None:
+    """Run deterministic QA against stored draft translations."""
+    from collections import Counter
+
+    from sqlalchemy import select
+
+    from eshia_research.models import Book, Hadith, HadithTranslation
+    from eshia_research.translation.qa import assess_translation
+
+    _init_db()
+    db = SessionLocal()
+    counts: Counter = Counter()
+    try:
+        stmt = (
+            select(HadithTranslation, Hadith)
+            .join(Hadith, Hadith.id == HadithTranslation.hadith_id)
+            .join(Book, Book.id == Hadith.book_id)
+            .where(
+                Book.source_book_id == source_book_id,
+                HadithTranslation.language == language,
+                HadithTranslation.matn_translation.isnot(None),
+            )
+            .order_by(Hadith.sequence_in_book)
+        )
+        if limit is not None:
+            stmt = stmt.limit(limit)
+        for translation, hadith in db.execute(stmt):
+            report = assess_translation(hadith.matn_raw, translation.matn_translation)
+            counts[report.risk_level] += 1
+            for code in report.flag_codes:
+                counts[f"flag:{code}"] += 1
+            if apply:
+                translation.risk_level = report.risk_level
+                translation.risk_flags = [
+                    {"code": flag.code, "severity": flag.severity, "detail": flag.detail}
+                    for flag in report.flags
+                ]
+                translation.qa_version = report.qa_version
+                if report.risk_level == "green" and translation.status == "draft":
+                    translation.status = "machine_verified"
+        if apply:
+            db.commit()
+        else:
+            db.rollback()
+    finally:
+        db.close()
+
+    mode = "APPLIED" if apply else "DRY-RUN"
+    typer.echo(f"{mode}: checked={sum(v for k, v in counts.items() if not k.startswith('flag:'))}")
+    for key, count in counts.most_common():
+        typer.echo(f"  {key}: {count}")
+
+
+@app.command("import-thaqalayn-alkafi")
+def import_thaqalayn_alkafi_cmd(
+    source_book_id: str = typer.Option(
+        AL_KAFI_ISLAMIYYA_SOURCE_BOOK_ID,
+        "--source-book-id",
+        help="Local/eShia source_book_id for Al-Kafi.",
+    ),
+    source: str = typer.Option(
+        "api",
+        "--source",
+        help="Translation source to import: api or static.",
+    ),
+    static_cache_path: str | None = typer.Option(
+        None,
+        "--static-cache-path",
+        help="Read/write normalized ThaqalaynData static rows at this JSON path.",
+    ),
+    static_workers: int = typer.Option(
+        16,
+        "--static-workers",
+        help="Concurrent workers for fetching ThaqalaynData static detail JSON.",
+    ),
+    min_score: float = typer.Option(
+        0.88,
+        "--min-score",
+        help="Minimum Arabic similarity score required before a Thaqalayn row can match.",
+    ),
+    dry_run: bool = typer.Option(
+        True,
+        "--dry-run/--apply",
+        help="Preview matches by default. Use --apply to write publishable imports.",
+    ),
+    overwrite_current: bool = typer.Option(
+        False,
+        "--overwrite-current",
+        help="Replace existing green current translations instead of skipping them.",
+    ),
+    replace_provider: list[str] = typer.Option(
+        [],
+        "--replace-provider",
+        help="Replace existing green current translations only when their provider matches this value.",
+    ),
+) -> None:
+    """Match and import Muhammad Sarwar's Al-Kafi English text from Thaqalayn."""
+    from eshia_research.translation.thaqalayn_importer import (
+        STATIC_JOB_KEY,
+        fetch_al_kafi_static_records,
+        format_import_stats,
+        import_thaqalayn_al_kafi,
+    )
+
+    _init_db()
+    db = SessionLocal()
+    try:
+        remote_by_volume = None
+        job_key = None
+        if source == "static":
+            remote_by_volume = fetch_al_kafi_static_records(
+                cache_path=static_cache_path,
+                max_workers=static_workers,
+            )
+            job_key = STATIC_JOB_KEY
+        elif source != "api":
+            raise typer.BadParameter("--source must be either 'api' or 'static'")
+        stats = import_thaqalayn_al_kafi(
+            db,
+            source_book_id=source_book_id,
+            remote_by_volume=remote_by_volume,
+            dry_run=dry_run,
+            overwrite_current=overwrite_current,
+            min_score=min_score,
+            replace_providers=set(replace_provider),
+            **({"job_key": job_key} if job_key else {}),
+        )
+        if dry_run:
+            db.rollback()
+        else:
+            db.commit()
+    except Exception:
+        db.rollback()
+        raise
+    finally:
+        db.close()
+
+    mode = "DRY-RUN" if dry_run else "APPLIED"
+    typer.echo(f"{mode}: Thaqalayn Al-Kafi import")
+    typer.echo(format_import_stats(stats))
 
 
 if __name__ == "__main__":

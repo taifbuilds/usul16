@@ -52,3 +52,32 @@ Set-Location ..\web
 npm run lint
 npm run build
 ```
+
+## Public deployment gates
+
+The public API is read-only by default. Do not route production traffic until
+all of the following are true:
+
+1. Keep `API_ADMIN_TOKEN` empty on the public API. Run editorial tooling as a
+   separate private deployment with a long random token and restricted network
+   access.
+2. Keep `ENABLE_REVIEW_UI=false` on the public frontend.
+3. Set `API_ALLOWED_ORIGINS` to the exact HTTPS frontend origin. Never use `*`.
+4. Set `NEXT_PUBLIC_API_BASE_URL` and `NEXT_PUBLIC_SITE_URL` to their public
+   HTTPS origins. A missing site URL deliberately causes `robots.txt` to block
+   indexing.
+5. Keep API documentation disabled unless it is needed on a private network.
+6. Give the public API database user read-only permissions where the deployment
+   database supports them.
+7. Put request rate limiting at the reverse proxy or edge, especially for
+   `/search` and `/transmission-graph`.
+
+Before opening traffic, warm the expensive transmission aggregation:
+
+```powershell
+Invoke-RestMethod 'http://127.0.0.1:8000/transmission-graph?source_book_id=11005&min_count=2&max_nodes=500'
+```
+
+Monitor `/health`, 5xx rate, p95 response latency, process memory, database
+availability, and backup age. Restore a recent backup into a disposable
+database at least once before launch; a backup is not proven until it restores.

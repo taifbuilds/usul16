@@ -8,6 +8,7 @@ from sqlalchemy import Integer, and_, case, cast, exists, func, or_, select
 from sqlalchemy.orm import Session, aliased, selectinload
 
 from eshia_research.db import get_db
+from eshia_research.api.security import require_admin_api_token
 from eshia_research.corpus import AL_KAFI_ISLAMIYYA_SOURCE_BOOK_ID, CATALOG_EXCLUDED_SOURCE_BOOK_IDS
 from eshia_research.hadith_split_audit import (
     active_split_texts,
@@ -23,6 +24,7 @@ from eshia_research.models import (
     ChainNodeCandidate,
     Hadith,
     HadithSplitReview,
+    HadithTranslation,
     MentionResolution,
     Narrator,
     NarratorAlias,
@@ -39,6 +41,8 @@ from eshia_research.schemas import (
     BookRead,
     BookSummary,
     ChapterSummary,
+    CorpusBookStatus,
+    CorpusStatusResponse,
     HadithSplitAudit,
     HadithSplitFlagCount,
     HadithSplitReviewItem,
@@ -69,6 +73,13 @@ from eshia_research.schemas import (
     TransmissionGraphEdge,
     TransmissionGraphNode,
     TransmissionGraphRead,
+)
+from eshia_research.translation.publication import (
+    has_blocking_risk_flag,
+    has_public_human_source_metadata,
+    is_public_english_translation,
+    public_english_translation_candidate_filters,
+    source_hash_values_are_current,
 )
 
 router = APIRouter(tags=["books"])
@@ -190,6 +201,32 @@ def _apply_approved_splits(db: Session, hadiths: list[Hadith]) -> list[Hadith]:
     reviews_by_hadith_id = {review.hadith_id: review for review in reviews}
     for hadith in hadiths:
         _apply_approved_split(hadith, reviews_by_hadith_id.get(hadith.id))
+    return hadiths
+
+
+def _attach_public_translations(db: Session, hadiths: list[Hadith]) -> list[Hadith]:
+    """Attach only complete, green translations that still match the Arabic.
+
+    Planned, partial, risky, and source-stale rows never cross the public API
+    boundary. The attribute is response-only and is not persisted on Hadith.
+    """
+    hadith_ids = [hadith.id for hadith in hadiths]
+    if not hadith_ids:
+        return hadiths
+    rows = (
+        db.query(HadithTranslation)
+        .filter(
+            HadithTranslation.hadith_id.in_(hadith_ids),
+            *public_english_translation_candidate_filters(),
+        )
+        .all()
+    )
+    by_hadith_id = {row.hadith_id: row for row in rows}
+    for hadith in hadiths:
+        translation = by_hadith_id.get(hadith.id)
+        hadith.translation = (
+            translation if is_public_english_translation(translation, hadith) else None
+        )
     return hadiths
 
 
@@ -1043,7 +1080,7 @@ def list_book_hadiths(
     elif page is not None:
         query = query.filter(Hadith.page_start == page)
     hadiths = query.order_by(Hadith.sequence_in_book).offset(skip).limit(limit).all()
-    return _apply_approved_splits(db, hadiths)
+    return _attach_public_translations(db, _apply_approved_splits(db, hadiths))
 
 
 @router.get("/person-resolution-audit/summary", response_model=PersonResolutionAuditSummary)
@@ -1135,7 +1172,7 @@ def get_person_resolution_audit_summary(
         .filter(*base_filters)
         .group_by(top_resolution.method, top_resolution.status)
         .order_by(func.count(ChainNode.id).desc())
-        .limit(100)
+        .limit(40)
         .all()
     )
 
@@ -1600,6 +1637,7 @@ def get_hadith_split_review(public_id: str, db: Session = Depends(get_db)) -> Ha
 def save_hadith_split_review(
     public_id: str,
     payload: HadithSplitReviewSave,
+    _: None = Depends(require_admin_api_token),
     db: Session = Depends(get_db),
 ) -> HadithSplitReviewItem:
     if payload.review_status not in _SPLIT_REVIEW_STATUSES:
@@ -1706,7 +1744,7 @@ def list_chapter_hadiths(
         .order_by(Hadith.sequence_in_book)
         .all()
     )
-    return _apply_approved_splits(db, hadiths)
+    return _attach_public_translations(db, _apply_approved_splits(db, hadiths))
 
 
 @router.get("/hadiths/{public_id}", response_model=HadithRead)
@@ -1724,7 +1762,8 @@ def get_hadith(public_id: str, db: Session = Depends(get_db)) -> Hadith:
         )
         .one_or_none()
     )
-    return _apply_approved_split(hadith, review)
+    hadith = _apply_approved_split(hadith, review)
+    return _attach_public_translations(db, [hadith])[0]
 
 
 @router.get("/hadiths/{public_id}/chains", response_model=HadithChainsRead)
@@ -1831,11 +1870,11 @@ def get_narrator(narrator_id: int, db: Session = Depends(get_db)) -> NarratorDet
         db.query(RijalOccurrence)
         .filter(RijalOccurrence.narrator_id == narrator.id)
         .order_by(RijalOccurrence.direction, RijalOccurrence.related_name_raw)
-        .limit(120)
+        .limit(40)
         .all()
     )
     appearance_counts = _narrator_appearance_counts(db, narrator.id)
-    appearances_total, appearances = _narrator_hadith_appearances(db, narrator.id, limit=120)
+    appearances_total, appearances = _narrator_hadith_appearances(db, narrator.id, limit=15)
 
     return NarratorDetailRead(
         **_narrator_summary(narrator).model_dump(),
@@ -1859,7 +1898,12 @@ def get_narrator(narrator_id: int, db: Session = Depends(get_db)) -> NarratorDet
                 "page_start": entry.page_start,
                 "volume_end": entry.volume_end,
                 "page_end": entry.page_end,
-                "text_raw": entry.text_raw,
+                "text_raw": (
+                    entry.text_raw
+                    if len(entry.text_raw) <= 6000
+                    else entry.text_raw[:6000]
+                    + "\n\n[Entry preview truncated in the API response. Open the source link for the complete text.]"
+                ),
                 "source_url": entry.source_url,
                 "review_status": entry.review_status,
             }
@@ -1961,7 +2005,7 @@ def list_narrator_hadith_appearances(
 
 # ---- Transmission-graph pair aggregation: shared, decision-aware, TTL-cached ----
 
-_TRANSMISSION_GRAPH_TTL_SECONDS = 300.0
+_TRANSMISSION_GRAPH_TTL_SECONDS = 3600.0
 
 
 @dataclasses.dataclass
@@ -2286,3 +2330,110 @@ def get_stats(db: Session = Depends(get_db)) -> LibraryStats:
         pages_digitized=pages_digitized or 0,
         authors=authors or 0,
     )
+
+
+@router.get("/corpus-status", response_model=CorpusStatusResponse)
+def get_corpus_status(db: Session = Depends(get_db)) -> CorpusStatusResponse:
+    """Transparent maturity counts for the project's principal collections."""
+
+    source_ids = ("11005", "11021", "10083", "11002", "71860", "11025", "14036")
+    books = db.query(Book).filter(Book.source_book_id.in_(source_ids)).all()
+    by_source_id = {book.source_book_id: book for book in books}
+    book_ids = [book.id for book in books]
+    page_counts = dict(
+        db.query(Page.book_id, func.count(Page.id))
+        .filter(Page.book_id.in_(book_ids))
+        .group_by(Page.book_id)
+        .all()
+    )
+    hadith_counts = dict(
+        db.query(Hadith.book_id, func.count(Hadith.id))
+        .filter(
+            Hadith.book_id.in_(book_ids),
+            Hadith.review_status != _REJECTED_HADITH_STATUS,
+        )
+        .group_by(Hadith.book_id)
+        .all()
+    )
+    chain_counts = {
+        book_id: (total, flagged or 0)
+        for book_id, total, flagged in (
+            db.query(
+                Hadith.book_id,
+                func.count(Chain.id),
+                func.sum(case((Chain.review_status == "needs_review", 1), else_=0)),
+            )
+            .join(Hadith, Hadith.id == Chain.hadith_id)
+            .filter(
+                Hadith.book_id.in_(book_ids),
+                Hadith.review_status != _REJECTED_HADITH_STATUS,
+            )
+            .group_by(Hadith.book_id)
+            .all()
+        )
+    }
+    translation_counts: dict[int, int] = {}
+    translation_rows = (
+        db.query(
+            Hadith.book_id,
+            HadithTranslation.source_full_sha256,
+            HadithTranslation.source_isnad_sha256,
+            HadithTranslation.source_matn_sha256,
+            HadithTranslation.provenance_json,
+            HadithTranslation.risk_flags,
+            Hadith.full_text_raw,
+            Hadith.isnad_raw,
+            Hadith.matn_raw,
+        )
+        .join(Hadith, Hadith.id == HadithTranslation.hadith_id)
+        .filter(
+            Hadith.book_id.in_(book_ids),
+            Hadith.review_status != _REJECTED_HADITH_STATUS,
+            *public_english_translation_candidate_filters(),
+        )
+        .yield_per(500)
+    )
+    for row in translation_rows:
+        if (
+            has_public_human_source_metadata(row.provenance_json)
+            and not has_blocking_risk_flag(row.risk_flags)
+            and source_hash_values_are_current(
+                source_full_sha256=row.source_full_sha256,
+                source_isnad_sha256=row.source_isnad_sha256,
+                source_matn_sha256=row.source_matn_sha256,
+                full_text_raw=row.full_text_raw,
+                isnad_raw=row.isnad_raw,
+                matn_raw=row.matn_raw,
+            )
+        ):
+            translation_counts[row.book_id] = translation_counts.get(row.book_id, 0) + 1
+    approved_split_counts = dict(
+        db.query(Hadith.book_id, func.count(HadithSplitReview.id))
+        .join(Hadith, Hadith.id == HadithSplitReview.hadith_id)
+        .filter(
+            Hadith.book_id.in_(book_ids),
+            HadithSplitReview.review_status == "approved",
+        )
+        .group_by(Hadith.book_id)
+        .all()
+    )
+    rows: list[CorpusBookStatus] = []
+    for source_id in source_ids:
+        book = by_source_id.get(source_id)
+        if book is None:
+            continue
+        parsed_chains, flagged_chains = chain_counts.get(book.id, (0, 0))
+        rows.append(
+            CorpusBookStatus(
+                book_id=book.id,
+                source_book_id=source_id,
+                title_original=book.title_original,
+                pages_digitized=page_counts.get(book.id, 0),
+                visible_hadiths=hadith_counts.get(book.id, 0),
+                parsed_chains=parsed_chains,
+                chains_needing_review=flagged_chains,
+                public_english_translations=translation_counts.get(book.id, 0),
+                approved_split_reviews=approved_split_counts.get(book.id, 0),
+            )
+        )
+    return CorpusStatusResponse(books=rows)

@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy.pool import StaticPool
 
 from eshia_research.api.main import app
+from eshia_research.api.security import require_admin_api_token
 from eshia_research.db import Base, get_db
 from eshia_research.models import (
     Book,
@@ -12,6 +13,7 @@ from eshia_research.models import (
     ChainNode,
     ChainNodeCandidate,
     Hadith,
+    HadithTranslation,
     MentionResolution,
     Narrator,
     NarratorAlias,
@@ -23,6 +25,8 @@ from eshia_research.models import (
     RijalStatement,
 )
 from eshia_research.rijal.person_resolver import PERSON_RESOLVER_VERSION
+from eshia_research.translation import TRANSLATION_VERSION
+from eshia_research.translation.text import sha256_text
 
 
 @pytest.fixture()
@@ -46,10 +50,31 @@ def db() -> Session:
 @pytest.fixture()
 def client(db: Session) -> TestClient:
     app.dependency_overrides[get_db] = lambda: db
+    app.dependency_overrides[require_admin_api_token] = lambda: None
     try:
         yield TestClient(app)
     finally:
         app.dependency_overrides.clear()
+
+
+def test_split_review_write_fails_closed_without_admin_configuration(db: Session):
+    app.dependency_overrides[get_db] = lambda: db
+    try:
+        response = TestClient(app).put(
+            "/hadith-split-reviews/not-present",
+            json={
+                "approved_isnad_raw": None,
+                "approved_matn_raw": "text",
+                "review_status": "approved",
+                "reviewer": "test",
+                "notes": None,
+            },
+        )
+    finally:
+        app.dependency_overrides.clear()
+
+    assert response.status_code == 503
+    assert response.json()["detail"] == "Editorial writes are disabled on this deployment."
 
 
 def _book(db: Session, source_book_id: str = "10009", title: str = "X") -> Book:
@@ -386,6 +411,255 @@ def test_get_hadith_by_public_id(client: TestClient, db: Session):
 
     assert response.status_code == 200
     assert response.json()["printed_number"] == "١"
+
+
+def test_get_hadith_exposes_only_current_green_complete_translation(
+    client: TestClient, db: Session
+):
+    book = _book(db, source_book_id="11005", title="al-kafi")
+    page = _page(db, book, page_number=10)
+    hadith = Hadith(
+        public_id="alkafi-translated",
+        book_id=book.id,
+        page_start_id=page.id,
+        page_end_id=page.id,
+        sequence_in_book=1,
+        sequence_in_page=1,
+        printed_number="1",
+        volume_start=1,
+        volume_end=1,
+        page_start=10,
+        page_end=10,
+        full_text_raw="chain matn",
+        full_text_normalised="chain matn",
+        isnad_raw="chain",
+        isnad_normalised="chain",
+        matn_raw="matn",
+        matn_normalised="matn",
+        source_url=page.source_url,
+        extraction_method="regex_v1",
+        extraction_confidence=90,
+        review_status="pending",
+    )
+    db.add(hadith)
+    db.flush()
+    db.add(
+        HadithTranslation(
+            hadith_id=hadith.id,
+            language="en",
+            translation_version=TRANSLATION_VERSION,
+            source_full_sha256=sha256_text(hadith.full_text_raw),
+            source_isnad_sha256=sha256_text(hadith.isnad_raw),
+            source_matn_sha256=sha256_text(hadith.matn_raw),
+            rendered_isnad_en="From chain",
+            matn_translation="The translated text.",
+            status="published",
+            risk_level="green",
+            provider="thaqalayn-api",
+            model="muhammad-sarwar",
+            provenance_json={
+                "translator": "Muhammad Sarwar",
+                "translation_classification": "external_source_normalized",
+            },
+        )
+    )
+    db.commit()
+
+    response = client.get("/hadiths/alkafi-translated")
+
+    assert response.status_code == 200
+    assert response.json()["translation"] == {
+        "language": "en",
+        "translation_version": TRANSLATION_VERSION,
+        "rendered_isnad_en": "From chain",
+        "matn_translation": "The translated text.",
+        "status": "published",
+        "risk_level": "green",
+        "risk_flags": None,
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "provenance_json": {
+            "translator": "Muhammad Sarwar",
+            "translation_classification": "external_source_normalized",
+        },
+    }
+
+    no_isnad = Hadith(
+        public_id="alkafi-translated-no-isnad",
+        book_id=book.id,
+        page_start_id=page.id,
+        page_end_id=page.id,
+        sequence_in_book=2,
+        sequence_in_page=2,
+        printed_number="2",
+        volume_start=1,
+        volume_end=1,
+        page_start=10,
+        page_end=10,
+        full_text_raw="matn only",
+        full_text_normalised="matn only",
+        isnad_raw=None,
+        isnad_normalised=None,
+        matn_raw="matn only",
+        matn_normalised="matn only",
+        source_url=page.source_url,
+        extraction_method="regex_v1",
+        extraction_confidence=90,
+        review_status="pending",
+    )
+    db.add(no_isnad)
+    db.flush()
+    db.add(
+        HadithTranslation(
+            hadith_id=no_isnad.id,
+            language="en",
+            translation_version=TRANSLATION_VERSION,
+            source_full_sha256=sha256_text(no_isnad.full_text_raw),
+            source_isnad_sha256=None,
+            source_matn_sha256=sha256_text(no_isnad.matn_raw),
+            rendered_isnad_en=None,
+            matn_translation="The matn-only translated text.",
+            status="human_reviewed",
+            risk_level="green",
+            provider="external-human-edition",
+            provenance_json={
+                "translator": "Reviewed human source",
+                "translation_classification": "external_source_normalized",
+            },
+        )
+    )
+    db.commit()
+
+    no_isnad_response = client.get("/hadiths/alkafi-translated-no-isnad")
+    assert no_isnad_response.status_code == 200
+    assert no_isnad_response.json()["translation"]["matn_translation"] == "The matn-only translated text."
+
+    hadith.matn_raw = "changed after translation"
+    db.commit()
+
+    stale_response = client.get("/hadiths/alkafi-translated")
+    assert stale_response.status_code == 200
+    assert stale_response.json()["translation"] is None
+
+
+def test_public_translation_policy_is_consistent_for_reader_and_corpus_status(
+    client: TestClient, db: Session
+):
+    book = _book(db, source_book_id="11005", title="al-Kafi")
+    page = _page(db, book, page_number=10)
+
+    def add_translation(
+        public_id: str,
+        sequence: int,
+        *,
+        status: str = "published",
+        provider: str = "external-human-edition",
+        model: str = "muhammad-sarwar",
+        provenance: dict | None = None,
+        stale: bool = False,
+        risk_flags: list | None = None,
+    ) -> None:
+        hadith = Hadith(
+            public_id=public_id,
+            book_id=book.id,
+            page_start_id=page.id,
+            page_end_id=page.id,
+            sequence_in_book=sequence,
+            sequence_in_page=sequence,
+            printed_number=str(sequence),
+            volume_start=1,
+            volume_end=1,
+            page_start=10,
+            page_end=10,
+            full_text_raw=f"chain matn {sequence}",
+            full_text_normalised=f"chain matn {sequence}",
+            isnad_raw="chain",
+            isnad_normalised="chain",
+            matn_raw=f"matn {sequence}",
+            matn_normalised=f"matn {sequence}",
+            source_url=f"u/{sequence}",
+            extraction_method="test",
+            extraction_confidence=100,
+            review_status="pending",
+        )
+        db.add(hadith)
+        db.flush()
+        db.add(
+            HadithTranslation(
+                hadith_id=hadith.id,
+                language="en",
+                translation_version=TRANSLATION_VERSION,
+                source_full_sha256=sha256_text(hadith.full_text_raw),
+                source_isnad_sha256=sha256_text(hadith.isnad_raw),
+                source_matn_sha256=(
+                    sha256_text("outdated matn") if stale else sha256_text(hadith.matn_raw)
+                ),
+                matn_translation=f"Public policy example {sequence}.",
+                status=status,
+                risk_level="green",
+                risk_flags=risk_flags,
+                provider=provider,
+                model=model,
+                provenance_json=(
+                    provenance
+                    if provenance is not None
+                    else {
+                        "translator": "Muhammad Sarwar",
+                        "translation_classification": "external_source_normalized",
+                    }
+                ),
+            )
+        )
+
+    add_translation("policy-external", 1)
+    add_translation("policy-machine", 2, status="machine_verified")
+    add_translation("policy-codex-provider", 3, provider="codex-direct")
+    add_translation("policy-openai-model", 4, model="OpenAI GPT-5")
+    add_translation(
+        "policy-ai-provenance",
+        5,
+        provenance={"translation_method": "AI-generated draft"},
+    )
+    add_translation("policy-stale", 6, stale=True)
+    add_translation(
+        "policy-unattributed",
+        7,
+        provenance={"translation_classification": "external_source_normalized"},
+    )
+    add_translation(
+        "policy-project-authored",
+        8,
+        provenance={
+            "translator": "Muhammad Sarwar",
+            "translation_classification": "project_authored_prohibited",
+        },
+    )
+    add_translation(
+        "policy-green-critical",
+        9,
+        risk_flags=[{"code": "unexpected", "severity": "critical"}],
+    )
+    db.commit()
+
+    assert client.get("/hadiths/policy-external").json()["translation"] is not None
+    for public_id in (
+        "policy-machine",
+        "policy-codex-provider",
+        "policy-openai-model",
+        "policy-ai-provenance",
+        "policy-stale",
+        "policy-unattributed",
+        "policy-project-authored",
+        "policy-green-critical",
+    ):
+        assert client.get(f"/hadiths/{public_id}").json()["translation"] is None
+
+    corpus = client.get("/corpus-status")
+    assert corpus.status_code == 200
+    al_kafi = next(
+        row for row in corpus.json()["books"] if row["source_book_id"] == "11005"
+    )
+    assert al_kafi["public_english_translations"] == 1
 
 
 def test_get_hadith_chains_returns_nodes_and_ranked_candidates(client: TestClient, db: Session):

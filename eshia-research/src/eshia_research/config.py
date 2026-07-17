@@ -8,6 +8,12 @@ class Settings(BaseSettings):
 
     database_url: str = "sqlite:///./eshia_research.db"
 
+    # Public API deployments are read-only by default. Editorial writes are
+    # enabled only when a non-empty secret is deliberately configured.
+    api_admin_token: str = ""
+    api_allowed_origins: str = "http://localhost:3000,http://127.0.0.1:3000"
+    api_enable_docs: bool = False
+
     crawl_delay_seconds: float = 1.0
     crawl_max_retries: int = 3
     crawl_timeout_seconds: float = 20.0

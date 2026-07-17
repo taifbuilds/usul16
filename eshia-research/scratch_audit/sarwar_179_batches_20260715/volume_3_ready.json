@@ -1,0 +1,392 @@
+[
+  {
+    "public_id": "alkafi-4134",
+    "sequence": 4137,
+    "volume": 3,
+    "page_start": 74,
+    "page_end": 74,
+    "printed_number": "١٧",
+    "local_source_url": "https://lib.eshia.ir/11005/3/74",
+    "arabic": "مُحَمَّدُ بْنُ يَحْيَى عَنْ أَحْمَدَ بْنِ مُحَمَّدٍ عَنِ الْبَرْقِيِّ عَنْ سَعْدِ بْنِ سَعْدٍ عَنْ صَفْوَانَ قَالَ: سَأَلْتُ أَبَا الْحَسَنِ ع عَنْ رَجُلٍ احْتَاجَ إِلَى الْوُضُوءِ لِلصَّلَاةِ وَ هُوَ لَا يَقْدِرُ عَلَى الْمَاءِ فَوَجَدَ بِقَدْرِ مَا يَتَوَضَّأُ بِهِ بِمِائَةِ دِرْهَمٍ أَوْ بِأَلْفِ دِرْهَمٍ وَ هُوَ وَاجِدٌ لَهَا يَشْتَرِي وَ يَتَوَضَّأُ أَوْ يَتَيَمَّمُ قَالَ لَا بَلْ يَشْتَرِي قَدْ أَصَابَنِي مِثْلُ ذَلِكَ فَاشْتَرَيْتُ وَ تَوَضَّأْتُ وَ مَا يُشْتَرَى بِذَلِكَ مَالٌ كَثِيرٌ[3].\nهَذَا آخِرُ كِتَابِ الطَّهَارَةِ مِنْ كِتَابِ الْكَافِي وَ هُوَ خَمْسَةٌ وَ أَرْبَعُونَ بَاباً وَ يَتْلُوهُ كِتَابُ الْحَيْضِ إِنْ شَاءَ اللَّهُ تَعَالَى.[4]",
+    "matn": "سَأَلْتُ أَبَا الْحَسَنِ ع عَنْ رَجُلٍ احْتَاجَ إِلَى الْوُضُوءِ لِلصَّلَاةِ وَ هُوَ لَا يَقْدِرُ عَلَى الْمَاءِ فَوَجَدَ بِقَدْرِ مَا يَتَوَضَّأُ بِهِ بِمِائَةِ دِرْهَمٍ أَوْ بِأَلْفِ دِرْهَمٍ وَ هُوَ وَاجِدٌ لَهَا يَشْتَرِي وَ يَتَوَضَّأُ أَوْ يَتَيَمَّمُ قَالَ لَا بَلْ يَشْتَرِي قَدْ أَصَابَنِي مِثْلُ ذَلِكَ فَاشْتَرَيْتُ وَ تَوَضَّأْتُ وَ مَا يُشْتَرَى بِذَلِكَ مَالٌ كَثِيرٌ[3]. هَذَا آخِرُ كِتَابِ الطَّهَارَةِ مِنْ كِتَابِ الْكَافِي وَ هُوَ خَمْسَةٌ وَ أَرْبَعُونَ بَاباً وَ يَتْلُوهُ كِتَابُ الْحَيْضِ إِنْ شَاءَ اللَّهُ تَعَالَى.[4]",
+    "decision": "ready_sarwar",
+    "identity": {
+      "method": "one_to_one_between_direct_arabic_anchors",
+      "before": {
+        "public_id": "alkafi-4133",
+        "remote_id": 4149,
+        "score": 1.0
+      },
+      "after": {
+        "public_id": "alkafi-4135",
+        "remote_id": 4151,
+        "score": 1.0
+      },
+      "local_gap_count": 1,
+      "remote_gap_count": 1,
+      "score": 0.7169811320754716,
+      "remote_id": 4150
+    },
+    "source": {
+      "kind": "thaqalayn_static_sarwar",
+      "translator": "Muhammad Sarwar",
+      "source_url": "https://thaqalayn.net/books/al-kafi:3:1:46:17",
+      "remote_id": 4150
+    },
+    "english": "17. Muhammad ibn Yahya has narrated from Ahmad ibn Muhammad from al-Barqiy from Sa‘d ibn Sa‘d from Safwan who has said the following: “I once asked abu al-Hassan, ‘Alayhi al-Salam, about a man who needs to take Wudu’ for Salah (prayer). However, he is not able to find water. He finds a certain amount of water which is enough for his Wudu’ but it costs one hundred dirham or one thousand dirham. He has that much dirham to buy and take Wudu’, should he buy the water or instead take Tayammum? He (the Imam) said, ‘No, he must buy. This kind of thing has happened to me and I bought water to take Wudu’. What is bought (in this case) is a great deal.’” (For such Ahadith about an act or issue of the five categories of deeds the qualities such as Wujub, (Obligatory), Hurmat (Prohibited), Istihbab (Preference), Kirahat (Detestability) or Ibahah (Permissibility) one must consult fatwas of one’s Mujtahid.)",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['3', '4'] do not match translation numbers ['17']."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 3, 4."
+      }
+    ],
+    "blocking_qa": []
+  },
+  {
+    "public_id": "alkafi-4167",
+    "sequence": 4170,
+    "volume": 3,
+    "page_start": 83,
+    "page_end": 86,
+    "printed_number": "١",
+    "local_source_url": "https://lib.eshia.ir/11005/3/83",
+    "arabic": "عَلِيُّ بْنُ إِبْرَاهِيمَ عَنْ مُحَمَّدِ بْنِ عِيسَى عَنْ يُونُسَ عَنْ غَيْرِ وَاحِدٍ سَأَلُوا أَبَا عَبْدِ اللَّهِ ع عَنِ الْحَائِضِ‌[2] وَ السُّنَّةِ فِي وَقْتِهِ فَقَالَ إِنَّ رَسُولَ اللَّهِ ص سَنَّ فِي الْحَائِضِ ثَلَاثَ سُنَنٍ بَيَّنَ فِيهَا كُلَّ مُشْكِلٍ لِمَنْ سَمِعَهَا وَ فَهِمَهَا حَتَّى لَا[3] يَدَعَ لِأَحَدٍ مَقَالًا فِيهِ بِالرَّأْيِ أَمَّا إِحْدَى السُّنَنِ فَالْحَائِضُ الَّتِي لَهَا أَيَّامٌ مَعْلُومَةٌ قَدْ أَحْصَتْهَا بِلَا اخْتِلَاطٍ عَلَيْهَا ثُمَّ اسْتَحَاضَتْ وَ اسْتَمَرَّ بِهَا الدَّمُ وَ هِيَ فِي ذَلِكَ تَعْرِفُ أَيَّامَهَا وَ مَبْلَغَ عَدَدِهَا فَإِنَّ امْرَأَةً يُقَالُ لَهَا- فَاطِمَةُ بِنْتُ أَبِي حُبَيْشٍ اسْتَحَاضَتْ فَاسْتَمَرَّ بِهَا الدَّمُ فَأَتَتْ أُمَّ سَلَمَةَ-\nفَسَأَلَتْ رَسُولَ اللَّهِ ص عَنْ ذَلِكَ فَقَالَ تَدَعُ الصَّلَاةَ قَدْرَ أَقْرَائِهَا أَوْ قَدْرَ حَيْضِهَا[1] وَ قَالَ إِنَّمَا هُوَ عِرْقٌ‌[2] وَ أَمَرَهَا أَنْ تَغْتَسِلَ وَ تَسْتَثْفِرَ بِثَوْبٍ وَ تُصَلِّيَ‌[3] قَالَ أَبُو عَبْدِ اللَّهِ ع هَذِهِ سُنَّةُ النَّبِيِّ ص فِي الَّتِي تَعْرِفُ أَيَّامَ أَقْرَائِهَا لَمْ تَخْتَلِطْ عَلَيْهَا أَ لَا تَرَى أَنَّهُ لَمْ يَسْأَلْهَا كَمْ يَوْمٍ هِيَ وَ لَمْ يَقُلْ إِذَا زَادَتْ عَلَى كَذَا يَوْماً فَأَنْتِ مُسْتَحَاضَةٌ وَ إِنَّمَا سَنَّ لَهَا أَيَّاماً مَعْلُومَةً مَا كَانَتْ مِنْ قَلِيلٍ أَوْ كَثِيرٍ بَعْدَ أَنْ تَعْرِفَهَا وَ كَذَلِكَ أَفْتَى أَبِي ع وَ سُئِلَ عَنِ الْمُسْتَحَاضَةِ فَقَالَ إِنَّمَا ذَلِكَ عِرْقٌ غَابِرٌ أَوْ رَكْضَةٌ مِنَ الشَّيْطَانِ‌[4]-\nاستحوض الماء اي اجتمع فإذا كثر و أخذه الرحم و لم يكن جنين أو كان أكثر ممّا يحتمله ينصب عنه( آت). و في القاموس: عزفت نفسى عنه زهدت فيه و انصرفت عنه. و قال الفيض في الوافي: قال ابن الأثير في نهايته: العزف اللعب بالمعازف و هي الدفوف و غيرها ممّا يضرب. و قيل: أن كل لعب عزف، و في حديث ابن عبّاس كانت الجن تعزف الليل كله بين الصفا و المروة، عزيف الجن جرس اصواتها، و قيل: هو صوت يسمع كالطبل بالليل. و قيل: إنّه صوت الرياح في الجو فتوهمه أهل البادية صوت الجن اه أقول: كان المراد أنّه لعب الشيطان بها في عبادتها كما يدلّ عليه قول الباقر عليه السلام:« عزف عامر» فان عامر اسم الشيطان. انتهى كلامه.\nو في النهاية: فى حديث المستحاضة« انما هي ركضة من الشيطان» أصل الركض الضرب بالرجل و الإصابة بها كما تركض الدابّة و تصاب بالرجل، أراد الإضرار بها و الاذى، المعنى أن الشيطان قد وجد بذلك طريقا إلى التلبيس عليها في أمر دينها و طهرها و صلاتها حتّى أنساها ذلك عادتها و صار في التقدير كانه ركضة بآلة من ركضاته. انتهى.\nفَلْتَدَعِ الصَّلَاةَ أَيَّامَ أَقْرَائِهَا ثُمَّ تَغْتَسِلُ وَ تَتَوَضَّأُ لِكُلِّ صَلَاةٍ قِيلَ وَ إِنْ سَالَ قَالَ وَ إِنْ سَالَ مِثْلَ الْمَثْعَبِ‌[1] قَالَ أَبُو عَبْدِ اللَّهِ ع هَذَا تَفْسِيرُ حَدِيثِ رَسُولِ اللَّهِ ص وَ هُوَ مُوَافِقٌ لَهُ فَهَذِهِ سُنَّةُ الَّتِي تَعْرِفُ أَيَّامَ أَقْرَائِهَا لَا وَقْتَ لَهَا إِلَّا أَيَّامَهَا قَلَّتْ أَوْ كَثُرَتْ وَ أَمَّا سُنَّةُ الَّتِي قَدْ كَانَتْ لَهَا أَيَّامٌ مُتَقَدِّمَةٌ ثُمَّ اخْتَلَطَ عَلَيْهَا مِنْ طُولِ الدَّمِ فَزَادَتْ وَ نَقَصَتْ حَتَّى أَغْفَلَتْ عَدَدَهَا وَ مَوْضِعَهَا مِنَ الشَّهْرِ فَإِنَّ سُنَّتَهَا غَيْرُ ذَلِكَ وَ ذَلِكَ أَنَّ فَاطِمَةَ بِنْتَ أَبِي حُبَيْشٍ أَتَتِ النَّبِيَّ ص فَقَالَتْ إِنِّي أُسْتَحَاضُ فَلَا أَطْهُرُ[2] فَقَالَ النَّبِيُّ ع لَيْسَ ذَلِكِ بِحَيْضٍ إِنَّمَا هُوَ عِرْقٌ‌[3] فَإِذَا أَقْبَلَتِ الْحَيْضَةُ فَدَعِي الصَّلَاةَ وَ إِذَا أَدْبَرَتْ فَاغْسِلِي عَنْكِ الدَّمَ وَ صَلِّي وَ كَانَتْ تَغْتَسِلُ فِي كُلِّ صَلَاةٍ وَ كَانَتْ تَجْلِسُ فِي مِرْكَنٍ لِأُخْتِهَا[4] وَ كَانَتْ صُفْرَةُ الدَّمِ تَعْلُو الْمَاءَ فَقَالَ أَبُو عَبْدِ اللَّهِ ع أَ مَا تَسْمَعُ رَسُولَ اللَّهِ ص أَمَرَ هَذِهِ بِغَيْرِ مَا أَمَرَ بِهِ تِلْكَ أَ لَا تَرَاهُ لَمْ يَقُلْ لَهَا دَعِي الصَّلَاةَ أَيَّامَ أَقْرَائِكِ وَ لَكِنْ قَالَ لَهَا إِذَا أَقْبَلَتِ الْحَيْضَةُ فَدَعِي الصَّلَاةَ وَ إِذَا أَدْبَرَتْ فَاغْتَسِلِي وَ صَلِّي فَهَذَا يُبَيِّنُ أَنَّ هَذِهِ امْرَأَةٌ قَدِ اخْتَلَطَ عَلَيْهَا أَيَّامُهَا لَمْ تَعْرِفْ عَدَدَهَا وَ لَا وَقْتَهَا أَ لَا تَسْمَعُهَا[5] تَقُولُ إِنِّي أُسْتَحَاضُ فَلَا أَطْهُرُ وَ كَانَ أَبِي يَقُولُ إِنَّهَا اسْتُحِيضَتْ سَبْعَ سِنِينَ فَفِي أَقَلَّ مِنْ هَذَا تَكُونُ الرِّيبَةُ وَ الِاخْتِلَاطُ- فَلِهَذَا احْتَاجَتْ إِلَى أَنْ تَعْرِفَ إِقْبَالَ الدَّمِ\nمِنْ إِدْبَارِهِ‌[1] وَ\nتَغَيُّرَ لَوْنِهِ مِنَ السَّوَادِ إِلَى غَيْرِهِ وَ ذَلِكَ أَنَّ دَمَ\nالْحَيْضِ أَسْوَدُ يُعْرَفُ وَ لَوْ كَانَتْ تَعْرِفُ أَيَّامَهَا مَا احْتَاجَتْ\nإِلَى مَعْرِفَةِ لَوْنِ الدَّمِ لِأَنَّ السُّنَّةَ فِي الْحَيْضِ أَنْ تَكُونَ\nالصُّفْرَةُ وَ الْكُدْرَةُ فَمَا فَوْقَهَا فِي أَيَّامِ الْحَيْضِ إِذَا\nعُرِفَتْ حَيْضاً كُلُّهُ إِنْ كَانَ الدَّمُ أَسْوَدَ أَوْ غَيْرَ ذَلِكَ فَهَذَا\nيُبَيِّنُ لَكَ أَنَّ قَلِيلَ الدَّمِ وَ كَثِيرَهُ أَيَّامَ الْحَيْضِ حَيْضٌ\nكُلَّهُ إِذَا كَانَتِ الْأَيَّامُ مَعْلُومَةً فَإِذَا جَهِلَتِ الْأَيَّامَ وَ\nعَدَدَهَا احْتَاجَتْ إِلَى النَّظَرِ حِينَئِذٍ إِلَى إِقْبَالِ الدَّمِ وَ\nإِدْبَارِهِ وَ تَغَيُّرِ لَوْنِهِ ثُمَّ تَدَعُ الصَّلَاةَ عَلَى قَدْرِ ذَلِكَ\nوَ لَا أَرَى النَّبِيَّ ص قَالَ اجْلِسِي كَذَا وَ كَذَا يَوْماً فَمَا زَادَتْ\nفَأَنْتِ مُسْتَحَاضَةٌ كَمَا لَمْ تُؤْمَرِ الْأُولَى بِذَلِكَ وَ كَذَلِكَ أَبِي\nع أَفْتَى فِي مِثْلِ هَذَا وَ ذَاكَ أَنَّ امْرَأَةً مِنْ أَهْلِنَا اسْتَحَاضَتْ\nفَسَأَلَتْ أَبِي ع عَنْ ذَلِكَ فَقَالَ إِذَا رَأَيْتِ الدَّمَ الْبَحْرَانِيَ‌[2] فَدَعِي\nالصَّلَاةَ وَ إِذَا رَأَيْتِ الطُّهْرَ وَ لَوْ سَاعَةً مِنْ نَهَارٍ\nفَاغْتَسِلِي وَ صَلِّي قَالَ أَبُو عَبْدِ اللَّهِ ع وَ أَرَى جَوَابَ أَبِي ع\nهَاهُنَا غَيْرَ جَوَابِهِ فِي الْمُسْتَحَاضَةِ الْأُولَى أَ لَا تَرَى أَنَّهُ\nقَالَ تَدَعُ الصَّلَاةَ أَيَّامَ أَقْرَائِهَا لِأَنَّهُ نَظَرَ إِلَى عَدَدِ\nالْأَيَّامِ وَ قَالَ هَاهُنَا إِذَا رَأَتِ الدَّمَ الْبَحْرَانِيَّ فَلْتَدَعِ\nالصَّلَاةَ وَ أَمَرَ هَاهُنَا أَنْ تَنْظُرَ إِلَى الدَّمِ إِذَا أَقْبَلَ وَ أَدْبَرَ\nوَ تَغَيَّرَ وَ قَوْلُهُ الْبَحْرَانِيَّ شِبْهُ مَعْنَى قَوْلِ النَّبِيِّ ص\nإِنَّ دَمَ الْحَيْضِ أَسْوَدُ يُعْرَفُ وَ إِنَّمَا سَمَّاهُ أَبِي بَحْرَانِيّاً\nلِكَثْرَتِهِ وَ لَوْنِهِ فَهَذَا سُنَّةُ النَّبِيِّ ص فِي الَّتِي اخْتَلَطَ\nعَلَيْهَا أَيَّامُهَا حَتَّى لَا تَعْرِفَهَا وَ إِنَّمَا تَعْرِفُهَا بِالدَّمِ\nمَا كَانَ مِنْ قَلِيلِ الْأَيَّامِ وَ كَثِيرِهِ قَالَ وَ أَمَّا السُّنَّةُ\nالثَّالِثَةُ فَهِيَ الَّتِي لَيْسَ لَهَا أَيَّامٌ مُتَقَدِّمَةٌ وَ لَمْ تَرَ\nالدَّمَ قَطُّ وَ رَأَتْ أَوَّلَ مَا أَدْرَكَتْ وَ اسْتَمَرَّ بِهَا فَإِنَّ\nسُنَّةَ هَذِهِ غَيْرُ سُنَّةِ الْأُولَى وَ الثَّانِيَةِ وَ ذَلِكَ أَنَّ\nامْرَأَةً يُقَالُ لَهَا- حَمْنَةُ بِنْتُ جَحْشٍ‌[3] أَتَتْ رَسُولَ اللَّهِ\nص فَقَالَتْ إِنِّي اسْتُحِضْتُ‌",
+    "matn": "إِنَّ رَسُولَ اللَّهِ ص سَنَّ فِي الْحَائِضِ ثَلَاثَ سُنَنٍ بَيَّنَ فِيهَا كُلَّ مُشْكِلٍ لِمَنْ سَمِعَهَا وَ فَهِمَهَا حَتَّى لَا[3] يَدَعَ لِأَحَدٍ مَقَالًا فِيهِ بِالرَّأْيِ أَمَّا إِحْدَى السُّنَنِ فَالْحَائِضُ الَّتِي لَهَا أَيَّامٌ مَعْلُومَةٌ قَدْ أَحْصَتْهَا بِلَا اخْتِلَاطٍ عَلَيْهَا ثُمَّ اسْتَحَاضَتْ وَ اسْتَمَرَّ بِهَا الدَّمُ وَ هِيَ فِي ذَلِكَ تَعْرِفُ أَيَّامَهَا وَ مَبْلَغَ عَدَدِهَا فَإِنَّ امْرَأَةً يُقَالُ لَهَا- فَاطِمَةُ بِنْتُ أَبِي حُبَيْشٍ اسْتَحَاضَتْ فَاسْتَمَرَّ بِهَا الدَّمُ فَأَتَتْ أُمَّ سَلَمَةَ- فَسَأَلَتْ رَسُولَ اللَّهِ ص عَنْ ذَلِكَ فَقَالَ تَدَعُ الصَّلَاةَ قَدْرَ أَقْرَائِهَا أَوْ قَدْرَ حَيْضِهَا[1] وَ قَالَ إِنَّمَا هُوَ عِرْقٌ‌[2] وَ أَمَرَهَا أَنْ تَغْتَسِلَ وَ تَسْتَثْفِرَ بِثَوْبٍ وَ تُصَلِّيَ‌[3] قَالَ أَبُو عَبْدِ اللَّهِ ع هَذِهِ سُنَّةُ النَّبِيِّ ص فِي الَّتِي تَعْرِفُ أَيَّامَ أَقْرَائِهَا لَمْ تَخْتَلِطْ عَلَيْهَا أَ لَا تَرَى أَنَّهُ لَمْ يَسْأَلْهَا كَمْ يَوْمٍ هِيَ وَ لَمْ يَقُلْ إِذَا زَادَتْ عَلَى كَذَا يَوْماً فَأَنْتِ مُسْتَحَاضَةٌ وَ إِنَّمَا سَنَّ لَهَا أَيَّاماً مَعْلُومَةً مَا كَانَتْ مِنْ قَلِيلٍ أَوْ كَثِيرٍ بَعْدَ أَنْ تَعْرِفَهَا وَ كَذَلِكَ أَفْتَى أَبِي ع وَ سُئِلَ عَنِ الْمُسْتَحَاضَةِ فَقَالَ إِنَّمَا ذَلِكَ عِرْقٌ غَابِرٌ أَوْ رَكْضَةٌ مِنَ الشَّيْطَانِ‌[4]- استحوض الماء اي اجتمع فإذا كثر و أخذه الرحم و لم يكن جنين أو كان أكثر ممّا يحتمله ينصب عنه( آت). و في القاموس: عزفت نفسى عنه زهدت فيه و انصرفت عنه. و قال الفيض في الوافي: قال ابن الأثير في نهايته: العزف اللعب بالمعازف و هي الدفوف و غيرها ممّا يضرب. و قيل: أن كل لعب عزف، و في حديث ابن عبّاس كانت الجن تعزف الليل كله بين الصفا و المروة، عزيف الجن جرس اصواتها، و قيل: هو صوت يسمع كالطبل بالليل. و قيل: إنّه صوت الرياح في الجو فتوهمه أهل البادية صوت الجن اه أقول: كان المراد أنّه لعب الشيطان بها في عبادتها كما يدلّ عليه قول الباقر عليه السلام:« عزف عامر» فان عامر اسم الشيطان. انتهى كلامه. و في النهاية: فى حديث المستحاضة« انما هي ركضة من الشيطان» أصل الركض الضرب بالرجل و الإصابة بها كما تركض الدابّة و تصاب بالرجل، أراد الإضرار بها و الاذى، المعنى أن الشيطان قد وجد بذلك طريقا إلى التلبيس عليها في أمر دينها و طهرها و صلاتها حتّى أنساها ذلك عادتها و صار في التقدير كانه ركضة بآلة من ركضاته. انتهى. فَلْتَدَعِ الصَّلَاةَ أَيَّامَ أَقْرَائِهَا ثُمَّ تَغْتَسِلُ وَ تَتَوَضَّأُ لِكُلِّ صَلَاةٍ قِيلَ وَ إِنْ سَالَ قَالَ وَ إِنْ سَالَ مِثْلَ الْمَثْعَبِ‌[1] قَالَ أَبُو عَبْدِ اللَّهِ ع هَذَا تَفْسِيرُ حَدِيثِ رَسُولِ اللَّهِ ص وَ هُوَ مُوَافِقٌ لَهُ فَهَذِهِ سُنَّةُ الَّتِي تَعْرِفُ أَيَّامَ أَقْرَائِهَا لَا وَقْتَ لَهَا إِلَّا أَيَّامَهَا قَلَّتْ أَوْ كَثُرَتْ وَ أَمَّا سُنَّةُ الَّتِي قَدْ كَانَتْ لَهَا أَيَّامٌ مُتَقَدِّمَةٌ ثُمَّ اخْتَلَطَ عَلَيْهَا مِنْ طُولِ الدَّمِ فَزَادَتْ وَ نَقَصَتْ حَتَّى أَغْفَلَتْ عَدَدَهَا وَ مَوْضِعَهَا مِنَ الشَّهْرِ فَإِنَّ سُنَّتَهَا غَيْرُ ذَلِكَ وَ ذَلِكَ أَنَّ فَاطِمَةَ بِنْتَ أَبِي حُبَيْشٍ أَتَتِ النَّبِيَّ ص فَقَالَتْ إِنِّي أُسْتَحَاضُ فَلَا أَطْهُرُ[2] فَقَالَ النَّبِيُّ ع لَيْسَ ذَلِكِ بِحَيْضٍ إِنَّمَا هُوَ عِرْقٌ‌[3] فَإِذَا أَقْبَلَتِ الْحَيْضَةُ فَدَعِي الصَّلَاةَ وَ إِذَا أَدْبَرَتْ فَاغْسِلِي عَنْكِ الدَّمَ وَ صَلِّي وَ كَانَتْ تَغْتَسِلُ فِي كُلِّ صَلَاةٍ وَ كَانَتْ تَجْلِسُ فِي مِرْكَنٍ لِأُخْتِهَا[4] وَ كَانَتْ صُفْرَةُ الدَّمِ تَعْلُو الْمَاءَ فَقَالَ أَبُو عَبْدِ اللَّهِ ع أَ مَا تَسْمَعُ رَسُولَ اللَّهِ ص أَمَرَ هَذِهِ بِغَيْرِ مَا أَمَرَ بِهِ تِلْكَ أَ لَا تَرَاهُ لَمْ يَقُلْ لَهَا دَعِي الصَّلَاةَ أَيَّامَ أَقْرَائِكِ وَ لَكِنْ قَالَ لَهَا إِذَا أَقْبَلَتِ الْحَيْضَةُ فَدَعِي الصَّلَاةَ وَ إِذَا أَدْبَرَتْ فَاغْتَسِلِي وَ صَلِّي فَهَذَا يُبَيِّنُ أَنَّ هَذِهِ امْرَأَةٌ قَدِ اخْتَلَطَ عَلَيْهَا أَيَّامُهَا لَمْ تَعْرِفْ عَدَدَهَا وَ لَا وَقْتَهَا أَ لَا تَسْمَعُهَا[5] تَقُولُ إِنِّي أُسْتَحَاضُ فَلَا أَطْهُرُ وَ كَانَ أَبِي يَقُولُ إِنَّهَا اسْتُحِيضَتْ سَبْعَ سِنِينَ فَفِي أَقَلَّ مِنْ هَذَا تَكُونُ الرِّيبَةُ وَ الِاخْتِلَاطُ- فَلِهَذَا احْتَاجَتْ إِلَى أَنْ تَعْرِفَ إِقْبَالَ الدَّمِ\nمِنْ إِدْبَارِهِ‌[1] وَ\nتَغَيُّرَ لَوْنِهِ مِنَ السَّوَادِ إِلَى غَيْرِهِ وَ ذَلِكَ أَنَّ دَمَ\nالْحَيْضِ أَسْوَدُ يُعْرَفُ وَ لَوْ كَانَتْ تَعْرِفُ أَيَّامَهَا مَا احْتَاجَتْ\nإِلَى مَعْرِفَةِ لَوْنِ الدَّمِ لِأَنَّ السُّنَّةَ فِي الْحَيْضِ أَنْ تَكُونَ\nالصُّفْرَةُ وَ الْكُدْرَةُ فَمَا فَوْقَهَا فِي أَيَّامِ الْحَيْضِ إِذَا\nعُرِفَتْ حَيْضاً كُلُّهُ إِنْ كَانَ الدَّمُ أَسْوَدَ أَوْ غَيْرَ ذَلِكَ فَهَذَا\nيُبَيِّنُ لَكَ أَنَّ قَلِيلَ الدَّمِ وَ كَثِيرَهُ أَيَّامَ الْحَيْضِ حَيْضٌ\nكُلَّهُ إِذَا كَانَتِ الْأَيَّامُ مَعْلُومَةً فَإِذَا جَهِلَتِ الْأَيَّامَ وَ\nعَدَدَهَا احْتَاجَتْ إِلَى النَّظَرِ حِينَئِذٍ إِلَى إِقْبَالِ الدَّمِ وَ\nإِدْبَارِهِ وَ تَغَيُّرِ لَوْنِهِ ثُمَّ تَدَعُ الصَّلَاةَ عَلَى قَدْرِ ذَلِكَ\nوَ لَا أَرَى النَّبِيَّ ص قَالَ اجْلِسِي كَذَا وَ كَذَا يَوْماً فَمَا زَادَتْ\nفَأَنْتِ مُسْتَحَاضَةٌ كَمَا لَمْ تُؤْمَرِ الْأُولَى بِذَلِكَ وَ كَذَلِكَ أَبِي\nع أَفْتَى فِي مِثْلِ هَذَا وَ ذَاكَ أَنَّ امْرَأَةً مِنْ أَهْلِنَا اسْتَحَاضَتْ\nفَسَأَلَتْ أَبِي ع عَنْ ذَلِكَ فَقَالَ إِذَا رَأَيْتِ الدَّمَ الْبَحْرَانِيَ‌[2] فَدَعِي\nالصَّلَاةَ وَ إِذَا رَأَيْتِ الطُّهْرَ وَ لَوْ سَاعَةً مِنْ نَهَارٍ\nفَاغْتَسِلِي وَ صَلِّي قَالَ أَبُو عَبْدِ اللَّهِ ع وَ أَرَى جَوَابَ أَبِي ع\nهَاهُنَا غَيْرَ جَوَابِهِ فِي الْمُسْتَحَاضَةِ الْأُولَى أَ لَا تَرَى أَنَّهُ\nقَالَ تَدَعُ الصَّلَاةَ أَيَّامَ أَقْرَائِهَا لِأَنَّهُ نَظَرَ إِلَى عَدَدِ\nالْأَيَّامِ وَ قَالَ هَاهُنَا إِذَا رَأَتِ الدَّمَ الْبَحْرَانِيَّ فَلْتَدَعِ\nالصَّلَاةَ وَ أَمَرَ هَاهُنَا أَنْ تَنْظُرَ إِلَى الدَّمِ إِذَا أَقْبَلَ وَ أَدْبَرَ\nوَ تَغَيَّرَ وَ قَوْلُهُ الْبَحْرَانِيَّ شِبْهُ مَعْنَى قَوْلِ النَّبِيِّ ص\nإِنَّ دَمَ الْحَيْضِ أَسْوَدُ يُعْرَفُ وَ إِنَّمَا سَمَّاهُ أَبِي بَحْرَانِيّاً\nلِكَثْرَتِهِ وَ لَوْنِهِ فَهَذَا سُنَّةُ النَّبِيِّ ص فِي الَّتِي اخْتَلَطَ\nعَلَيْهَا أَيَّامُهَا حَتَّى لَا تَعْرِفَهَا وَ إِنَّمَا تَعْرِفُهَا بِالدَّمِ\nمَا كَانَ مِنْ قَلِيلِ الْأَيَّامِ وَ كَثِيرِهِ قَالَ وَ أَمَّا السُّنَّةُ\nالثَّالِثَةُ فَهِيَ الَّتِي لَيْسَ لَهَا أَيَّامٌ مُتَقَدِّمَةٌ وَ لَمْ تَرَ\nالدَّمَ قَطُّ وَ رَأَتْ أَوَّلَ مَا أَدْرَكَتْ وَ اسْتَمَرَّ بِهَا فَإِنَّ\nسُنَّةَ هَذِهِ غَيْرُ سُنَّةِ الْأُولَى وَ الثَّانِيَةِ وَ ذَلِكَ أَنَّ\nامْرَأَةً يُقَالُ لَهَا- حَمْنَةُ بِنْتُ جَحْشٍ‌[3] أَتَتْ رَسُولَ اللَّهِ\nص فَقَالَتْ إِنِّي اسْتُحِضْتُ‌",
+    "decision": "ready_sarwar",
+    "identity": {
+      "method": "one_to_one_between_direct_arabic_anchors",
+      "before": {
+        "public_id": "alkafi-4166",
+        "remote_id": 4182,
+        "score": 1.0
+      },
+      "after": {
+        "public_id": "alkafi-4168",
+        "remote_id": 4184,
+        "score": 1.0
+      },
+      "local_gap_count": 1,
+      "remote_gap_count": 1,
+      "score": 0.7621776504297995,
+      "remote_id": 4183
+    },
+    "source": {
+      "kind": "thaqalayn_static_sarwar",
+      "translator": "Muhammad Sarwar",
+      "source_url": "https://thaqalayn.net/books/al-kafi:3:2:9:1",
+      "remote_id": 4183
+    },
+    "english": "1. Ali ibn Ibrahim has narrated from Muhammad ibn ‘Isa have narrated from Yunus from more than one person who have said the following: “They asked abu ’Abd Allah, ‘Alayhi al-Salam, about women experiencing Hayd (menses) and the tradition in his time. He (the Imam) said, ‘The Messenger of Allah has established three traditions in which he has explained every difficulty for those who hear and understand them so that no one can say anything of his own opinion about it. 1. “One tradition is about one who experiences Hayd (menses) on certain dates for a known period of time without mix and confusion, but she experiences Istihadah (irregular menses) and blood discharge continues. She knows the dates and number of days of the cycle of her Hayd (menses). A woman called Fatimah bint abu Hubaysh experienced Istihadah (irregular menses) and blood discharge continued. She came to ‘Umm Salamah. She asked the Messenger of Allah about it and he said that she must stop performing Salah (prayer) for a number of days, which is equal to the number of days of her Hayd-free period or the days of her Hayd (menses). He (the Messenger of Allah) said it is a (bleeding) vein. He (the Messenger of Allah) commanded her to take Ghusl (bath) (after passing either one of the two above mentioned number of days, namely, the Hayd (menses) free days or the number of days of her Hayd (menses)) and cover herself by passing her clothes between her legs to the other side and perform Salah (prayer). “Abu ‘Abd Allah, ‘Alayhi al-Salam, said, ‘This is one tradition that the Holy prophet has established for women who know the date of their Hayd (menses) free period without mix and confusion. It is because he (the Messenger of Allah) did not ask how many days. He (the Messenger of Allah) did not say that if it increases above such number of days you are in the state of experiencing Istihadah (irregular menses). He (the Messenger of Allah) established a tradition for her in the case of known dates of more or less number after her knowing it (dates) exactly. In the same way my father gave the fatwa when he was asked about a woman experiencing Istihadah (irregular menses). He (the Imam) said, ‘It is only a (bleeding) vein or a kick of Satan.’ “She must stop performing Salah (prayer) for number of the days which is equal to the days of her Hayd (menses)-free period, then take Ghusl (bath) and Wudu’ for every Salah (prayer). It then was asked, ‘Even if it (blood discharge) is flowing?’ He (the Imam) said, ‘Yes even if it is like flowing.’ “Abu ‘Abd Allah, ‘Alayhi al-Salam, said, ‘This is an explanation of Hadith of the Messenger of Allah, it (the explanation) agrees with the Hadith of the Messenger of Allah. This is the tradition about the one who knows the number of days of her Hayd (menses), not the date but only the number, less or more. 2. “This tradition is for one who experiences Hayd (menses) for a number of days but it becomes confused in terms of the number of days due to increase or decrease in such numbers as well as the exact date every month. The tradition for this kind of case is different from the previous one in which one experiences Hayd (menses) during a known number of days and date of every cycle of menses. It is because Fatimah bint abu Hubaysh came to the Holy prophet saying, ‘I continuously experience Hayd (menses) and do not have any menses-free time.’ The Holy prophet, said, ‘That is not Hayd (menses). It is a (bleeding) vein. When Hayd (menses) comes with greater quantity of blood discharge, you must stop performing Salah (prayer); and when it comes with diminished quantity of bleeding, you must take Ghusl (bath), wash the blood clean and perform Salah (prayer).’ “She would sit in a tub that belonged to her sister and yellowish color would rise over the water. Abu ’Abd Allah, ‘Alayhi al-Salam, has said, ’Do you not hear that the Messenger of Allah commanded this woman to do something other than what he (the Messenger of Allah) had commanded the other woman to do.? Do you not see that he (the Messenger of Allah) did not say to her, ‘Stop performing Salah (prayer) during the days of your Hayd (menses) free period,’ but he (the Messenger of Allah) told her, ‘When it comes with increased quantity stop performing Salah (prayer) and when it comes with diminished quantity, take Ghusl (bath) and perform Salah (prayer).’ This explains that the case of this woman is confused in terms of number of days in which she experiences Hayd (menses). She does not know the exact number of days as well as the exact date. Do you not hear her saying, ‘I continuously experience Hayd (menses) and I do not have any Hayd (menses) free condition.’ My father would say that she experienced Hayd (menses) for seven years, so in a lesser time it is a confused condition and mixed one. “For this reason she needed to know the condition of the quantity of blood discharge and its quality in terms of color and so on. Blood discharge because of Hayd (menses) is of distinguishable black color. If she had known the days of her experiencing Hayd (menses) she would not need to know the color of blood discharge; the tradition about Hayd (menses) is that yellowness and thickness and things above this are during the days of Hayd (menses). When such signs are found it is then all Hayd (menses). If the color of blood is black and so on, it all explains that blood discharge of lesser or greater quantity in the days of Hayd (menses) is all Hayd (menses) when the days are exactly known to her. However, if she does not know the exact date and number of days she then needs to know the quantity of blood discharge and changes in its color, and then she stops performing Salah (prayer) accordingly. I do not find the Holy prophet, saying, ‘Sit (wait) for so and so many days and above such days is Istihadah (irregular menses). He (the Messenger of Allah) did not command the other woman in the first case like this. So also my father gave fatwa in a likewise case. Once a woman in our family experienced Hayd (menses) and she asked my father about it. He (my father) said, ‘If you experience a flooding blood discharge, stop performing Salah (prayer). If you experience bleeding-free time even for an hour, take Ghusl (bath) and perform Salah (prayer).’ Abu ‘Abd Allah, ‘Alayhi al-Salam, has said, ‘I find my father’s answer in this case different from his answer in the case of one experiencing Istihadah (irregular menses) mentioned in the first tradition. Consider his saying, ‘Stop performing Salah (prayer) for a period equal to the days of your discharge free period.’ This is because of the number of days. In this case he has said, ‘If you experience flooding blood discharge’ then stop performing Salah (prayer). In this case he commanded to see the quantity in terms of increase and decrease and changes in its color and his saying, ‘flooding discharge’ is similar to the statement of the Holy prophet, ‘Blood discharge because of Hayd (menses) is of distinguishable black color.’ My father has called it flooding discharge because of its greater quantity and color. “This is the tradition the Holy prophet has established for the case of women whose habit is confused in terms of number of days. The way for such women to know is by learning about the quantity and quality of blood discharge. 3. “He (the Imam) said, ‘The third tradition established for Istihadah (irregular menses) and Hayd (menses) is about women who do not have a set pattern for their Hayd (menses); it is a confused pattern and habit. The tradition in such case is different from the first and second traditions. This is because once a woman called Hamnah bint Jahsh came to the Messenger of Allah and said, ‘I have experienced an intense Hayd (menses).’ He (the Messenger of Allah) said, ‘Fill up with cotton.’ She said, ‘It is more intense than can be controlled with cotton. It is flooding.’ He (the Messenger of Allah) said, ‘Harness it tightly and follow the rules for Hayd (menses), according to the knowledge of Allah, for six or seven days. Thereafter, you must take Ghusl (bath) and fast twenty-three days or twenty-four days, then take Ghusl (bath) for the time of dawn (morning Salah (prayer)), one Ghusl (bath) for al-Dhuhr, then perform al-‘Asr Salah (prayer) quickly and another for al-Maghrib and perform al-’Isha’ prayer quickly thereafter and take one more Ghusl (bath).’ Abu ‘Abd Allah, ‘Alayhi al-Salam, has said, ‘I can see that he (the Messenger of Allah) has established in this case a tradition which is different from the traditions for the first and second case of Hayd (menses). It is because the commandment of the Messenger of Allah to her is different from those to the other two women. Consider that if the number of days in her case were less than seven and were it five or less the Messenger of Allah would not command her to consider it Hayd (menses) for seven days. Therefore, he (the Messenger of Allah) would end up commanding her to stop performing Salah (prayer) for certain days when she experienced Istihadah (irregular menses) and not Hayd (menses). So also is the case if her Hayd (menses) was for more than seven days like being ten days or more, he (the Messenger of Allah) would end up commanding her to perform Salah (prayer) when she experienced Hayd (menses). Furthermore what it explains is his words to her, “Follow rules of Hayd (menses) in your condition.” “Following rules of Hayd (menses)” is only for a woman who in fact experiences Hayd (menses). Do you not see that he (the Messenger of Allah) did not say to her to follow the rule of Hayd (menses) for a certain number of days. One more fact that explains this is his words, “according to knowledge of Allah” because it was for her, although all things are in the knowledge of Allah, most High. This explains it clearly that she did not have a pattern in the form of known days before, at all. This is the tradition for one who experiences blood discharge for the first time without stop. The maximum for such Hayd (menses) is seven days and the maximum Hayd-free period is twenty-three days until the pattern of her experiencing Hayd (menses) is established which then is followed. All cases of Istihadah (irregular menses) fall under these three traditions. It all falls under these traditions. If the number of days, more or less, are known, she follows the rules for Hayd (menses) and her habits accordingly when there is no other number and dates other than her days. “That her days become confused because of coming earlier or later and the changes of conditions. The tradition in her case is to find about the quantity and quality, like color of blood and so on, follow that she had no experience in terms of days before and she experiences Hayd (menses) for the first time in which case it (Hayd (menses)) is seven days and the Hayd-free period is twenty-three days. If blood discharge continues for several months, she follows the rule every month as explained for her. If blood discharge stops before the seven days or after more than seven days, she then takes Ghusl (bath) as soon as she finds a Hayd-free time and performs Salah (prayer). She continues to follow such rule until the second month to see if it is in the same pattern and habit as the month before and up to two or three cycles of Hayd (menses), then it means that a distinguishable pattern and habit is established for her. She can follow the rules of Hayd (menses) accordingly. She can now ignore other conditions and this becomes her tradition for future if she experiences Istihadah (irregular menses). “Basing establishment of pattern and habit on the grounds of two or three Hayd (menses) cycle is because of the words of the Messenger of Allah to the one who had known the number of her days that said, ‘Stop performing Salah (prayer) in the days (dates) of your Hayd-free days.’ This explains that one Hayd-free period is not enough to establish a pattern and habit. He (the Messenger of Allah) did not say one Hayd-free period. He set it for her to be three Hayd-free periods. The minimum is two cycles of Hayd-free periods or more. “When days and her pattern and habit are confused because of increase or decrease in number of days and the pattern is lost even in terms of quality and color, she then follows the rules according to the quantity of blood discharge. She does not have other traditions to follow except this because of the words of the Messenger of Allah, ‘When blood discharge is increased, stop performing Salah (prayer), and when it decreases take Ghusl (bath).’ Also because of the words of the Messenger of Allah, ‘Blood of Hayd (menses) is distinguishably of black color.’ It is like the statement of my father, ‘When you experience flooding blood discharge.’ If this is not applicable and blood discharge continues, it is Istihadah (irregular menses) when the color of blood is of one kind and one condition, in this case the tradition to follow is seven days (of Hayd (menses)) and twenty-three days of Hayd-free period. It is because her case is like the case of Hamnah who said, ‘Blood discharge from me is flooding.’”",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['3', '1', '2', '3', '4', '1', '2', '3', '4', '5', '1', '2', '3'] do not match translation numbers ['1', '1', '2', '3']."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 1, 2, 3, 4, 5."
+      }
+    ],
+    "blocking_qa": []
+  },
+  {
+    "public_id": "alkafi-4227",
+    "sequence": 4230,
+    "volume": 3,
+    "page_start": 110,
+    "page_end": 110,
+    "printed_number": "١",
+    "local_source_url": "https://lib.eshia.ir/11005/3/110",
+    "arabic": "مُحَمَّدُ بْنُ إِسْمَاعِيلَ عَنِ الْفَضْلِ بْنِ شَاذَانَ عَنِ ابْنِ أَبِي عُمَيْرٍ عَنْ مُعَاوِيَةَ بْنِ عَمَّارٍ عَنْ أَبِي عَبْدِ اللَّهِ ع قَالَ: سَأَلْتُهُ عَنِ الْحَائِضِ تُنَاوِلُ الرَّجُلَ الْمَاءَ فَقَالَ قَدْ كَانَ بَعْضُ نِسَاءِ النَّبِيِّ ص تَسْكُبُ عَلَيْهِ الْمَاءَ وَ هِيَ حَائِضٌ وَ تُنَاوِلُهُ الْخُمْرَةَ[2].\nتَمَّ كِتَابُ الْحَيْضِ مِنْ كِتَابِ الْكَافِي‌ وَ الْحَمْدُ لِلَّهِ رَبِّ الْعالَمِينَ* وَ صَلَّى اللَّهُ عَلَى مُحَمَّدٍ وَ آلِهِ.",
+    "matn": "سَأَلْتُهُ عَنِ الْحَائِضِ تُنَاوِلُ الرَّجُلَ الْمَاءَ فَقَالَ قَدْ كَانَ بَعْضُ نِسَاءِ النَّبِيِّ ص تَسْكُبُ عَلَيْهِ الْمَاءَ وَ هِيَ حَائِضٌ وَ تُنَاوِلُهُ الْخُمْرَةَ[2]. تَمَّ كِتَابُ الْحَيْضِ مِنْ كِتَابِ الْكَافِي‌ وَ الْحَمْدُ لِلَّهِ رَبِّ الْعالَمِينَ* وَ صَلَّى اللَّهُ عَلَى مُحَمَّدٍ وَ آلِهِ.",
+    "decision": "ready_sarwar",
+    "identity": {
+      "method": "one_to_one_between_direct_arabic_anchors",
+      "before": {
+        "public_id": "alkafi-4226",
+        "remote_id": 4242,
+        "score": 1.0
+      },
+      "after": {
+        "public_id": "alkafi-4228",
+        "remote_id": 4244,
+        "score": 1.0
+      },
+      "local_gap_count": 1,
+      "remote_gap_count": 1,
+      "score": 0.625,
+      "remote_id": 4243
+    },
+    "source": {
+      "kind": "thaqalayn_static_sarwar",
+      "translator": "Muhammad Sarwar",
+      "source_url": "https://thaqalayn.net/books/al-kafi:3:2:25:1",
+      "remote_id": 4243
+    },
+    "english": "1. Muhammad ibn ’Isma‘il has narrated from al-Fadl ibn Shadhan from ibn abu ‘Umayr from Mu‘awiyah ibn ‘Ammar who has said the following: “I once asked abu ’Abd Allah, ‘Alayhi al-Salam, about the woman who during her Hayd (menses) brings water for the man. He (the Imam) said, ‘Wives of the Holy prophet, would pour water on him during their experiencing Hayd (menses) and furnish for him prayer mat.”’",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['2'] do not match translation numbers ['1']."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 2."
+      }
+    ],
+    "blocking_qa": []
+  },
+  {
+    "public_id": "alkafi-4295",
+    "sequence": 4298,
+    "volume": 3,
+    "page_start": 127,
+    "page_end": 128,
+    "printed_number": "٢",
+    "local_source_url": "https://lib.eshia.ir/11005/3/127",
+    "arabic": "عِدَّةٌ مِنْ أَصْحَابِنَا عَنْ سَهْلِ بْنِ زِيَادٍ عَنْ مُحَمَّدِ بْنِ سُلَيْمَانَ عَنْ أَبِيهِ عَنْ سَدِيرٍ الصَّيْرَفِيِّ قَالَ: قُلْتُ لِأَبِي عَبْدِ اللَّهِ ع جُعِلْتُ فِدَاكَ يَا ابْنَ رَسُولِ اللَّهِ هَلْ يُكْرَهُ الْمُؤْمِنُ عَلَى قَبْضِ رُوحِهِ قَالَ لَا وَ اللَّهِ إِنَّهُ إِذَا أَتَاهُ مَلَكُ الْمَوْتِ لِقَبْضِ رُوحِهِ جَزِعَ عِنْدَ ذَلِكَ فَيَقُولُ لَهُ مَلَكُ الْمَوْتِ يَا وَلِيَّ اللَّهِ لَا تَجْزَعْ فَوَ الَّذِي بَعَثَ مُحَمَّداً ص لَأَنَا أَبَرُّ بِكَ وَ أَشْفَقُ عَلَيْكَ مِنْ وَالِدٍ رَحِيمٍ لَوْ حَضَرَكَ افْتَحْ عَيْنَكَ فَانْظُرْ قَالَ وَ يُمَثَّلُ لَهُ رَسُولُ اللَّهِ ص‌\n______________________________\n«بقية الحاشية من الصفحة الماضية»\nاريد بالميت المشرف على الموت و هو الظاهر من الخبر الذي رواه الصدوق في الفقيه ص 32 عن أمير المؤمنين عليه السلام «قال: دخل رسول اللّه صلّى اللّه عليه و آله على رجل من ولد عبد المطلب و هو في السوق و قد وجّه لغير القبلة، فقال: وجّهوه إلى القبلة فانكم إذا فعلتم ذلك أقبلت إليه الملائكة و أقبل اللّه عزّ و جلّ إليه بوجهه فلم يزل كذلك حتّى قبض».\nوَ أَمِيرُ الْمُؤْمِنِينَ وَ فَاطِمَةُ وَ الْحَسَنُ وَ الْحُسَيْنُ وَ الْأَئِمَّةُ مِنْ ذُرِّيَّتِهِمْ ع فَيُقَالُ لَهُ هَذَا رَسُولُ اللَّهِ وَ أَمِيرُ الْمُؤْمِنِينَ وَ فَاطِمَةُ وَ الْحَسَنُ وَ الْحُسَيْنُ وَ الْأَئِمَّةُ ع رُفَقَاؤُكَ قَالَ فَيَفْتَحُ عَيْنَهُ فَيَنْظُرُ فَيُنَادِي رُوحَهُ‌[1] مُنَادٍ مِنْ قِبَلِ رَبِّ الْعِزَّةِ فَيَقُولُ- يا أَيَّتُهَا النَّفْسُ الْمُطْمَئِنَّةُ إِلَى مُحَمَّدٍ وَ أَهْلِ بَيْتِهِ- ارْجِعِي إِلى‌ رَبِّكِ راضِيَةً بِالْوَلَايَةِ مَرْضِيَّةً بِالثَّوَابِ‌ فَادْخُلِي فِي عِبادِي‌ يَعْنِي مُحَمَّداً وَ أَهْلَ بَيْتِهِ‌ وَ ادْخُلِي جَنَّتِي‌ فَمَا شَيْ‌ءٌ أَحَبَّ إِلَيْهِ مِنِ اسْتِلَالِ رُوحِهِ وَ اللُّحُوقِ بِالْمُنَادِي‌[2].",
+    "matn": "قُلْتُ لِأَبِي عَبْدِ اللَّهِ ع جُعِلْتُ فِدَاكَ يَا ابْنَ رَسُولِ اللَّهِ هَلْ يُكْرَهُ الْمُؤْمِنُ عَلَى قَبْضِ رُوحِهِ قَالَ لَا وَ اللَّهِ إِنَّهُ إِذَا أَتَاهُ مَلَكُ الْمَوْتِ لِقَبْضِ رُوحِهِ جَزِعَ عِنْدَ ذَلِكَ فَيَقُولُ لَهُ مَلَكُ الْمَوْتِ يَا وَلِيَّ اللَّهِ لَا تَجْزَعْ فَوَ الَّذِي بَعَثَ مُحَمَّداً ص لَأَنَا أَبَرُّ بِكَ وَ أَشْفَقُ عَلَيْكَ مِنْ وَالِدٍ رَحِيمٍ لَوْ حَضَرَكَ افْتَحْ عَيْنَكَ فَانْظُرْ قَالَ وَ يُمَثَّلُ لَهُ رَسُولُ اللَّهِ ص‌ ______________________________ «بقية الحاشية من الصفحة الماضية» اريد بالميت المشرف على الموت و هو الظاهر من الخبر الذي رواه الصدوق في الفقيه ص 32 عن أمير المؤمنين عليه السلام «قال: دخل رسول اللّه صلّى اللّه عليه و آله على رجل من ولد عبد المطلب و هو في السوق و قد وجّه لغير القبلة، فقال: وجّهوه إلى القبلة فانكم إذا فعلتم ذلك أقبلت إليه الملائكة و أقبل اللّه عزّ و جلّ إليه بوجهه فلم يزل كذلك حتّى قبض». وَ أَمِيرُ الْمُؤْمِنِينَ وَ فَاطِمَةُ وَ الْحَسَنُ وَ الْحُسَيْنُ وَ الْأَئِمَّةُ مِنْ ذُرِّيَّتِهِمْ ع فَيُقَالُ لَهُ هَذَا رَسُولُ اللَّهِ وَ أَمِيرُ الْمُؤْمِنِينَ وَ فَاطِمَةُ وَ الْحَسَنُ وَ الْحُسَيْنُ وَ الْأَئِمَّةُ ع رُفَقَاؤُكَ قَالَ فَيَفْتَحُ عَيْنَهُ فَيَنْظُرُ فَيُنَادِي رُوحَهُ‌[1] مُنَادٍ مِنْ قِبَلِ رَبِّ الْعِزَّةِ فَيَقُولُ- يا أَيَّتُهَا النَّفْسُ الْمُطْمَئِنَّةُ إِلَى مُحَمَّدٍ وَ أَهْلِ بَيْتِهِ- ارْجِعِي إِلى‌ رَبِّكِ راضِيَةً بِالْوَلَايَةِ مَرْضِيَّةً بِالثَّوَابِ‌ فَادْخُلِي فِي عِبادِي‌ يَعْنِي مُحَمَّداً وَ أَهْلَ بَيْتِهِ‌ وَ ادْخُلِي جَنَّتِي‌ فَمَا شَيْ‌ءٌ أَحَبَّ إِلَيْهِ مِنِ اسْتِلَالِ رُوحِهِ وَ اللُّحُوقِ بِالْمُنَادِي‌[2].",
+    "decision": "ready_sarwar",
+    "identity": {
+      "method": "one_to_one_between_direct_arabic_anchors",
+      "before": {
+        "public_id": "alkafi-4294",
+        "remote_id": 4310,
+        "score": 1.0
+      },
+      "after": {
+        "public_id": "alkafi-4296",
+        "remote_id": 4312,
+        "score": 1.0
+      },
+      "local_gap_count": 1,
+      "remote_gap_count": 1,
+      "score": 0.7089552238805971,
+      "remote_id": 4311
+    },
+    "source": {
+      "kind": "thaqalayn_static_sarwar",
+      "translator": "Muhammad Sarwar",
+      "source_url": "https://thaqalayn.net/books/al-kafi:3:3:12:2",
+      "remote_id": 4311
+    },
+    "english": "2. A number of our people have narrated from Sahl ibn Ziyad from Muhammad ibn Sulayman from his father from Sadir al-Sayrafiy who has said the following: “Once I said to abu ‘Abd Allah, ‘Alayhi al-Salam, ‘May Allah keep my soul in the service of your cause, O child of the Messenger of Allah, is a believing person forced to die?’ He said, ‘No, by Allah, but when the angel of death comes to take his soul away, he is frightened; and the angel of death then says to him, “O friend of Allah, do not be frightened. I swear by the One who has sent Muhammad, O Allah grant compensation to Muhammad and his family worthy of their services to Your cause, I am more kind and caring to you than a kind-hearted father ready (to help). Open your eyes and look.’” He said, ‘Figures of the Messenger of Allah, ’Amir al-Mu’minin, Fatimah, al-Hassan and al-Husayn, ‘Alayhim al-Salam, and all ’A’immah, from their descendents appear before him, and it is said to him, “There are the Messenger of Allah, ’Amir al-Mu’minin, Ali, Fatimah, al-Hassan, al-Husayn and all ’A’immah, ‘Alayhim al-Salam, your friends.’” He (the Imam) then said, ‘He then opens his eyes, and looks and his soul is called by a caller from the Lord of Majesty saying, “O peaceful soul, [in the company of Muhammad and his family] come back to your Lord with pleasure [under the guardianship of Muhammad and his family] and pleased [with the rewards from your Lord]. Enter in the company of My servants [Muhammad and his family] in paradise.” There is then nothing more beloved to him than allowing his soul to go and join the caller.’”",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['32', '1', '2'] do not match translation numbers ['2']."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 1, 2."
+      }
+    ],
+    "blocking_qa": []
+  },
+  {
+    "public_id": "alkafi-4772",
+    "sequence": 4775,
+    "volume": 3,
+    "page_start": 263,
+    "page_end": 263,
+    "printed_number": "٤٦",
+    "local_source_url": "https://lib.eshia.ir/11005/3/263",
+    "arabic": "عِدَّةٌ مِنْ أَصْحَابِنَا عَنْ سَهْلِ بْنِ زِيَادٍ عَنْ عَلِيِّ بْنِ مَهْزِيَارَ قَالَ: كَتَبَ إِلَى أَبِي جَعْفَرٍ ع‌[2] رَجُلٌ يَشْكُو إِلَيْهِ مُصَابَهُ بِوَلَدٍ لَهُ وَ شِدَّةَ مَا يَدْخُلُهُ فَقَالَ وَ كَتَبَ ع إِلَيْهِ أَ مَا عَلِمْتَ أَنَّ اللَّهَ عَزَّ وَ جَلَّ يَخْتَارُ مِنْ مَالِ الْمُؤْمِنِ وَ مِنْ وُلْدِهِ أَنْفَسَهُ لِيَأْجُرَهُ عَلَى ذَلِكَ.\nهَذَا آخِرُ كِتَابِ الْجَنَائِزِ مِنْ كِتَابِ الْكَافِي لِأَبِي جَعْفَرٍ مُحَمَّدِ بْنِ يَعْقُوبَ الْكُلَيْنِيِّ رَحِمَهُ اللَّهُ وَ الْحَمْدُ لِلَّهِ وَحْدَهُ وَ صَلَّى اللَّهُ عَلَى مُحَمَّدٍ وَ آلِهِ أَجْمَعِينَ وَ يَتْلُوهُ كِتَابُ الصَّلَاةِ.",
+    "matn": "كَتَبَ إِلَى أَبِي جَعْفَرٍ ع‌[2] رَجُلٌ يَشْكُو إِلَيْهِ مُصَابَهُ بِوَلَدٍ لَهُ وَ شِدَّةَ مَا يَدْخُلُهُ فَقَالَ وَ كَتَبَ ع إِلَيْهِ أَ مَا عَلِمْتَ أَنَّ اللَّهَ عَزَّ وَ جَلَّ يَخْتَارُ مِنْ مَالِ الْمُؤْمِنِ وَ مِنْ وُلْدِهِ أَنْفَسَهُ لِيَأْجُرَهُ عَلَى ذَلِكَ. هَذَا آخِرُ كِتَابِ الْجَنَائِزِ مِنْ كِتَابِ الْكَافِي لِأَبِي جَعْفَرٍ مُحَمَّدِ بْنِ يَعْقُوبَ الْكُلَيْنِيِّ رَحِمَهُ اللَّهُ وَ الْحَمْدُ لِلَّهِ وَحْدَهُ وَ صَلَّى اللَّهُ عَلَى مُحَمَّدٍ وَ آلِهِ أَجْمَعِينَ وَ يَتْلُوهُ كِتَابُ الصَّلَاةِ.",
+    "decision": "ready_sarwar",
+    "identity": {
+      "method": "one_to_one_between_direct_arabic_anchors",
+      "before": {
+        "public_id": "alkafi-4771",
+        "remote_id": 4789,
+        "score": 1.0
+      },
+      "after": {
+        "public_id": "alkafi-4773",
+        "remote_id": 4791,
+        "score": 1.0
+      },
+      "local_gap_count": 1,
+      "remote_gap_count": 1,
+      "score": 0.5957446808510638,
+      "remote_id": 4790
+    },
+    "source": {
+      "kind": "thaqalayn_static_sarwar",
+      "translator": "Muhammad Sarwar",
+      "source_url": "https://thaqalayn.net/books/al-kafi:3:3:95:46",
+      "remote_id": 4790
+    },
+    "english": "46. A number of our people have narrated from Sahl ibn Ziyad from Ali ibn Mahziyar who has said the following: “Once a man wrote to abu Ja’far, ‘Alayhi al-Salam, and complained before him about his suffering the death of his son. He then has said that the Imam wrote back to him saying, ’You should be aware of the fact that Allah, the Most Majestic, the Most Glorious, chooses from the property and children of the believers the best ones, so He may reward him for it.’”",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['2'] do not match translation numbers ['46']."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 2."
+      }
+    ],
+    "blocking_qa": []
+  },
+  {
+    "public_id": "alkafi-5533",
+    "sequence": 5538,
+    "volume": 3,
+    "page_start": 443,
+    "page_end": 443,
+    "printed_number": "٢",
+    "local_source_url": "https://lib.eshia.ir/11005/3/443",
+    "arabic": "عَلِيُّ بْنُ إِبْرَاهِيمَ عَنْ أَبِيهِ عَنِ ابْنِ أَبِي عُمَيْرٍ عَنِ ابْنِ أُذَيْنَةَ عَنْ فُضَيْلِ بْنِ يَسَارٍ عَنْ أَبِي عَبْدِ اللَّهِ ع قَالَ: الْفَرِيضَةُ وَ النَّافِلَةُ إِحْدَى وَ خَمْسُونَ رَكْعَةً مِنْهَا رَكْعَتَانِ بَعْدَ الْعَتَمَةِ جَالِساً تُعَدَّانِ بِرَكْعَةٍ وَ هُوَ قَائِمٌ الْفَرِيضَةُ مِنْهَا سَبْعَ عَشْرَةَ رَكْعَةً وَ النَّافِلَةُ أَرْبَعٌ وَ ثَلَاثُونَ رَكْعَةً.",
+    "matn": "الْفَرِيضَةُ وَ النَّافِلَةُ إِحْدَى وَ خَمْسُونَ رَكْعَةً مِنْهَا رَكْعَتَانِ بَعْدَ الْعَتَمَةِ جَالِساً تُعَدَّانِ بِرَكْعَةٍ وَ هُوَ قَائِمٌ الْفَرِيضَةُ مِنْهَا سَبْعَ عَشْرَةَ رَكْعَةً وَ النَّافِلَةُ أَرْبَعٌ وَ ثَلَاثُونَ رَكْعَةً.",
+    "decision": "ready_sarwar",
+    "identity": {
+      "method": "one_to_one_between_direct_arabic_anchors",
+      "before": {
+        "public_id": "alkafi-5532",
+        "remote_id": 5551,
+        "score": 1.0
+      },
+      "after": {
+        "public_id": "alkafi-5534",
+        "remote_id": 5553,
+        "score": 1.0
+      },
+      "local_gap_count": 1,
+      "remote_gap_count": 1,
+      "score": 0.8333333333333334,
+      "remote_id": 5552
+    },
+    "source": {
+      "kind": "thaqalayn_static_sarwar",
+      "translator": "Muhammad Sarwar",
+      "source_url": "https://thaqalayn.net/books/al-kafi:3:4:84:2",
+      "remote_id": 5552
+    },
+    "english": "2. Ali ibn Ibrahim has narrated from his father from ibn abu ‘Umayr from ibn ’Udhaynah from ibn Faddal ibn Yasar who has said the following: “Abu ‘Abd Allah, ‘Alayhi al-Salam, has said, ‘Obligatory and optional Salah (prayer) are fifty-one Rak‘at, of which there are two Rak‘at after al-‘Atmah in a sitting position which are counted as one Rak‘at in a standing position. Obligatory Salah (prayer) are seventeen Rak‘at and optional Salah (prayer) are thirty-four Rak‘at.’”",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers [] do not match translation numbers ['2']."
+      }
+    ],
+    "blocking_qa": []
+  },
+  {
+    "public_id": "alkafi-5698",
+    "sequence": 5703,
+    "volume": 3,
+    "page_start": 495,
+    "page_end": 495,
+    "printed_number": "٣",
+    "local_source_url": "https://lib.eshia.ir/11005/3/495",
+    "arabic": "عَنْهُ عَنْ عَمْرِو بْنِ عُثْمَانَ عَنْ حُسَيْنِ بْنِ بَكْرٍ عَنْ عَبْدِ الرَّحْمَنِ بْنِ سَعِيدٍ الْخَزَّازِ عَنْ أَبِي عَبْدِ اللَّهِ ع قَالَ قَالَ: بِالْكُوفَةِ مَسْجِدٌ يُقَالُ لَهُ مَسْجِدُ السَّهْلَةِ لَوْ أَنَّ عَمِّي زَيْداً أَتَاهُ فَصَلَّى فِيهِ وَ اسْتَجَارَ اللَّهَ لَأَجَارَهُ عِشْرِينَ سَنَةً فِيهِ مُنَاخُ الرَّاكِبِ وَ بَيْتُ إِدْرِيسَ النَّبِيِّ ع وَ مَا أَتَاهُ مَكْرُوبٌ قَطُّ فَصَلَّى فِيهِ بَيْنَ الْعِشَاءَيْنِ وَ دَعَا اللَّهَ إِلَّا فَرَّجَ اللَّهُ كُرْبَتَهُ.\n- وَ رُوِيَ‌ أَنَّ مَسْجِدَ السَّهْلَةِ حَدُّهُ إِلَى الرَّوْحَاءِ[2].\nهَذَا آخِرُ كِتَابِ الصَّلَاةِ مِنْ كِتَابِ الْكَافِي- لِلشَّيْخِ أَبِي جَعْفَرٍ مُحَمَّدِ بْنِ يَعْقُوبَ الْكُلَيْنِيِّ رَحْمَةُ اللَّهِ عَلَيْهِ وَ يَتْلُوهُ كِتَابُ الزَّكَاةِ.",
+    "matn": "قَالَ: بِالْكُوفَةِ مَسْجِدٌ يُقَالُ لَهُ مَسْجِدُ السَّهْلَةِ لَوْ أَنَّ عَمِّي زَيْداً أَتَاهُ فَصَلَّى فِيهِ وَ اسْتَجَارَ اللَّهَ لَأَجَارَهُ عِشْرِينَ سَنَةً فِيهِ مُنَاخُ الرَّاكِبِ وَ بَيْتُ إِدْرِيسَ النَّبِيِّ ع وَ مَا أَتَاهُ مَكْرُوبٌ قَطُّ فَصَلَّى فِيهِ بَيْنَ الْعِشَاءَيْنِ وَ دَعَا اللَّهَ إِلَّا فَرَّجَ اللَّهُ كُرْبَتَهُ. - وَ رُوِيَ‌ أَنَّ مَسْجِدَ السَّهْلَةِ حَدُّهُ إِلَى الرَّوْحَاءِ[2]. هَذَا آخِرُ كِتَابِ الصَّلَاةِ مِنْ كِتَابِ الْكَافِي- لِلشَّيْخِ أَبِي جَعْفَرٍ مُحَمَّدِ بْنِ يَعْقُوبَ الْكُلَيْنِيِّ رَحْمَةُ اللَّهِ عَلَيْهِ وَ يَتْلُوهُ كِتَابُ الزَّكَاةِ.",
+    "decision": "ready_sarwar",
+    "identity": {
+      "method": "one_to_one_between_direct_arabic_anchors",
+      "before": {
+        "public_id": "alkafi-5697",
+        "remote_id": 5716,
+        "score": 1.0
+      },
+      "after": {
+        "public_id": "alkafi-5699",
+        "remote_id": 5718,
+        "score": 1.0
+      },
+      "local_gap_count": 1,
+      "remote_gap_count": 1,
+      "score": 0.6981132075471698,
+      "remote_id": 5717
+    },
+    "source": {
+      "kind": "thaqalayn_static_sarwar",
+      "translator": "Muhammad Sarwar",
+      "source_url": "https://thaqalayn.net/books/al-kafi:3:4:103:3",
+      "remote_id": 5717
+    },
+    "english": "3. It is a narration from him (narrator of previous Hadith) by ‘Amr ibn ‘Uthman from Hassan ibn Bakr from ‘Abd al-Rahman ibn Sa‘id al-Khazzaz who has said the following: “Abu ‘Abd Allah, ‘Alayhi al-Salam, has said that in al-Kufah there is a Masjid called al-Sahlah Masjid. ‘Had my uncle, Zayd, visited it to perform Salah (prayer) and asked Allah to grant him refuge, He would have granted him refuge for twenty years. In it is the place where the rider disembarks for rest and the house of prophet Idris. There has never been anyone suffering hardships who visited this, performed two Rak‘at Salah (prayer) between the two Salah (prayer) after sunset and appealed to Allah for help whose wishes Allah did not make to come true and remove his hardships.’” “It is narrated that the limits of al-Sahlah Masjid extend up to al-Rawha.”",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers ['2'] do not match translation numbers ['3']."
+      },
+      {
+        "code": "missing_placeholder",
+        "severity": "critical",
+        "detail": "Missing marker(s) in translation: 2."
+      }
+    ],
+    "blocking_qa": []
+  },
+  {
+    "public_id": "alkafi-5743",
+    "sequence": 5748,
+    "volume": 3,
+    "page_start": 508,
+    "page_end": 509,
+    "printed_number": "٣",
+    "local_source_url": "https://lib.eshia.ir/11005/3/508",
+    "arabic": "أَحْمَدُ بْنُ إِدْرِيسَ وَ غَيْرُهُ عَنْ مُحَمَّدِ بْنِ أَحْمَدَ عَنْ إِبْرَاهِيمَ بْنِ مُحَمَّدٍ عَنْ مُحَمَّدِ بْنِ حَفْصٍ عَنْ صَبَّاحٍ الْحَذَّاءِ عَنْ قُثَمَ عَنْ أَبِي عَبْدِ اللَّهِ ع قَالَ: قُلْتُ لَهُ جُعِلْتُ فِدَاكَ أَخْبِرْنِي عَنِ الزَّكَاةِ كَيْفَ صَارَتْ مِنْ كُلِّ أَلْفٍ خَمْسَةً وَ عِشْرِينَ لَمْ تَكُنْ أَقَلَّ أَوْ أَكْثَرَ مَا وَجْهُهَا فَقَالَ إِنَّ اللَّهَ عَزَّ وَ جَلَّ خَلَقَ الْخَلْقَ كُلَّهُمْ فَعَلِمَ صَغِيرَهُمْ وَ كَبِيرَهُمْ وَ غَنِيَّهُمْ وَ فَقِيرَهُمْ‌\n______________________________\nاللّه صلّى اللّه عليه و آله كانوا زكوا أموالهم في كل مائتي درهم خمسة دراهم و ذلك على ما وضعه النبيّ صلّى اللّه عليه و آله و قد كان الناس قبل زمان أبى جعفر المنصور بقليل زكوا اموالهم في كل مائتين درهما سبعة دراهم و ذلك على ما افتى به عليّ بن الحسين و محمّد بن على عليهم السلام بناء على تفسير وزن الدرهم زمانها و لما اشكل ذلك على ابى جعفر و لم يعلم أن سبب ذلك وقوع التغيير في قدر الدرهم كتب إلى و إليه محمّد بن خالد أن يسأل أهل المدينة و لما عجزوا عن الجواب عموما و عبد اللّه بن الحسن خصوصا سأل أبا عبد اللّه عليه السلام «فقال: إن رسول اللّه صلّى اللّه عليه و آله إلخ» و توضيحه أن رسول اللّه صلّى اللّه عليه و آله جعل في كل أربعين اوقية اوقية و الاوقية أربعون درهما ففى كل خمس أواقى و هي مائتا درهم خمس دراهم هذا في زمنه صلّى اللّه عليه و آله و لما كان مقدار الاوقية في زمان أبي عبد اللّه عليه السلام ستة و خمسين درهما باعتبار التغيير الواقع في وزن الدرهم كان مقدار كل خمس اواقى مائتين و ثمانين درهما فصارت الزكاة فيها سبعة دراهم و هذا سبب صيرورة الخمسة الدراهم في الزكاة السبعة و هو المراد بقوله عليه السلام:\n«ما ذا حسبت ذلك إلخ». و قوله: «و قد كانت وزن ستة إلخ» لعل معناه أن التي ذكرها عليه السلام من السبعة ليست اول تغيير وقع فيها بل كان قبل ذلك ستة يعنى جعلوا الخمسة الدراهم في الزكاة ستة دراهم و ركوا اموالهم في كل مائتين و أربعين درهما ستة دراهم، فظهر من هذا البيان أن الناس نقصوا من الدراهم الذي كان في زمن رسول اللّه صلّى اللّه عليه و آله سدسه و لذا صارت الزكاة في كل مائتين و أربعين درهما ستة دراهم ثمّ بعد ذلك نقصوا من ذلك الدرهم سبعة و لذا صارت في كل مائتين و ثمانين درهما سبعة دراهم و هذا هو المراد بقول الراوي:\n«فحسبناه فوجدناه كما قال أبو عبد اللّه عليه السلام» فحاصل جوابه عليه السلام أن مدار الزكاة على القدر الذي وضعه النبيّ الامى، ثمّ إذا وقع التغيير في الدراهم و الدنانير مثلا في كل زمان فحسبا بالنسبة إلى ذلك القدر و ألغى اعتبار العدد فيهما. و المفيد دام ظله باهى في حله و تلا قوله تعالى:\n«ذلِكَ فَضْلُ اللَّهِ يُؤْتِيهِ مَنْ يَشاءُ»*. انتهى أقول: لا يقال: كما غيرت الدراهم غيرت النصب لان الظاهر النصب بالوزن و الدراهم بالعدد.\nفَجَعَلَ مِنْ كُلِّ أَلْفِ إِنْسَانٍ خَمْسَةً وَ عِشْرِينَ مِسْكِيناً وَ لَوْ عَلِمَ أَنَّ ذَلِكَ لَا يَسَعُهُمْ لَزَادَهُمْ لِأَنَّهُ خَالِقُهُمْ وَ هُوَ أَعْلَمُ بِهِمْ.",
+    "matn": "قُلْتُ لَهُ جُعِلْتُ فِدَاكَ أَخْبِرْنِي عَنِ الزَّكَاةِ كَيْفَ صَارَتْ مِنْ كُلِّ أَلْفٍ خَمْسَةً وَ عِشْرِينَ لَمْ تَكُنْ أَقَلَّ أَوْ أَكْثَرَ مَا وَجْهُهَا فَقَالَ إِنَّ اللَّهَ عَزَّ وَ جَلَّ خَلَقَ الْخَلْقَ كُلَّهُمْ فَعَلِمَ صَغِيرَهُمْ وَ كَبِيرَهُمْ وَ غَنِيَّهُمْ وَ فَقِيرَهُمْ‌ ______________________________ اللّه صلّى اللّه عليه و آله كانوا زكوا أموالهم في كل مائتي درهم خمسة دراهم و ذلك على ما وضعه النبيّ صلّى اللّه عليه و آله و قد كان الناس قبل زمان أبى جعفر المنصور بقليل زكوا اموالهم في كل مائتين درهما سبعة دراهم و ذلك على ما افتى به عليّ بن الحسين و محمّد بن على عليهم السلام بناء على تفسير وزن الدرهم زمانها و لما اشكل ذلك على ابى جعفر و لم يعلم أن سبب ذلك وقوع التغيير في قدر الدرهم كتب إلى و إليه محمّد بن خالد أن يسأل أهل المدينة و لما عجزوا عن الجواب عموما و عبد اللّه بن الحسن خصوصا سأل أبا عبد اللّه عليه السلام «فقال: إن رسول اللّه صلّى اللّه عليه و آله إلخ» و توضيحه أن رسول اللّه صلّى اللّه عليه و آله جعل في كل أربعين اوقية اوقية و الاوقية أربعون درهما ففى كل خمس أواقى و هي مائتا درهم خمس دراهم هذا في زمنه صلّى اللّه عليه و آله و لما كان مقدار الاوقية في زمان أبي عبد اللّه عليه السلام ستة و خمسين درهما باعتبار التغيير الواقع في وزن الدرهم كان مقدار كل خمس اواقى مائتين و ثمانين درهما فصارت الزكاة فيها سبعة دراهم و هذا سبب صيرورة الخمسة الدراهم في الزكاة السبعة و هو المراد بقوله عليه السلام: «ما ذا حسبت ذلك إلخ». و قوله: «و قد كانت وزن ستة إلخ» لعل معناه أن التي ذكرها عليه السلام من السبعة ليست اول تغيير وقع فيها بل كان قبل ذلك ستة يعنى جعلوا الخمسة الدراهم في الزكاة ستة دراهم و ركوا اموالهم في كل مائتين و أربعين درهما ستة دراهم، فظهر من هذا البيان أن الناس نقصوا من الدراهم الذي كان في زمن رسول اللّه صلّى اللّه عليه و آله سدسه و لذا صارت الزكاة في كل مائتين و أربعين درهما ستة دراهم ثمّ بعد ذلك نقصوا من ذلك الدرهم سبعة و لذا صارت في كل مائتين و ثمانين درهما سبعة دراهم و هذا هو المراد بقول الراوي: «فحسبناه فوجدناه كما قال أبو عبد اللّه عليه السلام» فحاصل جوابه عليه السلام أن مدار الزكاة على القدر الذي وضعه النبيّ الامى، ثمّ إذا وقع التغيير في الدراهم و الدنانير مثلا في كل زمان فحسبا بالنسبة إلى ذلك القدر و ألغى اعتبار العدد فيهما. و المفيد دام ظله باهى في حله و تلا قوله تعالى: «ذلِكَ فَضْلُ اللَّهِ يُؤْتِيهِ مَنْ يَشاءُ»*. انتهى أقول: لا يقال: كما غيرت الدراهم غيرت النصب لان الظاهر النصب بالوزن و الدراهم بالعدد. فَجَعَلَ مِنْ كُلِّ أَلْفِ إِنْسَانٍ خَمْسَةً وَ عِشْرِينَ مِسْكِيناً وَ لَوْ عَلِمَ أَنَّ ذَلِكَ لَا يَسَعُهُمْ لَزَادَهُمْ لِأَنَّهُ خَالِقُهُمْ وَ هُوَ أَعْلَمُ بِهِمْ.",
+    "decision": "ready_sarwar",
+    "identity": {
+      "method": "one_to_one_between_direct_arabic_anchors",
+      "before": {
+        "public_id": "alkafi-5742",
+        "remote_id": 5761,
+        "score": 1.0
+      },
+      "after": {
+        "public_id": "alkafi-5744",
+        "remote_id": 5763,
+        "score": 1.0
+      },
+      "local_gap_count": 1,
+      "remote_gap_count": 1,
+      "score": 0.2376237623762376,
+      "remote_id": 5762
+    },
+    "source": {
+      "kind": "thaqalayn_static_sarwar",
+      "translator": "Muhammad Sarwar",
+      "source_url": "https://thaqalayn.net/books/al-kafi:3:5:3:3",
+      "remote_id": 5762
+    },
+    "english": "3. Ahmad ibn Idris and others have narrated from Muhammad ibn Ahmad from Ibrahim ibn Muhammad from Muhammad ibn Hafs from Sabah al-Hadhdha’ from Quthama who has said the following: “I once said to abu ‘Abd Allah, ‘Alayhi al-Salam, ‘I pray to Allah to keep my soul in service for your cause, why the amount of zakat on every one thousand is twenty-five and not less or more and what is the reason?’ He (the Imam) replied, ‘Allah, the Most Majestic, the Most Glorious, created all people, small, large, wealthy and poor. He made twenty-five destitute ones in every one thousand. If this much did not suffice, He would have levied more; He is their Creator and He knows more about them than they do.’”",
+    "qa_risk": "red",
+    "qa_flags": [
+      {
+        "code": "number_mismatch",
+        "severity": "critical",
+        "detail": "Source numbers [] do not match translation numbers ['3']."
+      }
+    ],
+    "blocking_qa": []
+  }
+]

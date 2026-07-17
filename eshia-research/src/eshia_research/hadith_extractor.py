@@ -111,6 +111,18 @@ NUMBERED_HADITH_BOUNDARY_RE = re.compile(
     r"\u0627\u062e\u0628\u0631|\u062d\u062f\u062b|\u0648\u0639\u0646\u0647|"
     r"\u0639\u0646\u0647|\u0648\u0628\u0647\u0630\u0627|\u0648\u0628\u0625\u0633\u0646\u0627\u062f\u0647))"
 )
+NESTED_NUMBER_PREFIX_RE = re.compile(
+    rf"(?<![0-9\u0660-\u0669\u06f0-\u06f9]){NUM}{GAP}"
+    rf"(?:\u0648\u064e?{GAP})?{SEP}{GAP}(?={NUM}{GAP}(?:\u0648\u064e?{GAP})?{SEP}{GAP})"
+)
+PAGE_NUMBER_BEFORE_HADITH_RE = re.compile(
+    rf"(?<![0-9\u0660-\u0669\u06f0-\u06f9]){NUM}\s+"
+    rf"(?={NUM}{GAP}(?:\u0648\u064e?{GAP})?{SEP}{GAP})"
+)
+_INLINE_NUMBERED_VARIANT_PLAIN_RE = re.compile(
+    rf"(?<![0-9\u0660-\u0669\u06f0-\u06f9])({NUM})\s+"
+    r"(?=(?:(?:\u0648\s*)?\u0631\u0648\u0627\u0647|(?:\u0648\s*)?\u0641\u064a\s+\u0631\u0648\u0627\u064a\u0629))"
+)
 INLINE_FOOTNOTE_BODY_RE = re.compile(
     rf"([\[(]\s*({NUM})\s*[\])])(?="
     r"(?:\u0628\u0627\u0644|\u0647\u0648|\u062d\u0643\u0649|\u0644\u0645 \u0646\u0642\u0641|"
@@ -121,6 +133,10 @@ INLINE_FOOTNOTE_BODY_RE = re.compile(
 HARAKAT_RE = re.compile(r"[\u064b-\u065f\u0670]")
 PAREN_HEADING_RE = re.compile(
     r"^\(?\s*(?:\u0643\u062a\u0627\u0628|\u0628\u0627\u0628|\u0623\u0628\u0648\u0627\u0628)(?=[\s\)\uff09]|$)"
+)
+PLAIN_HEADING_RE = re.compile(
+    r"^(?:(?:\u0643\u062a\u0627\u0628|\u0628\u0627\u0628|\u0623\u0628\u0648\u0627\u0628)(?:\s|$)|"
+    r"\u062d\u062f\u064a\u062b\s+.{1,80}\s+\u0639$)"
 )
 APPARATUS_EXTRA_RE = re.compile(
     r"^(?:\*?\s*[\u00ab\"]?\s*\u0631\u0645\u0648\u0632\s+\u0627\u0644\u0643\u062a\u0627\u0628|"
@@ -170,7 +186,9 @@ AN_REPORT_RE = re.compile(
     r"\s+(?:\u0623\u0646|\u0623\u0646\u0647|\u0623\u0646\u0647\u0627|"
     r"\u0627\u0646|\u0627\u0646\u0647|\u0627\u0646\u0647\u0627|\u0625\u0646)(?=\s)"
 )
-FI_REPORT_RE = re.compile(r"\s+(?=\u0641\u064a\s)")
+FI_REPORT_RE = re.compile(
+    r"\s+(?=\u0641[\u064b-\u065f\u0670]*\u064a[\u064b-\u065f\u0670]*\s)"
+)
 TERMINAL_COLON_RE = re.compile(r"[:\uff1a]\s*")
 TERMINAL_MARKER_RE = re.compile(
     r"(\u0639\u0644\u064a\u0647(?:\u0645\u0627|\u0645|\u0627)?(?:\s*\u0627\u0644\u0635\u0644\u0627\u0629)?\s*"
@@ -232,6 +250,10 @@ def _number_label(serial: str | None, sequence: str) -> str:
     seq = re.sub(r"\s+", " ", _to_arabic_digits(sequence)).strip()
     if not serial:
         return seq
+    # A small bracketed marker immediately before a large report number is a
+    # footnote anchor left by page flattening, not an outer hadith serial.
+    if _is_footnote_marker(serial) and _to_int(sequence) > 50:
+        return seq
     return f"{_to_arabic_digits(serial)} / {seq}"
 
 
@@ -245,8 +267,87 @@ def _is_footnote_marker(value: str) -> bool:
 def _is_heading(line: str) -> bool:
     # Keep tatweel because many editions use it as the printed separator in
     # headings, e.g. "١ ـ باب ...".
-    plain = HARAKAT_RE.sub("", line)
-    return bool(HEADING_RE.match(plain) or PAREN_HEADING_RE.match(plain))
+    plain = HARAKAT_RE.sub("", line).replace("\u200c", " ").strip()
+    return bool(
+        HEADING_RE.match(plain)
+        or PAREN_HEADING_RE.match(plain)
+        or PLAIN_HEADING_RE.match(plain)
+    )
+
+
+_EDITORIAL_COMMENTARY_PREFIXES = (
+    "\u0642\u0648\u0644\u0647",  # قوله
+    "\u0648 \u0642\u0648\u0644\u0647",  # و قوله
+    "\u0648\u0642\u0648\u0644\u0647",  # وقوله
+    "\u0648 \u0627\u0639\u0644\u0645",  # و اعلم
+    "\u0648\u0627\u0639\u0644\u0645",  # واعلم
+    "\u0647\u0643\u0630\u0627",  # هكذا
+    "\u0642\u064a\u0644",  # قيل
+    "\u0623\u064a ",  # أي
+    "\u0627\u0644\u0645\u0631\u0627\u062f",  # المراد
+    "\u064a\u0639\u0646\u064a",  # يعني
+    "\u0627\u0644\u0638\u0627\u0647\u0631",  # الظاهر
+    "\u0641\u064a \u0628\u0639\u0636 \u0627\u0644\u0646\u0633\u062e",  # في بعض النسخ
+    "\u0642\u0627\u0644 \u0627\u0644\u0641\u064a\u0636",  # قال الفيض
+    "\u0642\u0627\u0644 \u0627\u0644\u0645\u062c\u0644\u0633\u064a",  # قال المجلسي
+    "\u0627\u0644\u062d\u0635\u0631",  # الحصر
+    "\u0627\u0644\u0639\u0646\u0643\u0628\u0648\u062a:",  # العنكبوت:
+    "\u0647\u0648\u062f:",  # هود:
+    "\u062b\u0642\u0641\u0647",  # ثقفه
+    "\u0644\u0647\u0645\u0627 \u0645\u0646\u0639\u0647",  # لهما منعه
+    "\u0639\u0644\u064a\u0647 \u0623\u062c\u0631\u0627",  # عليه أجرا
+    "\u0648 \u0627\u0646 \u062a\u0637\u0626\u0648\u0627",  # و ان تطئوا
+    "\u0648 \u0623\u0646 \u062a\u0646\u062a\u0638\u0631\u0648\u0627",  # و أن تنتظروا
+    "\u0642\u0627\u0644: \u0648 \u0627\u0644\u0646\u0641\u0627\u0642 \u0639\u0644\u0649 \u0623\u0631\u0628\u0639",  # continuation
+    "\u0642\u062f \u0642\u0627\u0644 \u0627\u0644\u0646\u0628\u064a",  # continuation
+    "\u0631\u0648\u0627\u0647 \u0645\u0636\u0645\u0631\u0627",  # editorial: رواه مضمرا
+    "\u0648 \u0627\u0644\u0645\u0642\u0631\u0628\u0629",  # editorial: و المقربة
+)
+
+
+def _is_editorial_commentary_body(text: str) -> bool:
+    plain = strip_diacritics(text).strip()
+    return any(plain.startswith(prefix) for prefix in _EDITORIAL_COMMENTARY_PREFIXES)
+
+
+def _plain_text_with_raw_map(text: str) -> tuple[str, list[int]]:
+    """Strip Arabic marks while retaining the source index of every character."""
+    plain: list[str] = []
+    mapping: list[int] = []
+    for index, char in enumerate(text):
+        # Tatweel doubles as a printed number separator (``١ ـ ...``), so it
+        # must survive even though normal search normalisation removes it.
+        stripped = char if char == "\u0640" else strip_diacritics(char)
+        if not stripped:
+            continue
+        plain.append(stripped)
+        mapping.append(index)
+    return "".join(plain), mapping
+
+
+def _insert_numbered_variant_boundaries(text: str) -> str:
+    """Restore numbered ``ورواه`` routes printed without a dash.
+
+    Work on a diacritic-free shadow string while applying the two insertions
+    (newline before the serial, dash after it) to the untouched source text.
+    """
+    plain, mapping = _plain_text_with_raw_map(text)
+    if not plain:
+        return text
+
+    edits: list[tuple[int, str]] = []
+    for match in _INLINE_NUMBERED_VARIANT_PLAIN_RE.finditer(plain):
+        # These dashless variant routes use the chapter-local hadith number.
+        # Large numbers here are page/citation references inside apparatus
+        # (for example ``414 في رواية أخرى``), not report boundaries.
+        if _to_int(match.group(1)) > 50:
+            continue
+        if match.start() > 0 and plain[match.start() - 1] != "\n":
+            edits.append((mapping[match.start()], "\n"))
+        edits.append((mapping[match.end(1) - 1] + 1, "-"))
+    for position, insertion in sorted(edits, key=lambda item: item[0], reverse=True):
+        text = text[:position] + insertion + text[position:]
+    return text
 
 
 # Takhrij apparatus: «* (٢٢) الاستبصار ج ١ ص ٨٢ الكافي ج ١ ص ١٢...» — the
@@ -360,8 +461,14 @@ def _match_footnote(line: str, saw_hadith: bool) -> tuple[str, str] | None:
 
 
 def _insert_inline_boundaries(text: str) -> str:
+    # A page/verse number can be flattened directly before the real printed
+    # marker (``15- 9-``). It is never a legitimate two-number hadith label;
+    # remove the outer artefact before boundary detection.
+    text = NESTED_NUMBER_PREFIX_RE.sub("\n", text)
+    text = PAGE_NUMBER_BEFORE_HADITH_RE.sub("\n", text)
     text = NUMBER_BOUNDARY_RE.sub(r"\1\n", text)
     text = NUMBERED_HADITH_BOUNDARY_RE.sub("\n", text)
+    text = _insert_numbered_variant_boundaries(text)
     text = COMMENTARY_BOUNDARY_RE.sub(r"\1\n", text)
     text = INLINE_COMMENTARY_MARKER_BOUNDARY_RE.sub(r"\1\n", text)
     text = COMMENTARY_COLON_BOUNDARY_RE.sub(r"\1\n", text)
@@ -573,7 +680,7 @@ class PageHadithParser:
             self.units.append(ParsedUnit(kind="text", text=text, section_title=self.current_section))
             return
         previous = self.units[-1]
-        if previous.kind in {"hadith", "continuation", "text"}:
+        if previous.kind in {"hadith", "continuation", "text", "footnote"}:
             previous.text = f"{previous.text}\n{text}".strip()
         else:
             self.units.append(ParsedUnit(kind="text", text=text, section_title=self.current_section))
@@ -635,7 +742,17 @@ class PageHadithParser:
 
         bare_serial = BARE_SERIAL_RE.match(line)
         if bare_serial:
-            self.pending_serial = bare_serial.group(1)
+            if self.saw_hadith and line.rstrip().endswith("."):
+                self.units.append(
+                    ParsedUnit(
+                        kind="footnote",
+                        number=bare_serial.group(1),
+                        text="",
+                        section_title=self.current_section,
+                    )
+                )
+            else:
+                self.pending_serial = bare_serial.group(1)
             return
 
         bracket_dash = BRACKET_DASH_SEQ_START_RE.match(line)
@@ -658,6 +775,21 @@ class PageHadithParser:
                 self.current_section = body.strip()
                 self.units.append(
                     ParsedUnit(kind="heading", text=body.strip(), section_title=self.current_section)
+                )
+                self.pending_serial = None
+                return
+            if _is_editorial_commentary_body(body):
+                # Numbered verse/page references in the edition's footnotes
+                # can look exactly like hadith markers after HTML flattening.
+                # Keep them as apparatus and do not let them become the page's
+                # final hadith for cross-page continuation state.
+                self.units.append(
+                    ParsedUnit(
+                        kind="footnote",
+                        number=hadith_start.group(2),
+                        text=body.strip(),
+                        section_title=self.current_section,
+                    )
                 )
                 self.pending_serial = None
                 return

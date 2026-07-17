@@ -1,0 +1,1057 @@
+{
+  "schema_version": "alkafi_extent33_sarwar_republication_v1",
+  "created_at": "2026-07-16",
+  "publication_policy": "Exact Muhammad Sarwar source text only; no generated English, no HubeAli, and no publication until the 32 Arabic targets are present.",
+  "inputs": {
+    "structural_manifest": {
+      "path": "alkafi_extent33_source_repair_manifest_20260716.json",
+      "sha256": "6186515b5d4e02e532f8ef9d278db2c92608fd71cadf88e8993ad6802a435cd6"
+    },
+    "thaqalayn_api": {
+      "path": "C:\\Users\\taifh\\AppData\\Local\\Temp\\sarwar-alkafi-audit\\thaqalayn-api-alkafi.json",
+      "sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2"
+    }
+  },
+  "records": [
+    {
+      "public_id": "alkafi-211",
+      "hadith_id": 19688,
+      "sequence_in_book": 212,
+      "translation_id": 15142,
+      "segment_ids": [
+        15146
+      ],
+      "job_item_ids": [
+        15472
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 1,
+        "remote_id": 213,
+        "url": "https://thaqalayn.net/hadith/1/2/22/12",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "d31f683807bb52d02befe1e97a2c3bf2f5a636bbb4c7ba3a5463f01026fae129",
+        "raw_english_sha256": "783b7d93ca8fe7f16b927da0e8cc424f90bb153fe8ad3545cbd9f5ceb1e9bf61",
+        "plaintext_english_sha256": "ffd78ba5d5e7052485f2d44ee4ce2445dd148a5f9e5c24b84b20126d5baff259",
+        "target_english_sha256": "ffd78ba5d5e7052485f2d44ee4ce2445dd148a5f9e5c24b84b20126d5baff259",
+        "bounded_prefix": false,
+        "boundary_phrase": null,
+        "removed_suffix_sha256": null
+      },
+      "target_arabic": {
+        "full_sha256": "6e5aad23149648d0661fee7274c009dc32421f95dfcd664c58a479d3d134c7d2",
+        "isnad_sha256": "ec832c166e7060b0cef8b467a22a53fcc0ccad8528e2804a0accdcd195fa1a5b",
+        "matn_sha256": "54d11e74718c3033003e2bbf2cd2fabbcf0b70ed273ea86da6f67ec4107b6684"
+      },
+      "target_english": "12. Ali ibn Ibrahim has narrated from his father from al-Nawfali from al-Sakuni from abu ‘Abdallah from his ancestors (the Imams (a.s.) who have said the following. “Imam Ali (a.s.) said, ‘There are two kinds of Sunnah, (traditions). There is a Sunnah in obligations and following such Sunnah is guidance and its disregard is misguidance. There is a Sunnah, (tradition), in none obligatory issue. The following of this kind of Sunnah is a virtuous deed and its disregard for other matters is a sin.’”"
+    },
+    {
+      "public_id": "alkafi-426",
+      "hadith_id": 19903,
+      "sequence_in_book": 427,
+      "translation_id": 665,
+      "segment_ids": [
+        668
+      ],
+      "job_item_ids": [
+        668
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 1,
+        "remote_id": 427,
+        "url": "https://thaqalayn.net/hadith/1/3/35/4",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "b69429c6ec531f5c331df40951918ea21ccf134da90025eb0d3a76b7a934d65c",
+        "raw_english_sha256": "b7496d9ee83d25e1ff4c07e0d55df57a14669e0f8f2d8efab2b9196ff784b693",
+        "plaintext_english_sha256": "bfa65e1c8befa32463a63df14740781c82b8b81d47649b299ac66b4d9cae08e8",
+        "target_english_sha256": "0e8cdb033a189b8dfb9f3fa7ef971b9eb4c963f0eb552d3da995e4c9c1832614",
+        "bounded_prefix": true,
+        "boundary_phrase": "This is the end of the Book on the Oneness of Allah of al-Kafi.",
+        "removed_suffix_sha256": "ff29a0bde1ad6c6f6f202e7e2032daa4f9a259ac6006b53172a6fc032f9c053e"
+      },
+      "target_arabic": {
+        "full_sha256": "16cb6eecd4389507872a0282091a897867a0db08b1aa065362ad9083849d6524",
+        "isnad_sha256": "50e601958fe0649967aa59c5ae3d70de70f8c7b26e0ad65386346704743acb3a",
+        "matn_sha256": "56e01b0f08427d71fd9ad249aa1b3547b8bd541ac74cc75ce50316ea1274a8d8"
+      },
+      "target_english": "Abu Ali al-Ash‘ari has narrated from Muhammad ibn ‘Abd al-Jabbar from Safwan ibn Yahya from Muhammad ibn Marwan from Fudayl ibn Yasar the following: “Once I asked abu ‘Abd Allah (a.s.), ‘Can we invite people to this belief (the belief of the Shi’a Muslims)?’ He said, ‘No, do not invite them, O Fudayl. When Allah wants good for a servant of His, He orders an angel to grab him by his neck and then enters him in this belief compelled or willing.’”"
+    },
+    {
+      "public_id": "alkafi-934",
+      "hadith_id": 20411,
+      "sequence_in_book": 935,
+      "translation_id": 13442,
+      "segment_ids": [
+        13446
+      ],
+      "job_item_ids": [
+        13725
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 1,
+        "remote_id": 936,
+        "url": "https://thaqalayn.net/hadith/1/4/81/19",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "468d98a47dd0569dfcd5e5d63da8abcb48764f297493c6fb9bf3b75cbb85d08a",
+        "raw_english_sha256": "ef00d938c67a5864d9d79b3522c06e4a093fe4595291f0450f1de4fe2cddb1ec",
+        "plaintext_english_sha256": "0c9e2beda2a53d02d8cd2fe5cff2b5014a97e481aab23f432f1b206708f1df34",
+        "target_english_sha256": "0c9e2beda2a53d02d8cd2fe5cff2b5014a97e481aab23f432f1b206708f1df34",
+        "bounded_prefix": false,
+        "boundary_phrase": null,
+        "removed_suffix_sha256": null
+      },
+      "target_arabic": {
+        "full_sha256": "03ca223efa519d55140bc5aadfdd0c9addd2139bcf94f62c18f007c04fd2f828",
+        "isnad_sha256": "5ff612ef9e63d76f392382720a370adfe40ecf867bd50182efa4e37fc5a51a88",
+        "matn_sha256": "609618eeec8b94b18f5a9846aee061b78158247fcc2c64cfd8f4e2c585a59f54"
+      },
+      "target_english": "19. And by this chain, from Abdullah bin Ibrahim Al Ja'fari who said, ‘Yahya bin Abdullah bin Al-Hassan wrote to Musa bin Ja’far (AS), ‘Following on from that, I hereby bequeath myself to fear Allah, and by it I bequeath you, for it is a bequest of Allah among the former ones and His bequest among the later ones. They have informed me, the ones who came to me, from the supporters of Allah upon His religion and (those who) spread His obedience, with what has been from your sympathy and your abandonment (of us), and I had consulted regarding the claiming to the satisfaction from the family of Muhammad (sw), You have concealed it, and your father concealed it before you. In the past, you claimed what was not rightfully yours, and you extended your hopes to what Allah did not grant you. Consequently, you were seduced and led astray. I am warning you of what Allah has warned against from Himself.’. So Abu Al-Hassan Musa bin Ja’far wrote to him: ‘(This letter is) from Musa bin Abu Abdullah Ja’far and Ali, both participants in the humbleness to Allah and His obedience, to Yahya Bin Abdullah Bin Hassan – Following on from that, I caution you of Allah and myself and let you know of the pain of His punishment and the intensity of His retribution, and completion of His curse, and I bequeath you and myself with the fear of Allah for it is the beautiful speech and the affirmation of the bounties. Your letter came to me mentioning therein that I am claiming, and so did my father from before, and you have not heard that from me, and 'Their evidence shall be written down and they shall be questioned' (43;19), and the greed of the world and its seeking does not leave for its owners the seeking of the Hereafter until it spoils it upon them the seeking of their Hereafter in their world. And you mentioned that I am blocking the people from you for my desire regarding what is in your hands. And If I was desirous (as such), it would not be the weakness from the Sunnah, nor the scarcity of insight with proof what would prevent me from entering into that which you are in, but Allah, the Most Blessed and High, created the people with variations, of different instincts. So inform me about two words I am asking you about. What is Al-Atraf in your body and what is Al-Sahlaj in the human being? Then write to me with the information of that and I shall proceed to you. I caution you from disobeying the caliph and urge you upon being good to him and obey him, and you should seek security for yourself before the claws seize you and the pressures choke you from every place, so you would look for rest for yourself from every place but will not find it until Allah favours upon you with a favour and His grace, the kindness of the caliph, may Allah cause him to remain, so he would grant you security and preserve regarding you the relationship of the Messenger of Allah. And the greetings be upon the one who follows guidance. It has been revealed unto us that punishment is to be upon the one who lies and turns away’. Al-Ja’fari said, ‘(News) reached me that the letter of Musa bin Ja’far fell into the hands of Harun (Al-Rashid, the Abbasid caliph), so when he read it, said: ‘The people are carrying me to go against Musa bin Ja’far and he is away (innocent) from what he is being accused with’."
+    },
+    {
+      "public_id": "alkafi-1073",
+      "hadith_id": 20550,
+      "sequence_in_book": 1074,
+      "translation_id": 15146,
+      "segment_ids": [
+        15150
+      ],
+      "job_item_ids": [
+        15476
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 1,
+        "remote_id": 1073,
+        "url": "https://thaqalayn.net/hadith/1/4/105/8",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "f23213202b8d70f33cefda3ba5302980bf5da2b901f777d21a5b793df547e020",
+        "raw_english_sha256": "3217a080d1fda9abd89915ff4d98cde8a2127d8951380c48294466f2e7b1805f",
+        "plaintext_english_sha256": "c4f6ba6b5a0bba545cb1e1314da57d7886474b27ad0e6b627a2eb64c037e8ca8",
+        "target_english_sha256": "c4f6ba6b5a0bba545cb1e1314da57d7886474b27ad0e6b627a2eb64c037e8ca8",
+        "bounded_prefix": false,
+        "boundary_phrase": null,
+        "removed_suffix_sha256": null
+      },
+      "target_arabic": {
+        "full_sha256": "12461c309df510f4645b4a0c34064d75daf631ef3b44604611a243e1725e19ef",
+        "isnad_sha256": "95de76e2a661f177a67bf00feed8a6dda3336b6d1b739161649a641b7dcbd392",
+        "matn_sha256": "7567b6332da22f1685e8436dcc07498fc68f894968d62b50c41e695f1792733e"
+      },
+      "target_english": "8. Muhammad ibn ’Isma‘il has narrated from al-Fadl ibn Shadhan and Ali ibn Ibrahim from his father all from Ibn Abi ‘Umayr from Hafs ibn al-Bakhtari from abu ‘Abdallah (a.s.) who has said the following. “Jibril dug with his foot five rivers and the flank of water would follow his foot. These rivers were, Euphrates, Tigris, Nile, Mihran and the River of Balkh. Whatever these rivers provide water or whatever that takes water from them are the property of the Imam. The ocean that has circled the land belongs to the (Imam). Ali ibn Ibrahim has narrated from al-Sarriy ibn al-Rabi‘ who has said the following. “Ibn abu ’Umayr would not consider anyone a match of Hisham ibn al-Hakam in anything. He would not miss meeting him. However, their relations at a time stood at a distance. The reason for this was the emrgence of diffirences between Ibn Abi ‘Umayr and and abu Malik al-Hadrami, a friend of Hisham, over the issue of Imamat. Ibn abu ‘Umayr had said that the whole world belongs to the Imam in the form of property and ownership and that he has more authority over it than those who have certain parts of it in their possession. Abu Malik had said that it is not as suCh The peoples properties belong to them except what Allah has given to the Imam in the form of windfall profits and one fifth taxes or interests. Such properties belong to the Imam and Allah has instructed him how to spent them and what to do with them. They agreed to ask Hisham to settle the differences. They went to Hisham but he supported the idea of abu Malik. Ibn abu ‘Umayr became angry and distanced himself from Hisham thereafter.”"
+    },
+    {
+      "public_id": "alkafi-3591",
+      "hadith_id": 23068,
+      "sequence_in_book": 3593,
+      "translation_id": 15148,
+      "segment_ids": [
+        15152
+      ],
+      "job_item_ids": [
+        15478
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 2,
+        "remote_id": 2139,
+        "url": "https://thaqalayn.net/hadith/1/3/14/28",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "c38236ba8774c615ec968f2a0b20dc36348a4e6db3feccc34521d26b11edca3f",
+        "raw_english_sha256": "3dba34e7a79c4850209fc631a33579ad2baab23d6c913843f88277a8a40db583",
+        "plaintext_english_sha256": "3dba34e7a79c4850209fc631a33579ad2baab23d6c913843f88277a8a40db583",
+        "target_english_sha256": "3dba34e7a79c4850209fc631a33579ad2baab23d6c913843f88277a8a40db583",
+        "bounded_prefix": false,
+        "boundary_phrase": null,
+        "removed_suffix_sha256": null
+      },
+      "target_arabic": {
+        "full_sha256": "c242dd2c02b6985693468ace594015ea95a82c488cbe2bb49db82ce763edd1eb",
+        "isnad_sha256": "23d71c13eadf8275df966626abb492f8491c6692b479bb5d21610ca26f0032f0",
+        "matn_sha256": "c966bce5294e29105a54285df7c366c2943fca0576dbafecf87d49537bc8156f"
+      },
+      "target_english": "28. Ali ibn al-Hakam has narrated from Hisham ibn Salim from Abu ‘Abdillah (a.s.) who said: “The Quran that Jibril (as) brought to Muhammad (sw) had seventeen thousand verses.”"
+    },
+    {
+      "public_id": "alkafi-4134",
+      "hadith_id": 23611,
+      "sequence_in_book": 4137,
+      "translation_id": 15149,
+      "segment_ids": [
+        15153
+      ],
+      "job_item_ids": [
+        15479
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 3,
+        "remote_id": 339,
+        "url": "https://thaqalayn.net/hadith/1/1/46/17",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "1453f22497c544a9995cc7246244fff12ed268513c6075ff6508e9c230b73f9a",
+        "raw_english_sha256": "d602acc2ab66d5c4088929db55be01824ebf193c987cdfc5184f32cc165858b1",
+        "plaintext_english_sha256": "03ee090afbf21f0c21a4e18923247d8f5abe38a1d15250e9966992f31fe65afc",
+        "target_english_sha256": "03ee090afbf21f0c21a4e18923247d8f5abe38a1d15250e9966992f31fe65afc",
+        "bounded_prefix": false,
+        "boundary_phrase": null,
+        "removed_suffix_sha256": null
+      },
+      "target_arabic": {
+        "full_sha256": "7e702b460efa5bbf97c2616accf97f371decf373f0ea304b43d5b6fda1ae49f7",
+        "isnad_sha256": "75093fe07d0f00e839e925231dca08e7f66a336ffdfcff325ff6fe6884cbecda",
+        "matn_sha256": "59eea87378a15a7b82a634252fbe5f89858a64c96522b9d0f6a812402cb113cc"
+      },
+      "target_english": "17. Muhammad ibn Yahya has narrated from Ahmad ibn Muhammad from al-Barqiy from Sa‘d ibn Sa‘d from Safwan who has said the following: “I once asked abu al-Hassan (a.s.), about a man who needs to take Wudu’ for Salah (prayer). However, he is not able to find water. He finds a certain amount of water which is enough for his Wudu’ but it costs one hundred dirham or one thousand dirham. He has that much dirham to buy and take Wudu’, should he buy the water or instead take Tayammum? He (the Imam) said, ‘No, he must buy. This kind of thing has happened to me and I bought water to take Wudu’. What is bought (in this case) is a great deal.’” (For such Ahadith about an act or issue of the five categories of deeds the qualities such as Wujub, (Obligatory), Hurmat (Prohibited), Istihbab (Preference), Kirahat (Detestability) or Ibahah (Permissibility) one must consult fatwas of one’s Mujtahid.)"
+    },
+    {
+      "public_id": "alkafi-4227",
+      "hadith_id": 23704,
+      "sequence_in_book": 4230,
+      "translation_id": 15151,
+      "segment_ids": [
+        15155
+      ],
+      "job_item_ids": [
+        15481
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 3,
+        "remote_id": 432,
+        "url": "https://thaqalayn.net/hadith/1/2/25/1",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "89f20fa19b08094c304a88e07fb0286935dcce63792d203119322b4a38683a07",
+        "raw_english_sha256": "9ac427d76852e03ecf2b1bd7ca714f710141b4e0170325464d0cff2635d2fa64",
+        "plaintext_english_sha256": "c99b3ff867abc64623ef75148851c0140b9effd614d4fe65c645302c1b59a9c3",
+        "target_english_sha256": "c99b3ff867abc64623ef75148851c0140b9effd614d4fe65c645302c1b59a9c3",
+        "bounded_prefix": false,
+        "boundary_phrase": null,
+        "removed_suffix_sha256": null
+      },
+      "target_arabic": {
+        "full_sha256": "76c9a4873844f85a07572d7754b4a9a547fcfb2a7b61a88a9efaaf056c662b55",
+        "isnad_sha256": "897302e82096073c53691d2bd3d10c973897eead073ee85b8331d63306a00d42",
+        "matn_sha256": "616fd81ec5ac04eeb209dfd2f25b1966b9cec60065c7f57cc696a3e1f58c7e38"
+      },
+      "target_english": "1. Muhammad ibn ’Isma‘il has narrated from al-Fadl ibn Shadhan from Ibn Abi ‘Umayr from Mu‘awiyah ibn ‘Ammar who has said the following: “I once asked abu ’Abd Allah (a.s.), about the woman who during her Hayd (menses) brings water for the man. He (the Imam) said, ‘Wives of the Holy prophet, would pour water on him during their experiencing Hayd (menses) and furnish for him prayer mat.”’"
+    },
+    {
+      "public_id": "alkafi-4295",
+      "hadith_id": 23772,
+      "sequence_in_book": 4298,
+      "translation_id": 15152,
+      "segment_ids": [
+        15156
+      ],
+      "job_item_ids": [
+        15482
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 3,
+        "remote_id": 500,
+        "url": "https://thaqalayn.net/hadith/1/3/12/2",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "5506d0ca4c3644cdf0769077713bf399574964ba9e97edb196f611d615121f03",
+        "raw_english_sha256": "891d5766a45c6455aa36b111108c37dd281eb3803c0594fe71c434700bbf25db",
+        "plaintext_english_sha256": "e17a2fc7d3d12fbbe73419b85b97f67cf377197dbac440a1640aad62c398c706",
+        "target_english_sha256": "e17a2fc7d3d12fbbe73419b85b97f67cf377197dbac440a1640aad62c398c706",
+        "bounded_prefix": false,
+        "boundary_phrase": null,
+        "removed_suffix_sha256": null
+      },
+      "target_arabic": {
+        "full_sha256": "983e49f2bca9f99bc091a345d8ec55a610b0a1763b2e8cd7831736eb15d3f112",
+        "isnad_sha256": "6c07380ada424487004948f8d623f3fccd71b8941784e3e9ce2eff75bbbe51a6",
+        "matn_sha256": "74cc22add54af88a0a75a5d0b026c6a59e7cb0b4d470cc566ec3ac8f398c441c"
+      },
+      "target_english": "2. A number of our people have narrated from Sahl ibn Ziyad from Muhammad ibn Sulayman from his father from Sadir al-Sayrafiy who has said the following: “Once I said to abu ‘Abd Allah (a.s.), ‘May Allah keep my soul in the service of your cause, O child of the Messenger of Allah, is a believing person forced to die?’ He said, ‘No, by Allah, but when the angel of death comes to take his soul away, he is frightened; and the angel of death then says to him, “O friend of Allah, do not be frightened. I swear by the One who has sent Muhammad, O Allah grant compensation to Muhammad and his family worthy of their services to Your cause, I am more kind and caring to you than a kind-hearted father ready (to help). Open your eyes and look.’” He said, ‘Figures of the Messenger of Allah, ’Amir al-Mu’minin, Fatimah, al-Hassan and al-Husayn, ‘Alayhim al-Salam, and all ’A’immah, from their descendents appear before him, and it is said to him, “There are the Messenger of Allah, ’Amir al-Mu’minin, Ali, Fatimah, al-Hassan, al-Husayn and all ’A’immah, ‘Alayhim al-Salam, your friends.’” He (the Imam) then said, ‘He then opens his eyes, and looks and his soul is called by a caller from the Lord of Majesty saying, “O peaceful soul, [in the company of Muhammad and his family] come back to your Lord with pleasure [under the guardianship of Muhammad and his family] and pleased [with the rewards from your Lord]. Enter in the company of My servants [Muhammad and his family] in paradise.” There is then nothing more beloved to him than allowing his soul to go and join the caller.’”"
+    },
+    {
+      "public_id": "alkafi-4474",
+      "hadith_id": 23951,
+      "sequence_in_book": 4477,
+      "translation_id": 13639,
+      "segment_ids": [
+        13643
+      ],
+      "job_item_ids": [
+        13933
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 3,
+        "remote_id": 678,
+        "url": "https://thaqalayn.net/hadith/1/3/48/5",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "83e9178fb9cb688cec0fc2d995fde9e3a4202fac89ada8f5b135511f17a157e8",
+        "raw_english_sha256": "4135f6db20f92fc372f826dfd3d91e5c0b166fe380c8f41f80b6043f9680e4af",
+        "plaintext_english_sha256": "7c76d38601e5abd3b1628343e1c45081f06d86b23dc8bbe327dc3c430947ae7e",
+        "target_english_sha256": "7c76d38601e5abd3b1628343e1c45081f06d86b23dc8bbe327dc3c430947ae7e",
+        "bounded_prefix": false,
+        "boundary_phrase": null,
+        "removed_suffix_sha256": null
+      },
+      "target_arabic": {
+        "full_sha256": "d8546f8a788d5cdfa5ec2e638bacaf216e70926292b7634696b7d48297d1ca6c",
+        "isnad_sha256": "bcdd02af79bc7f87dd4657574821885aae8b8a2849375f60b69763aca81f7081",
+        "matn_sha256": "42392cc218d710abae7502ae66dfcee499e5d5e20a6931eb529a8873d4345a54"
+      },
+      "target_english": "5. A number of our people have narrated from Sahl ibn Ziyad Ahmad ibn Muhammad from ibn abu Nasr from certain persons of our people who has said the following: “Abu ‘Abd Allah (a.s.), has said, ‘The nearest relative performs Salah (prayer) for a deceased or one whom such relative likes to perform Salah (prayer).”’"
+    },
+    {
+      "public_id": "alkafi-4772",
+      "hadith_id": 24249,
+      "sequence_in_book": 4775,
+      "translation_id": 15153,
+      "segment_ids": [
+        15157
+      ],
+      "job_item_ids": [
+        15483
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 3,
+        "remote_id": 975,
+        "url": "https://thaqalayn.net/hadith/1/3/95/46",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "36854f51c5d0f582bad13de5d2eb895e398b71557eb3f8aba2901f261621ba49",
+        "raw_english_sha256": "2394af7b8cb7751fdb4b2790115a7c8774e5b18303e9e1a08e915c5a877f124a",
+        "plaintext_english_sha256": "2394af7b8cb7751fdb4b2790115a7c8774e5b18303e9e1a08e915c5a877f124a",
+        "target_english_sha256": "2394af7b8cb7751fdb4b2790115a7c8774e5b18303e9e1a08e915c5a877f124a",
+        "bounded_prefix": false,
+        "boundary_phrase": null,
+        "removed_suffix_sha256": null
+      },
+      "target_arabic": {
+        "full_sha256": "8aa465152b5309ff9410891bcc8125c24ea24ff27d61e8eea996b921eb70427d",
+        "isnad_sha256": "c7bf8c43b35dc4d7f2c6029da31ac59f67387dfcda0c51ec7377c8bd10d794e5",
+        "matn_sha256": "d6f9cbe41acd130023dd42a499e18e415f529a7ef4cb5dd917f73d65cf31ff19"
+      },
+      "target_english": "46. A number of our people have narrated from Sahl ibn Ziyad from Ali ibn Mahziyar who has said the following: “Once a man wrote to abu Ja’far (a.s.), and complained before him about his suffering the death of his son. He then has said that the Imam wrote back to him saying, ’You should be aware of the fact that Allah, the Most Majestic, the Most Glorious, chooses from the property and children of the believers the best ones, so He may reward him for it.’”"
+    },
+    {
+      "public_id": "alkafi-5698",
+      "hadith_id": 25175,
+      "sequence_in_book": 5703,
+      "translation_id": 15155,
+      "segment_ids": [
+        15159
+      ],
+      "job_item_ids": [
+        15485
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 3,
+        "remote_id": 1902,
+        "url": "https://thaqalayn.net/hadith/1/4/103/3",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "18fc6ddfe22f2b4bbaa9794901e31e5524e11c046e1fa55b533c89d4d92138a2",
+        "raw_english_sha256": "a8f4721655fd2c0c47dabb45065b4cf07c87bfdef2134eb7df4b8568878b4b8a",
+        "plaintext_english_sha256": "a8f4721655fd2c0c47dabb45065b4cf07c87bfdef2134eb7df4b8568878b4b8a",
+        "target_english_sha256": "a8f4721655fd2c0c47dabb45065b4cf07c87bfdef2134eb7df4b8568878b4b8a",
+        "bounded_prefix": false,
+        "boundary_phrase": null,
+        "removed_suffix_sha256": null
+      },
+      "target_arabic": {
+        "full_sha256": "5734cd5d586461c09777c4d2ac09b9439ec52fc5910ee8aa229b6c092a42f665",
+        "isnad_sha256": "bce57a8c565c7b8e0ff2ef42a969ad1416eb8175fdb43698755e6e73a87926d1",
+        "matn_sha256": "d37235de87ebdaef5bc4785f41b775e27a4174c3e5e9557da1250abec0869022"
+      },
+      "target_english": "3. It is a narration from him (narrator of previous Hadith) by ‘Amr ibn ‘Uthman from Hassan ibn Bakr from ‘Abd al-Rahman ibn Sa‘id al-Khazzaz who has said the following: “Abu ‘Abd Allah (a.s.), has said that in al-Kufah there is a Masjid called al-Sahlah Masjid. ‘Had my uncle, Zayd, visited it to perform Salah (prayer) and asked Allah to grant him refuge, He would have granted him refuge for twenty years. In it is the place where the rider disembarks for rest and the house of prophet Idris. There has never been anyone suffering hardships who visited this, performed two Rak‘at Salah (prayer) between the two Salah (prayer) after sunset and appealed to Allah for help whose wishes Allah did not make to come true and remove his hardships.’” “It is narrated that the limits of al-Sahlah Masjid extend up to al-Rawha.”"
+    },
+    {
+      "public_id": "alkafi-5743",
+      "hadith_id": 25220,
+      "sequence_in_book": 5748,
+      "translation_id": 15156,
+      "segment_ids": [
+        15160
+      ],
+      "job_item_ids": [
+        15486
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 3,
+        "remote_id": 1947,
+        "url": "https://thaqalayn.net/hadith/1/5/3/3",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "441b143fe56d6673990fd8deac7e405efa820cffa8d711f21c4b603c34e9b9d9",
+        "raw_english_sha256": "4bb5f2f6fa5b3658f45634f207d28c7ca3d86a74c4bc5a9f535f3de91ea0c037",
+        "plaintext_english_sha256": "33575012a99c81f75e1a116d6df9e8ba1e690870860e6d433a70b4ff4d002b07",
+        "target_english_sha256": "33575012a99c81f75e1a116d6df9e8ba1e690870860e6d433a70b4ff4d002b07",
+        "bounded_prefix": false,
+        "boundary_phrase": null,
+        "removed_suffix_sha256": null
+      },
+      "target_arabic": {
+        "full_sha256": "33fe06de085079bae7de337492d31bb153c85064f46ba81c3bb0a81891ffb282",
+        "isnad_sha256": "a0fa6e43f2ebb37a7c5c45b159c2132bb5d8d3ef393a27dfef12548009d7a3f7",
+        "matn_sha256": "5ad51aceb4ad125df0da9c2c02969f3ef6141ce181a74d88d0069d9d569e98d9"
+      },
+      "target_english": "3. Ahmad ibn Idris and others have narrated from Muhammad ibn Ahmad from Ibrahim ibn Muhammad from Muhammad ibn Hafs from Sabah al-Hadhdha’ from Quthama who has said the following: “I once said to abu ‘Abd Allah (a.s.), ‘I pray to Allah to keep my soul in service for your cause, why the amount of zakat on every one thousand is twenty-five and not less or more and what is the reason?’ He (the Imam) replied, ‘Allah, the Most Majestic, the Most Glorious, created all people, small, large, wealthy and poor. He made twenty-five destitute ones in every one thousand. If this much did not suffice, He would have levied more; He is their Creator and He knows more about them than they do.’”"
+    },
+    {
+      "public_id": "alkafi-6228",
+      "hadith_id": 25705,
+      "sequence_in_book": 6233,
+      "translation_id": 13721,
+      "segment_ids": [
+        13725
+      ],
+      "job_item_ids": [
+        14017
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 4,
+        "remote_id": 252,
+        "url": "https://thaqalayn.net/hadith/1/1/43/5",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "ab52c656a6b04fcf5cd599caee2535a036f077e099eba74c5b16e8f43b150a83",
+        "raw_english_sha256": "94b998f028d09b739e5cf9dfd3e8ea39e127bebb23be91f344bd471b6a604425",
+        "plaintext_english_sha256": "3d10d4e176a5d0d0409516b25955defd010d7095a99dd439d5a22d548b592275",
+        "target_english_sha256": "3d10d4e176a5d0d0409516b25955defd010d7095a99dd439d5a22d548b592275",
+        "bounded_prefix": false,
+        "boundary_phrase": null,
+        "removed_suffix_sha256": null
+      },
+      "target_arabic": {
+        "full_sha256": "dc08b27949f57ef4b3dac414befcd99616e750c4080adbdebb07030c15af8e04",
+        "isnad_sha256": "35935a0e95f2f89790bf3474dd9919cfd59fbda8658fdd199ab531a21c2ebf32",
+        "matn_sha256": "f90be70e5e850d6d6fd1259aad133a824fff3d6ce3f61a391a40c84389597aa5"
+      },
+      "target_english": "5. A number of our people have narrated from Sahl ibn Ziyad from Ali ibn Hassan from Musa ibn Bakr who has said the following: “Abu al-Hassan, Musa (a.s.), has said, ‘Fortify your belongings by paying zakat.’”"
+    },
+    {
+      "public_id": "alkafi-6283",
+      "hadith_id": 25760,
+      "sequence_in_book": 6288,
+      "translation_id": 15157,
+      "segment_ids": [
+        15161
+      ],
+      "job_item_ids": [
+        15487
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 4,
+        "remote_id": 307,
+        "url": "https://thaqalayn.net/hadith/1/2/8/1",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "d9d95bf9b0e9e27f98601a575bf2d830dcf96b538f6f1e9d726089bf3d52fb1e",
+        "raw_english_sha256": "c5b23adb8923e7ea05ba0c435fbca74d1d02b005ea6181888aa60e142cbb5ecf",
+        "plaintext_english_sha256": "bb0ffe126940ce2861582e2521b6fbce55c4db61c6a0be971d25605a5bd57aa8",
+        "target_english_sha256": "bb0ffe126940ce2861582e2521b6fbce55c4db61c6a0be971d25605a5bd57aa8",
+        "bounded_prefix": false,
+        "boundary_phrase": null,
+        "removed_suffix_sha256": null
+      },
+      "target_arabic": {
+        "full_sha256": "978c671385bc012c9b293916837766ffd6e0fedda783430392abb07afbb9a839",
+        "isnad_sha256": "340a4ac288dddd45ce247dafce0b2b1f864e0ae12627e0c97eb4b18e604298bb",
+        "matn_sha256": "38899ce1f3a86ac8a7e2e5a5068a2f534fc231617c0623597874b451c83dfdca"
+      },
+      "target_english": "1. Ali ibn Muhammad has narrated from certain persons of our people from Muhammad ibn ‘Isa [ibn ‘Ubayd] from Ibrahim ibn Muhammad al-Madaniy from ‘Imran Za‘faraniy who has said the following: “I once said to abu ‘ Abd Allah (a.s.), that in Iraq the sky remains cloudy for one, two or three days. Which day must we fast?’ He (the Imam) said, ‘Think which day you fasted last year and fast on fifth day.”’"
+    },
+    {
+      "public_id": "alkafi-6681",
+      "hadith_id": 26158,
+      "sequence_in_book": 6686,
+      "translation_id": 6394,
+      "segment_ids": [
+        6397
+      ],
+      "job_item_ids": [
+        6499
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 4,
+        "remote_id": 706,
+        "url": "https://thaqalayn.net/hadith/1/2/83/7",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "f0009dc8ceb1af2d4b8c65808f522761d5a61b644fffa81be5fb95784f42820c",
+        "raw_english_sha256": "1e1c9d4c5616cba3df5db32ec4a5987430e6914c0818afcde569642362eaa4ec",
+        "plaintext_english_sha256": "e31ac9b5420e67211ee315e49eb5d767ed58489b2a9ef9567a02ecd9ca6eed9c",
+        "target_english_sha256": "e31ac9b5420e67211ee315e49eb5d767ed58489b2a9ef9567a02ecd9ca6eed9c",
+        "bounded_prefix": false,
+        "boundary_phrase": null,
+        "removed_suffix_sha256": null
+      },
+      "target_arabic": {
+        "full_sha256": "ee6468c1cab3060030d4afa22722fcd5f6af4572a0f913be36cbafa72127304e",
+        "isnad_sha256": "2159e0d273d65e17bf77325e1022fd3169b04e2c5408c4db3441301c846eff08",
+        "matn_sha256": "baa37794bd7898dfd183495d8ec1c02f799b666dc6a70c6be304e10d86ed984d"
+      },
+      "target_english": "7. Ali ibn Muhammad has narrated from ‘Abd Allah ibn Ishaq from al-Hassan ibn Ali ibn Sulayman from Muhammad ibn ‘Imran who has said the following: “Abu ‘Abd Allah (a.s.), has said that once when ’Amir al-Mu’minin was in the Masjid of al-Kufa, a certain people, who were found eating during the day in the month of Ramadan were brought before him. ’Amir al-Mu’minin asked them, ‘Did you eat while you were not fasting?’ They replied, ‘Yes, we did so.’ He (the Imam) then asked, ‘Are you Jews?’ They replied, ‘No, we are not Jews.’ He (the Imam) asked, ‘Are you Christians?’ They replied, ‘No, we are not Christians.’ He (the Imam) then asked, ‘Which religion that is different from Islam do you follow?’ They replied, ‘We are Muslims.’ He (the Imam) asked, ‘Are you travelers?’ They replied, ‘No, we are not travelers.’ He (the Imam) asked, ‘Do you have some kind of illness that made you not to fast and that we do not realize, but of which you are more aware than we are? Allah, the Most Majestic, the Most Glorious, has said, “Man is aware of himself. . . .” (75:14) They replied, ‘We have no illness.’ ’Amir al-Mu’minin then laughed and said, ‘Do you testify that no one deserves worship except Allah, and Muhammad is the Messenger of Allah?’ They replied, ‘We testify that no one deserves worship except Allah, but we do not know Muhammad.’ He (the Imam) said, ‘He is the Messenger of Allah.’ They replied, ‘We do not know him to be as such. He was only an Arab person who called people to himself.’ He (the Imam) then said, ‘If you do not testify that Muhammad is the Messenger of Allah, O Allah, grant compensation to Muhammad and his family worthy of their services to Your cause, I will execute you.’ They replied, ‘Do as you wish.’ He then ordered Shurta al-Khamis (special police) to guard and take them behind the city of Kufa. He ordered them to dig two ditches next to each other with a hole joining the two ditches. He (the Imam) then said to them, ‘I will place you in one of these two ditches and start a fire in the other one and make you die because of smoke.’ They said, ‘Do as you wish. This life ends anyway.’ They were gently placed in the ditch, then he (the Imam) gave the order to start a fire in the other ditch and kept calling them repeatedly; each time they replied, ‘You can do as you wish,’ until they died. He then returned, but the news spread and people spoke about it. One day he (the Imam) was in the Masjid when a Jewish man from Yathrib, whom all Jews of Yathrib confirmed to be the most knowledgeable one among them, as was his ancestors, and a group of people of his family, came to ’Amir al-Mu’minin. When they arrived near the great Masjid of al-Kufa, they disembarked, then stood at the door of the Masjid and sent someone to ’Amir al-Mu’minin with a message that said, ‘We are a group of Jewish people. We have come from Hijaz and we need to speak to you. Do you want to come out or should we enter to see you?’ The narrator has said that he (the Imam) then went out to them, saying, ‘They will soon enter and begin with oath. What do you need?’ The chief person among them asked, ‘O son of abu Talib, what is this innovation that you have introduced in the religion of Muhammad (SAW)?’ He (the Imam) then asked, ‘What kind of innovation are you talking about?’ The Jewish man said, ‘People of Hijaz say that you executed by means of smoke certain men. They were a people who testified that it is only Allah who alone deserves worship but would not testify that Muhammad (SAW), is the Messenger of Allah.’ ’Amir al-Mu’minin said, ‘I swear you upon the nine miracles that were given to Moses (a.s.), on Mount Sinai. I swear you upon the five temples of al-Quds and the position of the Judge. Do you know that Usha‘ ibn Nun, after the death of Moses, before whom a people were brought who had testified that Allah alone deserves worship, but did not testify that Moses was the Messenger of Allah, executed them the way I did?’ The Jewish man replied, ‘Yes, I testify that you are a keeper of the secrets of Moses.’ The narrator has said that he then took out of the pocket of his gown a book (letter) and gave it to ’Amir al-Mu’minin who opened it, looked at it and wept. The Jewish man then asked, ‘What makes you weep, O son of abu Talib? You just looked at a letter that is in the Suryaniy language, and you are an Arab man. Do you know what is in it?’ ’Amir al-Mu’minin (a.s.), said to him, ‘Yes, I know. This is my name written in it.’ The Jewish man then asked, ‘Show me your name in this book (letter) and tell me what your name is in the Suryaniy language?’ The narrator has said, ‘’Amir al-Mu’minin (a.s.), showed him his name on the page and said, “My name in Suryaniy language is ‘Eliya’.” The Jewish man then said, ‘I testify that only Allah deserves worship, Muhammad (SAW), is the Messenger of Allah, and you are the executor of the will of Muhammad. I testify that you have more authority over the people than they themselves do after Muhammad (SAW).’ They pledged allegiance to ’Amir al-Mu’minin and entered the Masjid, and said, ‘All praise belongs to Allah before whom I was not forgotten. All praise belongs to Allah who listed me in the book (page) before Him along with the virtuous ones. All praise belongs to Allah, the owner of glory and honor.’”"
+    },
+    {
+      "public_id": "alkafi-8169",
+      "hadith_id": 27646,
+      "sequence_in_book": 8175,
+      "translation_id": 13816,
+      "segment_ids": [
+        13820
+      ],
+      "job_item_ids": [
+        14112
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 4,
+        "remote_id": 2190,
+        "url": "https://thaqalayn.net/hadith/1/3/237/9",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "f9dd123e6bac633a7e8b52ef695a252444c7ae257fc7e03a8724e309e49c5864",
+        "raw_english_sha256": "9c46ac9c617cb379dd3feb76e9450f4e49200c68b994ba2249411a5ca57c8bbd",
+        "plaintext_english_sha256": "9c46ac9c617cb379dd3feb76e9450f4e49200c68b994ba2249411a5ca57c8bbd",
+        "target_english_sha256": "9c46ac9c617cb379dd3feb76e9450f4e49200c68b994ba2249411a5ca57c8bbd",
+        "bounded_prefix": false,
+        "boundary_phrase": null,
+        "removed_suffix_sha256": null
+      },
+      "target_arabic": {
+        "full_sha256": "94ac3423970d6476607a34d235aedbb776203a78eebd8b79331dcd2b8f1d5922",
+        "isnad_sha256": "b8f8f42e552f2fd09f89dc19cd4a5cc7f24ae978c3f64a9539722fa2f1f8c832",
+        "matn_sha256": "61d7bf0f5e406d130c945d5e13b6d509fade4e964409340a24b614e9bfcb1583"
+      },
+      "target_english": "9. Afi ibn Ibrahim has narrated from his father from certain individuals of his from Harun ibn Kharijah who has said the following: “In the middle of the month of Sha‘ban an announcer announces from the high horizon, ‘O visitors of al-Husayn (a.s.), you may return home. Your sins are forgiven and your reward is with your Lord and Muhammad (SAW), Your prophet.’”"
+    },
+    {
+      "public_id": "alkafi-8321",
+      "hadith_id": 27798,
+      "sequence_in_book": 8327,
+      "translation_id": 13830,
+      "segment_ids": [
+        13834
+      ],
+      "job_item_ids": [
+        14129
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 5,
+        "remote_id": 150,
+        "url": "https://thaqalayn.net/hadith/1/1/32/6",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "8cce2815ceb99dc76d27d9271d2b295c8086194bbfd62a2ce7d09022841b4bfa",
+        "raw_english_sha256": "f10b656f786b187643bc3936114f6777f2039e3c70227802edbc26366e3517db",
+        "plaintext_english_sha256": "96dfb4dacadbd04796fc7280b0546f57534609ea8c0441f70ee51b448e4b40d3",
+        "target_english_sha256": "96dfb4dacadbd04796fc7280b0546f57534609ea8c0441f70ee51b448e4b40d3",
+        "bounded_prefix": false,
+        "boundary_phrase": null,
+        "removed_suffix_sha256": null
+      },
+      "target_arabic": {
+        "full_sha256": "86631605e891e223103a237d854bd9d39ffc591bd96bf0c37c05c59279d4f159",
+        "isnad_sha256": "e150d51183e13a590754aa77cb785ea972140633e2949c453b471c0d84d3461e",
+        "matn_sha256": "407491078ea8053e75bfcd965b5385d01d1587909c7ffbdeff91d80fc46117a3"
+      },
+      "target_english": "6. Muhammad ibn Ahmad has narrated from ‘Abd Allah ibn al-Salt from Yunus from Sama‘ah who has said the following: “Abu ‘Abd Allah (a.s.), has said that Allah, the most Majestic, the most Glorious, has delegated all affairs of believers to them but He has not delegated him to humiliate himself. Has he not seen the words of Allah, the most Majestic, the most Glorious: ‘All honor belongs to Allah, His Messenger and the believers. . . .’ (63:7) Believers must stand honorable but not humiliated.’”"
+    },
+    {
+      "public_id": "alkafi-9383",
+      "hadith_id": 28860,
+      "sequence_in_book": 9389,
+      "translation_id": 15265,
+      "segment_ids": [
+        15269
+      ],
+      "job_item_ids": [
+        15596
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 5,
+        "remote_id": 1212,
+        "url": "https://thaqalayn.net/hadith/1/2/159/59",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "e59ec268f076a1c1fe603310753b53576b0a72db84b1dd1c45926e6309b9e746",
+        "raw_english_sha256": "3f44257c4c53de32b4caf93c1190eb9e128ab2d0a9cf7d7d8d6b380dc81f6792",
+        "plaintext_english_sha256": "e04b1f097fb95566906d8603d3a9e69350672e8d582794dedb904ba0f37be0dc",
+        "target_english_sha256": "e04b1f097fb95566906d8603d3a9e69350672e8d582794dedb904ba0f37be0dc",
+        "bounded_prefix": false,
+        "boundary_phrase": null,
+        "removed_suffix_sha256": null
+      },
+      "target_arabic": {
+        "full_sha256": "e9fd5146ae1dd599581b96ce9d35f59cd60f756ba2b549298ac09c5c57f47c40",
+        "isnad_sha256": "b4b10b1f119ca6e4249b2c7b93a212721c13e07eb8f515c82c6654060ece8a28",
+        "matn_sha256": "91e22c4e208da7aafc6cda75d1d9ec49a85549d179f01e5900ba0bbf768a3c68"
+      },
+      "target_english": "59. Ahmad ibn Muhammad al-‘Asemiy has narrated from Muhammad ibn Ahmad al-Nahdiy from Muhammad ibn Ali from Sharif ibn Sabiq from al-Fadl ibn abu Qurrah who has said the following: “Abu ‘Abd Allah (a.s.), has said that once al-Mawaliy (non-Arab Muslims) came to ’Amir al-Mu’minin (a.s.), and said, ‘We complain before you against these Arabs. The Messenger of Allah, O Allah, grant compensation to Muhammad and his family worthy of their services to Your cause, would give us gifts along with them equally. He (the Messenger of Allah) arranged marriage for Salman, Bilal and Suhayb but these have denied it for us saying, “We do not do so.’” ‘Amir al-Mu’minin (a.s.), went to them and spoke to them and Arabs shouted, ‘We have denied them, O abu al-Hassan, we have denied them O abu al-Hassan.’ He (the Imam) came out angry with his gown dragging behind him, saying, ‘O Mawaliy people, they have equaled you with Jews and Christians. They marry from you but do not allow you to marry from them and do not give you what they take. You must do business, may Allah grant you blessings. I heard the Messenger of Allah, O Allah, grant compensation to Muhammad and his family worthy of their services to Your cause, saying, “Sustenance has ten parts, of which nine are in trade and one part is in other things.’””"
+    },
+    {
+      "public_id": "alkafi-10373",
+      "hadith_id": 29850,
+      "sequence_in_book": 10379,
+      "translation_id": 9664,
+      "segment_ids": [
+        9667
+      ],
+      "job_item_ids": [
+        9802
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 5,
+        "remote_id": 2088,
+        "url": "https://thaqalayn.net/hadith/1/3/192/1",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "a6e16ecd0789e62f3a7e95cdf7e881acec096a4934557511d4143c4a891529f0",
+        "raw_english_sha256": "2e9f9f2b16c092f1325a6ca0fb45eefb8d3638d4febc21c7f6607ef2d08057e2",
+        "plaintext_english_sha256": "e99c6bfcc885204793b181e596f7a82c2d58a81bb2f229983567350cbf954503",
+        "target_english_sha256": "e99c6bfcc885204793b181e596f7a82c2d58a81bb2f229983567350cbf954503",
+        "bounded_prefix": false,
+        "boundary_phrase": null,
+        "removed_suffix_sha256": null
+      },
+      "target_arabic": {
+        "full_sha256": "a178a8b50c1d5adbfd23e9912b7b533d63844d2356f3d4bf5cfabe462ae349c5",
+        "isnad_sha256": "8bab5a0bb610a9a5c7e32cb24e222f7f8443464e9b516178a60e703337c936fb",
+        "matn_sha256": "8a79d4a92e3c52d3fe45bc2767c36292a1366be4c2f84213eb62e3d90af9811b"
+      },
+      "target_english": "1. Ali ibn Ibrahim has narrated from his father from ibn abu ‘ Umayr from ‘ Abd Allah ibn Sinan who has said the following: “A man once accused a Zoroastrian man before abu ‘Abd Allah (a.s.), he (the Imam) said, ‘Hold it.’ The man said, ‘He marries his mother or sister.’ He (the Imam) said, ‘It is marriage among them in their religion.’”"
+    },
+    {
+      "public_id": "alkafi-10596",
+      "hadith_id": 30073,
+      "sequence_in_book": 10602,
+      "translation_id": 15168,
+      "segment_ids": [
+        15172
+      ],
+      "job_item_ids": [
+        15499
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 6,
+        "remote_id": 222,
+        "url": "https://thaqalayn.net/hadith/1/1/38/8",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "384328848fef8605b0d4eac29b379ef7b9ba1b815671d6fe214b09b3c0125f2d",
+        "raw_english_sha256": "88ee67f2e784882eb95b3e82fd221f7b5eff3a60ead794a4eb139b8a5542486c",
+        "plaintext_english_sha256": "95307beb74e90025213541711f3dbcd8a59cb7be9b0e48ba8ebc26f41fe4be1b",
+        "target_english_sha256": "95307beb74e90025213541711f3dbcd8a59cb7be9b0e48ba8ebc26f41fe4be1b",
+        "bounded_prefix": false,
+        "boundary_phrase": null,
+        "removed_suffix_sha256": null
+      },
+      "target_arabic": {
+        "full_sha256": "a172d5645a65da72754101de0c63ba8ba6d13a8fb6b75470a569810d006eb854",
+        "isnad_sha256": "e2cbd8b3aef8f6ff3135d4d822dce5c8b56466c925b7b9feec328ce6d666b20f",
+        "matn_sha256": "523f45d667117d1d4f023d84cbd368e2b69ced2eb60e7ddc7c9b9bbf0296fe67"
+      },
+      "target_english": "8. Muhammad ibn Yahya has narrated from Ahmad ibn Muhammad ibn ‘Isa from Ali ibn Ahmad ibn ‘Ushaym from certain persons of his people who has said the following: “Twin boys were born to a man and abu ‘Abd Allah (a.s.), congratulated and asked him who is the older?’ He replied, ‘The one who came out first is the older one. Abu ‘Abd Allah (a.s.), said, ‘No, the one who came out last is the older one because she conceived him first, and this one entered on him and he could not come out before he came out so the one who comes out last is the older one.’”"
+    },
+    {
+      "public_id": "alkafi-11329",
+      "hadith_id": 30806,
+      "sequence_in_book": 11335,
+      "translation_id": 10403,
+      "segment_ids": [
+        10406
+      ],
+      "job_item_ids": [
+        10578
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 6,
+        "remote_id": 802,
+        "url": "https://thaqalayn.net/hadith/1/3/17/4",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "ceca9fdb03022ef49d5747e2eb6c3d3bc11c74e7d72e6a7bb91656597dbed2d1",
+        "raw_english_sha256": "de960e76cb3ca810620f133c48c5cd1fe6017d23576d64cca34f5cd0ede1278c",
+        "plaintext_english_sha256": "7b00beff11a5cb8d99c337fe64a4196073d96a892c2d14b435951032fe851785",
+        "target_english_sha256": "7b00beff11a5cb8d99c337fe64a4196073d96a892c2d14b435951032fe851785",
+        "bounded_prefix": false,
+        "boundary_phrase": null,
+        "removed_suffix_sha256": null
+      },
+      "target_arabic": {
+        "full_sha256": "63f23fa96a1cae899d0b3c546644459717f26dcbf9117d7ccbf9fdaf56ad51e5",
+        "isnad_sha256": "7d9159ff31543876b3b90374975d4825507bcc5fadbc61e4a59526402ae9583d",
+        "matn_sha256": "687a29d2826045aa329415eccf22684dc4a7b7f852bef4b3c3825de608be80b2"
+      },
+      "target_english": "4. Muhammad ibn al-Hassan and Ali ibn Ibrahim al-Hashimiy have narrated from certain persons of our people from Sulayman al- Ja‘fariy who has said the following: “Abu al-Hassan, al-Rida’ (a.s.), has said that Ali ibn al-Husayn, has said, ‘The crest on the head of lark is because of wiping of Solomon ibn David (a.s.). It happened when the male lark wanted to mount the female (and) she refused. The male said, ‘Do not refuse because I want that Allah, most Majestic, most Glorious, to give us the offspring because of which you will be remembered.’ The female then agreed. When it was to lay eggs the male asked, ‘Where do you want to lay eggs?’ The female replied, ‘I do not know. Can I lay the eggs away from the road?’ The male said, ‘I am afraid of bypassers, however, I think you should lay eggs near the road and those who see you may think that you are picking grains from the road.’ The female agreed and laid the eggs; then sat on them to hatch until they were about to hatch that Solomon son of David (a.s.), with his army, while birds forming shadow on him, appeared. The female said, ‘This is Solomon coming to us with his army and I do not feel safe for my eggs being crushed under their feet.’ The male said, ‘Solomon is a kind man. Do you have anything which you may have saved for your baby larks when they are hatched to offer him as present?’ The female replied, ‘Yes, it is a locust that I had hidden from you for the baby larks when they are hatched; but do you have anything for a present?’ The male replied, ‘Yes, it is a date that I had hidden from you for the bay larks.’ The female said, ‘You take your date and I take my locust to present them to Solomon ‘Alayhi al-Salam, he is a man who loves presents. The male took the date in its beak and the female took the locust in its paws and appeared before Solomon. When he saw them he was on his throne. He extended his hands for them. The male sat on his right hand and the female on his left hand. He asked how they were doing and they informed him. He accepted their gift and asked his army to be careful about their eggs. He wiped their heads and prayed for them for blessing. The crest on their head is because of the wiping of Solomon (a.s.).’”"
+    },
+    {
+      "public_id": "alkafi-11403",
+      "hadith_id": 30880,
+      "sequence_in_book": 11409,
+      "translation_id": 10471,
+      "segment_ids": [
+        10474
+      ],
+      "job_item_ids": [
+        10646
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 6,
+        "remote_id": 874,
+        "url": "https://thaqalayn.net/hadith/1/4/15/17",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "02fe02efb7d16ef8765179954afe4770136b99326e940bb6399a5eb920b7137c",
+        "raw_english_sha256": "8ff419eff5369db20499b80b0d495fb38ae8c3dcdb64ba1bf74c3db62141e6a4",
+        "plaintext_english_sha256": "bff14038e31867cb37537aa02990cf80b324951926ad91b60d3c86ab7c88fcc0",
+        "target_english_sha256": "bff14038e31867cb37537aa02990cf80b324951926ad91b60d3c86ab7c88fcc0",
+        "bounded_prefix": false,
+        "boundary_phrase": null,
+        "removed_suffix_sha256": null
+      },
+      "target_arabic": {
+        "full_sha256": "2dcba847d13f71931e7df3f275f0d94acafd89a3a32a81604bf7c9fbec339b1b",
+        "isnad_sha256": "cc140f4f2fe4a7399c5697cfc8bf1c1d5451f1add68040932855aa8ab834e909",
+        "matn_sha256": "ac53f0334ff1f7aafa9b63c99400eb31858d0781c326ca00699327b6caa1e248"
+      },
+      "target_english": "17. Certain persons of our people have narrated from Mansur ibn al-‘Abbas from ‘Amr ibn ‘Uthman from Qutaybah al-A’sha’ who has said the following: “I once saw a man with abu ‘Abd Allah (a.s.), who asked, ‘I have a brother in the mountains who exchanges things for other things. He (the Imam) asked, ‘Is it because of mutual agreement?’ he replied, ‘Yes, that is true.’ He (the Imam) said, ‘It then is not unlawful.’ He then said, ‘He may have an agent who is a Jew or Christians who comes across something that sells slaughtered and brings its price, or salt it then brings it salted.’ He (the Imam) said, ‘He must not eat it. It is a matter of name (mentioning the name of Allah) in which no one can be trusted except a Muslim.’ A certain person present said, ‘What about the words of Allah, most Majestic, most Glorious, “. . . the food of the people of the book is lawful for you and your food is lawful for them.’ He (the Imam) said, ‘My father (a.s.), would say that it is grains and similar things.’”"
+    },
+    {
+      "public_id": "alkafi-12112",
+      "hadith_id": 31589,
+      "sequence_in_book": 12118,
+      "translation_id": 15239,
+      "segment_ids": [
+        15243
+      ],
+      "job_item_ids": [
+        15570
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 6,
+        "remote_id": 1582,
+        "url": "https://thaqalayn.net/hadith/1/5/134/6",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "db431cbec9c8977ef11d1f6959051c4859a9491d68a639fac82e99106804a611",
+        "raw_english_sha256": "0514221abec4a17841eaa76877c1510210637a76395df99b23c435267401d8ff",
+        "plaintext_english_sha256": "0514221abec4a17841eaa76877c1510210637a76395df99b23c435267401d8ff",
+        "target_english_sha256": "ad27bad50e0f0a0c9114034e5d5d978018b9e2d81fa5d21b17daf91afd7654c5",
+        "bounded_prefix": true,
+        "boundary_phrase": "End of the Book of Foods followed by the Book of Drinks",
+        "removed_suffix_sha256": "eef1eb6100fe015f6fed251e62c2dd462a7c90f5e9448a949a8a42f97b526597"
+      },
+      "target_arabic": {
+        "full_sha256": "e45eb918532c12f05b94bd41d30a6360ab6368198e66ce4984059ebfbc567518",
+        "isnad_sha256": "be22829994d7e76715b1202749ba73f2c84a36c60e4c08a61ab86035da70b915",
+        "matn_sha256": "5ef182f4ff45abeec24945e4635a1b1a7c1a223eb38fd8f71fa0c30a10695eaa"
+      },
+      "target_english": "6. It is narrated from the narrator of the previous Hadith from ibn Mahbub from abu Wallad who has said the following: “I once saw abu al-Hassan sitting in al-Hijr (near al-Ka‘bah) along with a group of his family members and I heard him saying, ‘I had a toothache so I took cyperus and rubbed with it my teeth, it benefited me and the pain calmed down.’”"
+    },
+    {
+      "public_id": "alkafi-12380",
+      "hadith_id": 31857,
+      "sequence_in_book": 12386,
+      "translation_id": 15242,
+      "segment_ids": [
+        15246
+      ],
+      "job_item_ids": [
+        15573
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 6,
+        "remote_id": 1850,
+        "url": "https://thaqalayn.net/hadith/1/6/37/17",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "34d9183991bca88931e2aa82034cfee4180d62caa6f2c6f67a44013036415a81",
+        "raw_english_sha256": "24043cfc4eb39b190795f26f804e106cc67a0077b613f0b3f6a2c49a4867b2eb",
+        "plaintext_english_sha256": "6c509339a5a00d316e45c528c8b8153ee21ee76b9fc347bc679e44092a516f52",
+        "target_english_sha256": "6c509339a5a00d316e45c528c8b8153ee21ee76b9fc347bc679e44092a516f52",
+        "bounded_prefix": false,
+        "boundary_phrase": null,
+        "removed_suffix_sha256": null
+      },
+      "target_arabic": {
+        "full_sha256": "503c8799b2b2b8fac560ef9680e24eb1a46805c9af9c76dd88b4ab5d6b1e4fee",
+        "isnad_sha256": "09ccc5d66105d53d83cc1c8de748ba4672bfd4a50914f5b6cb0a78917b9686aa",
+        "matn_sha256": "7f96e42f93aeb825ad6039942bc1ec93e850831547eddce20738d7a8992e705f"
+      },
+      "target_english": "17. Ali ibn Ibrahim has narrated from his father from al-Nawfaliy from al-Sakuniy who has said the following: “Abu ‘Abd Allah (a.s.), has said that the Messenger of Allah, O Allah, grant compensation to Muhammad and his family worthy of their services to Your cause, prohibited playing with chess and dice.’”"
+    },
+    {
+      "public_id": "alkafi-12933",
+      "hadith_id": 32410,
+      "sequence_in_book": 12939,
+      "translation_id": 14215,
+      "segment_ids": [
+        14219
+      ],
+      "job_item_ids": [
+        14514
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 6,
+        "remote_id": 2403,
+        "url": "https://thaqalayn.net/hadith/1/7/69/10",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "da545d0baec0583e47b9c28ab10d5ee119b0401932107c8ea6cde3332b007b1c",
+        "raw_english_sha256": "f45499a920df5690cec4f1c9469fad20f34dc1f9ea9eee979322ebca06116f3c",
+        "plaintext_english_sha256": "b4b689c2aaa6a6563353d4e0ba59579488aa0cca963dfcf01ac486ec600e5e66",
+        "target_english_sha256": "b4b689c2aaa6a6563353d4e0ba59579488aa0cca963dfcf01ac486ec600e5e66",
+        "bounded_prefix": false,
+        "boundary_phrase": null,
+        "removed_suffix_sha256": null
+      },
+      "target_arabic": {
+        "full_sha256": "c7a638a6f9f720b84c7b007ca5d65799c702e320f6db24bf41da393730d6fb1b",
+        "isnad_sha256": "467c220881c8d3cdcb5d30c441ff74317a8c29e29b3b06361530384a06722cee",
+        "matn_sha256": "82b98bdb0ad02122c86681b28232860921af317e845094396a5bcb079aee86ab"
+      },
+      "target_english": "10. A number of our people have narrated from Sahl ibn Ziyad and Ali ibn Ibrahim all from Muhammad ibn ‘Isa from al-Dihqan from Durust from Ibrahim ibn ‘Abd al-Hamid who has said the following: “Abu al-Hassan, Musa (a.s.), has said, ‘Three things are feared for causing insanity: defecating among the gravesites, walking in one shoe and a man’s sleeping alone.’ Such things are disliked because of such reasons but they are not unlawful.” (The last sentence apparently is the words of the compiler)."
+    },
+    {
+      "public_id": "alkafi-13279",
+      "hadith_id": 32756,
+      "sequence_in_book": 13285,
+      "translation_id": 12253,
+      "segment_ids": [
+        12256
+      ],
+      "job_item_ids": [
+        12464
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 7,
+        "remote_id": 240,
+        "url": "https://thaqalayn.net/hadith/1/1/39/9",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "c34c277bfbef2e6984de946581f8d8ede4deb9d41cb3a9d211c85fe6ba23852a",
+        "raw_english_sha256": "37f9d057e6ceeaabf8a14c30b6fb6a0a6713a3c99d834da3f71d7c6048b8ef5b",
+        "plaintext_english_sha256": "059623d7877a3d11aec93c20cf4652e30ea081bddab156d977da738440794f8b",
+        "target_english_sha256": "059623d7877a3d11aec93c20cf4652e30ea081bddab156d977da738440794f8b",
+        "bounded_prefix": false,
+        "boundary_phrase": null,
+        "removed_suffix_sha256": null
+      },
+      "target_arabic": {
+        "full_sha256": "d46a9bd12443af37594d2b18072936c5f95281467edade15f8a74454b9b6e99c",
+        "isnad_sha256": "eb8cd31be0ff5d3263c5725bf017d3de5e3728520c244340a4c50205701334c8",
+        "matn_sha256": "95060e3c6a1f2ef07357748b79761657e8e5018e2c89f51b62c1b7a64bdc9313"
+      },
+      "target_english": "9. Muhammad ibn Yahya has narrated from Muhammad ibn al-Husayn from Muhammad ibn ‘Isa from those who narrated to him who has narrated the following: “This is about the case of a man who dies, with a will to a man, leaving behind a small son who becomes mature. He goes to the executor of the will asking him to handover to him his assets so he can marry. However, the executor of the will refuses and he goes to fornicate. Abu ‘Abd Allah (a.s.), has said, ‘Two-thirds of the sins of fornication is upon the executor of the will because of his refusal to handover to him his assets so he can marry.’”"
+    },
+    {
+      "public_id": "alkafi-13592",
+      "hadith_id": 33069,
+      "sequence_in_book": 13598,
+      "translation_id": 15244,
+      "segment_ids": [
+        15248
+      ],
+      "job_item_ids": [
+        15575
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 7,
+        "remote_id": 546,
+        "url": "https://thaqalayn.net/hadith/1/2/66/2",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "c57418dd5ee390757db237f9fb852b691ecc61f6012fd9f2d473df07fd175e66",
+        "raw_english_sha256": "afbf843ecaa1310480c8ecd2f36a908d95686dc1ecec835ded04779e51849d94",
+        "plaintext_english_sha256": "9aaa1102c9447c2a55dd83fc8020ef796cabdc83ac947424fd1fe15bb36e1042",
+        "target_english_sha256": "9aaa1102c9447c2a55dd83fc8020ef796cabdc83ac947424fd1fe15bb36e1042",
+        "bounded_prefix": false,
+        "boundary_phrase": null,
+        "removed_suffix_sha256": null
+      },
+      "target_arabic": {
+        "full_sha256": "76b371985cc152adffee5e07065502da6cabea48ae2bef8153fc8d2c57db6843",
+        "isnad_sha256": "319202cfbac5a284644d31f727a44a7ba1fed936c7ef0cccb1c371465a603ae3",
+        "matn_sha256": "2c0b149dc2525aaec14f09c304e03711561379de0a1c01bcaaf249a3498f1e2b"
+      },
+      "target_english": "2. It is narrated from the narrator of the previous Hadith from al-Hassan ibn Musa al-Khashshab from Ghiyath ibn Kalfub from Ishaq ibn ‘Ammar who has narrated the following: “Abu ‘Abd Allah (a.s.), has said that once a slave who had contracted his freedom came to ’ Amir al-Mu’minin (a.s.), and said, ‘My master made a contract with me with the condition of several installment payments every year. I brought him all installments to pay at once and asked him to accept it and allow my freedom but he refused. Amir al-Mu’minin summoned him and he said, ‘He has spoken the truth.’ He (the Imam) asked, ‘Why do you not accept the assets and approve his freedom?’ He replied, ‘I accept only in installments as the condition requires and I avoid his legacy.’ Amir al-Mu’minin then said, ‘You have the right to stay with your condition.’”"
+    },
+    {
+      "public_id": "alkafi-14529",
+      "hadith_id": 34006,
+      "sequence_in_book": 14535,
+      "translation_id": 13338,
+      "segment_ids": [
+        13341
+      ],
+      "job_item_ids": [
+        13582
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 7,
+        "remote_id": 669,
+        "url": "https://thaqalayn.net/hadith/1/5/23/11",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "9f8ed9d270780671e33f36edc98b80f4ce38048028411b8b9655ad64ead0b2e9",
+        "raw_english_sha256": "424c5ea06a58e295b39690515d3a9ba4bc6afac311d3babab4d2f20bf229f96d",
+        "plaintext_english_sha256": "c16e17d92e49602b61d0263d2625f2ec261657367a5875eebe85c578ef1d06cc",
+        "target_english_sha256": "c16e17d92e49602b61d0263d2625f2ec261657367a5875eebe85c578ef1d06cc",
+        "bounded_prefix": false,
+        "boundary_phrase": null,
+        "removed_suffix_sha256": null
+      },
+      "target_arabic": {
+        "full_sha256": "be4ad24bcee8942b11269a01105b76176bda8b9ece17bce9a6a42df9a0ba6d5d",
+        "isnad_sha256": "8f003ee4b7f9584e0e3265d4230993be1dcc949fef4185a1195912480e33e438",
+        "matn_sha256": "901b5448c9074872dbbfed0ab94ae05fc282172e51fff386b2714c90d720b476"
+      },
+      "target_english": "11. Muhammad ibn Yahya has narrated from Ahmad ibn Muhammad from al-Husayn ibn Sa‘id from Ibrahim ibn abu al-Balad from Sa‘d al-Iskaf who has said that I know the following to be from abu Ja‘far (a.s.), only: “Abu Ja’far, Alayhi al-Salam, has said that among the Israelites there was a worshipper. Dawud Alayhi al-Salam, liked him for his worship. Allah, most Majestic, most Glorious, sent revelation to him and informed him that the worshipper is only a showoff person. The man died and Dawud Alayhi al-Salam, was informed about his death. He told them to bury him. The Israelites disliked it and said, ‘Why did you not attend his funeral?’ He (the Imam) said, ‘When Ghusl (bath) was complete fifty people testified by Allah that they did not know of him except good.’ He (the Imam) said, ‘When they performed Salat (prayer) for him then fifty people stood up and testified that they did not know anything about him except good.’ Allah, most Majestic, most Glorious, then sent revelation to Dawud, Alayhi al-Salam. It said, ‘What has stopped you from attending the funeral of so and so?’ He replied, ‘It is because of the information You gave me about him.’ He (the Imam) said, ‘Allah, most Majestic, most Glorious, sent him revelation saying that it was true but a people of learned men and monks testified that they did not know about him anything except good, so I admitted their testimony about him and forgave (overlooked, covered) My knowledge about him.’”"
+    },
+    {
+      "public_id": "alkafi-14607",
+      "hadith_id": 34084,
+      "sequence_in_book": 14613,
+      "translation_id": 12585,
+      "segment_ids": [
+        12588
+      ],
+      "job_item_ids": [
+        12796
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 7,
+        "remote_id": 747,
+        "url": "https://thaqalayn.net/hadith/1/6/19/23",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "741d738d809c49d1af1ca6e308bf5aa57da1454f931b0a003f7524edffc871e2",
+        "raw_english_sha256": "ac5a2f1f2479f6fa0f814c8f1c540320ca20c41488952d46d14e336ecaff24bd",
+        "plaintext_english_sha256": "6175c4846671ece684bf816b99db36687307ca6ab946835a0aa6d2923ffcc827",
+        "target_english_sha256": "6175c4846671ece684bf816b99db36687307ca6ab946835a0aa6d2923ffcc827",
+        "bounded_prefix": false,
+        "boundary_phrase": null,
+        "removed_suffix_sha256": null
+      },
+      "target_arabic": {
+        "full_sha256": "e3b5f187a3e2328f1dc0361b70c7c0aff5f8517edaaf84a1433c6e458348ea76",
+        "isnad_sha256": "09ccc5d66105d53d83cc1c8de748ba4672bfd4a50914f5b6cb0a78917b9686aa",
+        "matn_sha256": "899583b73a7f8bcb1bd1a310bf0a531e2001646d291a209575b92a06f5fa2a2f"
+      },
+      "target_english": "23. Ali ibn Ibrahim has narrated from his father from al-Nawfaliy from al-Sakuniy who has said the following: “This is about the case of two men who each had claimed a mule to be his mule. One of them presented two witnesses and the other one presented five witnesses. Abu ’Abd Allah (a.s.), has said that ’Amir al-Mu’minin Ali (a.s.), issued a judgment. It gave two shares to the one who presented two witnesses and five shares to the one who presented five witnesses.’”"
+    },
+    {
+      "public_id": "alkafi-14751",
+      "hadith_id": 34228,
+      "sequence_in_book": 14757,
+      "translation_id": 12728,
+      "segment_ids": [
+        12731
+      ],
+      "job_item_ids": [
+        12939
+      ],
+      "target_source": {
+        "provider": "thaqalayn-api",
+        "model": "muhammad-sarwar",
+        "translator": "Muhammad Sarwar",
+        "volume": 7,
+        "remote_id": 891,
+        "url": "https://thaqalayn.net/hadith/1/7/18/21",
+        "snapshot_sha256": "1b9b0628d6057797f74c59277b1b5e7eba8a4889c8fb06f71f5b8ed7f1feede2",
+        "record_sha256": "7ca0239e69239befbfb112d3d8f9ca4bca6534d1be6bc46aa5530ea9b8d06d99",
+        "raw_english_sha256": "85fe07818a6a3248135f9a64bc0c81a96b98209cc036105f10fe636b0dd3adb5",
+        "plaintext_english_sha256": "0b3bd45c236e679141569052926de7a92be938c21e0f99408e4a0dc07fd16727",
+        "target_english_sha256": "0b3bd45c236e679141569052926de7a92be938c21e0f99408e4a0dc07fd16727",
+        "bounded_prefix": false,
+        "boundary_phrase": null,
+        "removed_suffix_sha256": null
+      },
+      "target_arabic": {
+        "full_sha256": "162595084f832d6dc24cb7489219b7fdcf093bd7643b572f40c68e73a543969f",
+        "isnad_sha256": "131cfa2687f44f26831d48cbd38b1413c185baebe389bdbe74cbcd6b9c352444",
+        "matn_sha256": "15550072982f730d67ae49f18dab532636de16a59850b472d5d921fbbe449d37"
+      },
+      "target_english": "21. Ali ibn Ibrahim has narrated from his father from certain persons of his people whom he has mentioned who has narrated the following: “Al-Mutawakkil specified a vow and commitment that if he recovers he will give in charity kathir (a great deal of) assets. When he recovered, he asked the scholars of law about the limit of kathir (great deal) but they had different opinions. Certain ones among them said that it is a hundred thousand; others said that it is ten thousand, and they cited different things as proof in the matter. It all became confusing for him. One of his officers called Saf‘an said, ‘Why do you not send this black to ask him about it?’ Al-Mutawakkal asked, ‘Who do you mean thereby? Woe upon you!’ He replied, ‘I mean ibn al-Rida’.’ He asked, ‘Is he good in it?’ He (the officer) replied, ‘If he takes you out of this, you then must pay me so and so much; or you can whip me one hundred times.’ Al-Mutawakkal said, ‘I agree. O Ja‘far ibn Mahmud, go to him and ask him about the limit of kathir (a great deal of asset).’ Ja‘far ibn Mahmud went to abu al-Hassan, Ali ibn Muhammad, ‘Alayhim al-Salam, and asked him about the limit of al-Kathir (great deal of assets). He (the Imam) said, ‘It is eighty.’ Ja‘far asked, ‘O my master, he will ask me for a reason.’ Abu al-Hassan (a.s.), said, ‘Allah, most Majestic, most Glorious, says, ‘We have helped you in Mawatin al-Kathirah (in a great many places)’ and we counted them, they were eighty such places.’”"
+    }
+  ],
+  "withheld": [
+    {
+      "public_id": "alkafi-11096",
+      "hadith_id": 30573,
+      "reason": "No exact Muhammad Sarwar record was found in the pinned API snapshot; HubeAli is not an approved target.",
+      "disposition": "remain_quarantined_no_hubeali_target"
+    },
+    {
+      "public_id": "alkafi-11210",
+      "hadith_id": 30687,
+      "reason": "No exact Muhammad Sarwar record was found in the pinned API snapshot; HubeAli is not an approved target.",
+      "disposition": "remain_quarantined_no_hubeali_target"
+    },
+    {
+      "public_id": "alkafi-14040",
+      "hadith_id": 33517,
+      "reason": "No exact Muhammad Sarwar record was found in the pinned API snapshot; HubeAli is not an approved target.",
+      "disposition": "remain_quarantined_no_hubeali_target"
+    }
+  ]
+}
