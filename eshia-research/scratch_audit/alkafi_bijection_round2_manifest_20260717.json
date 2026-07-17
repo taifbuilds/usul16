@@ -1,0 +1,19 @@
+[
+ {
+  "public_id": "alkafi-10219",
+  "vol": 5,
+  "remote_path": "/books/al-kafi:5:3:168:4",
+  "url": "https://thaqalayn.net/books/al-kafi:5:3:168:4",
+  "fwd": 0.96,
+  "rev": 0.906,
+  "ratio": 0.943,
+  "our_words": 50,
+  "their_words": 53,
+  "has_sarwar": true,
+  "has_hubeali": true,
+  "accept": true,
+  "evidence": "anchor_bijection",
+  "force_translator": "HubeAli",
+  "evidence_note": "1:1 bijection between verified anchors; remote Arabic is identical to ours. Thaqalayn's en_sarwar field on this row carries a different report, so HubeAli is the correct English, hand-checked against the Arabic."
+ }
+]

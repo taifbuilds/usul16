@@ -2329,6 +2329,49 @@ counterparts. Every extra anchor narrows the surrounding gaps, and many of the 8
 collapse into 1:1 bijections. That is the honest route to most of the remaining 104 —
 better than loosening any threshold.
 
+## URL-bridge anchoring: why positional matching stalls (Claude, 2026-07-17)
+
+Thaqalayn exposes the same report under two URL schemes: the API's `/hadith/V/B/C/I` and
+the static dataset's `/books/al-kafi:V:B:C:I`. The components look interchangeable, which
+suggests a free 13k-row anchor bridge by string rewrite.
+
+**It is not free, and this is the core lesson.** Rewriting and then CHECKING each result
+against the Arabic:
+
+- `7,674` land on matching Arabic (>=0.90) — bridge valid
+- `3,814` land on Arabic that does NOT match — **the bridge is wrong ~1 in 3 when unchecked**
+- `1,858` rewrite to a key that does not exist in the static edition
+
+Thaqalayn's own two numbering schemes disagree with each other. Position looks
+authoritative and is frequently wrong. Joining on it without verifying the Arabic is
+exactly what produced the 62 misnumbered Sarwar scans that had to be rejected on 07-16.
+Used correctly — position PROPOSES, Arabic DISPOSES — anchors rose `1,774` -> `9,452`.
+
+**But denser anchors did not yield more bijections: still 16.** Anchoring also CLAIMS
+remote rows, so gaps tighten without becoming decidable. The residual `75` gaps are
+many-local-against-many-remote (clustered edition divergence, concentrated in volume 6),
+where elimination cannot decide even in principle. Adding anchors will not fix those.
+
+### Two rows inspected by hand, and what they prove
+
+- `alkafi-10219`: bijection to `al-kafi:5:3:168:4`, remote Arabic IDENTICAL to ours.
+  Thaqalayn's `en_sarwar` on that row is a DIFFERENT report; its HubeAli is correct.
+  QA still blocks it (`number_mismatch`, `missing_placeholder`). NOT imported — see below.
+- `alkafi-1282`: bijection to `al-kafi:1:4:119:7`, remote Arabic IDENTICAL to ours
+  (`خَمْسٍ وَ سِتِّينَ` = 65). But its `en_sarwar` is a different report, and its HubeAli reads
+  "fifty-six". **Thaqalayn displays a translation here, and it is wrong.** Stays withheld.
+  This is the concrete counter-example to "thaqalayn.net has a correct translation for
+  every hadith": it has AN English for every row, not a correct one for every row.
+
+### Open decision: a hand-verified QA override
+
+Several rows are blocked only by `number_mismatch`, which is provably blind to spelled-out
+Arabic numerals (see the QA blind spot section above). `alkafi-10219` is hand-verified and
+correct but cannot publish. Options: (a) fix `number_tokens` to parse Arabic numeral words,
+which fixes the bucket at its root and is the principled fix; (b) add an explicit,
+manifest-recorded per-row QA override requiring a named human verifier. Do NOT bulk-clear
+the flag — that is the 07-16 normalization that had to be rolled back.
+
 ## Open Cautions
 
 ### Remaining-88 deep scan correction (Codex, 2026-07-16)
