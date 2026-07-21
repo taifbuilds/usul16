@@ -755,7 +755,7 @@ export function HadithBody({
             <p className="mt-4 text-xs leading-relaxed text-muted">
               {translationSource ? (
                 <>
-                  Source:{" "}
+                  Translation:{" "}
                   {translationUrl ? (
                     <a href={translationUrl} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
                       {translationSource}
@@ -766,7 +766,7 @@ export function HadithBody({
                   <span className="mx-1 text-border">&middot;</span>
                 </>
               ) : null}
-              Translation aid only. The Arabic text above remains authoritative.
+              The Arabic above is the original.
             </p>
           </div>
         </details>

@@ -29,14 +29,14 @@ export const metadata: Metadata = {
     template: "%s — Usul16",
   },
   description:
-    "Read, search, and investigate the Shia hadith corpus in original Arabic, with translations, narrator analysis, and citations to the printed source.",
+    "Read Al-Kāfī and the major Shia hadith collections in Arabic and English, look up any narrator, and trace every chain—all linked back to the printed page.",
   applicationName: "Usul16",
   authors: [{ name: "Usul16" }],
   openGraph: {
     type: "website",
     siteName: "Usul16",
     title: "Usul16 — Shia hadith research library",
-    description: "Source-verifiable Shia hadith reading, search, narrator analysis, and transmission evidence.",
+    description: "Read the major Shia hadith collections in Arabic and English, look up the narrators, and follow the chains—linked to the printed source.",
   },
   twitter: { card: "summary", title: "Usul16 — Shia hadith research library" },
 };

@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Why Usul16 exists and how it approaches source verification, translation, narrator identity, and scholarly judgement.",
+  description: "What Usul16 is, how to read what you find, and where the project is going.",
   alternates: { canonical: "/about" },
 };
 
@@ -26,7 +26,7 @@ export default async function AboutPage() {
           <h1 className="mt-4 max-w-4xl font-serif text-5xl font-semibold leading-[1.05] tracking-[-0.025em] sm:text-6xl">A hadith library built to withstand serious questions.</h1>
         </div>
         <p className="max-w-xl text-lg leading-8 text-muted">
-          Usul16 brings reading, discovery, citation, narrator identity, and transmission evidence into one source-verifiable environment.
+          One place to read the Shia hadith collections, look up the narrators, and follow the chains—without ever losing sight of the printed source.
         </p>
       </header>
 
@@ -45,24 +45,24 @@ export default async function AboutPage() {
 
         <div className="max-w-3xl space-y-10">
           <section>
-            <h2 className="font-serif text-3xl font-semibold">Why it exists</h2>
+            <h2 className="font-serif text-3xl font-semibold">What it is</h2>
             <div className="mt-4 space-y-4 text-base leading-8 text-foreground/85">
-              <p>The Shia hadith corpus runs across tens of thousands of narrations in the Four Books and centuries of later collections. Too much of it remains fragmented across dense scans, ageing websites, isolated translations, and databases that hide how a result relates to the printed source.</p>
-              <p>Usul16 is an attempt to keep the corpus connected: Arabic to translation, hadith to chain, narrator mention to resolved identity, transmission edge to its supporting narrations, and every record back to volume and page.</p>
+              <p>The Shia hadith tradition runs to tens of thousands of narrations—the Four Books (Al-Kāfī, Man Lā Yaḥḍuruhu al-Faqīh, Tahdhīb al-Aḥkām, and al-Istibṣār) and centuries of collections after them. Most of it lives in dense scans, ageing websites, and scattered translations, where it&rsquo;s hard to tell how anything on screen relates to the book it came from.</p>
+              <p>Usul16 brings it together and keeps it connected: the Arabic beside its English, each report beside its chain, every narrator&rsquo;s name beside who they actually were, and all of it beside the volume and page it was printed on.</p>
             </div>
           </section>
 
           <section className="border-t border-border pt-9">
-            <h2 className="font-serif text-3xl font-semibold">What authority means here</h2>
+            <h2 className="font-serif text-3xl font-semibold">How to read what you find</h2>
             <div className="mt-4 space-y-4 text-base leading-8 text-foreground/85">
-              <p>The Arabic text and the cited printed edition remain authoritative. English translations are reading aids, and narrator resolutions are research conclusions whose evidence and review state should be inspectable.</p>
-              <p>Usul16 does not replace scholarly judgement. It makes the underlying material easier to find, verify, compare, and cite—so judgement can begin from stronger evidence.</p>
+              <p>The Arabic and the printed edition are the original. The English sits alongside to help you read it, named to its translator. Where we&rsquo;ve identified a narrator or mapped a chain, the evidence is shown so you can weigh it yourself.</p>
+              <p>Nothing here asks you to take its word for it. Whatever you&rsquo;re looking at, the source is one click away.</p>
             </div>
           </section>
 
           <section className="border-t border-border pt-9">
-            <h2 className="font-serif text-3xl font-semibold">The ambition</h2>
-            <p className="mt-4 text-base leading-8 text-foreground/85">The Four Books are the proving ground for a repeatable corpus, translation, and rijāl system. Once that standard is dependable, the same architecture can extend through Biḥār al-Anwār and the wider tradition without lowering the bar for provenance or review.</p>
+            <h2 className="font-serif text-3xl font-semibold">Where it&rsquo;s going</h2>
+            <p className="mt-4 text-base leading-8 text-foreground/85">The Four Books come first, done properly—clean text, real translations, and narrator profiles you can trust. Al-Kāfī is furthest along. From there, the same care extends through Biḥār al-Anwār and the wider tradition, one collection at a time.</p>
           </section>
 
           <div className="flex flex-wrap gap-3 border-t border-border pt-9">

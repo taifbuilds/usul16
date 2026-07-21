@@ -19,7 +19,7 @@ export function SiteFooter() {
           </div>
           <p dir="rtl" lang="ar" className={`${amiri.className} mt-5 text-2xl text-gold`}>أصول الحديث، موصولة بمصادرها</p>
           <p className="mt-4 max-w-md text-sm leading-7 text-muted">
-            A living research library for Shia hadith—original Arabic, reading aids, parsed chains, narrator evidence, and citations back to the printed source.
+            Read the major Shia hadith collections in Arabic and English, look up every narrator, and trace each chain—all linked to the printed page.
           </p>
         </div>
 
@@ -37,18 +37,18 @@ export function SiteFooter() {
         </nav>
 
         <div className="text-sm">
-          <p className="font-semibold text-foreground">Source policy</p>
+          <p className="font-semibold text-foreground">What you&rsquo;re reading</p>
           <p className="mt-4 leading-7 text-muted">
-            The Arabic text and printed edition remain authoritative. Translations and identity resolutions are research aids whose provenance and review state should remain visible.
+            The Arabic is the original; the English sits alongside it, credited to its translator. Every narration links back to its volume and page, so you can always check it yourself.
           </p>
-          <Link href="/about" className="mt-4 inline-flex font-semibold text-accent hover:underline">About Usul16 →</Link>
+          <Link href="/about" className="mt-4 inline-flex font-semibold text-accent hover:underline">About the project →</Link>
         </div>
       </div>
 
       <div className="border-t border-border">
         <div className="mx-auto flex max-w-[90rem] flex-wrap justify-between gap-2 px-4 py-4 text-xs text-muted sm:px-6 lg:px-8">
           <p>&copy; {new Date().getFullYear()} Usul16</p>
-          <p>No account required · Independent research project · Corpus status published</p>
+          <p>Free and open · An independent project · Live corpus status</p>
         </div>
       </div>
     </footer>

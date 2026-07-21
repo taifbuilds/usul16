@@ -33,15 +33,15 @@ export default async function MethodologyPage() {
           </h1>
         </div>
         <p className="max-w-xl text-lg leading-8 text-muted">
-          Usul16 publishes collections at different stages of editorial maturity. These figures are read directly from the active corpus, not marketing estimates.
+          Different collections are at different stages of editing. Every number on this page is read live from the database, so you can see exactly where each one stands.
         </p>
       </header>
 
       <section aria-labelledby="corpus-heading" className="py-14">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h2 id="corpus-heading" className="font-serif text-3xl font-semibold">Corpus status</h2>
-            <p className="mt-2 max-w-3xl leading-7 text-muted">A readable book is not necessarily a fully audited hadith-level research edition.</p>
+            <h2 id="corpus-heading" className="font-serif text-3xl font-semibold">Where each collection stands</h2>
+            <p className="mt-2 max-w-3xl leading-7 text-muted">A book you can read isn&rsquo;t always one we&rsquo;ve checked line by line yet—this table shows the difference.</p>
           </div>
           <p className="text-sm text-muted">Live database counts</p>
         </div>

@@ -12,22 +12,22 @@ const RESEARCH_PATHS = [
   {
     href: "/books",
     title: "Read",
-    subtitle: "Move through a collection without losing the printed page.",
+    subtitle: "Read a collection the way you'd read the book—chapter by chapter, page by page.",
     action: "Open the library",
     icon: "book",
   },
   {
     href: "/search",
     title: "Find",
-    subtitle: "Locate Arabic text, translations, titles, and source references.",
-    action: "Search the corpus",
+    subtitle: "Search the Arabic and English together and jump straight to the report.",
+    action: "Search the collections",
     icon: "search",
   },
   {
     href: "/graph",
     title: "Investigate",
-    subtitle: "Follow narrators, inspect chains, and verify transmission evidence.",
-    action: "Enter the network",
+    subtitle: "Open any narrator to see who they heard it from and who carried it on.",
+    action: "Explore the narrators",
     icon: "network",
   },
 ] as const;
@@ -73,7 +73,7 @@ export default async function HomePage() {
         <section className="border-b border-border bg-surface" aria-label="Corpus coverage">
           <div className="mx-auto grid max-w-[90rem] grid-cols-2 px-4 sm:px-6 lg:grid-cols-[1.35fr_repeat(4,1fr)] lg:px-8">
             <div className="col-span-2 flex items-center border-b border-border py-5 lg:col-span-1 lg:border-b-0 lg:pr-8">
-              <p className="max-w-xs text-sm font-semibold leading-6 text-foreground">A growing corpus with every record kept close to its source.</p>
+              <p className="max-w-xs text-sm font-semibold leading-6 text-foreground">A growing library, every report kept next to the page it came from.</p>
             </div>
             {[
               [stats.books_readable, "Readable books"],
@@ -93,11 +93,11 @@ export default async function HomePage() {
       <section className="mx-auto max-w-[90rem] px-4 py-18 sm:px-6 sm:py-22 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
           <div>
-            <p className="text-sm font-semibold text-accent">Three ways into the corpus</p>
+            <p className="text-sm font-semibold text-accent">Three ways in</p>
             <h2 className="mt-3 max-w-xl font-serif text-4xl font-semibold leading-tight sm:text-5xl">Begin with the question you actually have.</h2>
           </div>
           <p className="max-w-2xl text-base leading-8 text-muted lg:justify-self-end">
-            Usul16 keeps reading, discovery, and narrator research equally close. Move between them without losing the hadith, chain, or citation that brought you there.
+            Reading a book cover to cover, hunting for one particular narration, or tracing a narrator across the tradition—start wherever you are, and everything stays linked to the source.
           </p>
         </div>
 
@@ -140,19 +140,19 @@ export default async function HomePage() {
       <section className="mx-auto grid max-w-[90rem] gap-12 px-4 py-20 sm:px-6 sm:py-24 lg:grid-cols-[0.85fr_1.15fr] lg:items-start lg:px-8">
         <div className="lg:sticky lg:top-28">
           <p dir="rtl" lang="ar" className={`${amiri.className} text-3xl text-gold`}>من النص إلى الدليل</p>
-          <h2 className="mt-4 max-w-xl font-serif text-4xl font-semibold leading-tight sm:text-5xl">From the text to the evidence, context stays intact.</h2>
+          <h2 className="mt-4 max-w-xl font-serif text-4xl font-semibold leading-tight sm:text-5xl">One report, and everything behind it.</h2>
           <p className="mt-5 max-w-xl text-base leading-8 text-muted">
-            A hadith record is not an isolated quotation. Each layer should answer the next scholarly question while preserving a route back to the edition.
+            A hadith is more than a quotation. Each layer answers the next question you&rsquo;d ask—and always keeps the way back to the printed book.
           </p>
         </div>
 
         <ol className="evidence-sequence">
           {[
-            ["Source text", "Read the Arabic as printed, with isnad, matn, headings, and footnotes kept distinct."],
-            ["Translation aid", "Reveal English when useful, with provenance and status visible rather than implied."],
-            ["Narrator identity", "Open resolved narrator profiles directly from the chain and inspect why an identity was selected."],
-            ["Transmission evidence", "See relationships across the corpus, then return to the hadiths that establish each link."],
-            ["Stable citation", "Copy a durable identifier and verify the record against volume, page, and original source."],
+            ["The Arabic text", "The narration exactly as printed—chain of narrators, body, chapter headings, and footnotes each kept clear."],
+            ["English translation", "Read it in English when you want to, with the translator and source named on every one."],
+            ["Who narrated it", "Tap a name in the chain to open that narrator—their life, and how we matched them."],
+            ["The chain, mapped", "See how narrators connect across the whole library, then return to the reports that prove each link."],
+            ["A reference you can trust", "Copy a stable citation and check it against the volume, page, and original scan."],
           ].map(([title, body], index) => (
             <li key={title}>
               <span className="evidence-sequence__number">{String(index + 1).padStart(2, "0")}</span>
@@ -168,11 +168,11 @@ export default async function HomePage() {
       <section className="border-y border-border bg-surface">
         <div className="mx-auto grid max-w-[90rem] gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[1fr_auto] lg:items-center lg:px-8">
           <div>
-            <p className="font-serif text-2xl font-semibold sm:text-3xl">The Arabic is the authority. The interface makes it inspectable.</p>
-            <p className="mt-2 max-w-3xl text-sm leading-7 text-muted">Open access, source-aware, and designed for the long attention of scholars and serious readers.</p>
+            <p className="font-serif text-2xl font-semibold sm:text-3xl">Open a book and start reading.</p>
+            <p className="mt-2 max-w-3xl text-sm leading-7 text-muted">Free, no account, and made for the long hours scholars and readers spend with these texts.</p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Link href="/about" className="inline-flex h-11 items-center rounded-md border border-border-strong px-5 text-sm font-semibold hover:border-accent hover:text-accent">Read the methodology</Link>
+            <Link href="/about" className="inline-flex h-11 items-center rounded-md border border-border-strong px-5 text-sm font-semibold hover:border-accent hover:text-accent">About the project</Link>
             <Link href="/books" className="inline-flex h-11 items-center rounded-md bg-accent px-5 text-sm font-semibold text-accent-foreground hover:bg-accent-strong">Start reading</Link>
           </div>
         </div>

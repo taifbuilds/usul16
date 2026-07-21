@@ -40,7 +40,7 @@ export default async function BooksPage({
             <div className="flex items-center gap-3 text-sm font-semibold text-[color:var(--stage-accent)]"><span className="h-px w-9 bg-current" />The reading library</div>
             <h1 className="mt-5 font-serif text-5xl font-semibold leading-none tracking-[-0.025em] text-[color:var(--stage-ink)] sm:text-7xl">Choose a collection.</h1>
             <p className="mt-5 max-w-2xl text-base leading-8 text-[color:var(--stage-muted)]">
-              Open a work as a book, then move through its chapters or follow the pagination of the printed edition. Every readable text keeps a direct source route.
+              Open any work like a book and read it by chapter, or follow the printed edition page by page. Whatever you&rsquo;re reading, its source page is always a click away.
             </p>
           </div>
           <p dir="rtl" lang="ar" className={`${amiri.className} text-5xl text-[color:var(--stage-gold)] sm:text-6xl`}>المكتبة</p>

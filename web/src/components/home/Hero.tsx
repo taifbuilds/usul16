@@ -11,23 +11,23 @@ export function Hero() {
         <div className="max-w-3xl">
           <div className="mb-6 flex items-center gap-3 text-sm font-semibold text-accent">
             <span className="h-px w-9 bg-accent" aria-hidden />
-            <span>Shia hadith, connected to its evidence</span>
+            <span>Al-Kāfī, the Four Books, and beyond</span>
           </div>
           <h1 className="max-w-[14ch] font-serif text-[clamp(3.3rem,7vw,5.75rem)] font-semibold leading-[0.98] tracking-[-0.035em] text-foreground [text-wrap:balance]">
-            Read the text. Follow the transmission.
+            Read the hadith. Follow the chain.
           </h1>
           <p className="mt-7 max-w-2xl text-lg leading-8 text-muted sm:text-xl sm:leading-9">
-            A source-verifiable research environment for the major Shia hadith collections—built for continuous reading, precise discovery, and serious isnad investigation.
+            The major Shia hadith collections in the original Arabic, with English alongside. Tap any narrator to see who they learned from and who they taught—and open any report on the printed page it came from.
           </p>
 
           <div className="mt-9 max-w-2xl">
             <SearchBox size="lg" />
             <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-medium text-muted">
-              <span>Search Arabic or English</span>
+              <span>Arabic and English</span>
               <span className="hidden h-1 w-1 rounded-full bg-border-strong sm:block" aria-hidden />
-              <span>No account required</span>
+              <span>Free, no sign-up</span>
               <span className="hidden h-1 w-1 rounded-full bg-border-strong sm:block" aria-hidden />
-              <span>Arabic remains authoritative</span>
+              <span>Linked to the printed page</span>
             </div>
           </div>
 
