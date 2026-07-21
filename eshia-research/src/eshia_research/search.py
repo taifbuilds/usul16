@@ -134,9 +134,14 @@ def search_pages(db: Session, query: str, limit: int = 20) -> list[SearchHit]:
         .order_by(Book.id, Hadith.sequence_in_book)
         .yield_per(100)
     )
+    seen_public_ids: set[str] = set()
     for translation, hadith, page, book in translation_rows:
         if not is_public_english_translation(translation, hadith):
             continue
+        # A hadith may match under more than one published version; surface it once.
+        if hadith.public_id in seen_public_ids:
+            continue
+        seen_public_ids.add(hadith.public_id)
         text = translation.matn_translation or ""
         hits.append(
             SearchHit(

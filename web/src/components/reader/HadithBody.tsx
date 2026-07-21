@@ -7,6 +7,7 @@ import type {
   ChainRead,
   HadithChainsRead,
   HadithFootnote,
+  HadithGrading,
   HadithTranslationRead,
   PersonRef,
 } from "@/lib/api/types";
@@ -14,6 +15,7 @@ import { getHadithChains } from "@/lib/api/books";
 import { formatArabicText } from "@/lib/arabic";
 import { INLINE_RE, normaliseMarker } from "@/lib/inline";
 import { isPublicHumanTranslation } from "@/lib/translationPublication";
+import { GradingChips } from "@/components/reader/GradingChips";
 
 // Interactive hadith text: footnote markers («[٤]») are tappable and expand
 // the attached footnote inline, right under the paragraph being read —
@@ -582,12 +584,14 @@ export function HadithBody({
   matn,
   footnotes,
   translation,
+  gradings,
 }: {
   publicId?: string | null;
   isnad: string | null;
   matn: string;
   footnotes: HadithFootnote[] | null;
   translation?: HadithTranslationRead | null;
+  gradings?: HadithGrading[] | null;
 }) {
   const [active, setActive] = useState<string | null>(null);
   const [chainData, setChainData] = useState<HadithChainsRead | null>(null);
@@ -724,15 +728,30 @@ export function HadithBody({
             </span>
           </summary>
           <div className="border-t border-accent/15 px-4 py-5 sm:px-5">
-            {publicTranslation.rendered_isnad_en ? (
-              <p className="mb-4 border-b border-dashed border-border pb-4 text-sm leading-relaxed text-muted">
-                <span className="font-medium text-foreground/70">Chain: </span>
-                {publicTranslation.rendered_isnad_en}
+            {publicTranslation.full_translation ? (
+              // Verbatim external text: the numbered English isnad and matn are
+              // one continuous block, exactly as the source publishes it.
+              <p className="whitespace-pre-line text-base leading-8 text-foreground/90 sm:text-lg">
+                {publicTranslation.full_translation}
               </p>
+            ) : (
+              <>
+                {publicTranslation.rendered_isnad_en ? (
+                  <p className="mb-4 border-b border-dashed border-border pb-4 text-sm leading-relaxed text-muted">
+                    <span className="font-medium text-foreground/70">Chain: </span>
+                    {publicTranslation.rendered_isnad_en}
+                  </p>
+                ) : null}
+                <p className="text-base leading-8 text-foreground/90 sm:text-lg">
+                  {publicTranslation.matn_translation}
+                </p>
+              </>
+            )}
+            {gradings && gradings.length > 0 ? (
+              <div className="mt-5 border-t border-dashed border-border pt-4">
+                <GradingChips gradings={gradings} />
+              </div>
             ) : null}
-            <p className="text-base leading-8 text-foreground/90 sm:text-lg">
-              {publicTranslation.matn_translation}
-            </p>
             <p className="mt-4 text-xs leading-relaxed text-muted">
               {translationSource ? (
                 <>

@@ -74,12 +74,48 @@ export interface HadithTranslationRead {
   translation_version: string;
   rendered_isnad_en: string | null;
   matn_translation: string;
+  full_translation: string | null;
   status: "human_reviewed" | "published";
   risk_level: "green";
   risk_flags: Record<string, unknown>[] | null;
   provider: string | null;
   model: string | null;
   provenance_json: Record<string, unknown> | null;
+}
+
+export interface HadithStructure {
+  kitab_id: string;
+  kitab_name_en: string;
+  chapter_id: number;
+  chapter_name_en: string;
+  number_in_chapter: number | null;
+  mapping_status: string;
+  thaqalayn_url: string | null;
+}
+
+export interface HadithGrading {
+  grader_key: string;
+  author_name_en: string;
+  grade_ar: string;
+  grade_en: string | null;
+  reference_en: string | null;
+}
+
+export interface KitabSummary {
+  kitab_id: string;
+  name_en: string;
+  volume: number;
+  chapter_count: number;
+  hadith_count: number;
+  first_chapter_id: number;
+}
+
+export interface ThaqalaynChapterSummary {
+  chapter_id: number;
+  name_en: string;
+  hadith_count: number;
+  number_min: number | null;
+  number_max: number | null;
 }
 
 export interface TranslationPublicationEvidence {
@@ -114,6 +150,8 @@ export interface HadithRead {
   extraction_confidence: number;
   review_status: string;
   translation: HadithTranslationRead | null;
+  structure: HadithStructure | null;
+  gradings: HadithGrading[] | null;
 }
 
 export interface NarratorSummaryRead {

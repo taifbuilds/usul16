@@ -1560,5 +1560,139 @@ def import_thaqalayn_alkafi_cmd(
     typer.echo(format_import_stats(stats))
 
 
+@app.command("import-thaqalayn-structure")
+def import_thaqalayn_structure_cmd(
+    source_book_id: str = typer.Option(
+        AL_KAFI_ISLAMIYYA_SOURCE_BOOK_ID, "--source-book-id"
+    ),
+    snapshot_dir: str | None = typer.Option(
+        None, "--snapshot-dir", help="Directory of tq_v{1..8}.json API snapshots."
+    ),
+    min_score: float = typer.Option(0.88, "--min-score"),
+    manifest_path: str | None = typer.Option(
+        None, "--manifest-path", help="Write the match manifest JSON here."
+    ),
+    dry_run: bool = typer.Option(True, "--dry-run/--apply"),
+) -> None:
+    """Import Thaqalayn kitab/chapter structure and gradings for Al-Kafi."""
+    import json as _json
+    from pathlib import Path
+
+    from eshia_research.translation.thaqalayn_importer import fetch_al_kafi_records
+    from eshia_research.translation.thaqalayn_structure import (
+        apply_structure_matches,
+        build_structure_matches,
+        import_gradings,
+        load_snapshot_records,
+    )
+
+    _init_db()
+    db = SessionLocal()
+    try:
+        if snapshot_dir:
+            remote_by_volume = load_snapshot_records(snapshot_dir)
+        else:
+            remote_by_volume = fetch_al_kafi_records()
+        rows, stats = build_structure_matches(
+            db,
+            source_book_id=source_book_id,
+            remote_by_volume=remote_by_volume,
+            min_score=min_score,
+        )
+        if manifest_path:
+            Path(manifest_path).write_text(
+                _json.dumps(stats.manifest, ensure_ascii=False, indent=1), encoding="utf-8"
+            )
+        if not dry_run:
+            written = apply_structure_matches(db, rows)
+            grade_stats = import_gradings(
+                db,
+                source_book_id=source_book_id,
+                remote_by_volume=remote_by_volume,
+                structure_matches=rows,
+            )
+            stats.gradings_rows = grade_stats.gradings_rows
+            stats.gradings_hadiths = grade_stats.gradings_hadiths
+            db.commit()
+        else:
+            db.rollback()
+    except Exception:
+        db.rollback()
+        raise
+    finally:
+        db.close()
+
+    mode = "DRY-RUN" if dry_run else "APPLIED"
+    typer.echo(f"{mode}: Thaqalayn structure import")
+    typer.echo(f"  fetched remote rows      : {stats.fetched}")
+    typer.echo(f"  local visible hadiths    : {stats.local_visible}")
+    typer.echo(f"  matched (provenance rekey): {stats.matched_provenance_rekey}")
+    typer.echo(f"  matched (windowed arabic) : {stats.matched_windowed_arabic}")
+    typer.echo(f"  interpolated (edition gap): {stats.interpolated}")
+    typer.echo(f"  unmapped                 : {stats.unmapped}")
+    typer.echo(f"  numbering-flagged        : {stats.numbering_flagged}")
+    typer.echo(f"  gradings rows / hadiths  : {stats.gradings_rows} / {stats.gradings_hadiths}")
+
+
+@app.command("import-thaqalayn-live-english")
+def import_thaqalayn_live_english_cmd(
+    source_book_id: str = typer.Option(
+        AL_KAFI_ISLAMIYYA_SOURCE_BOOK_ID, "--source-book-id"
+    ),
+    snapshot_dir: str | None = typer.Option(None, "--snapshot-dir"),
+    min_score: float = typer.Option(0.88, "--min-score"),
+    manifest_path: str | None = typer.Option(None, "--manifest-path"),
+    dry_run: bool = typer.Option(True, "--dry-run/--apply"),
+) -> None:
+    """Import the current Thaqalayn English verbatim for structure-matched Al-Kafi rows."""
+    import json as _json
+    from pathlib import Path
+
+    from eshia_research.translation.thaqalayn_importer import fetch_al_kafi_records
+    from eshia_research.translation.thaqalayn_structure import (
+        import_live_english,
+        load_snapshot_records,
+    )
+
+    _init_db()
+    db = SessionLocal()
+    try:
+        if snapshot_dir:
+            remote_by_volume = load_snapshot_records(snapshot_dir)
+        else:
+            remote_by_volume = fetch_al_kafi_records()
+        stats = import_live_english(
+            db,
+            source_book_id=source_book_id,
+            remote_by_volume=remote_by_volume,
+            dry_run=dry_run,
+            min_score=min_score,
+        )
+        if manifest_path:
+            Path(manifest_path).write_text(
+                _json.dumps(stats.manifest, ensure_ascii=False, indent=1), encoding="utf-8"
+            )
+        if not dry_run:
+            db.commit()
+        else:
+            db.rollback()
+    except Exception:
+        db.rollback()
+        raise
+    finally:
+        db.close()
+
+    mode = "DRY-RUN" if dry_run else "APPLIED"
+    typer.echo(f"{mode}: Thaqalayn live-English import")
+    typer.echo(f"  considered (matched maps): {stats.considered}")
+    typer.echo(f"  imported                 : {stats.imported}")
+    typer.echo(f"  skipped (QA)             : {stats.skipped_qa}")
+    typer.echo(f"  skipped (low confidence) : {stats.skipped_low_confidence}")
+    typer.echo(f"  skipped (unknown transl.): {stats.skipped_unknown_translator}")
+    typer.echo(f"  leading-index downgraded : {stats.number_prefix_downgraded}")
+    if stats.errors:
+        typer.echo(f"  errors: {stats.errors[:5]}")
+
+
 if __name__ == "__main__":
     app()

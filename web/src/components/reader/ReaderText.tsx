@@ -133,6 +133,7 @@ export function IndexedHadithCard({
   const note = pagePositionNote(hadith, position);
   const isCarryover = currentPage !== undefined && (position === "middle" || position === "end");
   const citationHref = `/read/${hadith.book_id}/${hadith.volume_start ?? 1}/${hadith.page_start}`;
+  const chapterNumber = hadith.structure?.number_in_chapter ?? null;
   const body = (
     <HadithBody
       publicId={hadith.public_id}
@@ -140,6 +141,7 @@ export function IndexedHadithCard({
       matn={formatArabicText(hadith.matn_raw)}
       footnotes={hadith.footnotes}
       translation={hadith.translation}
+      gradings={hadith.gradings}
     />
   );
 
@@ -150,6 +152,14 @@ export function IndexedHadithCard({
     >
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap items-center gap-2 text-xs text-muted">
+          {chapterNumber !== null ? (
+            <span
+              title="Hadith number within its chapter"
+              className="rounded-full border border-gold/40 px-2.5 py-1 font-mono font-medium text-gold"
+            >
+              #{chapterNumber}
+            </span>
+          ) : null}
           <Link
             href={`/hadith/${encodeURIComponent(hadith.public_id)}`}
             title="Permanent link — this hadith's unique ID"

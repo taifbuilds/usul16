@@ -473,6 +473,7 @@ def test_get_hadith_exposes_only_current_green_complete_translation(
         "translation_version": TRANSLATION_VERSION,
         "rendered_isnad_en": "From chain",
         "matn_translation": "The translated text.",
+        "full_translation": None,
         "status": "published",
         "risk_level": "green",
         "risk_flags": None,

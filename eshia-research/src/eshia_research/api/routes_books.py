@@ -23,6 +23,7 @@ from eshia_research.models import (
     ChainNode,
     ChainNodeCandidate,
     Hadith,
+    HadithGrading,
     HadithSplitReview,
     HadithTranslation,
     MentionResolution,
@@ -35,12 +36,17 @@ from eshia_research.models import (
     RijalEntry,
     RijalOccurrence,
     RijalStatement,
+    ThaqalaynStructureMap,
 )
 from eshia_research.normalise import normalise_arabic_persian
 from eshia_research.schemas import (
     BookRead,
     BookSummary,
     ChapterSummary,
+    HadithGradingRead,
+    HadithStructureRead,
+    KitabSummary,
+    ThaqalaynChapterSummary,
     CorpusBookStatus,
     CorpusStatusResponse,
     HadithSplitAudit,
@@ -75,6 +81,7 @@ from eshia_research.schemas import (
     TransmissionGraphRead,
 )
 from eshia_research.translation.publication import (
+    PUBLIC_TRANSLATION_VERSIONS,
     has_blocking_risk_flag,
     has_public_human_source_metadata,
     is_public_english_translation,
@@ -221,11 +228,58 @@ def _attach_public_translations(db: Session, hadiths: list[Hadith]) -> list[Hadi
         )
         .all()
     )
-    by_hadith_id = {row.hadith_id: row for row in rows}
+    # A hadith may now have more than one candidate version; prefer the earliest
+    # entry in PUBLIC_TRANSLATION_VERSIONS, and only attach it if it still passes
+    # the full fail-closed check (which includes the source-hash currency test).
+    version_rank = {v: i for i, v in enumerate(PUBLIC_TRANSLATION_VERSIONS)}
+    by_hadith_id: dict[int, list[HadithTranslation]] = {}
+    for row in rows:
+        by_hadith_id.setdefault(row.hadith_id, []).append(row)
     for hadith in hadiths:
-        translation = by_hadith_id.get(hadith.id)
-        hadith.translation = (
-            translation if is_public_english_translation(translation, hadith) else None
+        candidates = sorted(
+            by_hadith_id.get(hadith.id, []),
+            key=lambda r: version_rank.get(r.translation_version, len(version_rank)),
+        )
+        chosen = next(
+            (c for c in candidates if is_public_english_translation(c, hadith)), None
+        )
+        hadith.translation = chosen
+    return hadiths
+
+
+def _attach_structure_and_gradings(db: Session, hadiths: list[Hadith]) -> list[Hadith]:
+    """Attach Thaqalayn kitab/chapter placement and gradings (response-only)."""
+    hadith_ids = [h.id for h in hadiths]
+    if not hadith_ids:
+        return hadiths
+    structure_by_id = {
+        s.hadith_id: s
+        for s in db.query(ThaqalaynStructureMap)
+        .filter(
+            ThaqalaynStructureMap.hadith_id.in_(hadith_ids),
+            ThaqalaynStructureMap.source == "thaqalayn-api",
+        )
+        .all()
+    }
+    gradings_by_id: dict[int, list[HadithGrading]] = {}
+    for g in (
+        db.query(HadithGrading)
+        .filter(
+            HadithGrading.hadith_id.in_(hadith_ids),
+            HadithGrading.source == "thaqalayn-api",
+        )
+        .order_by(HadithGrading.display_order)
+        .all()
+    ):
+        gradings_by_id.setdefault(g.hadith_id, []).append(g)
+    for hadith in hadiths:
+        smap = structure_by_id.get(hadith.id)
+        hadith.structure = (
+            HadithStructureRead.model_validate(smap) if smap is not None else None
+        )
+        rows = gradings_by_id.get(hadith.id)
+        hadith.gradings = (
+            [HadithGradingRead.model_validate(g) for g in rows] if rows else None
         )
     return hadiths
 
@@ -1747,6 +1801,153 @@ def list_chapter_hadiths(
     return _attach_public_translations(db, _apply_approved_splits(db, hadiths))
 
 
+def _kitab_order_key(volume: int, kitab_id: str) -> tuple[int, int, str]:
+    """Sort kitabs by volume, then numerically by their Thaqalayn category id."""
+    try:
+        return (volume, int(kitab_id), kitab_id)
+    except (TypeError, ValueError):
+        return (volume, 1 << 30, kitab_id)
+
+
+@router.get("/books/{book_id}/kitabs", response_model=list[KitabSummary])
+def list_book_kitabs(book_id: int, db: Session = Depends(get_db)) -> list[KitabSummary]:
+    """Thaqalayn kitab (book-section) index for a structured book."""
+    book = db.get(Book, book_id)
+    if book is None:
+        raise HTTPException(status_code=404, detail="Book not found")
+    rows = (
+        db.query(
+            ThaqalaynStructureMap.volume,
+            ThaqalaynStructureMap.kitab_id,
+            ThaqalaynStructureMap.kitab_name_en,
+            ThaqalaynStructureMap.chapter_id,
+        )
+        .join(Hadith, Hadith.id == ThaqalaynStructureMap.hadith_id)
+        .filter(
+            Hadith.book_id == book_id,
+            ThaqalaynStructureMap.source == "thaqalayn-api",
+        )
+        .all()
+    )
+    agg: dict[tuple[int, str], dict] = {}
+    for volume, kitab_id, kitab_name_en, chapter_id in rows:
+        key = (volume, kitab_id)
+        entry = agg.setdefault(
+            key,
+            {
+                "volume": volume,
+                "kitab_id": kitab_id,
+                "name_en": kitab_name_en,
+                "chapters": set(),
+                "hadith_count": 0,
+            },
+        )
+        entry["chapters"].add(chapter_id)
+        entry["hadith_count"] += 1
+    result = [
+        KitabSummary(
+            kitab_id=e["kitab_id"],
+            name_en=e["name_en"],
+            volume=e["volume"],
+            chapter_count=len(e["chapters"]),
+            hadith_count=e["hadith_count"],
+            first_chapter_id=min(e["chapters"]),
+        )
+        for e in agg.values()
+    ]
+    result.sort(key=lambda k: _kitab_order_key(k.volume, k.kitab_id))
+    return result
+
+
+@router.get(
+    "/books/{book_id}/kitabs/{kitab_id}/chapters",
+    response_model=list[ThaqalaynChapterSummary],
+)
+def list_kitab_chapters(
+    book_id: int, kitab_id: str, db: Session = Depends(get_db)
+) -> list[ThaqalaynChapterSummary]:
+    book = db.get(Book, book_id)
+    if book is None:
+        raise HTTPException(status_code=404, detail="Book not found")
+    rows = (
+        db.query(
+            ThaqalaynStructureMap.chapter_id,
+            ThaqalaynStructureMap.chapter_name_en,
+            ThaqalaynStructureMap.number_in_chapter,
+        )
+        .join(Hadith, Hadith.id == ThaqalaynStructureMap.hadith_id)
+        .filter(
+            Hadith.book_id == book_id,
+            ThaqalaynStructureMap.source == "thaqalayn-api",
+            ThaqalaynStructureMap.kitab_id == kitab_id,
+        )
+        .all()
+    )
+    if not rows:
+        raise HTTPException(status_code=404, detail="Kitab not found")
+    agg: dict[int, dict] = {}
+    for chapter_id, chapter_name_en, number_in_chapter in rows:
+        entry = agg.setdefault(
+            chapter_id,
+            {"chapter_id": chapter_id, "name_en": chapter_name_en, "count": 0, "nums": []},
+        )
+        entry["count"] += 1
+        if number_in_chapter is not None:
+            entry["nums"].append(number_in_chapter)
+    result = [
+        ThaqalaynChapterSummary(
+            chapter_id=e["chapter_id"],
+            name_en=e["name_en"],
+            hadith_count=e["count"],
+            number_min=min(e["nums"]) if e["nums"] else None,
+            number_max=max(e["nums"]) if e["nums"] else None,
+        )
+        for e in agg.values()
+    ]
+    result.sort(key=lambda c: c.chapter_id)
+    return result
+
+
+@router.get(
+    "/books/{book_id}/kitabs/{kitab_id}/chapters/{chapter_id}/hadiths",
+    response_model=list[HadithRead],
+)
+def list_kitab_chapter_hadiths(
+    book_id: int,
+    kitab_id: str,
+    chapter_id: int,
+    db: Session = Depends(get_db),
+) -> list[Hadith]:
+    book = db.get(Book, book_id)
+    if book is None:
+        raise HTTPException(status_code=404, detail="Book not found")
+    maps = (
+        db.query(ThaqalaynStructureMap.hadith_id, ThaqalaynStructureMap.number_in_chapter)
+        .join(Hadith, Hadith.id == ThaqalaynStructureMap.hadith_id)
+        .filter(
+            Hadith.book_id == book_id,
+            ThaqalaynStructureMap.source == "thaqalayn-api",
+            ThaqalaynStructureMap.kitab_id == kitab_id,
+            ThaqalaynStructureMap.chapter_id == chapter_id,
+        )
+        .all()
+    )
+    if not maps:
+        raise HTTPException(status_code=404, detail="Chapter not found")
+    order = {
+        hid: (num if num is not None else 1 << 30, i)
+        for i, (hid, num) in enumerate(maps)
+    }
+    hadiths = (
+        _visible_hadith_query(db, book_id)
+        .filter(Hadith.id.in_(list(order)))
+        .all()
+    )
+    hadiths.sort(key=lambda h: order.get(h.id, (1 << 30, 0)))
+    hadiths = _attach_public_translations(db, _apply_approved_splits(db, hadiths))
+    return _attach_structure_and_gradings(db, hadiths)
+
+
 @router.get("/hadiths/{public_id}", response_model=HadithRead)
 def get_hadith(public_id: str, db: Session = Depends(get_db)) -> Hadith:
     hadith = db.query(Hadith).filter(Hadith.public_id == public_id).one_or_none()
@@ -1763,7 +1964,8 @@ def get_hadith(public_id: str, db: Session = Depends(get_db)) -> Hadith:
         .one_or_none()
     )
     hadith = _apply_approved_split(hadith, review)
-    return _attach_public_translations(db, [hadith])[0]
+    hadith = _attach_public_translations(db, [hadith])[0]
+    return _attach_structure_and_gradings(db, [hadith])[0]
 
 
 @router.get("/hadiths/{public_id}/chains", response_model=HadithChainsRead)
@@ -2373,9 +2575,13 @@ def get_corpus_status(db: Session = Depends(get_db)) -> CorpusStatusResponse:
         )
     }
     translation_counts: dict[int, int] = {}
+    # A hadith can now carry more than one publishable version; count each
+    # translated hadith once, not once per row.
+    counted_hadith_ids: set[int] = set()
     translation_rows = (
         db.query(
             Hadith.book_id,
+            HadithTranslation.hadith_id,
             HadithTranslation.source_full_sha256,
             HadithTranslation.source_isnad_sha256,
             HadithTranslation.source_matn_sha256,
@@ -2394,6 +2600,8 @@ def get_corpus_status(db: Session = Depends(get_db)) -> CorpusStatusResponse:
         .yield_per(500)
     )
     for row in translation_rows:
+        if row.hadith_id in counted_hadith_ids:
+            continue
         if (
             has_public_human_source_metadata(row.provenance_json)
             and not has_blocking_risk_flag(row.risk_flags)
@@ -2406,6 +2614,7 @@ def get_corpus_status(db: Session = Depends(get_db)) -> CorpusStatusResponse:
                 matn_raw=row.matn_raw,
             )
         ):
+            counted_hadith_ids.add(row.hadith_id)
             translation_counts[row.book_id] = translation_counts.get(row.book_id, 0) + 1
     approved_split_counts = dict(
         db.query(Hadith.book_id, func.count(HadithSplitReview.id))

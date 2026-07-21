@@ -70,7 +70,19 @@ export default async function BookDetailPage({ params }: { params: Promise<{ boo
           ) : null}
 
           <div className="mt-9 flex flex-wrap items-center gap-3">
-            {book.has_content && INDEXED_SOURCE_BOOK_IDS.has(book.source_book_id) ? (
+            {book.has_content && book.source_book_id === "11005" ? (
+              <>
+                <Link href={`/books/${book.id}/contents`} className="rounded-md bg-accent px-5 py-3 font-semibold text-accent-foreground hover:bg-accent-strong">
+                  Browse contents
+                </Link>
+                <Link href={`/read/${book.id}/bab/1`} className="rounded-md border border-border bg-surface px-5 py-3 font-medium text-foreground hover:border-accent hover:text-accent">
+                  Read by chapter
+                </Link>
+                <Link href={`/read/${book.id}/1/1`} className="rounded-md border border-border bg-surface px-5 py-3 font-medium text-foreground hover:border-accent hover:text-accent">
+                  Printed pages
+                </Link>
+              </>
+            ) : book.has_content && INDEXED_SOURCE_BOOK_IDS.has(book.source_book_id) ? (
               <>
                 <Link href={`/read/${book.id}/bab/1`} className="rounded-md bg-accent px-5 py-3 font-semibold text-accent-foreground hover:bg-accent-strong">
                   Read by chapter

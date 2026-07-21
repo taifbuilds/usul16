@@ -1071,6 +1071,86 @@ class TranslationReview(Base):
     segment: Mapped["TranslationSegment | None"] = relationship()
 
 
+class ThaqalaynStructureMap(Base):
+    """A hadith's position in an external edition's kitab/chapter hierarchy.
+
+    Kept separate from Hadith, which stays clean eShia provenance (printed
+    volume/page, extraction). This is a second witness about the same report,
+    droppable and rebuildable without touching source text.
+    """
+
+    __tablename__ = "thaqalayn_structure_maps"
+    __table_args__ = (
+        UniqueConstraint("hadith_id", "source", name="uq_structure_map_hadith_source"),
+        UniqueConstraint(
+            "source", "remote_book_id", "remote_id", name="uq_structure_map_remote_row"
+        ),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    hadith_id: Mapped[int] = mapped_column(ForeignKey("hadiths.id"), index=True)
+    source: Mapped[str] = mapped_column(String(64), default="thaqalayn-api", index=True)
+    remote_book_id: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    remote_id: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    volume: Mapped[int] = mapped_column(Integer, index=True)
+    kitab_id: Mapped[str] = mapped_column(String(32), index=True)
+    kitab_name_en: Mapped[str] = mapped_column(String(512))
+    chapter_id: Mapped[int] = mapped_column(Integer, index=True)
+    chapter_name_en: Mapped[str] = mapped_column(String(512))
+    number_in_chapter: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    number_prefix_en: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    position_computed: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    numbering_flags: Mapped[list | None] = mapped_column(JSON, nullable=True)
+    thaqalayn_url: Mapped[str | None] = mapped_column(String(1024), nullable=True)
+    # matched | interpolated_unmapped
+    mapping_status: Mapped[str] = mapped_column(String(32), index=True)
+    # provenance_rekey | windowed_arabic | interpolated | manual
+    match_method: Mapped[str] = mapped_column(String(32), index=True)
+    match_score: Mapped[float | None] = mapped_column(Float, nullable=True)
+    matcher_version: Mapped[str] = mapped_column(String(32), default="thaqalayn_struct_v1")
+    remote_arabic_sha256: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    raw_ref_json: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    updated_at: Mapped[dt.datetime] = mapped_column(
+        DateTime(timezone=True), default=utcnow, onupdate=utcnow
+    )
+
+    hadith: Mapped["Hadith"] = relationship()
+
+
+class HadithGrading(Base):
+    """An external grader's authenticity judgment for one hadith, with reference.
+
+    Attributed evidence, not this project's own judgment. Rows are replaced
+    per (hadith_id, source) atomically on re-import.
+    """
+
+    __tablename__ = "hadith_gradings"
+    __table_args__ = (
+        UniqueConstraint(
+            "hadith_id", "source", "display_order", name="uq_hadith_grading_order"
+        ),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    hadith_id: Mapped[int] = mapped_column(ForeignKey("hadiths.id"), index=True)
+    source: Mapped[str] = mapped_column(String(64), default="thaqalayn-api", index=True)
+    # majlisi | behbudi | mohseni | other:<slug>
+    grader_key: Mapped[str] = mapped_column(String(64), index=True)
+    author_name_en: Mapped[str] = mapped_column(String(256))
+    grade_ar: Mapped[str] = mapped_column(String(256))
+    grade_en: Mapped[str | None] = mapped_column(String(256), nullable=True)
+    reference_en: Mapped[str | None] = mapped_column(String(512), nullable=True)
+    display_order: Mapped[int] = mapped_column(Integer, default=0)
+    raw_json: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    updated_at: Mapped[dt.datetime] = mapped_column(
+        DateTime(timezone=True), default=utcnow, onupdate=utcnow
+    )
+
+    hadith: Mapped["Hadith"] = relationship()
+
+
 class CrawlLog(Base):
     __tablename__ = "crawl_logs"
 

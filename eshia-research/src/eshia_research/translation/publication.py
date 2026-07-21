@@ -17,6 +17,13 @@ from eshia_research.translation import TRANSLATION_VERSION
 from eshia_research.translation.text import sha256_text
 
 
+# Translation versions that may publish, in descending preference order. When a
+# hadith has more than one publishable row, the earliest version in this tuple
+# wins. "thaqalayn_live_v1" is the current verbatim Thaqalayn text (numbered
+# English isnad + matn); "matn_en_v1" is the earlier matn-only import that still
+# serves wherever no live row exists.
+PUBLIC_TRANSLATION_VERSIONS = ("thaqalayn_live_v1", TRANSLATION_VERSION)
+
 PUBLIC_TRANSLATION_STATUSES = ("human_reviewed", "published")
 
 # Public English must carry positive evidence that it came from a human
@@ -110,7 +117,7 @@ def public_english_translation_candidate_filters() -> Sequence[object]:
     model_text = func.lower(func.coalesce(HadithTranslation.model, ""))
     filters: list[object] = [
         HadithTranslation.language == "en",
-        HadithTranslation.translation_version == TRANSLATION_VERSION,
+        HadithTranslation.translation_version.in_(PUBLIC_TRANSLATION_VERSIONS),
         HadithTranslation.status.in_(PUBLIC_TRANSLATION_STATUSES),
         HadithTranslation.risk_level == "green",
         HadithTranslation.matn_translation.isnot(None),
@@ -168,7 +175,7 @@ def is_public_english_translation(
 
     if translation is None:
         return False
-    if translation.language != "en" or translation.translation_version != TRANSLATION_VERSION:
+    if translation.language != "en" or translation.translation_version not in PUBLIC_TRANSLATION_VERSIONS:
         return False
     if translation.status not in PUBLIC_TRANSLATION_STATUSES:
         return False

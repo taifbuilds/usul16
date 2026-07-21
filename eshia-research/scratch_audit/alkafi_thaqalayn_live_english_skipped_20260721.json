@@ -1,0 +1,11610 @@
+[
+ {
+  "public_id": "alkafi-54",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-78",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-94",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-104",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-124",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-125",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-133",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-135",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-156",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-185",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-199",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-242",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-244",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-245",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-247",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-257",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-263",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-264",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-265",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-266",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-269",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-278",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-279",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-281",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-293",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-300",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-303",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-310",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-311",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-318",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-321",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-322",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-323",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-326",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-327",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-328",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-331",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-332",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-333",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-334",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-337",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-340",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-342",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-346",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-347",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-349",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-351",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-352",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-359",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-365",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-366",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-395",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-397",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-414",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-416",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-422",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-424",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-425",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-436",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-439",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-470",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-475",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-481",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-482",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-491",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-492",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-494",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-496",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-500",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-511",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-513",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-515",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-516",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-522",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-523",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-532",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-541",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-542",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-548",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-549",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-555",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-556",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-557",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-560",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-564",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-566",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-567",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-568",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-569",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-572",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-573",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-575",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-577",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-581",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-584",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-601",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-602",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-603",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-608",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-609",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-618",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-619",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-633",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-635",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-640",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-641",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-642",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-643",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-644",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-645",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-646",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-647",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-652",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-661",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-662",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-689",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-690",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-691",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-692",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-693",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-694",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-696",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-697",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-698",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-699",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-706",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-707",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-711",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-715",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-716",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-717",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-718",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-719",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-726",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-727",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-736",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-748",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-753",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-756",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-758",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-760",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-762",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-777",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-778",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-785",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-787",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-794",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-797",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-814",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-841",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-842",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-843",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-845",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-855",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-860",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-863",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-906",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-907",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-916",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-921",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-943",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-945",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-949",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-954",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-955",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-957",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-963",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-964",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-965",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-967",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-969",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-978",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-980",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-981",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-982",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-989",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-995",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-996",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1000",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1001",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1002",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1003",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1005",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1011",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1013",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1014",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1016",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1018",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1019",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1020",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1044",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1045",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1063",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1070",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1076",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1079",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1080",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1081",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1089",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1090",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1091",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1095",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1099",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1100",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1105",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1106",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1107",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1108",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1109",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1112",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1113",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1116",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1117",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1119",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1120",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1122",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1123",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1125",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1127",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1128",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1130",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1131",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1133",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1136",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1137",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1138",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1139",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1140",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1142",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1144",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1145",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1146",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1149",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1155",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1156",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1158",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1159",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1168",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1169",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1171",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1172",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1174",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1176",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1186",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1199",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1219",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1220",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1224",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1257",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1258",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1259",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1268",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1274",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1287",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1288",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1306",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1337",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1395",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1401",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1408",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1409",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1410",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1412",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1416",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1419",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1422",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1425",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1433",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1450",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1452",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1453",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1454",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1456",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1458",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1462",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1463",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1464",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1468",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1469",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1470",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1471",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1472",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1474",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1475",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1476",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1479",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1480",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1481",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1483",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1488",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1489",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1492",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1497",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1498",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1503",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1512",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1516",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1519",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1520",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1588",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1589",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1590",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1591",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1593",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1598",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1601",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1616",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1635",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1644",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1648",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1652",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1654",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1672",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1702",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1704",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1714",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1716",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1720",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1734",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1735",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1738",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1749",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1788",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1819",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1821",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1857",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1864",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1889",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1896",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1901",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1904",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1913",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1964",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1967",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1973",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1989",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1990",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1992",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1994",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-2000",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2005",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2010",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2029",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2030",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-2031",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2065",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2070",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-2087",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2100",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2102",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2109",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2130",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2131",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2135",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2161",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2170",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2174",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2176",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2179",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2189",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2199",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2215",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-2217",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2218",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-2219",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2220",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2224",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2226",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2232",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2241",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2245",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-2250",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2301",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2313",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2317",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2318",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2326",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2331",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2358",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2386",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2393",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-2399",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2402",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2404",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2407",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2408",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2415",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2417",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2425",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2430",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-2437",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-2443",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2453",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2454",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2456",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2458",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-2464",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2466",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-2475",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2485",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-2487",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2492",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-2496",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2512",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2522",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2529",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-2587",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-2588",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2614",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2644",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-2655",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2661",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2692",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2697",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-2709",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-2752",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2780",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2800",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2807",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-2825",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2826",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2830",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2834",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2835",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2837",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2841",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2842",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2844",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2860",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2863",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-2870",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-2871",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2873",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2874",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2876",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2879",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2886",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2899",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2903",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2910",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2912",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-2916",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2917",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2923",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2929",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2930",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2934",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2936",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2955",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2956",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2958",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2959",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2962",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2983",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2984",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2987",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-2996",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3007",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3008",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3009",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3010",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3012",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3014",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3030",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3035",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3049",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3050",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3054",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3058",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3062",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3064",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3098",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3104",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3112",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3118",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3122",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3142",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3149",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3153",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3171",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3175",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3192",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3195",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3200",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3203",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3205",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3220",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3224",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3240",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3242",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3244",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3249",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3255",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3256",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3258",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3274",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3286",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3290",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3300",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3311",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3315",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3319",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3323",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3326",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3328",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3337",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3357",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3377",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3383",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3387",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3395",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3396",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3397",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3398",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3400",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3426",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3428",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3480",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3519",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3530",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3540",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3543",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3545",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3546",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3547",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3549",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3553",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3556",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3558",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3559",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3560",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3562",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3563",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3568",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3577",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3579",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3581",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3582",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3583",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3584",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3585",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3589",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3599",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3613",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3615",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3625",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3633",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3655",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3658",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3692",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3719",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3809",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3838",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3839",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3840",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3841",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3883",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-3935",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3956",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4021",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-4090",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4118",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4136",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4159",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4160",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-4161",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-4170",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-4173",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-4176",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4186",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4216",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-4290",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4296",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4303",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4310",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4319",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4364",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-4376",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-4413",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4445",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4547",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4576",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-4672",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4679",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4692",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4694",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4721",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4751",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4752",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4758",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4759",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4770",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4782",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-4790",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4797",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4798",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4803",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4820",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4828",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-4844",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4845",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4883",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-4888",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-4896",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4903",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4904",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4906",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4909",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4916",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-4917",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-4925",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-4945",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4963",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4967",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-4968",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-4973",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-4974",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-4976",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-4977",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4982",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-4984",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4985",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4988",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-4989",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4990",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-4991",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-4992",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-4995",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5008",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5014",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5016",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5019",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5024",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5028",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5059",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5061",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5067",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5071",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5091",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5097",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5099",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5101",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5115",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5123",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5124",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5181",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5182",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5222",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5223",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5224",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5232",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5239",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5245",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5289",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5368",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5396",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5403",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5422",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5435",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5454",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5458",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5459",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5462",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5463",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5488",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5491",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5508",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5532",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5542",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5543",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5544",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5548",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5549",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5564",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5566",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5574",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5592",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5596",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5611",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5614",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5622",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5629",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5631",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5632",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5634",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5635",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5640",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5641",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5652",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5653",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5654",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5657",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5680",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5699",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5706",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5709",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5710",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5712",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5714",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5715",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5718",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5720",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5727",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5728",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5733",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5736",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5748",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5791",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5833",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5834",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5848",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5960",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5963",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5965",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-5985",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5998",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-6015",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6030",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6041",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6048",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6050",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6080",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-6107",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-6112",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-6123",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-6137",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6139",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-6159",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6160",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6164",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6165",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-6171",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6183",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6186",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6190",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6197",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6198",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-6201",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6202",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6204",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6205",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6220",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-6224",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-6235",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-6280",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6309",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6320",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6321",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-6344",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6348",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6351",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-6423",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6472",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6525",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6529",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6534",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6562",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6569",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6592",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-6594",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6604",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6613",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6685",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6687",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6693",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6695",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6722",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6741",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6742",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6748",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6750",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6751",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-6752",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-6754",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6755",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-6756",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6821",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6831",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6832",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6833",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-6834",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-6838",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6843",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6846",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6857",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6865",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-6882",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6885",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6886",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6888",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-6889",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6894",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6895",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6896",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6898",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6900",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6904",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6965",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-6982",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-6989",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-6990",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7022",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7103",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7175",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7176",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7189",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7254",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7275",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7388",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7393",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7431",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7432",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7437",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7439",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7440",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7441",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7442",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7459",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7464",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7483",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7504",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7551",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7561",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7581",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7585",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7593",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7601",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7604",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7610",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7612",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7679",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7703",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7716",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7719",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7724",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7725",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7728",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7733",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7736",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7738",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7745",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7746",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7747",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7748",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7749",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7750",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7760",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7764",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7787",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7796",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7805",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7807",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7808",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7831",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7832",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7839",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7843",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7848",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7849",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7853",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7858",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7871",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7876",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7880",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7881",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7882",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7883",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7889",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7891",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7897",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7905",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7906",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7909",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7910",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7912",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7919",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7926",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7927",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7928",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7929",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7930",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7932",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7936",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7937",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7946",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7948",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7957",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7976",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7979",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7983",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7984",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7987",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7989",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-7995",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-7996",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8000",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8003",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8012",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8019",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8021",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8025",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8026",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8032",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8034",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8046",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8047",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8050",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8051",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8053",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8058",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8077",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8098",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8118",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8143",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8152",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8187",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8214",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8219",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8263",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8296",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8297",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8298",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8299",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8300",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8310",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8311",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8312",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8348",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8357",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8363",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8371",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8385",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8402",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8414",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8415",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8429",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8431",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8439",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8443",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8450",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8457",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8467",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8470",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8471",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8472",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8473",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8474",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8486",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8487",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8491",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8492",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8493",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8494",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8496",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8522",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8535",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8536",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8551",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8554",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8563",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8564",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8565",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8568",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8597",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8635",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8678",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8684",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8685",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8721",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8745",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8746",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8747",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8748",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8749",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8750",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8765",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8774",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8780",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8810",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8811",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8812",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8813",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8814",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-8815",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-8969",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-9081",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-9082",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9083",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9084",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-9085",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-9088",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9089",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9090",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-9091",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9092",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-9093",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9095",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9096",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-9115",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9134",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-9145",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9229",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-9263",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9312",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9313",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9318",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9319",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9320",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-9333",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9352",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9362",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-9374",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9375",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9391",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9393",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9410",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9411",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9412",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-9431",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9432",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9433",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9491",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9495",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9496",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-9501",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9508",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9518",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9519",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-9520",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-9533",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9534",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9535",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9545",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9557",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9558",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder",
+   "provider_refusal_text"
+  ]
+ },
+ {
+  "public_id": "alkafi-9580",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9633",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9645",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9646",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9652",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-9685",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-9729",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-9741",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9744",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-9767",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9768",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9774",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9784",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9794",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-9815",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9817",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-9820",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9821",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9822",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-9856",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9861",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9864",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-9886",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9888",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9891",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9892",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9893",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9900",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-9906",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9907",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-9917",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10099",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10109",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10110",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-10112",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10120",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10127",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10142",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-10143",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-10144",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10146",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10151",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10153",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-10155",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-10166",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-10192",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10196",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10197",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10200",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-10213",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-10214",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10215",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10222",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10224",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10226",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10236",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10288",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-10290",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10382",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10389",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10404",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10405",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10413",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10417",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10418",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-10451",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10494",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-10535",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10570",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-10613",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10641",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10642",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10643",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10646",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10650",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10674",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-10698",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10700",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-10780",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10789",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10793",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10794",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-10795",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-10830",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10921",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-10922",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-10924",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-10926",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-10927",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-10928",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-10930",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-10932",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10933",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10942",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10980",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-10981",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-10982",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-10984",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-10986",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-10987",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-11000",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-11029",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-11038",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-11219",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-11262",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-11311",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-11312",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-11313",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-11314",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-11315",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-11316",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-11317",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-11318",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-11319",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-11320",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-11366",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-11396",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-11405",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-11434",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-11455",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-11478",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-11479",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-11490",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-11554",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-11569",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-11581",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-11595",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-11598",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-11599",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-11603",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-11621",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-11622",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-11623",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-11669",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-11682",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-11711",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-11719",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-11720",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-11803",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-11876",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-11901",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-11929",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12018",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-12030",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12050",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12053",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-12081",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-12141",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-12156",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12157",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12158",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12172",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12193",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12200",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12238",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12245",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-12258",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-12280",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12321",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-12322",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12323",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12339",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12342",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12344",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12347",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12348",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12350",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12351",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-12354",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12365",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12388",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12390",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12391",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-12392",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-12401",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12403",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12407",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12411",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-12420",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12445",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12459",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12469",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12472",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-12478",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-12485",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-12486",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-12522",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12591",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12621",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-12623",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12624",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-12625",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-12626",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-12627",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-12646",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12694",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12695",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12754",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12804",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-12824",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12888",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-12898",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-12899",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-12902",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-12912",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12957",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12960",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-12975",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-13010",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-13045",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-13050",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-13051",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-13089",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-13090",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-13092",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-13094",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-13097",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-13103",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-13105",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-13116",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-13117",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-13119",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-13149",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-13153",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-13188",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-13194",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-13227",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-13260",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-13265",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-13306",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-13328",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-13338",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-13349",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-13355",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-13357",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-13396",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-13397",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-13427",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-13444",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-13445",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-13538",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-13540",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-13555",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-13564",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-13565",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-13566",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-13573",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-13574",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-14501",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-14502",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-14503",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-14510",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-14512",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-14528",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14534",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14537",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14549",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14550",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14585",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14588",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-14608",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14611",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-14614",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-14651",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14660",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-14669",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-14674",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14675",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14685",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14686",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-14690",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14693",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14695",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14731",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14734",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14745",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14753",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14754",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14757",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14762",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14763",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14764",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-14765",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14766",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14769",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14770",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-14771",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14773",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14780",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14781",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14783",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14786",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14789",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14791",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14795",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14802",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14814",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14817",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14818",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14820",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14821",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14822",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14823",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14824",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14827",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14828",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14829",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14831",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14832",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14837",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14839",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-14843",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14846",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14851",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14857",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14861",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14864",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14867",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14868",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14870",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14871",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14878",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14887",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14896",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14899",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14900",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14901",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14908",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-14915",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14928",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14932",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14934",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-14942",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14944",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-14946",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14947",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14952",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14953",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14954",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14956",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14962",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14963",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14964",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14965",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14968",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14972",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14992",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14994",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14995",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14996",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14997",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-14998",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15000",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15002",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15003",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15004",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15006",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15007",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15011",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15013",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15014",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15020",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15022",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15034",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15037",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15048",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15052",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15073",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15079",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15083",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15088",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15089",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15093",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15095",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15096",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15100",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15103",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15105",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15108",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-15109",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-15110",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-15115",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15118",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15122",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15123",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15133",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15141",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15142",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15143",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15146",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15150",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15151",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15152",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15167",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15168",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15171",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15175",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15176",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15178",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15181",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15183",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15186",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15188",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15189",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15191",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15192",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-15193",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-15194",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15195",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15196",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15201",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15217",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15221",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15226",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15227",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15228",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-15229",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15230",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15236",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15237",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15238",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-15239",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15241",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15243",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15244",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15255",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15256",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-15258",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15260",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15261",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15262",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15264",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15270",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15275",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15279",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-15281",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-15282",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-15283",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15284",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15291",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15292",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-15293",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15300",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15303",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-15304",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15306",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15308",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15313",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15317",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15318",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15326",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15327",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15328",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15330",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15331",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15332",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15333",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15341",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15344",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15345",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15350",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-15354",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-5",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-11",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-42",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1151",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch"
+  ]
+ },
+ {
+  "public_id": "alkafi-1447",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-1461",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder"
+  ]
+ },
+ {
+  "public_id": "alkafi-3842",
+  "outcome": "skipped_qa",
+  "flags": [
+   "translation_too_short"
+  ]
+ },
+ {
+  "public_id": "alkafi-8322",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder",
+   "translation_too_long"
+  ]
+ },
+ {
+  "public_id": "alkafi-14752",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder",
+   "translation_too_long"
+  ]
+ },
+ {
+  "public_id": "alkafi-14755",
+  "outcome": "skipped_qa",
+  "flags": [
+   "number_mismatch",
+   "missing_placeholder",
+   "translation_too_long"
+  ]
+ },
+ {
+  "public_id": "alkafi-14840",
+  "outcome": "skipped_qa",
+  "flags": [
+   "untranslated_arabic_block"
+  ]
+ },
+ {
+  "public_id": "alkafi-14902",
+  "outcome": "skipped_qa",
+  "flags": [
+   "translation_too_long"
+  ]
+ }
+]

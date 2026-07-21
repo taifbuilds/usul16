@@ -58,6 +58,9 @@ eshia-research/scratch_audit/sarwar_scan_records_*.json
 eshia-research/scratch_audit/alkafi_translation_gap_*.json
 eshia-research/scratch_audit/alkafi_sarwar_api_target_audit_*.json
 eshia-research/scratch_audit/external_assessment_alkafi_10000_review_results_*.md
+# Full 13.6k-row structure manifest is multi-MB and regenerable from the tq_v*
+# snapshots + DB via import-thaqalayn-structure; the smaller skipped/QA manifests stay tracked.
+eshia-research/scratch_audit/alkafi_thaqalayn_structure_manifest_*.json
 
 # One-off local captures
 /bihar_detail.html

@@ -9,6 +9,8 @@ import type {
   HadithSplitReviewStats,
   HadithChainsRead,
   HadithRead,
+  KitabSummary,
+  ThaqalaynChapterSummary,
   NarratorDetailRead,
   NarratorHadithAppearancePage,
   NarratorTransmissionEdgesRead,
@@ -101,6 +103,43 @@ export async function getChapterHadiths(
     return await fetchApi<HadithRead[]>(`/books/${bookId}/chapters/${chapterIndex}/hadiths`, {
       cache: "no-store",
     });
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 404) return null;
+    throw error;
+  }
+}
+
+export async function getBookKitabs(bookId: number): Promise<KitabSummary[]> {
+  return fetchApi<KitabSummary[]>(`/books/${bookId}/kitabs`, {
+    next: { revalidate: 300 },
+  });
+}
+
+export async function getKitabChapters(
+  bookId: number,
+  kitabId: string
+): Promise<ThaqalaynChapterSummary[] | null> {
+  try {
+    return await fetchApi<ThaqalaynChapterSummary[]>(
+      `/books/${bookId}/kitabs/${encodeURIComponent(kitabId)}/chapters`,
+      { next: { revalidate: 300 } }
+    );
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 404) return null;
+    throw error;
+  }
+}
+
+export async function getKitabChapterHadiths(
+  bookId: number,
+  kitabId: string,
+  chapterId: number
+): Promise<HadithRead[] | null> {
+  try {
+    return await fetchApi<HadithRead[]>(
+      `/books/${bookId}/kitabs/${encodeURIComponent(kitabId)}/chapters/${chapterId}/hadiths`,
+      { cache: "no-store" }
+    );
   } catch (error) {
     if (error instanceof ApiError && error.status === 404) return null;
     throw error;

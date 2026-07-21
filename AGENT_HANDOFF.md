@@ -2039,6 +2039,94 @@ Applied and verified by Codex on 2026-07-15:
 - Backup completed at `2,280,108,032` bytes with SHA-256 `3BCC9392240271EA3DB5B6FAF4E467DB14933A42E0454DED3242FDB3AF950925`.
 - QA-normalization caution: an initial broad normalization of all `7,176` rows was immediately reversed after the deeper Arabic-extent audit found that the legacy numeric bucket mixes apparatus differences with genuine overmerges/wrong alignments. `rollback_alkafi_external_source_qa_normalization.py --apply` restored exactly the pre-normalization `risk_flags`, provenance/metadata, QA versions, and timestamps from the recorded backup; post-rollback logical diffs versus the backup are `0` for translations and segments, and no text column was touched. Selective alignment-aware normalization replaces the broad plan.
 
+## Thaqalayn-grade Al-Kafi: live English, gradings, kitab/chapter hierarchy (Claude, 2026-07-21)
+
+User direction: make Al-Kafi English match thaqalayn.net's current text (with the numbered
+English isnad, which our older Sarwar revision lacked), display gradings with references, and
+replace the chapter `<select>` dropdown with a book → kitab → chapter-cards → numbered-hadith
+overview like thaqalayn.net. User holds permission for the Thaqalayn text and directed the
+work explicitly; do not relitigate that.
+
+### Source (live API, snapshots in scratchpad/tq_v{1..8}.json)
+
+`https://www.thaqalayn-api.net/api/v2/Al-Kafi-Volume-{1..8}-Kulayni` — 14,245 rows, 100%
+`englishText` (Muhammad Sarwar, current revised, numbered isnad prefix), split
+`thaqalaynSanad`/`thaqalaynMatn`, `category`/`categoryId` (34 kitabs), `chapter`/
+`chapterInCategoryId` (2,648 chapters), `majlisi`/`behbudi`/`mohseniGrading` + `gradingsFull`.
+Per-chapter number authority = the URL's last path component, NOT chapterInCategoryId.
+
+### Schema (Alembic f1a4b8e6c210, additive-only)
+
+- `thaqalayn_structure_maps` (hadith_id → kitab/chapter/number placement, match method/score,
+  mapping_status matched|interpolated_unmapped, remote_arabic_sha256 drift pin).
+- `hadith_gradings` (per grader: grade_ar/en, reference_en, author, raw_json; replaced per
+  hadith on re-import). Both keyed to hadiths; droppable/rebuildable; Hadith untouched.
+- Backup before migration: `eshia_research.before-thaqalayn-structure-schema.20260721-125757.db`
+  (SHA-256 7721187635CF1EC38BA5641914B8A91DACB26E48963C5A4D1EDF2B7FDF573C10).
+
+### Applied DB edits (each backed up, quick_check ok, fk 0)
+
+- `import-thaqalayn-structure` (backup `before-thaqalayn-structure-import.20260721-132234.db`):
+  13,122 structure maps (13,064 provenance-rekey + 58 windowed-arabic), 519 interpolated,
+  1,695 unmapped; 14,683 gradings across 12,905 hadiths. Manifest
+  `scratch_audit/alkafi_thaqalayn_structure_manifest_20260721.json`.
+- `import-thaqalayn-live-english` (backup `before-thaqalayn-live-english.20260721-133429.db`):
+  11,588 new `translation_version="thaqalayn_live_v1"` rows (full_translation = verbatim
+  englishText; matn_translation = thaqalaynMatn; rendered_isnad_en = thaqalaynSanad), all
+  published/green. matn_en_v1 history untouched (15,276 rows).
+
+### QA policy for this source (honest, not bulk-cleared)
+
+`number_tokens` is digit-only; the Arabic matn spells numbers out and carries eShia footnote
+markers `[2]` counted as digits, so `number_mismatch` fires ~5,760x spuriously.
+`_reclassify_number_apparatus` downgrades to info ONLY when the numeric difference is fully
+explained by (a) eShia footnote markers or (b) the leading "N." index (full-English fallback)
+— recomputed after removing exactly those. Anything else stays blocking. This recovered
+4,389 and left 1,509 blocked (Quranic verse citations the translator added + genuine
+digit-introduction the check can't verify — the same mixed bucket the 2026-07-16 rollback
+warned about). Those 1,509 keep serving their matn_en_v1 text; skipped manifest
+`scratch_audit/alkafi_thaqalayn_live_english_skipped_20260721.json`.
+
+### Publication gate (version priority)
+
+`publication.py` now uses `PUBLIC_TRANSLATION_VERSIONS = ("thaqalayn_live_v1", "matn_en_v1")`.
+`_attach_public_translations` (routes_books.py) attaches the highest-priority row that passes
+the full fail-closed check; unmatched/blocked hadiths fall back to matn_en_v1 with zero extra
+logic. Coverage/search dedup by hadith so a hadith with both versions counts once. Rollback =
+remove the version from the tuple. Public Al-Kafi coverage 15,232 → 15,233 / 15,336 (no
+regression). The 104-row worksheet workflow is untouched.
+
+### API + frontend
+
+- New read-only endpoints: `/books/{id}/kitabs`, `/books/{id}/kitabs/{kitab_id}/chapters`,
+  `/books/{id}/kitabs/{kitab_id}/chapters/{chapter_id}/hadiths`. `HadithRead` gains
+  `structure` + `gradings`; `HadithTranslationRead` gains `full_translation`. Old endpoints
+  unchanged. Per-chapter numbering ordered `number_in_chapter NULLS LAST, sequence_in_book`.
+- New pages: `/books/[bookId]/contents` (kitab cards by volume), `/books/[bookId]/kitab/[kitabId]`
+  (chapter cards), `/read/[bookId]/kitab/[kitabId]/[chapterId]` (numbered reader). New
+  components `GradingChips`, `KitabCard`, `ChapterCard`. HadithBody renders `full_translation`
+  verbatim when present; #N gold badge on cards. Printed-page + `/hadith/alkafi-N` permalinks
+  unchanged (permalink gains kitab/chapter breadcrumb + gradings). Al-Kafi book page now
+  leads with "Browse contents".
+
+### Verification
+
+- Backend suite 359 passed (8 new in `tests/test_thaqalayn_structure.py`). Frontend lint
+  clean, production build passes (Next 16.2.9), all new routes 200, no mojibake.
+- ACCEPTANCE (alkafi-1): kitab "The Book of Intelligence and Ignorance" (36 hadiths) #1;
+  full_translation = the user-pasted verbatim "1. Abu Ja'far Muhammad b. Ya'qub (al-Kulayni)
+  has said: A number of our people…"; gradings Majlisi صحيح (Mirʾāt al-ʿUqūl 1/25) + Behbudi
+  صحيح (Sahih al-Kafi 1/1). A v7-unmatched hadith still serves matn_en_v1.
+
+### Follow-ups (non-blocking)
+
+- The 1,509 QA-blocked live rows: a verse-citation-aware downgrade could recover ~883 more
+  but the bucket is mixed (619 genuinely unverifiable); needs per-row review, not bulk. The
+  principled root fix is teaching `number_tokens` to parse spelled-out Arabic numerals.
+- Interpolated (519) + unmapped (1,695) hadiths have no Thaqalayn number; they render without
+  a #N badge (never a fabricated one) and remain reachable via the printed-page reader.
+- `git` is local-only (no remote); nothing pushed.
+
 ## Non-canonical translation source-hash repair (Claude, 2026-07-17)
 
 Undocumented prior work found first. The 2026-07-16 afternoon session left seven

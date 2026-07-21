@@ -37,10 +37,17 @@ export default async function HadithPermalinkPage({
   const book = await getBook(hadith.book_id);
   const title = book ? formatArabicTitle(book.title_original) : null;
 
-  // Locate the containing chapter for "read in context".
+  // Locate the containing chapter for "read in context". Prefer the Thaqalayn
+  // kitab/chapter structure when present; fall back to the section-title runs.
   let contextHref: string | null = null;
   let chapterTitle: string | null = null;
-  if (book) {
+  let kitabHref: string | null = null;
+  if (book && hadith.structure && hadith.structure.mapping_status === "matched") {
+    const { kitab_id, kitab_name_en, chapter_id, chapter_name_en } = hadith.structure;
+    contextHref = `/read/${book.id}/kitab/${encodeURIComponent(kitab_id)}/${chapter_id}#hadith-${hadith.id}`;
+    kitabHref = `/books/${book.id}/kitab/${encodeURIComponent(kitab_id)}`;
+    chapterTitle = chapter_name_en || kitab_name_en;
+  } else if (book) {
     const chapters = await getBookChapters(book.id);
     const chapter = chapters.find(
       (c) =>
@@ -66,7 +73,26 @@ export default async function HadithPermalinkPage({
         ) : null}
       </div>
 
-      {chapterTitle ? (
+      {hadith.structure && hadith.structure.mapping_status === "matched" ? (
+        <p className="mt-3 text-sm text-muted">
+          {kitabHref ? (
+            <Link href={kitabHref} className="hover:text-accent hover:underline">
+              {hadith.structure.kitab_name_en}
+            </Link>
+          ) : (
+            hadith.structure.kitab_name_en
+          )}
+          {hadith.structure.chapter_name_en ? (
+            <>
+              <span className="mx-2 text-border-strong">/</span>
+              {hadith.structure.chapter_name_en}
+            </>
+          ) : null}
+          {hadith.structure.number_in_chapter !== null ? (
+            <span className="ml-2 font-mono text-gold">#{hadith.structure.number_in_chapter}</span>
+          ) : null}
+        </p>
+      ) : chapterTitle ? (
         <p dir="rtl" lang="ar" className={`${amiri.className} mt-3 text-right text-muted`}>
           {chapterTitle}
         </p>

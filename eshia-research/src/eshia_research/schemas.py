@@ -106,12 +106,52 @@ class HadithTranslationRead(BaseModel):
     translation_version: str
     rendered_isnad_en: str | None
     matn_translation: str
+    full_translation: str | None = None
     status: Literal["human_reviewed", "published"]
     risk_level: Literal["green"]
     risk_flags: list | None = None
     provider: str | None = None
     model: str | None = None
     provenance_json: dict | None = None
+
+
+class HadithStructureRead(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    kitab_id: str
+    kitab_name_en: str
+    chapter_id: int
+    chapter_name_en: str
+    number_in_chapter: int | None
+    mapping_status: str
+    thaqalayn_url: str | None = None
+
+
+class HadithGradingRead(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    grader_key: str
+    author_name_en: str
+    grade_ar: str
+    grade_en: str | None = None
+    reference_en: str | None = None
+
+
+class KitabSummary(BaseModel):
+    kitab_id: str
+    name_en: str
+    volume: int
+    chapter_count: int
+    hadith_count: int
+    first_chapter_id: int
+
+
+class ThaqalaynChapterSummary(BaseModel):
+    chapter_id: int
+    name_en: str
+    hadith_count: int
+    number_min: int | None = None
+    number_max: int | None = None
 
 
 class HadithRead(BaseModel):
@@ -141,6 +181,8 @@ class HadithRead(BaseModel):
     extraction_confidence: int
     review_status: str
     translation: HadithTranslationRead | None = None
+    structure: HadithStructureRead | None = None
+    gradings: list[HadithGradingRead] | None = None
 
 
 class NarratorSummaryRead(BaseModel):
