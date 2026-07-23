@@ -119,6 +119,14 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Arabic interface: the UI fonts fall back to Amiri (already loaded for
+   hadith text) so nav, headings and buttons render in Arabic. Latin content
+   inside an Arabic page (identifiers, URLs) is marked dir="ltr" locally. */
+[dir="rtl"] {
+  --font-sans: var(--font-amiri), "Segoe UI", Tahoma, sans-serif;
+  --font-serif: var(--font-amiri), Georgia, serif;
+}
+
 body {
   overflow-x: clip;
   background: var(--background);

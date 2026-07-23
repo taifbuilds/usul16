@@ -5,32 +5,10 @@ import type { BookSummary, LibraryStats } from "@/lib/api/types";
 import { BookCard } from "@/components/books/BookCard";
 import { Hero } from "@/components/home/Hero";
 import { amiri } from "@/lib/fonts";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+import { getLocale } from "@/lib/i18n/locale";
 
 export const dynamic = "force-dynamic";
-
-const RESEARCH_PATHS = [
-  {
-    href: "/books",
-    title: "Read",
-    subtitle: "Read a collection in order, by chapter or by the pages of the printed edition.",
-    action: "Open the library",
-    icon: "book",
-  },
-  {
-    href: "/search",
-    title: "Find",
-    subtitle: "Search the Arabic and English together and open the matching report.",
-    action: "Search the collections",
-    icon: "search",
-  },
-  {
-    href: "/graph",
-    title: "Investigate",
-    subtitle: "Open any narrator to see who they narrated from and who narrated from them.",
-    action: "Browse the narrators",
-    icon: "network",
-  },
-] as const;
 
 async function loadHomeData(): Promise<{ featured: BookSummary[]; stats: LibraryStats | null }> {
   const [books, stats] = await Promise.all([
@@ -52,7 +30,7 @@ function formatNumber(value: number) {
   return new Intl.NumberFormat("en-GB").format(value);
 }
 
-function PathIcon({ name }: { name: (typeof RESEARCH_PATHS)[number]["icon"] }) {
+function PathIcon({ name }: { name: "book" | "search" | "network" }) {
   if (name === "search") {
     return <svg aria-hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 4.5 4.5" /></svg>;
   }
@@ -63,25 +41,33 @@ function PathIcon({ name }: { name: (typeof RESEARCH_PATHS)[number]["icon"] }) {
 }
 
 export default async function HomePage() {
-  const { featured, stats } = await loadHomeData();
+  const [{ featured, stats }, t] = await Promise.all([
+    loadHomeData(),
+    getLocale().then(getDictionary),
+  ]);
+  const researchPaths = [
+    { href: "/books", title: t.nav.read, subtitle: t.paths.readBody, action: t.paths.readAction, icon: "book" as const },
+    { href: "/search", title: t.nav.find, subtitle: t.paths.findBody, action: t.paths.findAction, icon: "search" as const },
+    { href: "/graph", title: t.nav.investigate, subtitle: t.paths.investigateBody, action: t.paths.investigateAction, icon: "network" as const },
+  ];
 
   return (
     <div>
-      <Hero />
+      <Hero hero={t.hero} search={t.search} />
 
       {stats ? (
-        <section className="border-b border-border bg-surface" aria-label="Corpus coverage">
+        <section className="border-b border-border bg-surface" aria-label={t.stats.coverageLabel}>
           <div className="mx-auto grid max-w-[90rem] grid-cols-2 px-4 sm:px-6 lg:grid-cols-[1.35fr_repeat(4,1fr)] lg:px-8">
-            <div className="col-span-2 flex items-center border-b border-border py-5 lg:col-span-1 lg:border-b-0 lg:pr-8">
-              <p className="max-w-xs text-sm font-semibold leading-6 text-foreground">Where the library stands today—still early, and growing.</p>
+            <div className="col-span-2 flex items-center border-b border-border py-5 lg:col-span-1 lg:border-b-0 lg:pe-8">
+              <p className="max-w-xs text-sm font-semibold leading-6 text-foreground">{t.stats.intro}</p>
             </div>
             {[
-              [stats.books_readable, "Readable books"],
-              [stats.pages_digitized, "Digitised pages"],
-              [stats.books_catalogued, "Catalogued works"],
-              [stats.authors, "Indexed authors"],
+              [stats.books_readable, t.stats.readableBooks],
+              [stats.pages_digitized, t.stats.digitisedPages],
+              [stats.books_catalogued, t.stats.cataloguedWorks],
+              [stats.authors, t.stats.indexedAuthors],
             ].map(([value, label]) => (
-              <div key={label} className="border-l border-border px-4 py-5 sm:px-6">
+              <div key={label} className="border-s border-border px-4 py-5 sm:px-6">
                 <p className="font-serif text-2xl font-semibold tabular-nums text-foreground">{formatNumber(Number(value))}</p>
                 <p className="mt-1 text-xs font-medium text-muted">{label}</p>
               </div>
@@ -93,23 +79,23 @@ export default async function HomePage() {
       <section className="mx-auto max-w-[90rem] px-4 py-18 sm:px-6 sm:py-22 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
           <div>
-            <p className="text-sm font-semibold text-accent">Using the library</p>
-            <h2 className="mt-3 max-w-xl font-serif text-4xl font-semibold leading-tight sm:text-5xl">Read, search, and trace narrators.</h2>
+            <p className="text-sm font-semibold text-accent">{t.paths.eyebrow}</p>
+            <h2 className="mt-3 max-w-xl font-serif text-4xl font-semibold leading-tight sm:text-5xl">{t.paths.title}</h2>
           </div>
           <p className="max-w-2xl text-base leading-8 text-muted lg:justify-self-end">
-            Read a collection in full, look up a specific narration, or follow a narrator across the tradition. Each report stays linked to its source.
+            {t.paths.intro}
           </p>
         </div>
 
         <div className="mt-10 border-y border-border lg:grid lg:grid-cols-3">
-          {RESEARCH_PATHS.map((path, index) => (
-            <Link key={path.href} href={path.href} className={`research-path group ${index ? "border-t border-border lg:border-l lg:border-t-0" : ""}`}>
+          {researchPaths.map((path, index) => (
+            <Link key={path.href} href={path.href} className={`research-path group ${index ? "border-t border-border lg:border-s lg:border-t-0" : ""}`}>
               <span className="research-path__icon"><PathIcon name={path.icon} /></span>
               <span className="min-w-0 flex-1">
                 <span className="font-serif text-2xl font-semibold text-foreground">{path.title}</span>
                 <span className="mt-2 block max-w-sm text-sm leading-6 text-muted">{path.subtitle}</span>
                 <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-accent">
-                  {path.action}<span aria-hidden className="transition-transform duration-200 group-hover:translate-x-1">→</span>
+                  {path.action}<span aria-hidden className="transition-transform duration-200 group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1">→</span>
                 </span>
               </span>
             </Link>
@@ -122,11 +108,11 @@ export default async function HomePage() {
           <div className="mx-auto max-w-[90rem] px-4 py-18 sm:px-6 sm:py-22 lg:px-8">
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div>
-                <p className="text-sm font-semibold text-[color:var(--stage-accent)]">The collections</p>
-                <h2 className="mt-2 font-serif text-4xl font-semibold text-[color:var(--stage-ink)] sm:text-5xl">The Four Books and later works.</h2>
+                <p className="text-sm font-semibold text-[color:var(--stage-accent)]">{t.collections.eyebrow}</p>
+                <h2 className="mt-2 font-serif text-4xl font-semibold text-[color:var(--stage-ink)] sm:text-5xl">{t.collections.title}</h2>
               </div>
               <Link href="/books" className="inline-flex items-center gap-2 text-sm font-semibold text-[color:var(--stage-accent)] hover:underline">
-                View the full catalogue <span aria-hidden>→</span>
+                {t.collections.viewAll} <span aria-hidden className="rtl:-scale-x-100">→</span>
               </Link>
             </div>
 
@@ -139,20 +125,20 @@ export default async function HomePage() {
 
       <section className="mx-auto grid max-w-[90rem] gap-12 px-4 py-20 sm:px-6 sm:py-24 lg:grid-cols-[0.85fr_1.15fr] lg:items-start lg:px-8">
         <div className="lg:sticky lg:top-28">
-          <p dir="rtl" lang="ar" className={`${amiri.className} text-3xl text-gold`}>من النص إلى الدليل</p>
-          <h2 className="mt-4 max-w-xl font-serif text-4xl font-semibold leading-tight sm:text-5xl">What each record contains.</h2>
+          <p dir="rtl" lang="ar" className={`${amiri.className} text-3xl text-gold`}>{t.evidence.arabic}</p>
+          <h2 className="mt-4 max-w-xl font-serif text-4xl font-semibold leading-tight sm:text-5xl">{t.evidence.title}</h2>
           <p className="mt-5 max-w-xl text-base leading-8 text-muted">
-            Every hadith record brings together the Arabic text, its translation, the narrators in its chain, the wider transmission, and a citation back to the printed edition.
+            {t.evidence.intro}
           </p>
         </div>
 
         <ol className="evidence-sequence">
           {[
-            ["Arabic text", "The narration as printed, with the chain, body, chapter headings, and footnotes kept distinct."],
-            ["English translation", "The English alongside the Arabic, with the translator and source named on each one."],
-            ["Narrator profiles", "Each name in the chain links to that narrator, with the evidence for the identification."],
-            ["Transmission", "How the narrators connect across the collections, linked back to the reports that establish each link."],
-            ["Citation", "A stable reference, checkable against the volume, page, and original scan."],
+            [t.evidence.item1Title, t.evidence.item1Body],
+            [t.evidence.item2Title, t.evidence.item2Body],
+            [t.evidence.item3Title, t.evidence.item3Body],
+            [t.evidence.item4Title, t.evidence.item4Body],
+            [t.evidence.item5Title, t.evidence.item5Body],
           ].map(([title, body], index) => (
             <li key={title}>
               <span className="evidence-sequence__number">{String(index + 1).padStart(2, "0")}</span>
@@ -168,12 +154,12 @@ export default async function HomePage() {
       <section className="border-y border-border bg-surface">
         <div className="mx-auto grid max-w-[90rem] gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[1fr_auto] lg:items-center lg:px-8">
           <div>
-            <p className="font-serif text-2xl font-semibold sm:text-3xl">Open access.</p>
-            <p className="mt-2 max-w-3xl text-sm leading-7 text-muted">No account required. The full library is free to read, search, and cite.</p>
+            <p className="font-serif text-2xl font-semibold sm:text-3xl">{t.cta.title}</p>
+            <p className="mt-2 max-w-3xl text-sm leading-7 text-muted">{t.cta.body}</p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Link href="/about" className="inline-flex h-11 items-center rounded-md border border-border-strong px-5 text-sm font-semibold hover:border-accent hover:text-accent">About the project</Link>
-            <Link href="/books" className="inline-flex h-11 items-center rounded-md bg-accent px-5 text-sm font-semibold text-accent-foreground hover:bg-accent-strong">Start reading</Link>
+            <Link href="/about" className="inline-flex h-11 items-center rounded-md border border-border-strong px-5 text-sm font-semibold hover:border-accent hover:text-accent">{t.cta.about}</Link>
+            <Link href="/books" className="inline-flex h-11 items-center rounded-md bg-accent px-5 text-sm font-semibold text-accent-foreground hover:bg-accent-strong">{t.cta.start}</Link>
           </div>
         </div>
       </section>

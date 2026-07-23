@@ -5,18 +5,21 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { LanguageToggle } from "@/components/ui/LanguageToggle";
+import type { Locale } from "@/lib/i18n/config";
+import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { amiri } from "@/lib/fonts";
 
-const NAV_LINKS = [
-  { href: "/books", label: "Read", detail: "The library" },
-  { href: "/search", label: "Find", detail: "Corpus search" },
-  { href: "/graph", label: "Investigate", detail: "Narrator network" },
-];
-
-export function SiteHeader() {
+export function SiteHeader({ locale, nav }: { locale: Locale; nav: Dictionary["nav"] }) {
   const pathname = usePathname();
   const reduce = useReducedMotion();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const navLinks = [
+    { href: "/books", label: nav.read, detail: nav.readDetail },
+    { href: "/search", label: nav.find, detail: nav.findDetail },
+    { href: "/graph", label: nav.investigate, detail: nav.investigateDetail },
+  ];
 
   function isActive(href: string) {
     return pathname === href || (href !== "/" && pathname.startsWith(href));
@@ -24,7 +27,7 @@ export function SiteHeader() {
 
   return (
     <>
-      <a href="#main-content" className="skip-link">Skip to content</a>
+      <a href="#main-content" className="skip-link">{nav.skip}</a>
       <header className="sticky top-0 z-50 border-b border-border bg-background/96 backdrop-blur-sm">
         <div className="mx-auto flex h-[4.5rem] max-w-[90rem] items-center gap-5 px-4 sm:px-6 lg:px-8">
           <Link href="/" className="group flex items-center gap-3 whitespace-nowrap" aria-label="Usul16 home">
@@ -33,12 +36,12 @@ export function SiteHeader() {
             </span>
             <span className="flex flex-col leading-none">
               <span className="font-serif text-xl font-semibold tracking-[-0.015em] text-foreground">Usul16</span>
-              <span className="mt-1 text-xs font-semibold text-muted">Shia hadith research</span>
+              <span className="mt-1 text-xs font-semibold text-muted">{nav.brandSub}</span>
             </span>
           </Link>
 
-          <nav className="ml-3 hidden h-full items-stretch lg:flex" aria-label="Primary navigation">
-            {NAV_LINKS.map((link) => (
+          <nav className="ms-3 hidden h-full items-stretch lg:flex" aria-label={nav.primaryNav}>
+            {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -55,15 +58,16 @@ export function SiteHeader() {
             ))}
           </nav>
 
-          <div className="ml-auto flex items-center gap-2">
+          <div className="ms-auto flex items-center gap-2">
             <Link
               href="/about"
               className={`hidden min-h-11 items-center px-3 text-sm font-medium transition-colors sm:inline-flex ${
                 isActive("/about") ? "text-accent" : "text-muted hover:text-foreground"
               }`}
             >
-              About
+              {nav.about}
             </Link>
+            <LanguageToggle locale={locale} />
             <ThemeToggle />
             <Link
               href="/search"
@@ -73,12 +77,12 @@ export function SiteHeader() {
                 <circle cx="11" cy="11" r="6.5" />
                 <path d="m16 16 4 4" />
               </svg>
-              Search corpus
+              {nav.searchCorpus}
             </Link>
             <button
               type="button"
               onClick={() => setMenuOpen((value) => !value)}
-              aria-label="Toggle navigation menu"
+              aria-label={nav.toggleMenu}
               aria-expanded={menuOpen}
               className="grid h-11 w-11 place-items-center rounded-md border border-border bg-surface text-foreground lg:hidden"
             >
@@ -101,8 +105,8 @@ export function SiteHeader() {
             transition={{ duration: reduce ? 0 : 0.18 }}
             className="fixed inset-x-0 top-[4.5rem] z-40 border-b border-border bg-background px-4 py-5 shadow-[0_6px_8px_-6px_var(--shadow-color)] lg:hidden"
           >
-            <nav className="mx-auto flex max-w-7xl flex-col" aria-label="Mobile navigation">
-              {NAV_LINKS.map((link) => (
+            <nav className="mx-auto flex max-w-7xl flex-col" aria-label={nav.mobileNav}>
+              {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
@@ -115,7 +119,7 @@ export function SiteHeader() {
                   <span className="text-xs font-medium text-muted">{link.detail}</span>
                 </Link>
               ))}
-              <Link href="/about" onClick={() => setMenuOpen(false)} className="py-4 text-base font-semibold text-foreground">About the project</Link>
+              <Link href="/about" onClick={() => setMenuOpen(false)} className="py-4 text-base font-semibold text-foreground">{nav.aboutProject}</Link>
             </nav>
           </motion.div>
         ) : null}

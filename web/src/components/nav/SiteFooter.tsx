@@ -1,14 +1,15 @@
 import Link from "next/link";
 import { amiri } from "@/lib/fonts";
+import type { Dictionary } from "@/lib/i18n/dictionaries";
 
-const PATHS = [
-  { href: "/books", label: "Read the collections" },
-  { href: "/search", label: "Search the corpus" },
-  { href: "/graph", label: "Investigate transmissions" },
-  { href: "/methodology", label: "Corpus status and methodology" },
-];
+export function SiteFooter({ foot }: { foot: Dictionary["footer"] }) {
+  const paths = [
+    { href: "/books", label: foot.readCollections },
+    { href: "/search", label: foot.searchCorpus },
+    { href: "/graph", label: foot.investigate },
+    { href: "/methodology", label: foot.corpusStatus },
+  ];
 
-export function SiteFooter() {
   return (
     <footer className="mt-24 border-t border-border bg-background-2">
       <div className="mx-auto grid max-w-[90rem] gap-12 px-4 py-14 sm:px-6 lg:grid-cols-[1.15fr_0.85fr_0.9fr] lg:px-8">
@@ -17,19 +18,19 @@ export function SiteFooter() {
             <span className="brand-mark brand-mark--quiet" aria-hidden><span className={`${amiri.className} text-base leading-none`}>١٦</span></span>
             <p className="font-serif text-xl font-semibold">Usul16</p>
           </div>
-          <p dir="rtl" lang="ar" className={`${amiri.className} mt-5 text-2xl text-gold`}>أصول الحديث، موصولة بمصادرها</p>
+          <p dir="rtl" lang="ar" className={`${amiri.className} mt-5 text-2xl text-gold`}>{foot.arabicTagline}</p>
           <p className="mt-4 max-w-md text-sm leading-7 text-muted">
-            Read the major Shia hadith collections in Arabic and English, look up every narrator, and trace each chain—all linked to the printed page.
+            {foot.tagline}
           </p>
         </div>
 
-        <nav aria-label="Research paths">
-          <p className="text-sm font-semibold text-foreground">Research paths</p>
+        <nav aria-label={foot.pathsHeading}>
+          <p className="text-sm font-semibold text-foreground">{foot.pathsHeading}</p>
           <ul className="mt-4 divide-y divide-border border-y border-border text-sm">
-            {PATHS.map((item) => (
+            {paths.map((item) => (
               <li key={item.href}>
                 <Link href={item.href} className="flex items-center justify-between py-3.5 text-muted transition-colors hover:text-accent">
-                  {item.label}<span aria-hidden>→</span>
+                  {item.label}<span aria-hidden className="rtl:-scale-x-100">→</span>
                 </Link>
               </li>
             ))}
@@ -37,18 +38,18 @@ export function SiteFooter() {
         </nav>
 
         <div className="text-sm">
-          <p className="font-semibold text-foreground">What you&rsquo;re reading</p>
+          <p className="font-semibold text-foreground">{foot.whatHeading}</p>
           <p className="mt-4 leading-7 text-muted">
-            The Arabic is the original; the English sits alongside it, credited to its translator. Every narration links back to its volume and page, so you can always check it yourself.
+            {foot.whatBody}
           </p>
-          <Link href="/about" className="mt-4 inline-flex font-semibold text-accent hover:underline">About the project →</Link>
+          <Link href="/about" className="mt-4 inline-flex font-semibold text-accent hover:underline">{foot.aboutLink} <span aria-hidden className="rtl:-scale-x-100">→</span></Link>
         </div>
       </div>
 
       <div className="border-t border-border">
         <div className="mx-auto flex max-w-[90rem] flex-wrap justify-between gap-2 px-4 py-4 text-xs text-muted sm:px-6 lg:px-8">
           <p>&copy; {new Date().getFullYear()} Usul16</p>
-          <p>Free and open · An independent project · Live corpus status</p>
+          <p>{foot.bottomNote}</p>
         </div>
       </div>
     </footer>
