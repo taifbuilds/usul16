@@ -62,7 +62,7 @@ export default async function AboutPage() {
 
           <section className="border-t border-border pt-9">
             <h2 className="font-serif text-3xl font-semibold">Where it&rsquo;s going</h2>
-            <p className="mt-4 text-base leading-8 text-foreground/85">The Four Books come first, done properly—clean text, real translations, and narrator profiles you can trust. Al-Kāfī is furthest along. From there, the same care extends through Biḥār al-Anwār and the wider tradition, one collection at a time.</p>
+            <p className="mt-4 text-base leading-8 text-foreground/85">This is a small project, still early, and built with care rather than haste. The Four Books come first, done properly—clean text, real translations, and narrator profiles you can trust—with Al-Kāfī furthest along. From there, God willing, the same care extends through Biḥār al-Anwār and the wider tradition, one collection at a time. The hope is simply that it keeps growing, and keeps serving.</p>
           </section>
 
           <div className="flex flex-wrap gap-3 border-t border-border pt-9">

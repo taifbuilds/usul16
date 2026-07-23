@@ -11,7 +11,7 @@ export function Hero() {
         <div className="max-w-3xl">
           <div className="mb-6 flex items-center gap-3 text-sm font-semibold text-accent">
             <span className="h-px w-9 bg-accent" aria-hidden />
-            <span>Shia hadith library</span>
+            <span>A growing Shia hadith library</span>
           </div>
           <h1 className="max-w-[15ch] font-serif text-[clamp(3rem,6vw,5.25rem)] font-semibold leading-[1.0] tracking-[-0.03em] text-foreground [text-wrap:balance]">
             The major Shia hadith collections, in Arabic and English.

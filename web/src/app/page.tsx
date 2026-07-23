@@ -73,7 +73,7 @@ export default async function HomePage() {
         <section className="border-b border-border bg-surface" aria-label="Corpus coverage">
           <div className="mx-auto grid max-w-[90rem] grid-cols-2 px-4 sm:px-6 lg:grid-cols-[1.35fr_repeat(4,1fr)] lg:px-8">
             <div className="col-span-2 flex items-center border-b border-border py-5 lg:col-span-1 lg:border-b-0 lg:pr-8">
-              <p className="max-w-xs text-sm font-semibold leading-6 text-foreground">The library as it currently stands.</p>
+              <p className="max-w-xs text-sm font-semibold leading-6 text-foreground">Where the library stands today—still early, and growing.</p>
             </div>
             {[
               [stats.books_readable, "Readable books"],
