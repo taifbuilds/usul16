@@ -23,7 +23,7 @@ export default async function AboutPage() {
       <header className="grid gap-10 border-b border-border pb-12 lg:grid-cols-[1fr_0.75fr] lg:items-end">
         <div>
           <p className="text-sm font-semibold text-accent">About Usul16</p>
-          <h1 className="mt-4 max-w-4xl font-serif text-5xl font-semibold leading-[1.05] tracking-[-0.025em] sm:text-6xl">A hadith library built to withstand serious questions.</h1>
+          <h1 className="mt-4 max-w-4xl font-serif text-5xl font-semibold leading-[1.05] tracking-[-0.025em] sm:text-6xl">A source-linked library of Shia hadith.</h1>
         </div>
         <p className="max-w-xl text-lg leading-8 text-muted">
           One place to read the Shia hadith collections, look up the narrators, and follow the chains—without ever losing sight of the printed source.

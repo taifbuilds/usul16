@@ -12,22 +12,22 @@ const RESEARCH_PATHS = [
   {
     href: "/books",
     title: "Read",
-    subtitle: "Read a collection the way you'd read the book—chapter by chapter, page by page.",
+    subtitle: "Read a collection in order, by chapter or by the pages of the printed edition.",
     action: "Open the library",
     icon: "book",
   },
   {
     href: "/search",
     title: "Find",
-    subtitle: "Search the Arabic and English together and jump straight to the report.",
+    subtitle: "Search the Arabic and English together and open the matching report.",
     action: "Search the collections",
     icon: "search",
   },
   {
     href: "/graph",
     title: "Investigate",
-    subtitle: "Open any narrator to see who they heard it from and who carried it on.",
-    action: "Explore the narrators",
+    subtitle: "Open any narrator to see who they narrated from and who narrated from them.",
+    action: "Browse the narrators",
     icon: "network",
   },
 ] as const;
@@ -73,7 +73,7 @@ export default async function HomePage() {
         <section className="border-b border-border bg-surface" aria-label="Corpus coverage">
           <div className="mx-auto grid max-w-[90rem] grid-cols-2 px-4 sm:px-6 lg:grid-cols-[1.35fr_repeat(4,1fr)] lg:px-8">
             <div className="col-span-2 flex items-center border-b border-border py-5 lg:col-span-1 lg:border-b-0 lg:pr-8">
-              <p className="max-w-xs text-sm font-semibold leading-6 text-foreground">A growing library, every report kept next to the page it came from.</p>
+              <p className="max-w-xs text-sm font-semibold leading-6 text-foreground">The library as it currently stands.</p>
             </div>
             {[
               [stats.books_readable, "Readable books"],
@@ -93,11 +93,11 @@ export default async function HomePage() {
       <section className="mx-auto max-w-[90rem] px-4 py-18 sm:px-6 sm:py-22 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
           <div>
-            <p className="text-sm font-semibold text-accent">Three ways in</p>
-            <h2 className="mt-3 max-w-xl font-serif text-4xl font-semibold leading-tight sm:text-5xl">Begin with the question you actually have.</h2>
+            <p className="text-sm font-semibold text-accent">Using the library</p>
+            <h2 className="mt-3 max-w-xl font-serif text-4xl font-semibold leading-tight sm:text-5xl">Read, search, and trace narrators.</h2>
           </div>
           <p className="max-w-2xl text-base leading-8 text-muted lg:justify-self-end">
-            Reading a book cover to cover, hunting for one particular narration, or tracing a narrator across the tradition—start wherever you are, and everything stays linked to the source.
+            Read a collection in full, look up a specific narration, or follow a narrator across the tradition. Each report stays linked to its source.
           </p>
         </div>
 
@@ -122,8 +122,8 @@ export default async function HomePage() {
           <div className="mx-auto max-w-[90rem] px-4 py-18 sm:px-6 sm:py-22 lg:px-8">
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div>
-                <p className="text-sm font-semibold text-[color:var(--stage-accent)]">The major collections</p>
-                <h2 className="mt-2 font-serif text-4xl font-semibold text-[color:var(--stage-ink)] sm:text-5xl">Open a book, not a database row.</h2>
+                <p className="text-sm font-semibold text-[color:var(--stage-accent)]">The collections</p>
+                <h2 className="mt-2 font-serif text-4xl font-semibold text-[color:var(--stage-ink)] sm:text-5xl">The Four Books and later works.</h2>
               </div>
               <Link href="/books" className="inline-flex items-center gap-2 text-sm font-semibold text-[color:var(--stage-accent)] hover:underline">
                 View the full catalogue <span aria-hidden>→</span>
@@ -140,19 +140,19 @@ export default async function HomePage() {
       <section className="mx-auto grid max-w-[90rem] gap-12 px-4 py-20 sm:px-6 sm:py-24 lg:grid-cols-[0.85fr_1.15fr] lg:items-start lg:px-8">
         <div className="lg:sticky lg:top-28">
           <p dir="rtl" lang="ar" className={`${amiri.className} text-3xl text-gold`}>من النص إلى الدليل</p>
-          <h2 className="mt-4 max-w-xl font-serif text-4xl font-semibold leading-tight sm:text-5xl">One report, and everything behind it.</h2>
+          <h2 className="mt-4 max-w-xl font-serif text-4xl font-semibold leading-tight sm:text-5xl">What each record contains.</h2>
           <p className="mt-5 max-w-xl text-base leading-8 text-muted">
-            A hadith is more than a quotation. Each layer answers the next question you&rsquo;d ask—and always keeps the way back to the printed book.
+            Every hadith record brings together the Arabic text, its translation, the narrators in its chain, the wider transmission, and a citation back to the printed edition.
           </p>
         </div>
 
         <ol className="evidence-sequence">
           {[
-            ["The Arabic text", "The narration exactly as printed—chain of narrators, body, chapter headings, and footnotes each kept clear."],
-            ["English translation", "Read it in English when you want to, with the translator and source named on every one."],
-            ["Who narrated it", "Tap a name in the chain to open that narrator—their life, and how we matched them."],
-            ["The chain, mapped", "See how narrators connect across the whole library, then return to the reports that prove each link."],
-            ["A reference you can trust", "Copy a stable citation and check it against the volume, page, and original scan."],
+            ["Arabic text", "The narration as printed, with the chain, body, chapter headings, and footnotes kept distinct."],
+            ["English translation", "The English alongside the Arabic, with the translator and source named on each one."],
+            ["Narrator profiles", "Each name in the chain links to that narrator, with the evidence for the identification."],
+            ["Transmission", "How the narrators connect across the collections, linked back to the reports that establish each link."],
+            ["Citation", "A stable reference, checkable against the volume, page, and original scan."],
           ].map(([title, body], index) => (
             <li key={title}>
               <span className="evidence-sequence__number">{String(index + 1).padStart(2, "0")}</span>
@@ -168,8 +168,8 @@ export default async function HomePage() {
       <section className="border-y border-border bg-surface">
         <div className="mx-auto grid max-w-[90rem] gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[1fr_auto] lg:items-center lg:px-8">
           <div>
-            <p className="font-serif text-2xl font-semibold sm:text-3xl">Open a book and start reading.</p>
-            <p className="mt-2 max-w-3xl text-sm leading-7 text-muted">Free, no account, and made for the long hours scholars and readers spend with these texts.</p>
+            <p className="font-serif text-2xl font-semibold sm:text-3xl">Open access.</p>
+            <p className="mt-2 max-w-3xl text-sm leading-7 text-muted">No account required. The full library is free to read, search, and cite.</p>
           </div>
           <div className="flex flex-wrap gap-3">
             <Link href="/about" className="inline-flex h-11 items-center rounded-md border border-border-strong px-5 text-sm font-semibold hover:border-accent hover:text-accent">About the project</Link>

@@ -11,13 +11,13 @@ export function Hero() {
         <div className="max-w-3xl">
           <div className="mb-6 flex items-center gap-3 text-sm font-semibold text-accent">
             <span className="h-px w-9 bg-accent" aria-hidden />
-            <span>Al-Kāfī, the Four Books, and beyond</span>
+            <span>Shia hadith library</span>
           </div>
-          <h1 className="max-w-[14ch] font-serif text-[clamp(3.3rem,7vw,5.75rem)] font-semibold leading-[0.98] tracking-[-0.035em] text-foreground [text-wrap:balance]">
-            Read the hadith. Follow the chain.
+          <h1 className="max-w-[15ch] font-serif text-[clamp(3rem,6vw,5.25rem)] font-semibold leading-[1.0] tracking-[-0.03em] text-foreground [text-wrap:balance]">
+            The major Shia hadith collections, in Arabic and English.
           </h1>
           <p className="mt-7 max-w-2xl text-lg leading-8 text-muted sm:text-xl sm:leading-9">
-            The major Shia hadith collections in the original Arabic, with English alongside. Tap any narrator to see who they learned from and who they taught—and open any report on the printed page it came from.
+            The Four Books and later collections: the original Arabic with its English translation, the narrators in each chain linked to their profiles, and every report tied to the page it was printed on.
           </p>
 
           <div className="mt-9 max-w-2xl">
@@ -33,13 +33,13 @@ export function Hero() {
 
           <div className="mt-8 flex flex-wrap gap-3">
             <Link href="/books" className="inline-flex h-11 items-center gap-2 rounded-md bg-accent px-5 text-sm font-semibold text-accent-foreground transition-[background-color,transform] hover:bg-accent-strong active:scale-[0.98]">
-              Enter the library
+              Open the library
               <svg aria-hidden viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-4 w-4">
                 <path d="M4 10h12M12 6l4 4-4 4" />
               </svg>
             </Link>
             <Link href="/graph" className="inline-flex h-11 items-center rounded-md border border-border-strong bg-surface px-5 text-sm font-semibold text-foreground transition-[border-color,color,transform] hover:border-accent hover:text-accent active:scale-[0.98]">
-              Explore the network
+              Narrator network
             </Link>
           </div>
         </div>
