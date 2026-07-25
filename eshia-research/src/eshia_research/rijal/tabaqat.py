@@ -48,6 +48,14 @@ GEN_MIN = 0
 GEN_MAX = 15  # al-Kulayni (d. 329) sits around 11-12; headroom above.
 MAX_ITERATIONS = 30
 
+# Generation methods whose interval is anchor-derived and trustworthy enough to
+# fix ANOTHER node's expected layer during disambiguation. A propagated-only
+# point is advisory noise (the 2026-07-11 unanchored-hub lesson) — letting it
+# anchor is exactly what dragged «أبو عبد الله» onto al-Husayn instead of
+# al-Sadiq. Candidates may still carry a propagated generation; the ANCHOR
+# that sets the expected layer may not.
+RELIABLE_GEN_METHODS = frozenset({"imam_fixed", "ashab_anchor", "anchor_and_propagated"})
+
 ProgressCallback = Callable[[str, int, int], None]
 
 
@@ -241,8 +249,14 @@ def build_tabaqat(
                 # (seen in >= 2 chains); a lone edge is likely a misresolution
                 # on one side, not a generation conflict for both persons.
                 if edge_evidence[(s, t)] >= 2:
-                    conflicts.add(s)
-                    conflicts.add(t)
+                    # A fixed-Imam layer is ground truth — an edge that
+                    # contradicts it is the suspect, not the Imam. Only demote
+                    # the non-fixed endpoint(s), so an Imam is never lost from
+                    # the anchor set (the al-Husayn/«أبو عبد الله» failure mode).
+                    if method.get(s) != "imam_fixed":
+                        conflicts.add(s)
+                    if method.get(t) != "imam_fixed":
+                        conflicts.add(t)
                 continue
             if si.tighten(ti.lo + 1, ti.hi + 1):
                 changed = True
@@ -330,17 +344,22 @@ def refine_with_tabaqat(
     if not selected_book_ids:
         return stats
 
+    # `gen_point` (any non-conflict layer) is fine for testing whether a
+    # CANDIDATE fits; `reliable_gen` (anchor-derived only) is what may fix the
+    # expected layer — a propagated-only neighbour is advisory noise and must
+    # not anchor disambiguation.
+    gen_rows = db.execute(
+        select(
+            PersonGeneration.person_id,
+            PersonGeneration.gen_point,
+            PersonGeneration.method,
+        ).where(PersonGeneration.gen_point.isnot(None))
+    ).all()
     gen_point: dict[int, int] = {
-        pid: pt
-        for pid, pt in db.execute(
-            select(PersonGeneration.person_id, PersonGeneration.gen_point)
-            .where(
-                PersonGeneration.gen_point.isnot(None),
-                # A person whose own generation evidence is self-contradictory
-                # must not anchor or disambiguate other narrators' identities.
-                PersonGeneration.method != "conflict",
-            )
-        )
+        pid: pt for pid, pt, m in gen_rows if m != "conflict"
+    }
+    reliable_gen: dict[int, int] = {
+        pid: pt for pid, pt, m in gen_rows if m in RELIABLE_GEN_METHODS
     }
     person_name_ar: dict[int, str] = {
         pid: name for pid, name in db.execute(select(_Person.id, _Person.canonical_name_ar))
@@ -372,12 +391,18 @@ def refine_with_tabaqat(
                 .order_by(MentionResolution.rank)
             ).scalars().all()
 
-        # Anchor generations from currently-resolved single-person nodes.
+        # Anchor generations from currently-resolved single-person nodes — only
+        # those whose generation is anchor-derived (reliable), so noise never
+        # sets the expected layer.
         anchor_gen: dict[int, int] = {}  # position -> generation
         for node_id, position, _ in nodes:
             rows = node_res[node_id]
-            if len(rows) == 1 and rows[0].status in ("resolved", "via_collective") and rows[0].person_id in gen_point:
-                anchor_gen[position] = gen_point[rows[0].person_id]
+            if (
+                len(rows) == 1
+                and rows[0].status in ("resolved", "via_collective")
+                and rows[0].person_id in reliable_gen
+            ):
+                anchor_gen[position] = reliable_gen[rows[0].person_id]
 
         if not anchor_gen:
             if on_progress and done % 1000 == 0:

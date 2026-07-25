@@ -277,3 +277,106 @@ def test_refine_ignores_conflict_method_anchor(db: Session):
     final = db.execute(select(MentionResolution).where(MentionResolution.chain_node_id == n1.id)).scalars().all()
     assert len(final) == 2
     assert {r.status for r in final} == {"ambiguous"}
+
+
+def test_build_tabaqat_never_demotes_fixed_imam(db: Session):
+    """A corroborated edge that contradicts a fixed-Imam layer must blame the
+    OTHER endpoint, never the Imam — so al-Sadiq survives as an anchor and
+    «أبو عبد الله» is not stranded (the al-Husayn failure mode)."""
+    from eshia_research.rijal.person_resolver import PERSON_RESOLVER_VERSION as RV
+
+    mujam = Book(source_book_id="14036", title_original="m", title_normalised="m", source_url="u")
+    kafi = Book(source_book_id="11005", title_original="k", title_normalised="k", source_url="u")
+    db.add_all([mujam, kafi])
+    db.flush()
+    e_narr = _entry(db, mujam, 1, "أحمد بن إسحاق الأشعري")
+    db.flush()
+    build_person_layer(db)
+    # A late narrator: companion of al-Askari (layer 10) -> generation ~11.
+    db.add(RijalStatement(
+        entry_id=e_narr.id, source_name="tusi_rijal", statement_type="tabaqah_membership",
+        quote_raw="x", quote_normalised="x", metadata_json={"imam_raw": "العسكري (ع)"},
+    ))
+    db.flush()
+    narr = person_id(db, "أحمد بن إسحاق الأشعري")
+    sadiq = person_id(db, "جعفر بن محمد الصادق عليه السلام")
+    # Two chains where the gen-11 narrator (impossibly) narrates from al-Sadiq (5)
+    # — a corroborated contradiction that must not demote the Imam.
+    for seq in (1, 2):
+        hadith = Hadith(public_id=f"k-{seq}", book_id=kafi.id, sequence_in_book=seq, sequence_in_page=1,
+                        volume_start=1, volume_end=1, page_start=1, page_end=1, full_text_raw="x",
+                        full_text_normalised="x", matn_raw="x", matn_normalised="x", source_url="u", isnad_raw="x")
+        db.add(hadith)
+        db.flush()
+        chain = Chain(hadith_id=hadith.id, chain_number=1, raw_isnad="x")
+        db.add(chain)
+        db.flush()
+        n0 = ChainNode(chain_id=chain.id, position=0, raw_token="x", token_normalised="x", node_type="named_narrator")
+        n1 = ChainNode(chain_id=chain.id, position=1, raw_token="x", token_normalised="x", node_type="imam")
+        db.add_all([n0, n1])
+        db.flush()
+        db.add(MentionResolution(chain_node_id=n0.id, person_id=narr, rank=1, status="resolved",
+                                 method="surface_full", resolver_version=RV))
+        db.add(MentionResolution(chain_node_id=n1.id, person_id=sadiq, rank=1, status="resolved",
+                                 method="surface_masum_title", resolver_version=RV))
+    db.flush()
+
+    build_tabaqat(db, book_ids=[kafi.id])
+    sg = gen_of(db, "جعفر بن محمد الصادق عليه السلام")
+    assert sg is not None
+    assert sg.method != "conflict"  # Imam never demoted
+    assert sg.gen_lo == sg.gen_hi == 5  # ground-truth layer preserved
+
+
+def test_refine_ignores_propagated_only_anchor(db: Session):
+    """A propagated-only generation is advisory noise, not anchor-derived, so it
+    must NOT decide another node's identity — the core «أبو عبد الله» fix."""
+    from eshia_research.rijal.person_resolver import PERSON_RESOLVER_VERSION as RV
+
+    mujam = Book(source_book_id="14036", title_original="m", title_normalised="m", source_url="u")
+    kafi = Book(source_book_id="11005", title_original="k", title_normalised="k", source_url="u")
+    db.add_all([mujam, kafi])
+    db.flush()
+    _entry(db, mujam, 1, "محمد بن مسلم الثقفي")
+    db.flush()
+    build_person_layer(db)
+    narr = person_id(db, "محمد بن مسلم الثقفي")
+    baqir = person_id(db, "محمد بن علي الباقر عليه السلام")
+    jawad = person_id(db, "محمد بن علي الجواد عليه السلام")
+
+    hadith = Hadith(public_id="k-1", book_id=kafi.id, sequence_in_book=1, sequence_in_page=1,
+                    volume_start=1, volume_end=1, page_start=1, page_end=1, full_text_raw="x",
+                    full_text_normalised="x", matn_raw="x", matn_normalised="x", source_url="u", isnad_raw="x")
+    db.add(hadith)
+    db.flush()
+    chain = Chain(hadith_id=hadith.id, chain_number=1, raw_isnad="x")
+    db.add(chain)
+    db.flush()
+    n0 = ChainNode(chain_id=chain.id, position=0, raw_token="x", token_normalised="x", node_type="named_narrator")
+    n1 = ChainNode(chain_id=chain.id, position=1, raw_token="x", token_normalised="x", node_type="imam")
+    db.add_all([n0, n1])
+    db.flush()
+    db.add(MentionResolution(chain_node_id=n0.id, person_id=narr, rank=1, status="resolved",
+                             method="surface_full", resolver_version=RV))
+    db.add(MentionResolution(chain_node_id=n1.id, person_id=baqir, rank=1, status="ambiguous",
+                             method="surface_masum_title", resolver_version=RV))
+    db.add(MentionResolution(chain_node_id=n1.id, person_id=jawad, rank=2, status="ambiguous",
+                             method="surface_masum_title", resolver_version=RV))
+    db.flush()
+
+    build_tabaqat(db, book_ids=[kafi.id])
+    # Force the only anchor to a propagated-only layer that WOULD fit al-Baqir if
+    # it were trusted — it must be ignored, leaving the node honestly ambiguous.
+    ng = db.execute(select(PersonGeneration).where(PersonGeneration.person_id == narr)).scalar_one_or_none()
+    if ng is None:
+        db.add(PersonGeneration(person_id=narr, gen_lo=6, gen_hi=6, gen_point=6,
+                                method="propagated", resolver_version="tabaqat_c1"))
+    else:
+        ng.method = "propagated"
+        ng.gen_point = 6
+    db.flush()
+
+    stats = refine_with_tabaqat(db, book_ids=[kafi.id])
+    assert stats["imam_disambiguated"] == 0
+    final = db.execute(select(MentionResolution).where(MentionResolution.chain_node_id == n1.id)).scalars().all()
+    assert {r.status for r in final} == {"ambiguous"}
