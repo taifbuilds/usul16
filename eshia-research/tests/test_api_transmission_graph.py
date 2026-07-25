@@ -262,6 +262,111 @@ def test_response_has_computed_at(client: TestClient, seeded):
     assert body["computed_at"] is not None
 
 
+# --- Phase 1: book-set seam + per-node footprint + narrator directory ---
+
+
+def test_graph_reports_book_footprint_and_ids(client: TestClient, seeded):
+    attar, _, _, _ = seeded
+    body = client.get("/transmission-graph?min_count=1").json()
+    assert body["book_ids"] == ["11005"]
+    attar_node = next(n for n in body["nodes"] if n["id"] == attar.id)
+    # One charted book today: the footprint mirrors the hadith count.
+    assert attar_node["books"] == {"11005": attar_node["hadith_count"]}
+    assert attar_node["reliability"] is None
+
+
+def test_graph_unpolished_book_falls_back_to_alkafi(client: TestClient, seeded):
+    # Faqih (11021) is not polished yet — requesting it must NOT half-draw it;
+    # the book-set seam drops it and charts the polished Al-Kafi network.
+    body = client.get("/transmission-graph?books=11021&min_count=1").json()
+    assert body["book_ids"] == ["11005"]
+    assert len(body["nodes"]) > 0
+
+
+def test_narrator_directory_search_and_charted_count(client: TestClient, db: Session, seeded):
+    attar, _, _, _ = seeded
+    # A findable narrator with no charted transmission edge.
+    lonely = _person(db, "راو غير مذكور في الأسانيد")
+    db.commit()
+
+    page = client.get("/narrators?query=العطار").json()
+    hit = next(e for e in page["entries"] if e["narrator_id"] == attar._narrator_id)
+    assert hit["charted_hadith_count"] == 4  # 3 al-Ash'ari + 1 al-Qumi hadiths
+
+    page2 = client.get("/narrators?query=غير مذكور").json()
+    entry = next(e for e in page2["entries"] if e["narrator_id"] == lonely._narrator_id)
+    # Findable and openable, but honestly reported as not yet charted.
+    assert entry["charted_hadith_count"] == 0
+    assert page2["total"] >= 1
+
+
+def test_paths_finds_directed_isnad(client: TestClient, seeded):
+    attar, ashari, qumi, sadiq = seeded
+    root = min(ashari.id, qumi.id)
+    res = client.get(
+        f"/transmission-graph/paths?from_person={attar.id}&to_person={sadiq.id}"
+    ).json()
+    assert res["found"] is True
+    assert res["reversed"] is False
+    path = res["paths"][0]
+    assert [n["id"] for n in path["nodes"]] == [attar.id, root, sadiq.id]
+    assert path["length"] == 2
+    assert path["hops"][0]["count"] == 4  # attar->ashari, 3 ashari + 1 qumi merged
+    assert path["hops"][1]["count"] == 1  # ashari-root -> al-Sadiq
+
+
+def test_paths_reversed_when_picked_backwards(client: TestClient, seeded):
+    attar, _, _, sadiq = seeded
+    # No isnad runs al-Sadiq -> al-Attar, but the reverse exists; return it
+    # oriented in transmission order and flag reversed.
+    res = client.get(
+        f"/transmission-graph/paths?from_person={sadiq.id}&to_person={attar.id}"
+    ).json()
+    assert res["found"] is True
+    assert res["reversed"] is True
+    assert res["paths"][0]["nodes"][0]["id"] == attar.id
+    assert res["paths"][0]["nodes"][-1]["id"] == sadiq.id
+
+
+def test_paths_none_when_disconnected(client: TestClient, db: Session, two_person_book):
+    book, student, teacher, other = two_person_book
+    _edge(db, book, 1, student, teacher)
+    db.commit()
+    # `other` sits in no chain — no path either way.
+    res = client.get(
+        f"/transmission-graph/paths?from_person={student.id}&to_person={other.id}"
+    ).json()
+    assert res["found"] is False
+    assert res["paths"] == []
+
+
+def test_include_uncertain_surfaces_marked_best_guesses(
+    client: TestClient, db: Session, two_person_book
+):
+    book, student, teacher, _ = two_person_book
+    # Teacher only ever resolves ambiguously — the resolver's rank-1 best guess.
+    _edge(db, book, 1, student, teacher, teacher_status="ambiguous")
+    db.commit()
+
+    # Default (confident-only): the ambiguous teacher produces no edge.
+    base = client.get("/transmission-graph?source_book_id=11005&min_count=1").json()
+    assert base["edges"] == []
+
+    # With include_uncertain the best-guess edge appears — clearly flagged, so it
+    # is never mistaken for a confirmed transmission.
+    unc = client.get(
+        "/transmission-graph?source_book_id=11005&min_count=1&include_uncertain=1"
+    ).json()
+    assert unc["include_uncertain"] is True
+    edge = next(e for e in unc["edges"] if e["source"] == student.id)
+    assert edge["target"] == teacher.id
+    assert edge["uncertain"] is True
+    teacher_node = next(n for n in unc["nodes"] if n["id"] == teacher.id)
+    student_node = next(n for n in unc["nodes"] if n["id"] == student.id)
+    assert teacher_node["uncertain"] is True
+    assert student_node["uncertain"] is False  # a confident mention isn't provisional
+
+
 # --- quality overlay (Mu'jam corroboration per edge) ---
 
 

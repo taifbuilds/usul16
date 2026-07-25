@@ -101,6 +101,49 @@ export interface HadithGrading {
   reference_en: string | null;
 }
 
+export interface HadithTopic {
+  slug: string;
+  hashtag: string;
+  name_en: string;
+  name_ar: string | null;
+  kind: "kitab" | "chapter" | string;
+  relevance: number;
+  confidence: number;
+  assignment_method: string;
+}
+
+export interface TopicSummary {
+  id: number;
+  slug: string;
+  hashtag: string;
+  name_en: string;
+  name_ar: string | null;
+  kind: "kitab" | "chapter" | string;
+  hadith_count: number;
+}
+
+export interface TopicHadithItem {
+  public_id: string;
+  book_id: number;
+  printed_number: string | null;
+  volume_start: number | null;
+  page_start: number;
+  page_end: number;
+  matn_excerpt_ar: string;
+  translation_excerpt_en: string | null;
+  topics: HadithTopic[];
+}
+
+export interface TopicHadithPage {
+  topic: TopicSummary;
+  parent: TopicSummary | null;
+  related_topics: TopicSummary[];
+  total: number;
+  skip: number;
+  limit: number;
+  items: TopicHadithItem[];
+}
+
 export interface KitabSummary {
   kitab_id: string;
   name_en: string;
@@ -152,6 +195,7 @@ export interface HadithRead {
   translation: HadithTranslationRead | null;
   structure: HadithStructure | null;
   gradings: HadithGrading[] | null;
+  topics: HadithTopic[];
 }
 
 export interface NarratorSummaryRead {
@@ -554,10 +598,11 @@ export interface SearchResult {
   page: PageRead;
   book: BookSummary;
   snippet: string;
-  match_type: "arabic" | "english" | "book";
+  match_type: "arabic" | "english" | "book" | "topic";
   hadith_public_id: string | null;
   hadith_printed_number: string | null;
   translation_evidence: TranslationPublicationEvidence | null;
+  matched_topic: HadithTopic | null;
 }
 
 export interface SearchResponse {
@@ -589,6 +634,13 @@ export interface CorpusStatusResponse {
   books: CorpusBookStatus[];
 }
 
+export type ReliabilityVerdict =
+  | "authenticated"
+  | "weakened"
+  | "imam_companion"
+  | "praised"
+  | "unknown";
+
 export interface TransmissionGraphNode {
   id: number;
   label: string;
@@ -597,6 +649,32 @@ export interface TransmissionGraphNode {
   narrator_id: number | null;
   hadith_count: number;
   merged_person_ids: number[];
+  // Per-book footprint: {source_book_id: distinct charted hadiths}.
+  books: Record<string, number>;
+  // al-Khoei reliability verdict (Phase 2); null until the layer fills it.
+  reliability: ReliabilityVerdict | null;
+  // True when this narrator only appears via ambiguous best-guess resolutions.
+  uncertain: boolean;
+}
+
+export interface NarratorDirectoryEntry {
+  narrator_id: number;
+  person_id: number | null;
+  canonical_name_ar: string;
+  kunya: string | null;
+  laqab: string | null;
+  nisba: string | null;
+  generation: number | null;
+  reliability: ReliabilityVerdict | null;
+  charted_hadith_count: number;
+}
+
+export interface NarratorDirectoryPage {
+  query: string | null;
+  total: number;
+  limit: number;
+  offset: number;
+  entries: NarratorDirectoryEntry[];
 }
 
 export type EdgeQualityVerdict =
@@ -611,10 +689,12 @@ export interface TransmissionGraphEdge {
   count: number;
   quality?: EdgeQualityVerdict | null;
   gen_violation?: boolean | null;
+  uncertain?: boolean;
 }
 
 export interface TransmissionGraphRead {
   source_book_id: string;
+  book_ids: string[];
   min_count: number;
   max_nodes: number;
   total_nodes_unfiltered: number;
@@ -622,6 +702,7 @@ export interface TransmissionGraphRead {
   decisions_applied: number;
   computed_at: string | null;
   quality: boolean;
+  include_uncertain: boolean;
   nodes: TransmissionGraphNode[];
   edges: TransmissionGraphEdge[];
 }
@@ -640,4 +721,34 @@ export interface TransmissionEdgeEvidenceRead {
   source_book_id: string;
   total: number;
   items: TransmissionEdgeEvidenceItem[];
+}
+
+export interface TransmissionPathNode {
+  id: number;
+  label: string;
+  kind: "imam" | "narrator";
+  generation: number | null;
+  narrator_id: number | null;
+}
+
+export interface TransmissionPathHop {
+  source: number;
+  target: number;
+  count: number;
+}
+
+export interface TransmissionPath {
+  nodes: TransmissionPathNode[];
+  hops: TransmissionPathHop[];
+  length: number;
+  min_count: number;
+}
+
+export interface TransmissionPathsRead {
+  from_person_id: number;
+  to_person_id: number;
+  book_ids: string[];
+  found: boolean;
+  reversed: boolean;
+  paths: TransmissionPath[];
 }

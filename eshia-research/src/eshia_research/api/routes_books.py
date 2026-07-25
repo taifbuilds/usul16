@@ -9,7 +9,11 @@ from sqlalchemy.orm import Session, aliased, selectinload
 
 from eshia_research.db import get_db
 from eshia_research.api.security import require_admin_api_token
-from eshia_research.corpus import AL_KAFI_ISLAMIYYA_SOURCE_BOOK_ID, CATALOG_EXCLUDED_SOURCE_BOOK_IDS
+from eshia_research.corpus import (
+    AL_KAFI_ISLAMIYYA_SOURCE_BOOK_ID,
+    CATALOG_EXCLUDED_SOURCE_BOOK_IDS,
+    POLISHED_TRANSMISSION_BOOK_IDS,
+)
 from eshia_research.hadith_split_audit import (
     active_split_texts,
     build_hadith_split_audit_report,
@@ -26,6 +30,7 @@ from eshia_research.models import (
     HadithGrading,
     HadithSplitReview,
     HadithTranslation,
+    HadithTopicAssignment,
     MentionResolution,
     Narrator,
     NarratorAlias,
@@ -37,6 +42,7 @@ from eshia_research.models import (
     RijalOccurrence,
     RijalStatement,
     ThaqalaynStructureMap,
+    Topic,
 )
 from eshia_research.normalise import normalise_arabic_persian
 from eshia_research.schemas import (
@@ -45,6 +51,7 @@ from eshia_research.schemas import (
     ChapterSummary,
     HadithGradingRead,
     HadithStructureRead,
+    HadithTopicRead,
     KitabSummary,
     ThaqalaynChapterSummary,
     CorpusBookStatus,
@@ -58,6 +65,8 @@ from eshia_research.schemas import (
     HadithRead,
     LibraryStats,
     NarratorDetailRead,
+    NarratorDirectoryEntry,
+    NarratorDirectoryPage,
     NarratorHadithAppearancePage,
     NarratorSummaryRead,
     NarratorTransmissionEdgesRead,
@@ -79,6 +88,10 @@ from eshia_research.schemas import (
     TransmissionGraphEdge,
     TransmissionGraphNode,
     TransmissionGraphRead,
+    TransmissionPath,
+    TransmissionPathHop,
+    TransmissionPathNode,
+    TransmissionPathsRead,
 )
 from eshia_research.translation.publication import (
     PUBLIC_TRANSLATION_VERSIONS,
@@ -257,7 +270,7 @@ def _attach_structure_and_gradings(db: Session, hadiths: list[Hadith]) -> list[H
         for s in db.query(ThaqalaynStructureMap)
         .filter(
             ThaqalaynStructureMap.hadith_id.in_(hadith_ids),
-            ThaqalaynStructureMap.source == "thaqalayn-api",
+            ThaqalaynStructureMap.source.in_(("thaqalayn-website", "thaqalayn-api")),
         )
         .all()
     }
@@ -281,6 +294,41 @@ def _attach_structure_and_gradings(db: Session, hadiths: list[Hadith]) -> list[H
         hadith.gradings = (
             [HadithGradingRead.model_validate(g) for g in rows] if rows else None
         )
+    return hadiths
+
+
+def _attach_topics(db: Session, hadiths: list[Hadith]) -> list[Hadith]:
+    """Attach ordered public topic metadata to hadith responses."""
+    hadith_ids = [hadith.id for hadith in hadiths]
+    if not hadith_ids:
+        return hadiths
+    by_hadith_id: dict[int, list[HadithTopicRead]] = {}
+    rows = (
+        db.query(HadithTopicAssignment, Topic)
+        .join(Topic, Topic.id == HadithTopicAssignment.topic_id)
+        .filter(HadithTopicAssignment.hadith_id.in_(hadith_ids))
+        .order_by(
+            HadithTopicAssignment.hadith_id,
+            HadithTopicAssignment.relevance.desc(),
+            Topic.name_en,
+        )
+        .all()
+    )
+    for assignment, topic in rows:
+        by_hadith_id.setdefault(assignment.hadith_id, []).append(
+            HadithTopicRead(
+                slug=topic.slug,
+                hashtag=topic.hashtag,
+                name_en=topic.name_en,
+                name_ar=topic.name_ar,
+                kind=topic.kind,
+                relevance=assignment.relevance,
+                confidence=assignment.confidence,
+                assignment_method=assignment.assignment_method,
+            )
+        )
+    for hadith in hadiths:
+        hadith.topics = by_hadith_id.get(hadith.id, [])
     return hadiths
 
 
@@ -1134,7 +1182,8 @@ def list_book_hadiths(
     elif page is not None:
         query = query.filter(Hadith.page_start == page)
     hadiths = query.order_by(Hadith.sequence_in_book).offset(skip).limit(limit).all()
-    return _attach_public_translations(db, _apply_approved_splits(db, hadiths))
+    hadiths = _attach_public_translations(db, _apply_approved_splits(db, hadiths))
+    return _attach_topics(db, hadiths)
 
 
 @router.get("/person-resolution-audit/summary", response_model=PersonResolutionAuditSummary)
@@ -1798,7 +1847,8 @@ def list_chapter_hadiths(
         .order_by(Hadith.sequence_in_book)
         .all()
     )
-    return _attach_public_translations(db, _apply_approved_splits(db, hadiths))
+    hadiths = _attach_public_translations(db, _apply_approved_splits(db, hadiths))
+    return _attach_topics(db, hadiths)
 
 
 def _kitab_order_key(volume: int, kitab_id: str) -> tuple[int, int, str]:
@@ -1825,7 +1875,7 @@ def list_book_kitabs(book_id: int, db: Session = Depends(get_db)) -> list[KitabS
         .join(Hadith, Hadith.id == ThaqalaynStructureMap.hadith_id)
         .filter(
             Hadith.book_id == book_id,
-            ThaqalaynStructureMap.source == "thaqalayn-api",
+            ThaqalaynStructureMap.source.in_(("thaqalayn-website", "thaqalayn-api")),
         )
         .all()
     )
@@ -1878,7 +1928,7 @@ def list_kitab_chapters(
         .join(Hadith, Hadith.id == ThaqalaynStructureMap.hadith_id)
         .filter(
             Hadith.book_id == book_id,
-            ThaqalaynStructureMap.source == "thaqalayn-api",
+            ThaqalaynStructureMap.source.in_(("thaqalayn-website", "thaqalayn-api")),
             ThaqalaynStructureMap.kitab_id == kitab_id,
         )
         .all()
@@ -1926,7 +1976,7 @@ def list_kitab_chapter_hadiths(
         .join(Hadith, Hadith.id == ThaqalaynStructureMap.hadith_id)
         .filter(
             Hadith.book_id == book_id,
-            ThaqalaynStructureMap.source == "thaqalayn-api",
+            ThaqalaynStructureMap.source.in_(("thaqalayn-website", "thaqalayn-api")),
             ThaqalaynStructureMap.kitab_id == kitab_id,
             ThaqalaynStructureMap.chapter_id == chapter_id,
         )
@@ -1945,7 +1995,8 @@ def list_kitab_chapter_hadiths(
     )
     hadiths.sort(key=lambda h: order.get(h.id, (1 << 30, 0)))
     hadiths = _attach_public_translations(db, _apply_approved_splits(db, hadiths))
-    return _attach_structure_and_gradings(db, hadiths)
+    hadiths = _attach_structure_and_gradings(db, hadiths)
+    return _attach_topics(db, hadiths)
 
 
 @router.get("/hadiths/{public_id}", response_model=HadithRead)
@@ -1965,7 +2016,8 @@ def get_hadith(public_id: str, db: Session = Depends(get_db)) -> Hadith:
     )
     hadith = _apply_approved_split(hadith, review)
     hadith = _attach_public_translations(db, [hadith])[0]
-    return _attach_structure_and_gradings(db, [hadith])[0]
+    hadith = _attach_structure_and_gradings(db, [hadith])[0]
+    return _attach_topics(db, [hadith])[0]
 
 
 @router.get("/hadiths/{public_id}/chains", response_model=HadithChainsRead)
@@ -2035,6 +2087,71 @@ def get_hadith_chains(public_id: str, db: Session = Depends(get_db)) -> HadithCh
             }
         )
     return HadithChainsRead(hadith_id=hadith.id, public_id=hadith.public_id, chains=chain_items)
+
+
+@router.get("/narrators", response_model=NarratorDirectoryPage)
+def list_narrators(
+    query: str | None = None,
+    limit: int = 40,
+    offset: int = 0,
+    sort: str = "charted",
+    db: Session = Depends(get_db),
+) -> NarratorDirectoryPage:
+    """The searchable directory of every Mu'jam narrator — the "everyone exists"
+    index. Findability does not depend on edges: a narrator with no charted
+    transmissions still returns (charted_hadith_count=0) and opens a real bio.
+
+    `query` matches the canonical name OR any alias (Arabic-normalised).
+    `sort=charted` surfaces the most-charted narrators first; `sort=name` is
+    alphabetical.
+    """
+    limit = max(1, min(limit, 100))
+    offset = max(0, offset)
+
+    columns = (
+        Narrator.id,
+        Narrator.canonical_name_ar,
+        Narrator.kunya,
+        Narrator.laqab,
+        Narrator.nisba,
+        Narrator.generation_layer,
+    )
+    stmt = select(*columns)
+    q_norm = normalise_arabic_persian(query).strip() if query else ""
+    if q_norm:
+        like = f"%{q_norm}%"
+        alias_ids = select(NarratorAlias.narrator_id).where(
+            NarratorAlias.alias_normalised.like(like)
+        )
+        stmt = stmt.where(
+            or_(Narrator.canonical_name_norm.like(like), Narrator.id.in_(alias_ids))
+        )
+    rows = db.execute(stmt).all()
+
+    charted = _narrator_charted_counts(db, list(POLISHED_TRANSMISSION_BOOK_IDS))
+    if sort == "name":
+        rows.sort(key=lambda r: r.canonical_name_ar or "")
+    else:
+        rows.sort(key=lambda r: (-charted.get(r.id, 0), r.canonical_name_ar or ""))
+
+    total = len(rows)
+    page = rows[offset : offset + limit]
+    entries = [
+        NarratorDirectoryEntry(
+            narrator_id=r.id,
+            canonical_name_ar=r.canonical_name_ar,
+            kunya=r.kunya,
+            laqab=r.laqab,
+            nisba=r.nisba,
+            generation=r.generation_layer,
+            reliability=None,  # filled by the Phase 2 reliability layer
+            charted_hadith_count=charted.get(r.id, 0),
+        )
+        for r in page
+    ]
+    return NarratorDirectoryPage(
+        query=query, total=total, limit=limit, offset=offset, entries=entries
+    )
 
 
 @router.get("/narrators/{narrator_id}", response_model=NarratorDetailRead)
@@ -2225,15 +2342,24 @@ class _TransmissionPairs:
     root_of: dict[int, int]
     decisions_applied: int
     computed_at: "dt.datetime"
+    # Confidence tags (populated when include_uncertain surfaces best-guesses):
+    # a cluster root is confident if any of its mentions is confident; an edge is
+    # confident if it has at least one both-confident instance. Empty == all
+    # confident (the default confident-only aggregation).
+    edge_confident: set[tuple[int, int]] = dataclasses.field(default_factory=set)
+    node_confident: dict[int, bool] = dataclasses.field(default_factory=dict)
 
 
-# key: (source_book_id, resolver_version, decisions_fingerprint) -> (expires_at, pairs)
-_transmission_pairs_cache: dict[tuple[str, str, tuple[int, str]], tuple[float, _TransmissionPairs]] = {}
+# key: (source_book_id, resolver_version, include_uncertain, decisions_fingerprint)
+_transmission_pairs_cache: dict[
+    tuple[str, str, bool, tuple[int, str]], tuple[float, _TransmissionPairs]
+] = {}
 
 
 def clear_transmission_graph_cache() -> None:
     """Drop the cached pair aggregations (tests + after data mutations)."""
     _transmission_pairs_cache.clear()
+    _narrator_charted_cache.clear()
 
 
 def _admin_decisions_fingerprint(db: Session, resolver_version: str) -> tuple[int, str]:
@@ -2252,23 +2378,38 @@ def _admin_decisions_fingerprint(db: Session, resolver_version: str) -> tuple[in
 
 
 def _compute_transmission_pairs(
-    db: Session, source_book_id: str, resolver_version: str
+    db: Session,
+    source_book_id: str,
+    resolver_version: str,
+    include_uncertain: bool = False,
 ) -> _TransmissionPairs:
     from eshia_research.rijal.effective_resolution import (
         adjacent_pairs,
-        load_confident_nodes,
+        load_graph_nodes,
     )
     from eshia_research.rijal.identity_links import same_person_clusters
 
-    nodes = load_confident_nodes(db, source_book_id, resolver_version)
+    nodes = load_graph_nodes(
+        db, source_book_id, resolver_version, include_uncertain=include_uncertain
+    )
     decisions_applied = sum(1 for n in nodes if n.source == "admin")
 
     person_ids = {n.person_id for n in nodes}
     clusters = same_person_clusters(db, person_ids)
     root_of = {pid: min(members) for pid, members in clusters.items()}
 
+    # A cluster root counts as confident if ANY of its mentions is confident.
+    node_confident: dict[int, bool] = {}
+    for n in nodes:
+        root = root_of.get(n.person_id, n.person_id)
+        if n.confident:
+            node_confident[root] = True
+        else:
+            node_confident.setdefault(root, False)
+
     edge_hadiths: dict[tuple[int, int], set[int]] = {}
     node_hadiths: dict[int, set[int]] = {}
+    edge_confident: set[tuple[int, int]] = set()
     for student, teacher in adjacent_pairs(nodes):
         s_root = root_of.get(student.person_id, student.person_id)
         t_root = root_of.get(teacher.person_id, teacher.person_id)
@@ -2278,6 +2419,8 @@ def _compute_transmission_pairs(
         edge_hadiths.setdefault((s_root, t_root), set()).add(student.hadith_id)
         node_hadiths.setdefault(s_root, set()).add(student.hadith_id)
         node_hadiths.setdefault(t_root, set()).add(student.hadith_id)
+        if student.confident and teacher.confident:
+            edge_confident.add((s_root, t_root))
 
     return _TransmissionPairs(
         edge_hadiths=edge_hadiths,
@@ -2286,29 +2429,150 @@ def _compute_transmission_pairs(
         root_of=root_of,
         decisions_applied=decisions_applied,
         computed_at=dt.datetime.now(dt.timezone.utc),
+        edge_confident=edge_confident,
+        node_confident=node_confident,
     )
 
 
-def _get_transmission_pairs(db: Session, source_book_id: str) -> _TransmissionPairs:
+def _get_transmission_pairs(
+    db: Session, source_book_id: str, include_uncertain: bool = False
+) -> _TransmissionPairs:
     from eshia_research.rijal.person_resolver import PERSON_RESOLVER_VERSION
 
     fingerprint = _admin_decisions_fingerprint(db, PERSON_RESOLVER_VERSION)
-    key = (source_book_id, PERSON_RESOLVER_VERSION, fingerprint)
+    key = (source_book_id, PERSON_RESOLVER_VERSION, include_uncertain, fingerprint)
     now = time.monotonic()
     hit = _transmission_pairs_cache.get(key)
     if hit is not None and hit[0] > now:
         return hit[1]
-    pairs = _compute_transmission_pairs(db, source_book_id, PERSON_RESOLVER_VERSION)
+    pairs = _compute_transmission_pairs(
+        db, source_book_id, PERSON_RESOLVER_VERSION, include_uncertain=include_uncertain
+    )
     _transmission_pairs_cache[key] = (now + _TRANSMISSION_GRAPH_TTL_SECONDS, pairs)
     return pairs
 
 
+def _resolve_book_set(source_book_id: str, books: str | None) -> list[str]:
+    """Requested books -> only the polished (charted) ones, deduped in order.
+
+    This is the book-set seam: adding a book to POLISHED_TRANSMISSION_BOOK_IDS is
+    the only change needed to let it be charted. A request for an unpolished book
+    is silently dropped (never half-drawn); an empty result falls back to Al-Kafi.
+    """
+    requested = (
+        [b.strip() for b in books.split(",") if b.strip()]
+        if books
+        else [source_book_id]
+    )
+    polished = [b for b in dict.fromkeys(requested) if b in POLISHED_TRANSMISSION_BOOK_IDS]
+    return polished or [AL_KAFI_ISLAMIYYA_SOURCE_BOOK_ID]
+
+
+def _merged_transmission_pairs(
+    db: Session, book_ids: list[str], include_uncertain: bool = False
+) -> tuple[_TransmissionPairs, dict[int, dict[str, int]]]:
+    """Union the per-book cached aggregations into one graph + a per-node
+    {book: distinct-hadith count} footprint. Cluster roots are globally
+    consistent (`same_person_clusters` is a global union-find), so a plain union
+    is correct across books — a narrator in two books collapses to one node.
+    """
+    per_book = [(b, _get_transmission_pairs(db, b, include_uncertain)) for b in book_ids]
+    if len(per_book) == 1:
+        book_id, pairs = per_book[0]
+        node_books = {root: {book_id: len(h)} for root, h in pairs.node_hadiths.items()}
+        return pairs, node_books
+
+    edge_hadiths: dict[tuple[int, int], set[int]] = {}
+    node_hadiths: dict[int, set[int]] = {}
+    node_books: dict[int, dict[str, int]] = {}
+    clusters: dict[int, set[int]] = {}
+    root_of: dict[int, int] = {}
+    edge_confident: set[tuple[int, int]] = set()
+    node_confident: dict[int, bool] = {}
+    decisions_applied = 0
+    computed_ats: list[dt.datetime] = []
+    for book_id, pairs in per_book:
+        for pair, h in pairs.edge_hadiths.items():
+            edge_hadiths.setdefault(pair, set()).update(h)
+        for root, h in pairs.node_hadiths.items():
+            node_hadiths.setdefault(root, set()).update(h)
+            node_books.setdefault(root, {})[book_id] = len(h)
+        edge_confident |= pairs.edge_confident
+        for root, conf in pairs.node_confident.items():
+            node_confident[root] = node_confident.get(root, False) or conf
+        clusters.update(pairs.clusters)
+        root_of.update(pairs.root_of)
+        decisions_applied += pairs.decisions_applied
+        computed_ats.append(pairs.computed_at)
+    merged = _TransmissionPairs(
+        edge_hadiths=edge_hadiths,
+        node_hadiths=node_hadiths,
+        clusters=clusters,
+        root_of=root_of,
+        decisions_applied=decisions_applied,
+        computed_at=min(computed_ats) if computed_ats else dt.datetime.now(dt.timezone.utc),
+        edge_confident=edge_confident,
+        node_confident=node_confident,
+    )
+    return merged, node_books
+
+
+# narrator_id -> distinct charted hadiths, keyed by book set. Cheap map over the
+# already-cached pairs; TTL-cached so the directory endpoint stays fast.
+_narrator_charted_cache: dict[tuple[str, ...], tuple[float, dict[int, int]]] = {}
+
+
+def _narrator_charted_counts(db: Session, book_ids: list[str]) -> dict[int, int]:
+    """narrator_id -> distinct charted hadiths across `book_ids` (person-level,
+    matching the graph). A narrator absent from this map is findable but not yet
+    charted (count 0)."""
+    key = tuple(book_ids)
+    now = time.monotonic()
+    hit = _narrator_charted_cache.get(key)
+    if hit is not None and hit[0] > now:
+        return hit[1]
+
+    pairs, _ = _merged_transmission_pairs(db, book_ids)
+    node_hadiths = pairs.node_hadiths
+    clusters = pairs.clusters
+    member_to_root: dict[int, int] = {}
+    for root in node_hadiths:
+        for member in clusters.get(root, {root}):
+            member_to_root.setdefault(member, root)
+
+    counts: dict[int, int] = {}
+    if member_to_root:
+        # The Mu'jam person/entry tables are ~15.6k rows — load them whole rather
+        # than an IN() over thousands of ids (SQLite variable-limit safe).
+        entry_to_narr = {
+            entry_id: narr
+            for entry_id, narr in db.execute(
+                select(RijalEntry.id, RijalEntry.narrator_id).where(
+                    RijalEntry.narrator_id.isnot(None)
+                )
+            )
+        }
+        for pid, entry_id in db.execute(select(Person.id, Person.primary_entry_id)):
+            root = member_to_root.get(pid)
+            if root is None:
+                continue
+            narr = entry_to_narr.get(entry_id)
+            if narr is None:
+                continue
+            counts[narr] = max(counts.get(narr, 0), len(node_hadiths[root]))
+
+    _narrator_charted_cache[key] = (now + _TRANSMISSION_GRAPH_TTL_SECONDS, counts)
+    return counts
+
+
 @router.get("/transmission-graph", response_model=TransmissionGraphRead)
 def get_transmission_graph(
-    source_book_id: str = "11005",
+    source_book_id: str = AL_KAFI_ISLAMIYYA_SOURCE_BOOK_ID,
+    books: str | None = None,
     min_count: int = 3,
     max_nodes: int = 400,
     quality: bool = False,
+    include_uncertain: bool = False,
     db: Session = Depends(get_db),
 ) -> TransmissionGraphRead:
     """The corpus-wide narrator network: confident person-level student->teacher
@@ -2324,9 +2588,12 @@ def get_transmission_graph(
     annotates each surviving edge with the Mu'jam-corroboration verdict.
     """
     min_count = max(1, min_count)
-    max_nodes = max(10, min(max_nodes, 1500))
+    # Cap headroom for the whole confident al-Kāfī network (~2,000 nodes); the
+    # client renders it with a Barnes–Hut layout so the full graph stays smooth.
+    max_nodes = max(10, min(max_nodes, 3000))
 
-    pairs = _get_transmission_pairs(db, source_book_id)
+    book_ids = _resolve_book_set(source_book_id, books)
+    pairs, node_books = _merged_transmission_pairs(db, book_ids, include_uncertain)
     edge_hadiths = pairs.edge_hadiths
     node_hadiths = pairs.node_hadiths
     clusters = pairs.clusters
@@ -2406,6 +2673,8 @@ def get_transmission_graph(
                 narrator_id=narrator_id,
                 hadith_count=len(node_hadiths[pid]),
                 merged_person_ids=members,
+                books=node_books.get(pid, {}),
+                uncertain=not pairs.node_confident.get(pid, True),
             )
         )
 
@@ -2427,11 +2696,13 @@ def get_transmission_graph(
                 count=len(h),
                 quality=q.corroboration if q is not None else None,
                 gen_violation=q.gen_violation if q is not None else None,
+                uncertain=(s, t) not in pairs.edge_confident,
             )
         )
 
     return TransmissionGraphRead(
-        source_book_id=source_book_id,
+        source_book_id=",".join(book_ids),
+        book_ids=book_ids,
         min_count=min_count,
         max_nodes=max_nodes,
         total_nodes_unfiltered=total_nodes_unfiltered,
@@ -2439,6 +2710,7 @@ def get_transmission_graph(
         decisions_applied=pairs.decisions_applied,
         computed_at=pairs.computed_at,
         quality=quality,
+        include_uncertain=include_uncertain,
         nodes=nodes,
         edges=edges,
     )
@@ -2497,6 +2769,166 @@ def get_transmission_edge_evidence(
         source_book_id=source_book_id,
         total=len(hadith_ids),
         items=items,
+    )
+
+
+def _enumerate_simple_paths(
+    adj: dict[int, list[tuple[int, int]]],
+    start: int,
+    goal: int,
+    max_len: int,
+    budget: int = 40000,
+) -> list[tuple[list[int], list[int]]]:
+    """All simple directed paths start->goal up to `max_len` hops, each as
+    (node_ids, hop_counts). Bounded by `budget` node expansions so a dense hub
+    can't blow up. Isnads are short, so this terminates fast in practice.
+    """
+    if start == goal:
+        return []
+    results: list[tuple[list[int], list[int]]] = []
+    visited = {start}
+    path = [start]
+    hops: list[int] = []
+    counter = [budget]
+
+    def dfs(node: int) -> None:
+        if counter[0] <= 0 or len(hops) >= max_len:
+            return
+        for nxt, cnt in adj.get(node, ()):
+            if counter[0] <= 0:
+                return
+            if nxt in visited:
+                continue
+            counter[0] -= 1
+            visited.add(nxt)
+            path.append(nxt)
+            hops.append(cnt)
+            if nxt == goal:
+                results.append((list(path), list(hops)))
+            else:
+                dfs(nxt)
+            visited.discard(nxt)
+            path.pop()
+            hops.pop()
+
+    dfs(start)
+    return results
+
+
+@router.get("/transmission-graph/paths", response_model=TransmissionPathsRead)
+def get_transmission_paths(
+    from_person: int,
+    to_person: int,
+    books: str | None = None,
+    max_len: int = 8,
+    k: int = 5,
+    db: Session = Depends(get_db),
+) -> TransmissionPathsRead:
+    """Up to `k` shortest confident isnad paths between two narrators.
+
+    Edges are directed student->teacher, so a path from a narrator to an Imam
+    walks in the transmission direction. If nothing chains `from`->`to` but a
+    path exists the other way, it is returned oriented correctly with
+    `reversed=True`. Only confident (attested) edges are used — paths are honest.
+    """
+    max_len = max(2, min(max_len, 12))
+    k = max(1, min(k, 10))
+    book_ids = _resolve_book_set(AL_KAFI_ISLAMIYYA_SOURCE_BOOK_ID, books)
+    pairs, _ = _merged_transmission_pairs(db, book_ids)
+
+    adj: dict[int, list[tuple[int, int]]] = {}
+    for (s, t), h in pairs.edge_hadiths.items():
+        adj.setdefault(s, []).append((t, len(h)))
+
+    fr = pairs.root_of.get(from_person, from_person)
+    to = pairs.root_of.get(to_person, to_person)
+
+    reversed_ = False
+    raw = _enumerate_simple_paths(adj, fr, to, max_len)
+    if not raw:
+        rev = _enumerate_simple_paths(adj, to, fr, max_len)
+        if rev:
+            raw, reversed_ = rev, True
+
+    # Rank: fewest hops, then strongest bottleneck, then strongest total.
+    raw.sort(key=lambda p: (len(p[0]), -(min(p[1]) if p[1] else 0), -sum(p[1])))
+    raw = raw[:k]
+
+    # Node metadata for every person on a surviving path.
+    root_pids = {pid for nodes, _ in raw for pid in nodes}
+    member_ids = {m for pid in root_pids for m in pairs.clusters.get(pid, {pid})}
+    person_rows = {
+        p.id: p
+        for p in db.execute(select(Person).where(Person.id.in_(member_ids))).scalars()
+    }
+    narrator_by_entry = dict(
+        db.execute(
+            select(RijalEntry.id, RijalEntry.narrator_id).where(
+                RijalEntry.id.in_(
+                    {p.primary_entry_id for p in person_rows.values() if p.primary_entry_id}
+                )
+            )
+        ).all()
+    )
+    generations = dict(
+        db.execute(
+            select(
+                PersonGeneration.person_id,
+                func.coalesce(PersonGeneration.gen_point, PersonGeneration.gen_lo),
+            ).where(
+                PersonGeneration.person_id.in_(member_ids),
+                PersonGeneration.method != "conflict",
+            )
+        ).all()
+    )
+
+    def node_meta(pid: int) -> TransmissionPathNode:
+        members = sorted(pairs.clusters.get(pid, {pid}))
+        member_persons = [person_rows[m] for m in members if m in person_rows]
+        root = person_rows.get(pid)
+        kind = "imam" if any(p.kind == "masum" for p in member_persons) else "narrator"
+        narrator_id = next(
+            (
+                narrator_by_entry.get(p.primary_entry_id)
+                for p in member_persons
+                if p.primary_entry_id is not None
+                and narrator_by_entry.get(p.primary_entry_id) is not None
+            ),
+            None,
+        )
+        generation = next((generations[m] for m in members if m in generations), None)
+        return TransmissionPathNode(
+            id=pid,
+            label=root.canonical_name_ar if root else str(pid),
+            kind=kind,
+            generation=generation,
+            narrator_id=narrator_id,
+        )
+
+    meta = {pid: node_meta(pid) for pid in root_pids}
+    paths: list[TransmissionPath] = []
+    for nodes, hopcounts in raw:
+        paths.append(
+            TransmissionPath(
+                nodes=[meta[pid] for pid in nodes],
+                hops=[
+                    TransmissionPathHop(
+                        source=nodes[i], target=nodes[i + 1], count=hopcounts[i]
+                    )
+                    for i in range(len(hopcounts))
+                ],
+                length=len(hopcounts),
+                min_count=min(hopcounts) if hopcounts else 0,
+            )
+        )
+
+    return TransmissionPathsRead(
+        from_person_id=fr,
+        to_person_id=to,
+        book_ids=book_ids,
+        found=bool(paths),
+        reversed=reversed_,
+        paths=paths,
     )
 
 

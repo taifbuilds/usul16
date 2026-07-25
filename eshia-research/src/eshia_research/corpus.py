@@ -21,6 +21,14 @@ CATALOG_EXCLUDED_SOURCE_BOOK_IDS = (AL_KAFI_DAR_AL_HADITH_SOURCE_BOOK_ID,)
 
 BIHAR_DAR_IHYA_SOURCE_BOOK_ID = "71860"
 
+# Books whose chains are resolved and *polished* enough to chart in the public
+# transmission graph. This is the single seam that lights a book up across the
+# graph, dossiers, path-finding and reliability (see the graph plan): once a
+# book's chains are resolved + chain-indexed, add its id here and it inherits
+# every feature — no schema change, no client rewrite. Al-Kafi is the only
+# polished book today; Faqih is nearing completion and joins next.
+POLISHED_TRANSMISSION_BOOK_IDS: tuple[str, ...] = (AL_KAFI_ISLAMIYYA_SOURCE_BOOK_ID,)
+
 # Human-readable slugs used in public hadith IDs («alkafi-2041») — the ID a
 # reader cites should speak the tradition's language, not the crawler's.
 BOOK_SLUGS = {

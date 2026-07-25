@@ -130,7 +130,12 @@ def load_admin_decisions(
 
 @dataclasses.dataclass(frozen=True)
 class EffectiveNode:
-    """A confident chain-node mention after the decision overlay."""
+    """A chain-node mention after the decision overlay.
+
+    `confident` is True for resolved/via_collective (or admin-approved) picks and
+    False for an ambiguous rank-1 best-guess — the latter is only surfaced when a
+    caller opts into `include_uncertain`, and must be rendered as provisional.
+    """
 
     chain_node_id: int
     chain_id: int
@@ -138,17 +143,24 @@ class EffectiveNode:
     hadith_id: int
     person_id: int
     source: str  # "machine" | "admin"
+    confident: bool = True
 
 
-def load_confident_nodes(
-    db: Session, source_book_id: str, resolver_version: str
+def load_graph_nodes(
+    db: Session,
+    source_book_id: str,
+    resolver_version: str,
+    *,
+    include_uncertain: bool = False,
 ) -> list[EffectiveNode]:
-    """Every non-rejected chain node in a book that is confident *after review*.
+    """Chain-node mentions for the transmission graph.
 
-    An admin override can PROMOTE an otherwise-ambiguous node into the confident
-    set (and change which person it points at); keep_ambiguous / text-issue
-    flags DEMOTE a machine-resolved node out of it. Raw-only reads can do
-    neither, which is exactly the correction path this enables.
+    With `include_uncertain=False` this is exactly the confident set (resolved /
+    via_collective, with admin corrections applied). With `include_uncertain=True`
+    it ALSO returns each ambiguous node's rank-1 best guess, tagged
+    `confident=False`, so the graph can draw provisional narrators the resolver
+    could not yet pin down — never silently, always marked. Admin demotions
+    (keep_ambiguous / flag) already null the person id, so they stay excluded.
     """
     stmt = (
         select(
@@ -181,18 +193,43 @@ def load_confident_nodes(
     out: list[EffectiveNode] = []
     for node_id, chain_id, position, hadith_id, status, person_id in db.execute(stmt):
         eff = apply_admin_decision(status, person_id, decisions.get(node_id))
-        if eff.confident and eff.person_id is not None:
-            out.append(
-                EffectiveNode(
-                    chain_node_id=node_id,
-                    chain_id=chain_id,
-                    position=position,
-                    hadith_id=hadith_id,
-                    person_id=eff.person_id,
-                    source=eff.source,
-                )
+        if eff.person_id is None:
+            continue
+        if eff.confident:
+            confident = True
+            source = eff.source
+        elif include_uncertain:
+            confident = False
+            source = "machine"
+        else:
+            continue
+        out.append(
+            EffectiveNode(
+                chain_node_id=node_id,
+                chain_id=chain_id,
+                position=position,
+                hadith_id=hadith_id,
+                person_id=eff.person_id,
+                source=source,
+                confident=confident,
             )
+        )
     return out
+
+
+def load_confident_nodes(
+    db: Session, source_book_id: str, resolver_version: str
+) -> list[EffectiveNode]:
+    """Every non-rejected chain node in a book that is confident *after review*.
+
+    An admin override can PROMOTE an otherwise-ambiguous node into the confident
+    set (and change which person it points at); keep_ambiguous / text-issue
+    flags DEMOTE a machine-resolved node out of it. Raw-only reads can do
+    neither, which is exactly the correction path this enables.
+    """
+    return load_graph_nodes(
+        db, source_book_id, resolver_version, include_uncertain=False
+    )
 
 
 def adjacent_pairs(

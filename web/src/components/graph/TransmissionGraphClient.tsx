@@ -29,12 +29,19 @@ import {
   useRef,
   useState,
 } from "react";
-import { getTransmissionEdgeEvidence, getTransmissionGraph } from "@/lib/api/books";
+import {
+  getNarratorDirectory,
+  getTransmissionEdgeEvidence,
+  getTransmissionGraph,
+  getTransmissionPaths,
+} from "@/lib/api/books";
 import type {
+  NarratorDirectoryEntry,
   TransmissionEdgeEvidenceRead,
   TransmissionGraphEdge,
   TransmissionGraphNode,
   TransmissionGraphRead,
+  TransmissionPathsRead,
 } from "@/lib/api/types";
 import { formatArabicText } from "@/lib/arabic";
 import { amiri } from "@/lib/fonts";
@@ -49,6 +56,9 @@ const IMAM_GOLD = "#c98500";
 const IMAM_GOLD_BRIGHT = "#e8b54a";
 const ERA_RAMP = ["#cde2fb", "#9ec5f4", "#6da7ec", "#3987e5", "#256abf"];
 const UNDATED = "#6f7d72";
+// Provisional narrators (ambiguous best-guess) read as a muted, desaturated
+// clay — clearly "not confirmed" regardless of ṭabaqa.
+const UNCERTAIN = "#9a8f79";
 const INK_PRIMARY = "#ece7d6";
 const INK_SECONDARY = "#9aa695";
 const EDGE_RGB = "214, 224, 210";
@@ -80,16 +90,15 @@ function nodeColor(node: TransmissionGraphNode): string {
   return era === null ? UNDATED : ERA_RAMP[era];
 }
 
-/* ------------------------------------------------------------------ */
-/* Arabic search normalisation (display strings stay untouched)        */
-/* ------------------------------------------------------------------ */
-
-function normaliseArabic(text: string): string {
+/** Diacritic/variant-insensitive Arabic match for the in-graph path pickers,
+ * which search the already-loaded node labels (strips harakat, folds
+ * alef/yeh/kaf variants). */
+function normArabic(text: string): string {
   return text
-    .replace(/[ً-ٰٟـ]/g, "")
-    .replace(/[آأإ]/g, "ا")
-    .replace(/[یى]/g, "ي")
-    .replace(/ک/g, "ك")
+    .replace(/[ً-ْٰـ]/g, "") // harakat + tatweel
+    .replace(/[آأإ]/g, "ا") // alef variants -> alef
+    .replace(/[یى]/g, "ي") // farsi yeh / alef maksura -> yeh
+    .replace(/ک/g, "ك") // farsi kaf -> kaf
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -184,6 +193,146 @@ function clearEdgeQuality(sim: SimState): void {
   sim.alpha = Math.max(sim.alpha, 0.05);
 }
 
+/* ------------------------------------------------------------------ */
+/* Barnes–Hut quadtree repulsion — O(n log n) so the whole al-Kāfī     */
+/* network (~2,000 narrators) renders at 60fps. Small graphs keep the  */
+/* exact O(n²) loop; only large ones use the approximation.            */
+/* ------------------------------------------------------------------ */
+
+interface QuadNode {
+  x0: number;
+  y0: number;
+  x1: number;
+  y1: number;
+  cx: number; // centre of mass (radius-weighted)
+  cy: number;
+  n: number; // body count in this quad
+  sumR: number; // Σ radius — the "mass"
+  body: SimNode | null; // set only for a single-body leaf
+  children: (QuadNode | null)[] | null;
+  bucket: SimNode[] | null; // coincident bodies below the min quad size
+}
+
+const BH_THETA = 0.8; // quad accepted as one mass when size/distance < theta
+const BH_MIN_QUAD = 1; // don't subdivide below ~1px — bucket instead
+
+function makeQuad(x0: number, y0: number, x1: number, y1: number): QuadNode {
+  return { x0, y0, x1, y1, cx: 0, cy: 0, n: 0, sumR: 0, body: null, children: null, bucket: null };
+}
+
+function quadInsertChild(q: QuadNode, node: SimNode): void {
+  const mx = (q.x0 + q.x1) / 2;
+  const my = (q.y0 + q.y1) / 2;
+  const right = node.x >= mx ? 1 : 0;
+  const bottom = node.y >= my ? 1 : 0;
+  const idx = bottom * 2 + right;
+  if (!q.children) q.children = [null, null, null, null];
+  if (!q.children[idx]) {
+    q.children[idx] = makeQuad(
+      right ? mx : q.x0,
+      bottom ? my : q.y0,
+      right ? q.x1 : mx,
+      bottom ? q.y1 : my
+    );
+  }
+  quadInsert(q.children[idx]!, node);
+}
+
+function quadInsert(q: QuadNode, node: SimNode): void {
+  if (q.n === 0) {
+    q.body = node;
+    q.cx = node.x;
+    q.cy = node.y;
+    q.n = 1;
+    q.sumR = node.r;
+    return;
+  }
+  // Below the minimum quad size, bucket bodies rather than subdivide forever
+  // (identical coordinates would otherwise recurse without end).
+  if (q.x1 - q.x0 <= BH_MIN_QUAD) {
+    if (!q.bucket) q.bucket = q.body ? [q.body] : [];
+    q.bucket.push(node);
+    q.body = null;
+  } else {
+    if (q.body !== null) {
+      const old = q.body;
+      q.body = null;
+      quadInsertChild(q, old);
+    }
+    quadInsertChild(q, node);
+  }
+  q.cx = (q.cx * q.sumR + node.x * node.r) / (q.sumR + node.r);
+  q.cy = (q.cy * q.sumR + node.y * node.r) / (q.sumR + node.r);
+  q.n += 1;
+  q.sumR += node.r;
+}
+
+function buildQuadtree(nodes: SimNode[]): QuadNode | null {
+  let minX = Infinity;
+  let minY = Infinity;
+  let maxX = -Infinity;
+  let maxY = -Infinity;
+  for (const n of nodes) {
+    if (!Number.isFinite(n.x) || !Number.isFinite(n.y)) continue;
+    if (n.x < minX) minX = n.x;
+    if (n.y < minY) minY = n.y;
+    if (n.x > maxX) maxX = n.x;
+    if (n.y > maxY) maxY = n.y;
+  }
+  if (!Number.isFinite(minX)) return null;
+  const size = Math.max(maxX - minX, maxY - minY, 1) + 1;
+  const root = makeQuad(minX, minY, minX + size, minY + size);
+  for (const n of nodes) {
+    if (Number.isFinite(n.x) && Number.isFinite(n.y)) quadInsert(root, n);
+  }
+  return root;
+}
+
+/** Accumulate repulsion on one node from the whole tree (same force law as the
+ * exact loop: 150·(r_node + r_other)/d², summed via centre-of-mass). */
+function bhApply(node: SimNode, cx: number, cy: number, n: number, sumR: number, alpha: number): void {
+  let dx = node.x - cx;
+  const dy = node.y - cy;
+  let dSq = dx * dx + dy * dy;
+  if (dSq < 4) {
+    if (dx === 0 && dy === 0) dx = 0.5; // nudge coincident bodies apart
+    dSq = 4;
+  }
+  const d = Math.sqrt(dSq);
+  const f = ((150 * (node.r * n + sumR)) / dSq) * alpha;
+  node.vx += (dx / d) * f;
+  node.vy += (dy / d) * f;
+}
+
+function bhRepel(q: QuadNode | null, node: SimNode, alpha: number, cutoffSq: number): void {
+  if (!q || q.n === 0) return;
+  // Prune whole quads whose nearest point is beyond the interaction cutoff —
+  // preserves the original local-repulsion character while staying fast.
+  const nx = node.x < q.x0 ? q.x0 : node.x > q.x1 ? q.x1 : node.x;
+  const ny = node.y < q.y0 ? q.y0 : node.y > q.y1 ? q.y1 : node.y;
+  const gapX = node.x - nx;
+  const gapY = node.y - ny;
+  if (gapX * gapX + gapY * gapY > cutoffSq) return;
+
+  if (q.bucket) {
+    for (const b of q.bucket) if (b !== node) bhApply(node, b.x, b.y, 1, b.r, alpha);
+    return;
+  }
+  if (q.body) {
+    if (q.body !== node) bhApply(node, q.body.x, q.body.y, 1, q.body.r, alpha);
+    return;
+  }
+  const dx = node.x - q.cx;
+  const dy = node.y - q.cy;
+  const dSq = dx * dx + dy * dy;
+  const size = q.x1 - q.x0;
+  if (size * size < BH_THETA * BH_THETA * dSq) {
+    bhApply(node, q.cx, q.cy, q.n, q.sumR, alpha);
+  } else if (q.children) {
+    for (const c of q.children) bhRepel(c, node, alpha, cutoffSq);
+  }
+}
+
 function tickSim(sim: SimState, mode: LayoutMode, dragging: SimNode | null): void {
   const nodes = sim.nodes.filter((n) => n.visible);
   if (!nodes.length) return;
@@ -191,27 +340,34 @@ function tickSim(sim: SimState, mode: LayoutMode, dragging: SimNode | null): voi
   const w = sim.width;
   const h = sim.height;
 
-  // Repulsion (O(n²) with a cutoff — ≤500 visible nodes stays cheap).
+  // Repulsion. Small graphs keep the exact O(n²) loop (tuned, unchanged);
+  // large ones — the raised caps now surface the whole ~2,000-narrator al-Kāfī
+  // network — use a Barnes–Hut quadtree so it still runs at 60fps.
   const cutoff = 320;
   const cutoffSq = cutoff * cutoff;
-  for (let i = 0; i < nodes.length; i++) {
-    const a = nodes[i];
-    for (let j = i + 1; j < nodes.length; j++) {
-      const b = nodes[j];
-      const dx = a.x - b.x;
-      const dy = a.y - b.y;
-      let dSq = dx * dx + dy * dy;
-      if (dSq > cutoffSq) continue;
-      if (dSq < 4) dSq = 4;
-      const d = Math.sqrt(dSq);
-      const f = ((150 * (a.r + b.r)) / dSq) * alpha;
-      const fx = (dx / d) * f;
-      const fy = (dy / d) * f;
-      a.vx += fx;
-      a.vy += fy;
-      b.vx -= fx;
-      b.vy -= fy;
+  if (nodes.length <= 600) {
+    for (let i = 0; i < nodes.length; i++) {
+      const a = nodes[i];
+      for (let j = i + 1; j < nodes.length; j++) {
+        const b = nodes[j];
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+        let dSq = dx * dx + dy * dy;
+        if (dSq > cutoffSq) continue;
+        if (dSq < 4) dSq = 4;
+        const d = Math.sqrt(dSq);
+        const f = ((150 * (a.r + b.r)) / dSq) * alpha;
+        const fx = (dx / d) * f;
+        const fy = (dy / d) * f;
+        a.vx += fx;
+        a.vy += fy;
+        b.vx -= fx;
+        b.vy -= fy;
+      }
     }
+  } else {
+    const tree = buildQuadtree(nodes);
+    for (const node of nodes) bhRepel(tree, node, alpha, cutoffSq);
   }
 
   // Edge springs — heavier edges pull harder and sit shorter.
@@ -319,7 +475,7 @@ function buildSim(sim: SimState, graph: TransmissionGraphRead, reducedMotion: bo
       vx: 0,
       vy: 0,
       r: 3.2 + 13 * Math.sqrt(n.hadith_count / maxCount),
-      color: nodeColor(n),
+      color: n.uncertain ? UNCERTAIN : nodeColor(n),
       visible: true,
     };
   });
@@ -425,6 +581,30 @@ function flyCameraTo(sim: SimState, node: SimNode): void {
   sim.targetTy = sim.height / 2 - node.y * targetScale;
 }
 
+/** Smoothly frame the camera on a set of nodes (used to fit a traced path). */
+function fitCameraToNodes(sim: SimState, nodes: SimNode[], padding = 130): void {
+  let minX = Infinity;
+  let minY = Infinity;
+  let maxX = -Infinity;
+  let maxY = -Infinity;
+  for (const n of nodes) {
+    if (!Number.isFinite(n.x) || !Number.isFinite(n.y)) continue;
+    if (n.x < minX) minX = n.x;
+    if (n.y < minY) minY = n.y;
+    if (n.x > maxX) maxX = n.x;
+    if (n.y > maxY) maxY = n.y;
+  }
+  if (!Number.isFinite(minX)) return;
+  const scale = Math.min(
+    2.2,
+    (sim.width - padding * 2) / Math.max(40, maxX - minX),
+    (sim.height - padding * 2) / Math.max(40, maxY - minY)
+  );
+  sim.targetScale = scale;
+  sim.targetTx = sim.width / 2 - ((minX + maxX) / 2) * scale;
+  sim.targetTy = sim.height / 2 - ((minY + maxY) / 2) * scale;
+}
+
 function resetCamera(sim: SimState): void {
   fitCamera(sim);
 }
@@ -446,6 +626,106 @@ function formatComputedAt(iso: string): string {
 /* Component                                                           */
 /* ------------------------------------------------------------------ */
 
+/** A narrator picker that searches the drawn graph nodes (path-finding only
+ * works between charted narrators), returning the cluster-root person id. */
+function GraphNodePicker({
+  nodes,
+  placeholder,
+  value,
+  onChange,
+}: {
+  nodes: TransmissionGraphNode[];
+  placeholder: string;
+  value: { id: number; label: string } | null;
+  onChange: (v: { id: number; label: string } | null) => void;
+}) {
+  const [q, setQ] = useState("");
+  const [open, setOpen] = useState(false);
+  const results = useMemo(() => {
+    const qq = normArabic(q);
+    if (qq.length < 1) return [];
+    return nodes
+      .filter((n) => normArabic(n.label).includes(qq))
+      .sort((a, b) => b.hadith_count - a.hadith_count)
+      .slice(0, 8);
+  }, [nodes, q]);
+
+  if (value) {
+    return (
+      <div
+        className="flex items-center justify-between gap-2 rounded-md px-3 py-2"
+        style={{ background: "rgba(236,231,214,0.06)", border: "1px solid rgba(236,231,214,0.16)" }}
+      >
+        <button
+          type="button"
+          onClick={() => {
+            onChange(null);
+            setQ("");
+          }}
+          aria-label="Clear"
+          className="text-lg leading-none transition hover:opacity-70"
+          style={{ color: INK_SECONDARY }}
+        >
+          ×
+        </button>
+        <span dir="rtl" lang="ar" className={`${amiri.className} truncate text-[15px]`} style={{ color: INK_PRIMARY }}>
+          {formatArabicText(value.label)}
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative">
+      <input
+        type="search"
+        value={q}
+        onChange={(e) => {
+          setQ(e.target.value);
+          setOpen(true);
+        }}
+        onFocus={() => setOpen(true)}
+        onBlur={() => window.setTimeout(() => setOpen(false), 120)}
+        placeholder={placeholder}
+        className="min-h-10 w-full rounded-md px-3 py-1.5 text-sm outline-none"
+        style={{ background: "rgba(236,231,214,0.05)", border: "1px solid rgba(236,231,214,0.16)", color: INK_PRIMARY }}
+      />
+      {open && results.length > 0 && (
+        <ul
+          className="absolute z-40 mt-1 max-h-56 w-full overflow-auto rounded-md"
+          style={{ background: "rgba(15,24,19,0.98)", border: "1px solid rgba(236,231,214,0.18)" }}
+        >
+          {results.map((n) => (
+            <li key={n.id}>
+              <button
+                type="button"
+                onClick={() => {
+                  onChange({ id: n.id, label: n.label });
+                  setQ("");
+                  setOpen(false);
+                }}
+                className="flex min-h-10 w-full items-center justify-between gap-3 px-3 py-1.5 text-right transition hover:bg-[#f2ead9]/5"
+              >
+                <span className="shrink-0 text-[11px]" style={{ color: INK_SECONDARY }}>
+                  {numberFormat.format(n.hadith_count)}
+                </span>
+                <span
+                  dir="rtl"
+                  lang="ar"
+                  className={`${amiri.className} truncate text-[14px]`}
+                  style={{ color: n.kind === "imam" ? IMAM_GOLD_BRIGHT : INK_PRIMARY }}
+                >
+                  {formatArabicText(n.label)}
+                </span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
 export function TransmissionGraphClient() {
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -454,7 +734,9 @@ export function TransmissionGraphClient() {
   const [graph, setGraph] = useState<TransmissionGraphRead | null>(null);
   const [error, setError] = useState<string | null>(null);
   const searchParams = useSearchParams();
-  const [minWeight, setMinWeight] = useState(3);
+  // Default 1 shows the whole confident al-Kāfī network (~2,000 narrators);
+  // raise the slider to thin it toward the busiest hubs.
+  const [minWeight, setMinWeight] = useState(1);
   // useSearchParams is SSR-consistent, so seeding state from it can't cause a
   // hydration mismatch the way window.location would.
   const [layout, setLayout] = useState<LayoutMode>(
@@ -464,14 +746,27 @@ export function TransmissionGraphClient() {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
   const [query, setQuery] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
+  const [dirResults, setDirResults] = useState<NarratorDirectoryEntry[]>([]);
+  const [dirLoading, setDirLoading] = useState(false);
   const [qualityOn, setQualityOn] = useState(searchParams.get("quality") === "1");
   const [qualityLoading, setQualityLoading] = useState(false);
+  const [includeUncertain, setIncludeUncertain] = useState(searchParams.get("uncertain") === "1");
   const [evidence, setEvidence] = useState<{
     source: number;
     target: number;
     label: string;
     data: TransmissionEdgeEvidenceRead | null;
   } | null>(null);
+
+  // Path-finding: pick two charted narrators, light up the isnad path(s).
+  const [pathOpen, setPathOpen] = useState(false);
+  const [pathFrom, setPathFrom] = useState<{ id: number; label: string } | null>(null);
+  const [pathTo, setPathTo] = useState<{ id: number; label: string } | null>(null);
+  const [pathResult, setPathResult] = useState<TransmissionPathsRead | null>(null);
+  const [pathLoading, setPathLoading] = useState(false);
+  const [pathError, setPathError] = useState<string | null>(null);
+  const [activePathIdx, setActivePathIdx] = useState(0);
+  const pathHighlightRef = useRef<{ nodes: Set<number>; edges: Set<string> } | null>(null);
 
   // Mutable sim state lives in refs — the render loop must never re-create
   // React state 60 times a second.
@@ -509,7 +804,11 @@ export function TransmissionGraphClient() {
 
   useEffect(() => {
     let cancelled = false;
-    getTransmissionGraph({ minCount: 2, maxNodes: 500 })
+    // Pull the whole confident al-Kāfī network (~2,000 narrators, not the old
+    // ~500). min_count=1 keeps every co-transmission; the client-side weight
+    // slider trims from there without a refetch. With uncertain on, also pull
+    // the resolver's ambiguous best-guesses (~2,600 total) — marked, never fact.
+    getTransmissionGraph({ minCount: 1, maxNodes: includeUncertain ? 3000 : 2000, includeUncertain })
       .then((data) => {
         if (!cancelled) setGraph(data);
       })
@@ -519,7 +818,7 @@ export function TransmissionGraphClient() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [includeUncertain]);
 
   /* ------------------------- sim building ------------------------ */
 
@@ -580,7 +879,7 @@ export function TransmissionGraphClient() {
     }
     let cancelled = false;
     setQualityLoading(true);
-    getTransmissionGraph({ minCount: 2, maxNodes: 500, quality: true })
+    getTransmissionGraph({ minCount: 1, maxNodes: 2000, quality: true })
       .then((data) => {
         if (cancelled) return;
         applyEdgeQuality(simRef.current, data.edges);
@@ -656,6 +955,10 @@ export function TransmissionGraphClient() {
     const focusNeighbors = focus ? sim.neighbors.get(focus.id) ?? new Set() : null;
     const globalFade = sim.reducedMotion ? 1 : Math.min(1, sim.fadeIn);
     const qualityOn = qualityOnRef.current;
+    // A traced path takes over the plate: its edges/nodes blaze gold, the rest
+    // recedes so the isnad reads as a single bright thread.
+    const pathHl = pathHighlightRef.current;
+    const pathActive = pathHl !== null;
 
     const maxEdge = Math.max(1, ...sim.edges.map((e) => (e.visible ? e.count : 1)));
 
@@ -673,12 +976,21 @@ export function TransmissionGraphClient() {
       const t = Math.log(1 + e.count) / Math.log(1 + maxEdge);
       const isFocusEdge =
         focus !== null && (e.source === focus.id || e.target === focus.id);
+      const onPathEdge = pathActive && pathHl!.edges.has(`${e.source}->${e.target}`);
       // Quality overlay tints edges by their Mu'jam verdict when enabled — but
       // the focus highlight always wins so hovering a node stays legible.
       // A generation-impossible edge is as strong a red flag as a contradicted one.
       const q = qualityOn ? (e.gen_violation ? "contradicted" : e.quality) : null;
       ctx.setLineDash([]);
-      if (focus && !isFocusEdge) {
+      if (pathActive) {
+        if (onPathEdge) {
+          ctx.strokeStyle = `rgba(232, 181, 74, ${(0.75 + 0.25 * t) * globalFade})`;
+          ctx.lineWidth = 2.4 + 2.4 * t;
+        } else {
+          ctx.strokeStyle = `rgba(${EDGE_RGB}, ${0.028 * globalFade})`;
+          ctx.lineWidth = 0.5;
+        }
+      } else if (focus && !isFocusEdge) {
         ctx.strokeStyle = `rgba(${EDGE_RGB}, ${(0.025 + 0.1 * t) * globalFade})`;
         ctx.lineWidth = 0.5 + 1.6 * t;
       } else if (isFocusEdge) {
@@ -694,6 +1006,11 @@ export function TransmissionGraphClient() {
         ctx.strokeStyle = `rgba(${EDGE_RGB}, ${(0.03 + 0.14 * t) * globalFade})`;
         ctx.lineWidth = 0.6 + 1.4 * t;
         ctx.setLineDash([4, 4]);
+      } else if (e.uncertain) {
+        // Provisional edge (an endpoint was a best guess) — dashed and faint.
+        ctx.strokeStyle = `rgba(${EDGE_RGB}, ${(0.02 + 0.1 * t) * globalFade})`;
+        ctx.lineWidth = 0.5 + 1.2 * t;
+        ctx.setLineDash([2, 4]);
       } else {
         ctx.strokeStyle = `rgba(${EDGE_RGB}, ${(0.05 + 0.3 * t) * globalFade})`;
         ctx.lineWidth = 0.6 + 1.9 * t;
@@ -703,12 +1020,12 @@ export function TransmissionGraphClient() {
       ctx.lineTo(e.b.x, e.b.y);
       ctx.stroke();
       ctx.setLineDash([]);
-      // Direction chevron (student → teacher) on focused edges only.
-      if (isFocusEdge && sim.scale > 0.5) {
+      // Direction chevron (student → teacher) on focused / path edges.
+      if ((isFocusEdge || onPathEdge) && sim.scale > 0.5) {
         const mx = e.a.x + (e.b.x - e.a.x) * 0.58;
         const my = e.a.y + (e.b.y - e.a.y) * 0.58;
         const ang = Math.atan2(e.b.y - e.a.y, e.b.x - e.a.x);
-        const s = 4.5 / Math.sqrt(sim.scale);
+        const s = (onPathEdge ? 6 : 4.5) / Math.sqrt(sim.scale);
         ctx.fillStyle = `rgba(232, 181, 74, ${0.9 * globalFade})`;
         ctx.beginPath();
         ctx.moveTo(mx + Math.cos(ang) * s, my + Math.sin(ang) * s);
@@ -732,11 +1049,16 @@ export function TransmissionGraphClient() {
       labelIds.add(focus.id);
       focusNeighbors?.forEach((id) => labelIds.add(id));
     }
+    if (pathActive) pathHl!.nodes.forEach((id) => labelIds.add(id));
 
     for (const n of visibleSorted) {
       if (!Number.isFinite(n.x) || !Number.isFinite(n.y)) continue;
-      const dimmed = focus !== null && n.id !== focus.id && !focusNeighbors?.has(n.id);
-      const alpha = (dimmed ? 0.18 : 1) * globalFade;
+      const onPathNode = pathActive && pathHl!.nodes.has(n.id);
+      const dimmed = pathActive
+        ? !onPathNode
+        : focus !== null && n.id !== focus.id && !focusNeighbors?.has(n.id);
+      const alpha =
+        (dimmed ? (pathActive ? 0.09 : 0.18) : n.uncertain ? 0.6 : 1) * globalFade;
       ctx.globalAlpha = alpha;
 
       if (n.kind === "imam" && !dimmed) {
@@ -765,16 +1087,16 @@ export function TransmissionGraphClient() {
       }
 
       const isFocused = focus !== null && n.id === focus.id;
-      if (isFocused || (selected && n.id === selected.id)) {
+      if (isFocused || onPathNode || (selected && n.id === selected.id)) {
         ctx.strokeStyle = HIGHLIGHT;
-        ctx.lineWidth = 2 / sim.scale;
+        ctx.lineWidth = (onPathNode ? 2.5 : 2) / sim.scale;
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.r + 3.5 / sim.scale, 0, Math.PI * 2);
         ctx.stroke();
       }
 
-      const showLabel = labelIds.has(n.id) || sim.scale > 1.9;
-      if (showLabel && (!dimmed || isFocused)) {
+      const showLabel = labelIds.has(n.id) || sim.scale > 1.9 || onPathNode;
+      if (showLabel && (!dimmed || isFocused || onPathNode)) {
         const fs = Math.max(11, Math.min(15, 10 + n.r * 0.35)) / Math.sqrt(sim.scale);
         ctx.font = `${n.kind === "imam" ? "700 " : ""}${fs}px ${amiri.style.fontFamily}, serif`;
         ctx.textAlign = "center";
@@ -977,6 +1299,8 @@ export function TransmissionGraphClient() {
         selectedRef.current = null;
         setSelectedId(null);
         setSearchOpen(false);
+        setPathResult(null);
+        pathHighlightRef.current = null;
       }
     };
     window.addEventListener("keydown", onKey);
@@ -985,14 +1309,53 @@ export function TransmissionGraphClient() {
 
   /* --------------------------- search ---------------------------- */
 
-  const searchResults = useMemo(() => {
-    if (!graph || query.trim().length < 2) return [];
-    const q = normaliseArabic(query);
-    return graph.nodes
-      .filter((n) => normaliseArabic(n.label).includes(q))
-      .sort((a, b) => b.hadith_count - a.hadith_count)
-      .slice(0, 8);
-  }, [graph, query]);
+  // Every narrator is findable — search the full Mu'jam directory (~15.6k),
+  // not just the ~500 drawn nodes. Charted narrators fly into view on the plate;
+  // the rest open their biography.
+  const nodeIdByNarrator = useMemo(() => {
+    const map = new Map<number, number>();
+    if (graph) {
+      for (const n of graph.nodes) if (n.narrator_id !== null) map.set(n.narrator_id, n.id);
+    }
+    return map;
+  }, [graph]);
+
+  useEffect(() => {
+    const q = query.trim();
+    let cancelled = false;
+    // All setState runs inside the async timer/promise, never synchronously in
+    // the effect body (avoids react-hooks/set-state-in-effect cascading renders).
+    if (q.length < 2) {
+      const clear = setTimeout(() => {
+        if (!cancelled) {
+          setDirResults([]);
+          setDirLoading(false);
+        }
+      }, 0);
+      return () => {
+        cancelled = true;
+        clearTimeout(clear);
+      };
+    }
+    const timer = setTimeout(() => {
+      if (cancelled) return;
+      setDirLoading(true);
+      getNarratorDirectory({ query: q, limit: 12 })
+        .then((page) => {
+          if (!cancelled) setDirResults(page.entries);
+        })
+        .catch(() => {
+          if (!cancelled) setDirResults([]);
+        })
+        .finally(() => {
+          if (!cancelled) setDirLoading(false);
+        });
+    }, 180);
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
+  }, [query]);
 
   const flyToNode = useCallback((id: number) => {
     const sim = simRef.current;
@@ -1004,6 +1367,21 @@ export function TransmissionGraphClient() {
     flyCameraTo(sim, node);
   }, []);
 
+  const openDirectoryEntry = useCallback(
+    (entry: NarratorDirectoryEntry) => {
+      const nodeId =
+        entry.narrator_id !== null ? nodeIdByNarrator.get(entry.narrator_id) : undefined;
+      if (nodeId !== undefined) {
+        flyToNode(nodeId);
+      } else {
+        // Findable but not on the charted plate — go to the full biography.
+        setSearchOpen(false);
+        window.location.assign(`/narrators/${entry.narrator_id}`);
+      }
+    },
+    [nodeIdByNarrator, flyToNode]
+  );
+
   const resetView = useCallback(() => {
     resetCamera(simRef.current);
     selectedRef.current = null;
@@ -1013,6 +1391,52 @@ export function TransmissionGraphClient() {
   const openEvidence = useCallback((source: number, target: number, label: string) => {
     setEvidence({ source, target, label, data: null });
   }, []);
+
+  /* --------------------------- path-finding ----------------------- */
+
+  // Recompute the highlight set + frame the camera when the active path changes.
+  // Only refs/sim are mutated here (no setState), so no cascading renders.
+  useEffect(() => {
+    const active = pathResult?.found ? pathResult.paths[activePathIdx] : null;
+    if (!active) {
+      pathHighlightRef.current = null;
+      return;
+    }
+    pathHighlightRef.current = {
+      nodes: new Set(active.nodes.map((n) => n.id)),
+      edges: new Set(active.hops.map((h) => `${h.source}->${h.target}`)),
+    };
+    const sim = simRef.current;
+    const pts = active.nodes
+      .map((n) => sim.byId.get(n.id))
+      .filter((n): n is SimNode => Boolean(n));
+    if (pts.length) fitCameraToNodes(sim, pts);
+  }, [pathResult, activePathIdx]);
+
+  const findPath = useCallback(() => {
+    if (!pathFrom || !pathTo) return;
+    setPathLoading(true);
+    setPathError(null);
+    setPathResult(null);
+    setActivePathIdx(0);
+    getTransmissionPaths({ fromPerson: pathFrom.id, toPerson: pathTo.id, k: 5 })
+      .then((res) => setPathResult(res))
+      .catch(() => setPathError("Could not compute a path."))
+      .finally(() => setPathLoading(false));
+  }, [pathFrom, pathTo]);
+
+  const clearPath = useCallback(() => {
+    setPathResult(null);
+    setPathError(null);
+    pathHighlightRef.current = null;
+  }, []);
+
+  const closePathFinder = useCallback(() => {
+    setPathOpen(false);
+    setPathFrom(null);
+    setPathTo(null);
+    clearPath();
+  }, [clearPath]);
 
   /* ------------------------ derived detail ----------------------- */
 
@@ -1045,14 +1469,19 @@ export function TransmissionGraphClient() {
   );
 
   const visibleStats = useMemo(() => {
-    if (!graph) return { nodes: 0, edges: 0 };
+    if (!graph) return { nodes: 0, edges: 0, uncertain: 0 };
     const kept = graph.edges.filter((e) => e.count >= minWeight);
     const touched = new Set<number>();
     kept.forEach((e) => {
       touched.add(e.source);
       touched.add(e.target);
     });
-    return { nodes: touched.size, edges: kept.length };
+    const byId = new Map(graph.nodes.map((n) => [n.id, n]));
+    let uncertain = 0;
+    touched.forEach((id) => {
+      if (byId.get(id)?.uncertain) uncertain += 1;
+    });
+    return { nodes: touched.size, edges: kept.length, uncertain };
   }, [graph, minWeight]);
 
   const tableRows = useMemo(() => {
@@ -1082,8 +1511,8 @@ export function TransmissionGraphClient() {
   return (
     <div>
       {/* Controls — one row above the plate */}
-      <div className="mb-4 flex flex-wrap items-center gap-x-6 gap-y-3">
-        <div className="relative">
+      <div className="mb-4 grid items-center gap-3 sm:grid-cols-2 lg:grid-cols-[minmax(13rem,1fr)_auto_auto_auto_auto_auto]">
+        <div className="relative min-w-0">
           <input
             type="search"
             value={query}
@@ -1093,43 +1522,60 @@ export function TransmissionGraphClient() {
             }}
             onFocus={() => setSearchOpen(true)}
             onKeyDown={(ev) => {
-              if (ev.key === "Enter" && searchResults.length) flyToNode(searchResults[0].id);
+              if (ev.key === "Enter" && dirResults.length) openDirectoryEntry(dirResults[0]);
             }}
-            placeholder="Find a narrator…"
-            aria-label="Find a narrator"
-            className="min-h-11 w-64 rounded-md border border-border bg-surface px-4 py-2 text-sm outline-none focus:border-accent focus:ring-1 focus:ring-accent"
+            placeholder="Find any narrator…"
+            aria-label="Find any narrator in the Muʿjam"
+            className="min-h-11 w-full rounded-md border border-border bg-surface px-4 py-2 text-sm outline-none focus:border-accent focus:ring-1 focus:ring-accent"
           />
-          {searchOpen && searchResults.length > 0 && (
-            <ul className="absolute z-30 mt-1 w-80 overflow-hidden rounded-md border border-border bg-surface shadow-lg">
-              {searchResults.map((n) => (
-                <li key={n.id}>
-                  <button
-                    type="button"
-                    onClick={() => flyToNode(n.id)}
-                    className="flex min-h-11 w-full items-center justify-between gap-3 px-4 py-2 text-right hover:bg-background"
-                  >
-                    <span className="text-xs text-muted">
-                      {numberFormat.format(n.hadith_count)}
-                    </span>
-                    <span dir="rtl" lang="ar" className={`${amiri.className} text-[15px]`}>
-                      {formatArabicText(n.label)}
-                    </span>
-                  </button>
+          {searchOpen && query.trim().length >= 2 && (
+            <ul className="absolute z-30 mt-1 max-h-80 w-full min-w-0 overflow-auto rounded-md border border-border bg-surface shadow-lg sm:w-96">
+              {dirResults.length === 0 ? (
+                <li className="px-4 py-3 text-xs text-muted">
+                  {dirLoading ? "Searching the narrator directory…" : "No narrator found."}
                 </li>
-              ))}
+              ) : (
+                dirResults.map((entry) => {
+                  const charted = entry.charted_hadith_count > 0;
+                  return (
+                    <li key={entry.narrator_id}>
+                      <button
+                        type="button"
+                        onClick={() => openDirectoryEntry(entry)}
+                        className="flex min-h-11 w-full items-center justify-between gap-3 px-4 py-2 text-right hover:bg-background"
+                      >
+                        <span className="shrink-0 text-[11px] text-muted">
+                          {charted
+                            ? `${numberFormat.format(entry.charted_hadith_count)} in al-Kāfī`
+                            : "profile ↗"}
+                        </span>
+                        <span
+                          dir="rtl"
+                          lang="ar"
+                          className={`${amiri.className} truncate text-[15px] ${
+                            charted ? "" : "text-muted"
+                          }`}
+                        >
+                          {formatArabicText(entry.canonical_name_ar)}
+                        </span>
+                      </button>
+                    </li>
+                  );
+                })
+              )}
             </ul>
           )}
         </div>
 
-        <label className="flex items-center gap-3 text-sm text-muted">
+        <label className="flex min-w-0 items-center gap-3 text-sm text-muted sm:justify-self-start">
           Min. shared hadiths
           <input
             type="range"
-            min={2}
+            min={1}
             max={15}
             value={minWeight}
             onChange={(ev) => setMinWeight(Number(ev.target.value))}
-            className="w-36 accent-[var(--accent)]"
+            className="min-w-20 flex-1 accent-[var(--accent)] sm:w-28 sm:flex-none"
           />
           <span className="w-5 font-medium text-foreground tabular-nums">{minWeight}</span>
         </label>
@@ -1173,27 +1619,64 @@ export function TransmissionGraphClient() {
 
         <button
           type="button"
+          onClick={() => setIncludeUncertain((on) => !on)}
+          aria-pressed={includeUncertain}
+          className={`min-h-11 rounded-md border px-4 py-1.5 text-sm transition ${
+            includeUncertain
+              ? "border-accent bg-accent text-accent-foreground"
+              : "border-border bg-surface text-foreground/70 hover:text-accent"
+          }`}
+          title="Also show narrators the resolver could only guess (ambiguous), clearly marked as provisional"
+        >
+          Show uncertain
+        </button>
+
+        <button
+          type="button"
           onClick={resetView}
           className="min-h-11 rounded-md border border-border bg-surface px-4 py-1.5 text-sm text-foreground/70 transition hover:text-accent"
         >
           Reset view
         </button>
 
-        <p className="ml-auto text-sm text-muted">
+        <p className="border-t border-border pt-3 text-sm leading-6 text-muted sm:col-span-2 lg:col-span-6">
           {graph
             ? `${numberFormat.format(visibleStats.nodes)} narrators · ${numberFormat.format(visibleStats.edges)} transmission links`
             : "Charting the network…"}
+          {graph && includeUncertain && visibleStats.uncertain > 0
+            ? ` · ${numberFormat.format(visibleStats.uncertain)} provisional`
+            : ""}
           {graph && graph.decisions_applied > 0
             ? ` · ${numberFormat.format(graph.decisions_applied)} review corrections applied`
             : ""}
           {graph?.computed_at ? ` · as of ${formatComputedAt(graph.computed_at)}` : ""}
         </p>
+
+        {/* Book coverage — honest about what is charted vs. still coming. */}
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-xs text-muted sm:col-span-2 lg:col-span-6">
+          <span className="uppercase tracking-wide text-[11px] text-foreground/60">Charted</span>
+          <span className="inline-flex items-center rounded-full border border-accent/40 bg-badge-verified px-2.5 py-0.5 text-accent">
+            al-Kāfī
+          </span>
+          <span aria-hidden className="opacity-50">·</span>
+          <span className="uppercase tracking-wide text-[11px] text-foreground/60">Coming</span>
+          {["Faqīh", "Tahdhīb", "Istibṣār"].map((b) => (
+            <span
+              key={b}
+              className="inline-flex items-center rounded-full border border-dashed border-border px-2.5 py-0.5"
+              title="Chains being resolved — will join the network when polished"
+            >
+              {b}
+            </span>
+          ))}
+          <span className="text-muted/80">— yet every narrator in the Muʿjam is searchable above.</span>
+        </div>
       </div>
 
       {/* The plate */}
       <div
         ref={wrapRef}
-        className="relative h-[72vh] min-h-[480px] w-full overflow-hidden rounded-lg border border-border shadow-[inset_0_0_48px_rgba(0,0,0,0.28)]"
+        className="relative h-[68svh] min-h-[430px] w-full overflow-hidden rounded-md border border-border shadow-[inset_0_0_48px_rgba(0,0,0,0.28)] sm:h-[72vh] sm:min-h-[480px]"
         style={{ background: PLATE_BG }}
       >
         <canvas ref={canvasRef} className="block h-full w-full cursor-grab" aria-label="Narrator transmission network graph" role="img" />
@@ -1204,6 +1687,131 @@ export function TransmissionGraphClient() {
               Charting the network…
             </p>
           </div>
+        )}
+
+        {/* Path finder — top left */}
+        {graph && !pathOpen && (
+          <button
+            type="button"
+            onClick={() => setPathOpen(true)}
+            className="absolute left-3 top-3 z-10 rounded-md px-3 py-2 text-xs font-medium transition hover:opacity-90"
+            style={{
+              background: "rgba(15,24,19,0.9)",
+              border: "1px solid rgba(236,231,214,0.16)",
+              color: INK_PRIMARY,
+            }}
+          >
+            Trace a path ↝
+          </button>
+        )}
+        {graph && pathOpen && (
+          <aside
+            className="absolute left-3 top-3 z-20 flex max-h-[calc(100%-1.5rem)] w-80 max-w-[calc(100%-1.5rem)] flex-col rounded-md p-4"
+            style={{
+              background: "rgba(15,24,19,0.96)",
+              border: "1px solid rgba(236,231,214,0.18)",
+              backdropFilter: "blur(6px)",
+            }}
+          >
+            <div className="flex items-start justify-between gap-3">
+              <p className="text-[11px] font-semibold uppercase tracking-wide" style={{ color: INK_SECONDARY }}>
+                Trace a transmission path
+              </p>
+              <button
+                type="button"
+                onClick={closePathFinder}
+                aria-label="Close path finder"
+                className="rounded-md px-2 text-lg leading-none transition hover:opacity-70"
+                style={{ color: INK_SECONDARY }}
+              >
+                ×
+              </button>
+            </div>
+            <p className="mt-1 text-[11px]" style={{ color: INK_SECONDARY }}>
+              From a narrator, following who taught whom, to an Imam or another narrator.
+            </p>
+
+            <div className="mt-3 space-y-1.5">
+              <GraphNodePicker nodes={graph.nodes} placeholder="From (student)…" value={pathFrom} onChange={setPathFrom} />
+              <p className="text-center text-[10px] uppercase tracking-wide" style={{ color: INK_SECONDARY }}>
+                ↓ narrates from
+              </p>
+              <GraphNodePicker nodes={graph.nodes} placeholder="To (teacher / Imam)…" value={pathTo} onChange={setPathTo} />
+            </div>
+
+            <button
+              type="button"
+              onClick={findPath}
+              disabled={!pathFrom || !pathTo || pathLoading}
+              className="mt-3 min-h-10 rounded-md px-4 py-2 text-sm font-medium transition disabled:opacity-40"
+              style={{ background: IMAM_GOLD, color: "#171207" }}
+            >
+              {pathLoading ? "Searching…" : "Find path"}
+            </button>
+
+            <div className="mt-3 overflow-y-auto">
+              {pathError && (
+                <p className="py-2 text-xs" style={{ color: QUALITY_CONTRADICTED }}>{pathError}</p>
+              )}
+              {pathResult && !pathResult.found && (
+                <p className="py-2 text-xs" style={{ color: INK_SECONDARY }}>
+                  No confident transmission path between these two in al-Kāfī. Try a closer pair.
+                </p>
+              )}
+              {pathResult && pathResult.found && (
+                <>
+                  {pathResult.reversed && (
+                    <p className="mb-1 text-[11px]" style={{ color: INK_SECONDARY }}>
+                      Oriented in transmission order (your picks were reversed).
+                    </p>
+                  )}
+                  {pathResult.paths.length > 1 && (
+                    <div className="mb-2 flex flex-wrap gap-1">
+                      {pathResult.paths.map((p, i) => (
+                        <button
+                          key={i}
+                          type="button"
+                          onClick={() => setActivePathIdx(i)}
+                          aria-pressed={i === activePathIdx}
+                          className={`rounded px-2 py-0.5 text-[11px] transition ${
+                            i === activePathIdx ? "bg-accent text-accent-foreground" : ""
+                          }`}
+                          style={i === activePathIdx ? {} : { border: "1px solid rgba(236,231,214,0.2)", color: INK_SECONDARY }}
+                        >
+                          {p.length} hops
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                  <ol>
+                    {pathResult.paths[activePathIdx].nodes.map((node, i, arr) => (
+                      <li key={`${node.id}-${i}`}>
+                        <button
+                          type="button"
+                          onClick={() => flyToNode(node.id)}
+                          className="flex w-full items-center justify-end rounded px-2 py-1 text-right transition hover:bg-[#f2ead9]/5"
+                        >
+                          <span
+                            dir="rtl"
+                            lang="ar"
+                            className={`${amiri.className} truncate text-[15px]`}
+                            style={{ color: node.kind === "imam" ? IMAM_GOLD_BRIGHT : INK_PRIMARY }}
+                          >
+                            {formatArabicText(node.label)}
+                          </span>
+                        </button>
+                        {i < arr.length - 1 && (
+                          <p className="pr-3 text-[10px]" style={{ color: INK_SECONDARY }}>
+                            ↓ {numberFormat.format(pathResult.paths[activePathIdx].hops[i].count)} shared hadiths
+                          </p>
+                        )}
+                      </li>
+                    ))}
+                  </ol>
+                </>
+              )}
+            </div>
+          </aside>
         )}
 
         {/* Tooltip */}
@@ -1242,6 +1850,11 @@ export function TransmissionGraphClient() {
                   ? ` · ${hoveredNode.merged_person_ids.length} merged identities`
                   : ""}
               </p>
+              {hoveredNode.uncertain && (
+                <p className="text-xs font-medium" style={{ color: UNCERTAIN }}>
+                  Best guess — not confirmed
+                </p>
+              )}
               <p className="mt-1 text-[11px]" style={{ color: INK_SECONDARY }}>
                 Click for details
               </p>
@@ -1275,6 +1888,12 @@ export function TransmissionGraphClient() {
             <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: UNDATED }} />
             Undated
           </p>
+          {includeUncertain && (
+            <p className="flex items-center gap-2">
+              <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: UNCERTAIN }} />
+              Best guess (unconfirmed)
+            </p>
+          )}
           <p className="mt-1.5 border-t pt-1.5" style={{ borderColor: "rgba(236,231,214,0.12)" }}>
             size = hadiths · line = shared hadiths
           </p>
@@ -1421,10 +2040,24 @@ export function TransmissionGraphClient() {
               </div>
             )}
 
+            <button
+              type="button"
+              onClick={() => {
+                setPathFrom({ id: selected.id, label: selected.label });
+                setPathTo(null);
+                clearPath();
+                setPathOpen(true);
+              }}
+              className="mt-3 flex min-h-10 w-full items-center justify-center rounded-md px-4 py-2 text-center text-sm transition hover:bg-[#f2ead9]/5"
+              style={{ border: "1px solid rgba(236,231,214,0.2)", color: INK_PRIMARY }}
+            >
+              Trace a path from here ↝
+            </button>
+
             {selected.narrator_id !== null && (
               <Link
                 href={`/narrators/${selected.narrator_id}`}
-                className="mt-4 flex min-h-11 items-center justify-center rounded-md px-4 py-2 text-center text-sm font-medium transition hover:opacity-90"
+                className="mt-2 flex min-h-11 items-center justify-center rounded-md px-4 py-2 text-center text-sm font-medium transition hover:opacity-90"
                 style={{ background: IMAM_GOLD, color: "#171207" }}
               >
                 Open narrator profile →

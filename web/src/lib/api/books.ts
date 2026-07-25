@@ -12,6 +12,7 @@ import type {
   KitabSummary,
   ThaqalaynChapterSummary,
   NarratorDetailRead,
+  NarratorDirectoryPage,
   NarratorHadithAppearancePage,
   NarratorTransmissionEdgesRead,
   PageIndexEntry,
@@ -21,6 +22,7 @@ import type {
   PersonResolutionDecisionSummary,
   TransmissionEdgeEvidenceRead,
   TransmissionGraphRead,
+  TransmissionPathsRead,
 } from "@/lib/api/types";
 
 export async function getCorpusStatus(): Promise<CorpusStatusResponse> {
@@ -333,22 +335,62 @@ export async function getPage(pageId: number): Promise<PageRead | null> {
   }
 }
 
+export async function getNarratorDirectory(params: {
+  query?: string;
+  limit?: number;
+  offset?: number;
+  sort?: "charted" | "name";
+} = {}): Promise<NarratorDirectoryPage> {
+  const query = new URLSearchParams();
+  if (params.query) query.set("query", params.query);
+  query.set("limit", String(params.limit ?? 40));
+  query.set("offset", String(params.offset ?? 0));
+  if (params.sort) query.set("sort", params.sort);
+  return fetchApi<NarratorDirectoryPage>(`/narrators?${query.toString()}`, {
+    cache: "no-store",
+    signal: AbortSignal.timeout(20_000),
+  });
+}
+
 export async function getTransmissionGraph(params: {
   sourceBookId?: string;
+  books?: string[];
   minCount?: number;
   maxNodes?: number;
   quality?: boolean;
+  includeUncertain?: boolean;
 } = {}): Promise<TransmissionGraphRead> {
   const query = new URLSearchParams();
-  query.set("source_book_id", params.sourceBookId ?? "11005");
+  if (params.books && params.books.length) query.set("books", params.books.join(","));
+  else query.set("source_book_id", params.sourceBookId ?? "11005");
   query.set("min_count", String(params.minCount ?? 2));
   query.set("max_nodes", String(params.maxNodes ?? 500));
   if (params.quality) query.set("quality", "1");
+  if (params.includeUncertain) query.set("include_uncertain", "1");
   // no-store: the graph must reflect resolver re-runs and review corrections
   // immediately (the backend TTL-caches the heavy aggregation itself).
   return fetchApi<TransmissionGraphRead>(`/transmission-graph?${query.toString()}`, {
     cache: "no-store",
     signal: AbortSignal.timeout(45_000),
+  });
+}
+
+export async function getTransmissionPaths(params: {
+  fromPerson: number;
+  toPerson: number;
+  books?: string[];
+  maxLen?: number;
+  k?: number;
+}): Promise<TransmissionPathsRead> {
+  const query = new URLSearchParams();
+  query.set("from_person", String(params.fromPerson));
+  query.set("to_person", String(params.toPerson));
+  if (params.books && params.books.length) query.set("books", params.books.join(","));
+  if (params.maxLen) query.set("max_len", String(params.maxLen));
+  if (params.k) query.set("k", String(params.k));
+  return fetchApi<TransmissionPathsRead>(`/transmission-graph/paths?${query.toString()}`, {
+    cache: "no-store",
+    signal: AbortSignal.timeout(30_000),
   });
 }
 

@@ -137,6 +137,49 @@ class HadithGradingRead(BaseModel):
     reference_en: str | None = None
 
 
+class HadithTopicRead(BaseModel):
+    slug: str
+    hashtag: str
+    name_en: str
+    name_ar: str | None = None
+    kind: str
+    relevance: int
+    confidence: float
+    assignment_method: str
+
+
+class TopicSummaryRead(BaseModel):
+    id: int
+    slug: str
+    hashtag: str
+    name_en: str
+    name_ar: str | None = None
+    kind: str
+    hadith_count: int
+
+
+class TopicHadithItem(BaseModel):
+    public_id: str
+    book_id: int
+    printed_number: str | None
+    volume_start: int | None
+    page_start: int
+    page_end: int
+    matn_excerpt_ar: str
+    translation_excerpt_en: str | None = None
+    topics: list[HadithTopicRead] = Field(default_factory=list)
+
+
+class TopicHadithPage(BaseModel):
+    topic: TopicSummaryRead
+    parent: TopicSummaryRead | None = None
+    related_topics: list[TopicSummaryRead] = Field(default_factory=list)
+    total: int
+    skip: int
+    limit: int
+    items: list[TopicHadithItem]
+
+
 class KitabSummary(BaseModel):
     kitab_id: str
     name_en: str
@@ -183,6 +226,7 @@ class HadithRead(BaseModel):
     translation: HadithTranslationRead | None = None
     structure: HadithStructureRead | None = None
     gradings: list[HadithGradingRead] | None = None
+    topics: list[HadithTopicRead] = Field(default_factory=list)
 
 
 class NarratorSummaryRead(BaseModel):
@@ -626,6 +670,7 @@ class SearchResult(BaseModel):
     hadith_public_id: str | None = None
     hadith_printed_number: str | None = None
     translation_evidence: TranslationPublicationEvidenceRead | None = None
+    matched_topic: HadithTopicRead | None = None
 
 
 class SearchResponse(BaseModel):
@@ -673,6 +718,15 @@ class TransmissionGraphNode(BaseModel):
     narrator_id: int | None
     hadith_count: int
     merged_person_ids: list[int]
+    # Per-book footprint: {source_book_id: distinct charted hadiths in that book}.
+    # One node can span several books once more than Al-Kafi is charted.
+    books: dict[str, int] = Field(default_factory=dict)
+    # al-Khoei reliability verdict (Phase 2): authenticated | weakened |
+    # imam_companion | praised | unknown. Null until the reliability layer fills it.
+    reliability: str | None = None
+    # True when this narrator only appears via ambiguous best-guess resolutions
+    # (surfaced only with include_uncertain) — render provisional, never as fact.
+    uncertain: bool = False
 
 
 class TransmissionGraphEdge(BaseModel):
@@ -689,10 +743,39 @@ class TransmissionGraphEdge(BaseModel):
     count: int
     quality: str | None = None
     gen_violation: bool | None = None
+    # True when at least one endpoint of this edge was an ambiguous best guess.
+    uncertain: bool = False
+
+
+class NarratorDirectoryEntry(BaseModel):
+    """One narrator in the searchable directory — the "every narrator exists"
+    index. `charted_hadith_count` is how many hadiths in the currently-charted
+    (polished) books this narrator appears in; 0 means findable + has a real
+    biography but not yet drawn on the network."""
+
+    narrator_id: int
+    person_id: int | None = None
+    canonical_name_ar: str
+    kunya: str | None = None
+    laqab: str | None = None
+    nisba: str | None = None
+    generation: int | None = None
+    reliability: str | None = None
+    charted_hadith_count: int = 0
+
+
+class NarratorDirectoryPage(BaseModel):
+    query: str | None = None
+    total: int
+    limit: int
+    offset: int
+    entries: list[NarratorDirectoryEntry]
 
 
 class TransmissionGraphRead(BaseModel):
     source_book_id: str
+    # The full set of charted books this response aggregates (Al-Kafi today).
+    book_ids: list[str] = Field(default_factory=list)
     min_count: int
     max_nodes: int
     total_nodes_unfiltered: int
@@ -703,6 +786,7 @@ class TransmissionGraphRead(BaseModel):
     # UI show a "data as of" stamp; the pair stage is TTL-cached server-side.
     computed_at: dt.datetime | None = None
     quality: bool = False
+    include_uncertain: bool = False
     nodes: list[TransmissionGraphNode]
     edges: list[TransmissionGraphEdge]
 
@@ -723,3 +807,44 @@ class TransmissionEdgeEvidenceRead(BaseModel):
     source_book_id: str
     total: int
     items: list[TransmissionEdgeEvidenceItem]
+
+
+class TransmissionPathNode(BaseModel):
+    """One person on a traced isnad path."""
+
+    id: int
+    label: str
+    kind: str  # imam | narrator
+    generation: int | None = None
+    narrator_id: int | None = None
+
+
+class TransmissionPathHop(BaseModel):
+    """A student->teacher step, weighted by shared hadiths."""
+
+    source: int
+    target: int
+    count: int
+
+
+class TransmissionPath(BaseModel):
+    nodes: list[TransmissionPathNode]  # ordered student -> ... -> teacher
+    hops: list[TransmissionPathHop]
+    length: int  # number of hops
+    min_count: int  # bottleneck weight — the weakest link's shared-hadith count
+
+
+class TransmissionPathsRead(BaseModel):
+    """Up to `k` shortest confident transmission paths between two narrators.
+
+    `reversed` is True when no path ran from the requested `from`->`to` but one
+    exists the other way (the caller picked the endpoints in the wrong order);
+    the returned paths are then oriented in the direction that actually chains.
+    """
+
+    from_person_id: int
+    to_person_id: int
+    book_ids: list[str]
+    found: bool
+    reversed: bool = False
+    paths: list[TransmissionPath]
