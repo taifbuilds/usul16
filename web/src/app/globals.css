@@ -28,6 +28,14 @@
   --badge-verified-bg: oklch(91% 0.038 155);
   --badge-verified-foreground: oklch(37% 0.068 158);
 
+  --topic-mood: oklch(45% 0.11 20);
+  --topic-life: oklch(43% 0.09 245);
+  --topic-practice: oklch(42% 0.085 160);
+  --topic-virtue: oklch(46% 0.075 65);
+  --topic-belief: oklch(42% 0.09 295);
+  --topic-person: oklch(45% 0.095 42);
+  --topic-structure: oklch(43% 0.025 150);
+
   /* Signature materials — reserved for purposeful light, graph, and book details. */
   --grad-1: oklch(45% 0.075 160);
   --grad-2: oklch(53% 0.078 160);
@@ -70,6 +78,14 @@
   --badge-foreground: oklch(84% 0.02 95);
   --badge-verified-bg: oklch(29% 0.045 155);
   --badge-verified-foreground: oklch(78% 0.07 160);
+
+  --topic-mood: oklch(76% 0.095 20);
+  --topic-life: oklch(76% 0.075 245);
+  --topic-practice: oklch(75% 0.07 160);
+  --topic-virtue: oklch(78% 0.07 72);
+  --topic-belief: oklch(76% 0.075 295);
+  --topic-person: oklch(77% 0.08 42);
+  --topic-structure: oklch(73% 0.025 100);
 
   --grad-1: oklch(75% 0.07 160);
   --grad-2: oklch(65% 0.075 160);
@@ -136,6 +152,20 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+button,
+a,
+summary,
+input,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:not(:disabled),
+summary,
+a {
+  touch-action: manipulation;
+}
+
 h1,
 h2,
 h3 {
@@ -193,6 +223,13 @@ p {
   transition: background-color 180ms ease, color 180ms ease;
 }
 
+@media (max-width: 639px) {
+  .brand-mark {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+}
+
 .group:hover .brand-mark {
   background: var(--accent-strong);
 }
@@ -214,6 +251,11 @@ p {
   background: var(--folio-bg);
   color: var(--folio-ink);
   box-shadow: 10px 10px 0 var(--folio-shadow);
+}
+
+.deferred-section {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 900px;
 }
 
 .research-folio::before {
@@ -267,9 +309,9 @@ p {
   position: relative;
   overflow: hidden;
   display: flex;
-  min-height: 15rem;
+  min-height: 13rem;
   gap: 1.25rem;
-  padding: 2rem 1.5rem;
+  padding: 1.75rem 1.5rem;
   transition: background-color 180ms ease, color 180ms ease;
 }
 
@@ -404,9 +446,110 @@ p {
   transform: translateX(0.25rem);
 }
 
+/* Topics use index tabs rather than the rounded identity chips reserved for
+   narrators. Only the hash marker carries category color. */
+.topic-index {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.625rem;
+}
+
+.topic-index__item {
+  --topic-color: var(--topic-structure);
+  display: inline-grid;
+  min-height: 2.25rem;
+  max-width: 100%;
+  grid-template-columns: 1.9rem minmax(0, auto);
+  align-items: stretch;
+  overflow: hidden;
+  border-block: 1px solid var(--border);
+  border-radius: 0.25rem;
+  background: color-mix(in srgb, var(--surface) 76%, transparent);
+  color: var(--foreground);
+  font-family: var(--font-body), Arial, Helvetica, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.topic-index__item[data-topic-kind="mood"] { --topic-color: var(--topic-mood); }
+.topic-index__item[data-topic-kind="life"] { --topic-color: var(--topic-life); }
+.topic-index__item[data-topic-kind="practice"] { --topic-color: var(--topic-practice); }
+.topic-index__item[data-topic-kind="virtue"] { --topic-color: var(--topic-virtue); }
+.topic-index__item[data-topic-kind="belief"] { --topic-color: var(--topic-belief); }
+.topic-index__item[data-topic-kind="person"] { --topic-color: var(--topic-person); }
+
+.topic-index__mark {
+  display: grid;
+  min-width: 1.9rem;
+  place-items: center;
+  background: color-mix(in srgb, var(--topic-color) 14%, var(--surface));
+  color: var(--topic-color);
+  font-family: var(--font-mono), monospace;
+  font-weight: 800;
+}
+
+.topic-index__label {
+  min-width: 0;
+  align-self: center;
+  overflow-wrap: anywhere;
+  padding: 0.4rem 0.7rem 0.4rem 0.55rem;
+  line-height: 1.25;
+}
+
+.topic-index__item:hover {
+  background: color-mix(in srgb, var(--topic-color) 7%, var(--surface));
+  box-shadow: inset 0 -2px 0 var(--topic-color);
+  color: var(--topic-color);
+}
+
+.topic-index__item:active {
+  background: color-mix(in srgb, var(--topic-color) 12%, var(--surface));
+}
+
+.topic-index__item:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.topic-index__item--compact {
+  min-height: 2rem;
+  grid-template-columns: 1.65rem minmax(0, auto);
+  font-size: 0.75rem;
+}
+
+.topic-index__item--compact .topic-index__mark {
+  min-width: 1.65rem;
+}
+
+.topic-index__item--compact .topic-index__label {
+  padding: 0.32rem 0.58rem 0.32rem 0.45rem;
+}
+
 /* ==================================================================== */
 /*  Library books                                                        */
 /* ==================================================================== */
+
+.reader-record {
+  transition: border-color 200ms ease, background-color 200ms ease;
+}
+
+.reader-record:target {
+  border-color: var(--accent);
+  animation: record-highlight 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reader-matn,
+.reader-isnad,
+.reader-prose,
+.reader-note {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
 
 .reader-matn { font-size: 1.65rem; line-height: 2.15; }
 .reader-isnad { font-size: 1.15rem; line-height: 2.05; }
@@ -422,6 +565,21 @@ p {
 [data-reader-size="large"] .reader-isnad { font-size: 1.35rem; }
 [data-reader-size="large"] .reader-prose { font-size: 1.65rem; }
 [data-reader-size="large"] .reader-note { font-size: 1.3rem; }
+
+@media (max-width: 639px) {
+  .reader-matn { font-size: 1.4rem; line-height: 2; }
+  .reader-isnad { font-size: 1rem; line-height: 1.9; }
+  .reader-prose { font-size: 1.15rem; line-height: 1.95; }
+  .reader-note { font-size: 1rem; line-height: 1.9; }
+
+  [data-reader-size="compact"] .reader-matn { font-size: 1.25rem; }
+  [data-reader-size="comfortable"] .reader-matn { font-size: 1.4rem; }
+  [data-reader-size="large"] .reader-matn { font-size: 1.7rem; }
+
+  .research-folio { box-shadow: 6px 6px 0 var(--folio-shadow); }
+  .research-folio::before { inset: 0.3rem; }
+  .research-chain__node { padding: 0.25rem 0.55rem; }
+}
 
 .library-book {
   position: relative;
@@ -935,6 +1093,10 @@ p {
 @keyframes shimmer {
   100% { transform: translateX(100%); }
 }
+@keyframes record-highlight {
+  0% { background-color: color-mix(in srgb, var(--accent) 10%, var(--surface)); }
+  100% { background-color: var(--surface); }
+}
 @keyframes marquee {
   to { transform: translateX(-50%); }
 }
@@ -1000,6 +1162,7 @@ p {
   .shimmer::after {
     animation: none;
   }
+  .reader-record:target { animation: none; }
   .reveal {
     opacity: 1;
     transform: none;

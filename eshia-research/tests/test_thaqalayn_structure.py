@@ -26,6 +26,7 @@ from eshia_research.translation.thaqalayn_structure import (
     _grader_key,
     _reclassify_number_apparatus,
 )
+from eshia_research.translation.thaqalayn_website import WEBSITE_TRANSLATION_VERSION
 
 
 @pytest.fixture()
@@ -189,6 +190,18 @@ def test_live_version_wins_over_matn_en_v1(client: TestClient, db: Session):
     assert body["translation"]["full_translation"] == "1. Full verbatim text."
 
 
+def test_website_version_wins_over_api_live_version(client: TestClient, db: Session):
+    book = _kafi(db)
+    h = _hadith(db, book, "alkafi-website", 3)
+    _translation(db, h, LIVE_TRANSLATION_VERSION, "API live text")
+    _translation(db, h, WEBSITE_TRANSLATION_VERSION, "Rendered website text")
+    db.commit()
+
+    body = client.get("/hadiths/alkafi-website").json()
+    assert body["translation"]["translation_version"] == WEBSITE_TRANSLATION_VERSION
+    assert body["translation"]["matn_translation"] == "Rendered website text"
+
+
 def test_matn_en_v1_serves_when_no_live_row(client: TestClient, db: Session):
     book = _kafi(db)
     h = _hadith(db, book, "alkafi-2", 2)
@@ -254,7 +267,10 @@ def test_kitab_and_chapter_endpoints(client: TestClient, db: Session):
 
 
 def test_public_translation_versions_ordered():
-    # Live text must outrank the legacy version.
+    # Rendered website text outranks API-live text, which outranks legacy text.
+    assert PUBLIC_TRANSLATION_VERSIONS.index(WEBSITE_TRANSLATION_VERSION) < (
+        PUBLIC_TRANSLATION_VERSIONS.index(LIVE_TRANSLATION_VERSION)
+    )
     assert PUBLIC_TRANSLATION_VERSIONS.index(LIVE_TRANSLATION_VERSION) < (
         PUBLIC_TRANSLATION_VERSIONS.index(TRANSLATION_VERSION)
     )

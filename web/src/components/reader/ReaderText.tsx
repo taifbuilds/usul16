@@ -6,6 +6,7 @@ import { amiri } from "@/lib/fonts";
 import { INLINE_RE } from "@/lib/inline";
 import { parsePageBlocks, parsePageText, type Footnote, type HadithUnit } from "@/lib/hadith";
 import { HadithBody } from "@/components/reader/HadithBody";
+import { TopicChips } from "@/components/topics/TopicChips";
 import { EmptyState } from "@/components/ui/EmptyState";
 
 // Bold the classical commentary openers (بيان، أقول…) at the start of a
@@ -40,7 +41,7 @@ function renderInline(text: string): ReactNode[] {
 
 function HadithCard({ unit }: { unit: HadithUnit }) {
   return (
-    <article className="border border-border bg-surface p-5 shadow-[0_12px_34px_-30px_var(--shadow-color)] sm:p-7">
+    <article className="reader-record border border-border bg-surface p-4 sm:p-7">
       <div className="mb-4 flex items-center justify-between gap-3">
         {unit.kind === "continuation" ? (
           <span className="rounded-full border border-dashed border-border px-3 py-1 text-xs text-muted">
@@ -148,40 +149,40 @@ export function IndexedHadithCard({
   return (
     <article
       id={`hadith-${hadith.id}`}
-      className="scroll-mt-24 border border-border bg-surface p-5 shadow-[0_12px_34px_-30px_var(--shadow-color)] sm:p-7"
+      className="reader-record min-w-0 max-w-full overflow-hidden scroll-mt-24 border border-border bg-surface p-4 sm:p-7"
     >
-      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-        <div className="flex flex-wrap items-center gap-2 text-xs text-muted">
+      <header dir="ltr" className="mb-5 flex flex-wrap items-center justify-between gap-x-5 gap-y-2 border-b border-border pb-3 font-sans text-xs text-muted">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+          {hadith.printed_number ? (
+            <span className="font-mono font-semibold text-foreground">
+              No. {hadith.printed_number}
+            </span>
+          ) : null}
           {chapterNumber !== null ? (
             <span
               title="Hadith number within its chapter"
-              className="rounded-full border border-gold/40 px-2.5 py-1 font-mono font-medium text-gold"
+              className="font-mono font-medium text-gold"
             >
-              #{chapterNumber}
+              chapter #{chapterNumber}
             </span>
           ) : null}
           <Link
-            href={`/hadith/${encodeURIComponent(hadith.public_id)}`}
-            title="Permanent link — this hadith's unique ID"
-            className="rounded-full border border-border px-2.5 py-1 font-mono hover:border-accent hover:text-accent"
-          >
-            ⌗ {hadith.public_id}
-          </Link>
-          <Link
             href={citationHref}
             title="Open in printed-page view"
-            className="rounded-full border border-border px-2.5 py-1 hover:border-accent hover:text-accent"
+            className="transition-colors hover:text-accent hover:underline"
           >
             {hadith.volume_start !== null ? `vol. ${hadith.volume_start} · ` : ""}
             {pageRangeLabel(hadith)}
           </Link>
         </div>
-        {hadith.printed_number ? (
-          <span className="rounded-full bg-badge px-3 py-1 text-sm font-medium text-badge-foreground">
-            {hadith.printed_number}
-          </span>
-        ) : null}
-      </div>
+        <Link
+          href={`/hadith/${encodeURIComponent(hadith.public_id)}`}
+          title="Permanent link - this hadith's unique ID"
+          className="font-mono transition-colors hover:text-accent hover:underline"
+        >
+          {hadith.public_id}
+        </Link>
+      </header>
 
       {note ? (
         <p className="mb-4 border-b border-dashed border-border pb-3 text-xs text-muted">
@@ -199,6 +200,16 @@ export function IndexedHadithCard({
       ) : (
         body
       )}
+
+      {hadith.topics.length ? (
+        <footer dir="ltr" className="mt-6 border-t border-border pt-4 font-sans">
+          <div className="mb-3 flex items-center justify-between gap-4 text-xs">
+            <span className="font-semibold text-foreground">Topics</span>
+            <span className="tabular-nums text-muted">{hadith.topics.length}</span>
+          </div>
+          <TopicChips topics={hadith.topics} compact />
+        </footer>
+      ) : null}
     </article>
   );
 }
@@ -242,17 +253,11 @@ function NoteParagraph({ text }: { text: string }) {
 export function SectionHeading({ text }: { text: string }) {
   return (
     <div className="flex items-center gap-4 pt-4 pb-2" role="heading" aria-level={2}>
-      <span className="flex flex-1 items-center gap-2">
-        <span className="h-px flex-1 bg-gradient-to-l from-border-strong to-transparent" />
-        <span className="text-gold/60">✦</span>
-      </span>
+      <span className="h-px flex-1 bg-border" />
       <h2 className="text-center text-2xl font-semibold leading-relaxed text-accent">
         {renderInline(formatArabicText(text))}
       </h2>
-      <span className="flex flex-1 items-center gap-2">
-        <span className="text-gold/60">✦</span>
-        <span className="h-px flex-1 bg-gradient-to-r from-border-strong to-transparent" />
-      </span>
+      <span className="h-px flex-1 bg-border" />
     </div>
   );
 }

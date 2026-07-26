@@ -8,20 +8,20 @@ const CHAIN = ["علي بن إبراهيم", "أبيه", "ابن أبي عمير
 export function Hero({ hero, search }: { hero: Dictionary["hero"]; search: Dictionary["search"] }) {
   return (
     <section className="home-hero border-b border-border">
-      <div className="mx-auto grid max-w-[90rem] gap-12 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[minmax(0,1.05fr)_minmax(28rem,0.95fr)] lg:items-center lg:px-8 lg:py-24">
+      <div className="mx-auto grid max-w-[90rem] gap-10 px-4 py-10 sm:px-6 sm:py-14 lg:grid-cols-[minmax(0,1.05fr)_minmax(28rem,0.95fr)] lg:items-center lg:px-8 lg:py-16">
         <div className="max-w-3xl">
-          <div className="mb-6 flex items-center gap-3 text-sm font-semibold text-accent">
+          <div className="mb-4 flex items-center gap-3 text-sm font-semibold text-accent sm:mb-5">
             <span className="h-px w-9 bg-accent" aria-hidden />
             <span>{hero.eyebrow}</span>
           </div>
-          <h1 className="max-w-[15ch] font-serif text-[clamp(3rem,6vw,5.25rem)] font-semibold leading-[1.0] tracking-[-0.03em] text-foreground [text-wrap:balance]">
+          <h1 className="max-w-[15ch] font-serif text-[2.75rem] font-semibold leading-[1.03] text-foreground [text-wrap:balance] sm:text-[3.5rem] xl:text-[4.5rem]">
             {hero.title}
           </h1>
-          <p className="mt-7 max-w-2xl text-lg leading-8 text-muted sm:text-xl sm:leading-9">
+          <p className="mt-5 max-w-2xl text-base leading-7 text-muted sm:mt-6 sm:text-lg sm:leading-8">
             {hero.subtitle}
           </p>
 
-          <div className="mt-9 max-w-2xl">
+          <div className="mt-7 max-w-2xl">
             <SearchBox size="lg" placeholder={search.placeholder} submitLabel={search.submit} />
             <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-medium text-muted">
               <span>{hero.hint1}</span>
@@ -32,7 +32,7 @@ export function Hero({ hero, search }: { hero: Dictionary["hero"]; search: Dicti
             </div>
           </div>
 
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-6 flex flex-wrap gap-3">
             <Link href="/books" className="inline-flex h-11 items-center gap-2 rounded-md bg-accent px-5 text-sm font-semibold text-accent-foreground transition-[background-color,transform] hover:bg-accent-strong active:scale-[0.98]">
               {hero.openLibrary}
               <svg aria-hidden viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-4 w-4 rtl:-scale-x-100">

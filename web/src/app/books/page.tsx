@@ -37,20 +37,20 @@ export default async function BooksPage({
   return (
     <div className="library-stage min-h-screen border-b border-border">
       <header className="border-b border-[color:var(--stage-line)]">
-        <div className="mx-auto grid max-w-[90rem] gap-8 px-4 py-12 sm:px-6 sm:py-16 lg:grid-cols-[1fr_auto] lg:items-end lg:px-8">
+        <div className="mx-auto grid max-w-[90rem] gap-6 px-4 py-10 sm:px-6 sm:py-14 lg:grid-cols-[1fr_auto] lg:items-end lg:px-8">
           <div>
             <div className="flex items-center gap-3 text-sm font-semibold text-[color:var(--stage-accent)]"><span className="h-px w-9 bg-current" />{t.books.eyebrow}</div>
-            <h1 className="mt-5 font-serif text-5xl font-semibold leading-none tracking-[-0.025em] text-[color:var(--stage-ink)] sm:text-7xl">{t.books.title}</h1>
+            <h1 className="mt-4 font-serif text-4xl font-semibold leading-tight text-[color:var(--stage-ink)] sm:text-6xl">{t.books.title}</h1>
             <p className="mt-5 max-w-2xl text-base leading-8 text-[color:var(--stage-muted)]">
               {t.books.lead}
             </p>
           </div>
-          <p dir="rtl" lang="ar" className={`${amiri.className} text-5xl text-[color:var(--stage-gold)] sm:text-6xl`}>{t.books.arabicTitle}</p>
+          <p dir="rtl" lang="ar" className={`${amiri.className} max-w-full text-right text-4xl text-[color:var(--stage-gold)] sm:text-5xl`}>{t.books.arabicTitle}</p>
         </div>
       </header>
 
       <div className="mx-auto max-w-[90rem] px-4 pb-24 sm:px-6 lg:px-8">
-      <div className="flex flex-wrap items-center justify-between gap-5 border-b border-[color:var(--stage-line)] py-5">
+      <div className="flex flex-col items-start gap-4 border-b border-[color:var(--stage-line)] py-5 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-wrap gap-2 text-sm" aria-label={t.books.catalogueView}>
         <Link
           href="/books"
@@ -69,7 +69,7 @@ export default async function BooksPage({
           {t.books.completeCatalogue}
         </Link>
         </div>
-        <p className="text-xs font-medium text-[color:var(--stage-muted)]">{books.length} {t.books.worksShown}</p>
+        <p className="max-w-full text-xs font-medium text-[color:var(--stage-muted)]">{books.length} {t.books.worksShown}</p>
       </div>
 
       <div className="mt-7 flex flex-wrap items-center justify-between gap-3 border-b border-[color:var(--stage-line)] pb-7 text-sm text-[color:var(--stage-muted)]">
@@ -80,7 +80,7 @@ export default async function BooksPage({
       </div>
 
       {books.length > 0 ? (
-        <div className="library-shelf mt-14 grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="library-shelf mt-12 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {orderedBooks.map((book, index) => <BookCard key={book.id} book={book} index={skip + index + 1} />)}
         </div>
       ) : (

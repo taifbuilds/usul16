@@ -29,6 +29,10 @@ Arabic is the authority. English is a reader aid with explicit provenance, sourc
 
 A translation may be published only when:
 
+- Rendered Thaqalayn website English is preferred where a current,
+  Arabic-verified one-to-one relation exists.
+- API-derived English remains a fallback and provenance record; it must not
+  outrank an eligible `thaqalayn_website_v1` row.
 - the stored source hashes match the current Arabic row;
 - all segments exist and are current;
 - deterministic QA has no red flags;

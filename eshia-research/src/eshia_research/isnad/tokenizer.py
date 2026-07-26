@@ -118,7 +118,9 @@ _HONORIFIC_ALT = (
     "|".join(_n(h) for h in _LONG_HONORIFICS) + "|" + _n("ع") + "|" + _n("ص")
 )
 _HONORIFIC_TAIL_RE = re.compile(rf"(?:^|\s)(?:{_HONORIFIC_ALT})\s*[.:،]?\s*$")
-_HONORIFIC_INLINE_RE = re.compile(rf"(?:^|\s)(?:{_HONORIFIC_ALT})(?:\s|$)")
+_HONORIFIC_INLINE_RE = re.compile(
+    rf"(?:^|\s)(?:{_HONORIFIC_ALT})(?=\s|[.:،]|$)"
+)
 
 _IMAM_TITLES = (
     "رسول الله",
@@ -370,9 +372,45 @@ def _special_opening(text: str) -> tuple[list[IsnadToken], set[str]] | None:
                 {"anonymous_questioner"},
             )
 
+    # Faqih often splits consecutive questions into distinct reports with
+    # «سأله [فلان] عن ...». The object pronoun is the Imam named in the
+    # preceding report; everything after عن is the question, not isnad.
+    m = re.match(
+        _n("سأله") + r"(?:\s+(.*?))?\s+" + _n("عن") + r"(?:\s|$)",
+        stripped,
+    )
+    if m:
+        tokens: list[IsnadToken] = []
+        asker = (m.group(1) or "").strip()
+        if asker:
+            asker_token = _classify(asker, None)
+            if asker_token is not None:
+                tokens.append(asker_token)
+        tokens.append(
+            IsnadToken(
+                raw=_n("سأله"),
+                norm=_n("سأله"),
+                phrase=None,
+                node_type=PRONOUN,
+                relation_kind="previous_hadith_imam",
+            )
+        )
+        return tokens, set()
+
     m = re.match(_n("سأل") + r"\s+(.*)$", stripped)
     if m:
         rest = m.group(1)
+        brother = re.search(r"\s+" + _n("أخاه") + r"\s+", rest)
+        if brother:
+            asker = rest[: brother.start()].strip()
+            imam = _extract_imam_from_spill(rest[brother.end():])
+            if imam and asker:
+                asker_token = _classify(asker, None)
+                if asker_token is not None:
+                    return (
+                        [asker_token, IsnadToken(raw=imam, norm=imam, phrase=None, node_type=IMAM)],
+                        set(),
+                    )
         imam_start = re.search(
             r"(?:^|\s)(?:" + _n("أبا") + r"\s|" + _n("أبي") + r"\s|"
             + "|".join(_n(t) for t in _IMAM_TITLES) + ")",

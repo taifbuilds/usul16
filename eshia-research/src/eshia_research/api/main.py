@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from eshia_research.api.routes_books import router as books_router
 from eshia_research.api.routes_search import router as search_router
+from eshia_research.api.routes_topics import router as topics_router
 from eshia_research.config import get_settings
 
 settings = get_settings()
@@ -32,6 +33,7 @@ app.add_middleware(
 
 app.include_router(books_router)
 app.include_router(search_router)
+app.include_router(topics_router)
 
 
 @app.get("/health")

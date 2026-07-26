@@ -11,13 +11,13 @@ export const metadata: Metadata = {
 
 export default function GraphPage() {
   return (
-    <div className="mx-auto max-w-[90rem] px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
-      <header className="mb-8 grid gap-8 border-b border-border pb-8 lg:grid-cols-[minmax(0,1fr)_19rem] lg:items-end">
+    <div className="mx-auto max-w-[90rem] px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+      <header className="mb-7 grid gap-6 border-b border-border pb-7 lg:grid-cols-[minmax(0,1fr)_19rem] lg:items-end">
         <div>
         <p dir="rtl" lang="ar" className={`${amiri.className} text-2xl text-accent`}>
           شبكة الرواة
         </p>
-        <h1 className="mt-2 font-serif text-5xl font-semibold tracking-[-0.025em] sm:text-6xl">Follow the transmission.</h1>
+        <h1 className="mt-2 font-serif text-4xl font-semibold leading-tight sm:text-5xl">Follow the transmission.</h1>
         <p className="mt-4 max-w-3xl leading-7 text-muted">
           Explore confident narrator-to-narrator links in al-Kāfī as an evidence-backed map. Select a narrator to inspect their profile; select a connection to return to the hadiths that establish it.
         </p>

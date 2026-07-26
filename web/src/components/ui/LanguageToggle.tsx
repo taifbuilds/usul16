@@ -29,13 +29,13 @@ export function LanguageToggle({ locale, className = "" }: { locale: Locale; cla
       onClick={switchTo}
       aria-label={aria}
       data-pending={pending ? "" : undefined}
-      className={`inline-flex h-11 items-center gap-2 rounded-md border border-border bg-surface px-3 text-sm font-semibold text-foreground/80 transition hover:border-accent hover:text-accent data-[pending]:opacity-60 ${className}`}
+      className={`inline-flex h-11 items-center gap-2 rounded-md border border-border bg-surface px-3 text-sm font-semibold text-foreground/80 transition hover:border-accent hover:text-accent data-[pending]:opacity-60 max-[420px]:px-2.5 ${className}`}
     >
       <svg aria-hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-[18px] w-[18px]">
         <circle cx="12" cy="12" r="9" />
         <path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18" />
       </svg>
-      <span>{label}</span>
+      <span className="max-sm:sr-only">{label}</span>
     </button>
   );
 }

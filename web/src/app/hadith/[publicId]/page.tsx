@@ -60,21 +60,22 @@ export default async function HadithPermalinkPage({
   }
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
-      <div className="flex flex-wrap items-baseline justify-between gap-3">
+    <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-12">
+      <header className="border-b border-border pb-5">
+      <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-xs font-semibold tracking-wide text-muted uppercase">Hadith record</h1>
+          <h1 className="text-xs font-semibold text-muted">Hadith record</h1>
           <p className="mt-1 font-mono text-sm text-accent">{hadith.public_id}</p>
         </div>
         {title ? (
-          <p dir="rtl" lang="ar" className={`${amiri.className} text-xl text-accent`}>
+          <p dir="rtl" lang="ar" className={`${amiri.className} max-w-full text-right text-xl text-accent`}>
             {title}
           </p>
         ) : null}
       </div>
 
       {hadith.structure && hadith.structure.mapping_status === "matched" ? (
-        <p className="mt-3 text-sm text-muted">
+        <p className="mt-4 max-w-3xl text-sm leading-6 text-muted">
           {kitabHref ? (
             <Link href={kitabHref} className="hover:text-accent hover:underline">
               {hadith.structure.kitab_name_en}
@@ -97,13 +98,14 @@ export default async function HadithPermalinkPage({
           {chapterTitle}
         </p>
       ) : null}
+      </header>
 
-      <div dir="rtl" lang="ar" className={`${amiri.className} mt-6 text-right`}>
+      <div dir="rtl" lang="ar" className={`${amiri.className} mt-5 text-right sm:mt-6`}>
         <IndexedHadithCard hadith={hadith} />
       </div>
 
-      <div className="mt-6 border border-border bg-surface px-5 py-4 text-sm">
-        <p className="mb-2 font-medium text-muted">Citation</p>
+      <section className="mt-6 border-y border-border bg-surface-2 px-1 py-4 text-sm sm:px-5" aria-labelledby="citation-heading">
+        <h2 id="citation-heading" className="mb-2 font-semibold text-foreground">Citation</h2>
         <Citation
           title={title ?? book?.title_normalised ?? "Shia hadith"}
           volumeNumber={hadith.volume_start}
@@ -114,9 +116,9 @@ export default async function HadithPermalinkPage({
           permanentPath={`/hadith/${encodeURIComponent(hadith.public_id)}`}
           sourceUrl={hadith.source_url}
         />
-      </div>
+      </section>
 
-      <div className="mt-6 flex flex-wrap gap-4 text-sm">
+      <nav aria-label="Hadith record links" className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm">
         {contextHref ? (
           <Link href={contextHref} className="font-medium text-accent hover:underline">
             Read in chapter context →
@@ -136,7 +138,7 @@ export default async function HadithPermalinkPage({
         >
           Original source
         </a>
-      </div>
+      </nav>
     </div>
   );
 }

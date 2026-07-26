@@ -12,7 +12,8 @@ Shared working note for Codex and Claude. Read this before making project change
 
 ## Current Strategy
 
-Primary focus is now Al-Kafi only.
+Primary corpus expansion is now Man La Yahduruhu al-Faqih, using the
+website-first Al-Kafi workflow without changing Al-Kafi source data.
 
 Goal: make Al-Kafi a gold-standard pilot before expanding to the rest of the Four Books and Bihar.
 
@@ -21,6 +22,313 @@ Core product model:
 - Raw Page View: exact printed page structure, page navigation, source verification, footnotes as printed.
 - Hadith View: kitab -> bab -> complete hadith cards, one stable hadith ID per real hadith, full text across page breaks, clean isnad/matn split.
 - Page numbers are provenance, not the main reading unit.
+
+## Current Faqih Onboarding
+
+Planned DB edit recorded by Codex on 2026-07-23:
+
+- Scope: Man La Yahduruhu al-Faqih (`source_book_id=11021`) only.
+- Add Arabic-verified Thaqalayn website structure mappings, rendered website
+  English rows, and generated structure/semantic topic assignments.
+- Do not alter source Arabic, Al-Kafi records, or unresolved Faqih boundaries.
+- Backup target before apply:
+  `eshia-research/eshia_research.before-faqih-website-onboarding.20260723.db`
+- Website witness: 659 rendered chapters and 5,927 rendered content rows across
+  Thaqalayn website books 34-37.
+- Current direct alignment: 5,806 local rows / 5,806 website rows; 117 local
+  and 121 website units remain explicitly unaccounted and must not be silently
+  labelled complete.
+
+Applied by Codex on 2026-07-23:
+
+- Backup created successfully at the recorded path (2,520,752,128 bytes).
+- Added 5,888 `thaqalayn-website` structure rows: 5,806 directly matched and
+  82 transparently interpolated between same-chapter anchors; 35 remain unmapped.
+- Added 5,665 published `thaqalayn_website_v1` English rows. Twenty matched
+  website rows have no English and 121 low-Arabic-similarity rows were withheld.
+- Categorized all 5,923 local Faqih rows with 28,798 topic assignments,
+  including 16,952 semantic assignments.
+- No source Arabic or Al-Kafi data was modified.
+
+Planned Faqih apparatus cleanup recorded by Codex on 2026-07-23:
+
+- Scope is limited to 16 proven non-hadith rows: the colophon artifact
+  `faqih-1574` and bibliography entries `faqih-5909` through `faqih-5923`.
+- Set only their `review_status` to `rejected_non_hadith_fragment`, then
+  rebuild Faqih-generated topics and rerun the website audit. Arabic text,
+  IDs, printed provenance, translations, and unresolved narrative boundaries
+  remain untouched.
+- Backup target before apply:
+  `eshia-research/eshia_research.before-faqih-apparatus-cleanup.20260723.db`
+
+Applied by Codex on 2026-07-23:
+
+- Backup created at the recorded path (2,550,558,720 bytes).
+- Marked exactly those 16 apparatus rows as
+  `rejected_non_hadith_fragment`; source text and stable IDs are preserved.
+- Rebuilt Faqih topics for 5,907 visible rows: 28,748 assignments, including
+  16,934 semantic assignments. The website audit now leaves 101 local and
+  121 website units unaccounted; the completeness claim remains blocked.
+- SQLite `quick_check=ok` and foreign-key violations are zero.
+- Final verification: 5,907 visible / 5,907 unique public IDs, 5,665
+  published website translations, 5,888 visible website structure maps, and
+  28,748 visible topic assignments. Backend suite: 378 passed. Frontend lint
+  and production build passed; live book, contents, structured reader,
+  hadith, hashtag search, and topic routes returned 200 after restart.
+- The Faqih book action now opens the first website-aligned chapter rather
+  than the legacy regex chapter index. Mobile checks also cover title,
+  Arabic record, translation attribution, and topic-label containment.
+
+Planned final Faqih reconciliation recorded by Codex on 2026-07-23:
+
+- Scope is limited to the six numbered rendered-website reports proven absent
+  from the local edition rows: 1600, 2070, 3039, 3127, 3211, and 5255.
+- Add six stable `faqih-web-*` hadith rows, their rendered website English,
+  then rebuild website structure and Faqih topics. Do not build or resolve
+  chains; rijal work remains out of scope.
+- Preserve 90 hash-locked local-edition reports without standalone website
+  routes and 74 hash-locked website compiler/guide subdivisions as explicit
+  edition differences. Seven lower-score/manual relations are bound to both
+  local and website Arabic hashes.
+- Backup target before apply:
+  `eshia-research/eshia_research.before-faqih-final-reconciliation.20260723.db`
+- Locked dry run: six hadiths and six translations created, zero existing-row
+  collisions.
+
+Applied by Codex on 2026-07-23:
+
+- Backup created at the recorded path (2,550,571,008 bytes).
+- Added exactly six numbered website gap rows with stable IDs
+  `faqih-web-1600`, `-2070`, `-3039`, `-3127`, `-3211`, and `-5255`, plus six
+  rendered website translations. No rijal/chains were built.
+- Final locked audit: 5,913 visible/unique local IDs, 5,823 local and 5,853
+  website units Arabic-confirmed across 5,858 relation edges, 90 reviewed
+  local-only reports, 74 reviewed non-independent website units, zero missing
+  numbered website reports, zero unclassified units, claim gate ready.
+- Rebuilt 5,885 website structure rows and 28,936 topic assignments. There
+  are 5,796 published rendered-website English rows; source rows without safe
+  website English remain untranslated rather than receiving inferred text.
+- Fixed topic rebuild cleanup so rejected apparatus cannot retain orphaned
+  generated assignments. SQLite `quick_check=ok`; foreign-key violations are
+  zero after the corrected rebuild.
+- Final verification: backend `380 passed`; frontend lint and production build
+  passed. API and web restarted on `http://127.0.0.1:8000` and
+  `http://127.0.0.1:3000`; live book, new hadith, search, and topics routes all
+  returned 200. `faqih-web-1600` exposes published website English and four
+  searchable topic assignments.
+
+Correction after opening-record review on 2026-07-23:
+
+- Do **not** call Faqih production-ready. The green website audit is an
+  inventory reconciliation gate only.
+- Opening rows expose unresolved display boundaries: some local records append
+  compiler rulings or another numbered report beyond the website translation;
+  `faqih-9` combines reports 9 and 10, and `faqih-13` has an incomplete Arabic
+  ending while its English includes the website answer.
+- Faqih maturity is returned to `Boundary review in progress`. Required next
+  work is corpus-wide Arabic-boundary and translation-coverage review before
+  any public-release claim. Rijal remains out of scope until this is complete.
+- The first publication-quality run found 515 mapped records requiring review
+  (510 below 90% website-Arabic coverage and 231 below 50%), plus 90 local-only
+  records. The first repair acceptance scope is `/chapter/34/1/2`: dry run
+  found 34 local rows for 35 numbered reports, 34 boundary repairs, and one
+  new split record (`faqih-web-10`).
+- The opening acceptance repair was applied and verified with zero blockers
+  through numbered report 35. The subsequent corpus-wide dry run selects 486
+  low-coverage one-to-one rows for the same website-Arabic boundary repair and
+  refuses 9 complex split/merge rows; those 9 remain review work.
+- The 486 one-to-one repairs were applied. The next narrow dry run finds 9
+  two-report, consecutive-number, same-chapter splits that can be repaired into
+  18 records; it refuses the other 9 website-split rows as complex.
+- Post-repair audit exposed three website field anomalies (`faqih-176`,
+  `faqih-183`, `faqih-4384`) where English occupied the website Arabic field.
+  The importer now rejects non-Arabic boundary text; restore these three rows
+  from the pre-bulk backup and remove the generated boundary reviews.
+- Final state after repair: 5,923 visible/unique Faqih IDs; first 35 numbered
+  reports have zero publication blockers; 486 safe one-to-one boundaries and
+  ten simple two-report combinations were repaired. The fail-closed gate is
+  still `publication_ready=false` with 133 blocking records: 90 local-only,
+  20 non-one-to-one, 23 website-English-missing, 29 publishable-translation-
+  missing, and 7 below 90% Arabic coverage (overlapping categories).
+- New backups: `eshia_research.before-faqih-first-chapter-boundaries.20260723.db`,
+  `eshia_research.before-faqih-bulk-safe-boundaries.20260723.db`,
+  `eshia_research.before-faqih-nine-simple-splits.20260723.db`, and
+  `eshia_research.before-restore-three-website-field-anomalies.20260723.db`.
+
+Planned first Faqih rijal pass recorded by Codex on 2026-07-24:
+
+- Scope: Man La Yahduruhu al-Faqih (`source_book_id=11021`) only.
+- Reuse the existing Mu'jam-derived person layer; do not rebuild it or alter
+  validated Al-Kafi mention resolutions.
+- Resolve only chains whose tokenizer `review_status` is not `needs_review`.
+  The 804 review chains / 1,825 nodes are deliberately deferred.
+- The rollback-only preflight saw 6,735 eligible nodes: 2,068 uniquely
+  resolved, 2,491 ambiguous, 2,176 unresolved, and one latent person minted.
+- Backup target before apply:
+  `eshia-research/eshia_research.before-faqih-rijal-pass1.20260724.db`
+
+Applied first Faqih rijal pass by Codex on 2026-07-24:
+
+- Online backup created at the recorded path (2,554,208,256 bytes,
+  `quick_check=ok`). Existing Mu'jam/person tables were reused; Al-Kafi kept
+  all 241,459 prior mention-resolution rows.
+- Added a default clean-chain guard to `resolve-persons`; review chains now
+  require explicit `--include-needs-review` opt-in.
+- Corrected Faqih direct-question tokenization for `سأل`, `سأله`, punctuation
+  after honorifics, and `سأل ... أخاه ...`; chain rebuilds now remove dependent
+  resolution/review rows before replacing node IDs.
+- Rebuilt Faqih to 3,699 chains / 8,396 nodes. Of these, 798 chains / 1,813
+  nodes remain tokenizer-review work and have zero mention resolutions.
+- Clean Phase B result: 6,583 nodes processed; 2,337 resolved, 2,556
+  ambiguous, 1,690 unresolved; 13,703 ranked evidence rows written. Explicit
+  Imam names account for 326 safe resolutions and ten cross-report anaphora
+  were resolved. No duplicate latent person was minted.
+- Integrity: zero orphan mention resolutions, `quick_check=ok`, and zero
+  foreign-key violations.
+- Do not run Faqih `refine-tabaqat` yet. Its rollback-only audit proposed 105
+  Imam upgrades but incorrectly chose Imam al-Husayn for 18 ordinary `Abu Abd
+  Allah` reports due suspect current generation points. Repair/audit the
+  generation lattice before applying any Phase C result.
+
+Planned Faqih Imam-kunya prior recorded by Claude on 2026-07-24:
+
+- Scope: Man La Yahduruhu al-Faqih (`source_book_id=11021`) only. Resolve the
+  shared-kunya Ma'sum ambiguity that Phase B left honestly open, by isnad
+  convention instead of the noisy tabaqat lattice (which mis-picked al-Husayn).
+- Why this over `refine-tabaqat`: 989 ambiguous Faqih imam nodes are dominated
+  by two shared-kunya pairs — `أبو عبد الله ع` = {al-Husayn g2, al-Sadiq g5}
+  (701 nodes) and `أبو جعفر ع` = {al-Baqir g4, al-Jawad g8} (251 nodes). In the
+  Four Books' asanid a bare kunya + `ع` is the conventional Imam (al-Sadiq /
+  al-Baqir); the alternate Ma'sum is a naming coincidence and is named
+  explicitly when actually meant (already handled by `imam_explicit_identity`).
+  Resolving by convention is correct AND lattice-independent, so it sidesteps
+  the suspect generation points entirely. It fires ONLY when the ambiguous
+  Ma'sum candidate set is exactly the shared-kunya pair, keeps the alternate as
+  a ranked `imam_kunya_prior_alternative` (uncertainty preserved), and abstains
+  if a blocker laqab (al-Husayn/Sayyid al-Shuhada; al-Jawad/al-Thani) is present.
+- Code added (git-reversible): `refine_imam_kunya_priors` +
+  `IMAM_KUNYA_PRIORS` in `rijal/collective_resolver.py`; CLI `refine-imam-priors`
+  (`--dry-run`); 3 new tests in `test_collective_resolver.py`. Full suite:
+  395 passed. Dry run on the main DB: examined 952, resolved 952 (701 al-Sadiq,
+  251 al-Baqir), 0 blocked — matches the read-only audit exactly.
+- The generation lattice itself still has a real bug (fixed Imams al-Ali/al-Kazim/
+  al-Rida demoted to `method='conflict'` by propagation, so `refine-tabaqat`
+  cannot use their layers). That lattice repair is a separate task; this prior
+  does not need it. Faqih `refine-tabaqat` remains deferred.
+- Backup target before apply:
+  `eshia-research/eshia_research.before-faqih-imam-kunya-priors.20260724.db`
+
+Applied Faqih Imam-kunya prior by Claude on 2026-07-24:
+
+- Online backup created at the recorded path (2,557,227,008 bytes;
+  `quick_check=ok`). No source Arabic, chain nodes, person ontology, or Al-Kafi
+  data were touched — only Faqih `mention_resolutions` (resolver_version
+  `tamyiz_b1`).
+- `refine-imam-priors --source-book-id 11021`: examined 952, resolved 952
+  (701 `أبو عبد الله ع` -> al-Sadiq, 251 `أبو جعفر ع` -> al-Baqir); 0 blocked.
+  Idempotent: an immediate re-run examines 0.
+- Faqih imam nodes: resolved 369 -> **1,321**; ambiguous 989 -> **37** (the 37
+  left honest are `أبو الحسن` (Kazim/Rida/Hadi), a couple of `X عنه ع` anaphora,
+  and non-transmitting figures). Overall Faqih rank-1 resolved 2,335 -> **3,287**;
+  ambiguous 2,556 -> 1,604; unresolved unchanged (1,690).
+- The feared mis-pick is gone: **zero** rank-1 resolved Faqih imam nodes pick
+  al-Husayn (15598) or al-Jawad (15604). Each resolved node keeps the same-kunya
+  alternate as a ranked `imam_kunya_prior_alternative` (952 alternatives), so the
+  rare genuine exception stays visible with a dalil.
+- Integrity after apply: SQLite `quick_check=ok`, foreign-key violations 0, zero
+  `imam_kunya_prior` rows on non-imam nodes. Full backend suite `395 passed`.
+- Live data-path check (`faqih-4`, `faqih-8`): the API's `person_resolution`
+  now returns al-Sadiq (gen 5) resolved with a rendered isnad-convention dalil,
+  al-Husayn (gen 2) ranked below. The dev API on :8000 was not running; restart
+  Uvicorn to see it live (the route reads `mention_resolutions` directly).
+- Deferred / next: `أبو الحسن ع` (20 nodes) stays ambiguous among Kazim/Rida/
+  Hadi — a later, careful prior can add the qualified variants (`الأول/موسى` ->
+  Kazim, `الرضا/الثاني` -> Rida, `الهادي/علي بن محمد` -> Hadi). The generation-
+  lattice conflict-demotion bug on fixed Imams is still open and blocks a clean
+  Faqih `refine-tabaqat`; this prior made that run unnecessary for the imam nodes.
+
+Planned + applied Faqih «رَوَى» re-split recorded by Claude on 2026-07-24:
+
+- Trigger: user-reported reader bugs. `faqih-2375` («رَوَى ابن مسكان عن أبي
+  بصير عن أبي عبد الله ع قال …») had `isnad_raw=NULL` and no chain — the whole
+  isnad sat in `matn_raw`. Root cause: a zero-width non-joiner glued to «قَالَ»
+  («قَالَ‌ [matn]») defeats the speech-boundary regexes (their `\s` classes do
+  not match ZWNJ), so the splitter missed the boundary. This starved the
+  following serial report `faqih-2376` («وسأله معاوية بن عمار … فقال») whose
+  «سأله» is a `previous_hadith_imam` pronoun — it could not inherit an Imam.
+- Code (git-reversible): `ZERO_WIDTH_RE` strip in `hadith_extractor.split_isnad_matn`
+  (fixes the boundary for ~all books, only re-run on Faqih here); new
+  `refine_previous_hadith_imam_anaphora` in `collective_resolver.py` (propagates
+  each report's resolved terminal Imam to the next report's «سأله» pronoun);
+  `refine-imam-priors` now runs kunya + anaphora. 1 new test. Suite: 396 passed.
+- Scope (user-approved "clean subset"): re-split ONLY Faqih rows that (a) have no
+  isnad, (b) open with «رَوَى/رُوِيَ», and (c) whose corrected split ends the
+  isnad exactly at a speech verb. Dry run: 185 accepted, 6 weak-boundary + 51
+  no-split left untouched, 2,405 non-«روى» ignored. `full_text_raw` never
+  modified. Apply script + manifest:
+  `scratch_audit/apply_faqih_rawa_resplit_20260724.py`,
+  `scratch_audit/faqih_rawa_resplit_manifest_20260724.json`.
+- Apply sequence: set isnad/matn on the 185 rows -> `rebuild-chain-index
+  --book-id 1294` -> `resolve-persons --source-book-id 11021` ->
+  `refine-imam-priors --source-book-id 11021` (kunya + anaphora).
+- Backup target before apply:
+  `eshia-research/eshia_research.before-faqih-rawa-resplit.20260724.db`
+
+Applied 2026-07-24 (Claude): backup created (2,558,267,392 bytes, `quick_check=ok`).
+- 185 isnad/matn splits written (full_text_raw untouched). `rebuild-chain-index
+  --book-id 1294`: Faqih 3,277 -> **3,462** isnad rows, 3,895 chains, 8,880 nodes,
+  798 needs_review unchanged. `resolve-persons` rebuilt Faqih mention_resolutions.
+- `refine-imam-priors`: kunya resolved **1,098** (820 al-Sadiq, 278 al-Baqir; up
+  from 952 as the new rows added imam nodes); anaphora resolved **36** of 125
+  `previous_hadith_imam` pronouns (the other 89 have a previous report whose Imam
+  is not uniquely resolved — left honest). Zero al-Husayn/al-Jawad imam picks.
+- faqih-2375 now has a chain terminating in al-Sadiq; faqih-2376's «سأله» resolves
+  to al-Sadiq via `anaphora_imam_after_kunya_prior`. Faqih rank-1 resolved rose to
+  3,613. Integrity `quick_check=ok`, FK 0. Backend 396 passed; frontend lint clean.
+- Frontend: `HadithBody.tsx` now labels a resolved `pronoun_relation` chip with the
+  person it refers to (e.g. al-Sadiq) instead of the raw verb «ساله».
+- GOTCHA: `SessionLocal` is `autoflush=False`, so a second in-session pass does not
+  see the first pass's pending writes. `refine_imam_kunya_priors` now `db.flush()`es
+  before returning; without it the anaphora pass saw stale ambiguous Imams and
+  resolved 0 (the first apply run needed a second `refine-imam-priors` to fire it).
+- Deferred: 57 harder «روى» rows (passive `رُوِيَ عن الأئمة ع أنهم قالوا…`, bare
+  `أن…` clauses) still unsplit; ~395 `و قال الصادق ع…` direct-attribution mursals
+  have no chain (could get 1-node Imam chains). Both are later reviewed passes.
+
+Planned + applied Faqih direct-attribution mursals recorded by Claude on 2026-07-24:
+
+- Faqih attributes many reports straight to an Imam with no chain — «(وَ) قَالَ
+  الصَّادِقُ ع …», «قَالَ رَسُولُ اللَّهِ ص …» (958 candidates; al-Sadiq 416,
+  Prophet 213+55, Amir al-Mu'minin 89, Abu Ja'far 80…). These had isnad_raw=NULL
+  and no clickable Imam. New `split_direct_attribution` in `hadith_extractor.py`
+  surfaces the Imam as a one-node attribution; the tokenizer's existing direct-
+  opening rule turns «قال <Imam> <honorific>» into a single Imam node.
+- Guards (validated over all candidates): boundary must sit right after a Ma'sum
+  honorific; refuse chains («عن/روى»), nested speech («قال فلان قال الإمام»),
+  bare «قال ع» with no name, and >5-word narrative clauses; then a re-tokenize
+  check requires exactly one Imam node with a real name. Dry run: **706 accepted,
+  3 refused**. 8 new unit tests. Suite: 404 passed. Script+manifest:
+  `scratch_audit/apply_faqih_direct_attribution_20260724.py`,
+  `faqih_direct_attribution_manifest_20260724.json`.
+- Apply sequence: set isnad/matn on the 706 rows -> `rebuild-chain-index
+  --book-id 1294` -> `resolve-persons --source-book-id 11021` ->
+  `refine-imam-priors --source-book-id 11021`. full_text_raw untouched.
+- Backup target before apply:
+  `eshia-research/eshia_research.before-faqih-direct-attribution.20260724.db`
+
+Applied 2026-07-24 (Claude): backup created (2,559,090,688 bytes, `quick_check=ok`).
+- 706 mursal isnad/matn splits written. `rebuild-chain-index --book-id 1294`:
+  Faqih 3,462 -> **4,168** isnad rows, 4,601 chains, 9,586 nodes, 798 needs_review.
+  `resolve-persons` rewrote Faqih resolutions; `refine-imam-priors` resolved 1,192
+  kunya imams + 37 anaphora (single run — the flush fix holds).
+- Faqih rows with a chain: 3,462 -> **4,168 / 5,924**; rank-1 resolved 3,613 ->
+  **4,323**. Every one of the 706 mursals now has a resolved Imam. Spot-checks:
+  faqih-1 (the book's first hadith) «الصادق جعفر بن محمد ع» -> al-Sadiq; faqih-9
+  «رسول الله ص» -> the Prophet; faqih-54 «أبو جعفر ع» -> al-Baqir. Integrity
+  `quick_check=ok`, FK 0. Backend 404 passed. full_text_raw untouched.
+- Remaining no-chain Faqih rows (~1,756) are genuinely mursal/anonymous
+  («و روي أن…», «في خبر»), the 57 harder «روى» rows, the ~3 bare «قال ع»
+  anaphora, and 798 needs_review tokenizer chains — later passes.
 
 Narrator-clicking depends on this order:
 
@@ -2462,6 +2770,75 @@ the flag — that is the 07-16 normalization that had to be rolled back.
 
 ## Open Cautions
 
+### Faqih pre-rijal boundary review (Codex, 2026-07-24)
+
+- Faqih now passes the Arabic/rijal boundary gate: 5,924 visible unique IDs,
+  zero low-coverage boundaries, zero unresolved non-one-to-one boundaries,
+  all 95 local-only reports content-hash reviewed, and zero detectable source
+  isnads omitted from approved active splits. Public release remains blocked by
+  21 translation records.
+- `faqih-2116` was split; the second unnumbered report has stable ID
+  `faqih-web-35-3-1-12`. Five distant repeated reports remain separate source
+  occurrences. `faqih-5754` is a valid numbered aphorism, not a fragment.
+- Recovered 293 deterministic active isnads, manually bounded eleven compiler
+  or heading overruns, and preserved every original `full_text_raw`.
+- Faqih chain index was rebuilt: 3,277 isnad-bearing rows, 3,809 chain routes,
+  8,560 nodes, and 804 chains marked `needs_review`. Begin rijal with that
+  uncertainty queue; do not auto-grade it as clean.
+- Backup before writes:
+  `eshia-research.before-faqih-pre-rijal-review.20260724.db`
+  (2,554,048,512 bytes; SHA-256
+  `3FE8E355E3504B2968E5D269D0D21E0B5C30F0C3F5E168540ABB6B0320000647`).
+
+### Al-Kafi topic taxonomy rollout (Codex, 2026-07-23)
+
+- The structural layer covers all 15,336 visible Al-Kafi IDs with one kitab
+  and one chapter topic. It contains 34 kitab topics, 2,620 chapter topics,
+  and 30,672 structural assignments.
+- A controlled semantic layer now adds 67 topics across moods, life,
+  practices, virtues, beliefs, and people. It uses kitab/chapter titles,
+  preferred website-first English, and whole-word/phrase Arabic evidence.
+- Final totals are 2,721 topics, 75,425 assignments, and 44,753 semantic
+  assignments. Hadiths have 2 to 14 topics (4.92 average); 1,209 remain
+  structural-only rather than receiving speculative labels.
+- Semantic methods are reviewable (`semantic_structure`,
+  `semantic_translation`, `semantic_arabic`, `semantic_multi_source`) and
+  retain matched terms plus translation provenance. Ambiguous bare Arabic
+  terms and misleading English triggers such as `alone` were removed during
+  QA to prevent polysemy-driven false positives.
+- Semantic pre-write backup:
+  `eshia-research/eshia_research.before-semantic-topics.20260723-190217.db`
+  (`2,494,234,624` bytes; SHA-256
+  `B7740491926A879E6DFD2C38D99B94BF3D0614BBC66CF0DEAD3CD5B6167D97CE`).
+- Rebuild command: `python -m eshia_research.cli rebuild-alkafi-topics`.
+  Generated sources `thaqalayn-structure` and `alkafi-semantic` are replaced;
+  manually curated topics are preserved.
+- Verification: SQLite `quick_check=ok`, foreign-key violations `0`, orphan
+  assignments `0`, missing hashtags `0`, and duplicate generated source keys
+  `0`; full backend suite `376 passed`; frontend lint and production build
+  passed. Live intent checks resolve anxious, marriage, forgiveness, prayer,
+  and seeking-knowledge queries to their intended controlled topics.
+- Workflow, evidence rules, search behavior, and interpretation caveats are in
+  `eshia-research/docs/alkafi_topics.md`.
+
+### Website-first Al-Kafi completeness audit (Codex, 2026-07-23)
+
+- Do not yet claim "we have every hadith in Al-Kafi." See
+  `eshia-research/docs/alkafi_completeness.md` for the decision gate and rerun
+  command.
+- Direct website inventory is complete: all 14,250 Al-Kafi routes in
+  Thaqalayn's hadith sitemap were found across 2,722 rendered chapter pages.
+  They comprise 14,249 reports and one explicit previous-chapter placeholder.
+- Arabic verification currently confirms 13,568 of 15,336 local units against
+  13,564 website reports. The review queue has 504 bounded split/merge blocks
+  covering 598 more website reports; 87 website reports remain outside those
+  blocks.
+- The high local-only remainder is concentrated in volume 7 and must be
+  classified as report splits/merges or editorial units before a public claim.
+- Evidence:
+  `eshia-research/scratch_audit/alkafi_thaqalayn_website_audit_20260723.json`.
+  The audit is read-only and does not use the Thaqalayn API as its witness.
+
 ### Remaining-88 deep scan correction (Codex, 2026-07-16)
 
 - The deeper source audit discovered that the published Muhammad Sarwar scans and the ThaqalaynData/static edition use incompatible global `H`-number sequences in affected ranges. The prior 62 `sarwar-published-scan` rows joined genuine Sarwar text to the wrong local reports by number alone.
@@ -2485,3 +2862,24 @@ the flag — that is the 07-16 normalization that had to be rolled back.
 - Do not let rejected footnote/commentary fragments appear as normal hadith cards.
 - After any split repair, derived chains and resolver output may be stale until rebuilt.
 - Do not use broad "matn contains عن/قال" logic as a split error by itself; many valid matns contain inner dialogue or quoted reports.
+## Website-first Al-Kafi English (2026-07-23)
+
+- Added `thaqalayn_website_v1` as the highest-priority public translation.
+- The importer reads the rendered website inventory and its paired audit,
+  reruns Arabic similarity, and writes only one-to-one verified relations.
+- Historical `thaqalayn_live_v1` and `matn_en_v1` rows remain untouched as
+  fallbacks. The website wording is never synthesized from API text; an old
+  matn may only identify a boundary when it occurs verbatim in website text.
+- Rerun command and safety boundary are in
+  `eshia-research/docs/alkafi_completeness.md`.
+- Pre-write backup:
+  `eshia-research/eshia_research.before-thaqalayn-website-english.20260723-181329.db`
+  (`2,439,651,328` bytes; SHA-256
+  `1FD7F6C13AA6F491D52E621C8E5A2206664D8DC134A66338CBB32C7FCE80EDB6`).
+- Applied `13,554` website rows: `13,361` exact verified matn boundaries,
+  `177` narration-marker boundaries, and `16` full-English fallbacks. Skipped
+  `8` non-one-to-one relations and `6` rows without translator attribution.
+- Verification: all `13,554` source-hash triples current, all website-English
+  hashes current, duplicate website versions `0`, foreign-key violations `0`,
+  SQLite `quick_check=ok`, full backend suite `374 passed`, and importer rerun
+  is idempotent (`13,554` unchanged; `0` created/updated).

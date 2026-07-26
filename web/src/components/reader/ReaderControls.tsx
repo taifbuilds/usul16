@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export function ReaderControls({
@@ -19,6 +19,17 @@ export function ReaderControls({
   const router = useRouter();
   const [pageInput, setPageInput] = useState(String(pageNumber));
   const [readerSize, setReaderSize] = useState<"compact" | "comfortable" | "large">("comfortable");
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      const stored = window.localStorage.getItem("usul16-reader-size");
+      if (stored === "compact" || stored === "comfortable" || stored === "large") {
+        setReaderSize(stored);
+        document.documentElement.setAttribute("data-reader-size", stored);
+      }
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
 
   const pages = useMemo(
     () => [...new Set(availablePages)].sort((a, b) => a - b),
@@ -48,6 +59,7 @@ export function ReaderControls({
   function changeReaderSize(size: "compact" | "comfortable" | "large") {
     setReaderSize(size);
     document.documentElement.setAttribute("data-reader-size", size);
+    window.localStorage.setItem("usul16-reader-size", size);
   }
 
   const volumeOptions = Array.from({ length: Math.max(volumeCount, volumeNumber) }, (_, i) => i + 1);
@@ -56,7 +68,7 @@ export function ReaderControls({
 
   return (
     <div className="text-sm">
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex items-center justify-between gap-2 sm:gap-3">
       {/* RTL book: "previous page" sits on the right, so use the right arrow */}
         <button
         type="button"
@@ -68,12 +80,12 @@ export function ReaderControls({
         ←
         </button>
 
-        <div className="flex items-center gap-2">
+        <div className="flex min-w-0 items-center gap-1.5 sm:gap-2">
         <select
           value={volumeNumber}
           aria-label="Volume"
           onChange={(event) => goTo(Number(event.target.value), 1)}
-          className="min-h-11 rounded-md border border-border bg-background px-3 py-2"
+          className="min-h-11 min-w-0 rounded-md border border-border bg-background px-2 py-2 sm:px-3"
         >
           {volumeOptions.map((volume) => (
             <option key={volume} value={volume}>
@@ -90,7 +102,7 @@ export function ReaderControls({
             onChange={(event) => setPageInput(event.target.value)}
             className="min-h-11 w-16 rounded-md border border-border bg-background px-3 py-2 text-center"
           />
-          <span className="text-muted">/ {lastPage}</span>
+          <span className="whitespace-nowrap text-muted">/ {lastPage}</span>
         </form>
         </div>
 
@@ -105,8 +117,8 @@ export function ReaderControls({
         </button>
       </div>
 
-      <div className="mt-3 flex items-center justify-end gap-2 border-t border-border pt-3">
-        <span className="mr-1 text-xs text-muted">Arabic text size</span>
+      <div className="mt-3 flex flex-wrap items-center justify-end gap-2 border-t border-border pt-3">
+        <span className="me-auto text-xs text-muted">Arabic text size</span>
         {([
           ["compact", "A−", "Compact Arabic text"],
           ["comfortable", "A", "Comfortable Arabic text"],

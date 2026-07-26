@@ -200,6 +200,11 @@ TERMINAL_MARKER_RE = re.compile(
     r"\u0623\u0628\u064a\s+\u0627\u0644\u062d\u0633\u0646|\u0643\u0644\u064a\u0647\u0645\u0627|"
     r"[789])"
 )
+# Zero-width joiners, bidi marks and BOM. In this corpus they are rendering
+# noise (notably ZWNJ U+200C glued to \u00ab\u0642\u064e\u0627\u0644\u064e\u00bb); stripped before boundary search.
+ZERO_WIDTH_RE = re.compile(
+    r"[\u200b-\u200f\u202a-\u202e\u2066-\u2069\ufeff]"
+)
 STRONG_ISNAD_HINT_RE = re.compile(
     r"(?<![\u0621-\u064a])(?:\u0639\u0646)(?=\s)|"
     r"(?<![\u0621-\u064a])(?:\u062d\u062f\u062b|\u062d\u062f\u062b\u0646\u0627|\u062d\u062f\u062b\u0646\u064a|"
@@ -586,7 +591,13 @@ def split_isnad_matn(text: str) -> tuple[str | None, str]:
     The raw full text remains authoritative; this split is reviewable
     extracted metadata.
     """
-    flattened = re.sub(r"\s+", " ", text).strip()
+    # Zero-width joiners and bidi marks (esp. ZWNJ U+200C glued to «قَالَ» as
+    # «قَالَ‌ [matn]») are rendering noise in this corpus but defeat the speech /
+    # report boundary regexes, whose whitespace classes do not match them. Drop
+    # them before locating the boundary so «قَالَ‌» splits like «قَالَ ». The raw
+    # full text remains authoritative; this split is reviewable metadata.
+    flattened = ZERO_WIDTH_RE.sub("", text)
+    flattened = re.sub(r"\s+", " ", flattened).strip()
     match = SPEECH_RE.search(flattened)
     boundary = match.start() if match else None
     for split in (
@@ -649,6 +660,97 @@ def split_isnad_matn(text: str) -> tuple[str | None, str]:
         return None, flattened
 
     return isnad, matn
+
+
+# --- Direct Imam attribution (mursal openings) ------------------------------
+# Man La Yahduruhu al-Faqih attributes many reports straight to an Imam with no
+# chain: «(وَ) قَالَ الصَّادِقُ ع …», «قَالَ رَسُولُ اللَّهِ ص …». There is no
+# «عن/روى» isnad; the boundary is right after the Imam's honorific. We surface
+# the Imam as a one-node attribution so the report gets a clickable Imam, and
+# treat the rest as matn. `split_isnad_matn` deliberately does NOT handle these
+# (its «قال» is a chain→matn boundary, not an opening attributor).
+_DIRECT_ATTR_LEAD_RE = re.compile(r"^(?:و\s+)?(?:قال|قالت|قیل)\s+")
+_MASUM_HONORIFIC_RE = re.compile(
+    r"(?:^|\s)("
+    r"صلی الله علیه و ?آله و ?سلم|صلی الله علیه و ?آله|صلی الله علیه و ?اله|"
+    r"صلی الله علیه و ?سلم|صلی الله علیه|علیهم السلام|علیهما السلام|علیها السلام|"
+    r"علیه السلام|صلوات الله علیه ?ا?|ع|ص)"
+    r"(?=\s|$|[-:،.])"
+)
+_DIRECT_ATTR_IMAM_KEYWORDS = tuple(
+    normalise_arabic_persian(k)
+    for k in (
+        "الصادق", "الباقر", "الرضا", "الکاظم", "الهادی", "العسکری", "الجواد",
+        "رسول الله", "النبی", "امیر المؤمنین", "ابو عبد الله", "ابو جعفر",
+        "ابو الحسن", "جعفر بن محمد", "علی بن", "الحسن", "الحسین", "السجاد",
+        "زین العابدین", "ابو ابراهیم", "القائم", "صاحب الزمان", "المهدی", "علی",
+    )
+)
+_DIRECT_ATTR_CHAIN_RE = re.compile(r"(?:^| )(?:عن|روی|حدث|اخبر|حدثنا|حدثني)(?: |$)")
+_DIRECT_ATTR_EMBEDDED_RE = re.compile(r"(?:^| )(?:قال|قالت|قیل|سال|ساله|سالت|سالته)(?: |$)")
+_HONORIFIC_WORDS = frozenset(
+    normalise_arabic_persian(w)
+    for w in (
+        "ع", "ص", "علیه", "علیها", "علیهم", "علیهما", "السلام", "صلی", "الله",
+        "و", "آله", "اله", "وسلم", "سلم", "صلوات", "رضی", "عنه",
+    )
+)
+_DIRECT_NORM_TRANSLATE = {"أ": "ا", "إ": "ا", "آ": "ا", "ى": "ي", "ی": "ي", "ك": "ک"}
+
+
+def _plain_with_index_map(text: str) -> tuple[str, list[int]]:
+    """Diacritic-stripped, alif/yaa/kaaf-normalised copy of `text`, plus a map
+    from each kept character to its index in `text` (only 1:1 substitutions, so
+    boundaries found on the plain copy map back exactly)."""
+    chars: list[str] = []
+    idx: list[int] = []
+    for i, ch in enumerate(text):
+        code = ord(ch)
+        if 0x064B <= code <= 0x0652 or code == 0x0670 or 0x200B <= code <= 0x200F or code == 0xFEFF:
+            continue
+        chars.append(_DIRECT_NORM_TRANSLATE.get(ch, ch))
+        idx.append(i)
+    return "".join(chars), idx
+
+
+def split_direct_attribution(text: str) -> tuple[str, str] | None:
+    """Split a mursal «(وَ) قَالَ <Imam> <honorific> <statement>» opening.
+
+    Returns (isnad, matn); the isnad keeps its leading «(و) قال» attribution (the
+    tokenizer's direct-opening rule yields a single Imam node from it). Returns
+    None when the text is not a clean single-Imam direct attribution. Chains
+    («… عن …»), nested speech («قال فلان قال الإمام»), bare «قال ع» with no name,
+    and narrative clauses are all refused.
+    """
+    flat = ZERO_WIDTH_RE.sub("", text)
+    flat = re.sub(r"\s+", " ", flat).strip()
+    plain, idx = _plain_with_index_map(flat)
+    lead = _DIRECT_ATTR_LEAD_RE.match(plain)
+    if not lead:
+        return None
+    after = lead.end()
+    for hit in _MASUM_HONORIFIC_RE.finditer(plain, after):
+        span = plain[after:hit.end()]
+        imam_part = plain[after:hit.start()].strip()
+        if not imam_part:
+            continue
+        if _DIRECT_ATTR_CHAIN_RE.search(span):
+            return None  # «عن/روى» before the honorific -> a real chain, not mursal
+        if _DIRECT_ATTR_EMBEDDED_RE.search(imam_part):
+            return None  # «قال فلان قال الإمام» -> nested speech, not a pure mursal
+        if len(imam_part.split()) > 5:
+            return None  # narrative clause, not an Imam name
+        if not any(kw in span for kw in _DIRECT_ATTR_IMAM_KEYWORDS):
+            continue
+        if all(word in _HONORIFIC_WORDS for word in span.split()):
+            continue  # honorific only, no Imam name
+        flat_end = idx[hit.end() - 1] + 1
+        isnad = flat[:flat_end].strip()
+        matn = flat[flat_end:].strip(" -:،.").strip()
+        if len(matn) < 3:
+            return None
+        return isnad, matn
+    return None
 
 
 class PageHadithParser:

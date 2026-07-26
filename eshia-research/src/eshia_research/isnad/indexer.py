@@ -10,7 +10,16 @@ from sqlalchemy.orm import Session
 
 from eshia_research.corpus import CANONICAL_FOUR_BOOK_SOURCE_IDS
 from eshia_research.isnad.tokenizer import tokenize_isnad
-from eshia_research.models import Book, Chain, ChainNode, ChainNodeCandidate, Hadith
+from eshia_research.models import (
+    Book,
+    Chain,
+    ChainNode,
+    ChainNodeCandidate,
+    Hadith,
+    MentionResolution,
+    PersonResolutionDecision,
+    PersonResolutionExternalReview,
+)
 
 REJECTED_HADITH_STATUS = "rejected_non_hadith_fragment"
 
@@ -26,6 +35,26 @@ class ChainIndexStats:
     @property
     def clean_ratio(self) -> float:
         return 0.0 if not self.chains else 1 - (self.needs_review / self.chains)
+
+
+def _delete_node_dependents(db: Session, node_ids) -> None:
+    """Delete every derived identity claim before replacing chain nodes."""
+    db.execute(
+        delete(PersonResolutionExternalReview).where(
+            PersonResolutionExternalReview.chain_node_id.in_(node_ids)
+        )
+    )
+    db.execute(
+        delete(PersonResolutionDecision).where(
+            PersonResolutionDecision.chain_node_id.in_(node_ids)
+        )
+    )
+    db.execute(
+        delete(MentionResolution).where(MentionResolution.chain_node_id.in_(node_ids))
+    )
+    db.execute(
+        delete(ChainNodeCandidate).where(ChainNodeCandidate.chain_node_id.in_(node_ids))
+    )
 
 
 def rebuild_chain_index(
@@ -56,7 +85,7 @@ def rebuild_chain_index(
     hadith_ids_subq = select(Hadith.id).where(Hadith.book_id.in_(selected_book_ids))
     chain_ids_subq = select(Chain.id).where(Chain.hadith_id.in_(hadith_ids_subq))
     node_ids_subq = select(ChainNode.id).where(ChainNode.chain_id.in_(chain_ids_subq))
-    db.execute(delete(ChainNodeCandidate).where(ChainNodeCandidate.chain_node_id.in_(node_ids_subq)))
+    _delete_node_dependents(db, node_ids_subq)
     db.execute(delete(ChainNode).where(ChainNode.chain_id.in_(chain_ids_subq)))
     db.execute(delete(Chain).where(Chain.hadith_id.in_(hadith_ids_subq)))
     # Rebuilding the hadith index replaces hadith rows (new ids), which can
@@ -65,13 +94,27 @@ def rebuild_chain_index(
     # selection.
     orphan_chain_ids = select(Chain.id).where(~Chain.hadith_id.in_(select(Hadith.id)))
     orphan_node_ids = select(ChainNode.id).where(ChainNode.chain_id.in_(orphan_chain_ids))
-    db.execute(delete(ChainNodeCandidate).where(ChainNodeCandidate.chain_node_id.in_(orphan_node_ids)))
+    _delete_node_dependents(db, orphan_node_ids)
     db.execute(delete(ChainNode).where(ChainNode.chain_id.in_(orphan_chain_ids)))
     db.execute(delete(Chain).where(~Chain.hadith_id.in_(select(Hadith.id))))
-    # Candidates whose node vanished in an earlier partial rebuild.
+    # Derived claims whose node vanished in an earlier partial rebuild.
+    live_node_ids = select(ChainNode.id)
+    db.execute(
+        delete(PersonResolutionExternalReview).where(
+            ~PersonResolutionExternalReview.chain_node_id.in_(live_node_ids)
+        )
+    )
+    db.execute(
+        delete(PersonResolutionDecision).where(
+            ~PersonResolutionDecision.chain_node_id.in_(live_node_ids)
+        )
+    )
+    db.execute(
+        delete(MentionResolution).where(~MentionResolution.chain_node_id.in_(live_node_ids))
+    )
     db.execute(
         delete(ChainNodeCandidate).where(
-            ~ChainNodeCandidate.chain_node_id.in_(select(ChainNode.id))
+            ~ChainNodeCandidate.chain_node_id.in_(live_node_ids)
         )
     )
     db.flush()

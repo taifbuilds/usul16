@@ -648,6 +648,57 @@ def refine_compiler_priors_cmd(
         typer.echo(f"  {method}: {count}")
 
 
+@app.command("refine-imam-priors")
+def refine_imam_priors_cmd(
+    source_book_id: list[str] = typer.Option([], "--source-book-id", help="eShia source_book_id (repeatable)."),
+    book_id: list[int] = typer.Option([], "--book-id", help="Local Book.id (repeatable)."),
+    dry_run: bool = typer.Option(False, "--dry-run", help="Run without committing database changes."),
+) -> None:
+    """Break shared-kunya Ma'sum ambiguity by isnad convention (Tamyiz Phase D).
+
+    Resolves imam nodes still ambiguous between the two Ma'sumin who share a
+    kunya — «أبو عبد الله ع» (al-Sadiq vs al-Husayn) and «أبو جعفر ع» (al-Baqir
+    vs al-Jawad) — to the conventional Imam, keeping the same-kunya alternate as
+    a ranked alternative. Lattice-independent: it does not read person_generations,
+    so noisy propagated generations cannot mis-drive it (unlike refine-tabaqat).
+    """
+    from eshia_research.rijal.collective_resolver import (
+        refine_imam_kunya_priors,
+        refine_previous_hadith_imam_anaphora,
+    )
+
+    db = SessionLocal()
+    try:
+        stats = refine_imam_kunya_priors(
+            db,
+            source_book_ids=source_book_id or None,
+            book_ids=book_id or None,
+            commit=False,
+        )
+        # Now that terminal «أبو عبد الله ع» Imams are resolved, propagate them to
+        # the «سأله»/«previous_hadith_imam» pronouns of following serial reports.
+        anaphora = refine_previous_hadith_imam_anaphora(
+            db,
+            source_book_ids=source_book_id or None,
+            book_ids=book_id or None,
+            commit=not dry_run,
+        )
+        if dry_run:
+            db.rollback()
+    finally:
+        db.close()
+
+    mode = "DRY-RUN" if dry_run else "APPLIED"
+    typer.echo(
+        f"{mode}: examined {stats.nodes_examined} shared-kunya imam node(s); "
+        f"resolved {stats.nodes_resolved} to the conventional Imam. "
+        f"Anaphora: examined {anaphora.nodes_examined} «previous_hadith_imam» "
+        f"pronoun(s); resolved {anaphora.nodes_resolved}."
+    )
+    for method, count in (stats.method_counts + anaphora.method_counts).most_common(12):
+        typer.echo(f"  {method}: {count}")
+
+
 @app.command("validate-review-priors")
 def validate_review_priors_cmd(
     source_book_id: str = typer.Option(
@@ -733,6 +784,11 @@ def resolve_persons_cmd(
     book_id: list[int] = typer.Option(
         [], "--book-id", help="Local Book.id to resolve (repeatable). Overrides the default set."
     ),
+    include_needs_review: bool = typer.Option(
+        False,
+        "--include-needs-review",
+        help="Also resolve chains flagged needs_review. They are skipped by default.",
+    ),
 ) -> None:
     """Resolve chain mentions to PERSONS (Tamyiz Engine Phase B).
 
@@ -752,6 +808,7 @@ def resolve_persons_cmd(
                 db,
                 source_book_ids=source_book_id or None,
                 book_ids=book_id or None,
+                include_needs_review=include_needs_review,
                 on_progress=_make_on_progress(progress),
             )
     finally:
@@ -761,6 +818,11 @@ def resolve_persons_cmd(
         f"Saw {stats.nodes_seen} node(s); resolved {stats.resolved}, ambiguous {stats.ambiguous}, "
         f"via-collective {stats.via_collective}, unresolved {stats.unresolved}."
     )
+    if stats.skipped_review_chains:
+        typer.echo(
+            f"Deferred {stats.skipped_review_chains} needs_review chain(s) "
+            f"containing {stats.skipped_review_nodes} node(s)."
+        )
     typer.echo(
         f"Reference calculus: {stats.father_resolved} father/grandfather, "
         f"{stats.anaphora_resolved} anaphora, {stats.latent_minted} latent persons minted."
@@ -1692,6 +1754,344 @@ def import_thaqalayn_live_english_cmd(
     typer.echo(f"  leading-index downgraded : {stats.number_prefix_downgraded}")
     if stats.errors:
         typer.echo(f"  errors: {stats.errors[:5]}")
+
+
+@app.command("audit-thaqalayn-website")
+def audit_thaqalayn_website_cmd(
+    corpus: str = typer.Option("alkafi", "--corpus", help="Corpus key: alkafi or faqih."),
+    inventory_path: str = typer.Option(..., "--inventory-path"),
+    audit_path: str = typer.Option(..., "--audit-path"),
+    markdown_path: str | None = typer.Option(None, "--markdown-path"),
+    cache_dir: str = typer.Option(..., "--cache-dir"),
+    workers: int = typer.Option(4, "--workers", min=1, max=8),
+    delay_seconds: float = typer.Option(0.2, "--delay-seconds", min=0.05),
+    timeout_seconds: float = typer.Option(30.0, "--timeout-seconds", min=5.0),
+    min_score: float = typer.Option(0.88, "--min-score", min=0.5, max=1.0),
+    review_manifest_path: str | None = typer.Option(None, "--review-manifest-path"),
+    reuse_inventory: bool = typer.Option(False, "--reuse-inventory"),
+    refresh: bool = typer.Option(False, "--refresh"),
+) -> None:
+    """Compare one corpus bidirectionally with rendered Thaqalayn pages."""
+    import json as _json
+    from pathlib import Path
+
+    from eshia_research.translation.thaqalayn_website import (
+        audit_thaqalayn_website,
+        crawl_thaqalayn_website,
+        get_website_corpus,
+        render_audit_markdown,
+    )
+
+    corpus_config = get_website_corpus(corpus)
+
+    inventory_file = Path(inventory_path)
+    audit_file = Path(audit_path)
+    markdown_file = Path(markdown_path) if markdown_path else None
+    review_manifest = (
+        _json.loads(Path(review_manifest_path).read_text(encoding="utf-8"))
+        if review_manifest_path
+        else None
+    )
+    last_reported = -1
+
+    def progress(done: int, total: int) -> None:
+        nonlocal last_reported
+        if done == total or done - last_reported >= 50:
+            typer.echo(f"  website chapters: {done:,}/{total:,}")
+            last_reported = done
+
+    if reuse_inventory:
+        inventory = _json.loads(inventory_file.read_text(encoding="utf-8"))
+    else:
+        inventory = crawl_thaqalayn_website(
+            corpus=corpus_config,
+            inventory_path=inventory_file,
+            cache_dir=Path(cache_dir),
+            workers=workers,
+            delay_seconds=delay_seconds,
+            timeout_seconds=timeout_seconds,
+            refresh=refresh,
+            on_progress=progress,
+        )
+    db = SessionLocal()
+    try:
+        audit = audit_thaqalayn_website(
+            db,
+            inventory=inventory,
+            min_score=min_score,
+            review_manifest=review_manifest,
+        )
+    finally:
+        db.close()
+
+    audit_file.parent.mkdir(parents=True, exist_ok=True)
+    audit_file.write_text(
+        _json.dumps(audit, ensure_ascii=False, indent=1), encoding="utf-8"
+    )
+    if markdown_file:
+        markdown_file.parent.mkdir(parents=True, exist_ok=True)
+        markdown_file.write_text(render_audit_markdown(audit), encoding="utf-8")
+
+    summary = audit["summary"]
+    typer.echo(f"Website-first {corpus_config.title} completeness audit")
+    typer.echo(f"  local visible            : {summary['local_visible']:,}")
+    typer.echo(f"  website reports          : {summary['website_hadiths']:,}")
+    typer.echo(f"  confirmed local / website: {summary['confirmed_local']:,} / {summary['confirmed_website']:,}")
+    typer.echo(f"  unaccounted local        : {summary['unaccounted_local']:,}")
+    typer.echo(f"  unaccounted website      : {summary['unaccounted_website']:,}")
+    typer.echo(f"  candidate split/merge    : {summary['candidate_split_merge_blocks']:,}")
+    typer.echo(f"  inventory ready          : {summary['inventory_ready']}")
+    typer.echo(f"  rijal boundary ready     : {summary['rijal_ready']}")
+    typer.echo(f"  public release ready     : {summary['publication_ready']}")
+    quality = audit["publication_quality"]["summary"]
+    typer.echo(f"  blocking local records   : {quality['blocking_records']:,}")
+
+
+@app.command("repair-thaqalayn-website-boundaries")
+def repair_thaqalayn_website_boundaries_cmd(
+    inventory_path: str = typer.Option(..., "--inventory-path"),
+    audit_path: str = typer.Option(..., "--audit-path"),
+    chapter_path: str | None = typer.Option(None, "--chapter-path"),
+    quality_blockers_only: bool = typer.Option(
+        False, "--quality-blockers-only"
+    ),
+    simple_splits_only: bool = typer.Option(False, "--simple-splits-only"),
+    dry_run: bool = typer.Option(True, "--dry-run/--apply"),
+) -> None:
+    """Repair one reviewed Faqih chapter from rendered website Arabic."""
+    import json as _json
+    from pathlib import Path
+
+    from eshia_research.translation.thaqalayn_website import (
+        repair_website_arabic_boundaries,
+    )
+
+    inventory = _json.loads(Path(inventory_path).read_text(encoding="utf-8"))
+    audit = _json.loads(Path(audit_path).read_text(encoding="utf-8"))
+    _init_db()
+    db = SessionLocal()
+    try:
+        stats = repair_website_arabic_boundaries(
+            db,
+            inventory=inventory,
+            audit=audit,
+            chapter_path=chapter_path,
+            quality_blockers_only=quality_blockers_only,
+            simple_splits_only=simple_splits_only,
+            dry_run=dry_run,
+        )
+        if dry_run:
+            db.rollback()
+        else:
+            db.commit()
+    except Exception:
+        db.rollback()
+        raise
+    finally:
+        db.close()
+
+    mode = "DRY-RUN" if dry_run else "APPLIED"
+    typer.echo(f"{mode}: Thaqalayn website Arabic boundary repair")
+    typer.echo(f"  local records considered : {stats.considered:,}")
+    typer.echo(f"  boundaries repaired      : {stats.boundaries_repaired:,}")
+    typer.echo(f"  split records created    : {stats.split_records_created:,}")
+    typer.echo(f"  unchanged                : {stats.unchanged:,}")
+    typer.echo(f"  skipped complex relations: {stats.skipped_complex_relations:,}")
+
+
+@app.command("import-thaqalayn-website-numbered-gaps")
+def import_thaqalayn_website_numbered_gaps_cmd(
+    inventory_path: str = typer.Option(..., "--inventory-path"),
+    audit_path: str = typer.Option(..., "--audit-path"),
+    dry_run: bool = typer.Option(True, "--dry-run/--apply"),
+) -> None:
+    """Import reviewed numbered Faqih reports missing from local edition rows."""
+    import json as _json
+    from pathlib import Path
+
+    from eshia_research.translation.thaqalayn_website import (
+        import_website_numbered_gaps,
+    )
+
+    inventory = _json.loads(Path(inventory_path).read_text(encoding="utf-8"))
+    audit = _json.loads(Path(audit_path).read_text(encoding="utf-8"))
+    _init_db()
+    db = SessionLocal()
+    try:
+        stats = import_website_numbered_gaps(
+            db, inventory=inventory, audit=audit, dry_run=dry_run
+        )
+        if dry_run:
+            db.rollback()
+        else:
+            db.commit()
+    except Exception:
+        db.rollback()
+        raise
+    finally:
+        db.close()
+
+    mode = "DRY-RUN" if dry_run else "APPLIED"
+    typer.echo(f"{mode}: reviewed website numbered-gap import")
+    typer.echo(f"  considered           : {stats.considered:,}")
+    typer.echo(f"  hadiths created      : {stats.created_hadiths:,}")
+    typer.echo(f"  translations created : {stats.created_translations:,}")
+    typer.echo(f"  skipped existing     : {stats.skipped_existing:,}")
+
+
+@app.command("import-thaqalayn-website-english")
+def import_thaqalayn_website_english_cmd(
+    inventory_path: str = typer.Option(..., "--inventory-path"),
+    audit_path: str = typer.Option(..., "--audit-path"),
+    dry_run: bool = typer.Option(True, "--dry-run/--apply"),
+) -> None:
+    """Import rendered website English for Arabic-verified one-to-one rows."""
+    import json as _json
+    from pathlib import Path
+
+    from eshia_research.translation.thaqalayn_website import import_website_english
+
+    inventory = _json.loads(Path(inventory_path).read_text(encoding="utf-8"))
+    audit = _json.loads(Path(audit_path).read_text(encoding="utf-8"))
+    _init_db()
+    db = SessionLocal()
+    try:
+        stats = import_website_english(
+            db,
+            inventory=inventory,
+            audit=audit,
+            dry_run=dry_run,
+        )
+        if dry_run:
+            db.rollback()
+        else:
+            db.commit()
+    except Exception:
+        db.rollback()
+        raise
+    finally:
+        db.close()
+
+    mode = "DRY-RUN" if dry_run else "APPLIED"
+    typer.echo(f"{mode}: Thaqalayn website-English import")
+    typer.echo(f"  confirmed relations      : {stats.considered}")
+    typer.echo(f"  imported                 : {stats.imported}")
+    typer.echo(f"  created / updated        : {stats.created} / {stats.updated}")
+    typer.echo(f"  unchanged                : {stats.unchanged}")
+    typer.echo(f"  skipped non-one-to-one   : {stats.skipped_non_one_to_one}")
+    typer.echo(f"  skipped missing English  : {stats.skipped_missing_english}")
+    typer.echo(f"  skipped stale Arabic     : {stats.skipped_stale_arabic_match}")
+    typer.echo(f"  skipped no translator    : {stats.skipped_unknown_translator}")
+    typer.echo(
+        "  matn boundaries          : "
+        f"exact={stats.boundary_exact}, marker={stats.boundary_marker}, "
+        f"full={stats.boundary_full_fallback}"
+    )
+    if stats.errors:
+        typer.echo(f"  errors: {stats.errors[:5]}")
+
+
+@app.command("import-thaqalayn-website-structure")
+def import_thaqalayn_website_structure_cmd(
+    inventory_path: str = typer.Option(..., "--inventory-path"),
+    audit_path: str = typer.Option(..., "--audit-path"),
+    dry_run: bool = typer.Option(True, "--dry-run/--apply"),
+) -> None:
+    """Import website-confirmed kitab/chapter placement for one corpus."""
+    import json as _json
+    from pathlib import Path
+
+    from eshia_research.translation.thaqalayn_website import import_website_structure
+
+    inventory = _json.loads(Path(inventory_path).read_text(encoding="utf-8"))
+    audit = _json.loads(Path(audit_path).read_text(encoding="utf-8"))
+    _init_db()
+    db = SessionLocal()
+    try:
+        stats = import_website_structure(
+            db, inventory=inventory, audit=audit, dry_run=dry_run
+        )
+        if dry_run:
+            db.rollback()
+        else:
+            db.commit()
+    except Exception:
+        db.rollback()
+        raise
+    finally:
+        db.close()
+
+    mode = "DRY-RUN" if dry_run else "APPLIED"
+    typer.echo(f"{mode}: Thaqalayn website structure import")
+    typer.echo(f"  confirmed relations : {stats.confirmed:,}")
+    typer.echo(f"  matched placements  : {stats.matched:,}")
+    typer.echo(f"  interpolated        : {stats.interpolated:,}")
+    typer.echo(f"  unmapped            : {stats.unmapped:,}")
+    typer.echo(f"  rows written        : {stats.written:,}")
+
+
+@app.command("rebuild-book-topics")
+def rebuild_book_topics_cmd(
+    source_book_id: str = typer.Option(..., "--source-book-id"),
+    dry_run: bool = typer.Option(False, "--dry-run"),
+) -> None:
+    """Rebuild source and semantic topics for a configured collection."""
+    from eshia_research.topics import rebuild_book_topics
+
+    db = SessionLocal()
+    try:
+        stats = rebuild_book_topics(db, source_book_id=source_book_id)
+        if dry_run:
+            db.rollback()
+        else:
+            db.commit()
+    except Exception:
+        db.rollback()
+        raise
+    finally:
+        db.close()
+
+    typer.echo(f"Topic taxonomy for source book {source_book_id}")
+    typer.echo(f"  hadiths categorized : {stats.hadiths:,}")
+    typer.echo(f"  topics              : {stats.topics:,}")
+    typer.echo(f"  semantic topics     : {stats.semantic_topics:,}")
+    typer.echo(f"  assignments         : {stats.assignments:,}")
+    typer.echo(f"  semantic assignments: {stats.semantic_assignments:,}")
+    typer.echo(f"  directly placed     : {stats.directly_placed:,}")
+    typer.echo(f"  inherited placement : {stats.inherited_placed:,}")
+    typer.echo(f"  saved               : {not dry_run}")
+
+
+@app.command("rebuild-alkafi-topics")
+def rebuild_alkafi_topics_cmd(
+    dry_run: bool = typer.Option(False, "--dry-run"),
+) -> None:
+    """Rebuild source-derived topic and hashtag assignments for all Al-Kafi hadiths."""
+    from eshia_research.topics import rebuild_alkafi_topics
+
+    db = SessionLocal()
+    try:
+        stats = rebuild_alkafi_topics(db)
+        if dry_run:
+            db.rollback()
+        else:
+            db.commit()
+    except Exception:
+        db.rollback()
+        raise
+    finally:
+        db.close()
+
+    typer.echo("Al-Kafi topic taxonomy")
+    typer.echo(f"  hadiths categorized : {stats.hadiths:,}")
+    typer.echo(f"  topics              : {stats.topics:,}")
+    typer.echo(f"  semantic topics     : {stats.semantic_topics:,}")
+    typer.echo(f"  assignments         : {stats.assignments:,}")
+    typer.echo(f"  semantic assignments: {stats.semantic_assignments:,}")
+    typer.echo(f"  directly placed     : {stats.directly_placed:,}")
+    typer.echo(f"  inherited placement : {stats.inherited_placed:,}")
+    typer.echo(f"  methods             : {stats.method_counts}")
+    typer.echo(f"  saved               : {not dry_run}")
 
 
 if __name__ == "__main__":

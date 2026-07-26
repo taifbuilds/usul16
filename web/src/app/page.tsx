@@ -76,18 +76,18 @@ export default async function HomePage() {
         </section>
       ) : null}
 
-      <section className="mx-auto max-w-[90rem] px-4 py-18 sm:px-6 sm:py-22 lg:px-8">
+      <section className="deferred-section mx-auto max-w-[90rem] px-4 py-14 sm:px-6 sm:py-18 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
           <div>
             <p className="text-sm font-semibold text-accent">{t.paths.eyebrow}</p>
-            <h2 className="mt-3 max-w-xl font-serif text-4xl font-semibold leading-tight sm:text-5xl">{t.paths.title}</h2>
+            <h2 className="mt-3 max-w-xl font-serif text-3xl font-semibold leading-tight sm:text-4xl">{t.paths.title}</h2>
           </div>
           <p className="max-w-2xl text-base leading-8 text-muted lg:justify-self-end">
             {t.paths.intro}
           </p>
         </div>
 
-        <div className="mt-10 border-y border-border lg:grid lg:grid-cols-3">
+        <div className="mt-8 border-y border-border lg:grid lg:grid-cols-3">
           {researchPaths.map((path, index) => (
             <Link key={path.href} href={path.href} className={`research-path group ${index ? "border-t border-border lg:border-s lg:border-t-0" : ""}`}>
               <span className="research-path__icon"><PathIcon name={path.icon} /></span>
@@ -104,29 +104,29 @@ export default async function HomePage() {
       </section>
 
       {featured.length > 0 ? (
-        <section className="library-stage border-y border-border">
-          <div className="mx-auto max-w-[90rem] px-4 py-18 sm:px-6 sm:py-22 lg:px-8">
+        <section className="deferred-section library-stage border-y border-border">
+          <div className="mx-auto max-w-[90rem] px-4 py-14 sm:px-6 sm:py-18 lg:px-8">
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div>
                 <p className="text-sm font-semibold text-[color:var(--stage-accent)]">{t.collections.eyebrow}</p>
-                <h2 className="mt-2 font-serif text-4xl font-semibold text-[color:var(--stage-ink)] sm:text-5xl">{t.collections.title}</h2>
+                <h2 className="mt-2 font-serif text-3xl font-semibold text-[color:var(--stage-ink)] sm:text-4xl">{t.collections.title}</h2>
               </div>
               <Link href="/books" className="inline-flex items-center gap-2 text-sm font-semibold text-[color:var(--stage-accent)] hover:underline">
                 {t.collections.viewAll} <span aria-hidden className="rtl:-scale-x-100">→</span>
               </Link>
             </div>
 
-            <div className="mt-14 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
               {featured.map((book, index) => <BookCard key={book.id} book={book} index={index + 1} />)}
             </div>
           </div>
         </section>
       ) : null}
 
-      <section className="mx-auto grid max-w-[90rem] gap-12 px-4 py-20 sm:px-6 sm:py-24 lg:grid-cols-[0.85fr_1.15fr] lg:items-start lg:px-8">
+      <section className="deferred-section mx-auto grid max-w-[90rem] gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[0.85fr_1.15fr] lg:items-start lg:px-8">
         <div className="lg:sticky lg:top-28">
           <p dir="rtl" lang="ar" className={`${amiri.className} text-3xl text-gold`}>{t.evidence.arabic}</p>
-          <h2 className="mt-4 max-w-xl font-serif text-4xl font-semibold leading-tight sm:text-5xl">{t.evidence.title}</h2>
+          <h2 className="mt-4 max-w-xl font-serif text-3xl font-semibold leading-tight sm:text-4xl">{t.evidence.title}</h2>
           <p className="mt-5 max-w-xl text-base leading-8 text-muted">
             {t.evidence.intro}
           </p>

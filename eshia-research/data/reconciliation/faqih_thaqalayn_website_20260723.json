@@ -1,0 +1,284 @@
+{
+  "schema_version": "thaqalayn-website-reconciliation-v1",
+  "corpus_key": "faqih",
+  "inventory_sha256": "f346e6c0c00ac79eb4b2af2f2e235ae9d2d017a33b779f37f32b0032239aa5ef",
+  "reviewed_at": "2026-07-23",
+  "review_basis": "Rendered Thaqalayn website Arabic, printed numbering, bounded order, and local Arabic edition",
+  "manual_relations": [
+    {
+      "public_id": "faqih-176",
+      "website_path": "/hadith/34/1/19/177",
+      "classification": "website_field_anomaly",
+      "note": "The website rendered English in the Arabic field; printed number and displayed English identify the local Arabic report.",
+      "local_arabic_sha256": "2dd9f59fa4249ee44db3f5f66c568dfd587c18d46da250455f240c959a459682",
+      "website_arabic_sha256": "198e48649bc69a36dd89ff68a9e88a381e2facaeb77bd0f99e6b32d1d9d8ecc4"
+    },
+    {
+      "public_id": "faqih-183",
+      "website_path": "/hadith/34/1/20/184",
+      "classification": "website_field_anomaly",
+      "note": "The website rendered English in the Arabic field; printed number and displayed English identify the local Arabic report.",
+      "local_arabic_sha256": "53192779bcf2e152bcb56691dd259b3ef2adbc52c090cc22a34b2227c72f3551",
+      "website_arabic_sha256": "55e3d9a1b64fc9792515e4b36e89347f5c2ad5a058eca41ff8031eea1f6af4d8"
+    },
+    {
+      "public_id": "faqih-4384",
+      "website_path": "/hadith/36/3/18/1",
+      "classification": "website_field_anomaly",
+      "note": "The website rendered English in the Arabic field; printed number and displayed English identify the local Arabic report.",
+      "local_arabic_sha256": "80f8e3e31c20fcd244eb65ef3bd030b4b464f280c5d63c982b9c6ed99fbecfdd",
+      "website_arabic_sha256": "47d240d9cd805744b144da906578a028e34689a7563a9327a0a32c4e41c18496"
+    },
+    {
+      "public_id": "faqih-5706",
+      "website_path": "/hadith/37/1/170/5717",
+      "classification": "manual_ordered_alignment",
+      "note": "Printed number, bounded order, and ordered Arabic overlap identify the report.",
+      "local_arabic_sha256": "1e18052c1919ac5f797f122abb7c1dbae58943171f234c3ce15cb5de80933e33",
+      "website_arabic_sha256": "c81f5a1292ee7817c295eed699953d23715fd9df2651d089234ff99b1008d992"
+    },
+    {
+      "public_id": "faqih-5707",
+      "website_path": "/hadith/37/1/170/5718",
+      "classification": "manual_ordered_alignment",
+      "note": "Printed number, bounded order, and ordered Arabic overlap identify the report.",
+      "local_arabic_sha256": "cb766bf338d1db77a22baeab69a8b16ffff40f37864b9897d778dd0d32435500",
+      "website_arabic_sha256": "a519c775fe21881c2c3fb6275b559fafc48f666332b18b6a019276aeed267c8e"
+    },
+    {
+      "public_id": "faqih-5751",
+      "website_path": "/hadith/37/1/174/5762",
+      "classification": "partial_website_continuation",
+      "note": "The website route explicitly marks itself as a continuation of the long report; it is not a complete translation witness.",
+      "local_arabic_sha256": "68680537512a3ff860f05d1e69eaf8daed63b3a2b2a302b4e374575f094c8d1d",
+      "website_arabic_sha256": "ea92a73b994ca44e99dbb3493c1a5e38546502600c11e4070a9acb65db5a5081"
+    },
+    {
+      "public_id": "faqih-3205",
+      "website_path": "/hadith/35/3/162/1",
+      "classification": "website_continuation",
+      "note": "The second website route is an editorial subdivision continuing the same transmitted ziyara report.",
+      "local_arabic_sha256": "b37b3b8b451f883bb1dd5b0e2b9cb262b02bef016d9f14fcdf7e8033bf7759c0",
+      "website_arabic_sha256": "ef82c59321f988877e2388faf9f6e6aa5fa4c920c1ca77d4491933315c148ff4"
+    },
+    {
+      "public_id": "faqih-3205",
+      "website_path": "/hadith/35/3/162/2",
+      "classification": "website_continuation",
+      "note": "The second website route is an editorial subdivision continuing the same transmitted ziyara report.",
+      "local_arabic_sha256": "b37b3b8b451f883bb1dd5b0e2b9cb262b02bef016d9f14fcdf7e8033bf7759c0",
+      "website_arabic_sha256": "ed6edaad4311360a1eecad843db073c70fd3f834060eb6592a4ee5a63ad944b0"
+    },
+    {
+      "public_id": "faqih-3207",
+      "website_path": "/hadith/35/3/164/2",
+      "classification": "website_continuation",
+      "note": "The second website route is an editorial subdivision continuing the same transmitted ziyara report.",
+      "local_arabic_sha256": "19bd32a8a4d85efb88ebc5eb59485f73ccb61b2a0c0c5cdd6a1c6d30b0be2a2b",
+      "website_arabic_sha256": "0d2f2b72aa6409ae770a44ab9ddecff9caf4155533fe96baa42f4de59481a34d"
+    },
+    {
+      "public_id": "faqih-3207",
+      "website_path": "/hadith/35/3/164/3",
+      "classification": "website_continuation",
+      "note": "The second website route is an editorial subdivision continuing the same transmitted ziyara report.",
+      "local_arabic_sha256": "19bd32a8a4d85efb88ebc5eb59485f73ccb61b2a0c0c5cdd6a1c6d30b0be2a2b",
+      "website_arabic_sha256": "8f5f0dc3e44ad1bed50776e5b57b508e2c50e0fdc9f8d4da5df06fc32bda6026"
+    },
+    {
+      "public_id": "faqih-5422",
+      "website_path": "/hadith/37/1/85/5430",
+      "classification": "duplicate_website_occurrence",
+      "note": "The website repeats this report under a later global number; the local edition preserves one occurrence at printed report 5430.",
+      "local_arabic_sha256": "f84eead3204e2601973dc7c519d98433b3c1bbd7cf877fde90971945076e7f1b",
+      "website_arabic_sha256": "42c69b4cfd34276b5068c7acbf67964fecacc13e93ae6fd60b319839334a10f5"
+    },
+    {
+      "public_id": "faqih-5422",
+      "website_path": "/hadith/37/1/96/5467",
+      "classification": "duplicate_website_occurrence",
+      "note": "The website repeats this report under a later global number; the local edition preserves one occurrence at printed report 5430.",
+      "local_arabic_sha256": "f84eead3204e2601973dc7c519d98433b3c1bbd7cf877fde90971945076e7f1b",
+      "website_arabic_sha256": "cd43ad76dfaa36c747d3f039a417862ecf5f2b34c827caca8afb8c6b2b815d54"
+    }
+  ],
+  "excluded_relations": [
+    {
+      "public_id": "faqih-1575",
+      "website_path": "/hadith/35/1/1/0",
+      "classification": "editorial_or_nonindependent_material",
+      "note": "The website route is the compiler preface, not a transmitted report.",
+      "local_arabic_sha256": "672a4e26c6a332dc70618b9de5edea7822bd2758e694521e31df131e01e7e9a4",
+      "website_arabic_sha256": "d46deadf1bf3f9374297a08be6666ec7932a3775035171d787d4ad495f2a4423"
+    },
+    {
+      "public_id": "faqih-2320",
+      "website_path": "/hadith/35/3/2/30",
+      "classification": "editorial_or_nonindependent_material",
+      "note": "The website route is compiler history and commentary following numbered report 2324.",
+      "local_arabic_sha256": "979daf681c70ead9fdbe93d96fcf50bc5e54b9166a7cc72ae53c26bc98a3d260",
+      "website_arabic_sha256": "b699f761249dd336945b14dbc4289c429e4f7d1084fd6587790d25d3c144ad9f"
+    },
+    {
+      "public_id": "faqih-3131",
+      "website_path": "/hadith/35/3/150/21",
+      "classification": "editorial_or_nonindependent_material",
+      "note": "Post-report ritual instruction, not part of numbered report 3137.",
+      "local_arabic_sha256": "2f5c59c1fcfd5a7f3df4edac7af34a971b5cfafd44110d532a2bb7d548df6b7d",
+      "website_arabic_sha256": "2478b55af66f38de5049838ecba927bd4e224f3692ac447b84af35e40ee20be5"
+    },
+    {
+      "public_id": "faqih-3131",
+      "website_path": "/hadith/35/3/150/22",
+      "classification": "editorial_or_nonindependent_material",
+      "note": "Post-report ritual instruction, not part of numbered report 3137.",
+      "local_arabic_sha256": "2f5c59c1fcfd5a7f3df4edac7af34a971b5cfafd44110d532a2bb7d548df6b7d",
+      "website_arabic_sha256": "416b933d80c57042755b69246749c04b4ccb7a35057438cf066e1512fcd4be35"
+    },
+    {
+      "public_id": "faqih-3131",
+      "website_path": "/hadith/35/3/150/23",
+      "classification": "editorial_or_nonindependent_material",
+      "note": "Post-report ritual instruction, not part of numbered report 3137.",
+      "local_arabic_sha256": "2f5c59c1fcfd5a7f3df4edac7af34a971b5cfafd44110d532a2bb7d548df6b7d",
+      "website_arabic_sha256": "1867f19fd03c4910f26af9fc450133f1b1b1283b7a22012859b9808c4c3fa850"
+    },
+    {
+      "public_id": "faqih-3131",
+      "website_path": "/hadith/35/3/150/24",
+      "classification": "editorial_or_nonindependent_material",
+      "note": "Post-report ritual instruction, not part of numbered report 3137.",
+      "local_arabic_sha256": "2f5c59c1fcfd5a7f3df4edac7af34a971b5cfafd44110d532a2bb7d548df6b7d",
+      "website_arabic_sha256": "84c1a6bb7518e3a998c7e379a76cbbc4b76319f9f14fed2728f3369e98cf026f"
+    },
+    {
+      "public_id": "faqih-3131",
+      "website_path": "/hadith/35/3/150/25",
+      "classification": "editorial_or_nonindependent_material",
+      "note": "Post-report ritual instruction, not part of numbered report 3137.",
+      "local_arabic_sha256": "2f5c59c1fcfd5a7f3df4edac7af34a971b5cfafd44110d532a2bb7d548df6b7d",
+      "website_arabic_sha256": "88c6c931a9dabee7646a9f3ed6f150256e87c21119fe1e7e2773cdeca6cd7738"
+    },
+    {
+      "public_id": "faqih-3131",
+      "website_path": "/hadith/35/3/150/26",
+      "classification": "editorial_or_nonindependent_material",
+      "note": "Post-report ritual instruction, not part of numbered report 3137.",
+      "local_arabic_sha256": "2f5c59c1fcfd5a7f3df4edac7af34a971b5cfafd44110d532a2bb7d548df6b7d",
+      "website_arabic_sha256": "4ee823b09a6b151066f22507184f49933e0b68afffb493d8eff2209fe620b760"
+    },
+    {
+      "public_id": "faqih-3131",
+      "website_path": "/hadith/35/3/150/27",
+      "classification": "editorial_or_nonindependent_material",
+      "note": "Post-report ritual instruction, not part of numbered report 3137.",
+      "local_arabic_sha256": "2f5c59c1fcfd5a7f3df4edac7af34a971b5cfafd44110d532a2bb7d548df6b7d",
+      "website_arabic_sha256": "7498f16661a836e7a66a89caae3cf5db71fc7a1a8ecaf3bd3d716fd5495671d2"
+    },
+    {
+      "public_id": "faqih-3131",
+      "website_path": "/hadith/35/3/150/28",
+      "classification": "editorial_or_nonindependent_material",
+      "note": "Post-report ritual instruction, not part of numbered report 3137.",
+      "local_arabic_sha256": "2f5c59c1fcfd5a7f3df4edac7af34a971b5cfafd44110d532a2bb7d548df6b7d",
+      "website_arabic_sha256": "9bb40418bc3181c3a0e451c80286e285495d83f02125b2d1791a839b94685c88"
+    },
+    {
+      "public_id": "faqih-3131",
+      "website_path": "/hadith/35/3/150/29",
+      "classification": "editorial_or_nonindependent_material",
+      "note": "Post-report ritual instruction, not part of numbered report 3137.",
+      "local_arabic_sha256": "2f5c59c1fcfd5a7f3df4edac7af34a971b5cfafd44110d532a2bb7d548df6b7d",
+      "website_arabic_sha256": "fbf99629b23119e8f55bb6fb50ddbc39fe5f5f540ff2345cefdb0cde92ca17c6"
+    },
+    {
+      "public_id": "faqih-3131",
+      "website_path": "/hadith/35/3/150/30",
+      "classification": "editorial_or_nonindependent_material",
+      "note": "Post-report ritual instruction, not part of numbered report 3137.",
+      "local_arabic_sha256": "2f5c59c1fcfd5a7f3df4edac7af34a971b5cfafd44110d532a2bb7d548df6b7d",
+      "website_arabic_sha256": "8f57be05aa7c11ffed451940b3a231262abb53a13be19b5d7e119b2495e67d20"
+    },
+    {
+      "public_id": "faqih-3131",
+      "website_path": "/hadith/35/3/150/31",
+      "classification": "editorial_or_nonindependent_material",
+      "note": "Post-report ritual instruction, not part of numbered report 3137.",
+      "local_arabic_sha256": "2f5c59c1fcfd5a7f3df4edac7af34a971b5cfafd44110d532a2bb7d548df6b7d",
+      "website_arabic_sha256": "d97a5d505bc77065866a4b220fde373b4de68e0c10b00c8a8c8e7906eeaf672c"
+    },
+    {
+      "public_id": "faqih-3131",
+      "website_path": "/hadith/35/3/150/32",
+      "classification": "editorial_or_nonindependent_material",
+      "note": "Post-report ritual instruction, not part of numbered report 3137.",
+      "local_arabic_sha256": "2f5c59c1fcfd5a7f3df4edac7af34a971b5cfafd44110d532a2bb7d548df6b7d",
+      "website_arabic_sha256": "58d6f17b3322325fcd3afd037d68afcd82fd0dc7cbe308fb7a915289212820da"
+    },
+    {
+      "public_id": "faqih-3131",
+      "website_path": "/hadith/35/3/150/33",
+      "classification": "editorial_or_nonindependent_material",
+      "note": "Post-report ritual instruction, not part of numbered report 3137.",
+      "local_arabic_sha256": "2f5c59c1fcfd5a7f3df4edac7af34a971b5cfafd44110d532a2bb7d548df6b7d",
+      "website_arabic_sha256": "f5c05e2d71bcf47780e2d9b6f5800ae0166f3f385b979c63f477bcefb51123db"
+    },
+    {
+      "public_id": "faqih-3131",
+      "website_path": "/hadith/35/3/150/34",
+      "classification": "editorial_or_nonindependent_material",
+      "note": "Post-report ritual instruction, not part of numbered report 3137.",
+      "local_arabic_sha256": "2f5c59c1fcfd5a7f3df4edac7af34a971b5cfafd44110d532a2bb7d548df6b7d",
+      "website_arabic_sha256": "b3bff2a5eb835a4f18b75e76f661f557c8380e1c32272ecd39c28ab0ba9896a9"
+    },
+    {
+      "public_id": "faqih-3131",
+      "website_path": "/hadith/35/3/150/35",
+      "classification": "editorial_or_nonindependent_material",
+      "note": "Post-report ritual instruction, not part of numbered report 3137.",
+      "local_arabic_sha256": "2f5c59c1fcfd5a7f3df4edac7af34a971b5cfafd44110d532a2bb7d548df6b7d",
+      "website_arabic_sha256": "96fca0312c0e7c3cab2cfdbaca555173826fd9328c627b990e8aee74f9f2b75a"
+    },
+    {
+      "public_id": "faqih-3131",
+      "website_path": "/hadith/35/3/150/36",
+      "classification": "editorial_or_nonindependent_material",
+      "note": "Post-report ritual instruction, not part of numbered report 3137.",
+      "local_arabic_sha256": "2f5c59c1fcfd5a7f3df4edac7af34a971b5cfafd44110d532a2bb7d548df6b7d",
+      "website_arabic_sha256": "1bc2dc45e291001632a7f30aa9a7881f4703bb2e00e3417a280b3701549c9908"
+    },
+    {
+      "public_id": "faqih-3131",
+      "website_path": "/hadith/35/3/150/37",
+      "classification": "editorial_or_nonindependent_material",
+      "note": "Post-report ritual instruction, not part of numbered report 3137.",
+      "local_arabic_sha256": "2f5c59c1fcfd5a7f3df4edac7af34a971b5cfafd44110d532a2bb7d548df6b7d",
+      "website_arabic_sha256": "dcf3204ff2f162d5c1034d25b6af4972bbbed6d9d7cc0436d662988d8bee38db"
+    },
+    {
+      "public_id": "faqih-3195",
+      "website_path": "/hadith/35/3/157/8",
+      "classification": "editorial_or_nonindependent_material",
+      "note": "The website route is a following visit instruction, not part of numbered report 3200.",
+      "local_arabic_sha256": "5098c4bc0b8acb9cbcfeaf58f632926779f6b28490bd681d83274bc025480d3e",
+      "website_arabic_sha256": "46c89241d026aca3521cf4560fc6268c5942a98ebca0c9afd3f91ab8fb6b1fef"
+    },
+    {
+      "public_id": "faqih-4789",
+      "website_path": "/hadith/36/4/2/0",
+      "classification": "editorial_or_nonindependent_material",
+      "note": "The route is generic divorce instruction from another chapter; numbered report 4795 is the actual witness.",
+      "local_arabic_sha256": "36277ffbcc72d2228318b63e9959bc32111ba238afd6e4461fc0dbdedfd792a1",
+      "website_arabic_sha256": "6c1a5f994689244e46530a954da2d683fb09ad76fe341b355c97d28d677f9ce2"
+    }
+  ],
+  "expected_residuals": {
+    "local_only_count": 95,
+    "local_only_sha256": "1b899f559fd4f9dbb5b9be63f01833209c03ea1ed23f449ebf08a0d2341b8151",
+    "local_only_evidence_sha256": "8d1506cb1638ac8b5d590a424de001a309c9cd2c180f20f97ca81cea8a67d56b",
+    "website_nonindependent_count": 95,
+    "website_nonindependent_sha256": "3f7295a565296049fbdc066935b2cde33c811a5fe73cc0776c42a1a277d7994b",
+    "website_numbered_gap_count": 0,
+    "website_numbered_gap_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  }
+}

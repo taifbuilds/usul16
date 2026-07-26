@@ -287,6 +287,14 @@ function ChainNodeChip({ node }: { node: ChainNodeRead }) {
   const phrase = node.transmission_phrase ? formatArabicText(node.transmission_phrase) : null;
 
   if (node.person_resolution) {
+    // A pronoun_relation token is a verb+pronoun («سأله») or a relational word
+    // («أبيه», «عنه»), not a name — showing the raw token reads like a narrator.
+    // When it is resolved, label the chip with the person it refers to instead.
+    const resolvedPerson = node.person_resolution.resolved_person;
+    const displayLabel =
+      node.node_type === "pronoun_relation" && resolvedPerson
+        ? formatArabicText(resolvedPerson.canonical_name_ar)
+        : label;
     return (
       <span className="inline-flex items-center gap-1.5">
         {phrase ? <span className="text-muted/70">{phrase}</span> : null}
@@ -295,7 +303,7 @@ function ChainNodeChip({ node }: { node: ChainNodeRead }) {
             className={`inline-flex min-h-6 cursor-pointer list-none items-center rounded-full border px-2.5 py-1 ${personChipClass(node)}`}
             title={node.person_resolution.primary_dalil ?? personResolutionLabel(node)}
           >
-            <span>{label}</span>
+            <span>{displayLabel}</span>
             <span className="ms-1 text-[0.65em] opacity-70">{personResolutionLabel(node)}</span>
           </summary>
           <PersonResolutionPopover node={node} />
@@ -673,7 +681,7 @@ export function HadithBody({
     });
 
   return (
-    <div>
+    <div className="min-w-0 max-w-full overflow-hidden">
       {paragraphs.map((paragraph) => {
         const activeIndex =
           active && active.startsWith(`${paragraph.key}:`)
@@ -716,14 +724,16 @@ export function HadithBody({
           lang="en"
           className="group mt-6 overflow-hidden rounded-md border border-accent/25 bg-background text-left"
         >
-          <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm transition hover:bg-badge-verified/40 sm:px-5">
+          <summary className="flex min-h-11 cursor-pointer list-none flex-col items-start justify-between gap-1.5 px-4 py-3 text-sm transition hover:bg-badge-verified/40 sm:flex-row sm:items-center sm:gap-3 sm:px-5">
             <span className="flex items-center gap-2 font-medium text-accent">
               <span aria-hidden="true">A</span>
               <span className="group-open:hidden">Read English translation</span>
               <span className="hidden group-open:inline">Hide English translation</span>
             </span>
-            <span className="flex items-center gap-2 text-xs text-muted">
-              {translationSource ?? "English translation"}
+            <span className="flex w-full min-w-0 max-w-full items-center gap-2 text-left text-xs text-muted sm:w-auto">
+              <span className="min-w-0 break-words">
+                {translationSource ?? "English translation"}
+              </span>
               <span aria-hidden="true" className="transition group-open:rotate-180">⌄</span>
             </span>
           </summary>
@@ -747,11 +757,6 @@ export function HadithBody({
                 </p>
               </>
             )}
-            {gradings && gradings.length > 0 ? (
-              <div className="mt-5 border-t border-dashed border-border pt-4">
-                <GradingChips gradings={gradings} />
-              </div>
-            ) : null}
             <p className="mt-4 text-xs leading-relaxed text-muted">
               {translationSource ? (
                 <>
@@ -770,6 +775,12 @@ export function HadithBody({
             </p>
           </div>
         </details>
+      ) : null}
+
+      {gradings && gradings.length > 0 ? (
+        <div dir="ltr" lang="en" className="mt-5 text-left">
+          <GradingChips gradings={gradings} />
+        </div>
       ) : null}
 
       {notes.length > 0 ? (

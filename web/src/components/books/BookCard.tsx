@@ -5,7 +5,7 @@ import { formatArabicTitle } from "@/lib/arabic";
 import type { BookSummary } from "@/lib/api/types";
 import { corpusMaturity } from "@/lib/corpus-maturity";
 
-type CoverRecord = {
+export type EditionCoverRecord = {
   label: string;
   src?: string;
 };
@@ -15,7 +15,7 @@ type CoverRecord = {
  * source record. Never add a designed substitute here: an honest archival
  * placeholder is preferable to a plausible but fabricated binding.
  */
-const EDITION_COVERS: Record<string, CoverRecord> = {
+const EDITION_COVERS: Record<string, EditionCoverRecord> = {
   "11005": { label: "Al-Kafi", src: "/covers/eshia/11005.jpg" },
   "11021": { label: "Man La Yahduruhu al-Faqih", src: "/covers/eshia/11021.jpg" },
   "10083": { label: "Tahdhib al-Ahkam", src: "/covers/eshia/10083.jpg" },
@@ -34,9 +34,13 @@ const EDITION_COVERS: Record<string, CoverRecord> = {
   "86758": { label: "Rijal al-Barqi" },
 };
 
+export function getEditionCover(sourceBookId: string): EditionCoverRecord | undefined {
+  return EDITION_COVERS[sourceBookId];
+}
+
 export function BookCard({ book, index = 0 }: { book: BookSummary; index?: number }) {
   const title = formatArabicTitle(book.title_original);
-  const cover = EDITION_COVERS[book.source_book_id];
+  const cover = getEditionCover(book.source_book_id);
   const maturity = corpusMaturity(book.source_book_id);
   const label = cover?.label ?? title;
   const volumes = book.volume_count

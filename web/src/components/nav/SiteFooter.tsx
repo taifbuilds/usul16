@@ -11,8 +11,8 @@ export function SiteFooter({ foot }: { foot: Dictionary["footer"] }) {
   ];
 
   return (
-    <footer className="mt-24 border-t border-border bg-background-2">
-      <div className="mx-auto grid max-w-[90rem] gap-12 px-4 py-14 sm:px-6 lg:grid-cols-[1.15fr_0.85fr_0.9fr] lg:px-8">
+    <footer className="mt-16 border-t border-border bg-background-2 sm:mt-24">
+      <div className="mx-auto grid max-w-[90rem] gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[1.15fr_0.85fr_0.9fr] lg:px-8 lg:py-14">
         <div>
           <div className="flex items-center gap-3">
             <span className="brand-mark brand-mark--quiet" aria-hidden><span className={`${amiri.className} text-base leading-none`}>١٦</span></span>

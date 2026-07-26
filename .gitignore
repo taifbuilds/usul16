@@ -67,3 +67,22 @@ eshia-research/scratch_audit/alkafi_thaqalayn_structure_manifest_*.json
 Thumbs.db
 .DS_Store
 
+
+# Deployment archives
+*.tgz
+*.tar
+*.tar.gz
+*.zip
+
+# Local backups
+*-BACKUP*/
+*_BACKUP*/
+backup/
+backups/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Desktop.ini

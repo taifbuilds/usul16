@@ -10,6 +10,7 @@ from eshia_research.models import (
     Hadith,
     MentionResolution,
     Person,
+    PersonSurfaceForm,
     RijalEntry,
 )
 from eshia_research.normalise import normalise_arabic_persian
@@ -53,7 +54,15 @@ def add_entry(db: Session, book: Book, number: int, name: str, text: str = "") -
     db.flush()
 
 
-def make_chain(db: Session, book: Book, public_id: str, seq: int, nodes: list[dict]) -> Chain:
+def make_chain(
+    db: Session,
+    book: Book,
+    public_id: str,
+    seq: int,
+    nodes: list[dict],
+    *,
+    review_status: str = "pending",
+) -> Chain:
     hadith = Hadith(
         public_id=public_id,
         book_id=book.id,
@@ -72,7 +81,12 @@ def make_chain(db: Session, book: Book, public_id: str, seq: int, nodes: list[di
     )
     db.add(hadith)
     db.flush()
-    chain = Chain(hadith_id=hadith.id, chain_number=1, raw_isnad="x")
+    chain = Chain(
+        hadith_id=hadith.id,
+        chain_number=1,
+        raw_isnad="x",
+        review_status=review_status,
+    )
     db.add(chain)
     db.flush()
     for pos, spec in enumerate(nodes):
@@ -145,6 +159,98 @@ def test_unique_surface_form_resolves(seeded):
     assert rows[0].person_id == person_id(db, "الحسن بن محبوب")
 
 
+def test_needs_review_chain_is_deferred_unless_explicitly_included(seeded):
+    db, kafi = seeded
+    unique_name = norm("al-hasan ibn mahbub")
+    chain = make_chain(
+        db,
+        kafi,
+        "k-review",
+        99,
+        [{"norm": unique_name, "type": "named_narrator"}],
+        review_status="needs_review",
+    )
+
+    # Add an ASCII alias so this safety test does not depend on source encoding.
+    target_person = db.execute(select(Person).order_by(Person.id)).scalars().first()
+    db.add(
+        PersonSurfaceForm(
+            person_id=target_person.id,
+            form_raw=unique_name,
+            form_norm=unique_name,
+            derivation="entry_title",
+            shared_count=1,
+        )
+    )
+    db.flush()
+
+    stats = rebuild_person_resolutions(db, book_ids=[kafi.id])
+    assert stats.nodes_seen == 0
+    assert stats.skipped_review_chains == 1
+    assert stats.skipped_review_nodes == 1
+    assert resolutions_for(db, chain, 0) == []
+
+    included = rebuild_person_resolutions(
+        db,
+        book_ids=[kafi.id],
+        include_needs_review=True,
+    )
+    assert included.nodes_seen == 1
+    assert included.skipped_review_chains == 0
+    assert len(resolutions_for(db, chain, 0)) == 1
+
+
+def test_explicit_imam_name_resolves_to_masum_not_namesake(seeded):
+    db, kafi = seeded
+    chain = make_chain(
+        db,
+        kafi,
+        "k-imam",
+        10,
+        [{"norm": norm("موسى بن جعفر عليه السلام"), "type": "imam"}],
+    )
+
+    rebuild_person_resolutions(db, book_ids=[kafi.id])
+
+    row = resolutions_for(db, chain, 0)[0]
+    assert row.status == "resolved"
+    assert row.method == "imam_explicit_identity"
+    assert db.get(Person, row.person_id).kind == "masum"
+    assert norm("الكاظم") in db.get(Person, row.person_id).canonical_name_norm
+
+
+def test_previous_hadith_imam_reference_uses_resolved_terminal_imam(seeded):
+    db, kafi = seeded
+    make_chain(
+        db,
+        kafi,
+        "k-imam-anchor",
+        10,
+        [{"norm": norm("موسى بن جعفر عليه السلام"), "type": "imam"}],
+    )
+    continuation = make_chain(
+        db,
+        kafi,
+        "k-imam-continuation",
+        11,
+        [
+            {"norm": norm("الحسن بن محبوب"), "type": "named_narrator"},
+            {
+                "norm": norm("سأله"),
+                "type": "pronoun_relation",
+                "relation": "previous_hadith_imam",
+            },
+        ],
+    )
+
+    rebuild_person_resolutions(db, book_ids=[kafi.id])
+
+    row = resolutions_for(db, continuation, 1)[0]
+    assert row.status == "resolved"
+    assert row.method == "anaphora_previous_hadith_imam"
+    assert norm("الكاظم") in db.get(Person, row.person_id).canonical_name_norm
+
+
 def test_bare_form_is_ambiguous_not_falsely_resolved(seeded):
     db, kafi = seeded
     chain = make_chain(db, kafi, "k-2", 2, [
@@ -198,6 +304,12 @@ def test_father_reference_mints_latent_when_unmatched(seeded):
     latent = db.get(Person, rows[0].person_id)
     assert latent.kind == "latent"
     assert latent.canonical_name_norm == norm("سعد بن خلف")
+
+    first_latent_id = latent.id
+    rerun = rebuild_person_resolutions(db, book_ids=[kafi.id])
+    rerun_rows = resolutions_for(db, chain, 1)
+    assert rerun.latent_minted == 0
+    assert rerun_rows[0].person_id == first_latent_id
 
 
 def test_collective_named_member_via_collective(seeded):

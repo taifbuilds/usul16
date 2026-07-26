@@ -5,7 +5,12 @@ from sqlalchemy.orm import Session, sessionmaker
 from eshia_research.db import Base, make_engine
 from eshia_research.models import Book, Chain, ChainNode, Hadith, MentionResolution, Person, RijalEntry
 from eshia_research.normalise import normalise_arabic_persian
-from eshia_research.rijal.collective_resolver import refine_compiler_priors, refine_with_collective_context
+from eshia_research.rijal.collective_resolver import (
+    refine_compiler_priors,
+    refine_imam_kunya_priors,
+    refine_previous_hadith_imam_anaphora,
+    refine_with_collective_context,
+)
 from eshia_research.rijal.person_builder import build_person_layer
 from eshia_research.rijal.person_resolver import rebuild_person_resolutions
 
@@ -72,7 +77,9 @@ def make_chain(
     chain = Chain(hadith_id=hadith.id, chain_number=chain_number, raw_isnad="x")
     db.add(chain)
     db.flush()
-    for position, (token, node_type) in enumerate(tokens):
+    for position, spec in enumerate(tokens):
+        token, node_type = spec[0], spec[1]
+        relation_kind = spec[2] if len(spec) > 2 else None
         db.add(
             ChainNode(
                 chain_id=chain.id,
@@ -80,6 +87,7 @@ def make_chain(
                 raw_token=norm(token),
                 token_normalised=norm(token),
                 node_type=node_type,
+                relation_kind=relation_kind,
             )
         )
     db.flush()
@@ -509,6 +517,165 @@ def test_generation_veto_blocks_chronologically_impossible_context_winner(seeded
     refine_with_collective_context(db, book_ids=[kafi.id])
     # The edge-supported al-Ash'ari pick is vetoed, so the node stays honest.
     assert resolutions_for(db, target, 1)[0].status == "ambiguous"
+
+
+def test_imam_kunya_prior_resolves_abu_abdallah_to_sadiq(seeded):
+    db, kafi = seeded
+    faqih = Book(
+        source_book_id="11021",
+        title_original="f",
+        title_normalised="f",
+        source_url="https://lib.eshia.ir/11021",
+    )
+    db.add(faqih)
+    db.flush()
+    chain = make_chain(
+        db,
+        faqih,
+        "abu-abdallah",
+        1,
+        [
+            ("محمد بن مسلم", "named_narrator"),
+            ("أبي عبد الله ع", "imam"),
+        ],
+    )
+    rebuild_person_resolutions(db, book_ids=[faqih.id])
+    before = resolutions_for(db, chain, 1)
+    assert before[0].status == "ambiguous"
+    candidate_ids = {row.person_id for row in before}
+    assert person_id(db, "جعفر بن محمد الصادق عليه السلام") in candidate_ids
+    assert person_id(db, "الحسين بن علي سيد الشهداء عليه السلام") in candidate_ids
+
+    stats = refine_imam_kunya_priors(db, book_ids=[faqih.id])
+    rows = resolutions_for(db, chain, 1)
+
+    assert stats.nodes_examined == 1
+    assert stats.nodes_resolved == 1
+    assert rows[0].status == "resolved"
+    assert rows[0].method == "imam_kunya_prior"
+    assert rows[0].person_id == person_id(db, "جعفر بن محمد الصادق عليه السلام")
+    assert rows[0].evidence_json["imam_kunya_prior"] == "abu_abdallah_sadiq"
+    # al-Husayn is retained as a ranked alternative, never dropped.
+    alt = [row for row in rows[1:] if row.person_id == person_id(db, "الحسين بن علي سيد الشهداء عليه السلام")]
+    assert len(alt) == 1
+    assert alt[0].status == "ambiguous"
+    assert alt[0].method == "imam_kunya_prior_alternative"
+
+    # Idempotent: a second run resolves nothing new.
+    again = refine_imam_kunya_priors(db, book_ids=[faqih.id])
+    assert again.nodes_resolved == 0
+
+
+def test_imam_kunya_prior_resolves_abu_jafar_to_baqir(seeded):
+    db, kafi = seeded
+    faqih = Book(
+        source_book_id="11021",
+        title_original="f",
+        title_normalised="f",
+        source_url="https://lib.eshia.ir/11021",
+    )
+    db.add(faqih)
+    db.flush()
+    chain = make_chain(
+        db,
+        faqih,
+        "abu-jafar",
+        1,
+        [
+            ("زرارة", "named_narrator"),
+            ("أبي جعفر ع", "imam"),
+        ],
+    )
+    rebuild_person_resolutions(db, book_ids=[faqih.id])
+    before = resolutions_for(db, chain, 1)
+    assert before[0].status == "ambiguous"
+    candidate_ids = {row.person_id for row in before}
+    assert person_id(db, "محمد بن علي الباقر عليه السلام") in candidate_ids
+    assert person_id(db, "محمد بن علي الجواد عليه السلام") in candidate_ids
+
+    stats = refine_imam_kunya_priors(db, book_ids=[faqih.id])
+    rows = resolutions_for(db, chain, 1)
+
+    assert stats.nodes_resolved == 1
+    assert rows[0].status == "resolved"
+    assert rows[0].method == "imam_kunya_prior"
+    assert rows[0].person_id == person_id(db, "محمد بن علي الباقر عليه السلام")
+    assert rows[0].evidence_json["imam_kunya_prior"] == "abu_jafar_baqir"
+
+
+def test_previous_hadith_imam_anaphora_propagates_after_kunya_prior(seeded):
+    db, kafi = seeded
+    faqih = Book(
+        source_book_id="11021",
+        title_original="f",
+        title_normalised="f",
+        source_url="https://lib.eshia.ir/11021",
+    )
+    db.add(faqih)
+    db.flush()
+    # Report 1 (seq 1): «... عن أبي عبد الله ع» — terminal Imam, left ambiguous by Phase B.
+    make_chain(
+        db,
+        faqih,
+        "serial-1",
+        1,
+        [("ابن مسكان", "named_narrator"), ("أبي عبد الله ع", "imam")],
+    )
+    # Report 2 (seq 2): «وسأله معاوية بن عمار عن ...» — questioner + pronoun to the previous Imam.
+    second = make_chain(
+        db,
+        faqih,
+        "serial-2",
+        2,
+        [
+            ("معاوية بن عمار", "named_narrator"),
+            ("سأله", "pronoun_relation", "previous_hadith_imam"),
+        ],
+    )
+    rebuild_person_resolutions(db, book_ids=[faqih.id])
+    # Before: the pronoun cannot resolve because report 1's Imam is still ambiguous.
+    assert resolutions_for(db, second, 1)[0].status == "unresolved"
+
+    kunya = refine_imam_kunya_priors(db, book_ids=[faqih.id], commit=False)
+    anaphora = refine_previous_hadith_imam_anaphora(db, book_ids=[faqih.id])
+    rows = resolutions_for(db, second, 1)
+
+    assert kunya.nodes_resolved == 1
+    assert anaphora.nodes_resolved == 1
+    assert rows[0].status == "resolved"
+    assert rows[0].method == "anaphora_imam_after_kunya_prior"
+    assert rows[0].person_id == person_id(db, "جعفر بن محمد الصادق عليه السلام")
+
+
+def test_imam_kunya_prior_leaves_explicit_imam_untouched(seeded):
+    db, kafi = seeded
+    faqih = Book(
+        source_book_id="11021",
+        title_original="f",
+        title_normalised="f",
+        source_url="https://lib.eshia.ir/11021",
+    )
+    db.add(faqih)
+    db.flush()
+    chain = make_chain(
+        db,
+        faqih,
+        "explicit-husayn",
+        1,
+        [
+            ("محمد بن مسلم", "named_narrator"),
+            ("الحسين بن علي ع", "imam"),
+        ],
+    )
+    rebuild_person_resolutions(db, book_ids=[faqih.id])
+    # Explicit al-Husayn resolves via imam_explicit_identity, not an ambiguous kunya.
+    before = resolutions_for(db, chain, 1)
+    assert before[0].status == "resolved"
+
+    stats = refine_imam_kunya_priors(db, book_ids=[faqih.id])
+    assert stats.nodes_resolved == 0
+    rows = resolutions_for(db, chain, 1)
+    assert rows[0].person_id == person_id(db, "الحسين بن علي سيد الشهداء عليه السلام")
 
 
 def test_roster_expands_after_context_resolves_next_bare_name(seeded):

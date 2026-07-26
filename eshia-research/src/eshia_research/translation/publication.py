@@ -10,19 +10,33 @@ from __future__ import annotations
 import json
 from collections.abc import Sequence
 
-from sqlalchemy import String, cast, func
+from sqlalchemy import String, and_, cast, func, or_
 
 from eshia_research.models import Hadith, HadithTranslation
 from eshia_research.translation import TRANSLATION_VERSION
 from eshia_research.translation.text import sha256_text
 
 
+# Clearly-labelled AI translation tier. These rows are NOT human editions and
+# never claim to be; they exist only to fill gaps where no human translation
+# exists, and the UI must tag them "AI translation — verify against the Arabic".
+# They still pass every non-provenance safety check (status, green risk level,
+# no critical flag, and — crucially — the source-hash currency test, so a row
+# auto-hides the moment its Arabic changes). Ranked LAST below, so a human
+# edition always wins when both exist.
+AI_TRANSLATION_VERSIONS = ("ai_sarwar_v1",)
+
 # Translation versions that may publish, in descending preference order. When a
 # hadith has more than one publishable row, the earliest version in this tuple
-# wins. "thaqalayn_live_v1" is the current verbatim Thaqalayn text (numbered
-# English isnad + matn); "matn_en_v1" is the earlier matn-only import that still
-# serves wherever no live row exists.
-PUBLIC_TRANSLATION_VERSIONS = ("thaqalayn_live_v1", TRANSLATION_VERSION)
+# wins. Rendered website text is authoritative; API and legacy imports remain
+# available as fallbacks and immutable source history; the AI tier fills only
+# what no human edition covers.
+PUBLIC_TRANSLATION_VERSIONS = (
+    "thaqalayn_website_v1",
+    "thaqalayn_live_v1",
+    TRANSLATION_VERSION,
+    *AI_TRANSLATION_VERSIONS,
+)
 
 PUBLIC_TRANSLATION_STATUSES = ("human_reviewed", "published")
 
@@ -115,6 +129,7 @@ def public_english_translation_candidate_filters() -> Sequence[object]:
     provenance_text = func.lower(func.coalesce(cast(HadithTranslation.provenance_json, String), ""))
     provider_text = func.lower(func.coalesce(HadithTranslation.provider, ""))
     model_text = func.lower(func.coalesce(HadithTranslation.model, ""))
+    is_ai_version = HadithTranslation.translation_version.in_(AI_TRANSLATION_VERSIONS)
     filters: list[object] = [
         HadithTranslation.language == "en",
         HadithTranslation.translation_version.in_(PUBLIC_TRANSLATION_VERSIONS),
@@ -123,13 +138,19 @@ def public_english_translation_candidate_filters() -> Sequence[object]:
         HadithTranslation.matn_translation.isnot(None),
         func.length(func.trim(HadithTranslation.matn_translation)) > 0,
     ]
+    # AI-marker exclusion applies to the HUMAN tier only — the AI tier is
+    # expected to carry those markers and is gated by its own explicit branch in
+    # is_public_english_translation().
     for marker in FORBIDDEN_AI_MARKERS:
         pattern = f"%{marker}%"
-        filters.extend(
-            (
-                ~provider_text.like(pattern),
-                ~model_text.like(pattern),
-                ~provenance_text.like(pattern),
+        filters.append(
+            or_(
+                is_ai_version,
+                and_(
+                    ~provider_text.like(pattern),
+                    ~model_text.like(pattern),
+                    ~provenance_text.like(pattern),
+                ),
             )
         )
     return tuple(filters)
@@ -183,6 +204,10 @@ def is_public_english_translation(
         return False
     if has_blocking_risk_flag(translation.risk_flags):
         return False
+    if translation.translation_version in AI_TRANSLATION_VERSIONS:
+        # Clearly-labelled AI tier: no human-source requirement (it isn't human,
+        # and the UI tags it as such), but still hash-guarded so stale text hides.
+        return source_hashes_are_current(translation, hadith)
     if has_forbidden_ai_marker(
         translation.provider,
         translation.model,

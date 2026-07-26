@@ -47,6 +47,7 @@ from eshia_research.models import (
 )
 from eshia_research.normalise import normalise_arabic_persian
 from eshia_research.rijal.name_grammar import parse_name
+from eshia_research.rijal.person_builder import MASUMIN
 
 PERSON_RESOLVER_VERSION = "tamyiz_b1"
 MAX_CANDIDATES = 6
@@ -189,6 +190,47 @@ _DERIVATION_RANK = {
 }
 
 
+def _masum_canonical_for_base(base: str) -> str:
+    base_norm = _n(base)
+    for canonical_name, bases in MASUMIN:
+        if base_norm in {_n(candidate) for candidate in bases}:
+            return _n(canonical_name)
+    raise ValueError(f"Unknown Ma'sum base: {base}")
+
+
+# These hints identify an explicitly named Ma'sum, not a shared kunya. Plain
+# Abu Abd Allah, Abu Ja'far, and Abu al-Hasan deliberately remain ambiguous
+# until contextual/tabaqat evidence selects among their historical claimants.
+_EXPLICIT_MASUM_HINTS: tuple[tuple[tuple[str, ...], str], ...] = (
+    ((_n("رسول الله"), _n("النبي")), _masum_canonical_for_base("النبي")),
+    ((_n("أمير المؤمنين"), _n("علي بن أبي طالب")), _masum_canonical_for_base("أمير المؤمنين")),
+    ((_n("فاطمة"), _n("الزهراء")), _masum_canonical_for_base("الزهراء")),
+    ((_n("الحسين بن علي"),), _masum_canonical_for_base("الحسين")),
+    ((_n("زين العابدين"), _n("علي بن الحسين"), _n("السجاد")), _masum_canonical_for_base("السجاد")),
+    ((_n("الباقر"),), _masum_canonical_for_base("الباقر")),
+    ((_n("جعفر بن محمد"), _n("الصادق")), _masum_canonical_for_base("الصادق")),
+    ((_n("موسى بن جعفر"), _n("الكاظم")), _masum_canonical_for_base("الكاظم")),
+    ((_n("علي بن موسى"), _n("الرضا")), _masum_canonical_for_base("الرضا")),
+    ((_n("الجواد"),), _masum_canonical_for_base("الجواد")),
+    ((_n("الهادي"),), _masum_canonical_for_base("الهادي")),
+    ((_n("العسكري"),), _masum_canonical_for_base("العسكري")),
+    ((_n("القائم"), _n("صاحب الزمان")), _masum_canonical_for_base("القائم")),
+)
+
+
+def _explicit_masum_person(token_norm: str, lookup: PersonLookup) -> int | None:
+    for hints, canonical_name in _EXPLICIT_MASUM_HINTS:
+        if not any(hint in token_norm for hint in hints):
+            continue
+        matches = [
+            pid
+            for pid, name in lookup.person_name.items()
+            if name == canonical_name and lookup.person_kind.get(pid) == "masum"
+        ]
+        return matches[0] if len(matches) == 1 else None
+    return None
+
+
 def build_person_lookup(db: Session) -> PersonLookup:
     form_index: dict[str, list[tuple[int, str, int]]] = defaultdict(list)
     for person_id, form_norm, derivation, shared in db.execute(
@@ -304,6 +346,8 @@ def split_collective_members(token_norm: str, lookup: PersonLookup) -> list[tupl
 @dataclass
 class PersonResolutionStats:
     nodes_seen: int = 0
+    skipped_review_chains: int = 0
+    skipped_review_nodes: int = 0
     resolved: int = 0
     ambiguous: int = 0
     via_collective: int = 0
@@ -331,6 +375,7 @@ def rebuild_person_resolutions(
     *,
     source_book_ids=None,
     book_ids=None,
+    include_needs_review: bool = False,
     on_progress: ProgressCallback | None = None,
     commit: bool = True,
 ) -> PersonResolutionStats:
@@ -353,19 +398,60 @@ def rebuild_person_resolutions(
     )
     db.flush()
 
-    chains = (
+    chain_query = (
         db.query(Chain.id, Chain.hadith_id)
         .join(Hadith, Chain.hadith_id == Hadith.id)
         .filter(
             Hadith.book_id.in_(selected_book_ids),
             Hadith.review_status != REJECTED_HADITH_STATUS,
         )
-        .order_by(Hadith.id, Chain.chain_number)
+    )
+    if not include_needs_review:
+        review_filter = (
+            Hadith.book_id.in_(selected_book_ids),
+            Hadith.review_status != REJECTED_HADITH_STATUS,
+            Chain.review_status == "needs_review",
+        )
+        stats.skipped_review_chains = (
+            db.query(Chain.id)
+            .join(Hadith, Chain.hadith_id == Hadith.id)
+            .filter(*review_filter)
+            .count()
+        )
+        stats.skipped_review_nodes = (
+            db.query(ChainNode.id)
+            .join(Chain, ChainNode.chain_id == Chain.id)
+            .join(Hadith, Chain.hadith_id == Hadith.id)
+            .filter(*review_filter)
+            .count()
+        )
+        chain_query = chain_query.filter(Chain.review_status != "needs_review")
+
+    chains = chain_query.order_by(
+        Hadith.book_id,
+        Hadith.sequence_in_book,
+        Hadith.id,
+        Chain.chain_number,
+    ).all()
+
+    previous_hadith_in_book: dict[int, int | None] = {}
+    previous_by_book: dict[int, int] = {}
+    ordered_hadiths = (
+        db.query(Hadith.id, Hadith.book_id)
+        .filter(
+            Hadith.book_id.in_(selected_book_ids),
+            Hadith.review_status != REJECTED_HADITH_STATUS,
+        )
+        .order_by(Hadith.book_id, Hadith.sequence_in_book, Hadith.id)
         .all()
     )
+    for ordered_hadith_id, ordered_book_id in ordered_hadiths:
+        previous_hadith_in_book[ordered_hadith_id] = previous_by_book.get(ordered_book_id)
+        previous_by_book[ordered_book_id] = ordered_hadith_id
 
     # Opening person of each chain, for «عنه» anaphora to the previous chain.
     opening_person_by_chain: dict[int, int | None] = {}
+    terminal_imam_by_hadith: dict[int, int | None] = {}
     prev_chain_in_hadith: dict[int, int | None] = {}
     last_chain_for_hadith: dict[int, int] = {}
     for chain_id, hadith_id in chains:
@@ -373,7 +459,14 @@ def rebuild_person_resolutions(
         last_chain_for_hadith[hadith_id] = chain_id
 
     total = len(chains)
-    minted_names: dict[str, int] = {}  # latent person cache within this run
+    # Reuse an existing latent relative on reruns; derived resolution rebuilds
+    # must not mint duplicate people for the same asserted nasab.
+    minted_names: dict[str, int] = {
+        f"latent::{name_norm}": person_id
+        for person_id, name_norm in db.execute(
+            select(Person.id, Person.canonical_name_norm).where(Person.kind == "latent")
+        )
+    }
     pending_persons: list[dict] = []
     next_latent_id = (db.query(Person.id).order_by(Person.id.desc()).first() or (0,))[0] + 1
 
@@ -408,8 +501,38 @@ def rebuild_person_resolutions(
             relation = node.relation_kind
 
             if node_type in ("named_narrator", "imam"):
-                cands, matched_form = lookup.candidates_for(node.token_normalised)
                 prev_token_norm = node.token_normalised
+                explicit_masum = (
+                    _explicit_masum_person(node.token_normalised, lookup)
+                    if node_type == "imam"
+                    else None
+                )
+                if explicit_masum is not None:
+                    stats.resolved += 1
+                    emit(
+                        node.id,
+                        explicit_masum,
+                        1,
+                        "resolved",
+                        "imam_explicit_identity",
+                        f"Explicit Imam name/title identifies "
+                        f"{lookup.person_name_ar.get(explicit_masum)}.",
+                        {"matched_token": node.token_normalised, "person_kind": "masum"},
+                    )
+                    prev_person = explicit_masum
+                    if pos == 0:
+                        opening_person_by_chain[chain_id] = prev_person
+                    continue
+
+                cands, matched_form = lookup.candidates_for(node.token_normalised)
+                if node_type == "imam":
+                    masum_candidates = [
+                        candidate
+                        for candidate in cands
+                        if lookup.person_kind.get(candidate[0]) == "masum"
+                    ]
+                    if masum_candidates:
+                        cands = masum_candidates
                 decisive_pid = lookup.decisive(cands, matched_form)
                 if not cands:
                     stats.unresolved += 1
@@ -514,6 +637,41 @@ def rebuild_person_resolutions(
                          f"«{node.token_normalised}» anaphora with no resolvable previous chain opening.", None)
                     prev_person = None
 
+            elif node_type == "pronoun_relation" and relation == "previous_hadith_imam":
+                previous_hadith_id = previous_hadith_in_book.get(hadith_id)
+                anchor = (
+                    terminal_imam_by_hadith.get(previous_hadith_id)
+                    if previous_hadith_id is not None
+                    else None
+                )
+                if anchor is not None:
+                    stats.anaphora_resolved += 1
+                    stats.resolved += 1
+                    emit(
+                        node.id,
+                        anchor,
+                        1,
+                        "resolved",
+                        "anaphora_previous_hadith_imam",
+                        f"«{node.token_normalised}» refers to the Imam named in the "
+                        f"preceding report: {lookup.person_name_ar.get(anchor)}.",
+                        {"previous_hadith_id": previous_hadith_id},
+                    )
+                    prev_person = anchor
+                else:
+                    stats.unresolved += 1
+                    emit(
+                        node.id,
+                        None,
+                        1,
+                        "unresolved",
+                        "anaphora_previous_hadith_unresolved",
+                        f"«{node.token_normalised}» refers to the preceding report, "
+                        "but that report has no uniquely resolved terminal Imam.",
+                        {"previous_hadith_id": previous_hadith_id},
+                    )
+                    prev_person = None
+
             elif node_type == "collective_phrase":
                 # Resolve embedded «منهم» members and any documented roster
                 # keyed by the NEXT narrator (position pos+1).
@@ -560,6 +718,18 @@ def rebuild_person_resolutions(
 
             if pos == 0:
                 opening_person_by_chain[chain_id] = prev_person
+
+        if nodes and prev_person is not None:
+            terminal = nodes[-1]
+            terminal_is_imam = terminal.node_type == "imam" or (
+                terminal.node_type == "pronoun_relation"
+                and terminal.relation_kind == "previous_hadith_imam"
+            )
+            if terminal_is_imam:
+                if hadith_id not in terminal_imam_by_hadith:
+                    terminal_imam_by_hadith[hadith_id] = prev_person
+                elif terminal_imam_by_hadith[hadith_id] != prev_person:
+                    terminal_imam_by_hadith[hadith_id] = None
 
         if commit and done % 400 == 0:
             if pending_persons:

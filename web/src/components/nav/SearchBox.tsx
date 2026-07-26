@@ -55,7 +55,7 @@ export function SearchBox({
       </div>
       <button
         type="submit"
-        className={`inline-flex min-h-11 items-center justify-center rounded-md bg-accent ${btnPad} py-2.5 font-semibold text-accent-foreground transition-colors hover:bg-accent-strong ${lg ? "h-12 sm:h-auto" : ""}`}
+        className={`inline-flex min-h-11 items-center justify-center rounded-md bg-accent ${btnPad} py-2.5 font-semibold text-accent-foreground transition-[background-color,transform] duration-200 hover:bg-accent-strong active:scale-[0.985] ${lg ? "h-12 sm:h-auto" : ""}`}
       >
         <span>{submitLabel}</span>
         {lg ? (

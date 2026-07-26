@@ -14,12 +14,20 @@ scans too slow; index on text_normalised as a starting point.
 from dataclasses import dataclass
 import re
 
-from sqlalchemy import or_
+from sqlalchemy import case, or_
 from sqlalchemy.orm import Session
 
-from eshia_research.models import Book, Hadith, HadithTranslation, Page
+from eshia_research.models import (
+    Book,
+    Hadith,
+    HadithTopicAssignment,
+    HadithTranslation,
+    Page,
+    Topic,
+)
 from eshia_research.normalise import normalise_arabic_persian
 from eshia_research.translation.publication import (
+    PUBLIC_TRANSLATION_VERSIONS,
     is_public_english_translation,
     public_english_translation_candidate_filters,
 )
@@ -35,6 +43,56 @@ _BOOK_ALIASES = {
     "11025": "wasa'il al-shia wasail al shia",
     "14036": "mu'jam rijal al-hadith mujam rijal",
 }
+_TOPIC_QUERY_STOPWORDS = {
+    "and",
+    "are",
+    "about",
+    "after",
+    "against",
+    "anyone",
+    "can",
+    "could",
+    "does",
+    "feeling",
+    "feel",
+    "find",
+    "for",
+    "from",
+    "give",
+    "hadith",
+    "hadiths",
+    "help",
+    "how",
+    "into",
+    "looking",
+    "more",
+    "need",
+    "our",
+    "please",
+    "should",
+    "show",
+    "someone",
+    "something",
+    "tell",
+    "that",
+    "the",
+    "their",
+    "them",
+    "there",
+    "these",
+    "this",
+    "what",
+    "when",
+    "where",
+    "which",
+    "who",
+    "why",
+    "with",
+    "would",
+    "want",
+    "you",
+    "your",
+}
 
 
 @dataclass
@@ -46,6 +104,7 @@ class SearchHit:
     hadith_public_id: str | None = None
     hadith_printed_number: str | None = None
     translation_evidence: dict | None = None
+    matched_topic: dict | None = None
 
 
 def _make_snippet(text: str, query: str, *, case_sensitive: bool = True) -> str:
@@ -59,6 +118,19 @@ def _make_snippet(text: str, query: str, *, case_sensitive: bool = True) -> str:
     prefix = "…" if start > 0 else ""
     suffix = "…" if end < len(text) else ""
     return f"{prefix}{text[start:end].strip()}{suffix}"
+
+
+def _topic_query_terms(query: str) -> list[str]:
+    normalized = re.sub(r"[^a-z0-9]+", " ", query.casefold().removeprefix("#")).strip()
+    if not normalized:
+        return []
+    words = [
+        word
+        for word in normalized.split()
+        if len(word) >= 3 and word not in _TOPIC_QUERY_STOPWORDS
+    ]
+    meaningful_phrase = " ".join(words)
+    return list(dict.fromkeys([meaningful_phrase, *words]))
 
 
 def search_pages(db: Session, query: str, limit: int = 20) -> list[SearchHit]:
@@ -121,6 +193,77 @@ def search_pages(db: Session, query: str, limit: int = 20) -> list[SearchHit]:
     if has_arabic:
         return hits
 
+    topic_terms = _topic_query_terms(query)
+    seen_public_ids: set[str] = set()
+    if topic_terms:
+        exact_hashtags = [f"#{term.replace(' ', '-')}" for term in topic_terms]
+        primary_term = topic_terms[0]
+        whole_primary_match = or_(
+            Topic.search_text.ilike(primary_term),
+            Topic.search_text.ilike(f"{primary_term} %"),
+            Topic.search_text.ilike(f"% {primary_term} %"),
+            Topic.search_text.ilike(f"% {primary_term}"),
+        )
+        topic_rows = (
+            db.query(HadithTopicAssignment, Topic, Hadith, Page, Book)
+            .join(Topic, Topic.id == HadithTopicAssignment.topic_id)
+            .join(Hadith, Hadith.id == HadithTopicAssignment.hadith_id)
+            .join(Page, Page.id == Hadith.page_start_id)
+            .join(Book, Book.id == Hadith.book_id)
+            .filter(
+                or_(*(Topic.search_text.ilike(f"%{term}%") for term in topic_terms)),
+                Hadith.review_status != "rejected_non_hadith_fragment",
+            )
+            .order_by(
+                case(
+                    (Topic.hashtag.in_(exact_hashtags), 0),
+                    (Topic.name_en.ilike(topic_terms[0]), 1),
+                    (whole_primary_match, 2),
+                    else_=3,
+                ),
+                case(
+                    (Topic.kind == "mood", 0),
+                    (Topic.kind == "life", 1),
+                    (Topic.kind == "practice", 2),
+                    (Topic.kind == "virtue", 3),
+                    (Topic.kind == "belief", 4),
+                    (Topic.kind == "person", 5),
+                    (Topic.kind == "chapter", 6),
+                    else_=7,
+                ),
+                HadithTopicAssignment.relevance.desc(),
+                Hadith.sequence_in_book,
+            )
+            .limit(remaining * 8)
+            .all()
+        )
+        for assignment, topic, hadith, page, book in topic_rows:
+            if hadith.public_id in seen_public_ids:
+                continue
+            seen_public_ids.add(hadith.public_id)
+            hits.append(
+                SearchHit(
+                    page=page,
+                    book=book,
+                    snippet=" ".join(hadith.matn_raw.split())[: SNIPPET_RADIUS * 2],
+                    match_type="topic",
+                    hadith_public_id=hadith.public_id,
+                    hadith_printed_number=hadith.printed_number,
+                    matched_topic={
+                        "slug": topic.slug,
+                        "hashtag": topic.hashtag,
+                        "name_en": topic.name_en,
+                        "name_ar": topic.name_ar,
+                        "kind": topic.kind,
+                        "relevance": assignment.relevance,
+                        "confidence": assignment.confidence,
+                        "assignment_method": assignment.assignment_method,
+                    },
+                )
+            )
+            if len(hits) >= limit:
+                return hits
+
     translation_rows = (
         db.query(HadithTranslation, Hadith, Page, Book)
         .join(Hadith, Hadith.id == HadithTranslation.hadith_id)
@@ -131,10 +274,20 @@ def search_pages(db: Session, query: str, limit: int = 20) -> list[SearchHit]:
             HadithTranslation.matn_translation.ilike(f"%{query}%"),
             Hadith.review_status != "rejected",
         )
-        .order_by(Book.id, Hadith.sequence_in_book)
+        .order_by(
+            Book.id,
+            Hadith.sequence_in_book,
+            case(
+                {
+                    version: index
+                    for index, version in enumerate(PUBLIC_TRANSLATION_VERSIONS)
+                },
+                value=HadithTranslation.translation_version,
+                else_=len(PUBLIC_TRANSLATION_VERSIONS),
+            ),
+        )
         .yield_per(100)
     )
-    seen_public_ids: set[str] = set()
     for translation, hadith, page, book in translation_rows:
         if not is_public_english_translation(translation, hadith):
             continue

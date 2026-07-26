@@ -1118,6 +1118,58 @@ class ThaqalaynStructureMap(Base):
     hadith: Mapped["Hadith"] = relationship()
 
 
+class Topic(Base):
+    """A stable, searchable subject in the hadith taxonomy."""
+
+    __tablename__ = "topics"
+    __table_args__ = (
+        UniqueConstraint("slug", name="uq_topics_slug"),
+        UniqueConstraint("source", "source_key", name="uq_topics_source_key"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    slug: Mapped[str] = mapped_column(String(160), index=True)
+    hashtag: Mapped[str] = mapped_column(String(96), index=True)
+    name_en: Mapped[str] = mapped_column(String(512))
+    name_ar: Mapped[str | None] = mapped_column(String(512), nullable=True)
+    kind: Mapped[str] = mapped_column(String(32), index=True)
+    parent_id: Mapped[int | None] = mapped_column(ForeignKey("topics.id"), nullable=True)
+    source: Mapped[str] = mapped_column(String(64), index=True)
+    source_key: Mapped[str] = mapped_column(String(160))
+    search_text: Mapped[str] = mapped_column(Text)
+    aliases_json: Mapped[list | None] = mapped_column(JSON, nullable=True)
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    updated_at: Mapped[dt.datetime] = mapped_column(
+        DateTime(timezone=True), default=utcnow, onupdate=utcnow
+    )
+
+    parent: Mapped["Topic | None"] = relationship(remote_side="Topic.id")
+
+
+class HadithTopicAssignment(Base):
+    """An evidenced relation between one hadith record and one topic."""
+
+    __tablename__ = "hadith_topic_assignments"
+    __table_args__ = (
+        UniqueConstraint("hadith_id", "topic_id", name="uq_hadith_topic_assignment"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    hadith_id: Mapped[int] = mapped_column(ForeignKey("hadiths.id"), index=True)
+    topic_id: Mapped[int] = mapped_column(ForeignKey("topics.id"), index=True)
+    relevance: Mapped[int] = mapped_column(Integer, default=100)
+    confidence: Mapped[float] = mapped_column(Float, default=1.0)
+    assignment_method: Mapped[str] = mapped_column(String(64), index=True)
+    provenance_json: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    updated_at: Mapped[dt.datetime] = mapped_column(
+        DateTime(timezone=True), default=utcnow, onupdate=utcnow
+    )
+
+    hadith: Mapped["Hadith"] = relationship()
+    topic: Mapped["Topic"] = relationship()
+
+
 class HadithGrading(Base):
     """An external grader's authenticity judgment for one hadith, with reference.
 

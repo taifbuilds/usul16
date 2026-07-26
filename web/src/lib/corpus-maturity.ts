@@ -11,9 +11,9 @@ export const CORPUS_MATURITY: Record<string, CorpusMaturity> = {
     summary: "Hadith boundaries reconciled; parsed chains currently have no outstanding review flags.",
   },
   "11021": {
-    label: "Structured · under review",
+    label: "Boundary review in progress",
     tone: "review",
-    summary: "Readable and structured; chain review and editorial reconciliation are still in progress.",
+    summary: "Website inventory coverage is reconciled, but Arabic boundaries and translation completeness still require record-level review.",
   },
   "10083": {
     label: "Structured · under review",

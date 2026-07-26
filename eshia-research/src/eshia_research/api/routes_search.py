@@ -31,6 +31,7 @@ def search(
                 hadith_public_id=hit.hadith_public_id,
                 hadith_printed_number=hit.hadith_printed_number,
                 translation_evidence=hit.translation_evidence,
+                matched_topic=hit.matched_topic,
             )
         )
     return SearchResponse(query=q, count=len(results), results=results)

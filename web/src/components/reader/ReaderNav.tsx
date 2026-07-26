@@ -15,22 +15,22 @@ export function ReaderNav({
   position: string;
 }) {
   return (
-    <div className="flex items-center justify-between border-t border-border pt-4 text-sm">
+    <nav aria-label="Reader pages" className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3 border-t border-border pt-4 text-sm">
       {prev ? (
-        <Link href={prev.href} className="font-medium text-accent hover:underline">
+        <Link href={prev.href} className="min-w-0 truncate font-medium text-accent hover:underline">
           ← {prev.label}
         </Link>
       ) : (
-        <span className="text-muted">← {/* start of book */}</span>
+        <span className="text-muted">←</span>
       )}
-      <span className="text-muted">{position}</span>
+      <span className="whitespace-nowrap text-center text-xs text-muted sm:text-sm">{position}</span>
       {next ? (
-        <Link href={next.href} className="font-medium text-accent hover:underline">
+        <Link href={next.href} className="min-w-0 truncate text-right font-medium text-accent hover:underline">
           {next.label} →
         </Link>
       ) : (
-        <span className="text-muted">{/* end of book */} →</span>
+        <span className="text-right text-muted">→</span>
       )}
-    </div>
+    </nav>
   );
 }

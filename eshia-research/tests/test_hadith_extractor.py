@@ -6,9 +6,50 @@ from eshia_research.hadith_extractor import (
     parse_page_state,
     parse_page_text,
     rebuild_hadith_index,
+    split_direct_attribution,
     split_isnad_matn,
 )
 from eshia_research.models import Book, Hadith, Page
+
+
+@pytest.mark.parametrize(
+    ("text", "expected_isnad", "expected_matn_start"),
+    [
+        ("وَ قَالَ الصَّادِقُ ع‌ إِذَا كَانَ الْمَاءُ قَدْرَ قُلَّتَيْنِ", "و قال الصادق ع", "إِذَا كَانَ"),
+        ("وَ قَالَ رَسُولُ اللَّهِ ص كُلُّ شَيْءٍ يَجْتَرُّ", "و قال رسول الله ص", "كُلُّ شَيْءٍ"),
+        ("قَالَ الصَّادِقُ ع- كَانَ رَسُولُ اللَّهِ ص أَشَدَّ", "قال الصادق ع", "كَانَ رَسُولُ"),
+        ("وَ قَالَ أَبُو جَعْفَرٍ ع إِذَا بَالَ الرَّجُلُ", "و قال ابو جعفر ع", "إِذَا بَالَ"),
+    ],
+)
+def test_split_direct_attribution_mursal(text, expected_isnad, expected_matn_start):
+    result = split_direct_attribution(text)
+    assert result is not None
+    isnad, matn = result
+    assert normalise(isnad) == normalise(expected_isnad)
+    assert matn.startswith(expected_matn_start)
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        # A real chain, not a mursal attribution.
+        "رَوَى ابْنُ مُسْكَانَ عَنْ أَبِي عَبْدِ اللَّهِ ع قَالَ لَا يُذْبَحُ",
+        # Bare «قال ع» — no Imam named.
+        "وَ قَالَ ع إِنَّ رَسُولَ اللَّهِ ص",
+        # Nested speech — a narrator quotes the Imam (belongs to a chain).
+        "وَ قَالَ زُرَارَةُ قَالَ أَبُو جَعْفَرٍ ع كَذَا",
+        # Not an attribution opening at all.
+        "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ",
+    ],
+)
+def test_split_direct_attribution_refuses_non_mursal(text):
+    assert split_direct_attribution(text) is None
+
+
+def normalise(text: str) -> str:
+    from eshia_research.normalise import normalise_arabic_persian
+
+    return normalise_arabic_persian(text)
 
 
 @pytest.fixture()

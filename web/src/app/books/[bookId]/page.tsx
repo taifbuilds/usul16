@@ -1,10 +1,12 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
-import { getBook } from "@/lib/api/books";
+import { getBook, getBookKitabs } from "@/lib/api/books";
 import { formatArabicTitle } from "@/lib/arabic";
 import { amiri } from "@/lib/fonts";
 import { INDEXED_SOURCE_BOOK_IDS } from "@/lib/corpus";
 import { ContentBadge } from "@/components/books/ContentBadge";
+import { getEditionCover } from "@/components/books/BookCard";
 import { corpusMaturity } from "@/lib/corpus-maturity";
 import type { Metadata } from "next";
 
@@ -39,43 +41,73 @@ export default async function BookDetailPage({ params }: { params: Promise<{ boo
   const title = formatArabicTitle(book.title_original);
   const englishTitle = ENGLISH_TITLES[book.source_book_id] ?? "Library volume";
   const maturity = corpusMaturity(book.source_book_id);
+  const cover = getEditionCover(book.source_book_id);
+  const hasStructuredContents = ["11005", "11021"].includes(book.source_book_id);
+  const kitabs = hasStructuredContents ? await getBookKitabs(book.id) : [];
+  const firstKitab = kitabs.find((kitab) => kitab.first_chapter_id !== null);
+  const chapterReaderHref = firstKitab
+    ? `/read/${book.id}/kitab/${encodeURIComponent(firstKitab.kitab_id)}/${firstKitab.first_chapter_id}`
+    : `/read/${book.id}/bab/1`;
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
       <nav className="text-sm text-muted" aria-label="Breadcrumb">
         <Link href="/books" className="hover:text-accent">Library</Link>
         <span className="mx-2 text-border-strong">/</span>
         <span>{englishTitle}</span>
       </nav>
 
-      <div className="mt-8 grid gap-12 border-t border-border pt-8 lg:grid-cols-[1fr_18rem]">
-        <div>
+      <div className="mt-6 grid gap-8 border-t border-border pt-8 lg:grid-cols-[12rem_minmax(0,1fr)_16rem] lg:gap-10">
+        <figure className="mx-auto w-full max-w-44 lg:mx-0">
+          <div className="relative aspect-[0.72] overflow-hidden rounded-sm border border-border bg-surface-2">
+            {cover?.src ? (
+              <Image
+                src={cover.src}
+                alt={`${englishTitle} - cover of the catalogued edition`}
+                fill
+                priority
+                sizes="(max-width: 1023px) 11rem, 12rem"
+                className="object-contain"
+              />
+            ) : (
+              <div className="flex h-full flex-col items-center justify-center p-4 text-center">
+                <span className="font-mono text-[10px] text-muted">SOURCE {book.source_book_id}</span>
+                <span className="mt-3 text-xs font-semibold text-foreground">Cover scan unavailable</span>
+              </div>
+            )}
+          </div>
+          <figcaption className="mt-2 text-xs leading-5 text-muted">
+            {cover?.src ? "Catalogued edition cover" : "Archival placeholder"}
+          </figcaption>
+        </figure>
+
+        <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-3">
             <ContentBadge hasContent={book.has_content} />
             {maturity ? <Link href="/methodology" className="inline-flex min-h-6 items-center rounded-full border border-accent/30 bg-badge-verified px-3 text-xs font-semibold text-accent hover:underline">{maturity.label}</Link> : null}
             <span className="font-mono text-xs text-muted">SOURCE {book.source_book_id}</span>
           </div>
-          <h1 className="mt-6 font-serif text-4xl font-semibold sm:text-5xl">{englishTitle}</h1>
-          <p dir="rtl" lang="ar" className={`${amiri.className} mt-5 text-right text-4xl leading-relaxed text-accent sm:text-5xl`}>
+          <h1 className="mt-5 max-w-full break-words font-serif text-3xl font-semibold sm:text-4xl">{englishTitle}</h1>
+          <p dir="rtl" lang="ar" className={`${amiri.className} mt-4 max-w-full overflow-hidden break-words text-right text-3xl leading-relaxed text-accent sm:text-4xl`}>
             {title}
           </p>
 
           {book.authors.length > 0 ? (
-            <div className="mt-5 border border-border bg-surface px-4 py-3">
-              <p className="text-xs font-semibold text-muted">AUTHOR</p>
-              <p dir="rtl" lang="ar" className={`${amiri.className} mt-1 text-left text-xl text-foreground`}>
+            <div className="mt-5 border-y border-border py-3">
+              <p className="text-xs font-semibold text-muted">Author</p>
+              <p dir="rtl" lang="ar" className={`${amiri.className} mt-1 max-w-full overflow-hidden break-words text-left text-xl text-foreground`}>
                 {book.authors.map((author) => formatArabicTitle(author.name_original)).join(" — ")}
               </p>
             </div>
           ) : null}
 
-          <div className="mt-9 flex flex-wrap items-center gap-3">
-            {book.has_content && book.source_book_id === "11005" ? (
+          <div className="mt-7 flex flex-wrap items-center gap-3">
+            {book.has_content && hasStructuredContents ? (
               <>
                 <Link href={`/books/${book.id}/contents`} className="rounded-md bg-accent px-5 py-3 font-semibold text-accent-foreground hover:bg-accent-strong">
                   Browse contents
                 </Link>
-                <Link href={`/read/${book.id}/bab/1`} className="rounded-md border border-border bg-surface px-5 py-3 font-medium text-foreground hover:border-accent hover:text-accent">
+                <Link href={chapterReaderHref} className="rounded-md border border-border bg-surface px-5 py-3 font-medium text-foreground hover:border-accent hover:text-accent">
                   Read by chapter
                 </Link>
                 <Link href={`/read/${book.id}/1/1`} className="rounded-md border border-border bg-surface px-5 py-3 font-medium text-foreground hover:border-accent hover:text-accent">

@@ -7,6 +7,7 @@ from eshia_research.isnad.tokenizer import (
     PRONOUN,
     tokenize_isnad,
 )
+from eshia_research.normalise import normalise_arabic_persian
 
 
 def types(chain):
@@ -204,6 +205,46 @@ def test_faqih_saala_form_questioner_plus_imam():
     assert "هشام" in chain.tokens[0].norm
     # The topic of the question is not part of the chain.
     assert all("السطح" not in t.norm for t in chain.tokens)
+
+
+def test_faqih_saala_form_accepts_colon_after_honorific():
+    raw = (
+        "وَ سَأَلَ هِشَامُ بْنُ سَالِمٍ أَبَا عَبْدِ اللَّهِ عَلَيْهِ السَّلَامُ: "
+        "عَنِ السَّطْحِ يُبَالُ عَلَيْهِ فَقَالَ"
+    )
+
+    chain = tokenize_isnad(raw)[0]
+
+    assert types(chain) == [NAMED, IMAM]
+    assert "هشام بن سالم" in chain.tokens[0].norm
+    assert "السطح" not in chain.tokens[1].norm
+
+
+def test_faqih_saala_brother_form_splits_questioner_and_imam():
+    raw = (
+        "وَ سَأَلَ عَلِيُّ بْنُ جَعْفَرٍ أَخَاهُ مُوسَى بْنَ جَعْفَرٍ "
+        "عَلَيْهِ السَّلَامُ: عَنِ الْبَيْتِ فَقَالَ"
+    )
+
+    chain = tokenize_isnad(raw)[0]
+
+    assert types(chain) == [NAMED, IMAM]
+    assert normalise_arabic_persian("علي بن جعفر") in chain.tokens[0].norm
+    assert normalise_arabic_persian("موسى بن جعفر") in chain.tokens[1].norm
+
+
+def test_faqih_saalahu_form_keeps_questioner_and_cross_hadith_reference():
+    raw = (
+        "وَ سَأَلَهُ سَمَاعَةُ بْنُ مِهْرَانَ عَنِ الرَّجُلِ يَخْفِقُ رَأْسَهُ "
+        "وَ هُوَ فِي الصَّلَاةِ قَالَ"
+    )
+
+    chain = tokenize_isnad(raw)[0]
+
+    assert types(chain) == [NAMED, PRONOUN]
+    assert chain.tokens[0].norm == normalise_arabic_persian("سماعة بن مهران")
+    assert chain.tokens[1].relation_kind == "previous_hadith_imam"
+    assert all("الرجل" not in token.norm for token in chain.tokens)
 
 
 def test_faqih_ruwiya_mursal_opening():

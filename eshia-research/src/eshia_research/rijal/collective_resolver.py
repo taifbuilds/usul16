@@ -107,6 +107,24 @@ ALI_B_IBRAHIM = _n("علي بن إبراهيم")
 ALI_B_IBRAHIM_B_HASHIM = _n("علي بن إبراهيم بن هاشم")
 ANHU = _n("عنه")
 
+# --- Imam-kunya isnad-convention priors (Phase D) ---------------------------
+# In the Four Books' asanid a bare Imam kunya carrying the ع honorific denotes
+# the conventional Imam. Two kunyas are shared by two Ma'sumin and so leave the
+# Phase-B resolver honestly ambiguous:
+#   «أبو عبد الله ع» -> al-Sadiq, but al-Husayn (Sayyid al-Shuhada) shares the kunya;
+#   «أبو جعفر ع»     -> al-Baqir,  but al-Jawad («أبو جعفر الثاني») shares the kunya.
+# The alternate Ma'sum is a naming coincidence, not a transmission source: when
+# he is actually meant he is named explicitly (al-Husayn b. Ali / Sayyid al-Shuhada;
+# al-Jawad / Abu Ja'far al-Thani), which the resolver already resolves via
+# `imam_explicit_identity`. So a bare, still-ambiguous kunya node is the
+# conventional Imam. We break the tie ONLY when the ambiguous Ma'sum candidate
+# set is exactly the shared-kunya pair, keeping the alternate as a ranked
+# alternative so the (rare) genuine exception stays visible.
+SADIQ_NORM = _n("جعفر بن محمد الصادق عليه السلام")
+HUSAYN_NORM = _n("الحسين بن علي سيد الشهداء عليه السلام")
+BAQIR_NORM = _n("محمد بن علي الباقر عليه السلام")
+JAWAD_NORM = _n("محمد بن علي الجواد عليه السلام")
+
 
 def token_case_variants(norm: str) -> list[str]:
     variants = [norm]
@@ -1432,6 +1450,357 @@ def refine_compiler_priors(
         lookup=lookup,
         stats=stats,
     )
+
+    if commit:
+        db.commit()
+    return stats
+
+
+@dataclass(frozen=True)
+class ImamKunyaPrior:
+    """A shared-kunya Ma'sum tie-break grounded in isnad convention."""
+
+    key: str  # evidence key, e.g. "abu_abdallah_sadiq"
+    target_norm: str  # canonical_name_norm of the conventional Imam
+    alternate_norms: tuple[str, ...]  # same-kunya Ma'sum(in), kept ranked
+    blocker_substrings: tuple[str, ...]  # normalised laqab that routes elsewhere -> abstain
+    kunya_label: str  # human-readable kunya, for the dalil
+    rationale: str
+
+
+IMAM_KUNYA_PRIORS: tuple[ImamKunyaPrior, ...] = (
+    ImamKunyaPrior(
+        key="abu_abdallah_sadiq",
+        target_norm=SADIQ_NORM,
+        alternate_norms=(HUSAYN_NORM,),
+        blocker_substrings=(_n("الحسين"), _n("سيد الشهداء")),
+        kunya_label="أبو عبد الله ع",
+        rationale=(
+            "in the Four Books' asanid a bare «أبو عبد الله ع» is Imam Ja'far "
+            "al-Sadiq; al-Husayn (Sayyid al-Shuhada) is named explicitly when meant"
+        ),
+    ),
+    ImamKunyaPrior(
+        key="abu_jafar_baqir",
+        target_norm=BAQIR_NORM,
+        alternate_norms=(JAWAD_NORM,),
+        blocker_substrings=(_n("الجواد"), _n("الثاني")),
+        kunya_label="أبو جعفر ع",
+        rationale=(
+            "in the Four Books' asanid a bare «أبو جعفر ع» is Imam Muhammad "
+            "al-Baqir; al-Jawad is distinguished as «أبو جعفر الثاني»"
+        ),
+    ),
+)
+
+
+def _load_masum_person_index(db: Session) -> tuple[dict[str, int], dict[int, str]]:
+    """(canonical_name_norm -> person_id, person_id -> canonical_name_ar) for Ma'sumin."""
+    id_by_norm: dict[str, int] = {}
+    name_ar: dict[int, str] = {}
+    for pid, norm, ar in db.execute(
+        select(Person.id, Person.canonical_name_norm, Person.canonical_name_ar).where(
+            Person.kind == "masum"
+        )
+    ):
+        id_by_norm[norm] = pid
+        name_ar[pid] = ar
+    return id_by_norm, name_ar
+
+
+def _replace_with_imam_kunya_prior(
+    db: Session,
+    *,
+    node_id: int,
+    target_id: int,
+    spec: ImamKunyaPrior,
+    existing_rows: list[MentionResolution],
+    name_ar: dict[int, str],
+) -> None:
+    """Resolve an imam node to the conventional Imam, keeping same-kunya alternates ranked."""
+    db.execute(
+        delete(MentionResolution)
+        .where(
+            MentionResolution.chain_node_id == node_id,
+            MentionResolution.resolver_version == PERSON_RESOLVER_VERSION,
+        )
+        .execution_options(synchronize_session=False)
+    )
+    db.add(
+        MentionResolution(
+            chain_node_id=node_id,
+            person_id=target_id,
+            rank=1,
+            status="resolved",
+            method="imam_kunya_prior",
+            evidence_summary=(
+                f"Resolved «{spec.kunya_label}» to {name_ar.get(target_id)} by "
+                f"isnad-convention prior: {spec.rationale}."
+            ),
+            evidence_json={
+                "phase": COLLECTIVE_REFINER_VERSION,
+                "imam_kunya_prior": spec.key,
+                "kunya": spec.kunya_label,
+            },
+            resolver_version=PERSON_RESOLVER_VERSION,
+        )
+    )
+    rank = 2
+    seen = {target_id}
+    for row in existing_rows:
+        if row.person_id is None or row.person_id in seen:
+            continue
+        if rank > MAX_STORED_ALTERNATES + 1:
+            break
+        seen.add(row.person_id)
+        db.add(
+            MentionResolution(
+                chain_node_id=node_id,
+                person_id=row.person_id,
+                rank=rank,
+                status="ambiguous",
+                method="imam_kunya_prior_alternative",
+                evidence_summary=(
+                    f"Alternative retained after isnad-convention prior "
+                    f"«{spec.kunya_label}»: {name_ar.get(row.person_id)} shares the kunya "
+                    f"but is not the conventional isnad source."
+                ),
+                evidence_json={
+                    "phase": COLLECTIVE_REFINER_VERSION,
+                    "imam_kunya_prior": f"alternative_after_{spec.key}",
+                    "previous_rank": row.rank,
+                    "previous_status": row.status,
+                    "previous_method": row.method,
+                },
+                resolver_version=PERSON_RESOLVER_VERSION,
+            )
+        )
+        rank += 1
+
+
+def refine_imam_kunya_priors(
+    db: Session,
+    *,
+    source_book_ids=None,
+    book_ids=None,
+    commit: bool = True,
+) -> CollectiveRefinementStats:
+    """Break shared-kunya Ma'sum ambiguity by isnad convention (Phase D).
+
+    Targets imam-type nodes still ambiguous between exactly the two Ma'sumin who
+    share a kunya («أبو عبد الله ع» = al-Sadiq vs al-Husayn; «أبو جعفر ع» =
+    al-Baqir vs al-Jawad) and resolves them to the conventional Imam, retaining
+    the same-kunya alternate as a ranked alternative. This is lattice-independent
+    — it does not consult ``person_generations`` — so it is unaffected by noisy
+    propagated generation points that mis-drive the tabaqat disambiguator. It
+    edits only ``mention_resolutions`` for the selected books.
+    """
+    stats = CollectiveRefinementStats()
+    selected_book_ids = _select_book_ids(db, source_book_ids, book_ids)
+    if not selected_book_ids:
+        return stats
+
+    id_by_norm, name_ar = _load_masum_person_index(db)
+    resolved_specs: list[tuple[ImamKunyaPrior, int, frozenset[int]]] = []
+    for spec in IMAM_KUNYA_PRIORS:
+        target_id = id_by_norm.get(spec.target_norm)
+        if target_id is None:
+            continue
+        alt_ids = [id_by_norm[a] for a in spec.alternate_norms if a in id_by_norm]
+        expected = frozenset({target_id, *alt_ids})
+        resolved_specs.append((spec, target_id, expected))
+    if not resolved_specs:
+        return stats
+
+    node_rows = db.execute(
+        select(ChainNode.id, ChainNode.token_normalised)
+        .join(Chain, Chain.id == ChainNode.chain_id)
+        .join(Hadith, Hadith.id == Chain.hadith_id)
+        .where(
+            Hadith.book_id.in_(selected_book_ids),
+            Hadith.review_status != REJECTED_HADITH_STATUS,
+            ChainNode.node_type == "imam",
+        )
+        .order_by(Hadith.book_id, Hadith.sequence_in_book, Chain.chain_number, ChainNode.position)
+    ).all()
+    if not node_rows:
+        return stats
+
+    node_ids = [row.id for row in node_rows]
+    token_by_node = {row.id: row.token_normalised or "" for row in node_rows}
+    rows_by_node = _resolution_rows_for_nodes(db, node_ids)
+
+    for node_id in node_ids:
+        rows = rows_by_node.get(node_id, [])
+        if len(rows) < 2 or not all(row.status == "ambiguous" for row in rows):
+            continue
+        masum_cands = frozenset(row.person_id for row in rows if row.person_id in name_ar)
+        for spec, target_id, expected in resolved_specs:
+            if masum_cands != expected:
+                continue
+            stats.nodes_examined += 1
+            token_norm = _n(token_by_node.get(node_id, ""))
+            if any(blocker in token_norm for blocker in spec.blocker_substrings):
+                break
+            _replace_with_imam_kunya_prior(
+                db,
+                node_id=node_id,
+                target_id=target_id,
+                spec=spec,
+                existing_rows=rows,
+                name_ar=name_ar,
+            )
+            stats.nodes_resolved += 1
+            stats.method_counts["imam_kunya_prior"] += 1
+            stats.method_counts[spec.key] += 1
+            break
+
+    # Flush so a following pass in the same session (SessionLocal has
+    # autoflush=False) sees these resolutions — the anaphora propagation depends
+    # on each report's terminal Imam being visible.
+    db.flush()
+    if commit:
+        db.commit()
+    return stats
+
+
+def _resolve_anaphora_imam_node(
+    db: Session,
+    *,
+    node_id: int,
+    imam_id: int,
+    name_ar: dict[int, str],
+    previous_hadith_id: int | None,
+) -> None:
+    db.execute(
+        delete(MentionResolution)
+        .where(
+            MentionResolution.chain_node_id == node_id,
+            MentionResolution.resolver_version == PERSON_RESOLVER_VERSION,
+        )
+        .execution_options(synchronize_session=False)
+    )
+    db.add(
+        MentionResolution(
+            chain_node_id=node_id,
+            person_id=imam_id,
+            rank=1,
+            status="resolved",
+            method="anaphora_imam_after_kunya_prior",
+            evidence_summary=(
+                f"Pronoun refers to the Imam of the preceding report, now resolved by "
+                f"the kunya prior: {name_ar.get(imam_id)}."
+            ),
+            evidence_json={
+                "phase": COLLECTIVE_REFINER_VERSION,
+                "anaphora": "previous_hadith_imam_after_kunya_prior",
+                "previous_hadith_id": previous_hadith_id,
+            },
+            resolver_version=PERSON_RESOLVER_VERSION,
+        )
+    )
+
+
+def refine_previous_hadith_imam_anaphora(
+    db: Session,
+    *,
+    source_book_ids=None,
+    book_ids=None,
+    commit: bool = True,
+) -> CollectiveRefinementStats:
+    """Resolve «previous_hadith_imam» pronouns to the preceding report's Imam.
+
+    Faqih's serial direct-question form («وَ سَأَلَهُ فلان عن كذا فقال ...») names
+    the questioner but leaves the Imam as the object pronoun «ـه», tokenized as a
+    `previous_hadith_imam` pronoun. Phase B could not resolve it while the
+    preceding report's «أبو عبد الله ع» was still ambiguous; run this AFTER
+    `refine_imam_kunya_priors` so the chain of Imams propagates report to report.
+    Only fires on a chain-terminal pronoun whose preceding report has a uniquely
+    resolved terminal Imam. Edits `mention_resolutions` for the selected books only.
+    """
+    stats = CollectiveRefinementStats()
+    selected_book_ids = _select_book_ids(db, source_book_ids, book_ids)
+    if not selected_book_ids:
+        return stats
+
+    _, name_ar = _load_masum_person_index(db)
+    masum_ids = set(name_ar)
+
+    ordered_hadith_ids = [
+        hid
+        for (hid,) in db.execute(
+            select(Hadith.id)
+            .where(
+                Hadith.book_id.in_(selected_book_ids),
+                Hadith.review_status != REJECTED_HADITH_STATUS,
+            )
+            .order_by(Hadith.book_id, Hadith.sequence_in_book, Hadith.id)
+        )
+    ]
+    if not ordered_hadith_ids:
+        return stats
+
+    # Terminal (max-position) node of every chain, with its rank-1 resolution.
+    rows = db.execute(
+        select(
+            Chain.hadith_id,
+            Chain.id,
+            ChainNode.id,
+            ChainNode.position,
+            ChainNode.node_type,
+            ChainNode.relation_kind,
+            MentionResolution.person_id,
+            MentionResolution.status,
+        )
+        .join(ChainNode, ChainNode.chain_id == Chain.id)
+        .join(Hadith, Hadith.id == Chain.hadith_id)
+        .outerjoin(
+            MentionResolution,
+            (MentionResolution.chain_node_id == ChainNode.id)
+            & (MentionResolution.rank == 1)
+            & (MentionResolution.resolver_version == PERSON_RESOLVER_VERSION),
+        )
+        .where(Hadith.book_id.in_(selected_book_ids))
+        .order_by(Chain.id, ChainNode.position)
+    ).all()
+
+    # Per chain keep only the terminal node.
+    terminal_by_chain: dict[int, tuple] = {}
+    for hadith_id, chain_id, node_id, position, ntype, rel, person_id, status in rows:
+        cur = terminal_by_chain.get(chain_id)
+        if cur is None or position > cur[1]:
+            terminal_by_chain[chain_id] = (hadith_id, position, node_id, ntype, rel, person_id, status)
+    terminals_by_hadith: dict[int, list[tuple]] = defaultdict(list)
+    for hadith_id, position, node_id, ntype, rel, person_id, status in terminal_by_chain.values():
+        terminals_by_hadith[hadith_id].append((node_id, ntype, rel, person_id, status))
+
+    terminal_imam: dict[int, int | None] = {}
+    previous_hid: int | None = None
+    for hid in ordered_hadith_ids:
+        chosen: set[int] = set()
+        for node_id, ntype, rel, person_id, status in terminals_by_hadith.get(hid, []):
+            if rel == "previous_hadith_imam" and status != "resolved":
+                stats.nodes_examined += 1
+                anchor = terminal_imam.get(previous_hid) if previous_hid is not None else None
+                if anchor is not None:
+                    _resolve_anaphora_imam_node(
+                        db,
+                        node_id=node_id,
+                        imam_id=anchor,
+                        name_ar=name_ar,
+                        previous_hadith_id=previous_hid,
+                    )
+                    stats.nodes_resolved += 1
+                    stats.method_counts["anaphora_imam_after_kunya_prior"] += 1
+                    chosen.add(anchor)
+            elif (
+                (ntype == "imam" or rel == "previous_hadith_imam")
+                and status == "resolved"
+                and person_id in masum_ids
+            ):
+                chosen.add(person_id)
+        terminal_imam[hid] = next(iter(chosen)) if len(chosen) == 1 else None
+        previous_hid = hid
 
     if commit:
         db.commit()

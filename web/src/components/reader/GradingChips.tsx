@@ -12,22 +12,25 @@ function isSound(gradeAr: string): boolean {
 
 export function GradingChips({ gradings }: { gradings: HadithGrading[] }) {
   return (
-    <div>
-      <p className="mb-2 text-xs font-medium uppercase tracking-wide text-muted">
-        Gradings
-      </p>
-      <ul className="flex flex-col gap-2">
+    <section aria-labelledby="hadith-gradings-heading">
+      <div className="mb-2 flex items-center justify-between gap-4">
+        <h3 id="hadith-gradings-heading" className="text-sm font-semibold text-foreground">
+          Hadith gradings
+        </h3>
+        <span className="text-xs tabular-nums text-muted">{gradings.length}</span>
+      </div>
+      <ul className="divide-y divide-border border-y border-border">
         {gradings.map((grading, index) => {
           const sound = isSound(grading.grade_ar);
           return (
             <li
               key={`${grading.grader_key}-${index}`}
-              className="flex flex-wrap items-baseline gap-x-2 gap-y-1 text-sm"
+              className="grid gap-2 py-2.5 text-sm sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:items-center sm:gap-3"
             >
               <span
                 dir="rtl"
                 lang="ar"
-                className={`${amiri.className} inline-flex items-center rounded-sm px-2 py-0.5 text-base leading-none ${
+                className={`${amiri.className} inline-flex w-fit items-center rounded-sm px-2 py-1 text-base leading-none ${
                   sound
                     ? "bg-badge-verified text-badge-verified-foreground"
                     : "bg-badge text-badge-foreground"
@@ -35,14 +38,14 @@ export function GradingChips({ gradings }: { gradings: HadithGrading[] }) {
               >
                 {grading.grade_ar || "—"}
               </span>
-              <span className="text-foreground/80">{grading.author_name_en}</span>
+              <span className="font-medium text-foreground/80">{grading.author_name_en}</span>
               {grading.reference_en ? (
-                <span className="text-xs text-muted">— {grading.reference_en}</span>
+                <span className="text-xs text-muted sm:text-right">{grading.reference_en}</span>
               ) : null}
             </li>
           );
         })}
       </ul>
-    </div>
+    </section>
   );
 }
