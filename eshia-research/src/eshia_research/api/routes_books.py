@@ -2326,6 +2326,12 @@ def list_narrator_hadith_appearances(
 
 _TRANSMISSION_GRAPH_TTL_SECONDS = 3600.0
 
+# Generation methods backed by a real anchor (a fixed Imam layer or a documented
+# companionship statement). Everything else — notably plain "propagated" — is an
+# inference from neighbouring edges, and on unanchored narrators it is often
+# badly wrong. Mirrors rijal.eval_resolution.RELIABLE_GEN_METHODS.
+_ANCHORED_GEN_METHODS = frozenset({"imam_fixed", "ashab_anchor", "anchor_and_propagated"})
+
 
 @dataclasses.dataclass
 class _TransmissionPairs:
@@ -2633,19 +2639,46 @@ def get_transmission_graph(
             )
         ).all()
     )
-    generations = dict(
-        db.execute(
-            select(PersonGeneration.person_id, func.coalesce(PersonGeneration.gen_point, PersonGeneration.gen_lo))
+    generation_rows = db.execute(
+        select(
+            PersonGeneration.person_id,
+            func.coalesce(PersonGeneration.gen_point, PersonGeneration.gen_lo),
+            PersonGeneration.method,
+        ).where(
+            PersonGeneration.person_id.in_(member_ids),
+            # Exclude conflict-method rows: a person whose generation evidence
+            # is self-contradictory should render as undated in the ṭabaqāt
+            # layout rather than be confidently banded at a bogus layer. This
+            # matches the quality overlay, which also excludes conflict rows.
+            PersonGeneration.method != "conflict",
+        )
+    ).all()
+    generations = {pid: gen for pid, gen, _ in generation_rows}
+    anchored_generations = {
+        pid for pid, _, method in generation_rows if method in _ANCHORED_GEN_METHODS
+    }
+
+    # Persons a compiler-convention prior resolves a chain opening to — the
+    # book's author (al-Kulayni). They narrate, but calling them "narrator" hides
+    # who they are; the graph labels them as compilers.
+    compiler_person_ids = {
+        pid
+        for (pid,) in db.execute(
+            select(MentionResolution.person_id)
             .where(
-                PersonGeneration.person_id.in_(member_ids),
-                # Exclude conflict-method rows: a person whose generation evidence
-                # is self-contradictory should render as undated in the ṭabaqāt
-                # layout rather than be confidently banded at a bogus layer. This
-                # matches the quality overlay, which also excludes conflict rows.
-                PersonGeneration.method != "conflict",
+                MentionResolution.method.like("compiler_prior%"),
+                MentionResolution.person_id.isnot(None),
             )
-        ).all()
-    )
+            .distinct()
+        )
+    }
+
+    def _role(members: list[int], member_persons: list[Person], generation: int | None) -> str:
+        if any(p.kind == "masum" for p in member_persons):
+            return "prophet" if generation == 0 else "imam"
+        if any(m in compiler_person_ids for m in members):
+            return "compiler"
+        return "narrator"
 
     nodes: list[TransmissionGraphNode] = []
     for pid in sorted(kept_node_set, key=lambda p: -len(node_hadiths[p])):
@@ -2669,10 +2702,13 @@ def get_transmission_graph(
                 id=pid,
                 label=label,
                 kind=kind,
+                role=_role(members, member_persons, generation),
                 generation=generation,
+                generation_anchored=any(m in anchored_generations for m in members),
                 narrator_id=narrator_id,
                 hadith_count=len(node_hadiths[pid]),
                 merged_person_ids=members,
+                merged_labels=[p.canonical_name_ar for p in member_persons],
                 books=node_books.get(pid, {}),
                 uncertain=not pairs.node_confident.get(pid, True),
             )
