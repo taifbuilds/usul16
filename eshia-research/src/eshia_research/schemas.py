@@ -714,10 +714,24 @@ class TransmissionGraphNode(BaseModel):
     id: int
     label: str
     kind: str  # imam | narrator
+    # Finer-grained identity for display: prophet | imam | compiler | narrator.
+    # "compiler" is data-derived (the person a compiler-convention prior resolves
+    # a chain opening to, e.g. al-Kulayni) — a book's author narrates, but is not
+    # "just another narrator".
+    role: str = "narrator"
     generation: int | None
+    # True only when the generation comes from a real anchor (a fixed Imam layer
+    # or a documented companionship statement). A propagated-only value is an
+    # inference from neighbouring edges and is frequently wrong — e.g. a
+    # companion of al-Sadiq propagated into Imam Ali's layer — so the UI must
+    # never present it as established chronology.
+    generation_anchored: bool = False
     narrator_id: int | None
     hadith_count: int
     merged_person_ids: list[int]
+    # Every canonical form in the collapsed identity cluster, so a short root
+    # label cannot hide the longer form that appears in the isnad evidence.
+    merged_labels: list[str] = Field(default_factory=list)
     # Per-book footprint: {source_book_id: distinct charted hadiths in that book}.
     # One node can span several books once more than Al-Kafi is charted.
     books: dict[str, int] = Field(default_factory=dict)
