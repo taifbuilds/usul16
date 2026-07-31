@@ -545,7 +545,8 @@ p {
 .reader-matn,
 .reader-isnad,
 .reader-prose,
-.reader-note {
+.reader-note,
+.reader-sharh {
   max-width: 100%;
   overflow-wrap: anywhere;
   word-break: normal;
@@ -555,22 +556,28 @@ p {
 .reader-isnad { font-size: 1.15rem; line-height: 2.05; }
 .reader-prose { font-size: 1.35rem; line-height: 2.1; }
 .reader-note { font-size: 1.1rem; line-height: 2; }
+/* Commentary sits between the isnad and the matn: substantial enough to read
+   for minutes at a time, never loud enough to rival the hadith it explains. */
+.reader-sharh { font-size: 1.2rem; line-height: 2.05; }
 
 [data-reader-size="compact"] .reader-matn { font-size: 1.45rem; }
 [data-reader-size="compact"] .reader-isnad { font-size: 1rem; }
 [data-reader-size="compact"] .reader-prose { font-size: 1.18rem; }
 [data-reader-size="compact"] .reader-note { font-size: 1rem; }
+[data-reader-size="compact"] .reader-sharh { font-size: 1.05rem; }
 
 [data-reader-size="large"] .reader-matn { font-size: 2rem; }
 [data-reader-size="large"] .reader-isnad { font-size: 1.35rem; }
 [data-reader-size="large"] .reader-prose { font-size: 1.65rem; }
 [data-reader-size="large"] .reader-note { font-size: 1.3rem; }
+[data-reader-size="large"] .reader-sharh { font-size: 1.45rem; }
 
 @media (max-width: 639px) {
   .reader-matn { font-size: 1.4rem; line-height: 2; }
   .reader-isnad { font-size: 1rem; line-height: 1.9; }
   .reader-prose { font-size: 1.15rem; line-height: 1.95; }
   .reader-note { font-size: 1rem; line-height: 1.9; }
+  .reader-sharh { font-size: 1.08rem; line-height: 1.95; }
 
   [data-reader-size="compact"] .reader-matn { font-size: 1.25rem; }
   [data-reader-size="comfortable"] .reader-matn { font-size: 1.4rem; }
