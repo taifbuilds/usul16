@@ -1118,6 +1118,58 @@ class ThaqalaynStructureMap(Base):
     hadith: Mapped["Hadith"] = relationship()
 
 
+class HadithCommentary(Base):
+    """A source-preserving commentary passage, optionally matched to one hadith.
+
+    The eShia source pages are retained separately in ``pages``.  This table
+    records the extracted sharh block, its printed extent, and the evidence
+    used to connect it to the local al-Kafi report.  Rows below the publication
+    threshold remain available to editorial review but never reach the reader.
+    """
+
+    __tablename__ = "hadith_commentaries"
+    __table_args__ = (
+        UniqueConstraint(
+            "commentary_book_id", "source_key", "source_sequence",
+            name="uq_hadith_commentaries_source_sequence",
+        ),
+        UniqueConstraint(
+            "source_key", "hadith_id", name="uq_hadith_commentaries_source_hadith",
+        ),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    commentary_book_id: Mapped[int] = mapped_column(ForeignKey("books.id"), index=True)
+    hadith_id: Mapped[int | None] = mapped_column(ForeignKey("hadiths.id"), nullable=True, index=True)
+    source_key: Mapped[str] = mapped_column(String(64), index=True)
+    source_sequence: Mapped[int] = mapped_column(Integer)
+    source_label: Mapped[str | None] = mapped_column(String(256), nullable=True)
+    section_title: Mapped[str | None] = mapped_column(String(1024), nullable=True)
+    report_raw: Mapped[str | None] = mapped_column(Text, nullable=True)
+    report_normalised: Mapped[str | None] = mapped_column(Text, nullable=True)
+    commentary_raw: Mapped[str] = mapped_column(Text)
+    commentary_normalised: Mapped[str] = mapped_column(Text)
+    volume_start: Mapped[int] = mapped_column(Integer, index=True)
+    volume_end: Mapped[int] = mapped_column(Integer)
+    page_start: Mapped[int] = mapped_column(Integer)
+    page_end: Mapped[int] = mapped_column(Integer)
+    source_url: Mapped[str] = mapped_column(String(1024))
+    # matched | needs_review | unmatched | malformed
+    match_status: Mapped[str] = mapped_column(String(32), default="needs_review", index=True)
+    # section_number_and_text | section_number_only | text_only | unmatched
+    match_method: Mapped[str] = mapped_column(String(64), default="unmatched")
+    match_score: Mapped[float | None] = mapped_column(Float, nullable=True)
+    matcher_version: Mapped[str] = mapped_column(String(64), default="mirat_al_uqul_v1")
+    match_evidence_json: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    updated_at: Mapped[dt.datetime] = mapped_column(
+        DateTime(timezone=True), default=utcnow, onupdate=utcnow
+    )
+
+    commentary_book: Mapped["Book"] = relationship(foreign_keys=[commentary_book_id])
+    hadith: Mapped["Hadith | None"] = relationship(foreign_keys=[hadith_id])
+
+
 class Topic(Base):
     """A stable, searchable subject in the hadith taxonomy."""
 
