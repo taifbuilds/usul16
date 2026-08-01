@@ -36,6 +36,10 @@ HOST="${USUL16_HOST:-deploy@91.98.192.21}"
 REMOTE_APP="${USUL16_REMOTE_APP:-/home/deploy/usul16/eshia-research}"
 REMOTE_INCOMING="${USUL16_REMOTE_INCOMING:-/home/deploy/incoming}"
 LOCAL_DB="${DATABASE_FILE:-eshia-research/eshia_research.db}"
+# The venv interpreter, so this works from Git Bash on Windows too.
+PYTHON="${PYTHON:-eshia-research/.venv/bin/python}"
+[[ -x "$PYTHON" ]] || PYTHON="${PYTHON}.exe"
+[[ -x "$PYTHON" ]] || PYTHON="python"
 STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
 WORK="$(mktemp -d)"
 trap 'rm -rf "$WORK"' EXIT
@@ -64,8 +68,15 @@ echo "    manifest: $(wc -c <"$WORK/manifest.json") bytes"
 # --- 2. Export only what differs ------------------------------------------
 echo "==> [2/8] Exporting the delta"
 DELTA="$WORK/$SOURCE_KEY-$STAMP.json.gz"
-DATABASE_URL="sqlite:///./$(basename "$LOCAL_DB")" \
-  python -m eshia_research.cli export-commentary-delta "$SOURCE_KEY" \
+# Absolute, because the CLI runs from the repo root while the database lives a
+# directory down — a relative URL silently resolves to the wrong place.
+LOCAL_DB_ABS="$(cd "$(dirname "$LOCAL_DB")" && pwd)/$(basename "$LOCAL_DB")"
+# Git Bash reports `/c/Users/...`, which a Windows Python cannot open.
+if command -v cygpath >/dev/null 2>&1; then
+  LOCAL_DB_ABS="$(cygpath -m "$LOCAL_DB_ABS")"
+fi
+DATABASE_URL="sqlite:///$LOCAL_DB_ABS" \
+  "$PYTHON" -m eshia_research.cli export-commentary-delta "$SOURCE_KEY" \
     --manifest "$WORK/manifest.json" --output "$DELTA" \
   || { echo "Export failed." >&2; exit 1; }
 
