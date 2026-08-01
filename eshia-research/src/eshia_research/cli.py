@@ -2247,5 +2247,93 @@ def rebuild_alkafi_topics_cmd(
     typer.echo(f"  saved               : {not dry_run}")
 
 
+
+
+@app.command("commentary-manifest")
+def commentary_manifest_cmd(
+    source_key: str = typer.Argument(..., help="e.g. mirat-al-uqul"),
+    output: str = typer.Option(..., "--output", help="Where to write the manifest JSON"),
+) -> None:
+    """Fingerprint what THIS database already holds for a commentary.
+
+    Run on the deployment target. The result is small and is what makes the
+    export a real delta instead of a full dump.
+    """
+    import json
+
+    from eshia_research.commentary.transfer import build_manifest
+
+    db = SessionLocal()
+    try:
+        manifest = build_manifest(db, source_key)
+    finally:
+        db.close()
+    with open(output, "w", encoding="utf-8") as handle:
+        json.dump(manifest, handle, ensure_ascii=False)
+    typer.echo(f"Manifest for {source_key}: {len(manifest['entries'])} row(s) -> {output}")
+
+
+@app.command("export-commentary-delta")
+def export_commentary_delta_cmd(
+    source_key: str = typer.Argument(..., help="e.g. mirat-al-uqul"),
+    output: str = typer.Option(..., "--output", help="Destination .json.gz"),
+    manifest: str | None = typer.Option(
+        None, "--manifest", help="Target's manifest; omit to export every row"
+    ),
+) -> None:
+    """Export only the commentary rows that differ from the target's manifest."""
+    import json
+
+    from eshia_research.commentary.transfer import export_delta, write_delta
+
+    loaded = None
+    if manifest:
+        with open(manifest, "r", encoding="utf-8") as handle:
+            loaded = json.load(handle)
+
+    db = SessionLocal()
+    try:
+        delta = export_delta(db, source_key, loaded)
+    finally:
+        db.close()
+    write_delta(delta, output)
+    summary = delta["summary"]
+    typer.echo(
+        f"Delta for {source_key}: changed={summary['changed']} "
+        f"unchanged={summary['unchanged']} removed={summary['removed']} "
+        f"(of {summary['total_local_rows']} local rows) -> {output}"
+    )
+
+
+@app.command("import-commentary-delta")
+def import_commentary_delta_cmd(
+    input_path: str = typer.Argument(..., help="The .json.gz produced by export"),
+    dry_run: bool = typer.Option(
+        False, "--dry-run", help="Validate and roll back without writing"
+    ),
+) -> None:
+    """Validate every public_id, then apply the delta in one transaction."""
+    from eshia_research.commentary.transfer import read_delta, import_delta, verify_target
+
+    delta = read_delta(input_path)
+    db = SessionLocal()
+    try:
+        stats = import_delta(db, delta, dry_run=dry_run)
+        counts = verify_target(db, delta["source_key"])
+    except ValueError as error:
+        db.rollback()
+        typer.echo(f"REFUSED: {error}", err=True)
+        raise typer.Exit(code=1)
+    finally:
+        db.close()
+    prefix = "DRY RUN — no changes written. " if dry_run else ""
+    typer.echo(
+        f"{prefix}{delta['source_key']}: inserted={stats.inserted} updated={stats.updated} "
+        f"deleted={stats.deleted} unchanged={stats.unchanged}. "
+        f"Target now holds rows={counts['rows']} matched={counts['matched']} "
+        f"linked_hadiths={counts['linked_hadiths']}."
+    )
+
+
 if __name__ == "__main__":
     app()

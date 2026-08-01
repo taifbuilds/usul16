@@ -33,7 +33,8 @@ The server's deploy key is **read-only** — it can `fetch`/`pull`, never `push`
 **The DB does not travel through Git** (`*.db` is gitignored; the deploy script only touches
 code). None of the research work below reaches production by pushing to `main`.
 Data ships by its own path: upload a verified snapshot, verify, swap, restart, rollback on
-failure (see `infra/deploy/deploy-db.sh` once it exists — design in §7).
+failure — use `infra/deploy/deploy-db.sh` (§7); it ships a public_id-keyed delta of the
+commentary rows and never replaces the live database.
 
 ### Server-specific, never commit
 `eshia-research/.env` · `eshia-research/eshia_research.db` · `eshia-research/.venv` ·
@@ -140,28 +141,62 @@ with candidates shown, or flagged. The ~72% plateau is the *honest* answer —
 
 ---
 
-## 7. Recommended `deploy-db.sh` (design)
+## 7. `infra/deploy/deploy-db.sh` — SHIPPED (2026-07-31)
 
-Ship the DB with the same care as code, in ~30 lines and no new infrastructure.
-**Order matters — verify before touching production:**
+Code deploys itself when `main` is pushed; the database does not, and this is the missing
+half. **It never replaces the production database** — it ships only the commentary rows that
+differ.
 
-1. **Transfer to a staging path**, never on top of the live file
-   (`scp` onto the live DB can leave it truncated): `scp db.zst deploy@host:/home/deploy/incoming/`.
-2. **Verify the candidate** *before* the swap — this catches the catastrophic cases:
-   `PRAGMA integrity_check` = `ok`; required tables present; `COUNT(*) FROM hadiths` above a
-   sane floor (guards against shipping an empty/truncated file).
-3. **Back up the current live DB** (timestamped, keep the last 2–3).
-4. **Atomic swap:** copy to `…/eshia_research.db.incoming` on the *same filesystem*, then
-   `mv -f` (rename is atomic), then `systemctl restart usul16-api`. The running process keeps
-   the old inode until restart, so readers never see a torn file.
-5. **Verify over HTTP** (retry `/health` + one real data endpoint). **Roll back** to the
-   backup and restart if it fails.
-6. Print the one-line rollback command on success.
+```bash
+./infra/deploy/deploy-db.sh mirat-al-uqul            # publish
+./infra/deploy/deploy-db.sh sharh-al-mazandarani --dry-run
+```
 
-Notes: `journal_mode=delete` means a single file with no `-wal`/`-shm` sidecars to ship — if
-that ever changes to WAL, the sidecars must be handled. There is a ~1 s window between swap
-and restart where a new connection may open the new file while pooled ones hold the old;
-both are internally consistent, so this is harmless for a content site.
+**Rows travel keyed by `public_id`, never `hadith_id`.** Production is a *separate copy* of
+the corpus and nothing guarantees its `hadiths.id` sequence matches the local one; a row
+carrying `hadith_id=19479` would silently attach a commentary to whatever hadith holds that
+id there. Rehearsed against the real corpus with production's ids deliberately shifted by
+4,000,000: **400 sampled links, 0 mismatches.**
+
+**It is a delta on the wire, not a dump that is diffed on arrival.** Step 1 pulls a
+fingerprint manifest back from production, so only changed rows are ever uploaded:
+
+| | |
+|---|---|
+| full DB | 2.97 GB (research copy is now 6.67 GB after the Mazandarani crawl) |
+| first publish of Mir'at | **11.6 MB** — 256× smaller |
+| first publish of Mazandarani | 7.6 MB |
+| nothing changed | **323 bytes**, and the script exits early |
+
+Eight steps, ordered so everything that can fail without touching production happens first:
+
+1. **Fingerprint production** (`commentary-manifest`) — small, and what makes this a delta.
+2. **Export only what differs** (`export-commentary-delta --manifest`), including a list of
+   `source_sequence`s that no longer exist so removals propagate.
+3. **Upload** to `~/incoming`, never over the live file.
+4. **`alembic upgrade head`** — `hadith_commentaries` may not exist there yet; the migration
+   `e4c91f7b2d68` chains directly off production's current head `a6c8d2e4f190`.
+5. **Back up** the live DB, timestamped, *before* any write.
+6. **Validate then import** (`import-commentary-delta`): every `public_id` must resolve
+   before a single row is written, then the whole delta applies in **one transaction**. A
+   delta built against a different corpus aborts with production untouched.
+7. **Restart** the API.
+8. **Verify over HTTP** — `/health` *and* a real data endpoint returning a `commentaries`
+   field, because `systemctl is-active` reports a unit that starts and then 500s as healthy.
+
+Prints the exact rollback command on success and on every failure path.
+
+The importer also creates the commentary's `books` row from the exported metadata if the
+target has never seen that work, so a first deployment is self-contained; and it detaches an
+incumbent row when a re-index moves a passage onto a hadith another passage held, which
+`uq_hadith_commentaries_source_hadith` would otherwise reject.
+
+Covered by `tests/test_commentary_transfer.py` (11 tests), including the id-mismatch case,
+partial-failure atomicity, dry-run, deletions, and idempotence.
+
+**Still true of a full-file swap**, if one is ever needed: `journal_mode=delete` means a
+single file with no `-wal`/`-shm` sidecars to ship; copy to the same filesystem and `mv -f`
+so the rename is atomic; readers keep the old inode until restart.
 
 ---
 
