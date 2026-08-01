@@ -6,7 +6,7 @@ Requires=usul16-api.service
 [Service]
 User=deploy
 Group=deploy
-WorkingDirectory=/home/deploy/usul16/web
+WorkingDirectory=/home/deploy/app/web
 Environment=NODE_ENV=production
 Environment=PORT=3000
 ExecStart=/usr/bin/npm start

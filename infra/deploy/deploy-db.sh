@@ -33,13 +33,29 @@ if [[ -z "$SOURCE_KEY" ]]; then
 fi
 
 HOST="${USUL16_HOST:-deploy@91.98.192.21}"
-REMOTE_APP="${USUL16_REMOTE_APP:-/home/deploy/usul16/eshia-research}"
+REMOTE_APP="${USUL16_REMOTE_APP:-/home/deploy/app/eshia-research}"
 REMOTE_INCOMING="${USUL16_REMOTE_INCOMING:-/home/deploy/incoming}"
 LOCAL_DB="${DATABASE_FILE:-eshia-research/eshia_research.db}"
-# The venv interpreter, so this works from Git Bash on Windows too.
-PYTHON="${PYTHON:-eshia-research/.venv/bin/python}"
-[[ -x "$PYTHON" ]] || PYTHON="${PYTHON}.exe"
-[[ -x "$PYTHON" ]] || PYTHON="python"
+# Prefer the project venv. A virtualenv puts its interpreter in bin/ on POSIX
+# and Scripts/ on Windows, so both are tried before falling back to PATH —
+# otherwise Git Bash silently runs whatever `python` happens to be there, which
+# will not have this project installed.
+if [[ -z "${PYTHON:-}" ]]; then
+  for candidate in \
+    eshia-research/.venv/bin/python \
+    eshia-research/.venv/Scripts/python.exe \
+    python3 \
+    python; do
+    if command -v "$candidate" >/dev/null 2>&1 || [[ -x "$candidate" ]]; then
+      PYTHON="$candidate"
+      break
+    fi
+  done
+fi
+if ! "$PYTHON" -c "import eshia_research" >/dev/null 2>&1; then
+  echo "'$PYTHON' cannot import eshia_research. Activate the venv or set PYTHON=..." >&2
+  exit 1
+fi
 STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
 WORK="$(mktemp -d)"
 trap 'rm -rf "$WORK"' EXIT

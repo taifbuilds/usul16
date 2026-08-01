@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-APP_DIR="/home/deploy/usul16"
+APP_DIR="/home/deploy/app"
 
 echo "Starting Usul16 deployment..."
 
