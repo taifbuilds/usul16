@@ -1,0 +1,17 @@
+[Unit]
+Description=Usul16 Next.js Frontend
+After=network.target usul16-api.service
+Requires=usul16-api.service
+
+[Service]
+User=deploy
+Group=deploy
+WorkingDirectory=/home/deploy/app/web
+Environment=NODE_ENV=production
+Environment=PORT=3000
+ExecStart=/usr/bin/npm start
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

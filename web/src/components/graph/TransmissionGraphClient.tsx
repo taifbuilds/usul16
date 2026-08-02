@@ -59,6 +59,10 @@ const UNDATED = "#6f7d72";
 // Provisional narrators (ambiguous best-guess) read as a muted, desaturated
 // clay — clearly "not confirmed" regardless of ṭabaqa.
 const UNCERTAIN = "#9a8f79";
+// Book compilers (al-Kulayni) — a mauve that is unmistakably neither the Imams'
+// gold nor the narrators' blue ramp. Also drawn with a ring, so the distinction
+// never depends on colour alone.
+const COMPILER = "#b58bd6";
 const INK_PRIMARY = "#ece7d6";
 const INK_SECONDARY = "#9aa695";
 const EDGE_RGB = "214, 224, 210";
@@ -66,13 +70,43 @@ const HIGHLIGHT = "#e8b54a";
 
 const ERA_LABELS = ["Ṭabaqa ≤ 4", "Ṭabaqa 5–6", "Ṭabaqa 7–8", "Ṭabaqa 9–10", "Ṭabaqa 11+"];
 const MAX_GEN = 13;
+// Undated narrators get their own band *below* the timeline, separated by a
+// rule — merging them into the last generation implied they were the latest,
+// which is a claim the data does not make.
+const UNDATED_BAND = MAX_GEN + 1;
+
+// Each generation is anchored by the Maʿṣūm who lived in it, which is what makes
+// the ṭabaqāt axis legible as time rather than as bare numbers.
+const GENERATION_ANCHOR: Record<number, string> = {
+  0: "the Prophet",
+  1: "Imam ʿAlī",
+  2: "al-Ḥasan · al-Ḥusayn",
+  3: "al-Sajjād",
+  4: "al-Bāqir",
+  5: "al-Ṣādiq",
+  6: "al-Kāẓim",
+  7: "al-Riḍā",
+  8: "al-Jawād",
+  9: "al-Hādī",
+  10: "al-ʿAskarī",
+  11: "al-Mahdī",
+  12: "the compilers",
+  13: "later",
+};
+
+const ROLE_LABEL: Record<string, string> = {
+  prophet: "The Prophet ﷺ",
+  imam: "Maʿṣūm (Imam)",
+  compiler: "Compiler of the book",
+  narrator: "Narrator",
+};
 
 // Evidence-quality colors (validated status hue on the dark plate).
 const QUALITY_CONTRADICTED = "#d03b3b"; // critical — 3.62:1 on #121c17
 const QUALITY_CORROBORATED = "#1baf7a"; // good — reads distinct from the blue ramp
 
 function tabaqaBandY(generation: number, height: number): number {
-  return height * 0.08 + (generation / MAX_GEN) * height * 0.84;
+  return height * 0.08 + (generation / UNDATED_BAND) * height * 0.84;
 }
 
 function eraIndex(generation: number | null): number | null {
@@ -85,9 +119,16 @@ function eraIndex(generation: number | null): number | null {
 }
 
 function nodeColor(node: TransmissionGraphNode): string {
-  if (node.kind === "imam") return IMAM_GOLD;
-  const era = eraIndex(node.generation);
+  if (node.kind === "imam" || node.role === "prophet") return IMAM_GOLD;
+  if (node.role === "compiler") return COMPILER;
+  // A propagated generation is an estimate, not a date. Keep it out of the
+  // colour encoding so a guessed layer cannot look like established chronology.
+  const era = eraIndex(node.generation_anchored ? node.generation : null);
   return era === null ? UNDATED : ERA_RAMP[era];
+}
+
+function datedGeneration(node: TransmissionGraphNode): number | null {
+  return node.generation_anchored ? node.generation : null;
 }
 
 /** Diacritic/variant-insensitive Arabic match for the in-graph path pickers,
@@ -394,7 +435,8 @@ function tickSim(sim: SimState, mode: LayoutMode, dragging: SimNode | null): voi
     // In ṭabaqāt mode the bands should spread wide, so x-gravity is gentler.
     n.vx += (w / 2 - n.x) * (mode === "tabaqat" ? 0.004 : 0.009) * alpha;
     if (mode === "tabaqat") {
-      const gen = n.generation ?? MAX_GEN; // undated sinks to the bottom band
+      // Undated sits in its own band below the timeline, not at "latest".
+      const gen = datedGeneration(n) ?? UNDATED_BAND;
       n.vy += (tabaqaBandY(gen, h) - n.y) * 0.14 * alpha;
     } else {
       n.vy += (h / 2 - n.y) * 0.011 * alpha;
@@ -645,7 +687,9 @@ function GraphNodePicker({
     const qq = normArabic(q);
     if (qq.length < 1) return [];
     return nodes
-      .filter((n) => normArabic(n.label).includes(qq))
+      .filter((n) =>
+        [n.label, ...(n.merged_labels ?? [])].some((label) => normArabic(label).includes(qq))
+      )
       .sort((a, b) => b.hadith_count - a.hadith_count)
       .slice(0, 8);
   }, [nodes, q]);
@@ -751,6 +795,7 @@ export function TransmissionGraphClient() {
   const [qualityOn, setQualityOn] = useState(searchParams.get("quality") === "1");
   const [qualityLoading, setQualityLoading] = useState(false);
   const [includeUncertain, setIncludeUncertain] = useState(searchParams.get("uncertain") === "1");
+  const [legendOpen, setLegendOpen] = useState(true);
   const [evidence, setEvidence] = useState<{
     source: number;
     target: number;
@@ -936,7 +981,8 @@ export function TransmissionGraphClient() {
     ctx.translate(sim.tx, sim.ty);
     ctx.scale(sim.scale, sim.scale);
 
-    // Ṭabaqāt mode: hairline generation rules under the data.
+    // Ṭabaqāt mode: hairline generation rules under the data, plus a stronger
+    // dashed rule marking where dated history ends and "unknown" begins.
     if (layoutRef.current === "tabaqat") {
       ctx.strokeStyle = "rgba(236, 231, 214, 0.055)";
       ctx.lineWidth = 1 / sim.scale;
@@ -947,6 +993,14 @@ export function TransmissionGraphClient() {
         ctx.lineTo(20000, y);
         ctx.stroke();
       }
+      const dividerY = (tabaqaBandY(MAX_GEN, h) + tabaqaBandY(UNDATED_BAND, h)) / 2;
+      ctx.setLineDash([6 / sim.scale, 6 / sim.scale]);
+      ctx.strokeStyle = "rgba(236, 231, 214, 0.16)";
+      ctx.beginPath();
+      ctx.moveTo(-20000, dividerY);
+      ctx.lineTo(20000, dividerY);
+      ctx.stroke();
+      ctx.setLineDash([]);
     }
 
     const hovered = hoveredRef.current;
@@ -1044,7 +1098,10 @@ export function TransmissionGraphClient() {
       .sort((a, b) => b.hadith_count - a.hadith_count)
       .slice(0, 8)
       .forEach((n) => labelIds.add(n.id));
-    for (const n of visibleSorted) if (n.kind === "imam") labelIds.add(n.id);
+    // Imams and compilers are always named — they are the landmarks of the map.
+    for (const n of visibleSorted) {
+      if (n.kind === "imam" || n.role === "compiler" || n.role === "prophet") labelIds.add(n.id);
+    }
     if (focus) {
       labelIds.add(focus.id);
       focusNeighbors?.forEach((id) => labelIds.add(id));
@@ -1057,8 +1114,20 @@ export function TransmissionGraphClient() {
       const dimmed = pathActive
         ? !onPathNode
         : focus !== null && n.id !== focus.id && !focusNeighbors?.has(n.id);
+      // In the ṭabaqāt layout the y-position IS a chronology claim, so a merely
+      // inferred generation must not look as solid as an anchored one.
+      const inferredGen =
+        layoutRef.current === "tabaqat" && n.generation !== null && !n.generation_anchored;
       const alpha =
-        (dimmed ? (pathActive ? 0.09 : 0.18) : n.uncertain ? 0.6 : 1) * globalFade;
+        (dimmed
+          ? pathActive
+            ? 0.09
+            : 0.18
+          : n.uncertain
+            ? 0.6
+            : inferredGen
+              ? 0.45
+              : 1) * globalFade;
       ctx.globalAlpha = alpha;
 
       if (n.kind === "imam" && !dimmed) {
@@ -1084,6 +1153,13 @@ export function TransmissionGraphClient() {
         ctx.beginPath();
         ctx.arc(n.x, n.y, Math.max(1.5, n.r * 0.42), 0, Math.PI * 2);
         ctx.fill();
+      } else if (n.role === "compiler") {
+        // A ring, so "compiler" is legible without relying on colour alone.
+        ctx.strokeStyle = COMPILER;
+        ctx.lineWidth = 1.5 / sim.scale;
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r + 2.5 / sim.scale, 0, Math.PI * 2);
+        ctx.stroke();
       }
 
       const isFocused = focus !== null && n.id === focus.id;
@@ -1110,17 +1186,28 @@ export function TransmissionGraphClient() {
       ctx.globalAlpha = 1;
     }
 
-    // Ṭabaqāt tick labels, fixed to the left edge in screen space.
+    // Ṭabaqāt tick labels, fixed to the left edge in screen space. Each band is
+    // named for the Maʿṣūm who lived in it, so the axis reads as time.
     if (layoutRef.current === "tabaqat") {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.font = "10px system-ui, sans-serif";
       ctx.textAlign = "left";
       ctx.textBaseline = "middle";
+      // "Earlier ↑ / later ↓" orientation cue at the top of the axis.
+      ctx.font = "600 10px system-ui, sans-serif";
       ctx.fillStyle = INK_SECONDARY;
-      for (let gen = 0; gen <= MAX_GEN; gen++) {
+      ctx.fillText("EARLIER ↑", 10, 14);
+      for (let gen = 0; gen <= UNDATED_BAND; gen++) {
         const y = tabaqaBandY(gen, h) * sim.scale + sim.ty;
-        if (y < 14 || y > h - 8) continue;
-        ctx.fillText(gen === MAX_GEN ? "undated" : `ṭabaqa ${gen}`, 10, y);
+        if (y < 26 || y > h - 8) continue;
+        const undated = gen === UNDATED_BAND;
+        ctx.font = `${undated ? "italic " : ""}10px system-ui, sans-serif`;
+        ctx.fillStyle = INK_SECONDARY;
+        const anchor = GENERATION_ANCHOR[gen];
+        ctx.fillText(
+          undated ? "generation unknown" : anchor ? `${gen} · ${anchor}` : `${gen}`,
+          10,
+          y
+        );
       }
     }
   }, []);
@@ -1181,8 +1268,10 @@ export function TransmissionGraphClient() {
       const p = toWorld(clientX, clientY);
       let best: SimNode | null = null;
       let bestD = Infinity;
-      // ≥24px screen-space hit target per mark.
-      const maxD = Math.max(24 / sim.scale, 6);
+      // Generous screen-space hit target per mark — fingers are far less precise
+      // than a cursor, and the marks are only a few pixels wide when zoomed out.
+      const touchLike = typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches;
+      const maxD = Math.max((touchLike ? 44 : 24) / sim.scale, 6);
       for (const n of sim.nodes) {
         if (!n.visible) continue;
         const d = Math.hypot(n.x - p.x, n.y - p.y) - n.r;
@@ -1217,8 +1306,32 @@ export function TransmissionGraphClient() {
     const sim = simRef.current;
     const inter = interactionRef.current;
 
+    // Active touch points, so two fingers can pinch-zoom. Without this the only
+    // zoom is the mouse wheel, which no phone has.
+    const points = new Map<number, { x: number; y: number }>();
+    let pinchDist = 0;
+
+    const pinchGeometry = () => {
+      const [a, b] = [...points.values()];
+      const rect = canvas.getBoundingClientRect();
+      return {
+        dist: Math.hypot(a.x - b.x, a.y - b.y),
+        cx: (a.x + b.x) / 2 - rect.left,
+        cy: (a.y + b.y) / 2 - rect.top,
+      };
+    };
+
     const onPointerDown = (ev: PointerEvent) => {
       canvas.setPointerCapture(ev.pointerId);
+      points.set(ev.pointerId, { x: ev.clientX, y: ev.clientY });
+      if (points.size === 2) {
+        // Second finger down: abandon drag/pan and start pinching.
+        inter.dragging = null;
+        inter.panning = false;
+        pinchDist = pinchGeometry().dist;
+        syncTooltip(null);
+        return;
+      }
       const node = hitTest(ev.clientX, ev.clientY);
       inter.moved = 0;
       inter.lastX = ev.clientX;
@@ -1232,6 +1345,15 @@ export function TransmissionGraphClient() {
     };
 
     const onPointerMove = (ev: PointerEvent) => {
+      if (points.has(ev.pointerId)) {
+        points.set(ev.pointerId, { x: ev.clientX, y: ev.clientY });
+      }
+      if (points.size >= 2) {
+        const { dist, cx, cy } = pinchGeometry();
+        if (pinchDist > 0 && dist > 0) zoomCamera(sim, cx, cy, dist / pinchDist);
+        pinchDist = dist;
+        return;
+      }
       const dx = ev.clientX - inter.lastX;
       const dy = ev.clientY - inter.lastY;
       if (inter.dragging || inter.panning) inter.moved += Math.abs(dx) + Math.abs(dy);
@@ -1241,7 +1363,8 @@ export function TransmissionGraphClient() {
         syncTooltip(null);
       } else if (inter.panning) {
         panCamera(sim, dx, dy);
-      } else {
+      } else if (ev.pointerType === "mouse") {
+        // Hover preview is a mouse affordance; on touch it would stick open.
         const node = hitTest(ev.clientX, ev.clientY);
         hoveredRef.current = node;
         setHoveredId(node?.id ?? null);
@@ -1253,10 +1376,20 @@ export function TransmissionGraphClient() {
     };
 
     const onPointerUp = (ev: PointerEvent) => {
+      const wasPinching = points.size >= 2;
+      points.delete(ev.pointerId);
+      if (points.size < 2) pinchDist = 0;
+      if (wasPinching) {
+        inter.dragging = null;
+        inter.panning = false;
+        return;
+      }
       if (inter.moved < 5) {
         const node = hitTest(ev.clientX, ev.clientY);
         selectedRef.current = node;
         setSelectedId(node?.id ?? null);
+        // Touch has no hover, so a tap must dismiss the tooltip itself.
+        if (ev.pointerType !== "mouse") syncTooltip(null);
       }
       inter.dragging = null;
       inter.panning = false;
@@ -1282,12 +1415,14 @@ export function TransmissionGraphClient() {
     canvas.addEventListener("pointerdown", onPointerDown);
     canvas.addEventListener("pointermove", onPointerMove);
     canvas.addEventListener("pointerup", onPointerUp);
+    canvas.addEventListener("pointercancel", onPointerUp);
     canvas.addEventListener("pointerleave", onLeave);
     canvas.addEventListener("wheel", onWheel, { passive: false });
     return () => {
       canvas.removeEventListener("pointerdown", onPointerDown);
       canvas.removeEventListener("pointermove", onPointerMove);
       canvas.removeEventListener("pointerup", onPointerUp);
+      canvas.removeEventListener("pointercancel", onPointerUp);
       canvas.removeEventListener("pointerleave", onLeave);
       canvas.removeEventListener("wheel", onWheel);
     };
@@ -1468,8 +1603,15 @@ export function TransmissionGraphClient() {
     [graph, hoveredId]
   );
 
+  const legendPosition =
+    layout === "tabaqat"
+      ? selected || evidence
+        ? "bottom-3 left-3"
+        : "right-3 top-3"
+      : "bottom-3 left-3";
+
   const visibleStats = useMemo(() => {
-    if (!graph) return { nodes: 0, edges: 0, uncertain: 0 };
+    if (!graph) return { nodes: 0, edges: 0, uncertain: 0, anchoredGen: 0 };
     const kept = graph.edges.filter((e) => e.count >= minWeight);
     const touched = new Set<number>();
     kept.forEach((e) => {
@@ -1478,10 +1620,13 @@ export function TransmissionGraphClient() {
     });
     const byId = new Map(graph.nodes.map((n) => [n.id, n]));
     let uncertain = 0;
+    let anchoredGen = 0;
     touched.forEach((id) => {
-      if (byId.get(id)?.uncertain) uncertain += 1;
+      const n = byId.get(id);
+      if (n?.uncertain) uncertain += 1;
+      if (n?.generation_anchored) anchoredGen += 1;
     });
-    return { nodes: touched.size, edges: kept.length, uncertain };
+    return { nodes: touched.size, edges: kept.length, uncertain, anchoredGen };
   }, [graph, minWeight]);
 
   const tableRows = useMemo(() => {
@@ -1652,6 +1797,20 @@ export function TransmissionGraphClient() {
           {graph?.computed_at ? ` · as of ${formatComputedAt(graph.computed_at)}` : ""}
         </p>
 
+        {/* The ṭabaqāt axis is a chronology claim, and most of it is inferred.
+            Say so plainly rather than letting the layout imply certainty. */}
+        {layout === "tabaqat" && graph ? (
+            <p className="rounded-md border border-dashed border-border px-3 py-2 text-xs leading-5 text-muted sm:col-span-2 lg:col-span-6">
+            Only{" "}
+            <span className="font-semibold text-foreground">
+              {numberFormat.format(visibleStats.anchoredGen)}
+            </span>{" "}
+            of {numberFormat.format(visibleStats.nodes)} narrators here have a generation fixed by a
+            companionship record. The rest stay in the unknown band; propagated estimates are
+            shown only in their details and do not set a dated position.
+          </p>
+        ) : null}
+
         {/* Book coverage — honest about what is charted vs. still coming. */}
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-xs text-muted sm:col-span-2 lg:col-span-6">
           <span className="uppercase tracking-wide text-[11px] text-foreground/60">Charted</span>
@@ -1679,7 +1838,14 @@ export function TransmissionGraphClient() {
         className="relative h-[68svh] min-h-[430px] w-full overflow-hidden rounded-md border border-border shadow-[inset_0_0_48px_rgba(0,0,0,0.28)] sm:h-[72vh] sm:min-h-[480px]"
         style={{ background: PLATE_BG }}
       >
-        <canvas ref={canvasRef} className="block h-full w-full cursor-grab" aria-label="Narrator transmission network graph" role="img" />
+        {/* touch-none is essential on mobile: without it the browser claims the
+            drag for page-scrolling and the graph can barely be panned at all. */}
+        <canvas
+          ref={canvasRef}
+          className="block h-full w-full touch-none cursor-grab"
+          aria-label="Narrator transmission network graph"
+          role="img"
+        />
 
         {!graph && !error && (
           <div className="absolute inset-0 flex items-center justify-center">
@@ -1706,7 +1872,7 @@ export function TransmissionGraphClient() {
         )}
         {graph && pathOpen && (
           <aside
-            className="absolute left-3 top-3 z-20 flex max-h-[calc(100%-1.5rem)] w-80 max-w-[calc(100%-1.5rem)] flex-col rounded-md p-4"
+            className="absolute inset-x-2 bottom-2 z-30 flex max-h-[72%] flex-col overflow-y-auto rounded-md p-4 sm:inset-x-auto sm:bottom-auto sm:left-3 sm:top-3 sm:max-h-[calc(100%-1.5rem)] sm:w-80 sm:max-w-[calc(100%-1.5rem)]"
             style={{
               background: "rgba(15,24,19,0.96)",
               border: "1px solid rgba(236,231,214,0.18)",
@@ -1840,16 +2006,41 @@ export function TransmissionGraphClient() {
                 </span>{" "}
                 hadiths in resolved chains
               </p>
+              <p
+                className="text-xs font-medium"
+                style={{
+                  color:
+                    hoveredNode.role === "compiler"
+                      ? COMPILER
+                      : hoveredNode.kind === "imam"
+                        ? IMAM_GOLD_BRIGHT
+                        : INK_SECONDARY,
+                }}
+              >
+                {ROLE_LABEL[hoveredNode.role] ?? "Narrator"}
+              </p>
               <p className="text-xs" style={{ color: INK_SECONDARY }}>
-                {hoveredNode.kind === "imam"
-                  ? "Maʿṣūm"
-                  : hoveredNode.generation !== null
-                    ? `Ṭabaqa ${hoveredNode.generation} (estimated)`
-                    : "Ṭabaqa unknown"}
+                {hoveredNode.generation !== null
+                  ? `${hoveredNode.generation_anchored ? "Generation" : "Estimated generation"} ${hoveredNode.generation}${
+                      GENERATION_ANCHOR[hoveredNode.generation]
+                        ? ` · ${GENERATION_ANCHOR[hoveredNode.generation]}`
+                        : ""
+                    }`
+                  : "Generation unknown"}
                 {hoveredNode.merged_person_ids.length > 1
                   ? ` · ${hoveredNode.merged_person_ids.length} merged identities`
                   : ""}
               </p>
+              {hoveredNode.generation !== null && (
+                <p
+                  className="text-[11px]"
+                  style={{ color: hoveredNode.generation_anchored ? INK_SECONDARY : UNCERTAIN }}
+                >
+                  {hoveredNode.generation_anchored
+                    ? "Dated from a companionship record"
+                    : "Date inferred from transmission — may be unreliable"}
+                </p>
+              )}
               {hoveredNode.uncertain && (
                 <p className="text-xs font-medium" style={{ color: UNCERTAIN }}>
                   Best guess — not confirmed
@@ -1862,21 +2053,35 @@ export function TransmissionGraphClient() {
           )}
         </div>
 
-        {/* Legend */}
-        <div
-          className="absolute bottom-3 left-3 z-10 rounded-md px-3.5 py-3 text-[11px] leading-5"
+        {/* Legend. Collapsible, and it moves to the right in ṭabaqāt mode so it
+            never sits on top of the generation axis labels down the left edge. */}
+        <details
+          open={legendOpen}
+          onToggle={(ev) => setLegendOpen((ev.currentTarget as HTMLDetailsElement).open)}
+          className={`absolute z-50 max-w-[min(15rem,calc(100%-1.5rem))] rounded-md px-3.5 py-2.5 text-[11px] leading-5 ${legendPosition}`}
           style={{
-            background: "rgba(15, 24, 19, 0.88)",
+            background: "rgba(15, 24, 19, 0.92)",
             border: "1px solid rgba(236, 231, 214, 0.12)",
             color: INK_SECONDARY,
           }}
         >
+          <summary className="cursor-pointer list-none select-none font-medium" style={{ color: INK_PRIMARY }}>
+            Legend <span className="opacity-60">{legendOpen ? "▾" : "▸"}</span>
+          </summary>
+          <div className="mt-2">
           <p className="flex items-center gap-2">
             <span
               className="inline-block h-2.5 w-2.5 rounded-full"
               style={{ background: IMAM_GOLD, boxShadow: "0 0 6px rgba(232,181,74,0.8)" }}
             />
             <span style={{ color: INK_PRIMARY }}>The Imams</span>
+          </p>
+          <p className="flex items-center gap-2">
+            <span
+              className="inline-block h-2.5 w-2.5 rounded-full"
+              style={{ background: COMPILER, boxShadow: `0 0 0 1.5px ${COMPILER}40` }}
+            />
+            <span style={{ color: INK_PRIMARY }}>Compiler of the book</span>
           </p>
           {ERA_RAMP.map((hex, i) => (
             <p key={hex} className="flex items-center gap-2">
@@ -1892,6 +2097,15 @@ export function TransmissionGraphClient() {
             <p className="flex items-center gap-2">
               <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: UNCERTAIN }} />
               Best guess (unconfirmed)
+            </p>
+          )}
+          {layout === "tabaqat" && (
+            <p className="flex items-center gap-2">
+              <span
+                className="inline-block h-2.5 w-2.5 rounded-full"
+                style={{ background: ERA_RAMP[2], opacity: 0.45 }}
+              />
+              Faded = estimate only
             </p>
           )}
           <p className="mt-1.5 border-t pt-1.5" style={{ borderColor: "rgba(236,231,214,0.12)" }}>
@@ -1916,12 +2130,16 @@ export function TransmissionGraphClient() {
               </p>
             </div>
           )}
-        </div>
+          </div>
+        </details>
 
         {/* Detail panel */}
         {selected && (
           <aside
-            className="absolute right-3 top-3 z-10 w-80 max-w-[calc(100%-1.5rem)] rounded-md p-4"
+            // Phone: a bottom sheet inside the plate. Desktop: a floating card
+            // that scrolls rather than overflowing the plate — a narrator with
+            // many teachers/students used to run off the bottom edge.
+            className="absolute inset-x-2 bottom-2 z-30 max-h-[60%] overflow-y-auto overscroll-contain rounded-md p-4 sm:inset-x-auto sm:bottom-3 sm:right-3 sm:top-3 sm:w-80 sm:max-w-[calc(100%-1.5rem)]"
             style={{
               background: "rgba(15, 24, 19, 0.94)",
               border: "1px solid rgba(236, 231, 214, 0.16)",
@@ -1951,11 +2169,32 @@ export function TransmissionGraphClient() {
               </button>
             </div>
             <p className="mt-1 text-xs" style={{ color: INK_SECONDARY }}>
-              {selected.kind === "imam"
-                ? "Maʿṣūm"
-                : selected.generation !== null
-                  ? `Ṭabaqa ${selected.generation} (estimated)`
-                  : "Ṭabaqa unknown"}
+              <span
+                className="font-medium"
+                style={{
+                  color:
+                    selected.role === "compiler"
+                      ? COMPILER
+                      : selected.kind === "imam"
+                        ? IMAM_GOLD_BRIGHT
+                        : INK_PRIMARY,
+                }}
+              >
+                {ROLE_LABEL[selected.role] ?? "Narrator"}
+              </span>
+              {" · "}
+              {selected.generation !== null ? (
+                <span style={{ color: selected.generation_anchored ? undefined : UNCERTAIN }}>
+                  {`Gen ${selected.generation}${
+                    GENERATION_ANCHOR[selected.generation]
+                      ? ` (${GENERATION_ANCHOR[selected.generation]})`
+                      : ""
+                  }`}
+                  {selected.generation_anchored ? "" : " — inferred"}
+                </span>
+              ) : (
+                "Generation unknown"
+              )}
               {" · "}
               <span className="font-semibold" style={{ color: INK_PRIMARY }}>
                 {numberFormat.format(selected.hadith_count)}
@@ -1965,6 +2204,17 @@ export function TransmissionGraphClient() {
                 ? ` · ${selected.merged_person_ids.length} identities merged`
                 : ""}
             </p>
+            {selected.merged_person_ids.length > 1 && (
+              <p className="mt-1 text-[11px] leading-5" style={{ color: UNCERTAIN }}>
+                This dot is an identity cluster. The line evidence below is the actual
+                chain order; the shorter display name may represent a longer name variant.
+              </p>
+            )}
+            {selected.merged_labels && selected.merged_labels.length > 1 && (
+              <p dir="rtl" lang="ar" className={`${amiri.className} mt-1 text-right text-[13px] leading-6`} style={{ color: INK_SECONDARY }}>
+                {selected.merged_labels.map(formatArabicText).join(" / ")}
+              </p>
+            )}
 
             {selectedEdges.teachers.length > 0 && (
               <div className="mt-3">
@@ -2069,7 +2319,7 @@ export function TransmissionGraphClient() {
         {/* Edge evidence — the actual shared hadiths behind one transmission link */}
         {evidence && (
           <aside
-            className="absolute bottom-3 right-3 z-20 flex max-h-[60%] w-96 max-w-[calc(100%-1.5rem)] flex-col rounded-md p-4"
+            className="absolute inset-x-2 bottom-2 z-40 flex max-h-[60%] flex-col rounded-md p-4 sm:inset-x-auto sm:right-3 sm:w-96 sm:max-w-[calc(100%-1.5rem)]"
             style={{
               background: "rgba(15, 24, 19, 0.96)",
               border: "1px solid rgba(236, 231, 214, 0.18)",
@@ -2153,8 +2403,8 @@ export function TransmissionGraphClient() {
           <table className="w-full text-sm">
             <thead className="sticky top-0 bg-surface text-left text-xs uppercase tracking-wide text-muted">
               <tr>
-                <th className="px-5 py-2">Student</th>
-                <th className="px-5 py-2">Teacher</th>
+            <th className="px-5 py-2">Student → teacher</th>
+            <th className="px-5 py-2">Resolved teacher</th>
                 <th className="px-5 py-2 text-right">Shared hadiths</th>
               </tr>
             </thead>

@@ -641,14 +641,23 @@ export type ReliabilityVerdict =
   | "praised"
   | "unknown";
 
+export type NodeRole = "prophet" | "imam" | "compiler" | "narrator";
+
 export interface TransmissionGraphNode {
   id: number;
   label: string;
   kind: "imam" | "narrator";
+  // Finer-grained identity for display (al-Kulayni is a compiler, not just a narrator).
+  role: NodeRole;
   generation: number | null;
+  // True only when the generation rests on a real anchor. A propagated-only
+  // value is an inference and is often wrong — never present it as established.
+  generation_anchored: boolean;
   narrator_id: number | null;
   hadith_count: number;
   merged_person_ids: number[];
+  // Optional while an older API process is being replaced during deploy.
+  merged_labels?: string[];
   // Per-book footprint: {source_book_id: distinct charted hadiths}.
   books: Record<string, number>;
   // al-Khoei reliability verdict (Phase 2); null until the layer fills it.

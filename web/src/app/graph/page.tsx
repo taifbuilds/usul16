@@ -24,7 +24,7 @@ export default function GraphPage() {
         </div>
         <aside className="border-t border-border pt-5 text-sm lg:border-l lg:border-t-0 lg:pl-6">
           <p className="font-semibold text-foreground">How to read the map</p>
-          <p className="mt-2 leading-6 text-muted">Node colour indicates generation; line weight reflects repeated transmission. Ambiguous chains are withheld from the confident view.</p>
+          <p className="mt-2 leading-6 text-muted">Node colour shows an anchored generation when one is available; inferred generations stay undated. Lines show adjacent resolved names in an isnad, not proof of historical hearing. Ambiguous chains are withheld from the confident view.</p>
         </aside>
       </header>
 
