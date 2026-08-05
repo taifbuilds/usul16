@@ -143,6 +143,7 @@ export function IndexedHadithCard({
       footnotes={hadith.footnotes}
       translation={hadith.translation}
       gradings={hadith.gradings}
+      commentaries={hadith.commentaries}
     />
   );
 

@@ -68,7 +68,9 @@ export default async function BookContentsPage({
                   <KitabCard
                     key={`${kitab.volume}-${kitab.kitab_id}`}
                     kitab={kitab}
-                    href={`/books/${bookId}/kitab/${encodeURIComponent(kitab.kitab_id)}`}
+                    // ?v= is essential: kitab ids restart every volume, so
+                    // without it all eight "Kitab 1" cards point at one page.
+                    href={`/books/${bookId}/kitab/${encodeURIComponent(kitab.kitab_id)}?v=${kitab.volume}`}
                   />
                 ))}
             </div>

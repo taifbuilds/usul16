@@ -46,7 +46,7 @@ export default async function BookDetailPage({ params }: { params: Promise<{ boo
   const kitabs = hasStructuredContents ? await getBookKitabs(book.id) : [];
   const firstKitab = kitabs.find((kitab) => kitab.first_chapter_id !== null);
   const chapterReaderHref = firstKitab
-    ? `/read/${book.id}/kitab/${encodeURIComponent(firstKitab.kitab_id)}/${firstKitab.first_chapter_id}`
+    ? `/read/${book.id}/kitab/${encodeURIComponent(firstKitab.kitab_id)}/${firstKitab.first_chapter_id}?v=${firstKitab.volume}`
     : `/read/${book.id}/bab/1`;
 
   return (

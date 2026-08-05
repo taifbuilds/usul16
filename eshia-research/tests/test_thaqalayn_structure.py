@@ -266,6 +266,55 @@ def test_kitab_and_chapter_endpoints(client: TestClient, db: Session):
     assert hadiths[0]["gradings"][0]["reference_en"] == "Mirʾāt al-ʿUqūl (1/25)"
 
 
+def test_kitab_endpoints_disambiguate_by_volume(client: TestClient, db: Session):
+    """Kitab ids restart every printed volume — vol 3 kitab "1" is Taharat while
+    vol 4 kitab "1" is Zakat. Without a volume filter both merge into one bogus
+    chapter list, and clicking a chapter opens a different kitab's text."""
+    book = _kafi(db)
+    rows = [
+        # (public_id, seq, volume, chapter_name, hadith count position)
+        ("alkafi-100", 1, 3, "The Cleansing Quality of Water"),
+        ("alkafi-200", 2, 4, "Virtue of Charity"),
+    ]
+    for public_id, seq, volume, chapter_name in rows:
+        h = _hadith(db, book, public_id, seq)
+        db.add(
+            ThaqalaynStructureMap(
+                hadith_id=h.id,
+                source="thaqalayn-website",
+                remote_book_id=f"Al-Kafi-Volume-{volume}-Kulayni",
+                remote_id=seq,
+                volume=volume,
+                kitab_id="1",  # same id, different volume, different kitab
+                kitab_name_en=f"Kitab of volume {volume}",
+                chapter_id=1,  # same chapter number too
+                chapter_name_en=chapter_name,
+                number_in_chapter=1,
+                mapping_status="matched",
+                match_method="windowed_arabic",
+                match_score=0.95,
+                matcher_version="thaqalayn_struct_v1",
+            )
+        )
+    db.commit()
+
+    # Each volume resolves to its own kitab...
+    for volume, expected_chapter, expected_hadith in (
+        (3, "The Cleansing Quality of Water", "alkafi-100"),
+        (4, "Virtue of Charity", "alkafi-200"),
+    ):
+        chapters = client.get(f"/books/{book.id}/kitabs/1/chapters?volume={volume}").json()
+        assert [c["name_en"] for c in chapters] == [expected_chapter]
+        hadiths = client.get(
+            f"/books/{book.id}/kitabs/1/chapters/1/hadiths?volume={volume}"
+        ).json()
+        assert [h["public_id"] for h in hadiths] == [expected_hadith]
+
+    # ...and the structure payload carries the volume so links can round-trip.
+    body = client.get("/hadiths/alkafi-200").json()
+    assert body["structure"]["volume"] == 4
+
+
 def test_public_translation_versions_ordered():
     # Rendered website text outranks API-live text, which outranks legacy text.
     assert PUBLIC_TRANSLATION_VERSIONS.index(WEBSITE_TRANSLATION_VERSION) < (
