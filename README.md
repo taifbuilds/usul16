@@ -11,6 +11,10 @@ Al-Kafi as the current gold-standard pilot.
   current research status.
 - `docs/operations.md`: runtime, database-change, backup-retention, and
   verification procedures.
+- `docs/operations/PRODUCTION_DEPLOYMENT.md`: **canonical reference for how
+  production works** — architecture, the three deployment layers (code, schema,
+  data), `deploy-db.sh`, backup policy, and per-change deployment checklists.
+  Read this before touching production.
 
 Operational databases, snapshots, logs, environments, dependencies, and
 generated review packets are intentionally excluded from source control.

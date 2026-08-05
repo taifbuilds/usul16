@@ -1,5 +1,24 @@
 # Deploying usul16.com — step by step
 
+> ## ⚠️ SUPERSEDED — do not follow these paths
+>
+> **Canonical reference: [`docs/operations/PRODUCTION_DEPLOYMENT.md`](docs/operations/PRODUCTION_DEPLOYMENT.md).**
+>
+> This file is retained as the original build-out narrative and for its
+> reasoning about *why* one VPS. Its concrete paths and unit definitions no
+> longer describe production and will break things if copied:
+>
+> | This file says | Production actually is |
+> |---|---|
+> | user `usul` | user **`deploy`** |
+> | `/home/usul/usul16/eshia-research` | **`/home/deploy/app/eshia-research`** |
+> | absolute `DATABASE_URL` in the unit | relative `sqlite:///./eshia_research.db`, resolved via `WorkingDirectory` |
+> | `PYTHONPATH=src` in the unit | not used — the package is `pip install -e .` |
+>
+> The authoritative unit files and scripts are in [`infra/`](infra/), not here.
+> Nothing in this file covers commentary data deployment; see the canonical
+> reference for that.
+
 **Goal:** put this app live at `https://usul16.com` for the least money and effort.
 
 ## The shape of it (why one server)
