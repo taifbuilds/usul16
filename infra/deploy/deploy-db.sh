@@ -157,10 +157,19 @@ if [[ "$ok" -ne 1 ]]; then
   exit 1
 fi
 
-# A real data endpoint, not just /health: prove the rows are actually served.
-SAMPLE=$(remote "curl -fsS 'localhost:8000/hadiths/alkafi-2' | head -c 4000" || true)
-if [[ "$SAMPLE" != *"commentaries"* ]]; then
-  echo "The API is up but did not return a commentaries field. Roll back with:" >&2
+# Prove *this* source is being served, not merely that the API answers.
+#
+# This asks the specific question: pick a hadith the deployed source is actually
+# linked to, fetch the whole response, parse it as JSON, and require the source
+# to be present. It replaced a check that truncated the response at 4 KB and
+# grepped it for the word "commentaries" — which passed or failed according to
+# how long the hadith happened to be, and reported failure on a deployment that
+# had entirely succeeded.
+if ! remote_py "verify-commentary-deployment '$SOURCE_KEY'"; then
+  echo >&2
+  echo "The API is up but is not serving '$SOURCE_KEY'." >&2
+  echo "The import reported success, so check the API layer before reverting data." >&2
+  echo "If you do need to restore:" >&2
   echo "  $ROLLBACK" >&2
   exit 1
 fi

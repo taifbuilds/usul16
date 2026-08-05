@@ -2305,6 +2305,44 @@ def export_commentary_delta_cmd(
     )
 
 
+@app.command("verify-commentary-deployment")
+def verify_commentary_deployment_cmd(
+    source_key: str = typer.Argument(..., help="e.g. mirat-al-uqul"),
+    base_url: str = typer.Option(
+        "http://localhost:8000", "--base-url", help="The API to ask"
+    ),
+    timeout: int = typer.Option(30, "--timeout", help="Seconds per request"),
+) -> None:
+    """Prove the API is actually serving a commentary that was just deployed.
+
+    Run on the deployment target, after the API has restarted. Picks a hadith
+    this source is genuinely linked to, fetches the whole response, parses it,
+    and requires the source to be present — rather than searching truncated text
+    for a substring, which is what this replaced.
+    """
+    from eshia_research.commentary.verification import (
+        VerificationError,
+        verify_deployment,
+    )
+
+    db = SessionLocal()
+    try:
+        public_id, entry = verify_deployment(
+            db, source_key, base_url=base_url, timeout=timeout
+        )
+    except VerificationError as error:
+        typer.echo(f"VERIFICATION FAILED: {error}", err=True)
+        raise typer.Exit(code=1)
+    finally:
+        db.close()
+
+    evidence = entry.get("evidence", "?")
+    typer.echo(
+        f"Verified '{source_key}' is served: {public_id} returns it "
+        f"(evidence={evidence})."
+    )
+
+
 @app.command("import-commentary-delta")
 def import_commentary_delta_cmd(
     input_path: str = typer.Argument(..., help="The .json.gz produced by export"),

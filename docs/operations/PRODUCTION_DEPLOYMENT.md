@@ -27,8 +27,12 @@ this is stated up front:
   +6,038/−2,990) and contains the whole commentary system: `commentary/`,
   `transfer.py`, `deploy-db.sh`, migration `e4c91f7b2d68`, `ApparatusShelf.tsx`.
 - Every `/home/deploy` path in `origin/main:infra/` reads `/home/deploy/app`.
-- `infra/deploy/deploy-db.sh:161` still contains the `head -c 4000` truncation
-  described in [Bug 4](#bug-4--false-deployment-failure-architectural).
+- The `head -c 4000` truncation described in
+  [Bug 4](#bug-4--false-deployment-failure-architectural) has been removed from
+  `infra/deploy/deploy-db.sh`; stage 8 now calls `verify-commentary-deployment`.
+  Measured against live production while fixing it: `alkafi-2` returns 6,599
+  bytes with `commentaries` beginning at byte 5,927, so the old check could not
+  have passed on that hadith.
 
 **Reported by the operator, consistent with the repository, not independently
 inspected**
@@ -623,11 +627,48 @@ Needed because the process holds an open handle to the database file.
 ### Stage 8/8 — verify over HTTP
 
 `systemctl is-active` reports a unit that starts and then 500s as healthy, so
-verification asserts on real responses: poll `localhost:8000/health` for up to
-60 s, then fetch a real data endpoint and check it carries a `commentaries`
-field.
+verification asserts on real responses. Two checks:
 
-**This stage contains a known bug — see [Bug 4](#bug-4--false-deployment-failure-architectural).**
+**Liveness.** Poll `localhost:8000/health` for up to 60 s.
+
+**Serving.** Then prove *this source* is actually served:
+
+```bash
+ssh <host> "cd <app> && .venv/bin/python -m eshia_research.cli \
+  verify-commentary-deployment '<source-key>'"
+```
+
+Implemented in `eshia_research/commentary/verification.py`:
+
+1. **Choose a hadith actually linked to the deployed source** — query the
+   production database for one `public_id` with a `match_status='matched'` row
+   for this `source_key`. Not a hardcoded hadith: asking about `alkafi-2` says
+   nothing about a commentary that never touches `alkafi-2`. Only `matched` rows
+   qualify, because only those reach the reader.
+2. **Fetch that hadith whole.** No truncation anywhere in this path.
+3. **Parse it as JSON.** No substring search over raw text.
+4. **Require the deployed `source_key`** to appear in the `commentaries` array.
+
+It fails — and only fails — when the endpoint is unreachable, the response is
+not valid JSON, `commentaries` is missing/empty/not a list, or the deployed
+source is absent. Each produces a specific message; an absent source also names
+what *was* served, which distinguishes "nothing arrived" from "the wrong thing
+arrived".
+
+If no hadith is linked to the source at all, it says so plainly rather than
+crashing — that means the import wrote no matched rows, or the source key is
+wrong.
+
+**Why this shape.** The previous check truncated the response at 4 KB and
+searched the remainder for the word `commentaries`. It therefore passed or
+failed according to how long a hadith's isnad, matn, footnotes and translation
+happened to be — a property of the *data*, not of the deployment — and finding
+that word proved nothing about whether the source just imported had arrived.
+On the first production deployment it reported failure, and printed a rollback
+command, for a deployment that had entirely succeeded. Measured against live
+production, `alkafi-2`'s response is 6,599 bytes and its `commentaries` field
+begins at byte **5,927**: the old check could never have passed for that hadith.
+See [Bug 4](#bug-4--false-deployment-failure-architectural).
 
 On success it prints the rollback command and lists older backups beyond the
 newest three.
@@ -818,14 +859,25 @@ what it claims to. Three compounding defects:
 A false failure is dangerous beyond noise: it prints a rollback command after a
 successful deployment, inviting an operator to reverse work that succeeded.
 
-**Status: not fixed.** Deliberately left in place for this documentation task —
-see [§14](#14-todo--known-issues).
+**Status: fixed.** Stage 8 now calls `verify-commentary-deployment`, which picks
+a hadith genuinely linked to the deployed source, fetches the response whole,
+parses it as JSON, and requires that source to be present — see
+[§8 stage 8](#stage-88--verify-over-http) for the implementation and
+`tests/test_deploy_verification.py` for the regression, which asserts a payload
+whose `commentaries` field sits past byte 4000 verifies successfully.
 
-**Operational note until fixed.** If stage 8 reports failure, **do not roll back
-reflexively.** Verify independently first:
+Confirmed against live production while fixing: `alkafi-2` returns 6,599 bytes
+with `commentaries` starting at byte 5,927. The old check had no chance of
+passing on that hadith, which is exactly what was observed.
+
+**Standing operational note.** Stage 8 failing now means something real, but it
+is still the *last* stage — the import has already committed and been verified
+against production's own corpus. So a stage 8 failure points at the API or the
+service, not at the data. **Do not roll back reflexively**; check what is being
+served first:
 
 ```bash
-curl -fsS 'https://usul16.com/api/hadiths/<a-hadith-you-know-is-linked>' \
+curl -fsS 'https://usul16.com/api/hadiths/<a-linked-hadith>' \
   | python -m json.tool | grep -A2 source_key
 ```
 
@@ -895,25 +947,6 @@ Delete by explicit name. Never glob-delete backups.
 ---
 
 ## 14. TODO — known issues
-
-### Fix stage 8 verification *(Bug 4)*
-
-Replace the truncated substring search in `infra/deploy/deploy-db.sh:161`.
-
-**Preferred fix:**
-
-1. **Choose a hadith actually linked to the deployed source** — query the target
-   for one `public_id` with a `matched` row for this `source_key`, rather than
-   hardcoding `alkafi-2`.
-2. **Request that hadith** from the API.
-3. **Parse the JSON properly** (`python -m json.tool`, or `jq` if present) — no
-   `head -c`, no substring matching.
-4. **Assert the deployed `source_key` is present** in the parsed `commentaries`
-   array — not merely that the word "commentaries" appears somewhere.
-
-This converts the check from "does a string appear in the first 4 KB" into "did
-the thing I just deployed actually reach the reader", which is what the stage
-claims to test.
 
 ### Alembic baseline
 
