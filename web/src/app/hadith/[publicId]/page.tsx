@@ -43,9 +43,12 @@ export default async function HadithPermalinkPage({
   let chapterTitle: string | null = null;
   let kitabHref: string | null = null;
   if (book && hadith.structure && hadith.structure.mapping_status === "matched") {
-    const { kitab_id, kitab_name_en, chapter_id, chapter_name_en } = hadith.structure;
-    contextHref = `/read/${book.id}/kitab/${encodeURIComponent(kitab_id)}/${chapter_id}#hadith-${hadith.id}`;
-    kitabHref = `/books/${book.id}/kitab/${encodeURIComponent(kitab_id)}`;
+    const { kitab_id, kitab_name_en, chapter_id, chapter_name_en, volume } = hadith.structure;
+    // Volume disambiguates the kitab (ids restart per volume), so it must ride
+    // along or "read in context" lands in a different kitab entirely.
+    const vq = volume === null || volume === undefined ? "" : `?v=${volume}`;
+    contextHref = `/read/${book.id}/kitab/${encodeURIComponent(kitab_id)}/${chapter_id}${vq}#hadith-${hadith.id}`;
+    kitabHref = `/books/${book.id}/kitab/${encodeURIComponent(kitab_id)}${vq}`;
     chapterTitle = chapter_name_en || kitab_name_en;
   } else if (book) {
     const chapters = await getBookChapters(book.id);

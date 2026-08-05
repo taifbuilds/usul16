@@ -25,6 +25,11 @@ for _stream in (sys.stdout, sys.stderr):
         _stream.reconfigure(encoding="utf-8")
 
 from eshia_research.cloudstore import make_object_store
+from eshia_research.commentary.mirat_al_uqul import (
+    MIRAT_AL_UQUL_SOURCE_BOOK_ID,
+    index_mirat_al_uqul,
+)
+from eshia_research.commentary.sources import get_commentary_source
 from eshia_research.config import get_settings
 from eshia_research.corpus import AL_KAFI_ISLAMIYYA_SOURCE_BOOK_ID, CANONICAL_FOUR_BOOK_SOURCE_IDS
 from eshia_research.crawler.client import AdaptiveThrottle, Checkpoint, PoliteClient
@@ -156,6 +161,154 @@ def crawl_book_cmd(
         typer.echo(f"Crawled {len(pages)} page(s).")
     finally:
         db.close()
+
+
+@app.command("crawl-mirat-al-uqul")
+def crawl_mirat_al_uqul_cmd(
+    start_volume: int = typer.Option(1, "--start-volume", min=1, max=26),
+    end_volume: int = typer.Option(26, "--end-volume", min=1, max=26),
+    max_pages_per_volume: int = typer.Option(5000, "--max-pages-per-volume", min=1),
+    concurrency: int | None = typer.Option(None, "--concurrency", min=1),
+) -> None:
+    """Download the complete eShia edition of Mir'at al-'Uqul (book 71429).
+
+    The standard crawler checkpoint makes this safe to interrupt and rerun.
+    Raw source HTML is required because the commentary spans are distinct from
+    the copied al-Kafi reports only in the original eShia markup.
+    """
+    if end_volume < start_volume:
+        raise typer.BadParameter("--end-volume must be at least --start-volume")
+    settings = get_settings()
+    if settings.store_raw_html_r2 or not settings.store_raw_html:
+        raise typer.BadParameter(
+            "Mir'at al-'Uqul needs STORE_RAW_HTML=true and STORE_RAW_HTML_R2=false so its FootNote markup can be indexed."
+        )
+    worker_count = settings.crawl_concurrency if concurrency is None else concurrency
+    checkpoint = Checkpoint(DEFAULT_CHECKPOINT_PATH)
+    throttle = AdaptiveThrottle(
+        window=settings.crawl_throttle_window,
+        error_threshold=settings.crawl_throttle_error_rate,
+        cooldown_seconds=settings.crawl_throttle_cooldown_seconds,
+    )
+    total_pages = 0
+    with PoliteClient(settings, throttle=throttle) as client, Progress(*_progress_columns()) as progress:
+        for volume in range(start_volume, end_volume + 1):
+            task = progress.add_task(f"Mir'at vol. {volume}", total=1)
+
+            def on_progress(_phase: str, done: int, total: int, task_id: TaskID = task) -> None:
+                progress.update(task_id, completed=done, total=total)
+
+            pages = crawl_book_concurrent(
+                f"{settings.crawl_base_url}/{MIRAT_AL_UQUL_SOURCE_BOOK_ID}/{volume}/1",
+                max_pages=max_pages_per_volume,
+                concurrency=worker_count,
+                client=client,
+                checkpoint=checkpoint,
+                settings=settings,
+                on_progress=on_progress,
+            )
+            total_pages += len(pages)
+    typer.echo(f"Mir'at al-'Uqul crawl complete: {total_pages} fetched page(s) this run.")
+
+
+@app.command("index-sharh-al-mazandarani")
+def index_sharh_al_mazandarani_cmd() -> None:
+    """Index al-Mazandarani's Sharh Usul al-Kafi against the Usul and Rawda."""
+    from eshia_research.commentary.mazandarani import index_sharh_al_mazandarani
+
+    db = SessionLocal()
+    try:
+        stats = index_sharh_al_mazandarani(db)
+    finally:
+        db.close()
+    covered = f"{stats.matched}/{stats.target_hadiths}"
+    share = 100 * stats.matched / stats.target_hadiths if stats.target_hadiths else 0.0
+    # Reports the commentator passed over are not a shortfall, so the rate that
+    # measures the pipeline is taken against the units that carry commentary.
+    commented = stats.units - stats.no_commentary_in_source
+    placed = 100 * stats.matched / commented if commented else 0.0
+    typer.echo(
+        "Sharh al-Mazandarani index: "
+        f"pages={stats.pages_seen}, units={stats.units}, publishable={stats.publishable}, "
+        f"matched={stats.matched} (of which {stats.aligned} by chapter position), "
+        f"needs_review={stats.needs_review}, unmatched={stats.unmatched}, "
+        f"withheld_for_attribution={stats.withheld_attribution}, "
+        f"no_commentary_in_source={stats.no_commentary_in_source}. "
+        f"Placed {stats.matched}/{commented} of the units that carry commentary "
+        f"({placed:.1f}%). Coverage of the Usul+Rawda it addresses: {covered} ({share:.1f}%)."
+    )
+
+
+@app.command("crawl-commentary")
+def crawl_commentary_cmd(
+    source_key: str = typer.Argument(..., help="e.g. sharh-al-mazandarani"),
+    start_volume: int = typer.Option(1, "--start-volume", min=1),
+    end_volume: int | None = typer.Option(None, "--end-volume", min=1),
+    max_pages_per_volume: int = typer.Option(5000, "--max-pages-per-volume", min=1),
+    concurrency: int | None = typer.Option(None, "--concurrency", min=1),
+) -> None:
+    """Download any registered commentary from eShia, keeping its raw HTML.
+
+    Generic over the source so a new sharh is a descriptor plus this command,
+    not another bespoke crawler. Raw HTML is mandatory: the commentary spans
+    are distinguishable from the copied reports only in the original markup.
+    """
+    source = get_commentary_source(source_key)
+    source.require_crawlable()
+    last_volume = end_volume or source.volume_count
+    if not last_volume:
+        raise typer.BadParameter(f"{source.key} has no volume count; pass --end-volume")
+    if last_volume < start_volume:
+        raise typer.BadParameter("--end-volume must be at least --start-volume")
+    settings = get_settings()
+    if settings.store_raw_html_r2 or not settings.store_raw_html:
+        raise typer.BadParameter(
+            f"{source.key} needs STORE_RAW_HTML=true and STORE_RAW_HTML_R2=false "
+            "so its commentary markup can be indexed."
+        )
+    worker_count = settings.crawl_concurrency if concurrency is None else concurrency
+    checkpoint = Checkpoint(DEFAULT_CHECKPOINT_PATH)
+    throttle = AdaptiveThrottle(
+        window=settings.crawl_throttle_window,
+        error_threshold=settings.crawl_throttle_error_rate,
+        cooldown_seconds=settings.crawl_throttle_cooldown_seconds,
+    )
+    total_pages = 0
+    with PoliteClient(settings, throttle=throttle) as client, Progress(*_progress_columns()) as progress:
+        for volume in range(start_volume, last_volume + 1):
+            task = progress.add_task(f"{source.title_en} vol. {volume}", total=1)
+
+            def on_progress(_phase: str, done: int, total: int, task_id: TaskID = task) -> None:
+                progress.update(task_id, completed=done, total=total)
+
+            pages = crawl_book_concurrent(
+                f"{settings.crawl_base_url}/{source.source_book_id}/{volume}/1",
+                max_pages=max_pages_per_volume,
+                concurrency=worker_count,
+                client=client,
+                checkpoint=checkpoint,
+                settings=settings,
+                on_progress=on_progress,
+            )
+            total_pages += len(pages)
+    typer.echo(f"{source.title_en} crawl complete: {total_pages} fetched page(s) this run.")
+
+
+@app.command("index-mirat-al-uqul")
+def index_mirat_al_uqul_cmd() -> None:
+    """Extract Mir'at al-'Uqul sharh blocks and match high-confidence al-Kafi rows."""
+    db = SessionLocal()
+    try:
+        stats = index_mirat_al_uqul(db)
+    finally:
+        db.close()
+    typer.echo(
+        "Mir'at al-'Uqul index: "
+        f"pages={stats.pages_seen}, reports={stats.source_reports}, extracted={stats.extracted}, "
+        f"matched={stats.matched} (of which {stats.aligned} by chapter position), "
+        f"needs_review={stats.needs_review}, "
+        f"unmatched={stats.unmatched}, malformed={stats.malformed}."
+    )
 
 
 @app.command("crawl-library")
@@ -2092,6 +2245,94 @@ def rebuild_alkafi_topics_cmd(
     typer.echo(f"  inherited placement : {stats.inherited_placed:,}")
     typer.echo(f"  methods             : {stats.method_counts}")
     typer.echo(f"  saved               : {not dry_run}")
+
+
+
+
+@app.command("commentary-manifest")
+def commentary_manifest_cmd(
+    source_key: str = typer.Argument(..., help="e.g. mirat-al-uqul"),
+    output: str = typer.Option(..., "--output", help="Where to write the manifest JSON"),
+) -> None:
+    """Fingerprint what THIS database already holds for a commentary.
+
+    Run on the deployment target. The result is small and is what makes the
+    export a real delta instead of a full dump.
+    """
+    import json
+
+    from eshia_research.commentary.transfer import build_manifest
+
+    db = SessionLocal()
+    try:
+        manifest = build_manifest(db, source_key)
+    finally:
+        db.close()
+    with open(output, "w", encoding="utf-8") as handle:
+        json.dump(manifest, handle, ensure_ascii=False)
+    typer.echo(f"Manifest for {source_key}: {len(manifest['entries'])} row(s) -> {output}")
+
+
+@app.command("export-commentary-delta")
+def export_commentary_delta_cmd(
+    source_key: str = typer.Argument(..., help="e.g. mirat-al-uqul"),
+    output: str = typer.Option(..., "--output", help="Destination .json.gz"),
+    manifest: str | None = typer.Option(
+        None, "--manifest", help="Target's manifest; omit to export every row"
+    ),
+) -> None:
+    """Export only the commentary rows that differ from the target's manifest."""
+    import json
+
+    from eshia_research.commentary.transfer import export_delta, write_delta
+
+    loaded = None
+    if manifest:
+        with open(manifest, "r", encoding="utf-8") as handle:
+            loaded = json.load(handle)
+
+    db = SessionLocal()
+    try:
+        delta = export_delta(db, source_key, loaded)
+    finally:
+        db.close()
+    write_delta(delta, output)
+    summary = delta["summary"]
+    typer.echo(
+        f"Delta for {source_key}: changed={summary['changed']} "
+        f"unchanged={summary['unchanged']} removed={summary['removed']} "
+        f"(of {summary['total_local_rows']} local rows) -> {output}"
+    )
+
+
+@app.command("import-commentary-delta")
+def import_commentary_delta_cmd(
+    input_path: str = typer.Argument(..., help="The .json.gz produced by export"),
+    dry_run: bool = typer.Option(
+        False, "--dry-run", help="Validate and roll back without writing"
+    ),
+) -> None:
+    """Validate every public_id, then apply the delta in one transaction."""
+    from eshia_research.commentary.transfer import read_delta, import_delta, verify_target
+
+    delta = read_delta(input_path)
+    db = SessionLocal()
+    try:
+        stats = import_delta(db, delta, dry_run=dry_run)
+        counts = verify_target(db, delta["source_key"])
+    except ValueError as error:
+        db.rollback()
+        typer.echo(f"REFUSED: {error}", err=True)
+        raise typer.Exit(code=1)
+    finally:
+        db.close()
+    prefix = "DRY RUN — no changes written. " if dry_run else ""
+    typer.echo(
+        f"{prefix}{delta['source_key']}: inserted={stats.inserted} updated={stats.updated} "
+        f"deleted={stats.deleted} unchanged={stats.unchanged}. "
+        f"Target now holds rows={counts['rows']} matched={counts['matched']} "
+        f"linked_hadiths={counts['linked_hadiths']}."
+    )
 
 
 if __name__ == "__main__":

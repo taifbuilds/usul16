@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { Fragment, useMemo, useState, type ReactNode } from "react";
+import { Fragment, useEffect, useMemo, useState, type ReactNode } from "react";
 import type {
   ChainNodeRead,
   ChainRead,
   HadithChainsRead,
+  HadithCommentarySummaryRead,
   HadithFootnote,
   HadithGrading,
   HadithTranslationRead,
@@ -15,6 +16,7 @@ import { getHadithChains } from "@/lib/api/books";
 import { formatArabicText } from "@/lib/arabic";
 import { INLINE_RE, normaliseMarker } from "@/lib/inline";
 import { isPublicHumanTranslation } from "@/lib/translationPublication";
+import { ApparatusShelf } from "@/components/reader/ApparatusShelf";
 import { GradingChips } from "@/components/reader/GradingChips";
 
 // Interactive hadith text: footnote markers («[٤]») are tappable and expand
@@ -22,6 +24,38 @@ import { GradingChips } from "@/components/reader/GradingChips";
 // footnotes are part of the hadith, not a page-level appendix. A grouped
 // «الهوامش» list at the card foot keeps everything reviewable at once, with
 // per-page attribution because printed marker numbers restart on each page.
+
+// Every narrator popover shares one `name`, which makes them a native exclusive
+// accordion: opening one closes the rest. Without this, tapping narrator after
+// narrator leaves a stack of open cards covering the text.
+const NARRATOR_POPOVER_GROUP = "usul16-narrator-popover";
+
+/** Close any open narrator popover on outside-click or Escape. `<details name>`
+ * makes them mutually exclusive but never closes the last one. */
+function useDismissNarratorPopovers(): void {
+  useEffect(() => {
+    const closeAll = (except: Element | null) => {
+      document
+        .querySelectorAll<HTMLDetailsElement>(`details[name="${NARRATOR_POPOVER_GROUP}"][open]`)
+        .forEach((el) => {
+          if (el !== except) el.open = false;
+        });
+    };
+    const onPointerDown = (event: PointerEvent) => {
+      const target = event.target as Element | null;
+      closeAll(target?.closest(`details[name="${NARRATOR_POPOVER_GROUP}"]`) ?? null);
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") closeAll(null);
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, []);
+}
 
 type Segment =
   | { type: "text"; content: string }
@@ -298,7 +332,7 @@ function ChainNodeChip({ node }: { node: ChainNodeRead }) {
     return (
       <span className="inline-flex items-center gap-1.5">
         {phrase ? <span className="text-muted/70">{phrase}</span> : null}
-        <details className="group relative inline-block">
+        <details name={NARRATOR_POPOVER_GROUP} className="group relative inline-block">
           <summary
             className={`inline-flex min-h-6 cursor-pointer list-none items-center rounded-full border px-2.5 py-1 ${personChipClass(node)}`}
             title={node.person_resolution.primary_dalil ?? personResolutionLabel(node)}
@@ -332,7 +366,7 @@ function ChainNodeChip({ node }: { node: ChainNodeRead }) {
     return (
       <span className="inline-flex items-center gap-1.5">
         {phrase ? <span className="text-muted/70">{phrase}</span> : null}
-        <details className="group relative inline-block">
+        <details name={NARRATOR_POPOVER_GROUP} className="group relative inline-block">
           <summary
             className={`inline-flex min-h-6 cursor-pointer list-none items-center rounded-full border px-2.5 py-1 ${chipClass(node)}`}
             title={node.resolution_reason ?? "Multiple possible narrator identities"}
@@ -402,7 +436,7 @@ function InlineIsnadNode({
     }
 
     return (
-      <details className="relative inline-block">
+      <details name={NARRATOR_POPOVER_GROUP} className="relative inline-block">
         <summary
           className={`inline cursor-pointer list-none ${className}`}
           title={node.person_resolution.primary_dalil ?? personResolutionLabel(node)}
@@ -428,7 +462,7 @@ function InlineIsnadNode({
 
   if (node.candidates.length > 0) {
     return (
-      <details className="relative inline-block">
+      <details name={NARRATOR_POPOVER_GROUP} className="relative inline-block">
         <summary
           className={`inline cursor-pointer list-none ${className}`}
           title={node.resolution_reason ?? "Multiple possible narrator identities"}
@@ -553,39 +587,6 @@ function IsnadGraphPanel({
   );
 }
 
-function translationSourceLabel(translation: HadithTranslationRead): string | null {
-  const provenance = translation.provenance_json;
-  const translator =
-    typeof provenance?.translator === "string" && provenance.translator.trim()
-      ? provenance.translator.trim()
-      : null;
-  const source = typeof provenance?.source === "string" ? provenance.source : "";
-  const sourceUrl = typeof provenance?.source_url === "string" ? provenance.source_url : "";
-  const isThaqalaynSource = /thaqalayn/i.test(
-    `${source} ${sourceUrl} ${translation.provider ?? ""}`
-  );
-
-  if (translator) {
-    return isThaqalaynSource ? `${translator} — attributed by Thaqalayn` : translator;
-  }
-  if (isThaqalaynSource) return "Translation attribution provided by Thaqalayn";
-
-  return translation.provider?.trim() || null;
-}
-
-function translationSourceUrl(translation: HadithTranslationRead): string | null {
-  const provenance = translation.provenance_json;
-  const directUrl = provenance?.source_url;
-  if (typeof directUrl === "string" && directUrl.startsWith("https://")) return directUrl;
-
-  const sourceEvidence = provenance?.source_evidence;
-  if (typeof sourceEvidence !== "object" || sourceEvidence === null) return null;
-  const pdf = (sourceEvidence as Record<string, unknown>).pdf;
-  if (typeof pdf !== "object" || pdf === null) return null;
-  const pdfUrl = (pdf as Record<string, unknown>).source_url;
-  return typeof pdfUrl === "string" && pdfUrl.startsWith("https://") ? pdfUrl : null;
-}
-
 export function HadithBody({
   publicId,
   isnad,
@@ -593,6 +594,7 @@ export function HadithBody({
   footnotes,
   translation,
   gradings,
+  commentaries,
 }: {
   publicId?: string | null;
   isnad: string | null;
@@ -600,13 +602,18 @@ export function HadithBody({
   footnotes: HadithFootnote[] | null;
   translation?: HadithTranslationRead | null;
   gradings?: HadithGrading[] | null;
+  commentaries?: HadithCommentarySummaryRead[] | null;
 }) {
+  useDismissNarratorPopovers();
   const [active, setActive] = useState<string | null>(null);
   const [chainData, setChainData] = useState<HadithChainsRead | null>(null);
   const [chainLoading, setChainLoading] = useState(false);
   const [chainError, setChainError] = useState<string | null>(null);
   const notes = useMemo(() => footnotes ?? [], [footnotes]);
   const primaryChain = chainData?.chains[0] ?? null;
+  // Several sharhs can comment on the same hadith; the API returns them in a
+  // stable order, so render each rather than looking one source up by name.
+  const sharhs = commentaries ?? [];
 
   function loadChains() {
     if (!publicId || chainData || chainLoading) return;
@@ -640,10 +647,6 @@ export function HadithBody({
     return built;
   }, [isnad, matn, notes]);
   const publicTranslation = isPublicHumanTranslation(translation) ? translation : null;
-  const translationSource = publicTranslation
-    ? translationSourceLabel(publicTranslation)
-    : null;
-  const translationUrl = publicTranslation ? translationSourceUrl(publicTranslation) : null;
 
   const renderSegments = (paragraphKey: string, segments: Segment[]): ReactNode[] =>
     segments.map((seg, index) => {
@@ -718,63 +721,12 @@ export function HadithBody({
         );
       })}
 
-      {publicTranslation ? (
-        <details
-          dir="ltr"
-          lang="en"
-          className="group mt-6 overflow-hidden rounded-md border border-accent/25 bg-background text-left"
-        >
-          <summary className="flex min-h-11 cursor-pointer list-none flex-col items-start justify-between gap-1.5 px-4 py-3 text-sm transition hover:bg-badge-verified/40 sm:flex-row sm:items-center sm:gap-3 sm:px-5">
-            <span className="flex items-center gap-2 font-medium text-accent">
-              <span aria-hidden="true">A</span>
-              <span className="group-open:hidden">Read English translation</span>
-              <span className="hidden group-open:inline">Hide English translation</span>
-            </span>
-            <span className="flex w-full min-w-0 max-w-full items-center gap-2 text-left text-xs text-muted sm:w-auto">
-              <span className="min-w-0 break-words">
-                {translationSource ?? "English translation"}
-              </span>
-              <span aria-hidden="true" className="transition group-open:rotate-180">⌄</span>
-            </span>
-          </summary>
-          <div className="border-t border-accent/15 px-4 py-5 sm:px-5">
-            {publicTranslation.full_translation ? (
-              // Verbatim external text: the numbered English isnad and matn are
-              // one continuous block, exactly as the source publishes it.
-              <p className="whitespace-pre-line text-base leading-8 text-foreground/90 sm:text-lg">
-                {publicTranslation.full_translation}
-              </p>
-            ) : (
-              <>
-                {publicTranslation.rendered_isnad_en ? (
-                  <p className="mb-4 border-b border-dashed border-border pb-4 text-sm leading-relaxed text-muted">
-                    <span className="font-medium text-foreground/70">Chain: </span>
-                    {publicTranslation.rendered_isnad_en}
-                  </p>
-                ) : null}
-                <p className="text-base leading-8 text-foreground/90 sm:text-lg">
-                  {publicTranslation.matn_translation}
-                </p>
-              </>
-            )}
-            <p className="mt-4 text-xs leading-relaxed text-muted">
-              {translationSource ? (
-                <>
-                  Translation:{" "}
-                  {translationUrl ? (
-                    <a href={translationUrl} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
-                      {translationSource}
-                    </a>
-                  ) : (
-                    <span>{translationSource}</span>
-                  )}
-                  <span className="mx-1 text-border">&middot;</span>
-                </>
-              ) : null}
-              The Arabic above is the original.
-            </p>
-          </div>
-        </details>
+      {publicId ? (
+        <ApparatusShelf
+          publicId={publicId}
+          commentaries={sharhs}
+          translation={publicTranslation}
+        />
       ) : null}
 
       {gradings && gradings.length > 0 ? (

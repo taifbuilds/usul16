@@ -10,22 +10,31 @@ export const dynamic = "force-dynamic";
 // reading page for that chapter.
 export default async function KitabPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ bookId: string; kitabId: string }>;
+  searchParams: Promise<{ v?: string }>;
 }) {
   const { bookId: bookIdParam, kitabId } = await params;
+  const { v } = await searchParams;
   const bookId = Number(bookIdParam);
+  // Kitab ids restart every printed volume, so the volume is part of the
+  // kitab's identity — without it several unrelated kitabs merge into one.
+  const volume = v !== undefined && v !== "" ? Number(v) : undefined;
 
   const book = await getBook(bookId);
   if (!book) notFound();
 
   const [kitabs, chapters] = await Promise.all([
     getBookKitabs(bookId),
-    getKitabChapters(bookId, kitabId),
+    getKitabChapters(bookId, kitabId, volume),
   ]);
   if (!chapters) notFound();
 
-  const kitab = kitabs.find((k) => k.kitab_id === kitabId) ?? null;
+  const kitab =
+    kitabs.find(
+      (k) => k.kitab_id === kitabId && (volume === undefined || k.volume === volume)
+    ) ?? null;
 
   if (!chapters.length) {
     return (
@@ -62,7 +71,9 @@ export default async function KitabPage({
           <ChapterCard
             key={chapter.chapter_id}
             chapter={chapter}
-            href={`/read/${bookId}/kitab/${encodeURIComponent(kitabId)}/${chapter.chapter_id}`}
+            href={`/read/${bookId}/kitab/${encodeURIComponent(kitabId)}/${chapter.chapter_id}${
+              volume === undefined ? "" : `?v=${volume}`
+            }`}
           />
         ))}
       </div>

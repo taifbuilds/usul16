@@ -1,3 +1,4 @@
+from collections import defaultdict
 import dataclasses
 import datetime as dt
 import time
@@ -9,6 +10,7 @@ from sqlalchemy.orm import Session, aliased, selectinload
 
 from eshia_research.db import get_db
 from eshia_research.api.security import require_admin_api_token
+from eshia_research.commentary.sources import COMMENTARY_SOURCES
 from eshia_research.corpus import (
     AL_KAFI_ISLAMIYYA_SOURCE_BOOK_ID,
     CATALOG_EXCLUDED_SOURCE_BOOK_IDS,
@@ -27,6 +29,7 @@ from eshia_research.models import (
     ChainNode,
     ChainNodeCandidate,
     Hadith,
+    HadithCommentary,
     HadithGrading,
     HadithSplitReview,
     HadithTranslation,
@@ -49,6 +52,8 @@ from eshia_research.schemas import (
     BookRead,
     BookSummary,
     ChapterSummary,
+    HadithCommentaryRead,
+    HadithCommentarySummaryRead,
     HadithGradingRead,
     HadithStructureRead,
     HadithTopicRead,
@@ -330,6 +335,53 @@ def _attach_topics(db: Session, hadiths: list[Hadith]) -> list[Hadith]:
     for hadith in hadiths:
         hadith.topics = by_hadith_id.get(hadith.id, [])
     return hadiths
+
+
+def _commentary_summary(row: HadithCommentary) -> HadithCommentarySummaryRead:
+    # Labels come from the source registry, so adding a commentary is a
+    # descriptor entry rather than another branch here.
+    source = COMMENTARY_SOURCES.get(row.source_key)
+    return HadithCommentarySummaryRead(
+        source_key=row.source_key,
+        title_ar=source.title_ar if source else row.source_key,
+        author_ar=source.author_ar if source else "",
+        title_en=source.title_en if source else row.source_key,
+        author_en=source.author_en if source else "",
+        label_ar=source.disclosure_label_ar if source else row.source_key,
+        evidence="position" if row.match_method == "chapter_sequence_aligned" else "text",
+        volume_start=row.volume_start,
+        volume_end=row.volume_end,
+        page_start=row.page_start,
+        page_end=row.page_end,
+        source_url=row.source_url,
+    )
+
+
+def _attach_public_commentaries(db: Session, hadiths: list[Hadith]) -> list[Hadith]:
+    """Attach only source passages whose hadith alignment passed both checks."""
+    hadith_ids = [hadith.id for hadith in hadiths]
+    if not hadith_ids:
+        return hadiths
+    rows = (
+        db.query(HadithCommentary)
+        .filter(
+            HadithCommentary.hadith_id.in_(hadith_ids),
+            HadithCommentary.match_status == "matched",
+        )
+        .order_by(HadithCommentary.source_key, HadithCommentary.source_sequence)
+        .all()
+    )
+    by_hadith_id: dict[int, list[HadithCommentarySummaryRead]] = defaultdict(list)
+    for row in rows:
+        if row.hadith_id is not None:
+            by_hadith_id[row.hadith_id].append(_commentary_summary(row))
+    for hadith in hadiths:
+        hadith.commentaries = by_hadith_id.get(hadith.id, [])
+    return hadiths
+
+
+def _attach_reader_extras(db: Session, hadiths: list[Hadith]) -> list[Hadith]:
+    return _attach_public_commentaries(db, _attach_topics(db, hadiths))
 
 
 def _person_resolution_map(db: Session, node_ids: list[int]) -> dict[int, dict]:
@@ -1183,7 +1235,7 @@ def list_book_hadiths(
         query = query.filter(Hadith.page_start == page)
     hadiths = query.order_by(Hadith.sequence_in_book).offset(skip).limit(limit).all()
     hadiths = _attach_public_translations(db, _apply_approved_splits(db, hadiths))
-    return _attach_topics(db, hadiths)
+    return _attach_reader_extras(db, hadiths)
 
 
 @router.get("/person-resolution-audit/summary", response_model=PersonResolutionAuditSummary)
@@ -1848,7 +1900,7 @@ def list_chapter_hadiths(
         .all()
     )
     hadiths = _attach_public_translations(db, _apply_approved_splits(db, hadiths))
-    return _attach_topics(db, hadiths)
+    return _attach_reader_extras(db, hadiths)
 
 
 def _kitab_order_key(volume: int, kitab_id: str) -> tuple[int, int, str]:
@@ -1914,12 +1966,23 @@ def list_book_kitabs(book_id: int, db: Session = Depends(get_db)) -> list[KitabS
     response_model=list[ThaqalaynChapterSummary],
 )
 def list_kitab_chapters(
-    book_id: int, kitab_id: str, db: Session = Depends(get_db)
+    book_id: int,
+    kitab_id: str,
+    volume: int | None = None,
+    db: Session = Depends(get_db),
 ) -> list[ThaqalaynChapterSummary]:
+    """Chapters of one kitab.
+
+    `volume` is required to be unambiguous: kitab ids restart every printed
+    volume (vol 3 kitab "1" is Taharat, vol 4 kitab "1" is Zakat). Without it,
+    every volume's kitab "1" is merged into one bogus chapter list whose names
+    come from whichever volume happened to be aggregated first. Kept optional so
+    older links and genuinely book-unique kitab ids (e.g. "v1-k1") still work.
+    """
     book = db.get(Book, book_id)
     if book is None:
         raise HTTPException(status_code=404, detail="Book not found")
-    rows = (
+    query = (
         db.query(
             ThaqalaynStructureMap.chapter_id,
             ThaqalaynStructureMap.chapter_name_en,
@@ -1931,8 +1994,10 @@ def list_kitab_chapters(
             ThaqalaynStructureMap.source.in_(("thaqalayn-website", "thaqalayn-api")),
             ThaqalaynStructureMap.kitab_id == kitab_id,
         )
-        .all()
     )
+    if volume is not None:
+        query = query.filter(ThaqalaynStructureMap.volume == volume)
+    rows = query.all()
     if not rows:
         raise HTTPException(status_code=404, detail="Kitab not found")
     agg: dict[int, dict] = {}
@@ -1966,12 +2031,16 @@ def list_kitab_chapter_hadiths(
     book_id: int,
     kitab_id: str,
     chapter_id: int,
+    volume: int | None = None,
     db: Session = Depends(get_db),
 ) -> list[Hadith]:
+    """Hadiths of one chapter. See `list_kitab_chapters` for why `volume`
+    matters — without it this returns hadiths from several unrelated kitabs
+    that merely share a kitab number across printed volumes."""
     book = db.get(Book, book_id)
     if book is None:
         raise HTTPException(status_code=404, detail="Book not found")
-    maps = (
+    maps_query = (
         db.query(ThaqalaynStructureMap.hadith_id, ThaqalaynStructureMap.number_in_chapter)
         .join(Hadith, Hadith.id == ThaqalaynStructureMap.hadith_id)
         .filter(
@@ -1980,8 +2049,10 @@ def list_kitab_chapter_hadiths(
             ThaqalaynStructureMap.kitab_id == kitab_id,
             ThaqalaynStructureMap.chapter_id == chapter_id,
         )
-        .all()
     )
+    if volume is not None:
+        maps_query = maps_query.filter(ThaqalaynStructureMap.volume == volume)
+    maps = maps_query.all()
     if not maps:
         raise HTTPException(status_code=404, detail="Chapter not found")
     order = {
@@ -1996,7 +2067,7 @@ def list_kitab_chapter_hadiths(
     hadiths.sort(key=lambda h: order.get(h.id, (1 << 30, 0)))
     hadiths = _attach_public_translations(db, _apply_approved_splits(db, hadiths))
     hadiths = _attach_structure_and_gradings(db, hadiths)
-    return _attach_topics(db, hadiths)
+    return _attach_reader_extras(db, hadiths)
 
 
 @router.get("/hadiths/{public_id}", response_model=HadithRead)
@@ -2017,7 +2088,36 @@ def get_hadith(public_id: str, db: Session = Depends(get_db)) -> Hadith:
     hadith = _apply_approved_split(hadith, review)
     hadith = _attach_public_translations(db, [hadith])[0]
     hadith = _attach_structure_and_gradings(db, [hadith])[0]
-    return _attach_topics(db, [hadith])[0]
+    return _attach_reader_extras(db, [hadith])[0]
+
+
+@router.get("/hadiths/{public_id}/commentaries", response_model=list[HadithCommentaryRead])
+def get_hadith_commentaries(
+    public_id: str, db: Session = Depends(get_db)
+) -> list[HadithCommentaryRead]:
+    """Full source text for reader disclosures, loaded only when opened."""
+    hadith = db.query(Hadith).filter(Hadith.public_id == public_id).one_or_none()
+    if hadith is None or hadith.review_status == _REJECTED_HADITH_STATUS:
+        raise HTTPException(status_code=404, detail="Hadith not found")
+    rows = (
+        db.query(HadithCommentary)
+        .filter(
+            HadithCommentary.hadith_id == hadith.id,
+            HadithCommentary.match_status == "matched",
+        )
+        .order_by(HadithCommentary.source_key, HadithCommentary.source_sequence)
+        .all()
+    )
+    result: list[HadithCommentaryRead] = []
+    for row in rows:
+        result.append(
+            HadithCommentaryRead(
+                **_commentary_summary(row).model_dump(),
+                source_label=row.source_label,
+                commentary_raw=row.commentary_raw,
+            )
+        )
+    return result
 
 
 @router.get("/hadiths/{public_id}/chains", response_model=HadithChainsRead)

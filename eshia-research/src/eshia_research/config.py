@@ -11,7 +11,13 @@ class Settings(BaseSettings):
     # Public API deployments are read-only by default. Editorial writes are
     # enabled only when a non-empty secret is deliberately configured.
     api_admin_token: str = ""
-    api_allowed_origins: str = "http://localhost:3000,http://127.0.0.1:3000"
+    # 3000 is the Next dev server; 3001 is the stable `next start` server used
+    # for local reading. Both must be allowed or client-side reader fetches
+    # (chain graph, commentary) fail CORS while server-rendered text still works.
+    api_allowed_origins: str = (
+        "http://localhost:3000,http://127.0.0.1:3000,"
+        "http://localhost:3001,http://127.0.0.1:3001"
+    )
     api_enable_docs: bool = False
 
     crawl_delay_seconds: float = 1.0

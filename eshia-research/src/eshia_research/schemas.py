@@ -118,6 +118,10 @@ class HadithTranslationRead(BaseModel):
 class HadithStructureRead(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
+    # `kitab_id` is only unique WITHIN a printed volume (Al-Kafi restarts kitab
+    # numbering each volume: vol 3 kitab 1 = Taharat, vol 4 kitab 1 = Zakat), so
+    # `volume` is required to address a kitab unambiguously.
+    volume: int | None = None
     kitab_id: str
     kitab_name_en: str
     chapter_id: int
@@ -146,6 +150,31 @@ class HadithTopicRead(BaseModel):
     relevance: int
     confidence: float
     assignment_method: str
+
+
+class HadithCommentarySummaryRead(BaseModel):
+    source_key: str
+    title_ar: str
+    author_ar: str
+    title_en: str
+    author_en: str
+    label_ar: str = ""
+    """Short Arabic label for the reader's disclosure row."""
+    # How this passage was tied to this hadith. "text" = the commentary
+    # reprints the report; "position" = the commentator did not reprint it and
+    # it was placed by its number inside an independently pinned chapter.
+    # The reader states which, so a positional link never passes for a quoted one.
+    evidence: Literal["text", "position"] = "text"
+    volume_start: int
+    volume_end: int
+    page_start: int
+    page_end: int
+    source_url: str
+
+
+class HadithCommentaryRead(HadithCommentarySummaryRead):
+    source_label: str | None = None
+    commentary_raw: str
 
 
 class TopicSummaryRead(BaseModel):
@@ -227,6 +256,7 @@ class HadithRead(BaseModel):
     structure: HadithStructureRead | None = None
     gradings: list[HadithGradingRead] | None = None
     topics: list[HadithTopicRead] = Field(default_factory=list)
+    commentaries: list[HadithCommentarySummaryRead] = Field(default_factory=list)
 
 
 class NarratorSummaryRead(BaseModel):

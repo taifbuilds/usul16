@@ -8,6 +8,7 @@ import type {
   HadithSplitReviewItem,
   HadithSplitReviewStats,
   HadithChainsRead,
+  HadithCommentaryRead,
   HadithRead,
   KitabSummary,
   ThaqalaynChapterSummary,
@@ -117,13 +118,17 @@ export async function getBookKitabs(bookId: number): Promise<KitabSummary[]> {
   });
 }
 
+// `volume` disambiguates the kitab: kitab ids restart every printed volume, so
+// without it the API merges several unrelated kitabs that share a number.
 export async function getKitabChapters(
   bookId: number,
-  kitabId: string
+  kitabId: string,
+  volume?: number
 ): Promise<ThaqalaynChapterSummary[] | null> {
+  const suffix = volume === undefined ? "" : `?volume=${volume}`;
   try {
     return await fetchApi<ThaqalaynChapterSummary[]>(
-      `/books/${bookId}/kitabs/${encodeURIComponent(kitabId)}/chapters`,
+      `/books/${bookId}/kitabs/${encodeURIComponent(kitabId)}/chapters${suffix}`,
       { next: { revalidate: 300 } }
     );
   } catch (error) {
@@ -135,11 +140,13 @@ export async function getKitabChapters(
 export async function getKitabChapterHadiths(
   bookId: number,
   kitabId: string,
-  chapterId: number
+  chapterId: number,
+  volume?: number
 ): Promise<HadithRead[] | null> {
+  const suffix = volume === undefined ? "" : `?volume=${volume}`;
   try {
     return await fetchApi<HadithRead[]>(
-      `/books/${bookId}/kitabs/${encodeURIComponent(kitabId)}/chapters/${chapterId}/hadiths`,
+      `/books/${bookId}/kitabs/${encodeURIComponent(kitabId)}/chapters/${chapterId}/hadiths${suffix}`,
       { cache: "no-store" }
     );
   } catch (error) {
@@ -164,6 +171,20 @@ export async function getHadithChains(publicId: string): Promise<HadithChainsRea
     return await fetchApi<HadithChainsRead>(`/hadiths/${encodeURIComponent(publicId)}/chains`, {
       next: { revalidate: 60 },
     });
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 404) return null;
+    throw error;
+  }
+}
+
+export async function getHadithCommentaries(
+  publicId: string
+): Promise<HadithCommentaryRead[] | null> {
+  try {
+    return await fetchApi<HadithCommentaryRead[]>(
+      `/hadiths/${encodeURIComponent(publicId)}/commentaries`,
+      { cache: "no-store" }
+    );
   } catch (error) {
     if (error instanceof ApiError && error.status === 404) return null;
     throw error;

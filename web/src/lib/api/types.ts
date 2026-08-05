@@ -84,6 +84,8 @@ export interface HadithTranslationRead {
 }
 
 export interface HadithStructure {
+  // Required to address a kitab unambiguously — ids restart per printed volume.
+  volume: number | null;
   kitab_id: string;
   kitab_name_en: string;
   chapter_id: number;
@@ -110,6 +112,29 @@ export interface HadithTopic {
   relevance: number;
   confidence: number;
   assignment_method: string;
+}
+
+export interface HadithCommentarySummaryRead {
+  source_key: string;
+  title_ar: string;
+  author_ar: string;
+  title_en: string;
+  author_en: string;
+  /** Short Arabic label for the disclosure row (the full title is too long). */
+  label_ar: string;
+  /** "text" = the sharh reprints this report; "position" = placed by its
+   * number inside an independently pinned chapter. Shown to the reader. */
+  evidence: "text" | "position";
+  volume_start: number;
+  volume_end: number;
+  page_start: number;
+  page_end: number;
+  source_url: string;
+}
+
+export interface HadithCommentaryRead extends HadithCommentarySummaryRead {
+  source_label: string | null;
+  commentary_raw: string;
 }
 
 export interface TopicSummary {
@@ -196,6 +221,7 @@ export interface HadithRead {
   structure: HadithStructure | null;
   gradings: HadithGrading[] | null;
   topics: HadithTopic[];
+  commentaries: HadithCommentarySummaryRead[];
 }
 
 export interface NarratorSummaryRead {

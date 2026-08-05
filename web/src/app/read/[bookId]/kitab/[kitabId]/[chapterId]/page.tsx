@@ -18,24 +18,32 @@ export const dynamic = "force-dynamic";
 // remains the provenance path, linked from every card.
 export default async function KitabChapterReaderPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ bookId: string; kitabId: string; chapterId: string }>;
+  searchParams: Promise<{ v?: string }>;
 }) {
   const { bookId: bookIdParam, kitabId, chapterId: chapterIdParam } = await params;
+  const { v } = await searchParams;
   const bookId = Number(bookIdParam);
   const chapterId = Number(chapterIdParam);
+  // Volume is part of the kitab's identity — see the kitab index page.
+  const volume = v !== undefined && v !== "" ? Number(v) : undefined;
 
   const book = await getBook(bookId);
   if (!book) notFound();
 
   const [kitabs, chapters, hadiths] = await Promise.all([
     getBookKitabs(bookId),
-    getKitabChapters(bookId, kitabId),
-    getKitabChapterHadiths(bookId, kitabId, chapterId),
+    getKitabChapters(bookId, kitabId, volume),
+    getKitabChapterHadiths(bookId, kitabId, chapterId, volume),
   ]);
   if (!hadiths || !chapters) notFound();
 
-  const kitab = kitabs.find((k) => k.kitab_id === kitabId) ?? null;
+  const kitab =
+    kitabs.find(
+      (k) => k.kitab_id === kitabId && (volume === undefined || k.volume === volume)
+    ) ?? null;
   const chapterOrder = chapters.map((c) => c.chapter_id);
   const currentPos = chapterOrder.indexOf(chapterId);
   if (currentPos === -1) notFound();
@@ -44,8 +52,9 @@ export default async function KitabChapterReaderPage({
   const nextChapter =
     currentPos < chapters.length - 1 ? chapters[currentPos + 1] : null;
 
+  const volumeQuery = volume === undefined ? "" : `?v=${volume}`;
   const chapterHref = (id: number) =>
-    `/read/${bookId}/kitab/${encodeURIComponent(kitabId)}/${id}`;
+    `/read/${bookId}/kitab/${encodeURIComponent(kitabId)}/${id}${volumeQuery}`;
   const prev: NavTarget | null = prevChapter
     ? { href: chapterHref(prevChapter.chapter_id), label: "Previous chapter" }
     : null;
@@ -58,7 +67,7 @@ export default async function KitabChapterReaderPage({
       <nav className="text-sm text-muted" aria-label="Breadcrumb">
         <Link href={`/books/${bookId}/contents`} className="hover:text-accent">Contents</Link>
         <span className="mx-2 text-border-strong">/</span>
-        <Link href={`/books/${bookId}/kitab/${encodeURIComponent(kitabId)}`} className="hover:text-accent">
+        <Link href={`/books/${bookId}/kitab/${encodeURIComponent(kitabId)}${volumeQuery}`} className="hover:text-accent">
           {kitab?.name_en ?? "Kitab"}
         </Link>
       </nav>
