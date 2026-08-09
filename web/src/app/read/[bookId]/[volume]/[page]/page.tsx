@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getBook, getBookChapters, getBookHadiths, getBookPageIndex, getPage } from "@/lib/api/books";
+import { getBook, getBookHadiths, getBookPageIndex, getPage } from "@/lib/api/books";
 import { formatArabicTitle } from "@/lib/arabic";
 import { INDEXED_SOURCE_BOOK_IDS } from "@/lib/corpus";
 import { Citation } from "@/components/citation/Citation";
@@ -47,20 +47,23 @@ export default async function ReaderPage({
     ? await getBookHadiths(bookId, { volume: volumeNumber, page: pageNumber })
     : undefined;
 
-  // Which chapter contains this printed page? Last chapter that starts at or
-  // before it (chapters carry the volume/page of their first hadith).
-  let chapterHref: string | null = null;
-  if (isIndexed) {
-    const chapters = await getBookChapters(bookId);
-    for (const c of chapters) {
-      if (
-        c.volume !== null &&
-        (c.volume < volumeNumber || (c.volume === volumeNumber && c.page_start <= pageNumber))
-      ) {
-        chapterHref = `/read/${bookId}/bab/${c.index}`;
-      }
-    }
-  }
+  // A printed page can carry the end of one chapter and the beginning of
+  // another. Derive its context from the hadiths actually shown on the page,
+  // rather than guessing from the last chapter whose first printed page falls
+  // before this one. Al-Kafi has a verified kitab/chapter map, so use that
+  // precise reader whenever it is available.
+  const chapterContexts = isIndexed && hadiths
+    ? Array.from(
+        new Map(
+          hadiths.flatMap((hadith) => {
+            const structure = hadith.structure;
+            if (!structure || structure.mapping_status !== "matched" || structure.volume === null) return [];
+            const href = `/read/${bookId}/kitab/${encodeURIComponent(structure.kitab_id)}/${structure.chapter_id}?v=${structure.volume}`;
+            return [[href, structure.chapter_name_en || structure.kitab_name_en] as const];
+          })
+        ).entries()
+      )
+    : [];
   const availablePages = pages.map((item) => item.page_number);
   const lastPageNumber = Math.max(...availablePages, pageNumber);
   const volumeCount = book.volume_count ?? volumeNumber;
@@ -104,13 +107,18 @@ export default async function ReaderPage({
         />
       </div>
 
-      {chapterHref ? (
-        <p className="mt-3 text-sm text-muted">
-          Printed-page view — hadiths spanning several pages repeat on each page they cover.{" "}
-          <Link href={chapterHref} className="font-medium text-accent hover:underline">
-            Read this chapter as a continuous flow →
-          </Link>
-        </p>
+      {chapterContexts.length > 0 ? (
+        <div className="mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1 text-sm text-muted">
+          <span>Chapter context:</span>
+          {chapterContexts.map(([href, label], index) => (
+            <span key={href}>
+              {index > 0 ? <span className="mr-2 text-border-strong">/</span> : null}
+              <Link href={href} className="font-medium text-accent hover:underline">
+                {label}
+              </Link>
+            </span>
+          ))}
+        </div>
       ) : null}
 
       <div className="mx-auto mt-7 min-h-[45vh] max-w-3xl">

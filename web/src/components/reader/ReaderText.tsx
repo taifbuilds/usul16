@@ -8,6 +8,7 @@ import { parsePageBlocks, parsePageText, type Footnote, type HadithUnit } from "
 import { HadithBody } from "@/components/reader/HadithBody";
 import { TopicChips } from "@/components/topics/TopicChips";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { DisclosureChevron } from "@/components/ui/DisclosureChevron";
 
 // Bold the classical commentary openers (بيان، أقول…) at the start of a
 // plain-text unit so the apparatus reads distinctly from narration.
@@ -265,17 +266,19 @@ export function SectionHeading({ text }: { text: string }) {
 
 function FootnoteSection({ footnotes }: { footnotes: Footnote[] }) {
   return (
-    <details className="group border border-border bg-surface">
-      <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between px-5 py-3 text-sm text-muted">
-        <span className="font-medium">
-          الهوامش <span className="mx-1 text-border">·</span> {footnotes.length} footnote
-          {footnotes.length === 1 ? "" : "s"}
+    <details className="group">
+      <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between border-t-2 border-dotted border-gold/75 px-1 py-3 transition-colors hover:bg-surface-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent/35">
+        <span className="flex items-baseline gap-2">
+          <span className="text-base font-semibold text-foreground">الهوامش</span>
+          <span className="text-sm text-gold">
+            {footnotes.length} footnote{footnotes.length === 1 ? "" : "s"}
+          </span>
         </span>
-        <span className="transition group-open:rotate-180">⌄</span>
+        <DisclosureChevron className="me-2 text-muted transition group-open:rotate-180" />
       </summary>
-      <div className="space-y-2.5 border-t border-border px-5 py-4">
+      <div className="space-y-4 border-t border-dotted border-gold/45 px-1 py-4">
         {footnotes.map((footnote, index) => (
-          <p key={index} className="text-base leading-relaxed text-muted">
+          <p key={index} className="text-[1.1rem] leading-[2] text-muted">
             <sup className="me-1 text-[0.7em] text-gold">[{footnote.marker}]</sup>
             {renderInline(formatArabicText(footnote.text))}
           </p>

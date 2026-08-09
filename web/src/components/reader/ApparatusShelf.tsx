@@ -8,14 +8,12 @@ import type {
 } from "@/lib/api/types";
 import { getHadithCommentaries } from "@/lib/api/books";
 import { formatArabicText } from "@/lib/arabic";
+import { DisclosureChevron } from "@/components/ui/DisclosureChevron";
 
-// Translation and commentaries each keep their own disclosure, so a reader can
-// see at a glance everything that exists for this hadith without opening
-// anything. The sharh rows are deliberately *not* boxed: a full bordered panel
-// per commentary made the apparatus heavier than the report it explains, and
-// the weight compounds with every commentary added. A hairline rule and a plain
-// summary row carry the same structure at a fraction of the visual cost —
-// matching the «الهوامش» row already at the foot of the card.
+// Translation, commentary and footnotes are reading layers, not rival cards.
+// Keep one unmistakable control for each layer. A single commentary disclosure
+// then lets the reader choose its source, instead of making several nearly
+// identical sharh panels compete for attention below the hadith.
 
 /** Credit the people who actually made the translation — the translator or the
  * publishing edition (e.g. "Bab Ul Qaim Publications") — never the aggregator
@@ -88,6 +86,7 @@ export function ApparatusShelf({
   const [loaded, setLoaded] = useState<HadithCommentaryRead[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [selectedSourceKey, setSelectedSourceKey] = useState(() => commentaries[0]?.source_key ?? "");
 
   // Fetched once on the first hint of interest, so opening a row is instant.
   const load = useCallback(
@@ -106,34 +105,48 @@ export function ApparatusShelf({
 
   if (!commentaries.length && !translation) return null;
 
+  const selectedSummary =
+    commentaries.find((item) => item.source_key === selectedSourceKey) ?? commentaries[0] ?? null;
+  const selectedCommentary = selectedSummary
+    ? loaded?.find((item) => item.source_key === selectedSummary.source_key) ?? null
+    : null;
+
   return (
-    <>
+    <section className="mt-7 divide-y divide-border border-y border-border" aria-label="Reading layers">
       {translation ? <TranslationDisclosure translation={translation} /> : null}
 
-      {commentaries.map((summary) => (
-        <SharhDisclosure
-          key={summary.source_key}
-          summary={summary}
-          commentary={loaded?.find((item) => item.source_key === summary.source_key) ?? null}
+      {selectedSummary ? (
+        <CommentaryDisclosure
+          summaries={commentaries}
+          selectedSummary={selectedSummary}
+          selectedSourceKey={selectedSummary.source_key}
+          onSourceChange={setSelectedSourceKey}
+          commentary={selectedCommentary}
           loading={loading}
           error={error}
           onOpen={() => load()}
           onRetry={() => load(true)}
         />
-      ))}
-    </>
+      ) : null}
+    </section>
   );
 }
 
-function SharhDisclosure({
-  summary,
+function CommentaryDisclosure({
+  summaries,
+  selectedSummary,
+  selectedSourceKey,
+  onSourceChange,
   commentary,
   loading,
   error,
   onOpen,
   onRetry,
 }: {
-  summary: HadithCommentarySummaryRead;
+  summaries: HadithCommentarySummaryRead[];
+  selectedSummary: HadithCommentarySummaryRead;
+  selectedSourceKey: string;
+  onSourceChange: (sourceKey: string) => void;
   commentary: HadithCommentaryRead | null;
   loading: boolean;
   error: string | null;
@@ -146,40 +159,67 @@ function SharhDisclosure({
 
   return (
     <details
-      className="group mt-4 border-t border-border pt-3"
+      className="group"
       onToggle={(event) => {
         if (event.currentTarget.open) onOpen();
       }}
     >
       <summary
+        dir="ltr"
+        lang="en"
         onPointerEnter={onOpen}
         onFocus={onOpen}
-        className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 text-sm"
+        className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 px-1 py-2 transition-colors hover:bg-surface-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent/35"
       >
-        <span className="flex min-w-0 flex-wrap items-baseline gap-x-2">
-          <span className="font-medium text-gold">{summary.label_ar || summary.title_ar}</span>
-          <span className="text-xs text-muted">{summary.author_ar}</span>
+        <span className="flex min-w-0 items-center gap-3">
+          <span
+            aria-hidden="true"
+            className="grid size-8 shrink-0 place-items-center rounded-sm bg-accent text-base font-semibold text-accent-foreground"
+          >
+            ش
+          </span>
+          <span className="min-w-0 text-left">
+            <span className="block text-sm font-semibold text-foreground">Commentary</span>
+            <span className="block text-xs text-muted">
+              {summaries.length} available source{summaries.length === 1 ? "" : "s"}
+            </span>
+          </span>
         </span>
-        <span
-          aria-hidden="true"
-          className="shrink-0 text-muted motion-safe:transition-transform motion-safe:duration-200 group-open:rotate-180"
-        >
-          ⌄
-        </span>
+        <DisclosureChevron className="me-2 text-muted motion-safe:transition-transform motion-safe:duration-200 group-open:rotate-180" />
       </summary>
 
-      <div className="mt-3">
-        {summary.evidence === "position" ? (
+      <div className="border-t border-border pb-5 pt-5 sm:ps-11">
+        <label
+          className="block max-w-xl text-xs font-semibold text-muted"
+          htmlFor={`commentary-source-${selectedSummary.source_key}`}
+        >
+          Choose commentary
+          <select
+            id={`commentary-source-${selectedSummary.source_key}`}
+            dir="rtl"
+            value={selectedSourceKey}
+            onChange={(event) => onSourceChange(event.target.value)}
+            className="mt-2 block min-h-11 w-full rounded-md border border-border-strong bg-surface px-3 text-right text-sm font-medium text-foreground transition-colors hover:border-accent focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/25"
+          >
+            {summaries.map((summary) => (
+              <option key={summary.source_key} value={summary.source_key}>
+                {summary.label_ar || summary.title_ar} — {summary.author_ar}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        {selectedSummary.evidence === "position" ? (
           // Never let a positional placement pass for a quoted one.
-          <p className="mb-3 text-xs leading-relaxed text-muted">
+          <p dir="rtl" lang="ar" className="mt-4 text-xs leading-relaxed text-muted">
             الشارح لم يُعِد نصّ الحديث هنا؛ رُبط الشرح بترتيبه داخل الباب.
           </p>
         ) : null}
 
-        {loading ? <TextSkeleton /> : null}
+        {loading ? <div className="mt-5"><TextSkeleton /></div> : null}
 
         {error ? (
-          <div role="alert" className="flex flex-wrap items-center gap-x-3 gap-y-1">
+          <div role="alert" className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1">
             <p className="text-sm text-foreground/80">{error}</p>
             <button
               type="button"
@@ -192,12 +232,12 @@ function SharhDisclosure({
         ) : null}
 
         {!loading && !error && !commentary ? (
-          <p className="text-sm text-muted">لا يوجد شرح متاح لهذا الحديث.</p>
+          <p className="mt-5 text-sm text-muted">لا يوجد شرح متاح لهذا الحديث.</p>
         ) : null}
 
         {!loading && commentary ? (
           <>
-            <p className="reader-sharh whitespace-pre-line text-justify text-foreground/85">
+            <p dir="rtl" lang="ar" className="reader-sharh mt-5 whitespace-pre-line text-justify text-foreground/90">
               {hasLead ? (
                 <>
                   <span className="font-medium text-gold">{lead}</span>
@@ -207,7 +247,7 @@ function SharhDisclosure({
                 text
               )}
             </p>
-            <p className="mt-3 text-xs text-muted">{printedLocation(summary)}</p>
+            <p className="mt-3 text-xs text-muted">{printedLocation(selectedSummary)}</p>
           </>
         ) : null}
       </div>
@@ -220,21 +260,24 @@ function TranslationDisclosure({ translation }: { translation: HadithTranslation
   const url = translationSourceUrl(translation);
 
   return (
-    <details dir="ltr" lang="en" className="group mt-4 border-t border-border pt-3 text-left">
-      <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 text-sm">
-        <span className="flex min-w-0 flex-wrap items-baseline gap-x-2">
-          <span className="font-medium text-accent">English translation</span>
-          <span className="min-w-0 break-words text-xs text-muted">{source ?? ""}</span>
+    <details dir="ltr" lang="en" className="group text-left">
+      <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 px-1 py-2 transition-colors hover:bg-surface-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent/35">
+        <span className="flex min-w-0 items-center gap-3">
+          <span
+            aria-hidden="true"
+            className="grid size-8 shrink-0 place-items-center rounded-sm border border-gold/55 text-[0.68rem] font-bold text-gold"
+          >
+            EN
+          </span>
+          <span className="min-w-0 text-left">
+            <span className="block text-sm font-semibold text-foreground">English translation</span>
+            {source ? <span className="block truncate text-xs text-muted">{source}</span> : null}
+          </span>
         </span>
-        <span
-          aria-hidden="true"
-          className="shrink-0 text-muted motion-safe:transition-transform motion-safe:duration-200 group-open:rotate-180"
-        >
-          ⌄
-        </span>
+        <DisclosureChevron className="me-2 text-muted motion-safe:transition-transform motion-safe:duration-200 group-open:rotate-180" />
       </summary>
 
-      <div className="mt-3">
+      <div className="border-t border-border pb-5 pt-5 sm:ps-11">
         {translation.full_translation ? (
           // Verbatim external text: the numbered English isnad and matn are one
           // continuous block, exactly as the source publishes it.

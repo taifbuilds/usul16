@@ -18,6 +18,7 @@ import { INLINE_RE, normaliseMarker } from "@/lib/inline";
 import { isPublicHumanTranslation } from "@/lib/translationPublication";
 import { ApparatusShelf } from "@/components/reader/ApparatusShelf";
 import { GradingChips } from "@/components/reader/GradingChips";
+import { DisclosureChevron } from "@/components/ui/DisclosureChevron";
 
 // Interactive hadith text: footnote markers («[٤]») are tappable and expand
 // the attached footnote inline, right under the paragraph being read —
@@ -97,9 +98,9 @@ function FootnoteInset({
   onClose: () => void;
 }) {
   return (
-    <div className="mt-2 mb-3 rounded-md border border-gold/40 bg-badge/40 px-4 py-3">
+    <div className="mt-3 mb-4 border-y border-dotted border-gold/65 bg-surface-2/70 px-4 py-4">
       <div className="flex items-start justify-between gap-3">
-        <p className="text-base leading-loose text-foreground/85">
+        <p className="text-[1.1rem] leading-[2] text-foreground/90">
           <sup className="me-1 select-none text-[0.7em] font-medium text-gold">
             [{footnote.marker}]
           </sup>
@@ -736,16 +737,17 @@ export function HadithBody({
       ) : null}
 
       {notes.length > 0 ? (
-        <details className="group mt-5 border-t border-dashed border-border pt-3">
-          <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between text-sm text-muted">
-            <span className="font-medium">
-              الهوامش <span className="mx-1 text-border">·</span> {notes.length}
+        <details className="group mt-7">
+          <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between border-t-2 border-dotted border-gold/75 px-1 py-2 transition-colors hover:bg-surface-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent/35">
+            <span className="flex items-baseline gap-2">
+              <span className="text-base font-semibold text-foreground">الهوامش</span>
+              <span className="text-sm text-gold">{notes.length}</span>
             </span>
-            <span className="transition group-open:rotate-180">⌄</span>
+            <DisclosureChevron className="me-2 text-muted transition group-open:rotate-180" />
           </summary>
-          <div className="mt-3 space-y-2.5">
+          <div className="space-y-4 border-t border-dotted border-gold/45 px-1 py-4">
             {notes.map((footnote, index) => (
-              <p key={index} className="text-base leading-relaxed text-muted">
+              <p key={index} className="text-[1.1rem] leading-[2] text-muted">
                 <sup className="me-1 select-none text-[0.7em] font-medium text-gold">
                   [{footnote.marker}]
                 </sup>

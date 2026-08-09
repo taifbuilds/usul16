@@ -713,6 +713,8 @@ is correct; pages 150/250 are continuous commentary — he simply writes at leng
 3. Volume 9's isnad-onset splitter (438 pages). Volume 8 needs re-sourcing, not a parser.
 4. Nothing is committed or deployed; production has none of this.
 
+**Reader-layer revision (local, 2026-08-09):** English, commentary and footnotes now read as three explicit, progressively disclosed layers. Commentaries use one disclosure with a source selector rather than one near-identical panel per sharh; footnotes have a stronger dotted rule and larger reading size. The printed-page route links to the verified Thaqalayn kitab/chapter context attached to the hadiths actually on that page (possibly more than one), rather than guessing from page numbers. `_attach_reader_extras` now attaches that structure to all reader-list responses; regression coverage is in `tests/test_api_books.py`. This needs the normal code deployment before it reaches production.
+
 **Graph (shipped):** whole confident Al-Kafi network (~2,000 narrators / 5,370 edges,
 Barnes–Hut), all 15,593 narrators searchable via the directory, "show uncertain" tier,
 and path-finding (`/transmission-graph/paths`). Deferred: reliability dossier, layperson

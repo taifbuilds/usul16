@@ -381,7 +381,13 @@ def _attach_public_commentaries(db: Session, hadiths: list[Hadith]) -> list[Hadi
 
 
 def _attach_reader_extras(db: Session, hadiths: list[Hadith]) -> list[Hadith]:
-    return _attach_public_commentaries(db, _attach_topics(db, hadiths))
+    # Every reader route must expose the same contextual evidence. In
+    # particular, the printed-page endpoint needs the verified Thaqalayn map:
+    # a page may straddle two chapters, so the UI cannot infer its chapter from
+    # a printed page number alone.
+    return _attach_public_commentaries(
+        db, _attach_topics(db, _attach_structure_and_gradings(db, hadiths))
+    )
 
 
 def _person_resolution_map(db: Session, node_ids: list[int]) -> dict[int, dict]:
@@ -2066,7 +2072,6 @@ def list_kitab_chapter_hadiths(
     )
     hadiths.sort(key=lambda h: order.get(h.id, (1 << 30, 0)))
     hadiths = _attach_public_translations(db, _apply_approved_splits(db, hadiths))
-    hadiths = _attach_structure_and_gradings(db, hadiths)
     return _attach_reader_extras(db, hadiths)
 
 
@@ -2087,7 +2092,6 @@ def get_hadith(public_id: str, db: Session = Depends(get_db)) -> Hadith:
     )
     hadith = _apply_approved_split(hadith, review)
     hadith = _attach_public_translations(db, [hadith])[0]
-    hadith = _attach_structure_and_gradings(db, [hadith])[0]
     return _attach_reader_extras(db, [hadith])[0]
 
 

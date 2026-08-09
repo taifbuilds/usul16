@@ -23,6 +23,7 @@ from eshia_research.models import (
     RijalEntry,
     RijalOccurrence,
     RijalStatement,
+    ThaqalaynStructureMap,
 )
 from eshia_research.rijal.person_resolver import PERSON_RESOLVER_VERSION
 from eshia_research.translation import TRANSLATION_VERSION
@@ -1223,6 +1224,59 @@ def test_rejected_non_hadith_fragments_are_hidden_from_reader_routes(client: Tes
 
     response = client.get("/hadiths/alkafi-rejected")
     assert response.status_code == 404
+
+
+def test_printed_page_hadiths_include_verified_chapter_context(client: TestClient, db: Session):
+    book = _book(db, source_book_id="11005", title="al-kafi")
+    page = _page(db, book, page_number=10)
+    hadith = Hadith(
+        public_id="alkafi-structured-page",
+        book_id=book.id,
+        page_start_id=page.id,
+        page_end_id=page.id,
+        sequence_in_book=1,
+        sequence_in_page=1,
+        printed_number="1",
+        volume_start=1,
+        volume_end=1,
+        page_start=10,
+        page_end=10,
+        full_text_raw="full",
+        full_text_normalised="full",
+        matn_raw="matn",
+        matn_normalised="matn",
+        source_url=page.source_url,
+        extraction_method="regex_v1",
+        extraction_confidence=90,
+        review_status="pending",
+    )
+    db.add(hadith)
+    db.flush()
+    db.add(
+        ThaqalaynStructureMap(
+            hadith_id=hadith.id,
+            source="thaqalayn-api",
+            remote_book_id="Al-Kafi-Volume-1-Kulayni",
+            remote_id=1,
+            volume=1,
+            kitab_id="2",
+            kitab_name_en="The Book on Virtue of Knowledge",
+            chapter_id=3,
+            chapter_name_en="Chapter on Seeking Knowledge",
+            number_in_chapter=1,
+            mapping_status="matched",
+            match_method="windowed_arabic",
+        )
+    )
+    db.commit()
+
+    response = client.get(f"/books/{book.id}/hadiths", params={"volume": 1, "page": 10})
+
+    assert response.status_code == 200
+    structure = response.json()[0]["structure"]
+    assert structure["kitab_id"] == "2"
+    assert structure["chapter_id"] == 3
+    assert structure["chapter_name_en"] == "Chapter on Seeking Knowledge"
 
 
 def test_split_review_queue_flags_chain_leaking_into_matn(client: TestClient, db: Session):
