@@ -404,10 +404,29 @@ p {
   position: relative;
   display: grid;
   grid-template-columns: 3rem minmax(0, 1fr);
-  gap: 1rem;
+  align-items: baseline;
+  gap: 0.5rem 1rem;
   border-bottom: 1px solid var(--border);
   padding: 1.5rem 0;
   transition: background-color 180ms ease;
+}
+
+/* Title and body both clear the number column; without this the body wraps
+   back under the "01" and sets one word per line. */
+.evidence-sequence__title,
+.evidence-sequence__body {
+  grid-column: 2;
+}
+
+/* Label and meaning on one line once there is room for both, so a page of
+   short entries reads as an index rather than a column of stubs. */
+@media (min-width: 64rem) {
+  .evidence-sequence > li {
+    grid-template-columns: 3rem minmax(0, 15rem) minmax(0, 1fr);
+  }
+  .evidence-sequence__body {
+    grid-column: 3;
+  }
 }
 
 .evidence-sequence > li::before {
@@ -1158,8 +1177,61 @@ p {
   transform: none;
 }
 
+/* ---- Share: top-layer popover + repost dialog ------------------------ */
+/* Both open from inside the RTL reading column, and the top layer does not
+   break style inheritance: `text-align: right` from the Arabic text block
+   cascades in and right-aligns this Latin UI chrome. `dir="ltr"` on the
+   element sets direction but not alignment, so state it. */
+.share-popover,
+.repost-dialog {
+  text-align: left;
+}
+
+/* The hadith record clips its overflow, so the share menu is promoted to the
+   top layer rather than positioned inside the card. `position: fixed` is set
+   here because the UA stylesheet centres popovers by default. */
+.share-popover:popover-open {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  animation: share-menu-in 160ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes share-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.985);
+  }
+}
+
+.repost-dialog[open] {
+  animation: repost-in 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.repost-dialog[open]::backdrop {
+  animation: repost-backdrop-in 200ms ease-out;
+}
+
+@keyframes repost-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.99);
+  }
+}
+
+@keyframes repost-backdrop-in {
+  from {
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .share-popover:popover-open,
+  .repost-dialog[open],
+  .repost-dialog[open]::backdrop {
+    animation: none;
+  }
   .animate-fade-up,
   .animate-spin-slower,
   .animate-spin-slower-reverse,

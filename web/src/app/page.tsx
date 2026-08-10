@@ -76,16 +76,25 @@ export default async function HomePage() {
         </section>
       ) : null}
 
-      <section className="deferred-section mx-auto max-w-[90rem] px-4 py-14 sm:px-6 sm:py-18 lg:px-8">
-        <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
-          <div>
-            <p className="text-sm font-semibold text-accent">{t.paths.eyebrow}</p>
-            <h2 className="mt-3 max-w-xl font-serif text-3xl font-semibold leading-tight sm:text-4xl">{t.paths.title}</h2>
+      {featured.length > 0 ? (
+        <section className="deferred-section library-stage border-b border-border">
+          <div className="mx-auto max-w-[90rem] px-4 py-14 sm:px-6 sm:py-18 lg:px-8">
+            <div className="flex flex-wrap items-end justify-between gap-6">
+              <h2 className="font-serif text-3xl font-semibold text-[color:var(--stage-ink)] sm:text-4xl">{t.collections.title}</h2>
+              <Link href="/books" className="inline-flex items-center gap-2 text-sm font-semibold text-[color:var(--stage-accent)] hover:underline">
+                {t.collections.viewAll} <span aria-hidden className="rtl:-scale-x-100">→</span>
+              </Link>
+            </div>
+
+            <div className="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+              {featured.map((book, index) => <BookCard key={book.id} book={book} index={index + 1} />)}
+            </div>
           </div>
-          <p className="max-w-2xl text-base leading-8 text-muted lg:justify-self-end">
-            {t.paths.intro}
-          </p>
-        </div>
+        </section>
+      ) : null}
+
+      <section className="deferred-section mx-auto max-w-[90rem] px-4 py-14 sm:px-6 sm:py-18 lg:px-8">
+        <h2 className="max-w-xl font-serif text-3xl font-semibold leading-tight sm:text-4xl">{t.paths.title}</h2>
 
         <div className="mt-8 border-y border-border lg:grid lg:grid-cols-3">
           {researchPaths.map((path, index) => (
@@ -103,36 +112,15 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {featured.length > 0 ? (
-        <section className="deferred-section library-stage border-y border-border">
-          <div className="mx-auto max-w-[90rem] px-4 py-14 sm:px-6 sm:py-18 lg:px-8">
-            <div className="flex flex-wrap items-end justify-between gap-6">
-              <div>
-                <p className="text-sm font-semibold text-[color:var(--stage-accent)]">{t.collections.eyebrow}</p>
-                <h2 className="mt-2 font-serif text-3xl font-semibold text-[color:var(--stage-ink)] sm:text-4xl">{t.collections.title}</h2>
-              </div>
-              <Link href="/books" className="inline-flex items-center gap-2 text-sm font-semibold text-[color:var(--stage-accent)] hover:underline">
-                {t.collections.viewAll} <span aria-hidden className="rtl:-scale-x-100">→</span>
-              </Link>
-            </div>
-
-            <div className="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
-              {featured.map((book, index) => <BookCard key={book.id} book={book} index={index + 1} />)}
-            </div>
-          </div>
-        </section>
-      ) : null}
-
-      <section className="deferred-section mx-auto grid max-w-[90rem] gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[0.85fr_1.15fr] lg:items-start lg:px-8">
-        <div className="lg:sticky lg:top-28">
+      {/* Short entries read better as an index than as a stack of paragraphs:
+          the label and what it means sit on one line, across the full measure. */}
+      <section className="deferred-section mx-auto max-w-[90rem] border-t border-border px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-10 gap-y-3">
+          <h2 className="font-serif text-3xl font-semibold leading-tight sm:text-4xl">{t.evidence.title}</h2>
           <p dir="rtl" lang="ar" className={`${amiri.className} text-3xl text-gold`}>{t.evidence.arabic}</p>
-          <h2 className="mt-4 max-w-xl font-serif text-3xl font-semibold leading-tight sm:text-4xl">{t.evidence.title}</h2>
-          <p className="mt-5 max-w-xl text-base leading-8 text-muted">
-            {t.evidence.intro}
-          </p>
         </div>
 
-        <ol className="evidence-sequence">
+        <ol className="evidence-sequence mt-10">
           {[
             [t.evidence.item1Title, t.evidence.item1Body],
             [t.evidence.item2Title, t.evidence.item2Body],
@@ -142,10 +130,8 @@ export default async function HomePage() {
           ].map(([title, body], index) => (
             <li key={title}>
               <span className="evidence-sequence__number">{String(index + 1).padStart(2, "0")}</span>
-              <div>
-                <h3 className="font-serif text-2xl font-semibold">{title}</h3>
-                <p className="mt-2 max-w-2xl text-sm leading-7 text-muted">{body}</p>
-              </div>
+              <h3 className="evidence-sequence__title font-serif text-2xl font-semibold">{title}</h3>
+              <p className="evidence-sequence__body max-w-2xl text-sm leading-7 text-muted">{body}</p>
             </li>
           ))}
         </ol>
