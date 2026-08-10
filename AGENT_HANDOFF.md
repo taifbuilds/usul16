@@ -128,12 +128,12 @@ with candidates shown, or flagged. The ~72% plateau is the *honest* answer —
 
 ## 6. Known defects / open risks
 
-- **🔴 Alembic schema drift.** `alembic_version` reports head (`a6c8d2e4f190`) but **9 tables
-  have no migration** — `persons`, `person_entry_links`, `person_surface_forms`,
-  `person_relations`, `collective_rosters`, `mention_resolutions`, `person_generations`,
-  `person_resolution_decisions`, `person_resolution_external_reviews`. They were created by
-  `Base.metadata.create_all()`. **`alembic upgrade head` on an empty DB does NOT reproduce
-  production.** Fix by baselining before authoring any new migration.
+- **Resolved (2026-08-10): Alembic schema baseline.** Migration `fa7e9c2d4b51` captures the
+  nine person-resolution tables that had previously been created by
+  `Base.metadata.create_all()`. It creates them on a fresh database and preserves an existing
+  deployment's tables while recording the revision. `tests/test_migration_baseline.py` verifies
+  both a clean `alembic upgrade head` and a legacy upgrade, then uses `alembic check` to catch
+  future model/migration drift.
 - Deploy verifies `systemctl is-active` only — a unit can be "active" while serving 500s.
 - Local and production DBs are separate copies; confirm `sha256sum` before shipping either way.
 - Backups: keep at least one copy **off** the server, and actually open/query it — a copy
@@ -174,8 +174,8 @@ Eight steps, ordered so everything that can fail without touching production hap
 2. **Export only what differs** (`export-commentary-delta --manifest`), including a list of
    `source_sequence`s that no longer exist so removals propagate.
 3. **Upload** to `~/incoming`, never over the live file.
-4. **`alembic upgrade head`** — `hadith_commentaries` may not exist there yet; the migration
-   `e4c91f7b2d68` chains directly off production's current head `a6c8d2e4f190`.
+4. **`alembic upgrade head`** — `hadith_commentaries` and the person-resolution baseline may
+   not exist there yet. The migrations apply forward safely to an established corpus.
 5. **Back up** the live DB, timestamped, *before* any write.
 6. **Validate then import** (`import-commentary-delta`): every `public_id` must resolve
    before a single row is written, then the whole delta applies in **one transaction**. A

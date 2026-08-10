@@ -383,16 +383,11 @@ Two unique constraints encode the publication model:
   source.** Contention between two passages claiming the same hadith must be
   resolved before import, not by the database.
 
-`down_revision = a6c8d2e4f190` chains onto what production already had, so
-`alembic upgrade head` is a single forward step and a no-op if already applied.
-
-> **Known landmine.** `AGENT_HANDOFF.md` §6 records Alembic schema drift: nine
-> tables (`persons`, `mention_resolutions`, …) exist in production but have no
-> migration, having been created by `Base.metadata.create_all()`. Consequence:
-> **`alembic upgrade head` against an empty database does not reproduce
-> production.** Migrations are safe to apply forward to the *existing*
-> production database; they cannot rebuild it from nothing. Baseline before
-> authoring new migrations.
+`down_revision = a6c8d2e4f190` chains onto what production already had. The subsequent
+baseline migration `fa7e9c2d4b51` captures the nine person-resolution tables that were
+originally made by `Base.metadata.create_all()`. A clean `alembic upgrade head` now reproduces
+the full SQLAlchemy model schema; an established deployment keeps its existing tables and is
+simply advanced to the new revision.
 
 ### 5.3 Layer 3 — data
 
@@ -947,12 +942,6 @@ Delete by explicit name. Never glob-delete backups.
 ---
 
 ## 14. TODO — known issues
-
-### Alembic baseline
-
-Nine tables have no migration (`AGENT_HANDOFF.md` §6). `alembic upgrade head`
-cannot reproduce production from an empty database. Baseline before authoring
-new migrations.
 
 ### `deploy-usul16.sh` is copied, not linked
 
