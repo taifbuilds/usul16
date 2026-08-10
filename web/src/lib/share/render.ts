@@ -164,7 +164,15 @@ export function isDark(color: string): boolean {
   return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255 < 0.5;
 }
 
-/** Ask the browser to have every face we draw with actually loaded. */
+/**
+ * Ask the browser to have every face we draw with actually loaded.
+ *
+ * FontFaceSet.load() normally settles quickly, but it may remain pending when
+ * a browser extension, an interrupted font request, or a stale dev-server
+ * asset blocks a font. A repost preview must not remain an empty placeholder
+ * in that case: canvas can draw with the declared fallback family, so wait a
+ * short bounded interval and then render.
+ */
 export async function ensureFonts(fonts: ShareFonts): Promise<void> {
   if (!("fonts" in document)) return;
   const specimens = [
@@ -173,7 +181,15 @@ export async function ensureFonts(fonts: ShareFonts): Promise<void> {
     `600 32px ${fonts.sans}`,
     `600 48px ${fonts.serif}`,
   ];
-  await Promise.all(specimens.map((spec) => document.fonts.load(spec).catch(() => undefined)));
+  const fontLoads = Promise.all(
+    specimens.map((spec) => document.fonts.load(spec).catch(() => undefined))
+  ).then(() => undefined);
+  let timeoutId: number | undefined;
+  const timeout = new Promise<void>((resolve) => {
+    timeoutId = window.setTimeout(resolve, 1_500);
+  });
+  await Promise.race([fontLoads, timeout]);
+  if (timeoutId !== undefined) window.clearTimeout(timeoutId);
 }
 
 interface Metrics {
@@ -769,8 +785,33 @@ export function renderShareImage(options: RenderOptions): RenderResult {
 
 export function canvasToBlob(canvas: HTMLCanvasElement): Promise<Blob> {
   return new Promise((resolve, reject) => {
+    let settled = false;
+    const finish = (blob: Blob | null) => {
+      if (settled) return;
+      settled = true;
+      window.clearTimeout(fallbackId);
+      if (blob) resolve(blob);
+      else reject(new Error("Could not encode the image"));
+    };
+    // Some privacy extensions and embedded browsers never invoke toBlob's
+    // callback. Fall back to the synchronous PNG encoder instead of leaving
+    // the share control in a permanent loading state.
+    const fallbackId = window.setTimeout(() => {
+      if (settled) return;
+      try {
+        const [, encoded = ""] = canvas.toDataURL("image/png").split(",", 2);
+        const binary = window.atob(encoded);
+        const bytes = new Uint8Array(binary.length);
+        for (let index = 0; index < binary.length; index += 1) {
+          bytes[index] = binary.charCodeAt(index);
+        }
+        finish(new Blob([bytes], { type: "image/png" }));
+      } catch {
+        finish(null);
+      }
+    }, 1_500);
     canvas.toBlob(
-      (blob) => (blob ? resolve(blob) : reject(new Error("Could not encode the image"))),
+      finish,
       "image/png"
     );
   });

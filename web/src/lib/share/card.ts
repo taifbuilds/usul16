@@ -13,9 +13,19 @@ import { splitIsnadAtImam, type IsnadRun } from "@/lib/share/imam";
 // point at. Neither the clipboard nor the image carries those, so a bare "[٤]"
 // left in the text would read as part of the narration.
 const FOOTNOTE_MARKER_RE = /\[\s*[0-9٠-٩]+\s*\]/g;
+const EDITION_SUFFIX_RE = /\s*[-–—]\s*ط(?:بعة)?\.?\s+.*$/u;
+const PARENTHETICAL_EDITION_RE = /\s*\(\s*ط(?:بعة)?\.?\s+[^)]*\)\s*$/u;
 
 function withoutFootnoteMarkers(text: string): string {
   return text.replace(FOOTNOTE_MARKER_RE, "").replace(/\s{2,}/g, " ").trim();
+}
+
+/** Reader-facing share cards name the work, not the catalogue's edition label. */
+function collectionDisplayTitle(value: string): string {
+  return formatArabicTitle(value)
+    .replace(EDITION_SUFFIX_RE, "")
+    .replace(PARENTHETICAL_EDITION_RE, "")
+    .trim();
 }
 
 /** Which text the reader chose to share. */
@@ -64,7 +74,7 @@ export function buildShareCard(
   origin: string
 ): ShareCard {
   const url = `${origin}/hadith/${encodeURIComponent(hadith.public_id)}`;
-  const title = bookTitle ? formatArabicTitle(bookTitle) : null;
+  const title = bookTitle ? collectionDisplayTitle(bookTitle) : null;
   // The publication gate is the same one the reader uses: an unattributed or
   // AI-tier translation is never quietly baked into an image that will travel
   // without this page around it.

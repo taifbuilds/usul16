@@ -28,14 +28,35 @@ interface Preview {
   truncated: boolean;
 }
 
+const PREVIEW_TIMEOUT_MS = 6_000;
+
+async function within<T>(task: Promise<T>, timeoutMs: number): Promise<T> {
+  let timeoutId: number | undefined;
+  const timeout = new Promise<never>((_, reject) => {
+    timeoutId = window.setTimeout(
+      () => reject(new Error("Image preparation timed out")),
+      timeoutMs
+    );
+  });
+  try {
+    return await Promise.race([task, timeout]);
+  } finally {
+    if (timeoutId !== undefined) window.clearTimeout(timeoutId);
+  }
+}
+
 export function RepostDialog({
   card,
   open,
   onClose,
+  onPrepared,
+  onPreparationError,
 }: {
   card: ShareCard;
   open: boolean;
   onClose: () => void;
+  onPrepared?: () => void;
+  onPreparationError?: () => void;
 }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const previewUrlRef = useRef<string | null>(null);
@@ -54,14 +75,27 @@ export function RepostDialog({
   const [preview, setPreview] = useState<{ key: string; value: Preview } | null>(null);
   const [error, setError] = useState<{ key: string; message: string } | null>(null);
   const busy = open && preview?.key !== wanted && error?.key !== wanted;
+  const ready = preview?.key === wanted;
   const shown = preview?.value ?? null;
+  const selectedFormat = SHARE_FORMATS.find((option) => option.value === format);
 
   useEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return;
-    if (open && !dialog.open) dialog.showModal();
-    if (!open && dialog.open) dialog.close();
-  }, [open]);
+    // Rendering starts as soon as the reader asks for an image, but the modal
+    // stays out of the way until there is a real preview to show. If an option
+    // changes while the dialog is already open, keep it open during that
+    // smaller refresh instead of making the surface flash in and out.
+    if (open) {
+      if (ready && !dialog.open) dialog.showModal();
+      return;
+    }
+    if (dialog.open) dialog.close();
+  }, [open, ready]);
+
+  useEffect(() => {
+    if (open && ready) onPrepared?.();
+  }, [onPrepared, open, ready]);
 
   useEffect(() => {
     const observer = new MutationObserver(() => setThemeTick((tick) => tick + 1));
@@ -70,33 +104,44 @@ export function RepostDialog({
   }, []);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open || ready) return;
     let cancelled = false;
 
     (async () => {
       // Every state update below sits behind an await, so opening the dialog
       // does not cascade renders before the first frame.
       try {
-        const fonts = readFonts();
-        await ensureFonts(fonts);
-        if (cancelled) return;
-        const { canvas, truncated } = renderShareImage({
-          card,
-          language,
-          format,
-          theme: readTheme(),
-          fonts,
-        });
-        const blob = await canvasToBlob(canvas);
+        setError(null);
+        const prepared = await within(
+          (async () => {
+            const fonts = readFonts();
+            await ensureFonts(fonts);
+            const { canvas, truncated } = renderShareImage({
+              card,
+              language,
+              format,
+              theme: readTheme(),
+              fonts,
+            });
+            const blob = await canvasToBlob(canvas);
+            return { blob, truncated };
+          })(),
+          PREVIEW_TIMEOUT_MS
+        );
         if (cancelled) return;
         if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current);
-        const url = URL.createObjectURL(blob);
+        const url = URL.createObjectURL(prepared.blob);
         previewUrlRef.current = url;
-        setPreview({ key: wanted, value: { url, blob, truncated } });
+        setPreview({
+          key: wanted,
+          value: { url, blob: prepared.blob, truncated: prepared.truncated },
+        });
         setCanShareFile(
           typeof navigator.canShare === "function" &&
             navigator.canShare({
-              files: [new File([blob], shareFileName(card, format), { type: "image/png" })],
+              files: [
+                new File([prepared.blob], shareFileName(card, format), { type: "image/png" }),
+              ],
             })
         );
       } catch (cause) {
@@ -106,13 +151,14 @@ export function RepostDialog({
           key: wanted,
           message: cause instanceof Error ? cause.message : "Could not render the image",
         });
+        onPreparationError?.();
       }
     })();
 
     return () => {
       cancelled = true;
     };
-  }, [open, card, language, format, wanted]);
+  }, [open, ready, card, language, format, onPreparationError, wanted]);
 
   useEffect(
     () => () => {
@@ -137,6 +183,12 @@ export function RepostDialog({
     setSaved(true);
   }
 
+  function requestClose() {
+    const dialog = dialogRef.current;
+    if (dialog?.open) dialog.close();
+    else onClose();
+  }
+
   async function shareImage() {
     if (!shown) return;
     const file = new File([shown.blob], shareFileName(card, format), { type: "image/png" });
@@ -156,22 +208,18 @@ export function RepostDialog({
   ].filter(Boolean);
   const fitHint = fitOptions.length ? `Try ${fitOptions.join(" or ")}.` : "";
 
-  const segment = (active: boolean) =>
-    `min-h-9 rounded-md px-3 py-1.5 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 ${
-      active
-        ? "bg-accent text-accent-foreground"
-        : "border border-border text-muted hover:border-border-strong hover:text-foreground"
-    }`;
-
   return (
     <dialog
       ref={dialogRef}
       dir="ltr"
       onClose={onClose}
-      onCancel={onClose}
+      onCancel={(event) => {
+        event.preventDefault();
+        requestClose();
+      }}
       onClick={(event) => {
         // Clicking the backdrop lands on the dialog element itself.
-        if (event.target === dialogRef.current) onClose();
+        if (event.target === dialogRef.current) requestClose();
       }}
       aria-labelledby="repost-title"
       className="repost-dialog m-auto flex max-h-[calc(100dvh-2rem)] w-[min(46rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-xl border border-border bg-surface p-0 font-sans text-foreground shadow-2xl backdrop:bg-[color:var(--shadow-color)] backdrop:backdrop-blur-sm"
@@ -179,18 +227,17 @@ export function RepostDialog({
       <div className="flex shrink-0 items-start justify-between gap-4 border-b border-border px-5 py-4">
         <div>
           <h2 id="repost-title" className="text-base font-semibold">
-            Repost this hadith
+            Share hadith image
           </h2>
           <p className="mt-0.5 text-xs text-muted">
-            The image carries its collection, printed page and permalink, so it stays traceable
-            wherever it travels.
+            Includes the collection, printed page, and a link back to the record.
           </p>
         </div>
         <button
           type="button"
-          onClick={onClose}
+          onClick={requestClose}
           aria-label="Close"
-          className="-mr-1 -mt-1 rounded-md p-2 text-muted transition-colors hover:bg-surface-2 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
+          className="-mr-1 -mt-1 inline-flex min-h-11 min-w-11 items-center justify-center rounded-md text-muted transition-colors hover:bg-surface-2 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
         >
           <svg viewBox="0 0 16 16" aria-hidden className="size-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
             <path d="M4 4l8 8M12 4l-8 8" />
@@ -199,8 +246,11 @@ export function RepostDialog({
       </div>
 
       <div className="min-h-0 flex-1 overflow-y-auto">
-        <div className="grid gap-5 p-5 sm:grid-cols-[minmax(0,1fr)_14.5rem]">
-        <div className="flex min-h-[15rem] items-center justify-center rounded-lg bg-background p-3 sm:min-h-[32rem]">
+        <div className="grid gap-5 p-5 md:grid-cols-[minmax(0,1fr)_13rem]">
+        <div
+          aria-busy={busy}
+          className="flex min-h-[15rem] items-center justify-center rounded-lg bg-background p-3 md:min-h-[30rem]"
+        >
           {error && error.key === wanted ? (
             <p className="max-w-xs text-center text-sm text-muted">{error.message}</p>
           ) : shown ? (
@@ -215,93 +265,95 @@ export function RepostDialog({
               }`}
             />
           ) : (
-            <div
-              aria-hidden
-              className="h-56 w-44 animate-pulse rounded-sm bg-surface-2 sm:h-[34rem] sm:w-[27rem]"
-            />
+            <div className="text-center" role="status" aria-live="polite">
+              <div
+                aria-hidden
+                className="mx-auto h-56 w-44 animate-pulse rounded-sm bg-surface-2 md:h-[30rem] md:w-[24rem]"
+              />
+              <p className="mt-3 text-xs text-muted">Preparing image…</p>
+            </div>
           )}
         </div>
 
-        <div className="flex flex-col gap-5">
+        <details className="self-start rounded-md border border-border bg-background">
+          <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-2 px-3 text-sm font-medium text-foreground marker:content-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40">
+            <span className="whitespace-nowrap">Options</span>
+            <span className="text-xs font-normal text-muted">
+              {selectedFormat?.label}
+            </span>
+          </summary>
+          <div className="space-y-3 border-t border-border p-3">
           {languages.length > 1 ? (
-            <fieldset>
-              <legend className="mb-2 text-xs font-semibold text-foreground">Text</legend>
-              <div className="flex flex-wrap gap-1.5">
+            <label className="grid gap-1.5 text-xs font-medium text-foreground">
+              Text
+              <select
+                value={language}
+                onChange={(event) => setLanguage(event.target.value as ShareLanguage)}
+                className="min-h-10 rounded-md border border-border bg-surface px-2 text-sm font-normal text-foreground focus:outline-none focus:ring-2 focus:ring-accent/40"
+              >
                 {SHARE_LANGUAGES.filter((option) => languages.includes(option.value)).map(
                   (option) => (
-                    <button
-                      key={option.value}
-                      type="button"
-                      aria-pressed={language === option.value}
-                      onClick={() => setLanguage(option.value)}
-                      className={segment(language === option.value)}
-                    >
+                    <option key={option.value} value={option.value}>
                       {option.label}
-                    </button>
+                    </option>
                   )
                 )}
-              </div>
-            </fieldset>
+              </select>
+            </label>
           ) : (
             <p className="text-xs leading-relaxed text-muted">
-              Arabic only — no published English translation is attached to this record yet.
+              Arabic only. No published English translation is attached to this record.
             </p>
           )}
 
-          <fieldset>
-            <legend className="mb-2 text-xs font-semibold text-foreground">Size</legend>
-            <div className="flex flex-col gap-1.5">
+          <label className="grid gap-1.5 text-xs font-medium text-foreground">
+            Image size
+            <select
+              value={format}
+              onChange={(event) => setFormat(event.target.value as ShareFormat)}
+              className="min-h-10 rounded-md border border-border bg-surface px-2 text-sm font-normal text-foreground focus:outline-none focus:ring-2 focus:ring-accent/40"
+            >
               {SHARE_FORMATS.map((option) => (
-                <button
-                  key={option.value}
-                  type="button"
-                  aria-pressed={format === option.value}
-                  onClick={() => setFormat(option.value)}
-                  className={`flex items-center justify-between ${segment(format === option.value)}`}
-                >
-                  <span>{option.label}</span>
-                  <span className={format === option.value ? "opacity-80" : "text-muted"}>
-                    {option.hint}
-                  </span>
-                </button>
+                <option key={option.value} value={option.value}>
+                  {option.label} — {option.hint}
+                </option>
               ))}
-            </div>
-          </fieldset>
+            </select>
+          </label>
 
           {shown?.truncated ? (
-            <p className="border-t border-border pt-3 text-left text-xs leading-relaxed text-gold">
-              Too long to set legibly here, so the image shows its opening and links to the rest.
-              {fitHint ? ` ${fitHint}` : ""}
+            <p className="text-left text-xs leading-relaxed text-gold">
+              The image uses an opening excerpt and links to the full narration. {fitHint}
             </p>
           ) : null}
 
-        </div>
+          </div>
+        </details>
         </div>
       </div>
 
-      <div className="flex shrink-0 flex-col-reverse gap-2 border-t border-border px-5 py-4 sm:flex-row sm:justify-end">
+      <div className="flex shrink-0 items-center justify-between gap-3 border-t border-border px-5 py-4">
         <button
           type="button"
-          onClick={download}
-          disabled={!shown || busy}
-          className={`min-h-11 rounded-md px-5 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 disabled:opacity-50 ${
-            canShareFile
-              ? "border border-border text-foreground hover:bg-surface-2"
-              : "bg-accent text-accent-foreground hover:bg-accent-strong"
-          }`}
+          onClick={requestClose}
+          className="min-h-11 rounded-md px-4 text-sm font-semibold text-foreground transition-colors hover:bg-surface-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
         >
-          {saved ? "Saved" : busy ? "Rendering…" : "Download PNG"}
+          Close
         </button>
-        {canShareFile ? (
-          <button
-            type="button"
-            onClick={shareImage}
-            disabled={!shown || busy}
-            className="min-h-11 rounded-md bg-accent px-5 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 disabled:opacity-50"
-          >
-            Share image
-          </button>
-        ) : null}
+        <button
+          type="button"
+          onClick={canShareFile ? shareImage : download}
+          disabled={!shown || busy}
+          className="min-h-11 rounded-md bg-accent px-5 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 disabled:opacity-50"
+        >
+          {saved
+            ? "Image saved"
+            : busy
+              ? "Preparing image…"
+              : canShareFile
+                ? "Share image"
+                : "Download image"}
+        </button>
       </div>
     </dialog>
   );
