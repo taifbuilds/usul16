@@ -222,9 +222,9 @@ export function RepostDialog({
         if (event.target === dialogRef.current) requestClose();
       }}
       aria-labelledby="repost-title"
-      className="repost-dialog m-auto flex max-h-[calc(100dvh-2rem)] w-[min(46rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-xl border border-border bg-surface p-0 font-sans text-foreground shadow-2xl backdrop:bg-[color:var(--shadow-color)] backdrop:backdrop-blur-sm"
+      className="repost-dialog m-auto flex max-h-[calc(100dvh-2rem)] w-[min(46rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-xl border border-border bg-surface p-0 font-sans text-foreground shadow-2xl backdrop:bg-[color:var(--shadow-color)] backdrop:backdrop-blur-sm max-sm:h-dvh max-sm:max-h-dvh max-sm:w-screen max-sm:max-w-none max-sm:rounded-none max-sm:border-0"
     >
-      <div className="flex shrink-0 items-start justify-between gap-4 border-b border-border px-5 py-4">
+      <div className="flex shrink-0 items-start justify-between gap-4 border-b border-border px-5 pb-4 pt-[max(1rem,env(safe-area-inset-top))] sm:py-4">
         <div>
           <h2 id="repost-title" className="text-base font-semibold">
             Share hadith image
@@ -332,7 +332,7 @@ export function RepostDialog({
         </div>
       </div>
 
-      <div className="flex shrink-0 items-center justify-between gap-3 border-t border-border px-5 py-4">
+      <div className="flex shrink-0 items-center justify-between gap-3 border-t border-border px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4">
         <button
           type="button"
           onClick={requestClose}

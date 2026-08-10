@@ -87,11 +87,52 @@ interface Line {
   gapWidth: number;
 }
 
+interface Excerpt<T> {
+  value: T;
+  truncated: boolean;
+}
+
 const RTL = "rtl";
 const LTR = "ltr";
 
 function fontString(font: Font): string {
   return `${font.weight} ${font.size}px ${font.family}`;
+}
+
+function excerptText(text: string, maxWords: number): Excerpt<string> {
+  const words = text.trim().split(/\s+/).filter(Boolean);
+  if (words.length <= maxWords) return { value: text, truncated: false };
+  return { value: `${words.slice(0, maxWords).join(" ")} …`, truncated: true };
+}
+
+function excerptRuns(
+  runs: ShareCard["isnadRuns"],
+  maxWords: number
+): Excerpt<ShareCard["isnadRuns"]> {
+  const value: ShareCard["isnadRuns"] = [];
+  let remaining = maxWords;
+  let truncated = false;
+
+  for (const run of runs) {
+    const words = run.text.trim().split(/\s+/).filter(Boolean);
+    if (!words.length) continue;
+    if (remaining <= 0) {
+      truncated = true;
+      break;
+    }
+    if (words.length > remaining) {
+      value.push({ ...run, text: `${words.slice(0, remaining).join(" ")} …` });
+      truncated = true;
+      break;
+    }
+    value.push(run);
+    remaining -= words.length;
+  }
+
+  if (!truncated && value.length < runs.filter((run) => run.text.trim()).length) {
+    truncated = true;
+  }
+  return { value, truncated };
 }
 
 /**
@@ -186,7 +227,7 @@ export async function ensureFonts(fonts: ShareFonts): Promise<void> {
   ).then(() => undefined);
   let timeoutId: number | undefined;
   const timeout = new Promise<void>((resolve) => {
-    timeoutId = window.setTimeout(resolve, 1_500);
+    timeoutId = window.setTimeout(resolve, 400);
   });
   await Promise.race([fontLoads, timeout]);
   if (timeoutId !== undefined) window.clearTimeout(timeoutId);
@@ -459,7 +500,7 @@ export function renderShareImage(options: RenderOptions): RenderResult {
   const canvas = document.createElement("canvas");
   canvas.width = spec.width;
   canvas.height = spec.height;
-  const ctx = canvas.getContext("2d");
+  const ctx = canvas.getContext("2d", { alpha: false });
   if (!ctx) throw new Error("Canvas 2D is unavailable in this browser");
   ctx.textBaseline = "alphabetic";
   const measure = createMeasurer(ctx);
@@ -479,6 +520,29 @@ export function renderShareImage(options: RenderOptions): RenderResult {
   const englishLeads = language === "en" && card.english !== null;
   const showEnglish = language !== "ar" && card.english !== null;
 
+  // A social card can only display a bounded excerpt. Measuring thousands of
+  // words before discovering that fact freezes the main thread on slower
+  // phones, and timers cannot interrupt synchronous canvas work. Cap the
+  // candidate text before the first measureText call. Taller formats earn a
+  // larger budget; bilingual cards split it between the two narrations.
+  const totalNarrativeBudget = spec.height >= 1900 ? 210 : spec.height >= 1300 ? 144 : 112;
+  const narrativeSlots = Math.max(1, Number(showArabic) + Number(showEnglish));
+  const perNarrativeBudget = Math.max(64, Math.floor(totalNarrativeBudget / narrativeSlots));
+  const matnExcerpt = showArabic
+    ? excerptText(card.matn, perNarrativeBudget)
+    : { value: "", truncated: false };
+  const englishExcerpt =
+    showEnglish && card.english
+      ? excerptText(card.english.matn, perNarrativeBudget)
+      : { value: null, truncated: false };
+  const englishIsnadExcerpt =
+    englishLeads && card.english?.isnad
+      ? excerptText(card.english.isnad, 60)
+      : { value: card.english?.isnad ?? null, truncated: false };
+  const isnadExcerpt = showArabic
+    ? excerptRuns(card.isnadRuns, 72)
+    : { value: [], truncated: false };
+
   // ---- composition, measured before anything is painted ---------------------
   interface Draft {
     matn: string;
@@ -489,10 +553,10 @@ export function renderShareImage(options: RenderOptions): RenderResult {
   const buildBlocks = (draft: Draft, matnSize: number, englishSize: number): Block[] => {
     const blocks: Block[] = [];
 
-    if (showArabic && card.isnadRuns.length) {
+    if (showArabic && isnadExcerpt.value.length) {
       // The chain is provenance and sets small; the Imam it arrives at is the
       // speaker and comes back up to reading size.
-      const runs: Run[] = card.isnadRuns.map((run) => ({
+      const runs: Run[] = isnadExcerpt.value.map((run) => ({
         text: run.text,
         font: arabic(run.emphasis ? 38 : 25),
         color: run.emphasis ? theme.accent : theme.muted,
@@ -519,7 +583,7 @@ export function renderShareImage(options: RenderOptions): RenderResult {
         spaceBefore: 30,
         // The one ornamental moment inside the panel, and it marks a real
         // boundary: provenance above it, the narration below.
-        rule: card.isnadRuns.length ? "rosette" : undefined,
+        rule: isnadExcerpt.value.length ? "rosette" : undefined,
       });
     }
 
@@ -568,10 +632,15 @@ export function renderShareImage(options: RenderOptions): RenderResult {
   const available = footerTop - bodyTop - 24;
 
   const fullDraft: Draft = {
-    matn: card.matn,
-    english: card.english?.matn ?? null,
-    englishIsnad: card.english?.isnad ?? null,
+    matn: matnExcerpt.value,
+    english: englishExcerpt.value,
+    englishIsnad: englishIsnadExcerpt.value,
   };
+  const initiallyTruncated =
+    matnExcerpt.truncated ||
+    englishExcerpt.truncated ||
+    englishIsnadExcerpt.truncated ||
+    isnadExcerpt.truncated;
 
   // Fit by measurement: the largest type that still clears the footer. A short
   // narration is set large and fills the folio; a long one steps down. Both
@@ -597,7 +666,7 @@ export function renderShareImage(options: RenderOptions): RenderResult {
   if (!blocks) {
     let low = 0;
     let high = 1;
-    for (let i = 0; i < 8; i += 1) {
+    for (let i = 0; i < 5; i += 1) {
       const mid = (low + high) / 2;
       const candidate = fitsAt(fullDraft, mid);
       if (candidate) {
@@ -615,14 +684,21 @@ export function renderShareImage(options: RenderOptions): RenderResult {
 
   // Below the legibility floor the honest move is to set the opening and let
   // the permalink carry the rest, not to shrink scripture into noise.
-  let truncated = false;
+  let truncated = initiallyTruncated;
   if (!blocks) {
     truncated = true;
     const trim = (text: string, keep: number): string => {
       const words = text.split(/\s+/);
       return words.length <= keep ? text : `${words.slice(0, keep).join(" ")} …`;
     };
-    for (let keep = 240; keep >= 10; keep -= 6) {
+    const largestDraft = Math.max(
+      fullDraft.matn.split(/\s+/).length,
+      fullDraft.english?.split(/\s+/).length ?? 0
+    );
+    let low = 10;
+    let high = Math.min(240, largestDraft);
+    while (low <= high) {
+      const keep = Math.floor((low + high) / 2);
       const candidate = fitsAt(
         {
           matn: trim(fullDraft.matn, keep),
@@ -633,7 +709,9 @@ export function renderShareImage(options: RenderOptions): RenderResult {
       );
       if (candidate) {
         blocks = candidate;
-        break;
+        low = keep + 1;
+      } else {
+        high = keep - 1;
       }
     }
   }
@@ -785,35 +863,18 @@ export function renderShareImage(options: RenderOptions): RenderResult {
 
 export function canvasToBlob(canvas: HTMLCanvasElement): Promise<Blob> {
   return new Promise((resolve, reject) => {
-    let settled = false;
-    const finish = (blob: Blob | null) => {
-      if (settled) return;
-      settled = true;
-      window.clearTimeout(fallbackId);
+    // A second synchronous encode makes a genuinely slow phone do the same
+    // expensive job twice. Give the standards-based encoder a firm deadline
+    // and return control to the reader if that browser cannot finish it.
+    const timeoutId = window.setTimeout(
+      () => reject(new Error("Image encoding timed out")),
+      4_500
+    );
+    canvas.toBlob((blob) => {
+      window.clearTimeout(timeoutId);
       if (blob) resolve(blob);
       else reject(new Error("Could not encode the image"));
-    };
-    // Some privacy extensions and embedded browsers never invoke toBlob's
-    // callback. Fall back to the synchronous PNG encoder instead of leaving
-    // the share control in a permanent loading state.
-    const fallbackId = window.setTimeout(() => {
-      if (settled) return;
-      try {
-        const [, encoded = ""] = canvas.toDataURL("image/png").split(",", 2);
-        const binary = window.atob(encoded);
-        const bytes = new Uint8Array(binary.length);
-        for (let index = 0; index < binary.length; index += 1) {
-          bytes[index] = binary.charCodeAt(index);
-        }
-        finish(new Blob([bytes], { type: "image/png" }));
-      } catch {
-        finish(null);
-      }
-    }, 1_500);
-    canvas.toBlob(
-      finish,
-      "image/png"
-    );
+    }, "image/png");
   });
 }
 
