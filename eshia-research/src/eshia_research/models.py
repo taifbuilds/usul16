@@ -1255,6 +1255,87 @@ class HadithGrading(Base):
     hadith: Mapped["Hadith"] = relationship()
 
 
+class MashyakhaPath(Base):
+    """One source-preserved path from a compiler to Faqih's abbreviated narrator.
+
+    ``Man la yahduruhu al-Faqih`` normally begins a report at the first named
+    narrator.  Its separate Mashyakha supplies al-Saduq's preceding path.  A
+    path is stored as an external textual witness first; it does not rewrite a
+    report's printed isnad or silently assert a graph edge.
+    """
+
+    __tablename__ = "mashyakha_paths"
+    __table_args__ = (
+        UniqueConstraint("source_key", "source_chapter", name="uq_mashyakha_path_source_chapter"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    source_book_id: Mapped[str] = mapped_column(String(64), index=True)
+    # e.g. thaqalayn-faqih-mashaykha-v1; distinct witnesses may coexist.
+    source_key: Mapped[str] = mapped_column(String(64), index=True)
+    source_chapter: Mapped[int] = mapped_column(Integer)
+    source_hadith_number: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    source_url: Mapped[str] = mapped_column(String(1024))
+    target_raw: Mapped[str | None] = mapped_column(Text, nullable=True)
+    target_normalised: Mapped[str | None] = mapped_column(String(512), nullable=True, index=True)
+    # One entry can vouch for several narrator forms: alternatives sharing a
+    # path ("عن محمد بن حمران؛ و جميل بن دراج"), and each step of a two-step
+    # opening ("عن زرعة، عن سماعة").  ``target_normalised`` is the first of them.
+    target_forms_json: Mapped[list | None] = mapped_column(JSON, nullable=True)
+    source_text_ar: Mapped[str] = mapped_column(Text)
+    source_text_en: Mapped[str | None] = mapped_column(Text, nullable=True)
+    source_sha256: Mapped[str] = mapped_column(String(64), index=True)
+    # Conservatively extracted path components.  The full Arabic witness above
+    # remains authoritative when a parser needs review.
+    parsed_path_json: Mapped[list | None] = mapped_column(JSON, nullable=True)
+    parser_version: Mapped[str] = mapped_column(String(32), default="faqih_mashyakha_v2")
+    # parsed | topic_entry | needs_review | approved.  ``topic_entry`` marks an
+    # entry keyed on a subject rather than a narrator; it has no target form to
+    # match and is not a parser failure.
+    review_status: Mapped[str] = mapped_column(String(32), default="parsed", index=True)
+    notes: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    updated_at: Mapped[dt.datetime] = mapped_column(
+        DateTime(timezone=True), default=utcnow, onupdate=utcnow
+    )
+
+
+class MashyakhaExpansion(Base):
+    """A reviewable proposal to prepend a Mashyakha path to one Faqih chain.
+
+    The report's printed isnad remains in ``Chain`` and ``ChainNode``.  This
+    relation only records an exact textual match between its opening narrator
+    and a separately sourced Mashyakha witness; it neither adds graph edges
+    nor treats the witness's path nodes as resolved narrator identities.
+    """
+
+    __tablename__ = "mashyakha_expansions"
+    __table_args__ = (
+        UniqueConstraint(
+            "chain_id", "mashyakha_path_id", name="uq_mashyakha_expansion_chain_path"
+        ),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    chain_id: Mapped[int] = mapped_column(ForeignKey("chains.id"), index=True)
+    mashyakha_path_id: Mapped[int] = mapped_column(ForeignKey("mashyakha_paths.id"), index=True)
+    # Evidence tier, strongest first: exact_first_narrator |
+    # canonical_first_narrator | unique_name_extension | ism_nisba_elision |
+    # partial_name_candidate.  Only the first four can leave a single witness
+    # standing; partial_name_candidate is always ranked candidates.
+    match_method: Mapped[str] = mapped_column(String(64), default="exact_first_narrator", index=True)
+    match_evidence_json: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    # proposed | needs_review | approved | rejected
+    review_status: Mapped[str] = mapped_column(String(32), default="proposed", index=True)
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    updated_at: Mapped[dt.datetime] = mapped_column(
+        DateTime(timezone=True), default=utcnow, onupdate=utcnow
+    )
+
+    chain: Mapped["Chain"] = relationship()
+    mashyakha_path: Mapped["MashyakhaPath"] = relationship()
+
+
 class CrawlLog(Base):
     __tablename__ = "crawl_logs"
 

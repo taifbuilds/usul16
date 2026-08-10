@@ -67,17 +67,52 @@ gold-standard pilot; the pipeline learned there is then applied to the other boo
 | Book | `source_book_id` | State |
 |---|---|---|
 | **Al-Kafi** | `11005` | ✅ Gold. 15,3xx hadiths, boundaries audited, chains + rijal resolved, topics, gradings, live English, on the graph. |
-| **Man la yahduruhu al-Faqih** | `11021` | 🟡 ~90%. Boundaries passed; Imams 96% resolved; 5,808/5,924 translated (98%). **Gaps:** 116 untranslated, 798 `needs_review` chains, **0 gradings**, Phase D never run, not on the graph. |
+| **Man la yahduruhu al-Faqih** | `11021` | 🟡 ~90%. Boundaries passed; Imams 96% resolved; 5,808/5,924 translated (98%). Phase D resolved 68 high-margin mentions. Mashyakha layer: 387 witnesses; **1,931 single-witness proposals + 567 ranked-candidate chains** of 2,907 abbreviated openings. **Gaps:** 116 untranslated, 798 `needs_review` chains, **0 gradings**, no graph publication. |
 | **Tahdhib al-Ahkam** | `10083` | 🔴 Raw. Hadiths+isnads extracted, no finishing work. ~14k — bigger than Al-Kafi. |
 | **Al-Istibsar** | `11002` | 🔴 Raw. Same, ~5.5k. |
 | **Bihar al-Anwar** | `71860` | 🔴 Crawled, **not hadith-extracted**. |
 | Mu'jam Rijal al-Hadith | `14036` | ✅ 15,593 entries — the rijal spine. |
 
 **Faqih/Tahdhib/Istibsar use abbreviated isnads** (al-Saduq's / al-Tusi's *mashyakha* holds
-the path to the first narrator). A **mashyakha-expansion engine** is the single unbuilt piece
-that unlocks all three. It does not exist yet.
+the path to the first narrator). Faqih has a source-preserved expansion-**proposal** layer: it
+records 387 witnesses and proposes a virtual preface per abbreviated opening without changing
+the printed isnad, resolving identities, or adding graph edges. Not yet generalized to
+Tahdhib/Istibsar; proposals still need editorial review before any graph use.
 
-Main DB: `eshia-research/eshia_research.db` (~2.5 GB, 39 tables, 173 indexes,
+**Mashyakha matcher `v2` (2026-08-10) — the 1,760 "unmatched" openings were mostly a parser
+and normalisation artefact, not missing sources.** Of 2,907 abbreviated openings, **1,931 now
+have exactly one source witness** (was 1,147), 567 carry ranked candidates, and 409 have no
+Mashyakha entry that can ever exist. Full account and the residual list in
+`eshia-research/docs/faqih_completeness.md`. What moved it:
+
+- **The source parser was too literal.** The edition writes the same formula several ways
+  (`كل ما كان في هذا الكتاب عن …`, `فقد حدثني به`, a comma after `فيه` or `رويته`), and 11
+  entries were being held for review as parse failures — including **حماد بن عثمان**,
+  **علي بن جعفر** and **عبد الله بن المغيرة**, three of the commonest abbreviations.
+- **One entry can vouch for several narrators.** `عن محمد بن حمران؛ و جميل بن دراج` covers two
+  men, and `عن زرعة، عن سماعة` names a two-step opening whose first step is itself a target.
+  `mashyakha_paths.target_forms_json` now holds all of them (migration `a7c3e5b91d24`).
+- **Matching compared orthography, not identity.** The Mashyakha names its target in the
+  genitive after `عن` (`أبي بصير`); the report prints whatever case its sentence needs
+  (`أبو بصير`). Add the prepositions the tokenizer kept, trailing `بإسناده`, and the bracketed
+  dua (`الكليني- رحمة الله عليه-`), and a large share of "unmatched" was case and apparatus.
+  Stripped from **both sides** — same lesson as the Mir'at scorer.
+
+**It refuses answers it could give, deliberately.** `ابن X` never auto-resolves (`ابن محبوب`'s
+only matching target is the *wrong* Ibn Mahbub — uniqueness in a 383-form roster is not
+uniqueness in the tradition); subject-scoped targets (`شعيب بن واقد في المناهي`) are never a
+sole candidate; two witnesses for one narrator stay two. Every proposal carries its
+`match_method` tier, the target form it actually matched, and its candidate rank/count.
+
+**Local change:** local head is `a7c3e5b91d24`. Pre-change state of both Mashyakha tables is
+`eshia-research/scratch_audit/mashyakha_tables_before_v2_20260810T180313Z.sql` (387 + 1,147
+rows); the wider 6.7 GB full-file backups from earlier that day are still on disk. The
+materializer is idempotent **and deletes proposals its rules no longer make**, so a rule change
+cannot leave orphaned evidence — but it never deletes an `approved`/`rejected` human ruling.
+Verified unchanged after the run: 9,586 Faqih chain nodes, 798 `needs_review` chains.
+`tests/test_mashyakha.py` is 20 tests; full suite 511 passing. **Not deployed to production.**
+
+Main DB: `eshia-research/eshia_research.db` (~6.7 GB, 42 tables, 154 indexes,
 `journal_mode=delete`). Most of it is **derived and regenerable** (chain nodes, candidates,
 resolutions, topics); source text is only ~0.55 GB.
 
@@ -224,14 +259,25 @@ publishing, blue/green, containerisation. They solve problems Usul16 does not ha
 
 ## 9. Open work queue
 
-**Faqih → gold** (in priority order): gradings import (0 today — biggest visible gap) ·
-116 untranslated (28 already drafted in the AI-tier style; publication AI lane is built and
-tested) · 798 `needs_review` chains (part 1 of 2 reviewed and validated: 399/399 boundaries
-verified against source, 397 need mashyakha, 2 clean; **part 2 generated, awaiting review** —
-`scratch_audit/faqih_needs_review_part{1_RESOLVED,2}.md`) · run Phase D context ·
-union lattice rebuild · flip into `POLISHED_TRANSMISSION_BOOK_IDS` to light it up on the graph.
+**Faqih → gold** (in priority order): obtain a usable, attributable per-report grading source
+(0 today — biggest visible gap) · establish human or explicitly labelled AI translations for the
+116 missing reports (do not invent or misattach website translations) · resolve the 798
+`needs_review` chains (the old part-1/part-2 manifests are only boundary evidence) ·
+investigate the union-lattice conflict regression before rebuilding · only then consider
+`POLISHED_TRANSMISSION_BOOK_IDS` and graph publication.
 
-**Then:** mashyakha-expansion engine → Tahdhib → Istibsar → Bihar.
+**Mashyakha review queue** (editorial, not engineering — the matcher is done):
+1. Spot-check the 335 `unique_name_extension` + `ism_nisba_elision` proposals against the
+   printed page. They are the newest tiers and have never been checked by eye; the 1,602
+   exact/canonical ones rest on string identity.
+2. Rule on the ~15 single-candidate patronymic forms — `ابن أبي عمير` (56 chains),
+   `ابن مسكان` (38), `السكوني` (29), `البزنطي` (15), `ابن فضال` (12), `ابن بكير` (10). Each is
+   one editorial judgement worth double-digit chains, and the matcher will not make it.
+3. The genuinely ambiguous singles — `حماد` (68), `العلاء` (67), `أبان` (48), `الحلبي` (37) —
+   need the *report's* context, not more source parsing. Leave them ranked until then.
+4. **Do not chase the 409 openings with no witness.** Al-Saduq wrote no entry for them.
+
+**Then:** generalize the reviewed Mashyakha-expansion approach to Tahdhib → Istibsar → Bihar.
 
 **Product:** Mir'at al-'Uqul + Sharh al-Mazandarani commentary integration, commentary
 rendering, narrator pages, search + OCR improvements, performance.

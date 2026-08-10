@@ -47,6 +47,14 @@ from eshia_research.crawler.jobs import (
 )
 from eshia_research.db import SessionLocal, init_db as _init_db
 from eshia_research.hadith_extractor import rebuild_hadith_index
+from eshia_research.rijal.mashyakha import (
+    audit_faqih_mashyakha_coverage,
+    crawl_faqih_mashyakha,
+    import_faqih_mashyakha_paths,
+    load_mashyakha_snapshot,
+    materialize_faqih_mashyakha_expansions,
+    write_mashyakha_snapshot,
+)
 from eshia_research.search import search_pages
 
 app = typer.Typer(help="eshia_research crawler/search CLI")
@@ -93,6 +101,74 @@ def init_db() -> None:
     """Create all tables (quick start for local dev; use Alembic for real migrations)."""
     _init_db()
     typer.echo("Database initialised.")
+
+
+@app.command("crawl-faqih-mashyakha")
+def crawl_faqih_mashyakha_cmd(
+    output_path: str = typer.Option(..., "--output-path", help="Path for the source-preserved JSON snapshot."),
+    delay_seconds: float = typer.Option(0.25, "--delay-seconds", min=0.0),
+) -> None:
+    """Fetch Faqih's public Mashyakha volume into a reviewable snapshot."""
+    entries = crawl_faqih_mashyakha(delay_seconds=delay_seconds)
+    destination = write_mashyakha_snapshot(entries, output_path)
+    typer.echo(f"Wrote {len(entries)} source entries to {destination}")
+
+
+@app.command("import-faqih-mashyakha")
+def import_faqih_mashyakha_cmd(
+    snapshot_path: str = typer.Option(..., "--snapshot-path", help="Snapshot made by crawl-faqih-mashyakha."),
+    dry_run: bool = typer.Option(True, "--dry-run/--apply"),
+) -> None:
+    """Import Mashyakha source witnesses without rewriting Faqih chains."""
+    entries = load_mashyakha_snapshot(snapshot_path)
+    db = SessionLocal()
+    try:
+        stats = import_faqih_mashyakha_paths(db, entries)
+        if dry_run:
+            db.rollback()
+        else:
+            db.commit()
+    finally:
+        db.close()
+    mode = "DRY-RUN: " if dry_run else ""
+    typer.echo(
+        f"{mode}created {stats.created}, updated {stats.updated}; "
+        f"parsed {stats.parsed}, topic entries {stats.topic_entries}, "
+        f"needs review {stats.needs_review}."
+    )
+
+
+@app.command("audit-faqih-mashyakha")
+def audit_faqih_mashyakha_cmd() -> None:
+    """Report strict Mashyakha coverage of Faqih's abbreviated openings."""
+    db = SessionLocal()
+    try:
+        report = audit_faqih_mashyakha_coverage(db)
+    finally:
+        db.close()
+    for key, value in report.items():
+        typer.echo(f"{key}={value}")
+
+
+@app.command("materialize-faqih-mashyakha-expansions")
+def materialize_faqih_mashyakha_expansions_cmd(
+    dry_run: bool = typer.Option(True, "--dry-run/--apply"),
+) -> None:
+    """Create exact source-linked expansion proposals without rewriting chains."""
+    db = SessionLocal()
+    try:
+        stats = materialize_faqih_mashyakha_expansions(db)
+        if dry_run:
+            db.rollback()
+        else:
+            db.commit()
+    finally:
+        db.close()
+    mode = "DRY-RUN: " if dry_run else ""
+    typer.echo(
+        f"{mode}created {stats.created}, updated {stats.updated}, removed {stats.removed}; "
+        f"proposed {stats.proposed}, needs review {stats.needs_review}."
+    )
 
 
 @app.command("crawl-metadata")

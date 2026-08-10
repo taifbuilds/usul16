@@ -1,10 +1,10 @@
 # Man La Yahduruhu al-Faqih website reconciliation
 
-Last run: 2026-07-24
+Last boundary reconciliation: 2026-07-24
 
 ## Current decision
 
-The Arabic report corpus is **ready to begin rijal work**, but the public
+The Arabic report corpus is **ready for continued rijal work**, but the public
 English release is **not yet production-ready**. Report identities, Arabic
 boundaries, local-only records, website continuations, duplicate occurrences,
 and active isnad preservation now pass the fail-closed boundary gate. Twenty-one
@@ -12,8 +12,109 @@ records still lack a complete publishable website translation.
 
 This distinction is deliberate: translation gaps do not prevent chain
 tokenization and narrator research, but they continue to block a public-release
-claim. The first rijal queue is the 804 chain-tokenizer results marked for
-review, not another hadith-count reconciliation.
+claim. The remaining rijal queue includes 798 chain-tokenizer results marked
+for review; it is not another hadith-count reconciliation.
+
+## Mashyakha source and proposal layer (2026-08-10, matcher `v2`)
+
+Faqih's abbreviated openings can only be expanded against a separately
+preserved Mashyakha witness. The local database stores that witness
+independently of the report chain, and proposes — never applies — a virtual
+preface for each abbreviated opening it can account for.
+
+**Source side.** 387 entries crawled; **378 parsed**, 5 keyed on a subject
+rather than a narrator (`topic_entry`), 4 held for review. 383 distinct target
+forms.
+
+**Report side.** 2,907 chains flagged `mursal_opening`:
+
+| | chains | |
+|---|---|---|
+| exactly one source witness → `proposed` | **1,931** | 66.4% |
+| ranked candidates → `needs_review` | 567 | 19.5% |
+| no Mashyakha entry exists for the narrator | 409 | 14.1% |
+
+3,564 proposal rows: 1,931 `proposed`, 1,633 `needs_review`.
+
+### Evidence tiers
+
+`match_method` records *why* each proposal exists. Only a tier that leaves
+exactly one witness standing is proposed; the rest are ranked candidates.
+
+| tier | openings | what it asserts |
+|---|---|---|
+| `exact_first_narrator` | 1,248 | the normalised opening equals a target form |
+| `canonical_first_narrator` | 354 | equal after removing orthography, not identity |
+| `unique_name_extension` | 308 | the opening is the *opening* of exactly one target |
+| `ism_nisba_elision` | 27 | ism and nisba both agree; only the patronymic is elided |
+| `partial_name_candidate` | 561 | a partial name with more than one reading |
+
+Tiers sum to 2,498 openings with a witness; 1,931 of them are `proposed`. The
+gap is 6 openings whose tier is single-candidate but whose narrator has **two**
+Mashyakha entries, so they too are `needs_review` — 567 chains in total.
+
+`canonical_first_narrator` removes only what a chain opening carries and a
+Mashyakha target never does: a preposition the tokenizer kept (`عن معاوية بن
+عمار`), a trailing `بإسناده` or honorific, the bracketed dua the edition prints
+after a name (`الكليني- رحمة الله عليه-`), and the kunya's grammatical case —
+the Mashyakha always names its target in the genitive after `عن` (`أبي بصير`),
+while the report prints whatever case its own sentence needs (`أبو بصير`).
+None of that is identity, so stripping it is not a relaxed threshold. It is
+applied to **both sides**.
+
+**Three rules deliberately refuse an available answer:**
+
+1. **`ابن X` never auto-resolves.** The form declares that the ism is elided,
+   so a target merely *ending* in `بن X` is not evidence it is this Ibn X.
+   `ابن محبوب` (62 chains) has exactly one such target — `محمد بن علي بن
+   محبوب` — and that is the wrong man; the Ibn Mahbub of the isnads is
+   al-Hasan b. Mahbub, who has no entry. Uniqueness inside a 383-form roster
+   is not uniqueness in the tradition.
+2. **A subject-scoped target is never the sole candidate.** `شعيب بن واقد في
+   المناهي` and `الفضل بن شاذان من العلل التي ذكرها` vouch for one subject,
+   not for everything the man narrated.
+3. **Two witnesses for one narrator stay two.** `كليب الأسدي` (ch117, ch292)
+   and `محمد بن حمران` (ch31, ch231) keep both paths visible.
+
+### What is actually left
+
+**567 chains with ranked candidates**, concentrated in 55 partial-name forms
+plus 3 two-witness narrators (`كليب الأسدي`, `محمد بن حمران`, `إدريس بن زيد`).
+The largest
+are genuinely ambiguous single names — `حماد` (68 chains, 6 candidates),
+`العلاء` (67, 5), `أبان` (48, 2), `الحلبي` (37, 3) — and patronymic
+abbreviations that rule 1 holds back: `ابن أبي عمير` (56), `ابن مسكان` (38),
+`ابن فضال` (12). Several of the latter have a single candidate and are decided
+by one editorial judgement each.
+
+**409 chains have no Mashyakha entry at all** and never will. Al-Saduq wrote no
+entry for `محمد بن الفضيل` (29), `موسى بن بكر` (18), `يونس بن عبد الرحمن` (13),
+`القاسم بن محمد الجوهري` (11) or `عثمان بن عيسى` (7); each appears in the
+Mashyakha only *inside* someone else's path. This is the honest floor for this
+source, not a matcher deficit.
+
+A proposal records the opening form, the target form it matched, the tier, the
+candidate rank and count, and the witness's chapter and SHA-256. It does
+**not** alter `chains`, insert `chain_nodes`, resolve narrator identities, add
+a graph edge, or clear the chain's existing review status. Verified after the
+run: Faqih still has 9,586 chain nodes and 798 `needs_review` chains, unchanged.
+
+Rebuild this local evidence layer with:
+
+```powershell
+.\.venv\Scripts\python.exe -m eshia_research.cli crawl-faqih-mashyakha `
+  --output-path scratch_audit\faqih_mashyakha.json
+.\.venv\Scripts\python.exe -m eshia_research.cli import-faqih-mashyakha `
+  --snapshot-path scratch_audit\faqih_mashyakha.json --apply
+.\.venv\Scripts\python.exe -m eshia_research.cli materialize-faqih-mashyakha-expansions --apply
+.\.venv\Scripts\python.exe -m eshia_research.cli audit-faqih-mashyakha
+```
+
+Take a SQLite backup before either `--apply` command. Both are idempotent and
+default to dry-run; the materializer also **deletes** proposals its current
+rules no longer make, so a rule change cannot leave orphaned evidence behind.
+Rows a human has already ruled `approved` or `rejected` are decisions, not
+output, and are never deleted.
 
 ## Website inventory
 
