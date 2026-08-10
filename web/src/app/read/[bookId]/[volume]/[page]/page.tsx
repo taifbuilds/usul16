@@ -122,7 +122,7 @@ export default async function ReaderPage({
       ) : null}
 
       <div className="mx-auto mt-7 min-h-[45vh] max-w-3xl">
-        <ReaderText page={page} hadiths={hadiths} />
+        <ReaderText page={page} hadiths={hadiths} bookTitle={book.title_original} />
       </div>
 
       <div className="mt-8">

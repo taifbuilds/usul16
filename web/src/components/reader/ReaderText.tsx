@@ -6,6 +6,7 @@ import { amiri } from "@/lib/fonts";
 import { INLINE_RE } from "@/lib/inline";
 import { parsePageBlocks, parsePageText, type Footnote, type HadithUnit } from "@/lib/hadith";
 import { HadithBody } from "@/components/reader/HadithBody";
+import { ShareMenu } from "@/components/reader/ShareMenu";
 import { TopicChips } from "@/components/topics/TopicChips";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { DisclosureChevron } from "@/components/ui/DisclosureChevron";
@@ -126,10 +127,13 @@ export function IndexedHadithCard({
   hadith,
   currentVolume,
   currentPage,
+  bookTitle = null,
 }: {
   hadith: HadithRead;
   currentVolume?: number | null;
   currentPage?: number;
+  /** Arabic title of the collection, printed on the shareable image. */
+  bookTitle?: string | null;
 }) {
   const position = pagePosition(hadith, currentVolume ?? null, currentPage);
   const note = pagePositionNote(hadith, position);
@@ -177,13 +181,16 @@ export function IndexedHadithCard({
             {pageRangeLabel(hadith)}
           </Link>
         </div>
-        <Link
-          href={`/hadith/${encodeURIComponent(hadith.public_id)}`}
-          title="Permanent link - this hadith's unique ID"
-          className="font-mono transition-colors hover:text-accent hover:underline"
-        >
-          {hadith.public_id}
-        </Link>
+        <div className="flex items-center gap-1">
+          <Link
+            href={`/hadith/${encodeURIComponent(hadith.public_id)}`}
+            title="Permanent link - this hadith's unique ID"
+            className="font-mono transition-colors hover:text-accent hover:underline"
+          >
+            {hadith.public_id}
+          </Link>
+          <ShareMenu hadith={hadith} bookTitle={bookTitle} />
+        </div>
       </header>
 
       {note ? (
@@ -288,7 +295,15 @@ function FootnoteSection({ footnotes }: { footnotes: Footnote[] }) {
   );
 }
 
-export function ReaderText({ page, hadiths }: { page: PageRead; hadiths?: HadithRead[] }) {
+export function ReaderText({
+  page,
+  hadiths,
+  bookTitle = null,
+}: {
+  page: PageRead;
+  hadiths?: HadithRead[];
+  bookTitle?: string | null;
+}) {
   const parsed = page.text_blocks?.length
     ? parsePageBlocks(page.text_blocks, { bookId: page.book_id })
     : page.text_raw
@@ -320,6 +335,7 @@ export function ReaderText({ page, hadiths }: { page: PageRead; hadiths?: Hadith
                 hadith={hadith}
                 currentVolume={page.volume_number}
                 currentPage={page.page_number}
+                bookTitle={bookTitle}
               />
             </div>
           );

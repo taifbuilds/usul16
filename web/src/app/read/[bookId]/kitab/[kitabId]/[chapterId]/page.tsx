@@ -101,7 +101,7 @@ export default async function KitabChapterReaderPage({
       ) : (
         <div dir="rtl" lang="ar" className={`${amiri.className} mt-6 space-y-5 text-right`}>
           {hadiths.map((hadith) => (
-            <IndexedHadithCard key={hadith.id} hadith={hadith} />
+            <IndexedHadithCard key={hadith.id} hadith={hadith} bookTitle={book.title_original} />
           ))}
         </div>
       )}

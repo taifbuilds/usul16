@@ -104,7 +104,7 @@ export default async function HadithPermalinkPage({
       </header>
 
       <div dir="rtl" lang="ar" className={`${amiri.className} mt-5 text-right sm:mt-6`}>
-        <IndexedHadithCard hadith={hadith} />
+        <IndexedHadithCard hadith={hadith} bookTitle={book?.title_original ?? null} />
       </div>
 
       <section className="mt-6 border-y border-border bg-surface-2 px-1 py-4 text-sm sm:px-5" aria-labelledby="citation-heading">

@@ -76,7 +76,7 @@ export default async function ChapterReaderPage({
       <div dir="rtl" lang="ar" className={`${amiri.className} mt-6 space-y-5 text-right`}>
         {chapter.title ? <SectionHeading text={formatArabicText(chapter.title)} /> : null}
         {hadiths.map((hadith) => (
-          <IndexedHadithCard key={hadith.id} hadith={hadith} />
+          <IndexedHadithCard key={hadith.id} hadith={hadith} bookTitle={book.title_original} />
         ))}
       </div>
 
