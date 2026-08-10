@@ -2,9 +2,11 @@
 
 from eshia_research.commentary.mazandarani import (
     MazandaraniUnit,
+    clean_commentary,
     extract_units,
     fill_missing_ordinals,
     split_gloss,
+    unit_starts,
 )
 import pytest
 from sqlalchemy import create_engine
@@ -213,6 +215,29 @@ def test_text_without_references_is_left_alone():
     body, gloss, uncertain = split_gloss(text)
 
     assert (body, gloss, uncertain) == (text, "", False)
+
+
+def test_page_header_after_sharh_is_not_treated_as_commentary():
+    """A repeated eShia page header must not claim the report before the real sharh."""
+    header_only = "[ 14 ] باب الشماتة"
+    prior_page_spill = "من يشاء إلى سواء السبيل. [ 276 ] باب ما يجب من ذكر الله"
+
+    assert clean_commentary(header_only) == ""
+    assert clean_commentary(prior_page_spill) == ""
+
+
+def test_page_header_is_trimmed_from_a_short_real_commentary():
+    assert clean_commentary("قد مر شرحه مفصلا. باب انه لا يعرف إلا به") == "قد مر شرحه مفصلا."
+
+
+def test_numbered_continuation_starts_a_new_report_without_a_sharh_marker():
+    """«3 - وبإسناده قال» is a report boundary, even after an uncommented report."""
+    stream = (
+        "* الأصل: 2 - حميد بن زياد عن أبي عبد الله قال: خبر. "
+        "3 - وبإسناده قال: خبر آخر. * الشرح: قوله: (خبر آخر) بيان."
+    )
+
+    assert len(unit_starts(stream)) == 2
 
 
 def test_unresolved_reference_is_reported_as_uncertain_not_guessed():

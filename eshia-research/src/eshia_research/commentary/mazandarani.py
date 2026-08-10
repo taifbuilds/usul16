@@ -63,10 +63,46 @@ _ORDINAL_PREFIX = re.compile(r"^\s*(?P<number>[0-9٠-٩۰-۹]+)\s*[-ـ–—]\s*
 _GLOSS_REFERENCE = re.compile(r"\((\d{1,2})\)")
 _CHAPTER_LINE = re.compile(r"^(?:باب|كتاب)\s+\S+")
 _WS = re.compile(r"\s+")
+_PAGE_NUMBER = r"[0-9٠-٩۰-۹]+"
+_HEADER_ONLY_SHARH = re.compile(
+    rf"^(?:\[\s*{_PAGE_NUMBER}\s*\]\s*)?(?:باب|كتاب)\s+.+$"
+)
+_SPILL_BEFORE_PAGE_HEADER = re.compile(
+    rf"^.{{1,96}}?\.\s*\[\s*{_PAGE_NUMBER}\s*\]\s*(?:باب|كتاب)\s+.+$"
+)
+_TRAILING_CHAPTER_HEADER = re.compile(
+    r"^(?P<commentary>.{1,120}?[.])\s+(?:باب|كتاب)\s+.+$"
+)
 
 
 def _clean(value: str) -> str:
     return _WS.sub(" ", value).strip()
+
+
+def clean_commentary(text: str) -> str:
+    """Remove edition page furniture that follows a stray ``الشرح`` marker.
+
+    The eShia transcription occasionally repeats a page transition in the
+    reading stream.  Its ``الشرح:`` marker can then be followed only by a page
+    number and the next chapter title, or by the final few words of the
+    *previous* commentary plus that header.  Neither is a commentary on the
+    report which happens to precede it.  Publishing either would be a false
+    attribution.
+
+    A short real note such as ``قد مر شرحه مفصلا`` is retained; if the next
+    chapter title has bled into it, only that title is removed.
+    """
+    commentary = _clean(text)
+    if not commentary:
+        return ""
+    if len(commentary) <= _MAX_TITLE_LENGTH and _HEADER_ONLY_SHARH.fullmatch(commentary):
+        return ""
+    if len(commentary) <= 200 and _SPILL_BEFORE_PAGE_HEADER.fullmatch(commentary):
+        return ""
+    trailing = _TRAILING_CHAPTER_HEADER.fullmatch(commentary)
+    if trailing is not None:
+        return _clean(trailing.group("commentary"))
+    return commentary
 
 
 def _to_int(value: str | None) -> int | None:
@@ -239,6 +275,9 @@ def opening_chapter_title(body: str) -> str | None:
 
 _REPORT_NUMBER_RE = re.compile(r"(?<![0-9٠-٩۰-۹])([0-9٠-٩۰-۹]{1,3})\s*[-ـ–—]\s*")
 _ISNAD_HINT_RE = re.compile(r"\bعن\b|\bقال\b")
+_CONTINUED_REPORT_RE = re.compile(
+    r"^[0-9٠-٩۰-۹]{1,3}\s*[-ـ–—]\s*(?:وبإسناده|وبهذا الإسناد)\s+قال\b"
+)
 _ISNAD_LOOKAHEAD = 90
 
 
@@ -252,9 +291,11 @@ def unit_starts(stream: str) -> list[tuple[int, int]]:
 
     So a unit opens at an «الأصل:» marker, or — once we are already inside a
     commentary — at a numbered report. The commentary requirement matters: a
-    numbered run inside a *report* is part of that report, not a new one. The
-    isnad hint is a second guard, since a chain almost always says «عن» or
-    «قال» within a few words of its opening.
+    numbered run inside a *report* is usually part of that report, not a new
+    one. The one explicit exception is «N - وبإسناده قال»: the edition uses it
+    as a new report after a prior report it did not comment on. The isnad hint
+    is a second guard for the ordinary numbered form, since a chain almost
+    always says «عن» or «قال» within a few words of its opening.
     """
     events: list[tuple[int, str, int]] = []
     for match in _BASE_MARKER.finditer(stream):
@@ -273,7 +314,7 @@ def unit_starts(stream: str) -> list[tuple[int, int]]:
             in_commentary = False
         elif kind == "sharh":
             in_commentary = True
-        elif in_commentary:
+        elif in_commentary or _CONTINUED_REPORT_RE.match(stream[position:]):
             window = stream[position:position + _ISNAD_LOOKAHEAD]
             if _ISNAD_HINT_RE.search(window):
                 starts.append((position, position))
@@ -339,7 +380,7 @@ def extract_units(pages: Iterable[Page]) -> list[MazandaraniUnit]:
         sharh = _SHARH_MARKER.search(remainder)
         if sharh is not None:
             report = _clean(remainder[: sharh.start()])
-            commentary = _clean(remainder[sharh.end():])
+            commentary = clean_commentary(remainder[sharh.end():])
         else:
             # No sharh marker: the whole block is base text (the commentator
             # passed over this report, or it runs on to the next page).
