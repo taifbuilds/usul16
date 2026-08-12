@@ -21,6 +21,12 @@ import {
 // Preview and export. A native <dialog> because this is a focused sub-task
 // with its own controls — it gets the modal focus trap and Escape handling for
 // free, and nothing behind it stays interactive while a render is in flight.
+//
+// Nothing here races a wall-clock deadline. Composing the folio is synchronous
+// canvas work that no timer can interrupt, so a deadline set against it never
+// arrives in time to cancel anything — it only lands after the image is already
+// finished and discards it. On a mid-range phone the honest cost is seconds,
+// which is what a progress state is for.
 
 interface Preview {
   url: string;
@@ -28,20 +34,30 @@ interface Preview {
   truncated: boolean;
 }
 
-const PREVIEW_TIMEOUT_MS = 6_000;
+/**
+ * How long to let a render finish before showing the reader an empty frame.
+ *
+ * The modal is worth withholding for the length of a blink — on a laptop the
+ * whole job takes about a tenth of a second, and opening to a skeleton that is
+ * replaced immediately reads as a flicker. Past that the wait is real and
+ * pretending otherwise just leaves the reader looking at a page where nothing
+ * happened.
+ */
+const SKELETON_GRACE_MS = 250;
 
-async function within<T>(task: Promise<T>, timeoutMs: number): Promise<T> {
-  let timeoutId: number | undefined;
-  const timeout = new Promise<never>((_, reject) => {
-    timeoutId = window.setTimeout(
-      () => reject(new Error("Image preparation timed out")),
-      timeoutMs
-    );
-  });
+/**
+ * Can this browser hand the file itself to a share sheet?
+ *
+ * Wrapped because the probe is not worth a failed preview: `canShare` is
+ * absent on desktop, and constructing a `File` to ask the question has thrown
+ * on older mobile browsers. Either way the answer is simply "offer a download".
+ */
+function canShareImageFile(blob: Blob, fileName: string): boolean {
   try {
-    return await Promise.race([task, timeout]);
-  } finally {
-    if (timeoutId !== undefined) window.clearTimeout(timeoutId);
+    if (typeof navigator.canShare !== "function") return false;
+    return navigator.canShare({ files: [new File([blob], fileName, { type: blob.type })] });
+  } catch {
+    return false;
   }
 }
 
@@ -49,14 +65,10 @@ export function RepostDialog({
   card,
   open,
   onClose,
-  onPrepared,
-  onPreparationError,
 }: {
   card: ShareCard;
   open: boolean;
   onClose: () => void;
-  onPrepared?: () => void;
-  onPreparationError?: () => void;
 }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const previewUrlRef = useRef<string | null>(null);
@@ -74,28 +86,40 @@ export function RepostDialog({
   const wanted = `${language}|${format}|${themeTick}`;
   const [preview, setPreview] = useState<{ key: string; value: Preview } | null>(null);
   const [error, setError] = useState<{ key: string; message: string } | null>(null);
+  // Past the grace period the modal opens whether or not there is an image in
+  // it, so a slow render is something the reader can watch and dismiss rather
+  // than a button that appears to do nothing.
+  const [graced, setGraced] = useState(false);
   const busy = open && preview?.key !== wanted && error?.key !== wanted;
   const ready = preview?.key === wanted;
+  const failed = error?.key === wanted;
   const shown = preview?.value ?? null;
   const selectedFormat = SHARE_FORMATS.find((option) => option.value === format);
 
   useEffect(() => {
+    if (!open) return;
+    const timer = window.setTimeout(() => setGraced(true), SKELETON_GRACE_MS);
+    // Closing arms the grace again, so the next open gets the same quiet
+    // moment to fill the frame before the skeleton is shown.
+    return () => {
+      window.clearTimeout(timer);
+      setGraced(false);
+    };
+  }, [open]);
+
+  useEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return;
-    // Rendering starts as soon as the reader asks for an image, but the modal
-    // stays out of the way until there is a real preview to show. If an option
-    // changes while the dialog is already open, keep it open during that
-    // smaller refresh instead of making the surface flash in and out.
+    // Rendering starts as soon as the reader asks for an image. The modal is
+    // held back only long enough for a fast device to fill it, then opens
+    // regardless. If an option changes while the dialog is already open, keep
+    // it open during that smaller refresh instead of flashing the surface.
     if (open) {
-      if (ready && !dialog.open) dialog.showModal();
+      if ((ready || graced) && !dialog.open) dialog.showModal();
       return;
     }
     if (dialog.open) dialog.close();
-  }, [open, ready]);
-
-  useEffect(() => {
-    if (open && ready) onPrepared?.();
-  }, [onPrepared, open, ready]);
+  }, [open, ready, graced]);
 
   useEffect(() => {
     const observer = new MutationObserver(() => setThemeTick((tick) => tick + 1));
@@ -112,38 +136,27 @@ export function RepostDialog({
       // does not cascade renders before the first frame.
       try {
         setError(null);
-        const prepared = await within(
-          (async () => {
-            const fonts = readFonts();
-            await ensureFonts(fonts);
-            const { canvas, truncated } = renderShareImage({
-              card,
-              language,
-              format,
-              theme: readTheme(),
-              fonts,
-            });
-            const blob = await canvasToBlob(canvas);
-            return { blob, truncated };
-          })(),
-          PREVIEW_TIMEOUT_MS
-        );
+        const fonts = readFonts();
+        await ensureFonts(fonts);
+        // Hand the browser a frame first: composing the folio blocks the main
+        // thread for seconds on a phone, and without this the skeleton never
+        // gets painted before the freeze starts.
+        await new Promise((resolve) => window.requestAnimationFrame(resolve));
+        if (cancelled) return;
+        const { canvas, truncated } = renderShareImage({
+          card,
+          language,
+          format,
+          theme: readTheme(),
+          fonts,
+        });
+        const blob = await canvasToBlob(canvas);
         if (cancelled) return;
         if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current);
-        const url = URL.createObjectURL(prepared.blob);
+        const url = URL.createObjectURL(blob);
         previewUrlRef.current = url;
-        setPreview({
-          key: wanted,
-          value: { url, blob: prepared.blob, truncated: prepared.truncated },
-        });
-        setCanShareFile(
-          typeof navigator.canShare === "function" &&
-            navigator.canShare({
-              files: [
-                new File([prepared.blob], shareFileName(card, format), { type: "image/png" }),
-              ],
-            })
-        );
+        setPreview({ key: wanted, value: { url, blob, truncated } });
+        setCanShareFile(canShareImageFile(blob, shareFileName(card, format, blob.type)));
       } catch (cause) {
         if (cancelled) return;
         await Promise.resolve();
@@ -151,14 +164,13 @@ export function RepostDialog({
           key: wanted,
           message: cause instanceof Error ? cause.message : "Could not render the image",
         });
-        onPreparationError?.();
       }
     })();
 
     return () => {
       cancelled = true;
     };
-  }, [open, ready, card, language, format, onPreparationError, wanted]);
+  }, [open, ready, card, language, format, wanted]);
 
   useEffect(
     () => () => {
@@ -178,7 +190,7 @@ export function RepostDialog({
     if (!shown) return;
     const link = document.createElement("a");
     link.href = shown.url;
-    link.download = shareFileName(card, format);
+    link.download = shareFileName(card, format, shown.blob.type);
     link.click();
     setSaved(true);
   }
@@ -191,7 +203,9 @@ export function RepostDialog({
 
   async function shareImage() {
     if (!shown) return;
-    const file = new File([shown.blob], shareFileName(card, format), { type: "image/png" });
+    const file = new File([shown.blob], shareFileName(card, format, shown.blob.type), {
+      type: shown.blob.type,
+    });
     try {
       await navigator.share({ files: [file], text: card.url });
     } catch (cause) {
@@ -251,8 +265,12 @@ export function RepostDialog({
           aria-busy={busy}
           className="flex min-h-[15rem] items-center justify-center rounded-lg bg-background p-3 md:min-h-[30rem]"
         >
-          {error && error.key === wanted ? (
-            <p className="max-w-xs text-center text-sm text-muted">{error.message}</p>
+          {/* A failed refresh keeps the image the reader already has. Only a
+              first render with nothing behind it gives the frame over to the
+              error, because replacing a good folio with an apology loses work
+              that is still perfectly shareable. */}
+          {failed && !shown ? (
+            <p className="max-w-xs text-center text-sm text-muted">{error?.message}</p>
           ) : shown ? (
             // A blob URL from a canvas render: next/image cannot optimise it,
             // and the bytes are already in memory.
@@ -320,6 +338,13 @@ export function RepostDialog({
               ))}
             </select>
           </label>
+
+          {failed && shown ? (
+            <p className="text-left text-xs leading-relaxed text-gold">
+              That change could not be rendered, so the preview still shows the previous
+              settings.
+            </p>
+          ) : null}
 
           {shown?.truncated ? (
             <p className="text-left text-xs leading-relaxed text-gold">

@@ -38,7 +38,6 @@ export function ShareMenu({
   const [card, setCard] = useState<ShareCard | null>(null);
   const [feedback, setFeedback] = useState<Feedback>(null);
   const [repostOpen, setRepostOpen] = useState(false);
-  const [repostPreparing, setRepostPreparing] = useState(false);
   const [canNativeShare, setCanNativeShare] = useState(false);
 
   // Built on first open, not on mount: the permalink needs
@@ -57,16 +56,6 @@ export function ShareMenu({
     const timer = window.setTimeout(() => setFeedback(null), 2000);
     return () => window.clearTimeout(timer);
   }, [feedback]);
-
-  useEffect(() => {
-    if (!repostPreparing) return;
-    const timer = window.setTimeout(() => {
-      setRepostOpen(false);
-      setRepostPreparing(false);
-      setFeedback({ action: "image", message: "Image timed out — retry" });
-    }, 6_500);
-    return () => window.clearTimeout(timer);
-  }, [repostPreparing]);
 
   /** Anchor the top-layer popover under the button, kept inside the viewport. */
   const position = useCallback(() => {
@@ -91,19 +80,8 @@ export function ShareMenu({
     popoverRef.current?.hidePopover?.();
   }, []);
 
-  const handleRepostError = useCallback(() => {
-    setRepostOpen(false);
-    setRepostPreparing(false);
-    setFeedback({ action: "image", message: "Couldn’t prepare image — retry" });
-  }, []);
-
   const handleRepostClose = useCallback(() => {
     setRepostOpen(false);
-    setRepostPreparing(false);
-  }, []);
-
-  const handleRepostPrepared = useCallback(() => {
-    setRepostPreparing(false);
   }, []);
 
   async function copy(action: string, value: string, message: string) {
@@ -145,25 +123,17 @@ export function ShareMenu({
       <button
         ref={buttonRef}
         type="button"
-        popoverTarget={repostPreparing ? undefined : popoverId}
-        aria-busy={repostPreparing}
+        popoverTarget={popoverId}
         onClick={() => {
-          if (repostPreparing) {
-            handleRepostClose();
-            setFeedback({ action: "image", message: "Image preparation cancelled" });
-            return;
-          }
           ensureCard();
           window.requestAnimationFrame(position);
         }}
-        className={`inline-flex min-h-8 items-center gap-1.5 rounded-md px-2 py-1 font-sans text-xs font-medium text-muted transition-colors hover:bg-surface-2 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 ${repostPreparing ? "cursor-pointer text-accent" : ""} ${className}`}
+        className={`inline-flex min-h-8 items-center gap-1.5 rounded-md px-2 py-1 font-sans text-xs font-medium text-muted transition-colors hover:bg-surface-2 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 ${className}`}
       >
         <ShareIcon />
         {/* The label doubles as the confirmation, so announce the swap rather
             than leaving screen-reader users with silent success. */}
-        <span aria-live="polite">
-          {feedback ? feedback.message : repostPreparing ? "Cancel preparation" : "Share"}
-        </span>
+        <span aria-live="polite">{feedback ? feedback.message : "Share"}</span>
       </button>
 
       <div
@@ -191,11 +161,10 @@ export function ShareMenu({
         <div className="border-t border-border py-1.5">
           <button
             type="button"
-            disabled={!card || repostPreparing}
+            disabled={!card}
             onClick={() => {
               close();
               setFeedback(null);
-              setRepostPreparing(true);
               setRepostOpen(true);
             }}
             className={itemClass}
@@ -212,13 +181,7 @@ export function ShareMenu({
       </div>
 
       {card ? (
-        <RepostDialog
-          card={card}
-          open={repostOpen}
-          onClose={handleRepostClose}
-          onPrepared={handleRepostPrepared}
-          onPreparationError={handleRepostError}
-        />
+        <RepostDialog card={card} open={repostOpen} onClose={handleRepostClose} />
       ) : null}
     </>
   );
