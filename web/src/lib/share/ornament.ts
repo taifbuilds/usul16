@@ -236,6 +236,162 @@ export function drawStarMark(
 }
 
 /**
+ * The illuminated headpiece — the *ʿunwān* that opens a manuscript page.
+ *
+ * A short narration leaves the folio with more page than words, and the
+ * tradition's answer to that has never been to pad the margins: it is to
+ * illuminate. A ruled band, a star medallion held at its centre, and an
+ * interlace of alternating arcs running out to the edges — the guilloche a
+ * scribe rules with a compass, drawn here with the same eight-fold geometry as
+ * the rest of the folio so it reads as one hand.
+ *
+ * Sized by the caller from whatever space the narration did not want, so a full
+ * page of text is never given one.
+ */
+export function drawIlluminatedBand(
+  ctx: CanvasRenderingContext2D,
+  region: { x: number; y: number; width: number; height: number },
+  colors: { line: string; accent: string; reserve: string }
+): void {
+  const { x, y, width, height } = region;
+  const cy = y + height / 2;
+  const radius = Math.min(height * 0.46, 40);
+
+  ctx.save();
+
+  // The band is ruled top and bottom, which is what makes it read as a band
+  // rather than as ornament floating loose on the page.
+  ctx.strokeStyle = colors.line;
+  ctx.lineWidth = 1.5;
+  ctx.globalAlpha = 0.75;
+  for (const edge of [y, y + height]) {
+    ctx.beginPath();
+    ctx.moveTo(x, edge + 0.5);
+    ctx.lineTo(x + width, edge + 0.5);
+    ctx.stroke();
+  }
+
+  // A star-and-cross frieze filling the band, clipped to it so the run is cut
+  // by the rules at either end the way a ruled border actually terminates.
+  // The same lattice as the ground field, at a cell sized to the band.
+  const cx = x + width / 2;
+  // The cell runs wider than the band is tall, and the star sits well inside
+  // it: packed edge to edge the run reads as a sawtooth strip, and a star cut
+  // off at its points by the rule above reads as an accident rather than as a
+  // border running on. Ground between the motifs is what makes it a frieze.
+  const cell = Math.max(38, height * 1.2);
+  const starR = Math.min(height * 0.3, cell * 0.26);
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(x, y, width, height);
+  ctx.clip();
+  ctx.globalAlpha = 0.55;
+  ctx.strokeStyle = colors.accent;
+  ctx.lineWidth = 1.3;
+  ctx.lineJoin = "round";
+  // Only whole motifs. The run is centred on the medallion and stops at the
+  // last star that fits inside the rules, so the frieze ends on a complete
+  // figure rather than on a star sliced down the middle.
+  const margin = 12;
+  const half = width / 2 - margin;
+  const reach = Math.max(0, Math.floor((half - starR) / cell));
+  const diamondR = cell * 0.1;
+  for (let i = -reach; i <= reach; i += 1) {
+    const px = cx + i * cell;
+    // Leave the middle clear for the medallion.
+    if (Math.abs(px - cx) > radius + cell * 0.4) {
+      starPath(ctx, px, cy, starR, 8, Math.PI / 8);
+      ctx.stroke();
+    }
+    for (const dx of [px - cell / 2, px + cell / 2]) {
+      if (Math.abs(dx - cx) <= radius + cell * 0.3) continue;
+      if (Math.abs(dx - cx) + diamondR > half) continue;
+      diamondPath(ctx, dx, cy, diamondR);
+      ctx.stroke();
+    }
+  }
+  ctx.restore();
+
+  // The medallion, set into a reserve so the frieze reads as running behind it
+  // rather than colliding with it.
+  ctx.globalAlpha = 1;
+  ctx.fillStyle = colors.reserve;
+  ctx.beginPath();
+  ctx.arc(cx, cy, radius + 9, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.globalAlpha = 0.95;
+  ctx.strokeStyle = colors.accent;
+  ctx.lineWidth = 1.8;
+  ctx.lineJoin = "round";
+  starPath(ctx, cx, cy, radius, 8, Math.PI / 8);
+  ctx.stroke();
+  ctx.lineWidth = 1.1;
+  starPath(ctx, cx, cy, radius * 0.54, 8, 0);
+  ctx.stroke();
+
+  ctx.restore();
+}
+
+/**
+ * The closing pendant, set above the colophon.
+ *
+ * Where the headpiece opens the page, this ends it: a rosette with a short
+ * pair of rules either side, then two dots and a final one, tapering to a
+ * point. A scribe closes a text this way so the last line reads as finished
+ * rather than merely stopped.
+ */
+export function drawTailpiece(
+  ctx: CanvasRenderingContext2D,
+  cx: number,
+  y: number,
+  width: number,
+  height: number,
+  colors: { line: string; accent: string }
+): void {
+  const radius = Math.max(8, Math.min(height * 0.32, 15));
+
+  ctx.save();
+  ctx.lineJoin = "round";
+
+  // Short rules either side of the rosette, kept well inside the measure so
+  // this never competes with the footer rule below it.
+  const reach = Math.min(width * 0.22, 150);
+  ctx.strokeStyle = colors.line;
+  ctx.lineWidth = 1.5;
+  ctx.globalAlpha = 0.85;
+  for (const direction of [-1, 1]) {
+    ctx.beginPath();
+    ctx.moveTo(cx + direction * (radius + 16), y + 0.5);
+    ctx.lineTo(cx + direction * reach, y + 0.5);
+    ctx.stroke();
+  }
+
+  ctx.strokeStyle = colors.accent;
+  ctx.globalAlpha = 0.9;
+  ctx.lineWidth = 1.6;
+  starPath(ctx, cx, y, radius, 8, Math.PI / 8);
+  ctx.stroke();
+  ctx.lineWidth = 1.1;
+  starPath(ctx, cx, y, radius * 0.44, 8, 0);
+  ctx.stroke();
+
+  // The pendant proper: a diamond hung directly below the rosette on the same
+  // axis, tapering to a final point. Stacked on one axis it reads as an ending;
+  // dots set side by side just read as punctuation.
+  ctx.globalAlpha = 0.85;
+  ctx.lineWidth = 1.3;
+  diamondPath(ctx, cx, y + radius + height * 0.34, radius * 0.42);
+  ctx.stroke();
+  ctx.fillStyle = colors.accent;
+  ctx.beginPath();
+  ctx.arc(cx, y + radius + height * 0.72, 2.3, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.restore();
+}
+
+/**
  * Paper grain.
  *
  * A flat fill reads as a colour swatch; a little tooth reads as a sheet. Built

@@ -18,9 +18,11 @@ import {
   drawCornerPieces,
   drawGirihField,
   drawGrain,
+  drawIlluminatedBand,
   drawManuscriptFrame,
   drawRosetteDivider,
   drawStarMark,
+  drawTailpiece,
 } from "@/lib/share/ornament";
 
 export type ShareFormat = "square" | "portrait" | "story";
@@ -494,6 +496,15 @@ const ENGLISH_LEAD_MAX = 46;
 const ENGLISH_SUB_MIN = 20;
 const ENGLISH_SUB_MAX = 34;
 
+// Thresholds for illumination, in pixels of leftover column height. Below the
+// first the page is essentially full and stays bare; the pendant needs more
+// room than the headpiece before it earns its place, because an ornament
+// crowding the colophon reads as clutter rather than as an ending.
+const HEADPIECE_MIN_SLACK = 170;
+const HEADPIECE_MAX = 210;
+const TAILPIECE_MIN_SLACK = 300;
+const TAILPIECE_MAX = 170;
+
 export function renderShareImage(options: RenderOptions): RenderResult {
   const { card, language, format, theme, fonts } = options;
   const spec = SHARE_FORMATS.find((f) => f.value === format) ?? SHARE_FORMATS[0];
@@ -741,6 +752,22 @@ export function renderShareImage(options: RenderOptions): RenderResult {
   ctx.fillStyle = theme.surface;
   ctx.fillRect(cardX, cardY, cardW, cardH);
   drawGrain(ctx, { x: cardX, y: cardY, width: cardW, height: cardH }, 0.035);
+  // The written page is not blank paper. A whisper of the same girih inside
+  // the panel — a coarser cell than the ground outside, so the two read as two
+  // layers rather than one pattern showing through a hole — means a short
+  // narration sits on a page that was designed for it rather than on a gap.
+  // Kept far below the ground field's weight: at this alpha it is material,
+  // not pattern, and the text never has to compete with it.
+  drawGirihField(
+    ctx,
+    { x: cardX, y: cardY, width: cardW, height: cardH },
+    {
+      color: darkGround ? theme.accent : theme.bronze,
+      alpha: darkGround ? 0.05 : 0.036,
+      cell: 132,
+      lineWidth: 1.1,
+    }
+  );
   drawManuscriptFrame(
     ctx,
     { x: cardX, y: cardY, width: cardW, height: cardH },
@@ -786,14 +813,55 @@ export function renderShareImage(options: RenderOptions): RenderResult {
   // between the blocks, and the remainder above the footer. Dumping it all in
   // one place is what leaves a tall frame looking half-empty.
   const slack = Math.max(0, available - blocksHeight(composition));
+
+  // Illumination takes only what the narration turned down. A page set full
+  // gets none of this and looks exactly as it did; as the text recedes, the
+  // headpiece opens the page and the pendant closes it, and the void that used
+  // to sit between them becomes two composed zones instead of one gap.
+  // The ceiling scales with the column, so a story frame — which carries 570px
+  // more page than a portrait one and is where the emptiness showed worst —
+  // gets illumination in proportion rather than a portrait-sized band adrift in
+  // it.
+  const headpieceMax = Math.max(HEADPIECE_MAX, available * 0.17);
+  const tailpieceMax = Math.max(TAILPIECE_MAX, available * 0.12);
+  const headpieceSpace =
+    slack >= HEADPIECE_MIN_SLACK
+      ? Math.min(headpieceMax, 60 + (slack - HEADPIECE_MIN_SLACK) * 0.24)
+      : 0;
+  const tailpieceSpace =
+    slack >= TAILPIECE_MIN_SLACK
+      ? Math.min(tailpieceMax, 50 + (slack - TAILPIECE_MIN_SLACK) * 0.2)
+      : 0;
+
+  if (headpieceSpace > 0) {
+    // Inset inside its allotment so the band has air on both sides rather than
+    // butting against the citation rule above it.
+    drawIlluminatedBand(
+      ctx,
+      {
+        x: contentX,
+        y: y + headpieceSpace * 0.3,
+        width: contentW,
+        height: headpieceSpace * 0.44,
+      },
+      { line: theme.line, accent: theme.bronze, reserve: theme.surface }
+    );
+    y += headpieceSpace;
+  }
+
+  const rest = Math.max(0, slack - headpieceSpace - tailpieceSpace);
   const gaps = Math.max(0, composition.length - 1);
   // Blocks get a modest extra breath, capped — spreading them by a share of the
   // slack pulls a short narration apart instead of letting it read as one
   // composed group. Whatever is left centres the group optically, a little
   // above true centre, which is what stops a tall frame looking top-weighted.
-  const spread = Math.min(slack * 0.25, 26 * gaps);
+  const spread = Math.min(rest * 0.25, 26 * gaps);
   const betweenBlocks = gaps > 0 ? spread / gaps : 0;
-  y += (slack - spread) * 0.45;
+  // The narration and its pendant are one group under the band, so the air
+  // splits evenly above and below them. Anchoring the pendant to the footer
+  // instead leaves the whole lower half of a short folio empty, which is the
+  // gap this illumination exists to close.
+  y += (rest - spread) * (headpieceSpace > 0 ? 0.5 : 0.45);
 
   composition.forEach((block, index) => {
     y += block.spaceBefore + (index > 0 ? betweenBlocks : 0);
@@ -815,6 +883,19 @@ export function renderShareImage(options: RenderOptions): RenderResult {
       justify: block.justify,
     });
   });
+
+  // The pendant closes the narration, so it hangs from the last line rather
+  // than floating above the colophon.
+  if (tailpieceSpace > 0) {
+    drawTailpiece(
+      ctx,
+      contentX + contentW / 2,
+      y + tailpieceSpace * 0.44,
+      contentW,
+      tailpieceSpace * 0.4,
+      { line: theme.line, accent: theme.bronze }
+    );
+  }
 
   drawRule(ctx, contentX, footerTop, contentW, theme.line);
   const footerY = footerTop + 30;
