@@ -16,7 +16,7 @@ type Feedback = { action: string; message: string } | null;
 
 function ShareIcon() {
   return (
-    <svg viewBox="0 0 16 16" aria-hidden className="size-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg viewBox="0 0 16 16" aria-hidden className="size-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M8 10.5V2m0 0L5.25 4.75M8 2l2.75 2.75" />
       <path d="M3.5 8.5v4a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-4" />
     </svg>
@@ -128,7 +128,11 @@ export function ShareMenu({
           ensureCard();
           window.requestAnimationFrame(position);
         }}
-        className={`inline-flex min-h-8 items-center gap-1.5 rounded-md px-2 py-1 font-sans text-xs font-medium text-muted transition-colors hover:bg-surface-2 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 ${className}`}
+        // Sitting in a row of muted metadata, a borderless grey label read as
+        // more metadata rather than the one action there. Dressed as the
+        // secondary control it is: hairline border, ink text, green only on
+        // hover, at the 40px minimum control height.
+        className={`inline-flex min-h-10 items-center gap-1.5 rounded-md border border-border bg-surface px-2.5 py-1 font-sans text-xs font-medium text-foreground transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 ${className}`}
       >
         <ShareIcon />
         {/* The label doubles as the confirmation, so announce the swap rather

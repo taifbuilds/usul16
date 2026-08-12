@@ -1204,6 +1204,18 @@ p {
   }
 }
 
+/* A closed <dialog> is hidden by `dialog:not([open]) { display: none }` in the
+   user-agent stylesheet — and that rule loses to any author declaration of
+   `display`, whatever its specificity, because author styles outrank the UA
+   origin. The dialog needs `flex` to lay its header, body and footer out, so
+   that one utility class was enough to leave it permanently on screen: not
+   modal, not backdropped, page still scrolling behind it, and stuck showing a
+   skeleton because nothing had asked it to render yet. Restore the UA
+   behaviour from the author origin, where it can actually win. */
+.repost-dialog:not([open]) {
+  display: none;
+}
+
 .repost-dialog[open] {
   animation: repost-in 200ms cubic-bezier(0.22, 1, 0.36, 1);
 }
