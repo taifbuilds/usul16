@@ -283,3 +283,38 @@ def test_english_search_uses_fail_closed_public_translation_policy(
     ):
         body = client.get("/search", params={"q": query}).json()
         assert body["count"] == 0
+
+
+def test_unpublished_books_are_not_searchable(client: TestClient, db: Session):
+    # A book hidden from the catalogue must not be reachable by searching its
+    # text either, or hiding it only moves the door rather than closing it.
+    hidden = Book(
+        source_book_id="10926",
+        title_original="الوهابيون",
+        title_normalised="الوهابيون",
+        source_url="u",
+    )
+    shown = Book(
+        source_book_id="11005",
+        title_original="الكافي",
+        title_normalised="الكافي",
+        source_url="u2",
+    )
+    db.add_all([hidden, shown])
+    db.flush()
+    for book in (hidden, shown):
+        db.add(
+            Page(
+                book_id=book.id,
+                page_number=1,
+                text_raw="x",
+                text_normalised="مرفوعة",
+                source_url=f"u/{book.id}",
+                checksum=f"c{book.id}",
+            )
+        )
+    db.commit()
+
+    body = client.get("/search", params={"q": "مرفوعة"}).json()
+
+    assert [r["book"]["source_book_id"] for r in body["results"]] == ["11005"]

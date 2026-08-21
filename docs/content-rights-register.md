@@ -6,7 +6,7 @@ not by itself establish permission to mirror or redistribute it.
 | Material | Current provenance | Launch evidence required | Status |
 |---|---|---|---|
 | Arabic page text and scans | eShia source URL retained per page | Record the applicable licence or written permission, including whether local mirroring and public redistribution are permitted | Confirmation required |
-| Al-Kafi English translation | Imported through the community Thaqalayn API; provider and upstream source are retained per translation | Record the translation copyright holder, applicable licence, attribution wording, and written permission if no public licence applies | Confirmation required |
+| Al-Kafi English translation | Imported through the community Thaqalayn API; provider and upstream source are retained per translation | Record the translation copyright holder, applicable licence, attribution wording, and written permission if no public licence applies | Permission held, confirmed by the project owner 2026-08-21. The interface credits the translator by name on every translated report (e.g. "Translation: Muhammad Sarwar") and links back to the Thaqalayn source. |
 | Edition cover images | Source identifiers and cover files recorded in `web/public/covers/README.md` | Record reuse terms or written permission for each image; replace any image that cannot be cleared | Confirmation required |
 | Usul16 extraction, identifiers, chain parsing, and resolution data | Produced within this project | Choose and publish a licence for original database and code outputs without claiming rights over underlying source texts | Licence selection required |
 

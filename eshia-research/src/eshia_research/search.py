@@ -17,6 +17,7 @@ import re
 from sqlalchemy import case, or_
 from sqlalchemy.orm import Session
 
+from eshia_research.corpus import HIDDEN_FROM_PUBLIC_SOURCE_BOOK_IDS
 from eshia_research.models import (
     Book,
     Hadith,
@@ -150,6 +151,7 @@ def search_pages(db: Session, query: str, limit: int = 20) -> list[SearchHit]:
                     Book.title_normalised.ilike(f"%{normalised_query}%"),
                 )
             )
+            .filter(~Book.source_book_id.in_(HIDDEN_FROM_PUBLIC_SOURCE_BOOK_IDS))
             .order_by(Book.id, Page.volume_number, Page.page_number)
             .limit(limit)
             .all()
@@ -158,7 +160,10 @@ def search_pages(db: Session, query: str, limit: int = 20) -> list[SearchHit]:
         rows = []
         folded_query = query.casefold()
         matching_source_ids = [
-            source_id for source_id, aliases in _BOOK_ALIASES.items() if folded_query in aliases
+            source_id
+            for source_id, aliases in _BOOK_ALIASES.items()
+            if folded_query in aliases
+            and source_id not in HIDDEN_FROM_PUBLIC_SOURCE_BOOK_IDS
         ]
         for source_id in matching_source_ids:
             row = (
@@ -213,6 +218,7 @@ def search_pages(db: Session, query: str, limit: int = 20) -> list[SearchHit]:
             .filter(
                 or_(*(Topic.search_text.ilike(f"%{term}%") for term in topic_terms)),
                 Hadith.review_status != "rejected_non_hadith_fragment",
+                ~Book.source_book_id.in_(HIDDEN_FROM_PUBLIC_SOURCE_BOOK_IDS),
             )
             .order_by(
                 case(
@@ -273,6 +279,7 @@ def search_pages(db: Session, query: str, limit: int = 20) -> list[SearchHit]:
             *public_english_translation_candidate_filters(),
             HadithTranslation.matn_translation.ilike(f"%{query}%"),
             Hadith.review_status != "rejected",
+            ~Book.source_book_id.in_(HIDDEN_FROM_PUBLIC_SOURCE_BOOK_IDS),
         )
         .order_by(
             Book.id,

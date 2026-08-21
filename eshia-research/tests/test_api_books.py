@@ -1524,3 +1524,42 @@ def test_save_split_review_returns_manual_split_as_active(client: TestClient, db
 def test_get_book_404_for_missing_book(client: TestClient):
     response = client.get("/books/999999")
     assert response.status_code == 404
+
+
+def test_unpublished_book_is_hidden_from_catalogue_and_its_pages(
+    client: TestClient, db: Session
+):
+    # Hiding a book from /books is not enough on its own: book ids are small
+    # integers, so every book-scoped route has to answer 404 as well.
+    hidden = Book(
+        source_book_id="86645",
+        title_original="إيمان أبي طالب",
+        title_normalised="ایمان ابی طالب",
+        source_url="u",
+    )
+    db.add(hidden)
+    db.flush()
+    db.add(
+        Page(
+            book_id=hidden.id,
+            page_number=2,
+            text_raw="x",
+            text_normalised="x",
+            source_url="u/2",
+            checksum="c",
+        )
+    )
+    db.commit()
+
+    listed = client.get("/books", params={"has_content": True}).json()
+    assert all(b["source_book_id"] != "86645" for b in listed)
+
+    for path in (
+        f"/books/{hidden.id}",
+        f"/books/{hidden.id}/pages",
+        f"/books/{hidden.id}/page-index",
+        f"/books/{hidden.id}/hadiths",
+        f"/books/{hidden.id}/chapters",
+        f"/books/{hidden.id}/kitabs",
+    ):
+        assert client.get(path).status_code == 404, path

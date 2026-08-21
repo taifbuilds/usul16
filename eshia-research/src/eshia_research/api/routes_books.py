@@ -14,6 +14,7 @@ from eshia_research.commentary.sources import COMMENTARY_SOURCES
 from eshia_research.corpus import (
     AL_KAFI_ISLAMIYYA_SOURCE_BOOK_ID,
     CATALOG_EXCLUDED_SOURCE_BOOK_IDS,
+    HIDDEN_FROM_PUBLIC_SOURCE_BOOK_IDS,
     POLISHED_TRANSMISSION_BOOK_IDS,
 )
 from eshia_research.hadith_split_audit import (
@@ -176,8 +177,10 @@ def _readable_page_count():
 
 
 def _apply_arabic_catalog_filters(query):
-    if CATALOG_EXCLUDED_SOURCE_BOOK_IDS:
-        query = query.filter(~Book.source_book_id.in_(CATALOG_EXCLUDED_SOURCE_BOOK_IDS))
+    if HIDDEN_FROM_PUBLIC_SOURCE_BOOK_IDS:
+        query = query.filter(
+            ~Book.source_book_id.in_(HIDDEN_FROM_PUBLIC_SOURCE_BOOK_IDS)
+        )
     for marker in (*_PERSIAN_ONLY_LETTERS, *_PERSIAN_TITLE_MARKERS, *_PERSIAN_TITLE_PHRASES):
         query = query.filter(~Book.title_original.contains(marker))
     return query
@@ -1144,6 +1147,20 @@ def _attach_text_blocks(page: Page) -> Page:
     return page
 
 
+def _public_book_or_404(db: Session, book_id: int) -> Book:
+    """Fetch a book that readers are allowed to see.
+
+    Hiding a book from the catalogue listing is not enough: its id is a small
+    integer, so the book page, its page index and its hadiths stay reachable
+    by guessing. Unpublished books answer 404 like any other unknown id —
+    the reader is told nothing about what the crawler happens to hold.
+    """
+    book = db.get(Book, book_id)
+    if book is None or book.source_book_id in HIDDEN_FROM_PUBLIC_SOURCE_BOOK_IDS:
+        raise HTTPException(status_code=404, detail="Book not found")
+    return book
+
+
 @router.get("/books", response_model=list[BookSummary])
 def list_books(
     skip: int = 0,
@@ -1168,9 +1185,7 @@ def list_books(
 
 @router.get("/books/{book_id}", response_model=BookRead)
 def get_book(book_id: int, db: Session = Depends(get_db)) -> Book:
-    book = db.get(Book, book_id)
-    if book is None:
-        raise HTTPException(status_code=404, detail="Book not found")
+    book = _public_book_or_404(db, book_id)
     book.has_content = (
         db.query(Page.id)
         .filter(Page.book_id == book.id, Page.page_number > 1, Page.text_raw.isnot(None))
@@ -1186,9 +1201,7 @@ def list_book_page_index(
     volume: int | None = None,
     db: Session = Depends(get_db),
 ) -> list[Page]:
-    book = db.get(Book, book_id)
-    if book is None:
-        raise HTTPException(status_code=404, detail="Book not found")
+    _public_book_or_404(db, book_id)
 
     query = db.query(Page).filter(Page.book_id == book_id)
     if volume is not None:
@@ -1204,9 +1217,7 @@ def list_book_pages(
     limit: int = 50,
     db: Session = Depends(get_db),
 ) -> list[Page]:
-    book = db.get(Book, book_id)
-    if book is None:
-        raise HTTPException(status_code=404, detail="Book not found")
+    _public_book_or_404(db, book_id)
 
     query = db.query(Page).filter(Page.book_id == book_id)
     if volume is not None:
@@ -1223,9 +1234,7 @@ def list_book_hadiths(
     limit: int = 50,
     db: Session = Depends(get_db),
 ) -> list[Hadith]:
-    book = db.get(Book, book_id)
-    if book is None:
-        raise HTTPException(status_code=404, detail="Book not found")
+    _public_book_or_404(db, book_id)
     query = _visible_hadith_query(db, book_id)
     if volume is not None and page is not None:
         query = query.filter(
@@ -1877,9 +1886,7 @@ def _chapter_runs(db: Session, book_id: int) -> list[ChapterSummary]:
 
 @router.get("/books/{book_id}/chapters", response_model=list[ChapterSummary])
 def list_book_chapters(book_id: int, db: Session = Depends(get_db)) -> list[ChapterSummary]:
-    book = db.get(Book, book_id)
-    if book is None:
-        raise HTTPException(status_code=404, detail="Book not found")
+    _public_book_or_404(db, book_id)
     return _chapter_runs(db, book_id)
 
 
@@ -1889,9 +1896,7 @@ def list_chapter_hadiths(
     chapter_index: int,
     db: Session = Depends(get_db),
 ) -> list[Hadith]:
-    book = db.get(Book, book_id)
-    if book is None:
-        raise HTTPException(status_code=404, detail="Book not found")
+    _public_book_or_404(db, book_id)
     runs = _chapter_runs(db, book_id)
     if chapter_index < 1 or chapter_index > len(runs):
         raise HTTPException(status_code=404, detail="Chapter not found")
@@ -1920,9 +1925,7 @@ def _kitab_order_key(volume: int, kitab_id: str) -> tuple[int, int, str]:
 @router.get("/books/{book_id}/kitabs", response_model=list[KitabSummary])
 def list_book_kitabs(book_id: int, db: Session = Depends(get_db)) -> list[KitabSummary]:
     """Thaqalayn kitab (book-section) index for a structured book."""
-    book = db.get(Book, book_id)
-    if book is None:
-        raise HTTPException(status_code=404, detail="Book not found")
+    _public_book_or_404(db, book_id)
     rows = (
         db.query(
             ThaqalaynStructureMap.volume,
@@ -1985,9 +1988,7 @@ def list_kitab_chapters(
     come from whichever volume happened to be aggregated first. Kept optional so
     older links and genuinely book-unique kitab ids (e.g. "v1-k1") still work.
     """
-    book = db.get(Book, book_id)
-    if book is None:
-        raise HTTPException(status_code=404, detail="Book not found")
+    _public_book_or_404(db, book_id)
     query = (
         db.query(
             ThaqalaynStructureMap.chapter_id,
@@ -2043,9 +2044,7 @@ def list_kitab_chapter_hadiths(
     """Hadiths of one chapter. See `list_kitab_chapters` for why `volume`
     matters — without it this returns hadiths from several unrelated kitabs
     that merely share a kitab number across printed volumes."""
-    book = db.get(Book, book_id)
-    if book is None:
-        raise HTTPException(status_code=404, detail="Book not found")
+    _public_book_or_404(db, book_id)
     maps_query = (
         db.query(ThaqalaynStructureMap.hadith_id, ThaqalaynStructureMap.number_in_chapter)
         .join(Hadith, Hadith.id == ThaqalaynStructureMap.hadith_id)
