@@ -15,6 +15,7 @@ from eshia_research.corpus import (
     AL_KAFI_ISLAMIYYA_SOURCE_BOOK_ID,
     CATALOG_EXCLUDED_SOURCE_BOOK_IDS,
     HIDDEN_FROM_PUBLIC_SOURCE_BOOK_IDS,
+    public_catalog_filters,
     POLISHED_TRANSMISSION_BOOK_IDS,
 )
 from eshia_research.hadith_split_audit import (
@@ -112,31 +113,6 @@ router = APIRouter(tags=["books"])
 
 # Book.language is never populated by the crawler (see models.py), so the
 # public catalog has to keep Persian-only works out heuristically. Persian
-# kaf/yeh are not used here as broad signals because eShia also uses those
-# glyphs in many otherwise-Arabic titles (e.g. al-Kafi, al-Bayt editions).
-_PERSIAN_ONLY_LETTERS = ("\u067e", "\u0686", "\u0698", "\u06af")
-_PERSIAN_TITLE_MARKERS = (
-    "\u0622\u0634\u0646\u0627\u06cc\u06cc",  # آشنایی
-    "\u0627\u062d\u06a9\u0627\u0645",  # احکام (Persian kaf)
-    "\u062e\u0627\u0646\u0648\u0627\u062f\u0647",  # خانواده
-    "\u0646\u0645\u0627\u0632",  # نماز
-    "\u0631\u0648\u0632\u0647",  # روزه
-    "\u0628\u0627\u0646\u0648\u0627\u0646",  # بانوان
-    "\u0628\u06cc\u0645\u0627\u0631\u0627\u0646",  # بیماران
-    "\u0627\u0646\u062f\u06cc\u0634\u0647",  # اندیشه
-    "\u0633\u06cc\u0627\u0633\u06cc",  # سیاسی
-    "\u062a\u0631\u062c\u0645\u0647",  # ترجمه
-    "\u0641\u0627\u0631\u0633",  # فارس/فارسی/فارسى
-    "\u0634\u0646\u0627\u0633\u06cc",  # شناسی
-    "\u06af\u0632\u06cc\u062f\u0647",  # گزیده
-    "\u0645\u062c\u0645\u0648\u0639\u0647",  # مجموعه
-    "\u062f\u0627\u0646\u0634",  # دانش...
-    "\u0646\u06af\u0627\u0647",  # نگاه/نگاهی
-)
-_PERSIAN_TITLE_PHRASES = (
-    " \u062f\u0631 ",  # در
-    " \u0628\u0627 ",  # با
-)
 _SPLIT_REVIEW_STATUSES = {"approved", "needs_review", "rejected"}
 _REJECTED_HADITH_STATUS = "rejected_non_hadith_fragment"
 _NARRATOR_APPEARANCE_BOOK_PRIORITY = {
@@ -177,13 +153,7 @@ def _readable_page_count():
 
 
 def _apply_arabic_catalog_filters(query):
-    if HIDDEN_FROM_PUBLIC_SOURCE_BOOK_IDS:
-        query = query.filter(
-            ~Book.source_book_id.in_(HIDDEN_FROM_PUBLIC_SOURCE_BOOK_IDS)
-        )
-    for marker in (*_PERSIAN_ONLY_LETTERS, *_PERSIAN_TITLE_MARKERS, *_PERSIAN_TITLE_PHRASES):
-        query = query.filter(~Book.title_original.contains(marker))
-    return query
+    return query.filter(*public_catalog_filters())
 
 
 def _active_split(hadith: Hadith, review: HadithSplitReview | None) -> tuple[str | None, str]:

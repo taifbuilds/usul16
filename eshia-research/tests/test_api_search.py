@@ -318,3 +318,121 @@ def test_unpublished_books_are_not_searchable(client: TestClient, db: Session):
     body = client.get("/search", params={"q": "مرفوعة"}).json()
 
     assert [r["book"]["source_book_id"] for r in body["results"]] == ["11005"]
+
+
+def _page(db: Session, book: Book, number: int, text: str) -> None:
+    db.add(
+        Page(
+            book_id=book.id,
+            page_number=number,
+            text_raw=text,
+            text_normalised=text,
+            source_url=f"u/{book.id}/{number}",
+            checksum=f"c{book.id}-{number}",
+        )
+    )
+
+
+def test_arabic_search_prefers_the_collections_over_crawl_spill(
+    client: TestClient, db: Session
+):
+    # Ranking used to fall out of Book.id — the crawler's arrival order — so
+    # a search for a common word opened with whatever was crawled earliest
+    # and never reached al-Kafi at all.
+    minor = Book(
+        source_book_id="71743",
+        title_original="آيات الأحكام",
+        title_normalised="ایات الاحکام",
+        source_url="u1",
+    )
+    kafi = Book(
+        source_book_id="11005",
+        title_original="الكافي",
+        title_normalised="الکافی",
+        source_url="u2",
+    )
+    db.add_all([minor, kafi])
+    db.flush()
+    assert minor.id < kafi.id
+    for number in range(1, 9):
+        _page(db, minor, number, "الصلاة")
+    _page(db, kafi, 1, "الصلاة")
+    db.commit()
+
+    body = client.get("/search", params={"q": "الصلاة", "limit": 5}).json()
+
+    assert body["results"][0]["book"]["source_book_id"] == "11005"
+
+
+def test_arabic_search_does_not_return_persian_works(client: TestClient, db: Session):
+    # The catalogue has always excluded Persian titles; search did not, so it
+    # returned books the library refuses to list.
+    persian = Book(
+        source_book_id="26395",
+        title_original="آشنایی با ابواب فقه",
+        title_normalised="آشنایی با ابواب فقه",
+        source_url="u1",
+    )
+    kafi = Book(
+        source_book_id="11005",
+        title_original="الكافي",
+        title_normalised="الکافی",
+        source_url="u2",
+    )
+    db.add_all([persian, kafi])
+    db.flush()
+    _page(db, persian, 1, "الصلاة")
+    _page(db, kafi, 1, "الصلاة")
+    db.commit()
+
+    body = client.get("/search", params={"q": "الصلاة"}).json()
+
+    assert [r["book"]["source_book_id"] for r in body["results"]] == ["11005"]
+
+
+def test_one_collection_does_not_fill_the_whole_page(client: TestClient, db: Session):
+    kafi = Book(
+        source_book_id="11005",
+        title_original="الكافي",
+        title_normalised="الکافی",
+        source_url="u1",
+    )
+    faqih = Book(
+        source_book_id="11021",
+        title_original="من لا يحضره الفقيه",
+        title_normalised="من لا یحضره الفقیه",
+        source_url="u2",
+    )
+    db.add_all([kafi, faqih])
+    db.flush()
+    for number in range(1, 11):
+        _page(db, kafi, number, "الصلاة")
+    _page(db, faqih, 1, "الصلاة")
+    db.commit()
+
+    body = client.get("/search", params={"q": "الصلاة", "limit": 4}).json()
+    found = [r["book"]["source_book_id"] for r in body["results"]]
+
+    assert "11021" in found, found
+
+
+def test_a_single_matching_collection_still_fills_the_page(
+    client: TestClient, db: Session
+):
+    # Spreading results must not shrink them: if only one work matches, its
+    # later pages should still be offered rather than held back.
+    kafi = Book(
+        source_book_id="11005",
+        title_original="الكافي",
+        title_normalised="الکافی",
+        source_url="u1",
+    )
+    db.add(kafi)
+    db.flush()
+    for number in range(1, 8):
+        _page(db, kafi, number, "الصلاة")
+    db.commit()
+
+    body = client.get("/search", params={"q": "الصلاة", "limit": 5}).json()
+
+    assert body["count"] == 5

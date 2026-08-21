@@ -63,3 +63,58 @@ def book_slug(source_book_id: str) -> str:
     """Slug for public hadith IDs; falls back to a neutral book-N form for
     books that don't have a curated slug yet."""
     return BOOK_SLUGS.get(source_book_id, f"book{source_book_id}")
+
+
+# eShia's library is not only Arabic. Persian works are real books, but they
+# are not what Usul16 publishes, and a reader searching «الصلاة» should not be
+# handed a Persian fiqh primer. Titles are the signal we have.
+# kaf/yeh are not used here as broad signals because eShia also uses those
+# glyphs in many otherwise-Arabic titles (e.g. al-Kafi, al-Bayt editions).
+PERSIAN_ONLY_LETTERS = ("\u067e", "\u0686", "\u0698", "\u06af")
+PERSIAN_TITLE_MARKERS = (
+    "\u0622\u0634\u0646\u0627\u06cc\u06cc",  # آشنایی
+    "\u0627\u062d\u06a9\u0627\u0645",  # احکام (Persian kaf)
+    "\u062e\u0627\u0646\u0648\u0627\u062f\u0647",  # خانواده
+    "\u0646\u0645\u0627\u0632",  # نماز
+    "\u0631\u0648\u0632\u0647",  # روزه
+    "\u0628\u0627\u0646\u0648\u0627\u0646",  # بانوان
+    "\u0628\u06cc\u0645\u0627\u0631\u0627\u0646",  # بیماران
+    "\u0627\u0646\u062f\u06cc\u0634\u0647",  # اندیشه
+    "\u0633\u06cc\u0627\u0633\u06cc",  # سیاسی
+    "\u062a\u0631\u062c\u0645\u0647",  # ترجمه
+    "\u0641\u0627\u0631\u0633",  # فارس/فارسی/فارسى
+    "\u0634\u0646\u0627\u0633\u06cc",  # شناسی
+    "\u06af\u0632\u06cc\u062f\u0647",  # گزیده
+    "\u0645\u062c\u0645\u0648\u0639\u0647",  # مجموعه
+    "\u062f\u0627\u0646\u0634",  # دانش...
+    "\u0646\u06af\u0627\u0647",  # نگاه/نگاهی
+)
+PERSIAN_TITLE_PHRASES = (
+    " \u062f\u0631 ",  # در
+    " \u0628\u0627 ",  # با
+)
+
+PERSIAN_TITLE_EXCLUSION_MARKERS = (
+    *PERSIAN_ONLY_LETTERS,
+    *PERSIAN_TITLE_MARKERS,
+    *PERSIAN_TITLE_PHRASES,
+)
+
+
+def public_catalog_filters():
+    """What a reader is allowed to be shown, as SQLAlchemy clauses.
+
+    The catalogue, the stat tiles and search must answer the same question
+    the same way. When only the listing applied these, search happily
+    returned books the library refused to name.
+    """
+    from eshia_research.models import Book
+
+    clauses = []
+    if HIDDEN_FROM_PUBLIC_SOURCE_BOOK_IDS:
+        clauses.append(~Book.source_book_id.in_(HIDDEN_FROM_PUBLIC_SOURCE_BOOK_IDS))
+    clauses.extend(
+        ~Book.title_original.contains(marker)
+        for marker in PERSIAN_TITLE_EXCLUSION_MARKERS
+    )
+    return clauses

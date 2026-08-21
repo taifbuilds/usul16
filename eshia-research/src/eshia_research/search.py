@@ -17,7 +17,10 @@ import re
 from sqlalchemy import case, or_
 from sqlalchemy.orm import Session
 
-from eshia_research.corpus import HIDDEN_FROM_PUBLIC_SOURCE_BOOK_IDS
+from eshia_research.corpus import (
+    HIDDEN_FROM_PUBLIC_SOURCE_BOOK_IDS,
+    public_catalog_filters,
+)
 from eshia_research.models import (
     Book,
     Hadith,
@@ -134,6 +137,79 @@ def _topic_query_terms(query: str) -> list[str]:
     return list(dict.fromkeys([meaningful_phrase, *words]))
 
 
+
+# Which collection a reader most likely meant. Ordering by Book.id instead
+# ranked by the crawler's arrival order, which is why a search for «الصلاة»
+# used to open with a Persian fiqh primer and never reach al-Kafi at all.
+_SEARCH_BOOK_PRIORITY = (
+    "11005",  # al-Kafi
+    "11021",  # Man La Yahduruhu al-Faqih
+    "10083",  # Tahdhib al-Ahkam
+    "11002",  # al-Istibsar
+    "71860",  # Bihar al-Anwar
+    "11025",  # Wasa'il al-Shia
+)
+
+# A common word occurs on hundreds of pages of the same work, so asking the
+# whole corpus at once returned ten rows of whichever book sorted first. Each
+# collection is asked separately for a couple of pages at a time instead,
+# which both spreads the results and is far quicker: the per-book queries stop
+# as soon as they have their handful, where the corpus-wide scan could not.
+_MAX_PER_BOOK = 2
+
+
+def _arabic_rows(db: Session, normalised_query: str, limit: int):
+    like = f"%{normalised_query}%"
+
+    def matching(query):
+        return query.filter(
+            or_(
+                Page.text_normalised.ilike(like),
+                Book.title_normalised.ilike(like),
+            )
+        )
+
+    base = (
+        db.query(Page, Book)
+        .join(Book, Page.book_id == Book.id)
+        .filter(*public_catalog_filters())
+    )
+
+    rows: list = []
+    offsets = {source_id: 0 for source_id in _SEARCH_BOOK_PRIORITY}
+    exhausted: set[str] = set()
+
+    # Round-robin, so a second lap tops the page up from the same collections
+    # rather than falling through to the corpus-wide scan.
+    while len(rows) < limit and len(exhausted) < len(offsets):
+        for source_id in _SEARCH_BOOK_PRIORITY:
+            if len(rows) >= limit or source_id in exhausted:
+                continue
+            found = (
+                matching(base.filter(Book.source_book_id == source_id))
+                .order_by(Page.volume_number, Page.page_number)
+                .offset(offsets[source_id])
+                .limit(_MAX_PER_BOOK)
+                .all()
+            )
+            if len(found) < _MAX_PER_BOOK:
+                exhausted.add(source_id)
+            offsets[source_id] += len(found)
+            rows.extend(found[: limit - len(rows)])
+
+    # Only now the rest of the shelf — the rijal references and anything else
+    # published. This is the expensive scan, and a query answered by the
+    # collections above never reaches it.
+    if len(rows) < limit:
+        rows.extend(
+            matching(base.filter(~Book.source_book_id.in_(_SEARCH_BOOK_PRIORITY)))
+            .order_by(Book.id, Page.volume_number, Page.page_number)
+            .limit(limit - len(rows))
+            .all()
+        )
+    return rows
+
+
 def search_pages(db: Session, query: str, limit: int = 20) -> list[SearchHit]:
     query = query.strip()
     normalised_query = normalise_arabic_persian(query)
@@ -142,20 +218,7 @@ def search_pages(db: Session, query: str, limit: int = 20) -> list[SearchHit]:
 
     has_arabic = bool(_ARABIC_RE.search(query))
     if has_arabic:
-        rows = (
-            db.query(Page, Book)
-            .join(Book, Page.book_id == Book.id)
-            .filter(
-                or_(
-                    Page.text_normalised.ilike(f"%{normalised_query}%"),
-                    Book.title_normalised.ilike(f"%{normalised_query}%"),
-                )
-            )
-            .filter(~Book.source_book_id.in_(HIDDEN_FROM_PUBLIC_SOURCE_BOOK_IDS))
-            .order_by(Book.id, Page.volume_number, Page.page_number)
-            .limit(limit)
-            .all()
-        )
+        rows = _arabic_rows(db, normalised_query, limit)
     else:
         rows = []
         folded_query = query.casefold()
