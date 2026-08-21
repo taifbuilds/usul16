@@ -695,13 +695,18 @@ export function HadithBody({
           <div key={paragraph.key}>
             {paragraph.kind === "isnad" ? (
               <>
-                <p className="reader-isnad mb-4 border-b border-dashed border-border pb-4 text-lg leading-loose text-muted">
+                {/* A div, not a p: every clickable narrator is a
+                    <details>/<summary> popover, and <summary> may not
+                    descend from <p>. The browser closed the paragraph early
+                    and React threw a hydration error on every reader page
+                    carrying a parsed chain. Styling is by class, not tag. */}
+                <div className="reader-isnad mb-4 border-b border-dashed border-border pb-4 text-lg leading-loose text-muted">
                   {primaryChain && isnad ? (
                     <ClickableIsnadText text={isnad} chain={primaryChain} />
                   ) : (
                     renderSegments(paragraph.key, paragraph.segments)
                   )}
-                </p>
+                </div>
                 <IsnadGraphPanel
                   publicId={publicId ?? null}
                   chains={chainData}
