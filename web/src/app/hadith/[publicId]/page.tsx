@@ -6,19 +6,50 @@ import { formatArabicTitle } from "@/lib/arabic";
 import { amiri } from "@/lib/fonts";
 import { IndexedHadithCard } from "@/components/reader/ReaderText";
 import { Citation } from "@/components/citation/Citation";
+import { buildShareCard } from "@/lib/share/card";
 
 export const dynamic = "force-dynamic";
+
+/** Enough of the narration to be worth reading in a preview card. */
+function previewExcerpt(text: string, limit = 200): string {
+  const clean = text.replace(/\s+/g, " ").trim();
+  if (clean.length <= limit) return clean;
+  const cut = clean.slice(0, limit);
+  const lastSpace = cut.lastIndexOf(" ");
+  return `${(lastSpace > limit * 0.6 ? cut.slice(0, lastSpace) : cut).trim()}…`;
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ publicId: string }> }): Promise<Metadata> {
   const { publicId } = await params;
   const hadith = await getHadith(decodeURIComponent(publicId));
   if (!hadith) return { title: "Hadith not found" };
   const book = await getBook(hadith.book_id);
-  const work = book?.title_normalised ?? "Shia hadith";
+  const canonical = `/hadith/${encodeURIComponent(hadith.public_id)}`;
+
+  // The same model the share dialog builds from, so a link someone posts and
+  // the card they copy cannot describe the hadith differently — including its
+  // translation gate, which keeps an unattributed rendering out of a preview
+  // that will travel without this page around it.
+  const card = buildShareCard(hadith, book?.title_original ?? null, "");
+  const work = card.bookTitle ?? book?.title_normalised ?? "Shia hadith";
+  const title = `${work} · Hadith ${card.printedNumber ?? hadith.public_id}`;
+  const narration = card.english?.matn ?? card.matn;
+  const description = narration
+    ? previewExcerpt(narration)
+    : `${work}, ${card.location}.`;
+
   return {
-    title: `${work} · Hadith ${hadith.printed_number ?? hadith.public_id}`,
-    description: `Source record ${hadith.public_id}, volume ${hadith.volume_start ?? "unknown"}, page ${hadith.page_start}.`,
-    alternates: { canonical: `/hadith/${encodeURIComponent(hadith.public_id)}` },
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      type: "article",
+      siteName: "Usul16",
+      title,
+      description,
+      url: canonical,
+    },
+    twitter: { card: "summary", title, description },
   };
 }
 

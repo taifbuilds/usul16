@@ -54,7 +54,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
               <p className="text-xs font-semibold text-muted">{response.count} {response.count === 1 ? "result" : "results"}</p>
               <h2 id="results-heading" className="mt-1 font-serif text-2xl font-semibold">“{response.query}”</h2>
             </div>
-            <p className="text-xs font-medium text-muted">Ordered by source occurrence</p>
+            <p className="text-xs font-medium text-muted">The collections first, then printed order</p>
           </div>
           {response.results.length === 0 ? (
             <div className="mt-6"><EmptyState title="No matches in the digitised text" description="Try a shorter term, a spelling variant, or another word from the source." /></div>
