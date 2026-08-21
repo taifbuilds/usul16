@@ -325,3 +325,179 @@ def test_sami_a_recovery():
     assert chain.tokens[-1].node_type == IMAM
     # Matn («في الماء يمر به الرجل...») is not part of the chain.
     assert all("المیتة" not in t.norm for t in chain.tokens)
+
+
+# --- matn is not chain: the 2026-08-16 Faqih review ---------------------------
+# Faqih's isnad_raw regularly carries the first words of the matn, because
+# al-Saduq's abbreviated openings run into the report with nothing but a
+# speech verb between. Reading that tail as chain produced 798 chains marked
+# for review, nearly all of them correct parses, plus narrator tokens that
+# were sentences. These pin each defect that review found.
+
+
+def test_preposition_after_a_mursal_phrase_is_not_part_of_the_name():
+    # «روي عن فلان» puts two transmission phrases back to back; «عن» used to
+    # stay inside the token, and 424 Faqih nodes were named «عن فلان».
+    raw = "وَ رُوِيَ عَنْ عَبْدِ الرَّحْمَنِ بْنِ الْحَجَّاجِ قَالَ‌ سَأَلْتُ"
+    chain = tokenize_isnad(raw)[0]
+    assert chain.tokens[0].node_type == NAMED
+    assert chain.tokens[0].norm == normalise_arabic_persian("عبد الرحمن بن الحجاج")
+
+
+def test_qad_is_not_a_narrator():
+    raw = "وَ قَدْ رَوَى زُرَارَةُ عَنْ أَبِي جَعْفَرٍ ع قَالَ- قُلْتُ"
+    chain = tokenize_isnad(raw)[0]
+    assert types(chain) == [NAMED, IMAM]
+    assert chain.tokens[0].norm == normalise_arabic_persian("زرارة")
+
+
+def test_printed_report_number_is_not_citation_noise():
+    raw = "2553- وَ رَوَى الْحَلَبِيُّ عَنْ أَبِي عَبْدِ اللَّهِ ع قَالَ"
+    chain = tokenize_isnad(raw)[0]
+    assert types(chain) == [NAMED, IMAM]
+    assert "citation_noise" not in chain.flags
+    assert not chain.needs_review
+
+
+def test_matn_after_the_imam_is_not_a_review_flag():
+    # The chain reached the Ma'sum; everything after is matn by design, so
+    # there is nothing for a human to adjudicate.
+    raw = (
+        "وَ رَوَى عَبْدُ الرَّحِيمِ الْقَصِيرُ عَنْ أَبِي جَعْفَرٍ ع أَنَّهُ قَالَ- "
+        "مَنْ أَخَذَ مِنْ أَظْفَارِهِ وَ شَارِبِهِ كُلَّ جُمُعَةٍ وَ قَالَ"
+    )
+    chain = tokenize_isnad(raw)[0]
+    assert types(chain) == [NAMED, IMAM]
+    assert "matn_spill" not in chain.flags
+    assert not chain.needs_review
+
+
+def test_first_person_question_is_matn_not_a_dropped_narrator():
+    raw = "رَوَى صَفْوَانُ بْنُ يَحْيَى عَنِ الْعِيصِ بْنِ الْقَاسِمِ قَالَ‌ سَأَلْتُ"
+    chain = tokenize_isnad(raw)[0]
+    assert types(chain) == [NAMED, NAMED]
+    assert "matn_spill" not in chain.flags
+    assert "no_imam_terminal" in chain.flags  # informational, not review
+    assert not chain.needs_review
+
+
+def test_a_narrator_after_a_speech_verb_is_kept_not_discarded():
+    # What narrowing matn_spill rests on: a transmission phrase always opens
+    # a segment, so a narrator introduced after «قال» is tokenized rather
+    # than swallowed by the discarded tail. matn_spill survives only as the
+    # backstop for a spill that still carries transmission structure.
+    raw = "رَوَى الْحَسَنُ بْنُ مَحْبُوبٍ قَالَ حَدَّثَنِي عَلِيُّ بْنُ رِئَابٍ"
+    chain = tokenize_isnad(raw)[0]
+    assert types(chain) == [NAMED, NAMED]
+    assert chain.tokens[-1].norm == normalise_arabic_persian("علي بن رئاب")
+    assert "matn_spill" not in chain.flags
+
+
+def test_imam_name_is_cut_from_the_matn_that_follows_it():
+    # al-Saduq runs from the Ma'sum straight into the report with no speech
+    # verb; the whole thing used to be one named_narrator token.
+    raw = (
+        "وَ رَوَى عَبْدُ الرَّحْمَنِ بْنِ الْحَجَّاجِ عَنْ أَبِي الْحَسَنِ ع‌ "
+        "فِي رَجُلٍ صَلَّى فِي جَمَاعَةٍ يَوْمَ الْجُمُعَةِ فَلَمَّا رَكَعَ الْإِمَامُ"
+    )
+    chain = tokenize_isnad(raw)[0]
+    assert types(chain) == [NAMED, IMAM]
+    assert chain.tokens[-1].norm == normalise_arabic_persian("أبي الحسن ع")
+
+
+def test_no_second_imam_is_invented_from_the_story():
+    # «كان لرجل على عهد علي ع جاريتان» names Ali inside the matn; the chain
+    # already ended at al-Baqir and must not gain a second Imam node.
+    raw = (
+        "رَوَى عَاصِمُ بْنُ حُمَيْدٍ عَنْ مُحَمَّدِ بْنِ قَيْسٍ عَنْ أَبِي جَعْفَرٍ ع "
+        "قَالَ‌ كَانَ لِرَجُلٍ عَلَى عَهْدِ عَلِيٍّ ع جَارِيَتَانِ فَوَلَدَتَا"
+    )
+    chain = tokenize_isnad(raw)[0]
+    assert types(chain) == [NAMED, NAMED, IMAM]
+    assert chain.tokens[-1].norm == normalise_arabic_persian("أبي جعفر ع")
+
+
+def test_jamian_in_the_matn_is_not_a_convergence():
+    raw = (
+        "وَ رَوَى عَلِيُّ بْنُ رِئَابٍ عَنْ أَبَانِ بْنِ تَغْلِبَ عَنْ أَبِي عَبْدِ "
+        "اللَّهِ ع‌ فِي قَوْمٍ حُجَّاجٍ مُحْرِمِينَ أَصَابُوا أَفْرَاخَ نَعَامٍ "
+        "فَأَكَلُوا جَمِيعاً قَالَ"
+    )
+    chain = tokenize_isnad(raw)[0]
+    assert "multi_route" not in chain.flags
+    assert types(chain) == [NAMED, NAMED, IMAM]
+
+
+def test_jamian_in_the_isnad_is_still_a_convergence():
+    raw = (
+        "رَوَى مُحَمَّدُ بْنُ مُسْلِمٍ وَ اَلْحَلَبِيُّ جَمِيعاً عَنْ أَبِي عَبْدِ "
+        "اَللَّهِ عَلَيْهِ اَلسَّلاَمُ :"
+    )
+    chain = tokenize_isnad(raw)[0]
+    assert "multi_route" in chain.flags
+
+
+def test_matn_clauses_do_not_expand_into_parallel_chains():
+    # «مات و أوصى إلى رجل و له ابن صغير» is one report, not four routes.
+    raw = (
+        "رَوَى مُحَمَّدُ بْنُ يَعْقُوبَ الْكُلَيْنِيُّ عَنْ مُحَمَّدِ بْنِ يَحْيَى "
+        "عَنْ مُحَمَّدِ بْنِ قَيْسٍ عَمَّنْ رَوَاهُ عَنْ أَبِي عَبْدِ اللَّهِ ع "
+        "قَالَ‌ فِي رَجُلٍ مَاتَ وَ أَوْصَى إِلَى رَجُلٍ وَ لَهُ ابْنٌ صَغِيرٌ "
+        "فَأَدْرَكَ الْغُلَامُ وَ ذَهَبَ إِلَى الْوَصِيِّ فَقَالَ"
+    )
+    chains = tokenize_isnad(raw)
+    assert len(chains) == 1
+    assert chains[0].tokens[-1].node_type == IMAM
+
+
+def test_quranic_citation_does_not_expand_into_parallel_chains():
+    raw = (
+        "عِدَّةٌ مِنْ أَصْحَابِنَا عَنْ سَهْلِ بْنِ زِيَادٍ رَفَعَهُ عَنْ أَبِي "
+        "عَبْدِ اللَّهِ ع‌ فِي قَوْلِ اللَّهِ عَزَّ وَ جَلَّ- وَ لا تَرْكَنُوا "
+        "إِلَى الَّذِينَ ظَلَمُوا فَتَمَسَّكُمُ النَّارُ"
+    )
+    chains = tokenize_isnad(raw)
+    assert len(chains) == 1
+    assert chains[0].tokens[-1].node_type == IMAM
+    assert "raf" in chains[0].flags  # «رفعه عن» — back-to-back phrases
+
+
+def test_walad_is_not_an_attached_conjunction():
+    raw = (
+        "عَلِيُّ بْنُ مُحَمَّدٍ عَنْ سَهْلِ بْنِ زِيَادٍ عَنْ عَلِيِّ بْنِ شَجَرَةَ "
+        "عَنْ بَعْضِ وُلْدِ مِيثَمٍ قَالَ:"
+    )
+    chains = tokenize_isnad(raw)
+    assert len(chains) == 1
+    assert chains[0].tokens[-1].norm == normalise_arabic_persian("بعض ولد ميثم")
+
+
+def test_bare_speech_verb_never_becomes_a_narrator():
+    raw = (
+        "عَلِيُّ بْنُ إِبْرَاهِيمَ عَنْ عَمْرِو بْنِ عُثْمَانَ عَنْ عَلِيِّ بْنِ "
+        "عِيسَى رَفَعَهُ قَالَ‌: إِنَّ مُوسَى ع نَاجَاهُ اللَّهُ"
+    )
+    chain = tokenize_isnad(raw)[0]
+    assert all(t.norm != normalise_arabic_persian("قال") for t in chain.tokens)
+
+
+def test_anna_opens_the_report_like_qala_does():
+    raw = (
+        "وَ رَوَى سَهْلُ بْنُ زِيَادٍ عَنْ يُونُسَ بْنِ يَعْقُوبَ‌ أَنَّ رَجُلًا "
+        "كَانَ بِهَمَذَانَ ذَكَرَ أَنَّ أَبَاهُ مَاتَ"
+    )
+    chain = tokenize_isnad(raw)[0]
+    assert types(chain) == [NAMED, NAMED]
+    assert chain.tokens[-1].norm == normalise_arabic_persian("يونس بن يعقوب")
+
+
+def test_narrative_with_no_chain_stays_flagged():
+    # isnad_raw here is pure matn. A four-word Imam node would look tidy and
+    # be wrong; the honest answer is to keep it in front of a human.
+    raw = (
+        "وَ كُنَّ نِسَاءُ النَّبِيِ‌[2] ص إِذَا كَانَ عَلَيْهِنَّ صِيَامٌ أَخَّرْنَ "
+        "ذَلِكَ إِلَى شَعْبَانَ كَرَاهِيَةَ أَنْ يَمْنَعْنَ رَسُولَ اللَّهِ ص حَاجَتَهُ"
+    )
+    chain = tokenize_isnad(raw)[0]
+    assert "suspicious_token" in chain.flags
+    assert chain.needs_review
