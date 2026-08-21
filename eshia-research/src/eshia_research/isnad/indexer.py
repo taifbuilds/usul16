@@ -16,6 +16,7 @@ from eshia_research.models import (
     ChainNode,
     ChainNodeCandidate,
     Hadith,
+    MashyakhaExpansion,
     MentionResolution,
     PersonResolutionDecision,
     PersonResolutionExternalReview,
@@ -57,6 +58,19 @@ def _delete_node_dependents(db: Session, node_ids) -> None:
     )
 
 
+def _delete_chain_dependents(db: Session, chain_ids) -> None:
+    """Delete claims keyed on the chain itself.
+
+    A rebuild gives every chain a new id, so a Mashyakha expansion proposal
+    left behind points at a chain that no longer exists — and the
+    materializer only sweeps proposals for chains it can still see, so
+    nothing else would ever collect them.
+    """
+    db.execute(
+        delete(MashyakhaExpansion).where(MashyakhaExpansion.chain_id.in_(chain_ids))
+    )
+
+
 def rebuild_chain_index(
     db: Session,
     *,
@@ -86,6 +100,7 @@ def rebuild_chain_index(
     chain_ids_subq = select(Chain.id).where(Chain.hadith_id.in_(hadith_ids_subq))
     node_ids_subq = select(ChainNode.id).where(ChainNode.chain_id.in_(chain_ids_subq))
     _delete_node_dependents(db, node_ids_subq)
+    _delete_chain_dependents(db, chain_ids_subq)
     db.execute(delete(ChainNode).where(ChainNode.chain_id.in_(chain_ids_subq)))
     db.execute(delete(Chain).where(Chain.hadith_id.in_(hadith_ids_subq)))
     # Rebuilding the hadith index replaces hadith rows (new ids), which can
@@ -95,8 +110,15 @@ def rebuild_chain_index(
     orphan_chain_ids = select(Chain.id).where(~Chain.hadith_id.in_(select(Hadith.id)))
     orphan_node_ids = select(ChainNode.id).where(ChainNode.chain_id.in_(orphan_chain_ids))
     _delete_node_dependents(db, orphan_node_ids)
+    _delete_chain_dependents(db, orphan_chain_ids)
     db.execute(delete(ChainNode).where(ChainNode.chain_id.in_(orphan_chain_ids)))
     db.execute(delete(Chain).where(~Chain.hadith_id.in_(select(Hadith.id))))
+    # Proposals whose chain vanished in an earlier partial rebuild.
+    db.execute(
+        delete(MashyakhaExpansion).where(
+            ~MashyakhaExpansion.chain_id.in_(select(Chain.id))
+        )
+    )
     # Derived claims whose node vanished in an earlier partial rebuild.
     live_node_ids = select(ChainNode.id)
     db.execute(
