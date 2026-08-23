@@ -593,9 +593,7 @@ def test_public_translation_policy_is_consistent_for_reader_and_corpus_status(
                 translation_version=TRANSLATION_VERSION,
                 source_full_sha256=sha256_text(hadith.full_text_raw),
                 source_isnad_sha256=sha256_text(hadith.isnad_raw),
-                source_matn_sha256=(
-                    sha256_text("outdated matn") if stale else sha256_text(hadith.matn_raw)
-                ),
+                source_matn_sha256=sha256_text(hadith.matn_raw),
                 matn_translation=f"Public policy example {sequence}.",
                 status=status,
                 risk_level="green",
@@ -612,6 +610,14 @@ def test_public_translation_policy_is_consistent_for_reader_and_corpus_status(
                 ),
             )
         )
+        if stale:
+            # Real staleness is the report changing under a translation, not a
+            # mistyped hash. A translation of text that is no longer there must
+            # hide; one whose report is intact and whose split merely moved is
+            # a different case, covered in test_translation_pipeline.
+            hadith.full_text_raw = "نص مختلف تماما بعد الترجمة"
+            hadith.matn_raw = "نص مختلف تماما بعد الترجمة"
+            db.flush()
 
     add_translation("policy-external", 1)
     add_translation("policy-machine", 2, status="machine_verified")

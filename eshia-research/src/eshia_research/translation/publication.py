@@ -8,13 +8,15 @@ authority because source-currentness requires hashing the active hadith text.
 from __future__ import annotations
 
 import json
+import re
 from collections.abc import Sequence
 
 from sqlalchemy import String, and_, cast, func, or_
 
 from eshia_research.models import Hadith, HadithTranslation
+from eshia_research.normalise import strip_diacritics
 from eshia_research.translation import TRANSLATION_VERSION
-from eshia_research.translation.text import sha256_text
+from eshia_research.translation.text import FOOTNOTE_MARKER_RE, sha256_text, source_norm
 
 
 # Clearly-labelled AI translation tier. These rows are NOT human editions and
@@ -188,6 +190,84 @@ def source_hash_values_are_current(
     )
 
 
+# Which Arabic a stored English text still provably corresponds to.
+TRANSLATION_SCOPE_SPLIT = "split"
+TRANSLATION_SCOPE_REPORT = "report"
+
+_ZERO_WIDTH_RE = re.compile(r"[​-‏‪-‮⁦-⁩]")
+_NON_WORD_RE = re.compile(r"[^\w]+", re.UNICODE)
+
+
+def _comparison_key(text: str | None) -> str:
+    """Reduce Arabic to what a containment check can honestly compare.
+
+    Splitting a report drops the separators the edition prints between chain
+    and body — a dash, a zero-width joiner glued to the honorific («ع‌-») —
+    and the two sides carry different footnote markers and case endings for
+    the same word. None of that is a difference in *text*, so it is removed
+    before comparing; what remains is letters.
+    """
+    stripped = FOOTNOTE_MARKER_RE.sub(" ", text or "")
+    stripped = _ZERO_WIDTH_RE.sub("", strip_diacritics(stripped))
+    return _NON_WORD_RE.sub("", source_norm(stripped))
+
+
+def report_contains_its_parts(hadith: Hadith) -> bool:
+    """Are the isnad and matn still drawn from the report they belong to?
+
+    This is what separates a re-split from a corruption. Both move the split
+    hashes; only one leaves parts that are still the report's own words. A
+    matn that is no longer found in `full_text_raw` is not a boundary that
+    moved, it is a body that was replaced, and no translation of the report
+    may be shown beside it.
+    """
+    report = _comparison_key(hadith.full_text_raw)
+    if not report:
+        return False
+    matn = _comparison_key(hadith.matn_raw)
+    if not matn or matn not in report:
+        return False
+    isnad = _comparison_key(hadith.isnad_raw)
+    return not isnad or isnad in report
+
+
+def translation_source_scope(
+    translation: HadithTranslation, hadith: Hadith
+) -> str | None:
+    """What the stored English can still be shown against, or None.
+
+    The three hashes answer two different questions, and collapsing them into
+    one boolean threw away the useful half.
+
+    ``source_full_sha256`` guards the *report*: if it no longer matches, the
+    Arabic itself has changed underneath the translation and nothing may be
+    shown. That check is unchanged and still fails closed.
+
+    The isnad and matn hashes guard our own *editorial boundary*, which is not
+    a property of the text. Re-splitting a report — moving «وَ قَالَ الصَّادِقُ ع»
+    out of the body and into the chain — changes both without altering a
+    character of what was translated. Withholding the English then hides a
+    correct translation because we revised our own parse, and the translation
+    is usually of the whole report anyway: Bab ul Qaim's Faqih text opens
+    "Imam Jafar ibn Muhammad Al-Sadiq (as) said:", which is the isnad.
+
+    So a report whose text is intact but whose split has moved is publishable
+    at report scope, and the caller is told which it got so the interface can
+    say what the English covers rather than implying it renders the matn alone.
+    """
+    if translation.source_full_sha256 != sha256_text(hadith.full_text_raw):
+        return None
+    expected_isnad_sha256 = sha256_text(hadith.isnad_raw) if hadith.isnad_raw else None
+    if (
+        translation.source_isnad_sha256 == expected_isnad_sha256
+        and translation.source_matn_sha256 == sha256_text(hadith.matn_raw)
+    ):
+        return TRANSLATION_SCOPE_SPLIT
+    if not report_contains_its_parts(hadith):
+        return None
+    return TRANSLATION_SCOPE_REPORT
+
+
 def is_public_english_translation(
     translation: HadithTranslation | None,
     hadith: Hadith,
@@ -207,7 +287,7 @@ def is_public_english_translation(
     if translation.translation_version in AI_TRANSLATION_VERSIONS:
         # Clearly-labelled AI tier: no human-source requirement (it isn't human,
         # and the UI tags it as such), but still hash-guarded so stale text hides.
-        return source_hashes_are_current(translation, hadith)
+        return translation_source_scope(translation, hadith) is not None
     if has_forbidden_ai_marker(
         translation.provider,
         translation.model,
@@ -216,4 +296,4 @@ def is_public_english_translation(
         return False
     if not has_public_human_source_metadata(translation.provenance_json):
         return False
-    return source_hashes_are_current(translation, hadith)
+    return translation_source_scope(translation, hadith) is not None

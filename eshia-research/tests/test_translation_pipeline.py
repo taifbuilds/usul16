@@ -20,7 +20,12 @@ from eshia_research.translation import TRANSLATION_VERSION
 from eshia_research.translation.isnad_renderer import render_hadith_isnad
 from eshia_research.translation.planner import build_translation_plan, persist_translation_plan
 from eshia_research.translation.qa import assess_translation
-from eshia_research.translation.publication import source_hashes_are_current
+from eshia_research.translation.publication import (
+    TRANSLATION_SCOPE_REPORT,
+    TRANSLATION_SCOPE_SPLIT,
+    source_hashes_are_current,
+    translation_source_scope,
+)
 from eshia_research.translation.text import sha256_text
 from eshia_research.translation.thaqalayn_importer import (
     ThaqalaynRecord,
@@ -304,3 +309,97 @@ def test_source_hashes_are_current_requires_the_canonical_hasher(db: Session):
     assert raw_sha256(hadith.matn_raw) != sha256_text(hadith.matn_raw)
     assert source_hashes_are_current(pin(sha256_text), hadith) is True
     assert source_hashes_are_current(pin(raw_sha256), hadith) is False
+
+
+def test_a_moved_split_still_publishes_at_report_scope(db: Session):
+    """Re-splitting a report must not hide a translation of that report.
+
+    Bab ul Qaim's Faqih English opens with the attribution — "Imam Jafar ibn
+    Muhammad Al-Sadiq (as) said:" — so it renders the whole report. Moving
+    that attribution out of the matn and into the isnad, which the Faqih
+    direct-attribution pass did to 872 reports, changed both split hashes
+    without altering one character of what was translated.
+    """
+    book = add_book(db, "11021")
+    # As imported: al-Saduq attributes the report straight to the Imam, so the
+    # whole thing sat in the matn with no chain at all.
+    hadith = add_hadith(
+        db,
+        book,
+        "faqih-1",
+        1,
+        "وقال الصادق جعفر بن محمد ع كل ماء طاهر إلا ما علمت أنه قذر.",
+        isnad="",
+    )
+    hadith.isnad_raw = None
+    hadith.matn_raw = hadith.full_text_raw
+    db.flush()
+
+    translation = HadithTranslation(
+        hadith_id=hadith.id,
+        language="en",
+        translation_version=TRANSLATION_VERSION,
+        source_full_sha256=sha256_text(hadith.full_text_raw),
+        source_isnad_sha256=None,
+        source_matn_sha256=sha256_text(hadith.matn_raw),
+        matn_translation="Imam Jafar al-Sadiq said: All water is pure...",
+        status="published",
+        risk_level="green",
+    )
+    assert translation_source_scope(translation, hadith) == TRANSLATION_SCOPE_SPLIT
+
+    # The direct-attribution pass surfaces the Imam as a one-node chain. Both
+    # halves are still the report's own words; only the boundary moved.
+    hadith.isnad_raw = "وقال الصادق جعفر بن محمد ع"
+    hadith.matn_raw = "كل ماء طاهر إلا ما علمت أنه قذر."
+    db.flush()
+
+    assert source_hashes_are_current(translation, hadith) is False
+    assert translation_source_scope(translation, hadith) == TRANSLATION_SCOPE_REPORT
+
+
+def test_a_matn_that_is_not_the_reports_own_words_is_hidden(db: Session):
+    # The line between a re-split and a corruption: both move the split
+    # hashes, only one leaves parts the report actually contains.
+    book = add_book(db, "11021")
+    hadith = add_hadith(db, book, "faqih-4", 4, "المتن الأصلي.")
+    translation = HadithTranslation(
+        hadith_id=hadith.id,
+        language="en",
+        translation_version=TRANSLATION_VERSION,
+        source_full_sha256=sha256_text(hadith.full_text_raw),
+        source_isnad_sha256=sha256_text(hadith.isnad_raw),
+        source_matn_sha256=sha256_text(hadith.matn_raw),
+        matn_translation="The original body.",
+        status="published",
+        risk_level="green",
+    )
+    hadith.matn_raw = "نص لا يوجد في الرواية إطلاقا."
+    db.flush()
+
+    assert translation_source_scope(translation, hadith) is None
+
+
+def test_a_changed_report_still_hides_its_translation(db: Session):
+    # The guard that matters is unchanged: if the Arabic itself moved, nothing
+    # about the stored English can be trusted against it.
+    book = add_book(db, "11021")
+    hadith = add_hadith(db, book, "faqih-2", 2, "المتن الأصلي.")
+    translation = HadithTranslation(
+        hadith_id=hadith.id,
+        language="en",
+        translation_version=TRANSLATION_VERSION,
+        source_full_sha256=sha256_text(hadith.full_text_raw),
+        source_isnad_sha256=sha256_text(hadith.isnad_raw),
+        source_matn_sha256=sha256_text(hadith.matn_raw),
+        matn_translation="The original body.",
+        status="published",
+        risk_level="green",
+    )
+    assert translation_source_scope(translation, hadith) == TRANSLATION_SCOPE_SPLIT
+
+    hadith.full_text_raw = "نص مختلف تماما."
+    hadith.matn_raw = "نص مختلف تماما."
+    db.flush()
+
+    assert translation_source_scope(translation, hadith) is None
