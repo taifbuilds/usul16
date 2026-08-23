@@ -1892,9 +1892,18 @@ def _kitab_order_key(volume: int, kitab_id: str) -> tuple[int, int, str]:
         return (volume, 1 << 30, kitab_id)
 
 
+def _volume_chapter_runs(db: Session, book_id: int) -> dict[int, list[ChapterSummary]]:
+    """Chapter runs grouped by volume, for books without Thaqalayn maps."""
+    by_vol: dict[int, list[ChapterSummary]] = {}
+    for run in _chapter_runs(db, book_id):
+        by_vol.setdefault(run.volume or 1, []).append(run)
+    return by_vol
+
+
 @router.get("/books/{book_id}/kitabs", response_model=list[KitabSummary])
 def list_book_kitabs(book_id: int, db: Session = Depends(get_db)) -> list[KitabSummary]:
-    """Thaqalayn kitab (book-section) index for a structured book."""
+    """Kitab (book-section) index — Thaqalayn structure when available,
+    otherwise volumes with their chapter titles."""
     _public_book_or_404(db, book_id)
     rows = (
         db.query(
@@ -1910,34 +1919,48 @@ def list_book_kitabs(book_id: int, db: Session = Depends(get_db)) -> list[KitabS
         )
         .all()
     )
-    agg: dict[tuple[int, str], dict] = {}
-    for volume, kitab_id, kitab_name_en, chapter_id in rows:
-        key = (volume, kitab_id)
-        entry = agg.setdefault(
-            key,
-            {
-                "volume": volume,
-                "kitab_id": kitab_id,
-                "name_en": kitab_name_en,
-                "chapters": set(),
-                "hadith_count": 0,
-            },
-        )
-        entry["chapters"].add(chapter_id)
-        entry["hadith_count"] += 1
-    result = [
+    if rows:
+        agg: dict[tuple[int, str], dict] = {}
+        for volume, kitab_id, kitab_name_en, chapter_id in rows:
+            key = (volume, kitab_id)
+            entry = agg.setdefault(
+                key,
+                {
+                    "volume": volume,
+                    "kitab_id": kitab_id,
+                    "name_en": kitab_name_en,
+                    "chapters": set(),
+                    "hadith_count": 0,
+                },
+            )
+            entry["chapters"].add(chapter_id)
+            entry["hadith_count"] += 1
+        result = [
+            KitabSummary(
+                kitab_id=e["kitab_id"],
+                name_en=e["name_en"],
+                volume=e["volume"],
+                chapter_count=len(e["chapters"]),
+                hadith_count=e["hadith_count"],
+                first_chapter_id=min(e["chapters"]),
+            )
+            for e in agg.values()
+        ]
+        result.sort(key=lambda k: _kitab_order_key(k.volume, k.kitab_id))
+        return result
+
+    by_vol = _volume_chapter_runs(db, book_id)
+    return [
         KitabSummary(
-            kitab_id=e["kitab_id"],
-            name_en=e["name_en"],
-            volume=e["volume"],
-            chapter_count=len(e["chapters"]),
-            hadith_count=e["hadith_count"],
-            first_chapter_id=min(e["chapters"]),
+            kitab_id=str(vol),
+            name_en=f"Volume {vol}",
+            volume=vol,
+            chapter_count=len(chapters),
+            hadith_count=sum(c.hadith_count for c in chapters),
+            first_chapter_id=1,
         )
-        for e in agg.values()
+        for vol, chapters in sorted(by_vol.items())
     ]
-    result.sort(key=lambda k: _kitab_order_key(k.volume, k.kitab_id))
-    return result
 
 
 @router.get(
@@ -1975,29 +1998,41 @@ def list_kitab_chapters(
     if volume is not None:
         query = query.filter(ThaqalaynStructureMap.volume == volume)
     rows = query.all()
-    if not rows:
+    if rows:
+        agg: dict[int, dict] = {}
+        for chapter_id, chapter_name_en, number_in_chapter in rows:
+            entry = agg.setdefault(
+                chapter_id,
+                {"chapter_id": chapter_id, "name_en": chapter_name_en, "count": 0, "nums": []},
+            )
+            entry["count"] += 1
+            if number_in_chapter is not None:
+                entry["nums"].append(number_in_chapter)
+        result = [
+            ThaqalaynChapterSummary(
+                chapter_id=e["chapter_id"],
+                name_en=e["name_en"],
+                hadith_count=e["count"],
+                number_min=min(e["nums"]) if e["nums"] else None,
+                number_max=max(e["nums"]) if e["nums"] else None,
+            )
+            for e in agg.values()
+        ]
+        result.sort(key=lambda c: c.chapter_id)
+        return result
+
+    vol = volume or int(kitab_id)
+    vol_chapters = _volume_chapter_runs(db, book_id).get(vol, [])
+    if not vol_chapters:
         raise HTTPException(status_code=404, detail="Kitab not found")
-    agg: dict[int, dict] = {}
-    for chapter_id, chapter_name_en, number_in_chapter in rows:
-        entry = agg.setdefault(
-            chapter_id,
-            {"chapter_id": chapter_id, "name_en": chapter_name_en, "count": 0, "nums": []},
-        )
-        entry["count"] += 1
-        if number_in_chapter is not None:
-            entry["nums"].append(number_in_chapter)
-    result = [
+    return [
         ThaqalaynChapterSummary(
-            chapter_id=e["chapter_id"],
-            name_en=e["name_en"],
-            hadith_count=e["count"],
-            number_min=min(e["nums"]) if e["nums"] else None,
-            number_max=max(e["nums"]) if e["nums"] else None,
+            chapter_id=i + 1,
+            name_en=run.title or f"Chapter {i + 1}",
+            hadith_count=run.hadith_count,
         )
-        for e in agg.values()
+        for i, run in enumerate(vol_chapters)
     ]
-    result.sort(key=lambda c: c.chapter_id)
-    return result
 
 
 @router.get(
@@ -2028,18 +2063,34 @@ def list_kitab_chapter_hadiths(
     if volume is not None:
         maps_query = maps_query.filter(ThaqalaynStructureMap.volume == volume)
     maps = maps_query.all()
-    if not maps:
+    if maps:
+        order = {
+            hid: (num if num is not None else 1 << 30, i)
+            for i, (hid, num) in enumerate(maps)
+        }
+        hadiths = (
+            _visible_hadith_query(db, book_id)
+            .filter(Hadith.id.in_(list(order)))
+            .all()
+        )
+        hadiths.sort(key=lambda h: order.get(h.id, (1 << 30, 0)))
+        hadiths = _attach_public_translations(db, _apply_approved_splits(db, hadiths))
+        return _attach_reader_extras(db, hadiths)
+
+    vol = volume or int(kitab_id)
+    vol_chapters = _volume_chapter_runs(db, book_id).get(vol, [])
+    if chapter_id < 1 or chapter_id > len(vol_chapters):
         raise HTTPException(status_code=404, detail="Chapter not found")
-    order = {
-        hid: (num if num is not None else 1 << 30, i)
-        for i, (hid, num) in enumerate(maps)
-    }
+    run = vol_chapters[chapter_id - 1]
     hadiths = (
         _visible_hadith_query(db, book_id)
-        .filter(Hadith.id.in_(list(order)))
+        .filter(
+            Hadith.sequence_in_book >= run.start_sequence,
+            Hadith.sequence_in_book <= run.end_sequence,
+        )
+        .order_by(Hadith.sequence_in_book)
         .all()
     )
-    hadiths.sort(key=lambda h: order.get(h.id, (1 << 30, 0)))
     hadiths = _attach_public_translations(db, _apply_approved_splits(db, hadiths))
     return _attach_reader_extras(db, hadiths)
 

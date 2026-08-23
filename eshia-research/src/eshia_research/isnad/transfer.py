@@ -39,7 +39,7 @@ import hashlib
 import json
 from typing import Any
 
-from sqlalchemy import delete, func, select
+from sqlalchemy import delete, func, or_, select
 from sqlalchemy.orm import Session
 
 from eshia_research.models import (
@@ -56,6 +56,17 @@ from eshia_research.models import (
 )
 
 TRANSFER_FORMAT = "usul16.chain-delta.v1"
+
+_SQLITE_VAR_LIMIT = 900
+
+
+def _batched_in(db: Session, stmt_fn, column, ids: list):
+    """Run a SELECT in batches to stay under SQLite's variable limit."""
+    results = []
+    for i in range(0, len(ids), _SQLITE_VAR_LIMIT):
+        batch = ids[i : i + _SQLITE_VAR_LIMIT]
+        results.extend(db.scalars(stmt_fn(column.in_(batch))).all())
+    return results
 
 # The split that produced the chains. Carried so the reader's boundary and the
 # chain layer cannot disagree after a deploy.
@@ -172,27 +183,34 @@ def _collect(
     if not by_id:
         return {}, {"persons": [], "narrators": []}
 
-    chains = db.scalars(
-        select(Chain).where(Chain.hadith_id.in_(list(by_id))).order_by(Chain.hadith_id, Chain.chain_number)
-    ).all()
+    chains = _batched_in(
+        db,
+        lambda clause: select(Chain).where(clause).order_by(Chain.hadith_id, Chain.chain_number),
+        Chain.hadith_id,
+        list(by_id),
+    )
     chain_ids = [c.id for c in chains]
 
     nodes_by_chain: dict[int, list[ChainNode]] = {}
     node_ids: list[int] = []
     if chain_ids:
-        for node in db.scalars(
-            select(ChainNode).where(ChainNode.chain_id.in_(chain_ids)).order_by(ChainNode.chain_id, ChainNode.position)
-        ).all():
+        for node in _batched_in(
+            db,
+            lambda clause: select(ChainNode).where(clause).order_by(ChainNode.chain_id, ChainNode.position),
+            ChainNode.chain_id,
+            chain_ids,
+        ):
             nodes_by_chain.setdefault(node.chain_id, []).append(node)
             node_ids.append(node.id)
 
     resolutions_by_node: dict[int, list[MentionResolution]] = {}
     if node_ids:
-        for row in db.scalars(
-            select(MentionResolution)
-            .where(MentionResolution.chain_node_id.in_(node_ids))
-            .order_by(MentionResolution.chain_node_id, MentionResolution.rank)
-        ).all():
+        for row in _batched_in(
+            db,
+            lambda clause: select(MentionResolution).where(clause).order_by(MentionResolution.chain_node_id, MentionResolution.rank),
+            MentionResolution.chain_node_id,
+            node_ids,
+        ):
             resolutions_by_node.setdefault(row.chain_node_id, []).append(row)
 
     # Names for every referenced identity, so the target can check rather than
@@ -370,9 +388,12 @@ def _validate(
     public_ids = [entry["public_id"] for entry in entries]
     found = {
         h.public_id: h
-        for h in db.scalars(
-            select(Hadith).where(Hadith.public_id.in_(public_ids), Hadith.book_id == book.id)
-        ).all()
+        for h in _batched_in(
+            db,
+            lambda clause: select(Hadith).where(clause, Hadith.book_id == book.id),
+            Hadith.public_id,
+            public_ids,
+        )
     }
     unknown = sorted(set(public_ids) - set(found))
     if unknown:
@@ -409,7 +430,12 @@ def _validate(
             return []
         here = {
             row.id: row.canonical_name_ar
-            for row in db.scalars(select(model).where(model.id.in_(list(wanted)))).all()
+            for row in _batched_in(
+                db,
+                lambda clause: select(model).where(clause),
+                model.id,
+                list(wanted),
+            )
         }
         mismatched = [
             f"{i} is {here[i]!r} here but {name!r} in the delta"
@@ -472,18 +498,20 @@ def import_delta(db: Session, delta: dict[str, Any], *, dry_run: bool = False) -
 
     if hadith_ids:
         # Scoped to exactly the reports in this delta. Nothing else in the
-        # corpus is reachable from here.
-        old_chain_ids = select(Chain.id).where(Chain.hadith_id.in_(hadith_ids))
-        old_node_ids = select(ChainNode.id).where(ChainNode.chain_id.in_(old_chain_ids))
-        for model in (
-            PersonResolutionExternalReview,
-            PersonResolutionDecision,
-            MentionResolution,
-            ChainNodeCandidate,
-        ):
-            db.execute(delete(model).where(model.chain_node_id.in_(old_node_ids)))
-        db.execute(delete(ChainNode).where(ChainNode.chain_id.in_(old_chain_ids)))
-        db.execute(delete(Chain).where(Chain.hadith_id.in_(hadith_ids)))
+        # corpus is reachable from here. Batched to stay under SQLite's limit.
+        for i in range(0, len(hadith_ids), _SQLITE_VAR_LIMIT):
+            batch = hadith_ids[i : i + _SQLITE_VAR_LIMIT]
+            old_chain_ids = select(Chain.id).where(Chain.hadith_id.in_(batch))
+            old_node_ids = select(ChainNode.id).where(ChainNode.chain_id.in_(old_chain_ids))
+            for model in (
+                PersonResolutionExternalReview,
+                PersonResolutionDecision,
+                MentionResolution,
+                ChainNodeCandidate,
+            ):
+                db.execute(delete(model).where(model.chain_node_id.in_(old_node_ids)))
+            db.execute(delete(ChainNode).where(ChainNode.chain_id.in_(old_chain_ids)))
+            db.execute(delete(Chain).where(Chain.hadith_id.in_(batch)))
         db.flush()
 
     for entry in entries:
