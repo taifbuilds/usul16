@@ -93,6 +93,43 @@ _RESOLUTION_FIELDS = (
     "resolver_version",
 )
 
+# Identities the delta references travel with it. Resolving a chain can mint a
+# person the target has never seen — a `latent` one asserted by a nasab with no
+# Mu'jam entry behind it — and such a person exists only in the database that
+# minted it. Without this the import would either refuse or, worse, drop the
+# resolution and quietly publish a shorter chain.
+#
+# `primary_entry_id` is deliberately not carried: it points into `person_entries`,
+# whose ids are not part of this contract. A minted person has none anyway.
+_PERSON_FIELDS = (
+    "canonical_name_ar",
+    "canonical_name_norm",
+    "kunya",
+    "laqab",
+    "nisba",
+    "father_name_norm",
+    "death_year_note",
+    "generation_layer",
+    "kind",
+    "origin",
+    "notes",
+)
+
+_NARRATOR_FIELDS = (
+    "canonical_name_ar",
+    "canonical_name_norm",
+    "canonical_name_en",
+    "kunya",
+    "laqab",
+    "nisba",
+    "father_name",
+    "death_year_note",
+    "generation_layer",
+    "school_or_sect",
+    "summary_status",
+    "notes",
+)
+
 
 def _canonical(payload: Any) -> str:
     return json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
@@ -118,8 +155,14 @@ def _book_or_raise(db: Session, source_book_id: str) -> Book:
     return book
 
 
-def _collect(db: Session, source_book_id: str) -> dict[str, dict[str, Any]]:
-    """Everything this module would ship for a book, keyed by public_id."""
+def _collect(
+    db: Session, source_book_id: str
+) -> tuple[dict[str, dict[str, Any]], dict[str, list[dict[str, Any]]]]:
+    """Everything this module would ship for a book.
+
+    Returns the per-hadith material keyed by public_id, and the identity
+    rows those hadiths reference.
+    """
     book = _book_or_raise(db, source_book_id)
 
     hadiths = db.scalars(
@@ -127,7 +170,7 @@ def _collect(db: Session, source_book_id: str) -> dict[str, dict[str, Any]]:
     ).all()
     by_id = {h.id: h for h in hadiths}
     if not by_id:
-        return {}
+        return {}, {"persons": [], "narrators": []}
 
     chains = db.scalars(
         select(Chain).where(Chain.hadith_id.in_(list(by_id))).order_by(Chain.hadith_id, Chain.chain_number)
@@ -166,22 +209,28 @@ def _collect(db: Session, source_book_id: str) -> dict[str, dict[str, Any]]:
         for n in nodes
         if n.canonical_narrator_id is not None
     }
-    person_names = (
-        {
-            p.id: p.canonical_name_ar
-            for p in db.scalars(select(Person).where(Person.id.in_(list(person_ids)))).all()
-        }
+    person_rows = (
+        db.scalars(select(Person).where(Person.id.in_(list(person_ids)))).all()
         if person_ids
-        else {}
+        else []
     )
-    narrator_names = (
-        {
-            n.id: n.canonical_name_ar
-            for n in db.scalars(select(Narrator).where(Narrator.id.in_(list(narrator_ids)))).all()
-        }
+    narrator_rows = (
+        db.scalars(select(Narrator).where(Narrator.id.in_(list(narrator_ids)))).all()
         if narrator_ids
-        else {}
+        else []
     )
+    person_names = {p.id: p.canonical_name_ar for p in person_rows}
+    narrator_names = {n.id: n.canonical_name_ar for n in narrator_rows}
+    identities = {
+        "persons": [
+            {"id": p.id, **{field: getattr(p, field) for field in _PERSON_FIELDS}}
+            for p in person_rows
+        ],
+        "narrators": [
+            {"id": n.id, **{field: getattr(n, field) for field in _NARRATOR_FIELDS}}
+            for n in narrator_rows
+        ],
+    }
 
     chains_by_hadith: dict[int, list[dict[str, Any]]] = {}
     for chain in chains:
@@ -213,12 +262,12 @@ def _collect(db: Session, source_book_id: str) -> dict[str, dict[str, Any]]:
             "split": {field: getattr(hadith, field) for field in _SPLIT_FIELDS},
             "chains": chains_by_hadith.get(hadith.id, []),
         }
-    return collected
+    return collected, identities
 
 
 def build_manifest(db: Session, source_book_id: str) -> dict[str, Any]:
     """Fingerprint what THIS database holds for a book. Run on the target."""
-    collected = _collect(db, source_book_id)
+    collected, _ = _collect(db, source_book_id)
     return {
         "format": TRANSFER_FORMAT,
         "source_book_id": source_book_id,
@@ -239,7 +288,7 @@ def export_delta(
                 f"{manifest.get('source_book_id')!r} != {source_book_id!r}"
             )
 
-    collected = _collect(db, source_book_id)
+    collected, identities = _collect(db, source_book_id)
     known = (manifest or {}).get("entries", {})
 
     changed = []
@@ -255,10 +304,33 @@ def export_delta(
     # have, a human needs to know before anything is removed.
     missing_locally = sorted(set(known) - set(collected))
 
+    # Only the identities the shipped hadiths actually reference.
+    referenced_persons = {
+        resolution["person_id"]
+        for entry in changed
+        for chain in entry["chains"]
+        for node in chain["nodes"]
+        for resolution in node["resolutions"]
+        if resolution.get("person_id") is not None
+    }
+    referenced_narrators = {
+        node["canonical_narrator_id"]
+        for entry in changed
+        for chain in entry["chains"]
+        for node in chain["nodes"]
+        if node.get("canonical_narrator_id") is not None
+    }
+
     return {
         "format": TRANSFER_FORMAT,
         "source_book_id": source_book_id,
         "entries": changed,
+        "identities": {
+            "persons": [p for p in identities["persons"] if p["id"] in referenced_persons],
+            "narrators": [
+                n for n in identities["narrators"] if n["id"] in referenced_narrators
+            ],
+        },
         "summary": {
             "changed": len(changed),
             "unchanged": unchanged,
@@ -281,7 +353,9 @@ def read_delta(path: str) -> dict[str, Any]:
     return delta
 
 
-def _validate(db: Session, delta: dict[str, Any]) -> dict[int, Hadith]:
+def _validate(
+    db: Session, delta: dict[str, Any]
+) -> tuple[dict[str, Hadith], list[int], list[int]]:
     """Refuse the whole delta unless every identifier in it checks out.
 
     Runs before any write. Three classes of failure are fatal, and each would
@@ -321,24 +395,26 @@ def _validate(db: Session, delta: dict[str, Any]) -> dict[int, Hadith]:
                     if resolution.get("person_id") is not None:
                         wanted_persons[resolution["person_id"]] = resolution.get("person_name")
 
-    def check(model, wanted: dict[int, str | None], label: str) -> None:
+    carried = delta.get("identities", {})
+
+    def check(model, wanted: dict[int, str | None], label: str, section: str) -> list[int]:
+        """Agree about every identity, and report the ones we must create.
+
+        An id the target lacks is not automatically an error: resolving a
+        chain can mint a person that exists only where it was minted. It is
+        an error when the delta cannot supply it either, and it is always an
+        error when both sides know the id and disagree about who it is.
+        """
         if not wanted:
-            return
+            return []
         here = {
             row.id: row.canonical_name_ar
             for row in db.scalars(select(model).where(model.id.in_(list(wanted)))).all()
         }
-        missing = sorted(set(wanted) - set(here))
-        if missing:
-            raise ValueError(
-                f"{len(missing)} {label} id(s) in the delta do not exist here: "
-                + ", ".join(str(i) for i in missing[:5])
-                + ("…" if len(missing) > 5 else "")
-            )
         mismatched = [
             f"{i} is {here[i]!r} here but {name!r} in the delta"
             for i, name in wanted.items()
-            if name is not None and here[i] != name
+            if i in here and name is not None and here[i] != name
         ]
         if mismatched:
             raise ValueError(
@@ -347,19 +423,52 @@ def _validate(db: Session, delta: dict[str, Any]) -> dict[int, Hadith]:
                 + "; ".join(mismatched[:3])
                 + ("…" if len(mismatched) > 3 else "")
             )
+        missing = sorted(set(wanted) - set(here))
+        supplied = {row["id"] for row in carried.get(section, [])}
+        unsupplied = [i for i in missing if i not in supplied]
+        if unsupplied:
+            raise ValueError(
+                f"{len(unsupplied)} {label} id(s) are neither here nor carried by the "
+                "delta: "
+                + ", ".join(str(i) for i in unsupplied[:5])
+                + ("…" if len(unsupplied) > 5 else "")
+            )
+        return missing
 
-    check(Person, wanted_persons, "person")
-    check(Narrator, wanted_narrators, "narrator")
-    return found
+    missing_persons = check(Person, wanted_persons, "person", "persons")
+    missing_narrators = check(Narrator, wanted_narrators, "narrator", "narrators")
+    return found, missing_persons, missing_narrators
 
 
 def import_delta(db: Session, delta: dict[str, Any], *, dry_run: bool = False) -> dict[str, int]:
     """Validate everything, then replace those hadiths' chains in one write."""
-    found = _validate(db, delta)
+    found, missing_persons, missing_narrators = _validate(db, delta)
     entries = delta["entries"]
+    carried = delta.get("identities", {})
 
     hadith_ids = [found[entry["public_id"]].id for entry in entries]
-    stats = {"hadiths": len(entries), "chains": 0, "nodes": 0, "resolutions": 0}
+    stats = {
+        "hadiths": len(entries),
+        "chains": 0,
+        "nodes": 0,
+        "resolutions": 0,
+        "persons_created": 0,
+        "narrators_created": 0,
+    }
+
+    # Identities first: the rows below reference them.
+    for section, ids, model, fields, counter in (
+        ("persons", missing_persons, Person, _PERSON_FIELDS, "persons_created"),
+        ("narrators", missing_narrators, Narrator, _NARRATOR_FIELDS, "narrators_created"),
+    ):
+        if not ids:
+            continue
+        supplied = {row["id"]: row for row in carried.get(section, [])}
+        for identity_id in ids:
+            row = supplied[identity_id]
+            db.add(model(id=identity_id, **{field: row.get(field) for field in fields}))
+            stats[counter] += 1
+        db.flush()
 
     if hadith_ids:
         # Scoped to exactly the reports in this delta. Nothing else in the

@@ -235,3 +235,66 @@ def test_import_does_not_touch_another_book(tmp_path):
 
     assert target.scalar(select(func.count()).select_from(PersonResolutionDecision)) == 1
     assert target.get(Chain, kafi_chain.id) is not None
+
+
+def test_a_person_minted_locally_travels_with_the_chain():
+    # Resolving a chain can mint a `latent` person from a nasab with no Mu'jam
+    # entry behind it. Such a person exists only where it was minted, so the
+    # delta has to carry it or the resolution would be lost on arrival.
+    source = _session()
+    _corpus(source)
+    minted = Person(
+        id=15644,
+        canonical_name_ar="المبارك",
+        canonical_name_norm="المبارک",
+        kind="latent",
+        origin="nasab_kinship",
+        notes="minted as father asserted by nasab",
+    )
+    source.add(minted)
+    source.flush()
+    node = source.scalars(select(ChainNode)).first()
+    source.add(
+        MentionResolution(
+            chain_node_id=node.id,
+            person_id=15644,
+            rank=2,
+            status="latent",
+            resolver_version="v1",
+        )
+    )
+    source.commit()
+
+    target = _session()
+    _corpus(target, with_chain=False)
+    assert target.get(Person, 15644) is None
+
+    delta = export_delta(source, "11021", build_manifest(target, "11021"))
+    assert [p["id"] for p in delta["identities"]["persons"]] == [3063, 15644] or (
+        15644 in [p["id"] for p in delta["identities"]["persons"]]
+    )
+
+    stats = import_delta(target, delta)
+
+    assert stats["persons_created"] == 1
+    arrived = target.get(Person, 15644)
+    assert arrived is not None
+    assert arrived.canonical_name_ar == "المبارك"
+    assert arrived.kind == "latent"
+
+
+def test_import_refuses_a_person_neither_side_can_supply():
+    source = _session()
+    _corpus(source)
+    target = _session()
+    _corpus(target, with_chain=False)
+
+    delta = export_delta(source, "11021", build_manifest(target, "11021"))
+    # A delta whose identity section has been stripped cannot vouch for the
+    # ids its resolutions use.
+    delta["identities"] = {"persons": [], "narrators": []}
+    target.query(Person).filter(Person.id == 3063).delete()
+    target.commit()
+
+    with pytest.raises(ValueError, match="neither here nor carried"):
+        import_delta(target, delta)

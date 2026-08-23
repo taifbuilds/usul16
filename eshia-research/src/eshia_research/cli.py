@@ -2546,7 +2546,9 @@ def import_chain_delta_cmd(
     typer.echo(
         f"{prefix}{delta['source_book_id']}: hadiths={stats['hadiths']} "
         f"chains={stats['chains']} nodes={stats['nodes']} "
-        f"resolutions={stats['resolutions']}."
+        f"resolutions={stats['resolutions']} "
+        f"persons_created={stats['persons_created']} "
+        f"narrators_created={stats['narrators_created']}."
     )
     typer.echo(
         f"Target now holds chains={counts['chains']} nodes={counts['nodes']} "
