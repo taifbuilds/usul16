@@ -1,0 +1,5 @@
+# Shell scripts must keep LF. deploy-usul16.sh runs on the Linux server, where
+# a CRLF shebang line makes the interpreter unfindable and the deploy fails
+# with a message that does not mention line endings. The others run locally
+# under Git Bash, which is no happier about them.
+*.sh text eol=lf

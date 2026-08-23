@@ -2449,5 +2449,111 @@ def import_commentary_delta_cmd(
     )
 
 
+@app.command("chain-manifest")
+def chain_manifest_cmd(
+    source_book_id: str = typer.Argument(..., help="e.g. 11021 for Faqih"),
+    output: str = typer.Option(..., "--output", help="Where to write the manifest JSON"),
+) -> None:
+    """Fingerprint the parsed chains THIS database holds for a book.
+
+    Run on the deployment target. The result is what makes the export a real
+    delta instead of a full dump.
+    """
+    import json
+
+    from eshia_research.isnad.transfer import build_manifest
+
+    db = SessionLocal()
+    try:
+        manifest = build_manifest(db, source_book_id)
+    except ValueError as error:
+        typer.echo(f"REFUSED: {error}", err=True)
+        raise typer.Exit(code=1)
+    finally:
+        db.close()
+    with open(output, "w", encoding="utf-8") as handle:
+        json.dump(manifest, handle, ensure_ascii=False)
+    typer.echo(
+        f"Manifest for {source_book_id}: {len(manifest['entries'])} hadith(s) -> {output}"
+    )
+
+
+@app.command("export-chain-delta")
+def export_chain_delta_cmd(
+    source_book_id: str = typer.Argument(..., help="e.g. 11021 for Faqih"),
+    output: str = typer.Option(..., "--output", help="Destination .json.gz"),
+    manifest: str | None = typer.Option(
+        None, "--manifest", help="Target's manifest; omit to export every hadith"
+    ),
+) -> None:
+    """Export only the hadiths whose split or chains differ from the target."""
+    import json
+
+    from eshia_research.isnad.transfer import export_delta, write_delta
+
+    loaded = None
+    if manifest:
+        with open(manifest, "r", encoding="utf-8") as handle:
+            loaded = json.load(handle)
+
+    db = SessionLocal()
+    try:
+        delta = export_delta(db, source_book_id, loaded)
+    except ValueError as error:
+        typer.echo(f"REFUSED: {error}", err=True)
+        raise typer.Exit(code=1)
+    finally:
+        db.close()
+    write_delta(delta, output)
+    summary = delta["summary"]
+    typer.echo(
+        f"Delta for {source_book_id}: changed={summary['changed']} "
+        f"unchanged={summary['unchanged']} "
+        f"(of {summary['total_local_hadiths']} local hadiths) -> {output}"
+    )
+    stranded = summary["present_on_target_only"]
+    if stranded:
+        typer.echo(
+            f"NOTE: {len(stranded)} hadith(s) exist on the target but not here; "
+            "they are left alone, never deleted: "
+            + ", ".join(stranded[:5])
+            + ("..." if len(stranded) > 5 else "")
+        )
+
+
+@app.command("import-chain-delta")
+def import_chain_delta_cmd(
+    input_path: str = typer.Argument(..., help="The .json.gz produced by export"),
+    dry_run: bool = typer.Option(
+        False, "--dry-run", help="Validate and roll back without writing"
+    ),
+) -> None:
+    """Validate every public_id and identity, then apply in one transaction."""
+    from eshia_research.isnad.transfer import read_delta, import_delta, verify_target
+
+    delta = read_delta(input_path)
+    db = SessionLocal()
+    try:
+        stats = import_delta(db, delta, dry_run=dry_run)
+        counts = verify_target(db, delta["source_book_id"])
+    except ValueError as error:
+        db.rollback()
+        typer.echo(f"REFUSED: {error}", err=True)
+        raise typer.Exit(code=1)
+    finally:
+        db.close()
+    prefix = "DRY RUN - nothing written. " if dry_run else ""
+    typer.echo(
+        f"{prefix}{delta['source_book_id']}: hadiths={stats['hadiths']} "
+        f"chains={stats['chains']} nodes={stats['nodes']} "
+        f"resolutions={stats['resolutions']}."
+    )
+    typer.echo(
+        f"Target now holds chains={counts['chains']} nodes={counts['nodes']} "
+        f"resolutions={counts['resolutions']} needs_review={counts['needs_review']}."
+    )
+
+
+
 if __name__ == "__main__":
     app()
