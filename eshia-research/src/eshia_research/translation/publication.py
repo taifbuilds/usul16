@@ -212,7 +212,9 @@ def _comparison_key(text: str | None) -> str:
     return _NON_WORD_RE.sub("", source_norm(stripped))
 
 
-def report_contains_its_parts(hadith: Hadith) -> bool:
+def report_contains_its_parts(
+    full_text_raw: str | None, isnad_raw: str | None, matn_raw: str | None
+) -> bool:
     """Are the isnad and matn still drawn from the report they belong to?
 
     This is what separates a re-split from a corruption. Both move the split
@@ -221,14 +223,41 @@ def report_contains_its_parts(hadith: Hadith) -> bool:
     moved, it is a body that was replaced, and no translation of the report
     may be shown beside it.
     """
-    report = _comparison_key(hadith.full_text_raw)
+    report = _comparison_key(full_text_raw)
     if not report:
         return False
-    matn = _comparison_key(hadith.matn_raw)
+    matn = _comparison_key(matn_raw)
     if not matn or matn not in report:
         return False
-    isnad = _comparison_key(hadith.isnad_raw)
+    isnad = _comparison_key(isnad_raw)
     return not isnad or isnad in report
+
+
+def source_scope_from_values(
+    *,
+    source_full_sha256: str,
+    source_isnad_sha256: str | None,
+    source_matn_sha256: str,
+    full_text_raw: str,
+    isnad_raw: str | None,
+    matn_raw: str,
+) -> str | None:
+    """Column-oriented scope, for bulk metrics without ORM hydration.
+
+    The reader and the corpus-status counts must agree about what is public,
+    so both sides resolve scope here rather than each deciding for itself.
+    """
+    if source_full_sha256 != sha256_text(full_text_raw):
+        return None
+    expected_isnad_sha256 = sha256_text(isnad_raw) if isnad_raw else None
+    if (
+        source_isnad_sha256 == expected_isnad_sha256
+        and source_matn_sha256 == sha256_text(matn_raw)
+    ):
+        return TRANSLATION_SCOPE_SPLIT
+    if not report_contains_its_parts(full_text_raw, isnad_raw, matn_raw):
+        return None
+    return TRANSLATION_SCOPE_REPORT
 
 
 def translation_source_scope(
@@ -255,17 +284,14 @@ def translation_source_scope(
     at report scope, and the caller is told which it got so the interface can
     say what the English covers rather than implying it renders the matn alone.
     """
-    if translation.source_full_sha256 != sha256_text(hadith.full_text_raw):
-        return None
-    expected_isnad_sha256 = sha256_text(hadith.isnad_raw) if hadith.isnad_raw else None
-    if (
-        translation.source_isnad_sha256 == expected_isnad_sha256
-        and translation.source_matn_sha256 == sha256_text(hadith.matn_raw)
-    ):
-        return TRANSLATION_SCOPE_SPLIT
-    if not report_contains_its_parts(hadith):
-        return None
-    return TRANSLATION_SCOPE_REPORT
+    return source_scope_from_values(
+        source_full_sha256=translation.source_full_sha256,
+        source_isnad_sha256=translation.source_isnad_sha256,
+        source_matn_sha256=translation.source_matn_sha256,
+        full_text_raw=hadith.full_text_raw,
+        isnad_raw=hadith.isnad_raw,
+        matn_raw=hadith.matn_raw,
+    )
 
 
 def is_public_english_translation(

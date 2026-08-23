@@ -106,7 +106,7 @@ from eshia_research.translation.publication import (
     has_public_human_source_metadata,
     is_public_english_translation,
     public_english_translation_candidate_filters,
-    source_hash_values_are_current,
+    source_scope_from_values,
 )
 
 router = APIRouter(tags=["books"])
@@ -3146,7 +3146,7 @@ def get_corpus_status(db: Session = Depends(get_db)) -> CorpusStatusResponse:
         if (
             has_public_human_source_metadata(row.provenance_json)
             and not has_blocking_risk_flag(row.risk_flags)
-            and source_hash_values_are_current(
+            and source_scope_from_values(
                 source_full_sha256=row.source_full_sha256,
                 source_isnad_sha256=row.source_isnad_sha256,
                 source_matn_sha256=row.source_matn_sha256,
@@ -3154,6 +3154,7 @@ def get_corpus_status(db: Session = Depends(get_db)) -> CorpusStatusResponse:
                 isnad_raw=row.isnad_raw,
                 matn_raw=row.matn_raw,
             )
+            is not None
         ):
             counted_hadith_ids.add(row.hadith_id)
             translation_counts[row.book_id] = translation_counts.get(row.book_id, 0) + 1
