@@ -67,50 +67,55 @@ gold-standard pilot; the pipeline learned there is then applied to the other boo
 | Book | `source_book_id` | State |
 |---|---|---|
 | **Al-Kafi** | `11005` | ✅ Gold. 15,3xx hadiths, boundaries audited, chains + rijal resolved, topics, gradings, live English, on the graph. |
-| **Man la yahduruhu al-Faqih** | `11021` | 🟡 ~90%. Boundaries passed; Imams 96% resolved; 5,808/5,924 translated (98%). Phase D resolved 68 high-margin mentions. Mashyakha layer: 387 witnesses; **1,931 single-witness proposals + 567 ranked-candidate chains** of 2,907 abbreviated openings. **Gaps:** 116 untranslated, 798 `needs_review` chains, **0 gradings**, no graph publication. |
-| **Tahdhib al-Ahkam** | `10083` | 🔴 Raw. Hadiths+isnads extracted, no finishing work. ~14k — bigger than Al-Kafi. |
-| **Al-Istibsar** | `11002` | 🔴 Raw. Same, ~5.5k. |
-| **Bihar al-Anwar** | `71860` | 🔴 Crawled, **not hadith-extracted**. |
+| **Man la yahduruhu al-Faqih** | `11021` | 🟢 Graph-ready. 5,940 source rows / 5,924 visible reports; 5,828 translated; 5,924 topic-tagged. Rebuilt to 4,399 chains / 9,020 nodes with only 3 review chains; 65.6% person-resolved, 0 reliable generation violations, on the graph. **Gaps:** 0 gradings and one actionable English boundary case (`faqih-5751`). |
+| **Tahdhib al-Ahkam** | `10083` | 🟡 Chains + context resolved. 13,920 hadiths; 15,159 chains / 74,644 nodes; 319 review chains (97.9% clean); **47.5% person-resolved**, 26,578 ambiguous, 0 reliable generation violations, 83.0% clean-ledger Mu'jam corroboration floor. Still lacks translations, gradings, topics, structure enrichment and Mashyakha expansion. |
+| **Al-Istibsar** | `11002` | 🟡 Chains + context resolved. 5,557 hadiths; 6,196 chains / 30,847 nodes; 115 review chains (98.1% clean); **49.4% person-resolved**, 11,143 ambiguous, 0 reliable generation violations, 80.5% clean-ledger Mu'jam corroboration floor. Still lacks translations, gradings, topics, structure enrichment and Mashyakha expansion. |
+| **Bihar al-Anwar** | `71860` | 🔴 Extracted but unpolished. 49,629 hadiths; 38,641 have chains. No translations, gradings, topics or structure enrichment. |
 | Mu'jam Rijal al-Hadith | `14036` | ✅ 15,593 entries — the rijal spine. |
+| External rijāl witnesses | `ext-rijal-*` | ✅ 11,525 offline metadata witnesses from Najāshī, Kashshī, Ṭūsī, al-Fihrist and al-Ḥillī; hidden from the public book catalogue. |
 
 **Faqih/Tahdhib/Istibsar use abbreviated isnads** (al-Saduq's / al-Tusi's *mashyakha* holds
-the path to the first narrator). Faqih has a source-preserved expansion-**proposal** layer: it
-records 387 witnesses and proposes a virtual preface per abbreviated opening without changing
-the printed isnad, resolving identities, or adding graph edges. Not yet generalized to
-Tahdhib/Istibsar; proposals still need editorial review before any graph use.
+the path to the first narrator). Faqih's source-preserved proposal layer currently has 387
+paths, 2,799 mursal openings and 3,470 candidate rows: 1,868 proposed, 1,602 held for review,
+and 373 openings with no witness. It never rewrites the printed isnad or silently adds graph
+edges. Full counts and remaining publication work are in
+`eshia-research/docs/faqih_completeness.md`.
 
-**Mashyakha matcher `v2` (2026-08-10) — the 1,760 "unmatched" openings were mostly a parser
-and normalisation artefact, not missing sources.** Of 2,907 abbreviated openings, **1,931 now
-have exactly one source witness** (was 1,147), 567 carry ranked candidates, and 409 have no
-Mashyakha entry that can ever exist. Full account and the residual list in
-`eshia-research/docs/faqih_completeness.md`. What moved it:
+**Four Books chain pass (2026-08-23).** Faqih, Tahdhib and Istibsar were rebuilt after
+tokenizer coverage was extended for direct attribution, raised reports, co-narrators,
+compiler/editorial wrappers and citation apparatus. Across the two al-Tusi books this produced
+21,355 chains / 105,491 nodes with 434 review chains (98.0% clean), mostly genuine multi-route
+material. Person resolution then wrote 306,580 ranked candidate rows; both books pass the
+bare-form and reliable-generation gates. Faqih is now in `POLISHED_TRANSMISSION_BOOK_IDS`.
 
-- **The source parser was too literal.** The edition writes the same formula several ways
-  (`كل ما كان في هذا الكتاب عن …`, `فقد حدثني به`, a comma after `فيه` or `رويته`), and 11
-  entries were being held for review as parse failures — including **حماد بن عثمان**,
-  **علي بن جعفر** and **عبد الله بن المغيرة**, three of the commonest abbreviations.
-- **One entry can vouch for several narrators.** `عن محمد بن حمران؛ و جميل بن دراج` covers two
-  men, and `عن زرعة، عن سماعة` names a two-step opening whose first step is itself a target.
-  `mashyakha_paths.target_forms_json` now holds all of them (migration `a7c3e5b91d24`).
-- **Matching compared orthography, not identity.** The Mashyakha names its target in the
-  genitive after `عن` (`أبي بصير`); the report prints whatever case its sentence needs
-  (`أبو بصير`). Add the prepositions the tokenizer kept, trailing `بإسناده`, and the bracketed
-  dua (`الكليني- رحمة الله عليه-`), and a large share of "unmatched" was case and apparatus.
-  Stripped from **both sides** — same lesson as the Mir'at scorer.
+The identity-link builder also rejects explicitly negated same-person statements and removed
+the stale linkage between Muhammad b. al-Hasan b. Shammun and Muhammad b. Sham'un. This is why
+the al-Tusi reliable-generation gate is zero rather than accepting a source statement that
+explicitly says the identification is impossible.
 
-**It refuses answers it could give, deliberately.** `ابن X` never auto-resolves (`ابن محبوب`'s
-only matching target is the *wrong* Ibn Mahbub — uniqueness in a 383-form roster is not
-uniqueness in the tradition); subject-scoped targets (`شعيب بن واقد في المناهي`) are never a
-sole candidate; two witnesses for one narrator stay two. Every proposal carries its
-`match_method` tier, the target form it actually matched, and its candidate rank/count.
+Backups: `eshia_research.before-faqih-chain-completion.20260823.db` and
+`eshia_research.before-tusi-resolution.20260823.db`. Verification: 569 backend tests, Next.js
+production build, SQLite `quick_check=ok`, no dangling resolution or chain nodes. These local
+DB changes are **not deployed to production**.
 
-**Local change:** local head is `a7c3e5b91d24`. Pre-change state of both Mashyakha tables is
-`eshia-research/scratch_audit/mashyakha_tables_before_v2_20260810T180313Z.sql` (387 + 1,147
-rows); the wider 6.7 GB full-file backups from earlier that day are still on disk. The
-materializer is idempotent **and deletes proposals its rules no longer make**, so a rule change
-cannot leave orphaned evidence — but it never deletes an `approved`/`rejected` human ruling.
-Verified unchanged after the run: 9,586 Faqih chain nodes, 798 `needs_review` chains.
-`tests/test_mashyakha.py` is 20 tests; full suite 511 passing. **Not deployed to production.**
+**Al-Tusi context pass (2026-08-24).** The Phase-D resolver now admits independent Mu'jam
+teacher/student evidence even before a corpus edge exists, adds a narrow position-zero
+al-Tusi source-opening prior, and can propagate only a unanimous full-form opening convention
+backed by either 20 occurrences across five teachers or 100 repeated occurrences. Context and
+consensus winners are graph output but never evidence for another automatic winner, making the
+pass idempotent. Applied result: **6,531 ambiguities resolved** — 4,094 ordinary context, 232
+direct source openings and 2,205 repeated source-opening consensus cases. A rerun resolves 0.
+
+The same audit found 23 Mu'jam occurrence ledgers with obvious page overruns (1,200-2,600 rows
+each versus a next-highest clean ledger of 24); those ledgers are excluded from resolution and
+corroboration until their boundaries are repaired. Two further rejected identity pairs were
+removed because their own source notes say the union has no witness / is historically unlikely.
+Potential graph delta before public enablement: Tahdhib +42 people / +265 unique pairs / +4,621
+edge occurrences; Istibsar +45 / +222 / +2,201. Rollback snapshot:
+`eshia_research.before-tusi-context.20260824.db`, SHA-256
+`39A4F0180D9EF0808A0F4BDB5488A1383A5ED719A9CE305119206C7DD697CA9C`.
+Verification: 574 tests, SQLite `quick_check=ok`, zero dangling rows, zero bare-form leaks and
+zero reliable generation violations. Not deployed.
 
 Main DB: `eshia-research/eshia_research.db` (~6.7 GB, 42 tables, 154 indexes,
 `journal_mode=delete`). Most of it is **derived and regenerable** (chain nodes, candidates,
@@ -139,18 +144,60 @@ generation violations**, bare-form leak 0.
 with candidates shown, or flagged. The ~72% plateau is the *honest* answer —
 **do not chase 100%.**
 
+### Offline external rijāl witnesses (2026-08-23)
+
+The site owner gave the project owner permission to use/scrape the source content. The
+pipeline in `rijal/shiaresearch.py` keeps acquisition separate from the product runtime:
+`crawl-external-rijal` writes a resumable local snapshot, `import-external-rijal` defaults to
+rollback-only, and `audit-external-rijal` is read-only. Imported books use local URNs,
+`rijal_entries.source_url` is NULL, and all six possible `ext-rijal-*` containers are hidden
+from public catalogue/book/search surfaces. Internal source key, work slug, UID, citation,
+retrieval time and snapshot hash remain available for auditability.
+
+Current committed main-DB state from snapshot SHA-256
+`f3600991c8c80e27c466a7e8fc0ad12dbdb91393b7e06405bb015737761f346c`:
+
+- 11,525 title-level (`metadata_only`) witnesses: Najāshī 1,267; Kashshī 1,151;
+  Ṭūsī 6,465; al-Fihrist 908; al-Ḥillī 1,734.
+- **9,962 single-person witnesses resolved**: 5,155 exact, 175 full-form, 2,946
+  deterministic name-variant, 132 same-person-equivalent, 15 Fihrist source-number,
+  20 locally quoted text-witness, and 1,519 attached to external-origin identities.
+  There are **0 fuzzy links and 0 unmatched person records**.
+- 1,096 genuinely ambiguous homonym/vague-name records retain 11,516 candidate links;
+  152 records are non-person headings and 315 are multi-person headings. Of the latter,
+  184 already carry 290 typed person links without forcing a single `narrator_id`.
+- **1,325 externally evidenced identities** were created with `origin=external_rijal`,
+  bringing the person count from 15,644 to **16,969**. Re-running the import creates
+  zero more identities. `build-person-layer` reads only source book `14036` /
+  `mujam_numbered_entry`, then rehydrates and relinks external identities after a rebuild.
+- Public payloads exposed catalogue metadata but not biography bodies, so do not describe
+  these rows as full biographies. Al-Khūʾī was not re-imported: it is already the local
+  identity spine, and the source rate-limited the optional cross-check.
+- Full-file rollback backup:
+  `eshia-research/eshia_research.before-external-rijal.20260823.db`, SHA-256
+  `A506CEF2022950A6EF1E1944825C10C9C0C22006BC87E9F4B98225F874C5424C`.
+- Pre-aggressive-import rollback backup:
+  `eshia-research/eshia_research.before-aggressive-external-rijal.20260823.db`, SHA-256
+  `7FA60946BDAC784FFC93C39059D830F69D519D732A873E17826EE012FE22DD6E`.
+- Verification: six clean disposable-copy rehearsals, an identical second import with
+  zero new identities, SQLite `quick_check=ok`, 0 dangling links, 0 external source URLs,
+  and 0 external books visible in catalogue; backend **550 passed** and the Next.js
+  16.2.9 production build passed. Not deployed to production.
+
 ---
 
 ## 5. Standing cautions (hard-won — do not relearn these)
 
 - **Uncertainty is displayed, never hidden.** Ranked candidates with reasons; never force a winner.
-- Don't resolve ambiguous names by string match alone; never invent a narrator to fill a gap.
+- Don't resolve ambiguous names by string match alone. A new narrator requires an explicit
+  single-person source heading and must remain labelled `origin=external_rijal`.
 - Don't use page breaks as hadith boundaries; don't treat every `قال`/`في`/`أن` as a safe split;
   don't use "matn contains عن/قال" as a split error (valid matns quote dialogue).
 - Rejected footnote/commentary fragments must never render as hadith cards.
 - After any split repair, **derived chains/resolver output are stale until rebuilt.**
-- **Do not re-run `refine-collective-context` to convergence** — stop when marginal
-  corroboration drops below corpus (rounds 2–3 made it worse; only round 1 was kept).
+- `refine-collective-context` is now deliberately idempotent: context/consensus winners cannot
+  seed another automatic winner. An immediate rerun should resolve 0; do not weaken that guard
+  to chase convergence (the old rounds 2–3 degraded corroboration).
 - Only **anchor-derived** generations (`imam_fixed`/`ashab_anchor`/`anchor_and_propagated`)
   are hard chronology evidence; propagated ones are advisory. Fixed-Imam layers are ground
   truth and are never demoted to `conflict`.
@@ -259,25 +306,23 @@ publishing, blue/green, containerisation. They solve problems Usul16 does not ha
 
 ## 9. Open work queue
 
-**Faqih → gold** (in priority order): obtain a usable, attributable per-report grading source
-(0 today — biggest visible gap) · establish human or explicitly labelled AI translations for the
-116 missing reports (do not invent or misattach website translations) · resolve the 798
-`needs_review` chains (the old part-1/part-2 manifests are only boundary evidence) ·
-investigate the union-lattice conflict regression before rebuilding · only then consider
-`POLISHED_TRANSMISSION_BOOK_IDS` and graph publication.
+**Next Four Books pass** (highest leverage first):
 
-**Mashyakha review queue** (editorial, not engineering — the matcher is done):
-1. Spot-check the 335 `unique_name_extension` + `ism_nisba_elision` proposals against the
-   printed page. They are the newest tiers and have never been checked by eye; the 1,602
-   exact/canonical ones rest on string identity.
-2. Rule on the ~15 single-candidate patronymic forms — `ابن أبي عمير` (56 chains),
-   `ابن مسكان` (38), `السكوني` (29), `البزنطي` (15), `ابن فضال` (12), `ابن بكير` (10). Each is
-   one editorial judgement worth double-digit chains, and the matcher will not make it.
-3. The genuinely ambiguous singles — `حماد` (68), `العلاء` (67), `أبان` (48), `الحلبي` (37) —
-   need the *report's* context, not more source parsing. Leave them ranked until then.
-4. **Do not chase the 409 openings with no witness.** Al-Saduq wrote no entry for them.
+1. Generalize the independently evidenced Mashyakha proposal layer to Tahdhib and Istibsar.
+   Their chain structure is now clean enough for this to be the main resolution multiplier.
+2. Repair the 23 overrun Mu'jam occurrence ledgers, then re-run the now-idempotent context pass;
+   26,578 Tahdhib and 11,143 Istibsar mentions remain honestly ambiguous.
+3. Review the 434 retained al-Tusi chain cases (319 Tahdhib, 115 Istibsar), prioritising the 56
+   suspicious cases before the 381 explicitly marked multi-route cases.
+4. Build content parity for both books: rendered English, section structure, topics and an
+   attributable grading layer. All four layers are currently absent.
+5. Enable each al-Tusi book for the public graph only after its abbreviated-opening policy and
+   remaining suspicious-chain audit are explicit.
 
-**Then:** generalize the reviewed Mashyakha-expansion approach to Tahdhib → Istibsar → Bihar.
+**Faqih residuals:** decide the `faqih-5751` boundary; obtain an attributable report-level
+grading source; review the 2026-08-23 website route migration before replacing the old manifest;
+then use contextual evidence on the 1,602 Mashyakha candidates and 2,415 ambiguous people.
+Do not guess the 373 openings for which al-Saduq supplied no witness.
 
 **Product:** Mir'at al-'Uqul + Sharh al-Mazandarani commentary integration, commentary
 rendering, narrator pages, search + OCR improvements, performance.
@@ -781,6 +826,7 @@ python -m eshia_research.cli --help
 ... refine-tabaqat           --source-book-id 11005
 ... refine-imam-priors       --source-book-id 11021   # kunya priors (أبو عبد الله → al-Sadiq)
 ... refine-collective-context --source-book-id 11005   # round 1 ONLY
+... refine-collective-context --source-book-id 10083 --source-book-id 11002  # idempotent
 
 # audits / measurement (read-only)
 ... eval-resolution   --source-book-id 11005
@@ -788,7 +834,7 @@ python -m eshia_research.cli --help
 ... audit-hadith-splits --source-book-id 11005 --include-chain-index
 
 # tests
-pytest -q        # 413+ passing
+pytest -q        # 574 passing
 ```
 Frontend: `npm run lint && npm run build` in `web/`.
 Local dev: API `127.0.0.1:8000`, web `127.0.0.1:3000` (backend takes ~60–90 s to boot —

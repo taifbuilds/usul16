@@ -32,7 +32,7 @@ function locationLabel(item: {
 
 function entryPreview(entry: RijalEntryRead): string {
   if (entry.text_raw.length <= ENTRY_PREVIEW_CHARS) return entry.text_raw;
-  return `${entry.text_raw.slice(0, ENTRY_PREVIEW_CHARS)}\n\n[Entry preview truncated in the UI. Open the source link for the full text.]`;
+  return `${entry.text_raw.slice(0, ENTRY_PREVIEW_CHARS)}\n\n[Entry preview truncated in the interface.]`;
 }
 
 export default async function NarratorPage({
@@ -167,14 +167,18 @@ export default async function NarratorPage({
       </section>
 
       <section className="mt-8 space-y-4">
-        <h2 className="text-sm font-semibold tracking-wide text-muted uppercase">Mujam entries</h2>
+        <h2 className="text-sm font-semibold tracking-wide text-muted uppercase">Rijāl source entries</h2>
         {rijalEntries.length ? (
           rijalEntries.map((entry) => (
             <details key={entry.id} className="rounded-md border border-border bg-surface">
               <summary className="flex cursor-pointer list-none flex-wrap items-center justify-between gap-3 px-5 py-4">
-                <span className="text-sm text-muted">
-                  Entry {entry.entry_number ?? "?"}
-                  {locationLabel(entry) ? ` / ${locationLabel(entry)}` : ""}
+                <span>
+                  <span className="block text-sm font-medium text-foreground">{entry.source_title}</span>
+                  <span className="mt-1 block text-xs text-muted">
+                    Record {entry.entry_number ?? "?"}
+                    {locationLabel(entry) ? ` / ${locationLabel(entry)}` : ""}
+                    {entry.content_status === "metadata_only" ? " / index witness" : ""}
+                  </span>
                 </span>
                 {entry.source_url ? (
                   <a
@@ -193,18 +197,24 @@ export default async function NarratorPage({
                     {formatArabicText(entry.title_raw)}
                   </h3>
                 ) : null}
-                <p
-                  dir="rtl"
-                  lang="ar"
-                  className={`${amiri.className} mt-3 whitespace-pre-wrap text-right text-xl leading-loose`}
-                >
-                  {formatArabicText(entryPreview(entry))}
-                </p>
+                {entry.content_status === "metadata_only" ? (
+                  <p className="mt-3 text-sm leading-relaxed text-muted">
+                    This source currently contributes a title-level index witness; no biography text was imported.
+                  </p>
+                ) : (
+                  <p
+                    dir="rtl"
+                    lang="ar"
+                    className={`${amiri.className} mt-3 whitespace-pre-wrap text-right text-xl leading-loose`}
+                  >
+                    {formatArabicText(entryPreview(entry))}
+                  </p>
+                )}
               </div>
             </details>
           ))
         ) : (
-          <p className="text-sm text-muted">No Mujam entry is attached to this narrator yet.</p>
+          <p className="text-sm text-muted">No rijāl source entry is attached to this narrator yet.</p>
         )}
       </section>
 

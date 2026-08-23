@@ -97,6 +97,41 @@ Re-running the same command resumes safely — already-fetched URLs are
 skipped via the on-disk checkpoint at `data/checkpoints/crawl.json` and the
 `crawl_logs` DB table.
 
+## Offline rijāl enrichment
+
+The external rijāl importer is deliberately two-stage. The crawl command is
+the only code that accesses the remote catalogue; the API and web app use the
+resulting local rows and contain no runtime source dependency or outbound
+source links.
+
+```bash
+# Resumable snapshot of Najāshī, Kashshī, Ṭūsī, al-Fihrist and al-Ḥillī
+python -m eshia_research.cli crawl-external-rijal \
+  --output-path scratch_audit/shiaresearch_rijal_snapshot.json.gz
+
+# Validate/upsert/link, but roll everything back
+python -m eshia_research.cli import-external-rijal \
+  --snapshot-path scratch_audit/shiaresearch_rijal_snapshot.json.gz
+
+# Commit only after reviewing the dry-run counts
+python -m eshia_research.cli import-external-rijal \
+  --snapshot-path scratch_audit/shiaresearch_rijal_snapshot.json.gz --apply
+
+python -m eshia_research.cli audit-external-rijal
+```
+
+The Muʿjam remains the identity backbone. Matching proceeds through auditable
+tiers: exact names, generated legal name forms, known same-person components,
+source-number citations, and spellings quoted inside the local Muʿjam entry.
+String similarity alone never creates a link. A genuinely absent single-person
+heading creates an origin-labelled `external_rijal` Narrator/Person; ambiguous
+homonyms remain ranked candidates, while non-person and multi-person headings
+are classified separately. Current public catalogue payloads are title-level
+metadata, so those rows are labelled `metadata_only` rather than presented as
+imported biography text. The snapshot retains internal provenance; imported
+`rijal_entries.source_url` is intentionally null, and the runtime never contacts
+the acquisition source.
+
 ## Fast crawling
 
 `crawl-book` defaults to concurrent mode (`CRAWL_CONCURRENCY=10` in

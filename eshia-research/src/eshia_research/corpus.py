@@ -30,12 +30,24 @@ UNPUBLISHED_SOURCE_BOOK_IDS = (
     "10798",  # الي المجمع العلمي بدمشق
 )
 
+# Offline source-witness containers used only to enrich narrator profiles.
+# They have no public book page and no runtime dependency on the source site.
+EXTERNAL_RIJAL_SOURCE_BOOK_IDS = (
+    "ext-rijal-al-najashi",
+    "ext-rijal-al-kashshi",
+    "ext-rijal-al-tusi",
+    "ext-rijal-al-fihrist",
+    "ext-rijal-al-hilli",
+    "ext-rijal-al-khui",
+)
+
 # Every source id hidden from readers, for whatever reason. The catalogue, the
 # book pages, search and the stat tiles must all agree: a book the catalogue
 # refuses to list should not be reachable by searching for it either.
 HIDDEN_FROM_PUBLIC_SOURCE_BOOK_IDS = (
     *CATALOG_EXCLUDED_SOURCE_BOOK_IDS,
     *UNPUBLISHED_SOURCE_BOOK_IDS,
+    *EXTERNAL_RIJAL_SOURCE_BOOK_IDS,
 )
 
 BIHAR_DAR_IHYA_SOURCE_BOOK_ID = "71860"
@@ -44,9 +56,12 @@ BIHAR_DAR_IHYA_SOURCE_BOOK_ID = "71860"
 # transmission graph. This is the single seam that lights a book up across the
 # graph, dossiers, path-finding and reliability (see the graph plan): once a
 # book's chains are resolved + chain-indexed, add its id here and it inherits
-# every feature — no schema change, no client rewrite. Al-Kafi is the only
-# polished book today; Faqih is nearing completion and joins next.
-POLISHED_TRANSMISSION_BOOK_IDS: tuple[str, ...] = (AL_KAFI_ISLAMIYYA_SOURCE_BOOK_ID,)
+# every feature — no schema change, no client rewrite. Faqih passed the chain,
+# identity, bare-form, and reliable-generation gates on 2026-08-23.
+POLISHED_TRANSMISSION_BOOK_IDS: tuple[str, ...] = (
+    AL_KAFI_ISLAMIYYA_SOURCE_BOOK_ID,
+    "11021",
+)
 
 # Human-readable slugs used in public hadith IDs («alkafi-2041») — the ID a
 # reader cites should speak the tradition's language, not the crawler's.

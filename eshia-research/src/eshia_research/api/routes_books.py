@@ -2292,8 +2292,10 @@ def get_narrator(narrator_id: int, db: Session = Depends(get_db)) -> NarratorDet
     )
     entries = (
         db.query(RijalEntry)
+        .options(selectinload(RijalEntry.book))
         .filter(RijalEntry.narrator_id == narrator.id)
-        .order_by(RijalEntry.volume_start, RijalEntry.page_start, RijalEntry.entry_number)
+        .join(Book, Book.id == RijalEntry.book_id)
+        .order_by(Book.title_original, RijalEntry.entry_number)
         .all()
     )
     statements = (
@@ -2334,6 +2336,12 @@ def get_narrator(narrator_id: int, db: Session = Depends(get_db)) -> NarratorDet
         rijal_entries=[
             {
                 "id": entry.id,
+                "source_title": entry.book.title_original,
+                "content_status": (
+                    "metadata_only"
+                    if "metadata_only" in set((entry.flags or "").split(","))
+                    else "full_text"
+                ),
                 "entry_kind": entry.entry_kind,
                 "entry_number": entry.entry_number,
                 "title_raw": entry.title_raw,

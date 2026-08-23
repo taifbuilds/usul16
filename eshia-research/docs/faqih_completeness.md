@@ -1,209 +1,154 @@
-# Man La Yahduruhu al-Faqih website reconciliation
+# Man La Yahduruhu al-Faqih completeness
 
-Last boundary reconciliation: 2026-07-24
+Last verified: 2026-08-23
 
 ## Current decision
 
-The Arabic report corpus is **ready for continued rijal work**, but the public
-English release is **not yet production-ready**. Report identities, Arabic
-boundaries, local-only records, website continuations, duplicate occurrences,
-and active isnad preservation now pass the fail-closed boundary gate. Twenty-one
-records still lack a complete publishable website translation.
+Faqih is ready for transmission-graph publication. Its Arabic boundaries remain
+preserved, the chain tokenizer has been rebuilt, unresolved parser noise has been
+reduced to three honest review cases, and the person-resolution safety gates pass.
 
-This distinction is deliberate: translation gaps do not prevent chain
-tokenization and narrator research, but they continue to block a public-release
-claim. The remaining rijal queue includes 798 chain-tokenizer results marked
-for review; it is not another hadith-count reconciliation.
+This does not mean every content layer is complete. One report still lacks a safe
+English boundary match, 95 reviewed local-edition units have no standalone rendered
+website translation, and no attributable per-report grading source has been imported.
 
-## Mashyakha source and proposal layer (2026-08-10, matcher `v2`)
+## Corpus and publication state
 
-Faqih's abbreviated openings can only be expanded against a separately
-preserved Mashyakha witness. The local database stores that witness
-independently of the report chain, and proposes — never applies — a virtual
-preface for each abbreviated opening it can account for.
+- Source rows: 5,940
+- Visible reports: 5,924
+- Hidden proven apparatus rows: 16 (`faqih-1574` and `faqih-5909` through
+  `faqih-5923`)
+- Published rendered-website English rows: 5,828
+- Visible reports without published English: 96
+- Topic-tagged visible reports: 5,924
+- Report-level gradings: 0
+- Graph publication: enabled through `POLISHED_TRANSMISSION_BOOK_IDS`
 
-**Source side.** 387 entries crawled; **378 parsed**, 5 keyed on a subject
-rather than a narrator (`topic_entry`), 4 held for review. 383 distinct target
-forms.
+Of the 96 untranslated visible rows, 95 are already reviewed local-edition units
+without standalone website routes. The remaining actionable boundary case is
+`faqih-5751`. Its local Arabic and the current rendered route overlap strongly but
+are not the same report boundary (24,512 versus 32,670 characters; similarity
+0.924). The longer English must not be attached to the shorter local record without
+an explicit split or boundary ruling.
 
-**Report side.** 2,907 chains flagged `mursal_opening`:
+## Chain rebuild
 
-| | chains | |
-|---|---|---|
-| exactly one source witness → `proposed` | **1,931** | 66.4% |
-| ranked candidates → `needs_review` | 567 | 19.5% |
-| no Mashyakha entry exists for the narrator | 409 | 14.1% |
+The 2026-08-23 rebuild parsed 4,168 isnad-bearing reports into:
 
-3,564 proposal rows: 1,931 `proposed`, 1,633 `needs_review`.
+- 4,399 chain routes
+- 9,020 narrator nodes
+- 3 `needs_review` chains (99.9% clean)
 
-### Evidence tiers
+The three retained reviews are not ordinary tokenizer debris:
 
-`match_method` records *why* each proposal exists. Only a tier that leaves
-exactly one witness standing is proposed; the rest are ranked candidates.
+- `faqih-1827`: narrative-only construction
+- `faqih-3401`: narrative-only / mursal construction
+- `faqih-5751`: genuine long multi-route and boundary case
 
-| tier | openings | what it asserts |
-|---|---|---|
-| `exact_first_narrator` | 1,248 | the normalised opening equals a target form |
-| `canonical_first_narrator` | 354 | equal after removing orthography, not identity |
-| `unique_name_extension` | 308 | the opening is the *opening* of exactly one target |
-| `ism_nisba_elision` | 27 | ism and nisba both agree; only the patronymic is elided |
-| `partial_name_candidate` | 561 | a partial name with more than one reading |
+Direct Imam narratives, follow-up questions, letters, raised reports, shared
+honorifics, co-narrators, compiler bylines, cross-report mursal pronouns, and common
+editorial apparatus now have explicit tokenizer handling and regression tests.
 
-Tiers sum to 2,498 openings with a witness; 1,931 of them are `proposed`. The
-gap is 6 openings whose tier is single-candidate but whose narrator has **two**
-Mashyakha entries, so they too are `needs_review` — 567 chains in total.
+## Person-resolution state
 
-`canonical_first_narrator` removes only what a chain opening carries and a
-Mashyakha target never does: a preposition the tokenizer kept (`عن معاوية بن
-عمار`), a trailing `بإسناده` or honorific, the bracketed dua the edition prints
-after a name (`الكليني- رحمة الله عليه-`), and the kunya's grammatical case —
-the Mashyakha always names its target in the genitive after `عن` (`أبي بصير`),
-while the report prints whatever case its own sentence needs (`أبو بصير`).
-None of that is identity, so stripping it is not a relaxed threshold. It is
-applied to **both sides**.
+Evaluation over all 9,020 chain nodes:
 
-**Three rules deliberately refuse an available answer:**
+| status | nodes | share |
+|---|---:|---:|
+| resolved | 5,921 | 65.6% |
+| ambiguous | 2,415 | 26.8% |
+| unresolved | 673 | 7.5% |
+| missing | 9 | 0.1% |
+| latent | 2 | 0.0% |
 
-1. **`ابن X` never auto-resolves.** The form declares that the ism is elided,
-   so a target merely *ending* in `بن X` is not evidence it is this Ibn X.
-   `ابن محبوب` (62 chains) has exactly one such target — `محمد بن علي بن
-   محبوب` — and that is the wrong man; the Ibn Mahbub of the isnads is
-   al-Hasan b. Mahbub, who has no entry. Uniqueness inside a 383-form roster
-   is not uniqueness in the tradition.
-2. **A subject-scoped target is never the sole candidate.** `شعيب بن واقد في
-   المناهي` and `الفضل بن شاذان من العلل التي ذكرها` vouch for one subject,
-   not for everything the man narrated.
-3. **Two witnesses for one narrator stay two.** `كليب الأسدي` (ch117, ch292)
-   and `محمد بن حمران` (ch31, ch231) keep both paths visible.
+Safety and evidence gates:
 
-### What is actually left
+- Bare-form leaks: 0
+- Reliable generation violations: 0
+- Raw generation warnings: 4
+- Mu'jam edge-corroboration floor: 77.5%
 
-**567 chains with ranked candidates**, concentrated in 55 partial-name forms
-plus 3 two-witness narrators (`كليب الأسدي`, `محمد بن حمران`, `إدريس بن زيد`).
-The largest
-are genuinely ambiguous single names — `حماد` (68 chains, 6 candidates),
-`العلاء` (67, 5), `أبان` (48, 2), `الحلبي` (37, 3) — and patronymic
-abbreviations that rule 1 holds back: `ابن أبي عمير` (56), `ابن مسكان` (38),
-`ابن فضال` (12). Several of the latter have a single candidate and are decided
-by one editorial judgement each.
+The raw warnings are research leads, not reliable-gate failures. Do not convert
+ambiguous candidates into resolved people merely to raise the percentage.
 
-**409 chains have no Mashyakha entry at all** and never will. Al-Saduq wrote no
-entry for `محمد بن الفضيل` (29), `موسى بن بكر` (18), `يونس بن عبد الرحمن` (13),
-`القاسم بن محمد الجوهري` (11) or `عثمان بن عيسى` (7); each appears in the
-Mashyakha only *inside* someone else's path. This is the honest floor for this
-source, not a matcher deficit.
+## Mashyakha proposal layer
 
-A proposal records the opening form, the target form it matched, the tier, the
-candidate rank and count, and the witness's chapter and SHA-256. It does
-**not** alter `chains`, insert `chain_nodes`, resolve narrator identities, add
-a graph edge, or clear the chain's existing review status. Verified after the
-run: Faqih still has 9,586 chain nodes and 798 `needs_review` chains, unchanged.
+Faqih's abbreviated openings are matched against an independently preserved
+Mashyakha witness. Proposals do not rewrite the printed isnad or create graph edges.
 
-Rebuild this local evidence layer with:
+Source side:
 
-```powershell
-.\.venv\Scripts\python.exe -m eshia_research.cli crawl-faqih-mashyakha `
-  --output-path scratch_audit\faqih_mashyakha.json
-.\.venv\Scripts\python.exe -m eshia_research.cli import-faqih-mashyakha `
-  --snapshot-path scratch_audit\faqih_mashyakha.json --apply
-.\.venv\Scripts\python.exe -m eshia_research.cli materialize-faqih-mashyakha-expansions --apply
-.\.venv\Scripts\python.exe -m eshia_research.cli audit-faqih-mashyakha
-```
+- 387 source paths
+- 378 parsed
+- 5 subject-scoped entries
+- 4 held for review
+- 383 target forms
 
-Take a SQLite backup before either `--apply` command. Both are idempotent and
-default to dry-run; the materializer also **deletes** proposals its current
-rules no longer make, so a rule change cannot leave orphaned evidence behind.
-Rows a human has already ruled `approved` or `rejected` are decisions, not
-output, and are never deleted.
+Report side:
 
-## Website inventory
+- 2,799 mursal openings
+- 3,470 proposal rows
+- 1,868 single-witness proposals
+- 1,602 ranked candidates requiring review
+- 2,426 openings with any witness
+- 373 openings with no witness
 
-- Thaqalayn website books: `34`, `35`, `36`, and `37`
-- Rendered chapter pages: 659
-- Rendered content routes: 5,927
-- Website rows with no English: 23, including three field-placement anomalies
-- Website display anomalies retained in the inventory: 87
+Match evidence:
 
-The website includes compiler rulings, chapter introductions, supplications,
-and guide subdivisions as hadith routes. Ninety-five such routes were reviewed
-as non-independent units; they are evidence, not extra narrations.
+| method | openings |
+|---|---:|
+| exact first narrator | 1,455 |
+| canonical first narrator | 94 |
+| unique name extension | 301 |
+| ism/nisba elision | 24 |
+| partial-name candidate | 552 |
 
-## Final reconciliation
+There are 1,874 single-candidate matches but only 1,868 proposals because six
+openings point to narrators with multiple Mashyakha witnesses. Those remain review
+items. `Ibn X` forms, subject-scoped entries, and multiple witnesses continue to
+fail closed.
 
-- Local visible reports: 5,924
-- Unique visible public IDs: 5,924
-- Arabic-confirmed local reports: 5,829
-- Arabic-confirmed website routes: 5,832
-- Confirmed relation edges: 5,832
-- Reviewed local-edition reports without standalone website routes: 95
-- Reviewed website non-independent units: 95
-- Missing numbered website reports: 0
-- Unclassified local units: 0
-- Unclassified website units: 0
-- Inventory reconciliation ready: yes
-- Arabic boundaries ready for rijal: yes
-- Production release ready: no
+## Rendered-website refresh
 
-The opening failures are repaired: reports 9 and 10 are separate records,
-compiler material no longer leaks into the displayed Arabic, and incomplete
-local boundaries use the rendered website report. The source extraction is
-retained in `full_text_raw` as provenance.
+The live inventory refreshed on 2026-08-23 contains:
 
-The combined source row at report 2119 was split into its numbered report and
-its second unnumbered transmitted report, which now has stable ID
-`faqih-web-35-3-1-12`. Repeated wording at reports 2296, 2189, 2153, 3402,
-and 5765 remains separate because each occurrence has its own source location.
-Manual relations and exclusions are bound to local and website Arabic hashes;
-the local-only set is additionally locked to its Arabic content evidence.
+- 660 rendered chapter pages
+- 5,928 content routes
 
-## Publication gate
+The website migrated from global report-number routes to chapter-local report
+numbers. The prior reviewed manifest is therefore intentionally rejected against
+the new inventory hash. A fresh unreviewed audit found 5,911 local and 5,920 remote
+records by exact/indexed Arabic evidence, with 13 local and 8 remote records still
+outside that automatic accounting. It is diagnostic only and must not replace the
+reviewed reconciliation until its new route identities are reviewed.
 
-- Boundary-blocking records: 0
-- Mapped records below 90% website-Arabic coverage: 0
-- Non-one-to-one record boundaries: 0
-- Unreviewed local-only records: 0
-- Approved splits with a detectable source isnad omitted: 0
-- Website reports without usable English: 20
-- Records without a publishable website translation: 21
+Twenty of the former 21 English blockers had unique, exact Arabic matches in the
+new inventory and were imported with per-row source hashes and provenance. This
+raised the published count from 5,808 to 5,828. `faqih-5751` was deliberately held
+back.
 
-The review restored 293 deterministic active isnads that an earlier website
-repair had placed inside the matn, manually corrected eleven compiler/heading
-overruns, and rebuilt the Faqih chain index. The resulting 3,277 isnad-bearing
-rows produce 3,809 chain routes and 8,560 narrator nodes; 804 chains are marked
-for parser review and uncertainty handling during rijal work.
+## What is actually left
 
-## Publication state
+1. Make an editorial split/boundary decision for `faqih-5751`, then import only the
+   English belonging to the accepted local unit.
+2. Obtain an attributable per-report grading source; the present count is zero.
+3. Review the new route-migration audit before replacing the old reconciliation
+   manifest.
+4. Work through the 1,602 Mashyakha candidate rows when stronger report-context
+   evidence exists; do not guess the 373 no-witness openings.
+5. Improve the 2,415 ambiguous person mentions through compiler, teacher/student,
+   and Mashyakha context rather than looser name matching.
 
-- Stored published rendered-website English rows: 5,808
-- Website structure rows: 5,904
-- Topic assignments: 28,622 across all 5,924 visible reports
-- Generated topics: 711, including 67 semantic search topics
+## Verification
 
-English is published only where the website supplies English and the report
-relation is safe for publication. Missing website English, partial
-continuations, and combined-edition boundaries remain visibly untranslated;
-the importer does not invent or misattach text to make the percentage larger.
+The completed 2026-08-23 run passed:
 
-## Excluded apparatus
+- 569 backend tests
+- Next.js production build and TypeScript validation
+- SQLite `PRAGMA quick_check` (`ok`)
+- zero dangling mention-resolution nodes
+- zero orphaned chain nodes
 
-Sixteen source rows remain preserved but hidden as proven non-hadith
-apparatus: `faqih-1574` and `faqih-5909` through `faqih-5923`. Their status is
-`rejected_non_hadith_fragment`; source Arabic and provenance were not deleted.
-
-## Rerun
-
-```powershell
-$env:PYTHONPATH = 'src'
-.\.venv\Scripts\python.exe -m eshia_research.cli audit-thaqalayn-website `
-  --corpus faqih `
-  --inventory-path scratch_audit\faqih_thaqalayn_website_inventory_20260723.json `
-  --audit-path scratch_audit\faqih_thaqalayn_website_audit_20260723.json `
-  --markdown-path scratch_audit\faqih_thaqalayn_website_audit_20260723.md `
-  --cache-dir scratch_audit\faqih_cache `
-  --review-manifest-path data\reconciliation\faqih_thaqalayn_website_20260723.json `
-  --reuse-inventory
-```
-
-The numbered-gap, structure, English, and topic imports remain separate and
-dry-run capable. Take a full database backup before applying any future
-reconciliation change.
+Pre-change backups remain at
+`eshia_research.before-faqih-chain-completion.20260823.db` and
+`eshia_research.before-tusi-resolution.20260823.db`.

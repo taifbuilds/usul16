@@ -270,17 +270,18 @@ def test_graph_reports_book_footprint_and_ids(client: TestClient, seeded):
     body = client.get("/transmission-graph?min_count=1").json()
     assert body["book_ids"] == ["11005"]
     attar_node = next(n for n in body["nodes"] if n["id"] == attar.id)
-    # One charted book today: the footprint mirrors the hadith count.
+    # This fixture only contains al-Kafi, so its footprint mirrors the count.
     assert attar_node["books"] == {"11005": attar_node["hadith_count"]}
     assert attar_node["reliability"] is None
 
 
-def test_graph_unpolished_book_falls_back_to_alkafi(client: TestClient, seeded):
-    # Faqih (11021) is not polished yet — requesting it must NOT half-draw it;
-    # the book-set seam drops it and charts the polished Al-Kafi network.
+def test_graph_accepts_polished_faqih_without_fallback(client: TestClient, seeded):
+    # Faqih passed the graph gate: an explicit request must retain its book id
+    # rather than silently substituting al-Kafi. This fixture has no Faqih rows,
+    # so an empty graph is the honest result.
     body = client.get("/transmission-graph?books=11021&min_count=1").json()
-    assert body["book_ids"] == ["11005"]
-    assert len(body["nodes"]) > 0
+    assert body["book_ids"] == ["11021"]
+    assert body["nodes"] == []
 
 
 def test_narrator_directory_search_and_charted_count(client: TestClient, db: Session, seeded):

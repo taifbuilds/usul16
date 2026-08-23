@@ -35,6 +35,7 @@ from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
 
 from eshia_research.models import (
+    Book,
     CollectiveRoster,
     MentionResolution,
     Person,
@@ -45,6 +46,7 @@ from eshia_research.models import (
 )
 from eshia_research.normalise import normalise_arabic_persian
 from eshia_research.rijal.name_grammar import parse_name, surface_forms
+from eshia_research.rijal.mujam_parser import MUJAM_ENTRY_KIND, MUJAM_SOURCE_BOOK_ID
 
 PERSON_BUILDER_VERSION = "tamyiz_a1"
 
@@ -176,6 +178,11 @@ def build_person_layer(
             RijalEntry.canonical_name_raw,
             RijalEntry.canonical_name_normalised,
             RijalEntry.text_normalised,
+        )
+        .join(Book, Book.id == RijalEntry.book_id)
+        .where(
+            Book.source_book_id == MUJAM_SOURCE_BOOK_ID,
+            RijalEntry.entry_kind == MUJAM_ENTRY_KIND,
         )
     ).all()
 
@@ -409,9 +416,16 @@ def build_person_layer(
     db.bulk_insert_mappings(CollectiveRoster, roster_rows)
     db.flush()
 
+    # Rebuild-style person generation deletes all derived entry links. Restore
+    # conservative links from locally imported source witnesses after the
+    # Mu'jam identity backbone and its surface-form index exist again.
+    from eshia_research.rijal.shiaresearch import link_external_rijal_entries
+
+    external_links = link_external_rijal_entries(db)
+
     tamyiz_links = sum(1 for link in entry_links if link["link_type"] == "tamyiz_discussion")
     return {
-        "persons": len(persons),
+        "persons": len(persons) + external_links.created,
         "masum_persons": masum_count,
         "bare_form_persons": bare_count,
         "surface_forms": len(form_rows),
@@ -421,4 +435,8 @@ def build_person_layer(
         "father_relations": len(relations),
         "father_relations_matched": father_links,
         "roster_members": len(roster_rows),
+        "external_exact_links": external_links.exact,
+        "external_full_form_links": external_links.full_form,
+        "external_ambiguous_entries": external_links.ambiguous,
+        "external_unmatched_entries": external_links.unmatched,
     }

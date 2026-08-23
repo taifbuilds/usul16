@@ -232,6 +232,110 @@ def test_same_person_links_skip_mushtarak_discussions(db: Session):
     assert rows == []
 
 
+def test_same_person_links_honor_explicit_rebuttal_and_remove_stale_rows(db: Session):
+    book = Book(
+        source_book_id="14036",
+        title_original="mujam",
+        title_normalised="mujam",
+        source_url="https://lib.eshia.ir/14036",
+    )
+    db.add(book)
+    db.flush()
+    quote = (
+        "اتحاده مع محمد بن الحسن بن شمون المتقدم، ولكن الأمر على خلافه، "
+        "فإن هذا من أصحاب الصادق وذاك من أصحاب الهادي، فكيف يمكن اتحادهما."
+    )
+    add_entry(db, book, 1, "محمد بن شمعون", quote)
+    add_entry(db, book, 2, "محمد بن الحسن بن شمون")
+    build_person_layer(db)
+
+    first = person_by_name(db, "محمد بن شمعون")
+    second = person_by_name(db, "محمد بن الحسن بن شمون")
+    note = f"al-Khoei tamyiz:exact_name_in_quote: {quote}"
+    db.add_all(
+        [
+            PersonRelation(
+                person_id=first.id,
+                related_person_id=second.id,
+                relation_kind="same_person_as",
+                related_name_norm=second.canonical_name_norm,
+                source_note=note,
+                confidence=85,
+            ),
+            PersonRelation(
+                person_id=second.id,
+                related_person_id=first.id,
+                relation_kind="same_person_as",
+                related_name_norm=first.canonical_name_norm,
+                source_note=note,
+                confidence=85,
+            ),
+        ]
+    )
+    db.flush()
+
+    stats = materialize_same_person_relations(db, commit=False)
+
+    rows = db.execute(
+        select(PersonRelation).where(PersonRelation.relation_kind == "same_person_as")
+    ).scalars().all()
+    assert stats.skipped_negated >= 1
+    assert stats.negated_relations_removed == 2
+    assert rows == []
+
+
+def test_same_person_links_skip_no_witness_and_unlikely_union_rebuttal(db: Session):
+    book = Book(
+        source_book_id="14036",
+        title_original="mujam",
+        title_normalised="mujam",
+        source_url="https://lib.eshia.ir/14036",
+    )
+    db.add(book)
+    db.flush()
+    quote = (
+        "اتحاده مع عمرو بن سعيد المدائني، ولكنه لا شاهد عليه، "
+        "على أنه يبعد الاتحاد، إن الثقفي من أصحاب الباقر والمدائني من أصحاب الرضا."
+    )
+    add_entry(db, book, 1, "عمرو بن سعيد بن هلال", quote)
+    add_entry(db, book, 2, "عمرو بن سعيد المدائني")
+    build_person_layer(db)
+
+    first = person_by_name(db, "عمرو بن سعيد بن هلال")
+    second = person_by_name(db, "عمرو بن سعيد المدائني")
+    note = f"al-Khoei tamyiz:exact_name_in_quote: {quote}"
+    db.add_all(
+        [
+            PersonRelation(
+                person_id=first.id,
+                related_person_id=second.id,
+                relation_kind="same_person_as",
+                related_name_norm=second.canonical_name_norm,
+                source_note=note,
+                confidence=85,
+            ),
+            PersonRelation(
+                person_id=second.id,
+                related_person_id=first.id,
+                relation_kind="same_person_as",
+                related_name_norm=first.canonical_name_norm,
+                source_note=note,
+                confidence=85,
+            ),
+        ]
+    )
+    db.flush()
+
+    stats = materialize_same_person_relations(db, commit=False)
+
+    rows = db.execute(
+        select(PersonRelation).where(PersonRelation.relation_kind == "same_person_as")
+    ).scalars().all()
+    assert stats.skipped_negated >= 1
+    assert stats.negated_relations_removed == 2
+    assert rows == []
+
+
 def test_same_person_exact_match_ignores_later_transmission_path_names(db: Session):
     book = Book(
         source_book_id="14036",

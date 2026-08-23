@@ -428,6 +428,8 @@ export interface NarratorAliasRead {
 
 export interface RijalEntryRead {
   id: number;
+  source_title: string;
+  content_status: "metadata_only" | "full_text";
   entry_kind: string;
   entry_number: number | null;
   title_raw: string;

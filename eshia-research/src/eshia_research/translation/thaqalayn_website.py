@@ -1523,6 +1523,19 @@ def audit_thaqalayn_website(
         if len(paths) == 1:
             consider(hadith, next(iter(paths)), "unique_exact_arabic")
 
+    # Route numbers are presentation details, not durable identities. When a
+    # website migration renumbers thousands of otherwise unchanged reports,
+    # seed the content-indexed matches before the bounded SequenceMatcher
+    # fallback. This keeps the audit near-linear and leaves only genuine text
+    # differences for the more expensive ordered-window pass.
+    if corpus.key == FAQIH_CORPUS.key:
+        _add_residual_split_candidates(
+            local_rows=local_rows,
+            remote_rows=remote_rows,
+            candidates=candidates,
+            min_score=min_score,
+        )
+
     # Most source-edition differences are honorific expansions, footnotes, or
     # a short compiler comment attached to one side. Match the remaining rows
     # monotonically inside each printed volume, keeping a bounded window and
@@ -1647,14 +1660,6 @@ def audit_thaqalayn_website(
                 "method": "bounded_ordered_arabic",
                 "score": round(score, 6),
             }
-
-    if corpus.key == FAQIH_CORPUS.key:
-        _add_residual_split_candidates(
-            local_rows=local_rows,
-            remote_rows=remote_rows,
-            candidates=candidates,
-            min_score=min_score,
-        )
 
     for exclusion in (review_manifest or {}).get("excluded_relations", []):
         public_id = str(exclusion["public_id"])

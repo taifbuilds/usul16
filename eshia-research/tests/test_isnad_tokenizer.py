@@ -428,13 +428,19 @@ def test_jamian_in_the_matn_is_not_a_convergence():
     assert types(chain) == [NAMED, NAMED, IMAM]
 
 
-def test_jamian_in_the_isnad_is_still_a_convergence():
+def test_simple_opening_jamian_expands_unambiguous_co_narrators():
     raw = (
         "رَوَى مُحَمَّدُ بْنُ مُسْلِمٍ وَ اَلْحَلَبِيُّ جَمِيعاً عَنْ أَبِي عَبْدِ "
         "اَللَّهِ عَلَيْهِ اَلسَّلاَمُ :"
     )
-    chain = tokenize_isnad(raw)[0]
-    assert "multi_route" in chain.flags
+    chains = tokenize_isnad(raw)
+    assert len(chains) == 2
+    assert {chain.tokens[0].norm for chain in chains} == {
+        normalise_arabic_persian("محمد بن مسلم"),
+        normalise_arabic_persian("الحلبي"),
+    }
+    assert all(types(chain) == [NAMED, IMAM] for chain in chains)
+    assert all("multi_route" not in chain.flags for chain in chains)
 
 
 def test_matn_clauses_do_not_expand_into_parallel_chains():
@@ -501,3 +507,227 @@ def test_narrative_with_no_chain_stays_flagged():
     chain = tokenize_isnad(raw)[0]
     assert "suspicious_token" in chain.flags
     assert chain.needs_review
+
+
+def test_faqih_direct_imam_narrative_is_one_attribution_node():
+    raw = "وَ كَانَ عَلِيُّ بْنُ الْحُسَيْنِ عَلَيْهِمَا السَّلَامُ يَقُولُ"
+    chain = tokenize_isnad(raw)[0]
+    assert types(chain) == [IMAM]
+    assert chain.tokens[0].norm == normalise_arabic_persian(
+        "علي بن الحسين عليهما السلام"
+    )
+    assert "direct_attribution" in chain.flags
+    assert not chain.needs_review
+
+
+def test_faqih_anonymous_followup_question_uses_previous_imam():
+    raw = "وَ سُئِلَ عَنِ الرَّجُلِ يَنَامُ ثُمَّ يَسْتَيْقِظُ فَقَالَ"
+    chain = tokenize_isnad(raw)[0]
+    assert types(chain) == [PRONOUN]
+    assert chain.tokens[0].relation_kind == "previous_hadith_imam"
+    assert not chain.needs_review
+
+
+def test_faqih_named_followup_question_keeps_asker_and_previous_imam():
+    raw = "وَ سَأَلَ مُعَاوِيَةُ بْنُ عَمَّارٍ عَنِ الرَّجُلِ يَطَّلِي قَالَ"
+    chain = tokenize_isnad(raw)[0]
+    assert types(chain) == [NAMED, PRONOUN]
+    assert chain.tokens[0].norm == normalise_arabic_persian("معاوية بن عمار")
+    assert chain.tokens[1].relation_kind == "previous_hadith_imam"
+    assert not chain.needs_review
+
+
+def test_faqih_correspondence_keeps_writer_and_explicit_imam():
+    raw = (
+        "وَ كَتَبَ صَفْوَانُ بْنُ يَحْيَى إِلَى أَبِي الْحَسَنِ عَلَيْهِ السَّلَامُ "
+        "يَسْأَلُهُ عَنِ الرَّجُلِ فَقَالَ"
+    )
+    chain = tokenize_isnad(raw)[0]
+    assert types(chain) == [NAMED, IMAM]
+    assert chain.tokens[0].norm == normalise_arabic_persian("صفوان بن يحيى")
+    assert chain.tokens[1].norm == normalise_arabic_persian(
+        "أبي الحسن عليه السلام"
+    )
+    assert "direct_correspondence" in chain.flags
+    assert not chain.needs_review
+
+
+def test_faqih_attached_waw_anonymous_question_uses_previous_imam():
+    chain = tokenize_isnad(
+        "وَسُئِلَ عَلَيْهِ السَّلَامُ عَنِ الصَّائِمِ الْمُتَطَوِّعِ فَقَالَ"
+    )[0]
+    assert types(chain) == [PRONOUN]
+    assert chain.tokens[0].relation_kind == "previous_hadith_imam"
+    assert not chain.needs_review
+
+
+def test_faqih_raised_narrative_keeps_narrator_and_explicit_imam():
+    raw = (
+        "رُوِيَ عَنْ صَبَّاحٍ الْمُزَنِيِّ رَفَعَهُ قَالَ جَاءَ رَجُلَانِ "
+        "إِلَى أَمِيرِ الْمُؤْمِنِينَ ع فَقَالَ"
+    )
+    chain = tokenize_isnad(raw)[0]
+    assert types(chain) == [NAMED, IMAM]
+    assert chain.tokens[0].norm == normalise_arabic_persian("صباح المزني")
+    assert chain.tokens[1].norm == normalise_arabic_persian("أمير المؤمنين ع")
+    assert "raf" in chain.flags
+    assert not chain.needs_review
+
+
+def test_shared_honorific_applies_to_both_imams():
+    raw = (
+        "رَوَى جَمِيلٌ عَنْ زُرَارَةَ عَنْ أَبِي جَعْفَرٍ وَ أَبِي عَبْدِ اللَّهِ ع "
+        "فِي رَجُلٍ أَعْتَقَ عَبْداً"
+    )
+    chains = tokenize_isnad(raw)
+    assert len(chains) == 2
+    assert all(types(chain) == [NAMED, NAMED, IMAM] for chain in chains)
+    assert {chain.tokens[-1].norm for chain in chains} == {
+        normalise_arabic_persian("أبي جعفر ع"),
+        normalise_arabic_persian("أبي عبد الله ع"),
+    }
+    assert all(not chain.needs_review for chain in chains)
+
+
+def test_plural_raised_co_narrators_expand_to_same_imam():
+    raw = (
+        "وَ فِي رِوَايَةِ عَبْدِ اللَّهِ بْنِ الْمُغِيرَةِ وَ صَفْوَانَ وَ غَيْرِ "
+        "وَاحِدٍ رَفَعُوهُ إِلَى أَبِي عَبْدِ اللَّهِ ع أَنَّهُ قَالَ"
+    )
+    chains = tokenize_isnad(raw)
+    assert len(chains) == 3
+    assert all(types(chain)[-1] == IMAM for chain in chains)
+    assert {chain.tokens[0].node_type for chain in chains} == {NAMED, COLLECTIVE}
+    assert all("raf" in chain.flags for chain in chains)
+    assert all(not chain.needs_review for chain in chains)
+
+
+def test_faqih_compiler_byline_is_not_mistaken_for_the_chain():
+    raw = (
+        "قَالَ أَبُو جَعْفَرٍ مُحَمَّدُ بْنُ الْحُسَيْنِ بْنِ مُوسَى بْنِ "
+        "بَابَوَيْهِ الْقُمِّيُّ مُصَنِّفُ هَذَا الْكِتَابِ رَضِيَ اللَّهُ عَنْهُ "
+        "رُوِيَ عَنْ شُعَيْبِ بْنِ وَاقِدٍ عَنِ الْحُسَيْنِ بْنِ زَيْدٍ "
+        "عَنِ الصَّادِقِ جَعْفَرِ بْنِ مُحَمَّدٍ عَنْ أَبِيهِ عَنْ آبَائِهِ "
+        "عَنْ أَمِيرِ الْمُؤْمِنِينَ ع قَالَ"
+    )
+    chain = tokenize_isnad(raw)[0]
+    assert [token.norm for token in chain.tokens[:2]] == [
+        normalise_arabic_persian("شعيب بن واقد"),
+        normalise_arabic_persian("الحسين بن زيد"),
+    ]
+    assert chain.tokens[-1].norm == normalise_arabic_persian("الصادق جعفر بن محمد")
+    assert not chain.needs_review
+
+
+def test_faqih_moses_narrative_ignores_editorial_bracket():
+    raw = (
+        "وَ لَمَّا نَاجَى اللَّهُ مُوسَى بْنَ عِمْرَانَ [عَلَى نَبِيِّنَا وَ] "
+        "عَلَيْهِ السَّلَامُ قَالَ"
+    )
+    chain = tokenize_isnad(raw)[0]
+    assert types(chain) == [IMAM]
+    assert chain.tokens[0].norm == normalise_arabic_persian(
+        "موسى بن عمران عليه السلام"
+    )
+    assert not chain.needs_review
+
+
+def test_faqih_direct_prophet_narrative_accepts_spaced_honorific_waw():
+    raw = (
+        "وَ عَقَّ أَبُو طَالِبٍ رَحِمَهُ اللَّهُ عَنْ رَسُولِ اللَّهِ "
+        "صَلَّى اللَّهُ عَلَيْهِ وَ آلِهِ يَوْمَ السَّابِعِ فَقَالَ"
+    )
+    chain = tokenize_isnad(raw)[0]
+    assert types(chain) == [IMAM]
+    assert chain.tokens[0].norm == normalise_arabic_persian(
+        "رسول الله صلى الله عليه و آله"
+    )
+    assert not chain.needs_review
+
+
+def test_faqih_mursal_honorific_pronoun_uses_previous_imam():
+    chain = tokenize_isnad(
+        "وَ رُوِيَ : أَنَّهُ عَلَيْهِ السَّلَامُ حَجَّ عِشْرِينَ حَجَّةً"
+    )[0]
+    assert types(chain) == [PRONOUN]
+    assert chain.tokens[0].relation_kind == "previous_hadith_imam"
+    assert "mursal_opening" in chain.flags
+    assert not chain.needs_review
+
+
+def test_question_inside_matn_does_not_swallow_an_existing_chain():
+    raw = (
+        "رَوَى السَّكُونِيُّ عَنْ جَعْفَرِ بْنِ مُحَمَّدٍ عَنْ أَبِيهِ ع "
+        "أَنَّ عَلِيَّ بْنَ أَبِي طَالِبٍ ع سُئِلَ عَنْ رَجُلٍ"
+    )
+    chain = tokenize_isnad(raw)[0]
+    assert [token.norm for token in chain.tokens[:2]] == [
+        normalise_arabic_persian("السكوني"),
+        normalise_arabic_persian("جعفر بن محمد"),
+    ]
+    assert chain.tokens[-1].node_type == IMAM
+    assert not chain.needs_review
+
+
+def test_tahdhib_argument_prefix_is_not_a_narrator():
+    raw = (
+        "فَالَّذِي يَدُلُّ عَلَى ذَلِكَ مَا أَخْبَرَنِي بِهِ الشَّيْخُ أَيَّدَهُ اللَّهُ "
+        "عَنْ أَحْمَدَ بْنِ مُحَمَّدٍ عَنْ أَبِيهِ عَنْ زُرَارَةَ قَالَ"
+    )
+    chain = tokenize_isnad(raw)[0]
+    assert chain.tokens[0].norm == normalise_arabic_persian("الشيخ")
+    assert all("يدل" not in token.norm for token in chain.tokens)
+    assert not chain.needs_review
+
+
+def test_inline_book_citation_repairs_split_narrator_name():
+    raw = (
+        "يَدُلُّ عَلَيْهِ مَا أَخْبَرَنِي بِهِ الشَّيْخُ عَنْ أَحْمَدَ "
+        "(٢٧ التَّهْذِيب ج ١) ابْنِ مُحَمَّدٍ عَنْ أَبِيهِ عَنْ زُرَارَةَ قَالَ"
+    )
+    chain = tokenize_isnad(raw)[0]
+    assert [token.norm for token in chain.tokens[:2]] == [
+        normalise_arabic_persian("الشيخ"),
+        normalise_arabic_persian("أحمد ابن محمد"),
+    ]
+    assert "citation_noise" not in chain.flags
+    assert not chain.needs_review
+
+
+def test_quran_cross_reference_inside_chain_is_removed():
+    raw = (
+        "مُحَمَّدُ بْنُ أَحْمَدَ عَنْ يَعْقُوبَ بْنِ يَزِيدَ عَنْ يَحْيَى بْنِ "
+        "الْمُبَارَكِ سُورَةُ الْبَقَرَةِ الْآيَةُ: ١٨١ عَنْ عَبْدِ اللَّهِ بْنِ "
+        "جَبَلَةَ عَنْ سَمَاعَةَ قَالَ"
+    )
+    chain = tokenize_isnad(raw)[0]
+    assert [token.norm for token in chain.tokens[-2:]] == [
+        normalise_arabic_persian("عبد الله بن جبلة"),
+        normalise_arabic_persian("سماعة"),
+    ]
+    assert "citation_noise" not in chain.flags
+    assert not chain.needs_review
+
+
+def test_tusi_discussion_wrapper_is_not_a_narrator():
+    raw = (
+        "وَ لَا يُنَافِي ذَلِكَ مَا رَوَاهُ مُحَمَّدُ بْنُ أَحْمَدَ عَنْ "
+        "إِبْرَاهِيمَ بْنِ هَاشِمٍ عَنِ السَّكُونِيِّ عَنْ جَعْفَرٍ عَنْ أَبِيهِ"
+    )
+    chain = tokenize_isnad(raw)[0]
+    assert chain.tokens[0].norm == normalise_arabic_persian("محمد بن أحمد")
+    assert all("ينافي" not in token.norm for token in chain.tokens)
+    assert not chain.needs_review
+
+
+def test_attached_waw_written_question_keeps_writer_and_imam():
+    raw = (
+        "وَكَتَبَ مُحَمَّدُ بْنُ الْحَسَنِ الصَّفَّارُ إِلَى أَبِي مُحَمَّدٍ "
+        "الْحَسَنِ بْنِ عَلِيٍّ عَلَيْهِمَا السَّلَامُ رَجُلٌ مَاتَ وَتَرَكَ بِنْتَهُ"
+    )
+    chain = tokenize_isnad(raw)[0]
+    assert types(chain) == [NAMED, IMAM]
+    assert chain.tokens[0].norm == normalise_arabic_persian(
+        "محمد بن الحسن الصفار"
+    )
+    assert not chain.needs_review

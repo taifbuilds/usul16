@@ -34,6 +34,27 @@ _SAME_PERSON_MARKERS = {
     _n("یاتی بعنوان"),
     _n("تقدم بعنوان"),
 }
+_NEGATED_SAME_PERSON_MARKERS = {
+    _n("لكن الأمر على خلافه"),
+    _n("ولكن الأمر على خلافه"),
+    _n("لكن الامر على خلافه"),
+    _n("ولكن الامر على خلافه"),
+    _n("فكيف يمكن اتحادهما"),
+    _n("لا يمكن اتحادهما"),
+    # Al-Khoei often opens by reporting an earlier proposed identification,
+    # then rejects it with one of these evidentiary/chronological formulas.
+    # The opening «اتحاده مع» is not an assertion when the same note says the
+    # union has no witness or is historically remote.
+    _n("لا شاهد عليه"),
+    _n("لا شاهد عليها"),
+    _n("لا شاهد على اتحاده"),
+    _n("لا دليل عليه"),
+    _n("لا دليل على اتحاده"),
+    _n("يبعد الاتحاد"),
+    _n("بعيد الاتحاد"),
+    _n("لا وجه للاتحاد"),
+    _n("لا وجه لاتحاده"),
+}
 _TARGET_STOP_MARKERS = tuple(
     _n(s)
     for s in (
@@ -60,6 +81,8 @@ class SamePersonLinkStats:
     skipped_no_target: int = 0
     skipped_ambiguous_target: int = 0
     skipped_proxy: int = 0
+    skipped_negated: int = 0
+    negated_relations_removed: int = 0
     existing_relations: int = 0
     method_counts: Counter[str] = dataclasses.field(default_factory=Counter)
 
@@ -232,6 +255,22 @@ def materialize_same_person_relations(
     stats = SamePersonLinkStats()
     people, entry_to_person, entry_number_to_person, exact_name_targets = _build_person_indexes(db)
 
+    # Earlier versions saw ``اتحاده مع`` but ignored the explicit rebuttal
+    # later in the same quotation. Remove only tool-owned relations whose own
+    # stored evidence says the proposed identity is impossible.
+    generated_relations = db.execute(
+        select(PersonRelation).where(
+            PersonRelation.relation_kind == "same_person_as",
+            PersonRelation.source_note.like("al-Khoei tamyiz:%"),
+        )
+    ).scalars()
+    for relation in generated_relations:
+        if _contains_any(_n(relation.source_note), _NEGATED_SAME_PERSON_MARKERS):
+            db.delete(relation)
+            stats.negated_relations_removed += 1
+    if stats.negated_relations_removed:
+        db.flush()
+
     existing: set[tuple[int, str]] = {
         (pid, _n(related_name))
         for pid, related_name in db.execute(
@@ -265,6 +304,10 @@ def materialize_same_person_relations(
         quote_norm = _n(quote)
         if _contains_any(quote_norm, _MUSHTARAK_MARKERS):
             stats.skipped_mushtarak += 1
+            continue
+        if _contains_any(quote_norm, _NEGATED_SAME_PERSON_MARKERS):
+            stats.skipped_negated += 1
+            stats.method_counts["skipped:explicit-negation"] += 1
             continue
         if not _contains_any(quote_norm, _SAME_PERSON_MARKERS):
             stats.skipped_no_target += 1

@@ -66,6 +66,11 @@ CONFIDENT_STATUSES = ("resolved", "via_collective")
 # as "well attested", so a missing edge counts as a contradiction rather than
 # mere absence of evidence.
 WELL_ATTESTED_MIN_OCCURRENCES = 6
+
+# A small parser-overrun tier currently contains 23 narrator ledgers with
+# 1,200-2,600 rows each; the next-highest ledger has 24. Those entries swallowed
+# later alphabetical pages and cannot support identity or corroboration claims.
+MAX_TRUSTED_OCCURRENCES_PER_NARRATOR = 200
 _SAMPLE_CAP = 25
 
 # Generation methods whose interval is derived from a real anchor (a fixed Imam
@@ -373,8 +378,14 @@ def _load_occurrence_edges(
         RijalOccurrence.direction,
         RijalOccurrence.related_name_normalised,
     ).where(RijalOccurrence.narrator_id.in_(narrator_ids))
-    for narrator_id, direction, related_norm in db.execute(stmt):
+    rows = list(db.execute(stmt))
+    occurrence_counts = Counter(
+        narrator_id for narrator_id, _direction, _related_norm in rows if narrator_id is not None
+    )
+    for narrator_id, direction, related_norm in rows:
         if narrator_id is None:
+            continue
+        if occurrence_counts[narrator_id] > MAX_TRUSTED_OCCURRENCES_PER_NARRATOR:
             continue
         name = _norm(related_norm)
         if not name:

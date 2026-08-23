@@ -15,6 +15,9 @@ The idea is deliberately small and auditable:
 * add narrow al-Kafi source-opening priors learned from external review:
   ``Muhammad b. Yahya`` and ``Ali b. Ibrahim`` at chain opening, plus opening
   ``anhu`` back-reference to the previous hadith source;
+* add al-Tusi source-opening context backed by clean Mu'jam teacher links and
+  narrowly thresholded repeated-opening consensus;
+* forbid context-derived winners from seeding further automatic winners;
 * expand documented ``'iddah`` rosters after a following bare narrator becomes
   resolved.
 
@@ -45,7 +48,10 @@ from eshia_research.models import (
     RijalOccurrence,
 )
 from eshia_research.normalise import normalise_arabic_persian
-from eshia_research.rijal.eval_resolution import RELIABLE_GEN_METHODS
+from eshia_research.rijal.eval_resolution import (
+    MAX_TRUSTED_OCCURRENCES_PER_NARRATOR,
+    RELIABLE_GEN_METHODS,
+)
 from eshia_research.rijal.name_grammar import parse_name
 from eshia_research.rijal.person_resolver import PERSON_RESOLVER_VERSION
 from eshia_research.rijal.review_priors import AL_KAFI_REVIEW_PRIORS, target_person_for_spec
@@ -85,6 +91,19 @@ MIN_WIN_MARGIN = 18
 GENERATION_VETO_GAP = 3
 
 REJECTED_HADITH_STATUS = "rejected_non_hadith_fragment"
+
+# Context-derived winners are useful graph output, but must not become evidence
+# for further automatic winners. Allowing them to seed the next node (or a later
+# rerun) creates a self-reinforcing chain in which one mistaken inference can
+# spread without any new independent witness.
+CONTEXT_DERIVED_METHODS = frozenset(
+    {"collective_context", "tusi_source_opening_consensus"}
+)
+AL_TUSI_SOURCE_BOOK_IDS = frozenset({"10083", "11002"})
+MIN_TUSI_OPENING_CONSENSUS = 20
+MIN_TUSI_OPENING_DISTINCT_TEACHERS = 5
+STRONG_TUSI_OPENING_CONSENSUS = 100
+MAX_TUSI_CONSENSUS_SHARED_FORM = 20
 
 
 def _n(text: str) -> str:
@@ -185,6 +204,17 @@ class ChainNodeState:
             row.person_id
             for row in self.rows
             if row.person_id is not None and row.status in {"resolved", "via_collective", "latent"}
+        ]
+
+    @property
+    def context_anchor_people(self) -> list[int]:
+        """Resolved people backed independently of this contextual pass."""
+        return [
+            row.person_id
+            for row in self.rows
+            if row.person_id is not None
+            and row.status in {"resolved", "via_collective", "latent"}
+            and row.method not in CONTEXT_DERIVED_METHODS
         ]
 
 
@@ -387,13 +417,21 @@ def _build_context_lookup(db: Session) -> ContextLookup:
 
     occurrence_from: dict[int, Counter[str]] = defaultdict(Counter)
     occurrence_by: dict[int, Counter[str]] = defaultdict(Counter)
-    for narrator_id, direction, related_norm in db.execute(
+    occurrence_rows = list(db.execute(
         select(
             RijalOccurrence.narrator_id,
             RijalOccurrence.direction,
             RijalOccurrence.related_name_normalised,
         ).where(RijalOccurrence.narrator_id.isnot(None))
-    ):
+    ))
+    occurrence_counts = Counter(
+        narrator_id
+        for narrator_id, _direction, _related_norm in occurrence_rows
+        if narrator_id is not None
+    )
+    for narrator_id, direction, related_norm in occurrence_rows:
+        if occurrence_counts[narrator_id] > MAX_TRUSTED_OCCURRENCES_PER_NARRATOR:
+            continue
         if not related_norm:
             continue
         if direction == "narrates_from":
@@ -553,8 +591,8 @@ def _edge_counts(chains: list[list[ChainNodeState]]) -> Counter[tuple[int, int]]
     counts: Counter[tuple[int, int]] = Counter()
     for nodes in chains:
         for left, right in zip(nodes, nodes[1:]):
-            for student in left.resolved_people:
-                for teacher in right.resolved_people:
+            for student in left.context_anchor_people:
+                for teacher in right.context_anchor_people:
                     if student != teacher:
                         counts[(student, teacher)] += 1
     return counts
@@ -649,6 +687,21 @@ def _score_candidate(
         score += min(38, 22 + next_occ)
         evidence.append(f"Mu'jam lists next narrator among teachers x{next_occ}")
         evidence_json["next_mujam_occurrences"] = next_occ
+
+    # Tahdhib and Istibsar frequently open by quoting an earlier source book,
+    # not by naming al-Tusi himself. At position zero an explicit Mu'jam
+    # teacher link therefore carries additional source-opening force: it says
+    # both that this candidate narrates from the next resolved person and that
+    # the pair occurs where al-Tusi starts the quoted source isnad. This is not
+    # a hardcoded identity and never fires without the independent Mu'jam edge.
+    if (
+        node.position == 0
+        and source_book_ids & AL_TUSI_SOURCE_BOOK_IDS
+        and next_occ
+    ):
+        score += 12
+        evidence.append("al-Tusi source opening corroborated by Mu'jam teacher link")
+        evidence_json["source_prior"] = "al_tusi_opening_mujam_teacher"
 
     gen = lookup.person_generation.get(candidate.person_id)
     if gen is not None:
@@ -796,6 +849,7 @@ def _choose_winner(scores: list[CandidateScore]) -> CandidateScore | None:
             "next_mujam_occurrences",
             "iddah_roster_keys",
             "compiler_prior",
+            "source_prior",
         )
     )
     if has_context and top.score >= MIN_WIN_SCORE and top.score - second >= MIN_WIN_MARGIN:
@@ -1052,7 +1106,7 @@ def _replace_with_source_prior(
                 status="ambiguous",
                 method=f"{method}_alternative",
                 evidence_summary=(
-                    f"Alternative retained after al-Kafi source prior: "
+                    f"Alternative retained after source prior: "
                     f"{lookup.person_name_ar.get(row.person_id)}."
                 ),
                 evidence_json={
@@ -1862,6 +1916,115 @@ def _expand_roster_for_node(
     return len(new_members)
 
 
+def _apply_tusi_opening_consensus(
+    db: Session,
+    *,
+    chains: list[list[ChainNodeState]],
+    observations: dict[str, list[tuple[int, str, int, frozenset[int]]]],
+    lookup: ContextLookup,
+    source_book_ids: set[str],
+    stats: CollectiveRefinementStats,
+) -> None:
+    """Propagate a repeatedly corroborated al-Tusi source-opening identity.
+
+    The seed observations are winners established in this run by Mu'jam teacher
+    links. Consensus is deliberately narrow: either twenty occurrences across
+    five distinct following teachers, or one hundred repeated occurrences of
+    the same source opening; plus one unanimous person and a full (not
+    truncated/kunya/first-name) surface shared by at most twenty people. The
+    learned prior may resolve only the same position-zero token and only when
+    that person is already one of the node's stored candidates.
+    """
+    eligible: dict[str, tuple[int, int, int]] = {}
+    for token_norm, rows in observations.items():
+        if len(rows) < MIN_TUSI_OPENING_CONSENSUS:
+            continue
+        person_ids = {person_id for person_id, _derivation, _shared, _teachers in rows}
+        if len(person_ids) != 1:
+            continue
+        if any(
+            derivation != "full" or shared_count > MAX_TUSI_CONSENSUS_SHARED_FORM
+            for _person_id, derivation, shared_count, _teachers in rows
+        ):
+            continue
+        teachers: set[int] = set()
+        for _person_id, _derivation, _shared, row_teachers in rows:
+            teachers.update(row_teachers)
+        if (
+            len(rows) < STRONG_TUSI_OPENING_CONSENSUS
+            and len(teachers) < MIN_TUSI_OPENING_DISTINCT_TEACHERS
+        ):
+            continue
+        eligible[token_norm] = (next(iter(person_ids)), len(rows), len(teachers))
+
+    if not eligible:
+        return
+
+    empty_edges: Counter[tuple[int, int]] = Counter()
+    for nodes in chains:
+        if not nodes:
+            continue
+        node = nodes[0]
+        consensus = eligible.get(node.token_norm)
+        if node.position != 0 or not node.is_ambiguous or consensus is None:
+            continue
+        person_id, support_count, teacher_count = consensus
+        if person_id not in {row.person_id for row in node.rows}:
+            continue
+
+        next_node = nodes[1] if len(nodes) > 1 else None
+        next_people = next_node.context_anchor_people if next_node else []
+        candidate = next(
+            (
+                item
+                for item in expanded_candidates(node.token_norm, lookup)
+                if item.person_id == person_id
+            ),
+            None,
+        )
+        if candidate is None:
+            continue
+        safety_score = _score_candidate(
+            candidate,
+            previous_people=[],
+            next_people=next_people,
+            previous_node=None,
+            node=node,
+            edge_counts=empty_edges,
+            lookup=lookup,
+            source_book_ids=source_book_ids,
+        )
+        if safety_score.evidence_json.get("generation_vetoed"):
+            continue
+
+        _replace_with_source_prior(
+            db,
+            node_id=node.id,
+            person_id=person_id,
+            existing_rows=node.rows,
+            lookup=lookup,
+            method="tusi_source_opening_consensus",
+            summary=(
+                f"Resolved to {lookup.person_name_ar.get(person_id)} by al-Tusi "
+                f"source-opening consensus: {support_count} Mu'jam-corroborated "
+                f"occurrences across {teacher_count} distinct following teachers."
+            ),
+            evidence_json={
+                "phase": COLLECTIVE_REFINER_VERSION,
+                "source_prior": "al_tusi_opening_consensus",
+                "token_norm": node.token_norm,
+                "independent_support": support_count,
+                "distinct_following_teachers": teacher_count,
+                "selected_source_book_ids": sorted(source_book_ids & AL_TUSI_SOURCE_BOOK_IDS),
+            },
+        )
+        stats.nodes_resolved += 1
+        stats.source_priors += 1
+        stats.context_resolved += 1
+        stats.skipped_weak_margin = max(0, stats.skipped_weak_margin - 1)
+        stats.method_counts["tusi_source_opening_consensus"] += 1
+
+
 def refine_with_collective_context(
     db: Session,
     *,
@@ -1888,6 +2051,9 @@ def refine_with_collective_context(
     edge_counts = _edge_counts(chains)
     teachers_by_student, students_by_teacher = _edge_support_indexes(edge_counts)
     candidate_cache: dict[str, list[Candidate]] = {}
+    opening_observations: dict[
+        str, list[tuple[int, str, int, frozenset[int]]]
+    ] = defaultdict(list)
 
     total = sum(len(nodes) for nodes in chains)
     seen = 0
@@ -1901,8 +2067,8 @@ def refine_with_collective_context(
             stats.nodes_examined += 1
             previous_node = nodes[index - 1] if index > 0 else None
             next_node = nodes[index + 1] if index + 1 < len(nodes) else None
-            previous_people = previous_node.resolved_people if previous_node else []
-            next_people = next_node.resolved_people if next_node else []
+            previous_people = previous_node.context_anchor_people if previous_node else []
+            next_people = next_node.context_anchor_people if next_node else []
             supported_ids: set[int] = set()
             for previous in previous_people:
                 supported_ids.update(teachers_by_student.get(previous, set()))
@@ -1921,18 +2087,41 @@ def refine_with_collective_context(
                 and previous_node.is_collective
                 and (IDDAH in previous_node.token_norm or JAMAAH in previous_node.token_norm)
             )
-            if not supported_ids and not compiler_case and not roster_case:
-                stats.skipped_weak_margin += 1
-                continue
-
             if node.token_norm not in candidate_cache:
                 candidate_cache[node.token_norm] = expanded_candidates(node.token_norm, lookup)
             candidates = candidate_cache[node.token_norm]
             candidates = _inject_compiler_candidate(node, candidates, lookup, source_ids)
-            if supported_ids or roster_case or compiler_case:
+
+            # Mu'jam teacher/student occurrences are independent context and
+            # must be allowed to nominate a candidate even when that person has
+            # never yet been resolved in this corpus. The old early gate made
+            # common al-Tusi source openings (for example al-Husayn b. Sa'id)
+            # impossible to resolve because no corpus edge could exist until
+            # the first mention was resolved.
+            mujam_supported_ids: set[int] = set()
+            for candidate in candidates:
+                if any(
+                    _occurrence_count(
+                        lookup.occurrence_by, lookup, candidate.person_id, previous
+                    )
+                    for previous in previous_people
+                ) or any(
+                    _occurrence_count(
+                        lookup.occurrence_from, lookup, candidate.person_id, nxt
+                    )
+                    for nxt in next_people
+                ):
+                    mujam_supported_ids.add(candidate.person_id)
+
+            if not supported_ids and not mujam_supported_ids and not compiler_case and not roster_case:
+                stats.skipped_weak_margin += 1
+                continue
+
+            if supported_ids or mujam_supported_ids or roster_case or compiler_case:
                 candidates = [
                     candidate for candidate in candidates
                     if candidate.person_id in supported_ids
+                    or candidate.person_id in mujam_supported_ids
                     or (compiler_case and candidate.person_id == lookup.kulayni_person_id)
                     or (roster_case and candidate.person_id in lookup.roster_keys_by_person)
                 ]
@@ -1962,6 +2151,19 @@ def refine_with_collective_context(
             if winner.evidence_json.get("compiler_prior"):
                 stats.compiler_priors += 1
                 stats.method_counts["compiler_prior"] += 1
+            elif winner.evidence_json.get("source_prior"):
+                stats.source_priors += 1
+                stats.context_resolved += 1
+                stats.method_counts["al_tusi_source_opening_context"] += 1
+                surface = winner.evidence_json.get("surface") or {}
+                opening_observations[node.token_norm].append(
+                    (
+                        winner.person_id,
+                        str(surface.get("derivation") or ""),
+                        int(surface.get("shared_count") or 0),
+                        frozenset(next_people),
+                    )
+                )
             else:
                 stats.context_resolved += 1
                 stats.method_counts["collective_context"] += 1
@@ -1978,6 +2180,15 @@ def refine_with_collective_context(
                     resolver_version=PERSON_RESOLVER_VERSION,
                 )
             ]
+
+    _apply_tusi_opening_consensus(
+        db,
+        chains=chains,
+        observations=opening_observations,
+        lookup=lookup,
+        source_book_ids=source_ids,
+        stats=stats,
+    )
 
     # Second pass: expand collective rosters now that some following bare
     # narrators may have a resolved person.

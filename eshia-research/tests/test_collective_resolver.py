@@ -3,7 +3,17 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session, sessionmaker
 
 from eshia_research.db import Base, make_engine
-from eshia_research.models import Book, Chain, ChainNode, Hadith, MentionResolution, Person, RijalEntry
+from eshia_research.models import (
+    Book,
+    Chain,
+    ChainNode,
+    Hadith,
+    MentionResolution,
+    Narrator,
+    Person,
+    RijalEntry,
+    RijalOccurrence,
+)
 from eshia_research.normalise import normalise_arabic_persian
 from eshia_research.rijal.collective_resolver import (
     refine_compiler_priors,
@@ -200,6 +210,241 @@ def test_context_edges_disambiguate_bare_name(seeded):
     assert rows[0].person_id == person_id(db, "أحمد بن محمد بن عيسى الأشعري")
     assert rows[0].method == "collective_context"
     assert "corpus edge" in (rows[0].evidence_summary or "")
+
+
+def test_context_winner_does_not_seed_another_context_winner(seeded):
+    db, kafi = seeded
+    for seq in range(1, 21):
+        make_chain(
+            db,
+            kafi,
+            f"independent-edge-seed-{seq}",
+            seq,
+            [
+                ("الحسن بن محبوب", "named_narrator"),
+                ("أحمد بن محمد بن عيسى الأشعري", "named_narrator"),
+                ("محمد بن يحيى أبو جعفر العطار", "named_narrator"),
+            ],
+        )
+    target = make_chain(
+        db,
+        kafi,
+        "no-context-cascade",
+        21,
+        [
+            ("الحسن بن محبوب", "named_narrator"),
+            ("أحمد بن محمد", "named_narrator"),
+            ("محمد بن يحيى", "named_narrator"),
+        ],
+    )
+    rebuild_person_resolutions(db, book_ids=[kafi.id])
+
+    first = refine_with_collective_context(db, book_ids=[kafi.id])
+    assert first.nodes_resolved == 1
+    assert resolutions_for(db, target, 1)[0].status == "resolved"
+    assert resolutions_for(db, target, 2)[0].status == "ambiguous"
+
+    # A later rerun must not launder the first contextual inference into an
+    # independent teacher/student anchor for the second ambiguity.
+    second = refine_with_collective_context(db, book_ids=[kafi.id])
+    assert second.nodes_resolved == 0
+    assert resolutions_for(db, target, 2)[0].status == "ambiguous"
+
+
+def test_tusi_source_opening_uses_independent_mujam_teacher_link(seeded):
+    db, _kafi = seeded
+    mujam = db.execute(select(Book).where(Book.source_book_id == "14036")).scalar_one()
+    tusi = Book(
+        source_book_id="10083",
+        title_original="t",
+        title_normalised="t",
+        source_url="https://lib.eshia.ir/10083",
+    )
+    db.add(tusi)
+    db.flush()
+    add_entry(db, mujam, 37, "الحسين بن سعيد اللحمي")
+    build_person_layer(db)
+
+    chain = make_chain(
+        db,
+        tusi,
+        "tusi-source-opening",
+        1,
+        [
+            ("الحسين بن سعيد", "named_narrator"),
+            ("الحسن بن محبوب", "named_narrator"),
+        ],
+    )
+    rebuild_person_resolutions(db, book_ids=[tusi.id])
+    assert resolutions_for(db, chain, 0)[0].status == "ambiguous"
+
+    ahwazi = db.get(Person, person_id(db, "الحسين بن سعيد الأهوازي"))
+    entry = db.get(RijalEntry, ahwazi.primary_entry_id)
+    assert entry is not None
+    narrator = Narrator(
+        canonical_name_ar=ahwazi.canonical_name_ar,
+        canonical_name_norm=ahwazi.canonical_name_norm,
+    )
+    db.add(narrator)
+    db.flush()
+    entry.narrator_id = narrator.id
+    db.add(
+        RijalOccurrence(
+            entry_id=entry.id,
+            narrator_id=narrator.id,
+            direction="narrates_from",
+            related_name_raw="الحسن بن محبوب",
+            related_name_normalised=norm("الحسن بن محبوب"),
+            evidence_text_raw="روى عن الحسن بن محبوب",
+            confidence=95,
+        )
+    )
+    db.flush()
+
+    stats = refine_with_collective_context(db, book_ids=[tusi.id])
+    rows = resolutions_for(db, chain, 0)
+
+    assert stats.nodes_resolved == 1
+    assert stats.source_priors == 1
+    assert rows[0].status == "resolved"
+    assert rows[0].person_id == ahwazi.id
+    assert rows[0].evidence_json["source_prior"] == "al_tusi_opening_mujam_teacher"
+
+
+def test_tusi_context_rejects_overrun_occurrence_ledger(seeded):
+    db, _kafi = seeded
+    mujam = db.execute(select(Book).where(Book.source_book_id == "14036")).scalar_one()
+    tusi = Book(
+        source_book_id="10083",
+        title_original="t",
+        title_normalised="t",
+        source_url="https://lib.eshia.ir/10083",
+    )
+    db.add(tusi)
+    db.flush()
+    add_entry(db, mujam, 37, "الحسين بن سعيد اللحمي")
+    build_person_layer(db)
+
+    chain = make_chain(
+        db,
+        tusi,
+        "tusi-corrupt-occurrence-ledger",
+        1,
+        [
+            ("الحسين بن سعيد", "named_narrator"),
+            ("الحسن بن محبوب", "named_narrator"),
+        ],
+    )
+    rebuild_person_resolutions(db, book_ids=[tusi.id])
+
+    ahwazi = db.get(Person, person_id(db, "الحسين بن سعيد الأهوازي"))
+    entry = db.get(RijalEntry, ahwazi.primary_entry_id)
+    assert entry is not None
+    narrator = Narrator(
+        canonical_name_ar=ahwazi.canonical_name_ar,
+        canonical_name_norm=ahwazi.canonical_name_norm,
+    )
+    db.add(narrator)
+    db.flush()
+    entry.narrator_id = narrator.id
+    for index in range(201):
+        db.add(
+            RijalOccurrence(
+                entry_id=entry.id,
+                narrator_id=narrator.id,
+                direction="narrates_from",
+                related_name_raw="الحسن بن محبوب",
+                related_name_normalised=norm("الحسن بن محبوب"),
+                evidence_text_raw=f"overrun row {index}",
+                confidence=95,
+            )
+        )
+    db.flush()
+
+    stats = refine_with_collective_context(db, book_ids=[tusi.id])
+
+    assert stats.nodes_resolved == 0
+    assert resolutions_for(db, chain, 0)[0].status == "ambiguous"
+
+
+def test_tusi_opening_consensus_propagates_only_after_independent_support(seeded):
+    db, _kafi = seeded
+    mujam = db.execute(select(Book).where(Book.source_book_id == "14036")).scalar_one()
+    tusi = Book(
+        source_book_id="10083",
+        title_original="t",
+        title_normalised="t",
+        source_url="https://lib.eshia.ir/10083",
+    )
+    db.add(tusi)
+    db.flush()
+    add_entry(db, mujam, 37, "الحسين بن سعيد اللحمي")
+    build_person_layer(db)
+
+    ahwazi = db.get(Person, person_id(db, "الحسين بن سعيد الأهوازي"))
+    entry = db.get(RijalEntry, ahwazi.primary_entry_id)
+    assert entry is not None
+    narrator = Narrator(
+        canonical_name_ar=ahwazi.canonical_name_ar,
+        canonical_name_norm=ahwazi.canonical_name_norm,
+    )
+    db.add(narrator)
+    db.flush()
+    entry.narrator_id = narrator.id
+
+    teachers = [
+        "الحسن بن محبوب",
+        "حريز بن عبد الله",
+        "محمد بن سنان",
+        "علي بن الحكم",
+        "محمد بن مسلم الثقفي",
+    ]
+    for teacher in teachers:
+        db.add(
+            RijalOccurrence(
+                entry_id=entry.id,
+                narrator_id=narrator.id,
+                direction="narrates_from",
+                related_name_raw=teacher,
+                related_name_normalised=norm(teacher),
+                evidence_text_raw=f"روى عن {teacher}",
+                confidence=95,
+            )
+        )
+    for seq in range(1, 21):
+        make_chain(
+            db,
+            tusi,
+            f"tusi-opening-seed-{seq}",
+            seq,
+            [
+                ("الحسين بن سعيد", "named_narrator"),
+                (teachers[(seq - 1) % len(teachers)], "named_narrator"),
+            ],
+        )
+    target = make_chain(
+        db,
+        tusi,
+        "tusi-opening-consensus-target",
+        21,
+        [("الحسين بن سعيد", "named_narrator")],
+    )
+    rebuild_person_resolutions(db, book_ids=[tusi.id])
+    assert resolutions_for(db, target, 0)[0].status == "ambiguous"
+
+    stats = refine_with_collective_context(db, book_ids=[tusi.id])
+    rows = resolutions_for(db, target, 0)
+
+    assert stats.nodes_resolved == 21
+    assert stats.source_priors == 21
+    assert rows[0].status == "resolved"
+    assert rows[0].person_id == ahwazi.id
+    assert rows[0].method == "tusi_source_opening_consensus"
+    assert rows[0].evidence_json["independent_support"] == 20
+    assert rows[0].evidence_json["distinct_following_teachers"] == 5
+
+    second = refine_with_collective_context(db, book_ids=[tusi.id])
+    assert second.nodes_resolved == 0
 
 
 def test_compiler_prior_resolves_kulayni_opening(seeded):

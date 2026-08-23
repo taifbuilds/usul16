@@ -505,7 +505,7 @@ class Person(Base):
     generation_layer: Mapped[int | None] = mapped_column(Integer, nullable=True)
     # individual | bare_form_proxy | masum | latent
     kind: Mapped[str] = mapped_column(String(32), default="individual", index=True)
-    # mujam_entry | fixed_masum | nasab_kinship (latent, Phase B+)
+    # mujam_entry | fixed_masum | nasab_kinship (latent, Phase B+) | external_rijal
     origin: Mapped[str] = mapped_column(String(32), default="mujam_entry")
     primary_entry_id: Mapped[int | None] = mapped_column(
         ForeignKey("rijal_entries.id"), nullable=True, index=True
@@ -533,6 +533,11 @@ class PersonEntryLink(Base):
         about this (fuller-named) person among others.
     tamyiz_discussion: the entry text contains an identity ruling or
         disambiguation discussion relevant to this person.
+    external_*_subject: an offline source witness matched by the named tier
+        (exact, full/name variant, alias, equivalence, fuzzy, created, or
+        multi-subject evidence).
+    external_subject_candidate: one of several honest candidates retained for
+        review; it is not a resolved identity.
     """
 
     __tablename__ = "person_entry_links"

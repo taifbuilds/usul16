@@ -482,6 +482,8 @@ class NarratorAliasRead(BaseModel):
 
 class RijalEntryRead(BaseModel):
     id: int
+    source_title: str
+    content_status: str
     entry_kind: str
     entry_number: int | None
     title_raw: str

@@ -80,6 +80,33 @@ class TokenizedChain:
 _FOOTNOTE_MARKER_RE = re.compile(r"[\[(]\s*[0-9٠-٩۰-۹]+\s*[\])]\s*[.:]?")
 _ZW_RE = re.compile("[‌‍‎‏]")
 _PAREN_RE = re.compile(r"[()\[\]«»]")
+_EDITORIAL_BRACKET_RE = re.compile(
+    r"\[\s*" + _n("على نبينا و") + r"\s*\]"
+)
+_PAREN_CITATION_RE = re.compile(
+    r"\({1,2}[^()]{0,100}(?:[0-9٠-٩۰-۹]+|"
+    + "|".join(_n(w) for w in ("التهذيب", "الاستبصار", "الكافي", "الفقيه"))
+    + r")[^()]{0,100}\){1,2}"
+)
+_BOOK_CITATION_RE = re.compile(
+    r"(?:[0-9٠-٩۰-۹]+\s*)?(?:"
+    + "|".join(_n(w) for w in ("التهذيب", "الاستبصار", "الكافي", "الفقيه"))
+    + r")\s*[ـ-]?\s*(?:ج|جم)?\s*[0-9٠-٩۰-۹]+"
+    + r"(?:\s*ص\s*[0-9٠-٩۰-۹]+)?\s*[.]?"
+)
+_QURAN_CITATION_RE = re.compile(
+    _n("سورة") + r"\s+\S+\s+" + _n("الاية") + r"\s*:?\s*[0-9٠-٩۰-۹]+"
+)
+_INSERTED_BASMALA_RE = re.compile(
+    _n("بسم الله الرحمن الرحيم وبه نستعين وله الحمد")
+)
+_CHAIN_APPARATUS_RE = re.compile(
+    _n("في كتاب المشيخة بلفظ آخر") + r"|" + _n("باسناد له")
+)
+_LEXICAL_GLOSS_RE = re.compile(
+    _n("الاقط") + r"\s*:\s*.*?(?=" + _n("قال") + r"(?:\s|$))"
+)
+_ANY_DIGIT_RE = re.compile(r"[0-9٠-٩۰-۹]+")
 _DASH_RE = re.compile(r"[\-–—]+")
 _WS_RE = re.compile(r"\s+")
 
@@ -99,8 +126,20 @@ def clean_isnad_text(raw: str) -> str:
     verb that a colon follows («قال: دخلت…») still ends on a word boundary.
     """
     text = strip_diacritics(raw)
+    text = normalise_arabic_persian(text)
     text = _ZW_RE.sub(" ", text)
     text = _FOOTNOTE_MARKER_RE.sub(" ", text)
+    text = _EDITORIAL_BRACKET_RE.sub(" ", text)
+    text = _PAREN_CITATION_RE.sub(" ", text)
+    text = _BOOK_CITATION_RE.sub(" ", text)
+    text = _QURAN_CITATION_RE.sub(" ", text)
+    text = _INSERTED_BASMALA_RE.sub(" ", text)
+    text = _CHAIN_APPARATUS_RE.sub(" ", text)
+    text = _LEXICAL_GLOSS_RE.sub(" ", text)
+    # Numerals in isnad_raw are report/cross-reference apparatus, never part
+    # of an Arabic personal name. Removing them repairs unbracketed footnote
+    # markers without weakening any narrator boundary.
+    text = _ANY_DIGIT_RE.sub(" ", text)
     text = _PAREN_RE.sub(" ", text)
     text = _DASH_RE.sub(" ", text)
     text = normalise_arabic_persian(text)
@@ -116,10 +155,12 @@ _LONG_HONORIFICS = (
     "عليهما السلام",
     "عليهم السلام",
     "صلوات الله عليه وآله",
+    "صلوات الله عليه و آله",
     "صلوات الله عليهم",
     "صلوات الله عليه",
     "صلى الله عليه وآله وسلم",
     "صلى الله عليه وآله",
+    "صلى الله عليه و آله",
 )
 # Bare ع/ص must be standalone words, or names like «الربيع» become Imams.
 _HONORIFIC_ALT = (
@@ -147,6 +188,29 @@ _IMAM_TITLES = (
 )
 _IMAM_NAME_RE = re.compile(
     "^(?:" + "|".join(_n(t) for t in _IMAM_TITLES) + r")(?:\s|$)"
+)
+_IMAM_REFERENCE_RE = re.compile(
+    r"(?:^|\s)ب?(?P<imam>"
+    + "|".join(
+        _n(t)
+        for t in (
+            *_IMAM_TITLES,
+            "أبي عبد الله",
+            "أبي جعفر",
+            "أبي الحسن",
+            "علي بن أبي طالب",
+            "علي بن الحسين",
+            "الحسن بن علي",
+            "الحسين بن علي",
+            "محمد بن علي",
+            "جعفر بن محمد",
+            "موسى بن جعفر",
+            "موسى بن عمران",
+            "علي بن موسى",
+            "علي بن محمد",
+        )
+    )
+    + r")(?=\s|$)"
 )
 
 _COLLECTIVE_RE = re.compile(
@@ -201,9 +265,16 @@ _PHRASES = (
     "روى",
     "روي",
     "يرفعه",
+    "يرفعه إلى",
+    "رفعوه إلى",
+    "رفعوه",
+    "رفع الحديث إلى",
     "رفعه إلى",
     "رفعه",
     "بإسناده عن",
+    "في رواية",
+    "في كتاب",
+    "في العلل التي ذكرها",
 )
 _PHRASE_ALT = "|".join(
     sorted({_n(p) for p in _PHRASES}, key=len, reverse=True)
@@ -223,6 +294,7 @@ _TRAILING_SPEECH_RE = re.compile(
 _EMBEDDED_SPEECH_RE = re.compile(
     r"\s" + _n("(?:قالا|قالت|قال|سمع|أنهما|أنها|أنه|أن)") + r"\s"
 )
+_DESCRIPTIVE_TAIL_RE = re.compile(r"\s+و\s*" + _n("كان") + r"(?:\s|$)")
 _LEADING_SPEECH_RE = re.compile(
     r"^" + _n("(?:قالا|قالت|قال|سمع|أنهما|أنها|أنه|أن)") + r"\s+"
 )
@@ -247,7 +319,10 @@ _CITATION_NOISE_RE = re.compile(
 # phrase followed by something to transmit from — because that is the one
 # shape in which a narrator could have been dropped.
 _CHAIN_CONTINUATION_RE = re.compile(rf"^(?:{_n('و')}\s*)?(?:{_PHRASE_ALT})\s+\S")
-_RAF_PHRASES = {_n("رفعه"), _n("رفعه إلى"), _n("يرفعه")}
+_RAF_PHRASES = {
+    _n("رفعه"), _n("رفعه إلى"), _n("يرفعه"), _n("يرفعه إلى"),
+    _n("رفعوه"), _n("رفعوه إلى"), _n("رفع الحديث إلى"),
+}
 _MURSAL_PHRASES = {_n("روي"), _n("روى"), _n("يروى")}
 _DIGIT_RE = re.compile(r"[0-9٠-٩۰-۹]")
 _TAHWIL_RE = re.compile(r"\sح(?:\s|$)")
@@ -270,6 +345,19 @@ _LEADING_JUNK_RE = re.compile(
         for w in (
             "و", "ف", "ما", "ثم", "به", "أن", "أنه", "قد",
             "فأما", "أما", "وأما", "فاما", "والخبر الذي",
+            "الحديث الذي", "الخبر الذي", "الذي", "ذلك",
+            "فالذي يدل على ذلك ما", "الذي يدل على ذلك ما",
+            "يدل عليه ما", "هذا الخبر",
+            "يدل على ذلك ما", "يدل على ذلك قول",
+            "والحديث الذي", "الخبر الآخر الذي", "والخبر الآخر الذي",
+            "وكذلك الخبر الذي", "ولا ينافي ذلك ما", "لا ينافي ذلك ما",
+            "ألا ترى إلى ما", "الا ترى الى ما",
+            "قد روي مثل هذا", "وقد روي مثل هذا",
+            "روى هذا الحديث", "وروى هذا الحديث",
+            "روي هذا الحديث", "وروي هذا الحديث",
+            "روى ذلك", "وروى ذلك", "روى هذا الدعاء", "وروى هذا الدعاء",
+            "قد روى هذا المعنى", "وقد روى هذا المعنى",
+            "هذا الحديث", "رواية سعد هذا الحديث",
         )
     )
     + r")\s+"
@@ -278,7 +366,7 @@ _LEADING_JUNK_RE = re.compile(
 # names that genuinely begin with واو, and «ولد», the kinship noun that binds
 # a mawla to a household («سلمى مولاة ولد أبي عبد الله ع»).
 _WAW_INITIAL_NAMES_ALT = "|".join(
-    _n(w) for w in ("هب", "ليد", "اقد", "ائل", "اصل", "ردان", "هيب", "لد")
+    _n(w) for w in ("هب", "ليد", "اقد", "ائل", "اصل", "ردان", "هيب", "لد", "احد")
 )
 _TRAILING_JUNK_RE = re.compile(
     r"\s(?:" + "|".join(_n(w) for w in ("و", "أنه", "أنها", "أنهما", "ثم")) + r")$"
@@ -357,6 +445,13 @@ def _classify(raw: str, phrase: str | None) -> IsnadToken | None:
         return IsnadToken(raw=norm, norm=norm, phrase=phrase, node_type=COLLECTIVE)
     if _UNKNOWN_RE.match(norm):
         return IsnadToken(raw=norm, norm=norm, phrase=phrase, node_type=UNKNOWN)
+    # In a raised chain the preposition belongs to the transmission formula,
+    # not the Ma'sum's name (``يرفعه إلى أبي عبد الله ع``). Older phrase
+    # splitting stopped at ``يرفعه`` and left ``إلى`` attached to the token.
+    if phrase in _RAF_PHRASES and norm.startswith(_n("إلى") + " "):
+        norm = norm.split(" ", 1)[1]
+        if _is_imam(norm):
+            return IsnadToken(raw=norm, norm=norm, phrase=phrase, node_type=IMAM)
     return IsnadToken(raw=norm, norm=norm, phrase=phrase, node_type=NAMED)
 
 
@@ -377,6 +472,9 @@ def _matn_boundary(text: str, *, allow_honorific: bool = True) -> int:
     speech = _EMBEDDED_SPEECH_RE.search(text)
     if speech:
         bounds.append(speech.start())
+    descriptive = _DESCRIPTIVE_TAIL_RE.search(text)
+    if descriptive:
+        bounds.append(descriptive.start())
     if allow_honorific:
         honorific = _HONORIFIC_INLINE_RE.search(text)
         if honorific and text[honorific.end():].strip(" .،:"):
@@ -393,10 +491,63 @@ def _extract_imam_from_spill(spill: str) -> str | None:
     asked = _ASKED_RE.search(prefix)
     if asked:
         prefix = prefix[asked.end():].strip(" .،:")
+    explicit = _explicit_imam_reference(prefix)
+    if explicit is not None:
+        return explicit
+    if _HONORIFIC_TAIL_RE.fullmatch(prefix):
+        return None
     # An Imam token is a handful of words, not a sentence.
     if 0 < len(prefix.split()) <= 7:
         return prefix
     return None
+
+
+def _explicit_imam_reference(text: str) -> str | None:
+    """Return the explicit Ma'sum reference ending at its honorific.
+
+    Direct Faqih reports often begin with narrative prose rather than ``عن``:
+    ``كان علي بن الحسين ع ... يقول`` or ``جاء رجل إلى رسول الله ص``. Taking
+    the final explicit reference avoids turning the prose before it into a
+    narrator token.
+    """
+
+    honorific = _HONORIFIC_INLINE_RE.search(text)
+    if honorific is None:
+        return None
+    prefix = text[: honorific.end()].strip(" .،:")
+    references = list(_IMAM_REFERENCE_RE.finditer(prefix))
+    if not references:
+        return None
+    candidate = prefix[references[-1].start("imam") :].strip()
+    candidate = candidate.lstrip()
+    if 0 < len(candidate.split()) <= 8 and _is_imam(candidate):
+        return candidate
+    return None
+
+
+def _previous_hadith_imam_token() -> IsnadToken:
+    return IsnadToken(
+        raw=_n("سئل"),
+        norm=_n("سئل"),
+        phrase=None,
+        node_type=PRONOUN,
+        relation_kind="previous_hadith_imam",
+    )
+
+
+def _questioner_prefix(rest: str) -> str | None:
+    """Extract the named asker before a Faqih question topic begins."""
+
+    boundary = re.search(
+        r"\s+(?:"
+        + "|".join(_n(w) for w in ("عن", "عمن", "أيهما", "إذا", "هل"))
+        + r")(?:\s|$)",
+        rest,
+    )
+    candidate = (rest[: boundary.start()] if boundary else rest).strip(" .،:")
+    if not candidate or len(candidate.split()) > 8 or _looks_like_matn(candidate):
+        return None
+    return candidate
 
 
 @dataclass
@@ -432,6 +583,9 @@ def _co_narrator_parts(segment_text: str, *, allow_honorific: bool = True) -> li
     («عدة من أصحابنا منهم فلان وفلان») are kept whole."""
     if _COLLECTIVE_RE.match(_tidy_token(segment_text)):
         return [segment_text]
+    alias_clause = re.search(r"\s+و\s*" + _n("يقال له") + r"(?:\s|$)", segment_text)
+    if alias_clause:
+        return [segment_text[: alias_clause.start()].strip(" ،.")]
     # Past the matn boundary «و» joins clauses («مات و أوصى إلى رجل و له ابن
     # صغير», «في قول الله عز و جل و لا تركنوا…») and would otherwise expand
     # into a chain per clause. Only the name before it can carry co-narrators;
@@ -450,6 +604,16 @@ def _co_narrator_parts(segment_text: str, *, allow_honorific: bool = True) -> li
     parts = [p.strip(" ،.") for p in parts if p and p.strip(" ،.")]
     if len(parts) <= 1:
         return [segment_text]
+    # A single final honorific can govern a list of Ma'sums:
+    # ``عن أبي جعفر و أبي عبد الله ع``. Propagate it to each explicit Imam
+    # reference so the first alternative does not become an ordinary narrator.
+    honorific = _HONORIFIC_TAIL_RE.search(parts[-1])
+    if honorific and all(_IMAM_REFERENCE_RE.search(part) for part in parts):
+        suffix = honorific.group(0).strip()
+        parts = [
+            part if _HONORIFIC_TAIL_RE.search(part) else f"{part} {suffix}"
+            for part in parts
+        ]
     for part in parts:
         if _DIGIT_RE.search(part) or len(part.split()) > 8:
             return [segment_text]
@@ -460,13 +624,21 @@ def _special_opening(text: str) -> tuple[list[IsnadToken], set[str]] | None:
     """Faqih-style direct openings, handled before general splitting."""
     stripped = _strip_leading_junk(text)
 
+    if re.match(
+        _n("(?:روى|روي)") + r"\s*:?\s*" + _n("أنه عليه السلام") + r"(?:\s|$)",
+        stripped,
+    ):
+        return [_previous_hadith_imam_token()], {"mursal_opening"}
+
     m = re.match(_n("قال") + r"\s+(.*)$", stripped)
     if m:
         imam = _extract_imam_from_spill(m.group(1))
         if imam:
             return [IsnadToken(raw=imam, norm=imam, phrase=None, node_type=IMAM)], set()
+        if re.match(r"(?:و\s*)?" + _n("سألته") + r"(?:\s|$)", m.group(1)):
+            return [_previous_hadith_imam_token()], set()
 
-    m = re.match(_n("سئل") + r"\s+(.*)$", stripped)
+    m = re.match(r"(?:" + _n("و") + r")?" + _n("سئل") + r"\s+(.*)$", stripped)
     if m:
         imam = _extract_imam_from_spill(m.group(1))
         if imam:
@@ -474,6 +646,10 @@ def _special_opening(text: str) -> tuple[list[IsnadToken], set[str]] | None:
                 [IsnadToken(raw=imam, norm=imam, phrase=None, node_type=IMAM)],
                 {"anonymous_questioner"},
             )
+        return [_previous_hadith_imam_token()], {"anonymous_questioner"}
+
+    if re.match(_n("عن الرجل") + r"(?:\s|$)", stripped):
+        return [_previous_hadith_imam_token()], {"anonymous_questioner"}
 
     # Faqih often splits consecutive questions into distinct reports with
     # «سأله [فلان] عن ...». The object pronoun is the Imam named in the
@@ -499,6 +675,19 @@ def _special_opening(text: str) -> tuple[list[IsnadToken], set[str]] | None:
             )
         )
         return tokens, set()
+
+    m = re.match(_n("سأله") + r"\s+(.*)$", stripped)
+    if m:
+        asker = _questioner_prefix(m.group(1))
+        asker_token = _classify(asker, None) if asker else None
+        if asker_token is not None:
+            return [asker_token, _previous_hadith_imam_token()], set()
+
+    m = re.match(_n("قال له") + r"\s+(.*)$", stripped)
+    if m:
+        speaker = _classify(m.group(1), None)
+        if speaker is not None and not _looks_like_matn(speaker.norm):
+            return [speaker, _previous_hadith_imam_token()], set()
 
     m = re.match(_n("سأل") + r"\s+(.*)$", stripped)
     if m:
@@ -529,6 +718,185 @@ def _special_opening(text: str) -> tuple[list[IsnadToken], set[str]] | None:
                         [asker_token, IsnadToken(raw=imam, norm=imam, phrase=None, node_type=IMAM)],
                         set(),
                     )
+        asker = _questioner_prefix(rest)
+        asker_token = _classify(asker, None) if asker else None
+        if asker_token is not None:
+            return [asker_token, _previous_hadith_imam_token()], set()
+
+    # Written questions and complaints state the correspondent before the
+    # explicit Imam: ``كتب صفوان ... إلى أبي الحسن ع``. Preserve both ends;
+    # if the writer is himself the Imam, the direct attribution is one node.
+    m = re.match(
+        r"(?:" + _n("و") + r")?" + _n("(?:كتب|شكا)")
+        + r"\s+(.*?)\s+" + _n("إلى") + r"\s+(.*)$",
+        stripped,
+    )
+    if m:
+        writer = _classify(m.group(1), None)
+        imam = _explicit_imam_reference(m.group(2))
+        if writer is not None and writer.node_type == IMAM:
+            return [writer], {"direct_attribution"}
+        if writer is not None and imam is not None:
+            return [
+                writer,
+                IsnadToken(raw=imam, norm=imam, phrase=None, node_type=IMAM),
+            ], {"direct_correspondence"}
+
+    # ``روى عنه فلان في الرجل ...`` and ``روى فلان أنه سئل عن ...`` carry
+    # a cross-report Imam reference; the question topic is not a narrator.
+    m = re.match(
+        _n("(?:روى|روي)")
+        + r"\s+"
+        + _n("عنه")
+        + r"\s+(.*?)\s+"
+        + _n("في")
+        + r"\s+(?:"
+        + _n("الرجل")
+        + r"|"
+        + _n("رجل")
+        + r")(?:\s|$)",
+        stripped,
+    )
+    if m:
+        narrator_text = m.group(1)
+        has_embedded_chain = re.search(
+            r"(?:^|\s)" + _n("عن") + r"(?:\s|$)", narrator_text
+        )
+        narrator = _classify(narrator_text, None)
+        if narrator is not None and has_embedded_chain is None:
+            return [narrator, _previous_hadith_imam_token()], {"mursal_opening"}
+
+    # A raised narrative can name the Ma'sum only after ``قال``:
+    # ``روي عن صباح المزني رفعه قال جاء رجلان إلى أمير المؤمنين ع``.
+    m = re.match(
+        r"(?:" + _n("و") + r")?"
+        + _n("(?:روى|روي)")
+        + r"\s+"
+        + _n("عن")
+        + r"\s+(.*?)\s+"
+        + _n("رفعه")
+        + r"\s+"
+        + _n("قال")
+        + r"\s+(.*)$",
+        stripped,
+    )
+    if m:
+        narrator = _classify(m.group(1), _n("عن"))
+        imam = _explicit_imam_reference(m.group(2))
+        if narrator is not None and imam is not None:
+            return [
+                narrator,
+                IsnadToken(raw=imam, norm=imam, phrase=_n("رفعه"), node_type=IMAM),
+            ], {"mursal_opening", "raf"}
+
+    m = re.match(
+        _n("(?:روى|روي)")
+        + r"\s+(.*?)\s+(?:"
+        + _n("أنه")
+        + r"\s+)?"
+        + _n("سئل")
+        + r"\s+"
+        + _n("عن")
+        + r"(?:\s|$)",
+        stripped,
+    )
+    if m:
+        narrator_text = m.group(1)
+        has_embedded_chain = re.search(
+            r"(?:^|\s)" + _n("عن") + r"(?:\s|$)", narrator_text
+        )
+        narrator = _classify(narrator_text, None)
+        if narrator is not None and has_embedded_chain is None:
+            return [narrator, _previous_hadith_imam_token()], {"mursal_opening"}
+
+    m = re.match(
+        _n("(?:روى|روي)")
+        + r"\s+(.*?)\s+"
+        + _n("في ذلك")
+        + r"\s+"
+        + _n("عن")
+        + r"\s+(.*)$",
+        stripped,
+    )
+    if m:
+        narrator = _classify(m.group(1), None)
+        imam = _explicit_imam_reference(m.group(2))
+        if narrator is not None and imam is not None:
+            return [
+                narrator,
+                IsnadToken(raw=imam, norm=imam, phrase=None, node_type=IMAM),
+            ], {"mursal_opening"}
+
+    # Discourse wrapper around a deliberately disconnected report.
+    if stripped.startswith(_n("في ذلك حديث")):
+        m = re.search(_n("رواه") + r"\s+(.*?)\s+" + _n("قال") + r"(?:\s|$)", stripped)
+        if m:
+            narrator = _classify(m.group(1), None)
+            if narrator is not None:
+                return [narrator], {"mursal_opening"}
+
+    m = re.match(
+        _n("وجدت بخط")
+        + r"\s+(.*?)\s+"
+        + _n("حديثا أسنده إلى")
+        + r"\s+(.*)$",
+        stripped,
+    )
+    if m:
+        source = _classify(m.group(1), None)
+        imam = _explicit_imam_reference(m.group(2))
+        if source is not None and imam is not None:
+            return [
+                source,
+                IsnadToken(raw=imam, norm=imam, phrase=None, node_type=IMAM),
+            ], {"direct_source_attribution"}
+
+    m = re.match(
+        _n("(?:روى|روي)") + r"\s+" + _n("عن رجل جمال") + r"(?:\s|$)",
+        stripped,
+    )
+    if m:
+        return [
+            IsnadToken(
+                raw=_n("رجل جمال"),
+                norm=_n("رجل جمال"),
+                phrase=_n("عن"),
+                node_type=UNKNOWN,
+            )
+        ], {"mursal_opening", "anonymous_narrator"}
+
+    # Direct reports expressed as narrative prose rather than ``عن``. Only
+    # activate for a closed list of verbs and require an explicit Ma'sum
+    # reference ending in its honorific.
+    if re.match(
+        r"(?:" + _n("و") + r")?" + _n(
+            "(?:كان|نظر|عزى|مر|رأى|وضع|استعار|جاء|لما تزوج|لما شيع|لما ناجى|إن رجلا|رجلا نزل|عق)"
+        )
+        + r"(?:\s|$)",
+        stripped,
+    ):
+        imam = _explicit_imam_reference(stripped)
+        if imam is None and re.match(_n("رأى ص") + r"(?:\s|$)", stripped):
+            imam = _n("رسول الله ص")
+        if imam is not None:
+            return [
+                IsnadToken(raw=imam, norm=imam, phrase=None, node_type=IMAM)
+            ], {"direct_attribution"}
+
+    m = re.match(_n("كان") + r"\s+(.*?)\s+" + _n("يدور") + r"(?:\s|$)", stripped)
+    if m:
+        speaker = _classify(m.group(1), None)
+        if speaker is not None:
+            return [speaker], {"direct_attribution"}
+
+    m = re.match(
+        _n("لما مات") + r"\s+.*?\s+" + _n("وقف") + r"\s+(.*?)\s+" + _n("على") + r"\s+.*$",
+        stripped,
+    )
+    if m:
+        speaker = _classify(m.group(1), None)
+        if speaker is not None:
+            return [speaker], {"direct_attribution"}
     return None
 
 
@@ -536,6 +904,20 @@ def tokenize_isnad(isnad_raw: str) -> list[TokenizedChain]:
     """Tokenize one hadith's isnad into one or more classified chains."""
     text = clean_isnad_text(isnad_raw)
     global_flags: set[str] = set()
+
+    # The long al-Faqih testament is preceded by al-Saduq's compiler byline.
+    # It is bibliographic prose, followed by the report's real ``روي عن``
+    # chain. Start at that chain rather than collapsing the whole preface to
+    # its final Imam reference in the direct-opening handler.
+    if _n("مصنف هذا الكتاب") in text:
+        report = re.search(
+            r"(?:^|\s)(?:" + _n("روي") + r"|" + _n("روى") + r")\s+"
+            + _n("عن")
+            + r"\s+",
+            text,
+        )
+        if report is not None:
+            text = text[report.start():].strip()
 
     stripped = _strip_leading_junk(text)
     first_word = stripped.split(" ", 1)[0] if stripped else ""
@@ -570,7 +952,15 @@ def _tokenize_single(text: str, flags: set[str]) -> list[TokenizedChain]:
     # and their review status for nothing.
     jamian = _JAMIAN_RE.search(text)
     if jamian and jamian.start() < _matn_boundary(text):
-        flags.add("multi_route")
+        before = text[: jamian.start()]
+        after = text[jamian.end() :]
+        simple_opening_conarrators = (
+            before.split(" ", 1)[0] in _MURSAL_PHRASES
+            and not re.search(r"(?:^|\s)" + _n("عن") + r"(?:\s|$)", before)
+            and re.match(r"\s*" + _n("عن") + r"(?:\s|$)", after) is not None
+        )
+        if not simple_opening_conarrators:
+            flags.add("multi_route")
         text = _WS_RE.sub(" ", _JAMIAN_RE.sub(" ", text)).strip()
     # A mid-isnad period is eShia's usual punctuation for a parallel route
     # («…الصفار. وسعد بن عبد الله عن…»).

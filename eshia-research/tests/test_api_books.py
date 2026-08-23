@@ -1001,6 +1001,8 @@ def test_get_narrator_returns_rijal_profile_slices(client: TestClient, db: Sessi
     assert body["canonical_name_ar"] == "زرارة بن أعين"
     assert body["aliases"][0]["alias_raw"] == "زرارة"
     assert body["rijal_entries"][0]["entry_number"] == 5000
+    assert body["rijal_entries"][0]["source_title"] == "Mu'jam"
+    assert body["rijal_entries"][0]["content_status"] == "full_text"
     assert body["statements"][0]["quote_raw"] == "ثقة"
     assert body["occurrences"][0]["related_name_raw"] == "أبي جعفر"
     assert body["occurrences_total"] == 1

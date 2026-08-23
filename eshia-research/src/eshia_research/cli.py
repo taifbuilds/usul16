@@ -723,6 +723,129 @@ def build_person_layer_cmd() -> None:
         f"{stats['father_relations_matched']} uniquely matched to a person."
     )
     typer.echo(f"Collective roster members seeded: {stats['roster_members']}.")
+    typer.echo(
+        "External rijal witnesses relinked: "
+        f"{stats['external_exact_links']} exact, "
+        f"{stats['external_full_form_links']} unique full-form; "
+        f"{stats['external_ambiguous_entries']} ambiguous and "
+        f"{stats['external_unmatched_entries']} unmatched."
+    )
+
+
+@app.command("crawl-external-rijal")
+def crawl_external_rijal_cmd(
+    output_path: str = typer.Option(
+        "scratch_audit/shiaresearch_rijal_snapshot.json.gz",
+        "--output-path",
+        help="Local JSON or JSON.GZ snapshot path.",
+    ),
+    delay_seconds: float = typer.Option(
+        0.05,
+        "--delay-seconds",
+        min=0.0,
+        help="Delay between source pages.",
+    ),
+    resume: bool = typer.Option(
+        True,
+        "--resume/--no-resume",
+        help="Reuse already-complete works in an existing snapshot.",
+    ),
+) -> None:
+    """Snapshot permitted external rijal indexes for offline import."""
+    from eshia_research.rijal.shiaresearch import crawl_external_rijal
+
+    with Progress(*_progress_columns()) as progress:
+        stats = crawl_external_rijal(
+            output_path,
+            delay_seconds=delay_seconds,
+            resume=resume,
+            on_progress=_make_on_progress(progress),
+        )
+    typer.echo(
+        f"Snapshot complete: {stats.entries} records across {stats.works} works "
+        f"({stats.requests} HTTP requests; {stats.resumed_works} works resumed)."
+    )
+    typer.echo(f"Saved locally to {output_path}.")
+
+
+@app.command("import-external-rijal")
+def import_external_rijal_cmd(
+    snapshot_path: str = typer.Option(
+        "scratch_audit/shiaresearch_rijal_snapshot.json.gz",
+        "--snapshot-path",
+        help="Snapshot produced by crawl-external-rijal.",
+    ),
+    apply: bool = typer.Option(
+        False,
+        "--apply",
+        help="Commit the import. Without this flag the command is a dry run.",
+    ),
+) -> None:
+    """Upsert witnesses, resolve identities, and bootstrap genuinely missing people."""
+    from eshia_research.rijal.shiaresearch import import_external_rijal, load_snapshot
+
+    _init_db()
+    snapshot = load_snapshot(snapshot_path)
+    db = SessionLocal()
+    try:
+        stats = import_external_rijal(db, snapshot)
+        if apply:
+            db.commit()
+        else:
+            db.rollback()
+    finally:
+        db.close()
+    prefix = "" if apply else "DRY-RUN: "
+    typer.echo(
+        f"{prefix}{stats.created} records created, {stats.updated} updated across "
+        f"{stats.works} works; {stats.metadata_only} metadata-only, "
+        f"{stats.full_text} with full text."
+    )
+    typer.echo(
+        f"Identity links: {stats.exact} exact, {stats.full_form} full-form, "
+        f"{stats.name_variant} name-variant, {stats.alias} alias, "
+        f"{stats.equivalent} same-person-equivalent, "
+        f"{stats.source_number} source-number, "
+        f"{stats.text_witness} text-witness, {stats.fuzzy} clear fuzzy."
+    )
+    typer.echo(
+        f"External identities: {stats.identities_created} created/rehydrated covering "
+        f"{stats.external_identity_entries} records; {stats.headings} non-person headings, "
+        f"{stats.multi_subject} multi-person headings."
+    )
+    typer.echo(
+        f"{stats.ambiguous} ambiguous ({stats.candidate_links} candidate links), "
+        f"{stats.unmatched} unmatched."
+    )
+
+
+@app.command("audit-external-rijal")
+def audit_external_rijal_cmd() -> None:
+    """Report local external witness coverage without changing the database."""
+    from eshia_research.rijal.shiaresearch import audit_external_rijal
+
+    db = SessionLocal()
+    try:
+        stats = audit_external_rijal(db)
+    finally:
+        db.close()
+    typer.echo(
+        f"External rijal: {stats.entries} records; {stats.metadata_only} metadata-only."
+    )
+    typer.echo(
+        f"Links: {stats.exact} exact, {stats.full_form} full-form, "
+        f"{stats.name_variant} name-variant, {stats.alias} alias, "
+        f"{stats.equivalent} equivalent, {stats.source_number} source-number, "
+        f"{stats.text_witness} text-witness, {stats.fuzzy} fuzzy, "
+        f"{stats.created} external-created."
+    )
+    typer.echo(
+        f"Classified: {stats.headings} non-person headings, "
+        f"{stats.multi_subject} multi-person headings; "
+        f"{stats.ambiguous} ambiguous, {stats.unmatched} unmatched."
+    )
+    for source_id, count in stats.per_source.items():
+        typer.echo(f"  {source_id}: {count}")
 
 
 @app.command("materialize-same-person-links")
@@ -755,8 +878,9 @@ def materialize_same_person_links_cmd(
     )
     typer.echo(
         f"Skipped: mushtarak {stats.skipped_mushtarak}, proxy {stats.skipped_proxy}, "
-        f"ambiguous target {stats.skipped_ambiguous_target}, no target {stats.skipped_no_target}; "
-        f"existing relation rows {stats.existing_relations}."
+        f"explicit negation {stats.skipped_negated}, ambiguous target {stats.skipped_ambiguous_target}, "
+        f"no target {stats.skipped_no_target}; existing relation rows {stats.existing_relations}; "
+        f"removed stale negated rows {stats.negated_relations_removed}."
     )
     for method, count in stats.method_counts.most_common(12):
         typer.echo(f"  {method}: {count}")
@@ -990,7 +1114,8 @@ def refine_collective_context_cmd(
     mode = "DRY-RUN: " if dry_run else ""
     typer.echo(
         f"{mode}Examined {stats.nodes_examined} ambiguous node(s); resolved {stats.nodes_resolved} "
-        f"({stats.compiler_priors} compiler prior, {stats.context_resolved} context)."
+        f"({stats.compiler_priors} compiler prior, {stats.source_priors} source-opening context, "
+        f"{stats.context_resolved} total context)."
     )
     typer.echo(
         f"Expanded {stats.roster_expanded_nodes} collective node(s) with "
