@@ -96,7 +96,7 @@ explicitly says the identification is impossible.
 Backups: `eshia_research.before-faqih-chain-completion.20260823.db` and
 `eshia_research.before-tusi-resolution.20260823.db`. Verification: 569 backend tests, Next.js
 production build, SQLite `quick_check=ok`, no dangling resolution or chain nodes. These local
-DB changes are **not deployed to production**.
+DB changes were deployed in the 2026-08-24 full-corpus refresh described below.
 
 **Al-Tusi context pass (2026-08-24).** The Phase-D resolver now admits independent Mu'jam
 teacher/student evidence even before a corpus edge exists, adds a narrow position-zero
@@ -115,11 +115,19 @@ edge occurrences; Istibsar +45 / +222 / +2,201. Rollback snapshot:
 `eshia_research.before-tusi-context.20260824.db`, SHA-256
 `39A4F0180D9EF0808A0F4BDB5488A1383A5ED719A9CE305119206C7DD697CA9C`.
 Verification: 574 tests, SQLite `quick_check=ok`, zero dangling rows, zero bare-form leaks and
-zero reliable generation violations. Not deployed.
+zero reliable generation violations. Deployed in the 2026-08-24 full-corpus refresh.
 
 Main DB: `eshia-research/eshia_research.db` (~6.7 GB, 42 tables, 154 indexes,
 `journal_mode=delete`). Most of it is **derived and regenerable** (chain nodes, candidates,
 resolutions, topics); source text is only ~0.55 GB.
+
+**Production refresh (2026-08-24).** Code commit `838a73c` and a compact full-corpus snapshot
+(3,290,370,048 bytes, SHA-256
+`BA7CB26E7C77CDE819B6E3ECFE057B6F71B92F37ADA6B76F31A0ED7AFAD9F587`) are live. The
+snapshot contains 90,407 hadiths, 89,536 chains, 11,525 external rijal witnesses and 18,637
+commentary rows at Alembic head `a7c3e5b91d24`. Remote `quick_check=ok`; public HTTPS checks
+confirmed Faqih graph data, external rijal entries, both commentary sources and reader pages.
+Production retains the newest three explicit rollback files.
 
 ---
 
@@ -182,7 +190,7 @@ Current committed main-DB state from snapshot SHA-256
 - Verification: six clean disposable-copy rehearsals, an identical second import with
   zero new identities, SQLite `quick_check=ok`, 0 dangling links, 0 external source URLs,
   and 0 external books visible in catalogue; backend **550 passed** and the Next.js
-  16.2.9 production build passed. Not deployed to production.
+  16.2.9 production build passed. Deployed in the 2026-08-24 full-corpus refresh.
 
 ---
 
