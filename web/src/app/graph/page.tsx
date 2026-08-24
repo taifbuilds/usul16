@@ -6,7 +6,7 @@ import { amiri } from "@/lib/fonts";
 export const metadata: Metadata = {
   title: "Transmission network",
   description:
-    "The transmission network of Al-Kafi: every confident narrator-to-narrator link, drawn as an interactive map.",
+    "Explore confident narrator-to-narrator links across Al-Kafi and Man La Yahduruhu al-Faqih.",
 };
 
 export default function GraphPage() {
@@ -19,7 +19,7 @@ export default function GraphPage() {
         </p>
         <h1 className="mt-2 font-serif text-4xl font-semibold leading-tight sm:text-5xl">Follow the transmission.</h1>
         <p className="mt-4 max-w-3xl leading-7 text-muted">
-          Explore confident narrator-to-narrator links in al-Kāfī as an evidence-backed map. Select a narrator to inspect their profile; select a connection to return to the hadiths that establish it.
+          Explore confident narrator-to-narrator links across al-Kāfī and Man Lā Yaḥḍuruhu al-Faqīh. Filter by collection, select a narrator to inspect their profile, or open a connection to see the hadiths that establish it.
         </p>
         </div>
         <aside className="border-t border-border pt-5 text-sm lg:border-l lg:border-t-0 lg:pl-6">

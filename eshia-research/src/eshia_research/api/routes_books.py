@@ -2889,6 +2889,7 @@ def get_transmission_edge_evidence(
     source_person_id: int,
     target_person_id: int,
     source_book_id: str = "11005",
+    books: str | None = None,
     limit: int = 25,
     db: Session = Depends(get_db),
 ) -> TransmissionEdgeEvidenceRead:
@@ -2901,7 +2902,8 @@ def get_transmission_edge_evidence(
     returns nothing — the graph never exposes those as node ids.
     """
     limit = max(1, min(limit, 100))
-    pairs = _get_transmission_pairs(db, source_book_id)
+    book_ids = _resolve_book_set(source_book_id, books)
+    pairs, _ = _merged_transmission_pairs(db, book_ids)
     hadith_ids = pairs.edge_hadiths.get((source_person_id, target_person_id), set())
 
     items: list[TransmissionEdgeEvidenceItem] = []
@@ -2934,7 +2936,7 @@ def get_transmission_edge_evidence(
     return TransmissionEdgeEvidenceRead(
         source_person_id=source_person_id,
         target_person_id=target_person_id,
-        source_book_id=source_book_id,
+        source_book_id=",".join(book_ids),
         total=len(hadith_ids),
         items=items,
     )

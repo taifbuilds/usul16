@@ -165,6 +165,22 @@ interface SimEdge extends TransmissionGraphEdge {
 }
 
 type LayoutMode = "constellation" | "tabaqat";
+type BookScope = "all" | "11005" | "11021";
+
+const CHARTED_BOOKS = ["11005", "11021"] as const;
+const BOOK_SCOPE_OPTIONS: { value: BookScope; label: string }[] = [
+  { value: "all", label: "All charted" },
+  { value: "11005", label: "Al-Kāfī" },
+  { value: "11021", label: "Al-Faqīh" },
+];
+
+function bookIdsForScope(scope: BookScope): string[] {
+  return scope === "all" ? [...CHARTED_BOOKS] : [scope];
+}
+
+function bookLabelForScope(scope: BookScope): string {
+  return BOOK_SCOPE_OPTIONS.find((option) => option.value === scope)?.label ?? "All charted";
+}
 
 interface SimState {
   nodes: SimNode[];
@@ -778,8 +794,14 @@ export function TransmissionGraphClient() {
   const [graph, setGraph] = useState<TransmissionGraphRead | null>(null);
   const [error, setError] = useState<string | null>(null);
   const searchParams = useSearchParams();
-  // Default 1 shows the whole confident al-Kāfī network (~2,000 narrators);
-  // raise the slider to thin it toward the busiest hubs.
+  const [bookScope, setBookScope] = useState<BookScope>(() => {
+    const requested = searchParams.get("book");
+    return requested === "11005" || requested === "11021" ? requested : "all";
+  });
+  const selectedBookIds = useMemo(() => bookIdsForScope(bookScope), [bookScope]);
+  const selectedBookLabel = bookLabelForScope(bookScope);
+  // Default 1 shows every confident link in the selected collection scope;
+  // raise the slider to thin the plate toward its busiest hubs.
   const [minWeight, setMinWeight] = useState(1);
   // useSearchParams is SSR-consistent, so seeding state from it can't cause a
   // hydration mismatch the way window.location would.
@@ -849,11 +871,15 @@ export function TransmissionGraphClient() {
 
   useEffect(() => {
     let cancelled = false;
-    // Pull the whole confident al-Kāfī network (~2,000 narrators, not the old
-    // ~500). min_count=1 keeps every co-transmission; the client-side weight
-    // slider trims from there without a refetch. With uncertain on, also pull
-    // the resolver's ambiguous best-guesses (~2,600 total) — marked, never fact.
-    getTransmissionGraph({ minCount: 1, maxNodes: includeUncertain ? 3000 : 2000, includeUncertain })
+    // Pull the whole selected network. min_count=1 keeps every co-transmission;
+    // the client-side weight slider trims from there without a refetch. With
+    // uncertain on, also pull ambiguous best-guesses — marked, never fact.
+    getTransmissionGraph({
+      books: selectedBookIds,
+      minCount: 1,
+      maxNodes: includeUncertain ? 3000 : 2000,
+      includeUncertain,
+    })
       .then((data) => {
         if (!cancelled) setGraph(data);
       })
@@ -863,7 +889,7 @@ export function TransmissionGraphClient() {
     return () => {
       cancelled = true;
     };
-  }, [includeUncertain]);
+  }, [includeUncertain, selectedBookIds]);
 
   /* ------------------------- sim building ------------------------ */
 
@@ -924,7 +950,7 @@ export function TransmissionGraphClient() {
     }
     let cancelled = false;
     setQualityLoading(true);
-    getTransmissionGraph({ minCount: 1, maxNodes: 2000, quality: true })
+    getTransmissionGraph({ books: selectedBookIds, minCount: 1, maxNodes: 2000, quality: true })
       .then((data) => {
         if (cancelled) return;
         applyEdgeQuality(simRef.current, data.edges);
@@ -936,7 +962,7 @@ export function TransmissionGraphClient() {
     return () => {
       cancelled = true;
     };
-  }, [qualityOn, graph]);
+  }, [qualityOn, graph, selectedBookIds]);
 
   /* --------------------------- evidence -------------------------- */
 
@@ -946,18 +972,19 @@ export function TransmissionGraphClient() {
     getTransmissionEdgeEvidence({
       sourcePersonId: evidence.source,
       targetPersonId: evidence.target,
+      books: selectedBookIds,
       limit: 25,
     })
       .then((data) => {
         if (!cancelled) setEvidence((cur) => (cur ? { ...cur, data } : cur));
       })
       .catch(() => {
-        if (!cancelled) setEvidence((cur) => (cur ? { ...cur, data: { source_person_id: cur.source, target_person_id: cur.target, source_book_id: "11005", total: 0, items: [] } } : cur));
+        if (!cancelled) setEvidence((cur) => (cur ? { ...cur, data: { source_person_id: cur.source, target_person_id: cur.target, source_book_id: selectedBookIds.join(","), total: 0, items: [] } } : cur));
       });
     return () => {
       cancelled = true;
     };
-  }, [evidence]);
+  }, [evidence, selectedBookIds]);
 
   /* -------------------------- rendering -------------------------- */
 
@@ -1523,6 +1550,39 @@ export function TransmissionGraphClient() {
     setSelectedId(null);
   }, []);
 
+  const selectBookScope = useCallback(
+    (scope: BookScope) => {
+      if (scope === bookScope) return;
+      setBookScope(scope);
+      setGraph(null);
+      setError(null);
+      setEvidence(null);
+      setSelectedId(null);
+      selectedRef.current = null;
+      setHoveredId(null);
+      hoveredRef.current = null;
+      setPathFrom(null);
+      setPathTo(null);
+      setPathResult(null);
+      setPathError(null);
+      pathHighlightRef.current = null;
+      builtGraphRef.current = null;
+      qualityGraphRef.current = null;
+      focusConsumedRef.current = false;
+
+      const params = new URLSearchParams(window.location.search);
+      if (scope === "all") params.delete("book");
+      else params.set("book", scope);
+      const queryString = params.toString();
+      window.history.replaceState(
+        null,
+        "",
+        `${window.location.pathname}${queryString ? `?${queryString}` : ""}`
+      );
+    },
+    [bookScope]
+  );
+
   const openEvidence = useCallback((source: number, target: number, label: string) => {
     setEvidence({ source, target, label, data: null });
   }, []);
@@ -1554,11 +1614,16 @@ export function TransmissionGraphClient() {
     setPathError(null);
     setPathResult(null);
     setActivePathIdx(0);
-    getTransmissionPaths({ fromPerson: pathFrom.id, toPerson: pathTo.id, k: 5 })
+    getTransmissionPaths({
+      fromPerson: pathFrom.id,
+      toPerson: pathTo.id,
+      books: selectedBookIds,
+      k: 5,
+    })
       .then((res) => setPathResult(res))
       .catch(() => setPathError("Could not compute a path."))
       .finally(() => setPathLoading(false));
-  }, [pathFrom, pathTo]);
+  }, [pathFrom, pathTo, selectedBookIds]);
 
   const clearPath = useCallback(() => {
     setPathResult(null);
@@ -1655,8 +1720,35 @@ export function TransmissionGraphClient() {
 
   return (
     <div>
-      {/* Controls — one row above the plate */}
+      {/* Controls — collection scope first, then graph tools. */}
       <div className="mb-4 grid items-center gap-3 sm:grid-cols-2 lg:grid-cols-[minmax(13rem,1fr)_auto_auto_auto_auto_auto]">
+        <fieldset className="flex min-w-0 flex-wrap items-center gap-2 sm:col-span-2 lg:col-span-6">
+          <legend className="mb-2 text-sm font-semibold text-foreground">Collection</legend>
+          <div
+            className="flex max-w-full overflow-x-auto rounded-md border border-border bg-surface p-1"
+            aria-label="Filter transmission graph by collection"
+          >
+            {BOOK_SCOPE_OPTIONS.map((option) => (
+              <button
+                key={option.value}
+                type="button"
+                onClick={() => selectBookScope(option.value)}
+                aria-pressed={bookScope === option.value}
+                className={`min-h-10 shrink-0 rounded px-3 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${
+                  bookScope === option.value
+                    ? "bg-accent text-accent-foreground"
+                    : "text-foreground/70 hover:bg-background hover:text-accent"
+                }`}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+          <span className="text-xs leading-5 text-muted">
+            Tahdhīb and al-Istibṣār remain withheld until their graph review is complete.
+          </span>
+        </fieldset>
+
         <div className="relative min-w-0">
           <input
             type="search"
@@ -1691,7 +1783,7 @@ export function TransmissionGraphClient() {
                       >
                         <span className="shrink-0 text-[11px] text-muted">
                           {charted
-                            ? `${numberFormat.format(entry.charted_hadith_count)} in al-Kāfī`
+                            ? `${numberFormat.format(entry.charted_hadith_count)} charted hadiths`
                             : "profile ↗"}
                         </span>
                         <span
@@ -1786,7 +1878,7 @@ export function TransmissionGraphClient() {
 
         <p className="border-t border-border pt-3 text-sm leading-6 text-muted sm:col-span-2 lg:col-span-6">
           {graph
-            ? `${numberFormat.format(visibleStats.nodes)} narrators · ${numberFormat.format(visibleStats.edges)} transmission links`
+            ? `${selectedBookLabel} · ${numberFormat.format(visibleStats.nodes)} narrators · ${numberFormat.format(visibleStats.edges)} transmission links`
             : "Charting the network…"}
           {graph && includeUncertain && visibleStats.uncertain > 0
             ? ` · ${numberFormat.format(visibleStats.uncertain)} provisional`
@@ -1811,25 +1903,6 @@ export function TransmissionGraphClient() {
           </p>
         ) : null}
 
-        {/* Book coverage — honest about what is charted vs. still coming. */}
-        <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-xs text-muted sm:col-span-2 lg:col-span-6">
-          <span className="uppercase tracking-wide text-[11px] text-foreground/60">Charted</span>
-          <span className="inline-flex items-center rounded-full border border-accent/40 bg-badge-verified px-2.5 py-0.5 text-accent">
-            al-Kāfī
-          </span>
-          <span aria-hidden className="opacity-50">·</span>
-          <span className="uppercase tracking-wide text-[11px] text-foreground/60">Coming</span>
-          {["Faqīh", "Tahdhīb", "Istibṣār"].map((b) => (
-            <span
-              key={b}
-              className="inline-flex items-center rounded-full border border-dashed border-border px-2.5 py-0.5"
-              title="Chains being resolved — will join the network when polished"
-            >
-              {b}
-            </span>
-          ))}
-          <span className="text-muted/80">— yet every narrator in the Muʿjam is searchable above.</span>
-        </div>
       </div>
 
       {/* The plate */}
@@ -1921,7 +1994,7 @@ export function TransmissionGraphClient() {
               )}
               {pathResult && !pathResult.found && (
                 <p className="py-2 text-xs" style={{ color: INK_SECONDARY }}>
-                  No confident transmission path between these two in al-Kāfī. Try a closer pair.
+                  No confident transmission path between these two in {selectedBookLabel}. Try a closer pair or change the collection filter.
                 </p>
               )}
               {pathResult && pathResult.found && (

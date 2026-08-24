@@ -419,12 +419,14 @@ export async function getTransmissionEdgeEvidence(params: {
   sourcePersonId: number;
   targetPersonId: number;
   sourceBookId?: string;
+  books?: string[];
   limit?: number;
 }): Promise<TransmissionEdgeEvidenceRead> {
   const query = new URLSearchParams();
   query.set("source_person_id", String(params.sourcePersonId));
   query.set("target_person_id", String(params.targetPersonId));
-  query.set("source_book_id", params.sourceBookId ?? "11005");
+  if (params.books && params.books.length) query.set("books", params.books.join(","));
+  else query.set("source_book_id", params.sourceBookId ?? "11005");
   query.set("limit", String(params.limit ?? 25));
   return fetchApi<TransmissionEdgeEvidenceRead>(
     `/transmission-graph/edge-evidence?${query.toString()}`,

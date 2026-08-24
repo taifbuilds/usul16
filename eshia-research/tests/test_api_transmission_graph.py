@@ -284,6 +284,38 @@ def test_graph_accepts_polished_faqih_without_fallback(client: TestClient, seede
     assert body["nodes"] == []
 
 
+def test_edge_evidence_follows_the_selected_book_filter(
+    client: TestClient, db: Session, seeded
+):
+    attar, ashari, qumi, _ = seeded
+    faqih = Book(
+        source_book_id="11021",
+        title_original="faqih",
+        title_normalised="faqih",
+        source_url="u-faqih",
+    )
+    db.add(faqih)
+    db.flush()
+    _edge(db, faqih, 6, attar, ashari)
+    db.commit()
+
+    root = min(ashari.id, qumi.id)
+    faqih_only = client.get(
+        f"/transmission-graph/edge-evidence?source_person_id={attar.id}"
+        f"&target_person_id={root}&books=11021"
+    ).json()
+    assert faqih_only["source_book_id"] == "11021"
+    assert faqih_only["total"] == 1
+    assert [item["public_id"] for item in faqih_only["items"]] == ["k-6"]
+
+    combined = client.get(
+        f"/transmission-graph/edge-evidence?source_person_id={attar.id}"
+        f"&target_person_id={root}&books=11005,11021"
+    ).json()
+    assert combined["source_book_id"] == "11005,11021"
+    assert combined["total"] == 5
+
+
 def test_narrator_directory_search_and_charted_count(client: TestClient, db: Session, seeded):
     attar, _, _, _ = seeded
     # A findable narrator with no charted transmission edge.
