@@ -51,6 +51,17 @@ eshia-research/scratch_audit/generation_audit_*.md
 eshia-research/scratch_audit/generation_audit_*.jsonl
 eshia-research/scratch_audit/eval_final_*.json
 
+# Local acquisition caches and reversible database-change payloads. Reviewed
+# audit reports/inventories remain trackable; these inputs can be regenerated.
+eshia-research/scratch_audit/faqih_cache/
+eshia-research/scratch_audit/mashyakha_tables_before_*.sql
+eshia-research/scratch_audit/mazandarani_before_*.manifest.json
+eshia-research/scratch_audit/mazandarani_*_fix_*.delta.json.gz
+
+# The project installs from pyproject.toml with pip. Do not commit an incidental
+# uv resolution unless the repository deliberately adopts uv as its workflow.
+eshia-research/uv.lock
+
 # Bulk source/scan dumps. Multi-MB operational data in the same category as the
 # database snapshots above. The manifests and dossiers derived from them stay
 # tracked, including every file whose SHA-256 is pinned in AGENT_HANDOFF.md.

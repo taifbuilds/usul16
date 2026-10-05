@@ -7,6 +7,13 @@ This file is a *durable reference*, not a diary. The blow-by-blow history of eve
 operation (2026-07-06 → 2026-07-27) lives in this file's **git history** — use
 `git log -p AGENT_HANDOFF.md` if you need to reconstruct why something was done.
 
+**Last reconciled: 2026-10-05.** The canonical restart baseline and five-phase delivery
+plan are in `docs/project-roadmap.md`. The live system and local checkout were healthy at
+that review: 575 backend tests and the Next.js production build passed; the principal live
+reader, search, narrator, graph and API routes returned HTTP 200. The compact 2026-08-24
+production snapshot was opened read-only, passed `quick_check`, matched its recorded hash
+and row counts, and is the verified local recovery artifact.
+
 ---
 
 ## 1. Production (LIVE)
@@ -332,8 +339,11 @@ grading source; review the 2026-08-23 website route migration before replacing t
 then use contextual evidence on the 1,602 Mashyakha candidates and 2,415 ambiguous people.
 Do not guess the 373 openings for which al-Saduq supplied no witness.
 
-**Product:** Mir'at al-'Uqul + Sharh al-Mazandarani commentary integration, commentary
-rendering, narrator pages, search + OCR improvements, performance.
+**Product:** both commentary sources, multi-source rendering, narrator pages, search and the
+graph are live. Remaining product work is targeted commentary-link review, search/OCR and
+performance—not initial integration. The detailed commentary narrative below is a historical
+development record; status statements inside it describe the dated checkpoint unless the
+2026-08-24 production refresh above says otherwise.
 
 **Mir'at al-'Uqul ingestion (2026-07-28):** eShia book `71429` is fully crawled
 with every source page's HTML retained: 10,914 pages across 26 volumes. Backup before
@@ -490,10 +500,10 @@ as continuations. Headers are now also recognised mid-span when followed by a re
 ordinal **and** a colon — the printed header form — which does not capture al-Majlisi
 referring back to «الحديث الأول» in his own prose (both cases tested). Passages: 12,302 → 14,300.
 
-**Mir'at is parked, not finished.** Deferred, in priority order if it is picked up again:
+**Mir'at residual work.** Deferred, in priority order if it is picked up again:
 eyeball a sample of positional links; check whether the 353 remaining `duplicate_candidate`
-rows are further carry-over at a page boundary I did not model; commit/push code; ship a
-separately verified DB snapshot via section 7. Full re-index is ~45 min and dominated by
+rows are further carry-over at a page boundary I did not model. The code and database state
+described by the later production refresh are already live. A full re-index is ~45 min and dominated by
 page parsing, so **batch parser changes before running**. **Do not lower the text
 thresholds** — every gain came from making the evidence comparable or adding independent
 evidence, never from lowering the bar.
@@ -810,9 +820,10 @@ is correct; pages 150/250 are continuous commentary — he simply writes at leng
 2. **Audit `text_and_ordinal` and the 523 positional links by eye.** The corroboration rule
    is new and has never been checked against the printed page. Do this before shipping.
 3. Volume 9's isnad-onset splitter (438 pages). Volume 8 needs re-sourcing, not a parser.
-4. Nothing is committed or deployed; production has none of this.
+4. At this dated checkpoint nothing was committed or deployed; the later 2026-08-24 refresh
+   superseded that deployment status.
 
-**Reader-layer revision (local, 2026-08-09):** English, commentary and footnotes now read as three explicit, progressively disclosed layers. Commentaries use one disclosure with a source selector rather than one near-identical panel per sharh; footnotes have a stronger dotted rule and larger reading size. The printed-page route links to the verified Thaqalayn kitab/chapter context attached to the hadiths actually on that page (possibly more than one), rather than guessing from page numbers. `_attach_reader_extras` now attaches that structure to all reader-list responses; regression coverage is in `tests/test_api_books.py`. This needs the normal code deployment before it reaches production.
+**Reader-layer revision (implemented 2026-08-09, deployed 2026-08-24):** English, commentary and footnotes read as three explicit, progressively disclosed layers. Commentaries use one disclosure with a source selector rather than one near-identical panel per sharh; footnotes have a stronger dotted rule and larger reading size. The printed-page route links to the verified Thaqalayn kitab/chapter context attached to the hadiths actually on that page (possibly more than one), rather than guessing from page numbers. `_attach_reader_extras` attaches that structure to all reader-list responses; regression coverage is in `tests/test_api_books.py`.
 
 **Graph (shipped):** whole confident Al-Kafi network (~2,000 narrators / 5,370 edges,
 Barnes–Hut), all 15,593 narrators searchable via the directory, "show uncertain" tier,
