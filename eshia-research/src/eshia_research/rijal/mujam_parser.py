@@ -18,7 +18,7 @@ from eshia_research.normalise import normalise_arabic_persian
 MUJAM_SOURCE_BOOK_ID = "14036"
 MUJAM_ENTRY_START = (1, 107)
 MUJAM_ENTRY_KIND = "mujam_numbered_entry"
-MUJAM_PARSER_VERSION = "mujam_v1"
+MUJAM_PARSER_VERSION = "mujam_v2"
 MAX_MAIN_ENTRY_NUMBER = 15800
 MAX_ENTRY_NUMBER_GAP = 25
 
@@ -106,6 +106,7 @@ class ParseStats:
 
 
 _HEADER_RE = re.compile(r"(?m)^([0-9]{1,5})-\s+([^\n:]{1,180}):")
+_OCCURRENCE_APPENDIX_RE = re.compile(r"(?m)^\s*تفصيل طبقات الرواة(?:\s|$)")
 _WS_RE = re.compile(r"\s+")
 _BRACKET_ALIAS_RE = re.compile(r"\[([^\[\]]{2,120})\]")
 _SOURCE_REF_RE = re.compile(
@@ -266,6 +267,53 @@ def _next_page_start(offset: int, starts: list[int], full_text_length: int) -> i
     return full_text_length
 
 
+def _is_blank_printed_page(text: str) -> bool:
+    compact = compact_text(text)
+    return not compact or compact == (
+        "این صفحه در کتاب اصلی بدون متن است / هذه الصفحة فارغة في النسخة المطبوعة"
+    )
+
+
+def _volume_appendix_boundary(
+    header: HeaderCandidate,
+    next_header: HeaderCandidate,
+    starts: list[int],
+    pages: list[MujamPage],
+) -> int | None:
+    """Return the end of a volume's final biography before its occurrence appendix.
+
+    Volumes 1–23 place ``تفصيل طبقات الرواة`` after their last numbered
+    biography. The next numbered biography is at the start of the following
+    volume, so treating that next header as the boundary swallows the entire
+    appendix into the previous narrator's evidence ledger. Preserve genuine
+    continuation pages, then trim only printed blank placeholders immediately
+    before the appendix.
+    """
+    if next_header.volume_number == header.volume_number:
+        return None
+
+    header_page_index = bisect_right(starts, header.global_start) - 1
+    next_page_index = bisect_right(starts, next_header.global_start) - 1
+    appendix_index: int | None = None
+    for page_index in range(header_page_index + 1, next_page_index):
+        page = pages[page_index]
+        if page.volume_number != header.volume_number:
+            break
+        if _OCCURRENCE_APPENDIX_RE.search(page.text_raw or ""):
+            appendix_index = page_index
+            break
+    if appendix_index is None:
+        return None
+
+    boundary_index = appendix_index
+    while (
+        boundary_index > header_page_index + 1
+        and _is_blank_printed_page(pages[boundary_index - 1].text_raw)
+    ):
+        boundary_index -= 1
+    return starts[boundary_index]
+
+
 def extract_statements(text_raw: str) -> list[ParsedStatement]:
     statements: list[ParsedStatement] = []
     for match in _QUOTED_STATEMENT_RE.finditer(text_raw):
@@ -367,8 +415,17 @@ def parse_mujam_entries(pages: list[MujamPage]) -> tuple[list[ParsedMujamEntry],
     entries: list[ParsedMujamEntry] = []
 
     for index, header in enumerate(headers):
+        appendix_boundary = False
         if index + 1 < len(headers):
-            next_start = headers[index + 1].global_start
+            next_header = headers[index + 1]
+            volume_boundary = _volume_appendix_boundary(
+                header, next_header, starts, ordered_pages
+            )
+            if volume_boundary is not None:
+                next_start = volume_boundary
+                appendix_boundary = True
+            else:
+                next_start = next_header.global_start
         else:
             # The printed Mu'jam entries end before volume 24's trailing
             # blank/index pages. With no next header, cap the final entry at
@@ -379,6 +436,8 @@ def parse_mujam_entries(pages: list[MujamPage]) -> tuple[list[ParsedMujamEntry],
         end_page = _page_for_offset(max(header.global_start, next_start - 1), starts, ordered_pages)
         canonical_name = canonical_name_from_title(header.title_raw)
         flags: set[str] = set()
+        if appendix_boundary:
+            flags.add("volume_appendix_boundary")
         if index and header.entry_number != headers[index - 1].entry_number + 1:
             flags.add("sequence_gap")
         if "[" in header.title_raw and "]" not in header.title_raw:

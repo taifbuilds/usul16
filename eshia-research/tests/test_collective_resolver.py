@@ -1,3 +1,5 @@
+import sqlite3
+
 import pytest
 from sqlalchemy import select
 from sqlalchemy.orm import Session, sessionmaker
@@ -16,6 +18,8 @@ from eshia_research.models import (
 )
 from eshia_research.normalise import normalise_arabic_persian
 from eshia_research.rijal.collective_resolver import (
+    ChainNodeState,
+    _chain_states,
     refine_compiler_priors,
     refine_imam_kunya_priors,
     refine_previous_hadith_imam_anaphora,
@@ -102,6 +106,57 @@ def make_chain(
         )
     db.flush()
     return chain
+
+
+def test_chain_state_loader_does_not_expand_chain_ids_into_sql_variables(db: Session):
+    book = Book(
+        source_book_id="large",
+        title_original="Large",
+        title_normalised="large",
+        source_url="https://example.test/large",
+    )
+    db.add(book)
+    db.flush()
+    for sequence in range(60):
+        make_chain(
+            db,
+            book,
+            f"large-{sequence}",
+            sequence,
+            [("راو", "named_narrator")],
+        )
+
+    raw_connection = db.connection().connection.driver_connection
+    raw_connection.setlimit(sqlite3.SQLITE_LIMIT_VARIABLE_NUMBER, 50)
+
+    states = _chain_states(db, [book.id])
+
+    assert len(states) == 60
+    assert all(len(chain) == 1 for chain in states)
+
+
+def test_context_derived_roster_member_is_not_an_independent_anchor():
+    node = ChainNodeState(
+        id=1,
+        chain_id=1,
+        position=0,
+        token_norm=norm("عدة من أصحابنا"),
+        node_type="collective_phrase",
+        relation_kind=None,
+        rows=[
+            MentionResolution(
+                chain_node_id=1,
+                person_id=42,
+                rank=1,
+                status="via_collective",
+                method="collective_roster_after_context",
+                resolver_version="tamyiz_b1",
+            )
+        ],
+    )
+
+    assert node.resolved_people == [42]
+    assert node.context_anchor_people == []
 
 
 @pytest.fixture()

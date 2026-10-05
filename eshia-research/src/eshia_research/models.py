@@ -414,7 +414,7 @@ class RijalEntry(Base):
     text_raw: Mapped[str] = mapped_column(Text)
     text_normalised: Mapped[str] = mapped_column(Text)
     source_url: Mapped[str | None] = mapped_column(String(1024), nullable=True)
-    parser_version: Mapped[str] = mapped_column(String(32), default="mujam_v1")
+    parser_version: Mapped[str] = mapped_column(String(32), default="mujam_v2")
     flags: Mapped[str | None] = mapped_column(String(512), nullable=True)
     review_status: Mapped[str] = mapped_column(String(32), default="pending", index=True)
     created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=utcnow)

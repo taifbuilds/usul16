@@ -64,6 +64,39 @@ def test_final_entry_stops_at_its_start_page():
     assert "فهرس لاحق" not in entries[-1].text_raw
 
 
+def test_last_entry_in_volume_stops_before_occurrence_appendix():
+    pages = [
+        page(1, 1, 107, "1- آدم الأول:\nترجمة قصيرة."),
+        page(2, 1, 108, "2- آدم الثاني:\nبداية ترجمة طويلة."),
+        page(3, 1, 109, "تكملة الترجمة الصحيحة."),
+        page(
+            4,
+            1,
+            110,
+            "این صفحه در کتاب اصلی بدون متن است / هذه الصفحة فارغة في النسخة المطبوعة",
+        ),
+        page(5, 1, 111, "تفصيل طبقات الرواة آدم- أحمد"),
+        page(
+            6,
+            1,
+            112,
+            "روى عن شخص ملحق، و روى عنه راو ملحق. الكافي: ج 1، ح 1.",
+        ),
+        page(7, 2, 9, "3- آدم الثالث:\nترجمة المجلد التالي."),
+    ]
+
+    entries, _stats = parse_mujam_entries(pages)
+
+    assert [entry.entry_number for entry in entries] == [1, 2, 3]
+    assert entries[1].page_start == 108
+    assert entries[1].page_end == 109
+    assert "تكملة الترجمة الصحيحة" in entries[1].text_raw
+    assert "تفصيل طبقات الرواة" not in entries[1].text_raw
+    assert "راو ملحق" not in entries[1].text_raw
+    assert entries[1].occurrences == []
+    assert "volume_appendix_boundary" in entries[1].flags
+
+
 def test_extracts_quoted_source_statements_and_khui_comments():
     text = (
         "قال النجاشي: «عيسى بن حمزة المدائني الثقفي، روى عن أبي عبد الله (ع)، "

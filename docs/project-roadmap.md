@@ -44,22 +44,22 @@ register, a queryable recovery artifact and verified local/live health.
 
 ## Phase 2 — Repair the evidence foundation
 
-Status: **next**
+Status: **complete (2026-10-05)**
 
-| ID | Task | Acceptance criterion |
+| ID | Task | Acceptance evidence |
 |---|---|---|
-| P2-01 | Identify the exact 23 overrun Mu'jam occurrence ledgers and their correct source boundaries | Each ledger has a source citation, old/new boundary and explicit repair rationale. |
-| P2-02 | Apply the boundary repairs on a disposable database copy first | A before/after manifest is produced; no unrelated source rows change. |
-| P2-03 | Rebuild affected derived evidence in the documented order | Person layer, resolutions and tabaqat outputs are internally consistent with no dangling rows. |
-| P2-04 | Re-run the context resolver and measure the effect | Bare-form leaks and reliable-generation violations remain zero; an immediate rerun resolves zero new cases. |
-| P2-05 | Publish the repair audit | Reviewable ledger, counts, test results, database integrity result and rollback hash are recorded. |
+| P2-01 | Identify the exact 23 overrun Mu'jam occurrence ledgers and their correct source boundaries | The [repair audit](mujam-volume-boundary-repair-20261005.md) records all 23 entries with source links, old/new boundaries and the shared cross-volume parser fault. |
+| P2-02 | Apply the boundary repairs on a disposable database copy first | The complete rebuild passed first on `eshia_research.phase2-mujam-disposable.20261005.db`; the accepted run reduced 53,745 occurrence rows to 12,807 while changing no `pages` rows. |
+| P2-03 | Rebuild affected derived evidence in the documented order | Mu'jam, person, resolution and ṭabaqāt layers were rebuilt in order; SQLite checks pass and all audited dangling-row counts are zero. |
+| P2-04 | Re-run the context resolver and measure the effect | The scoped pass resolved 6,566 Tahdhib/Istibsar nodes; all four books retain zero bare-form leaks and zero reliable-generation violations, and the immediate rerun resolved zero. |
+| P2-05 | Publish the repair audit | The audit records the ledger register, before/after counts, four-book evaluation, 578 passing backend tests, passing frontend build, database integrity and rollback SHA-256. |
 
 Deliverable: corrected and reproducible Mu'jam evidence that can safely support the remaining
 Four Books resolution work.
 
 ## Phase 3 — Complete Four Books transmission coverage
 
-Status: **queued; depends on Phase 2**
+Status: **next**
 
 | ID | Task | Acceptance criterion |
 |---|---|---|
