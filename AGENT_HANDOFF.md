@@ -75,8 +75,8 @@ gold-standard pilot; the pipeline learned there is then applied to the other boo
 |---|---|---|
 | **Al-Kafi** | `11005` | ✅ Gold. 15,3xx hadiths, boundaries audited, chains + rijal resolved, topics, gradings, live English, on the graph. |
 | **Man la yahduruhu al-Faqih** | `11021` | 🟢 Graph-ready. 5,940 source rows / 5,924 visible reports; 5,828 translated; 5,924 topic-tagged. Rebuilt to 4,399 chains / 9,020 nodes with only 3 review chains; 65.6% person-resolved, 0 reliable generation violations, on the graph. **Gaps:** 0 gradings and one actionable English boundary case (`faqih-5751`). |
-| **Tahdhib al-Ahkam** | `10083` | 🟡 Chains + context resolved. 13,920 hadiths; 15,159 chains / 74,644 nodes; 319 review chains (97.9% clean); **47.5% person-resolved**, 26,578 ambiguous, 0 reliable generation violations, 83.0% clean-ledger Mu'jam corroboration floor. Still lacks translations, gradings, topics, structure enrichment and Mashyakha expansion. |
-| **Al-Istibsar** | `11002` | 🟡 Chains + context resolved. 5,557 hadiths; 6,196 chains / 30,847 nodes; 115 review chains (98.1% clean); **49.4% person-resolved**, 11,143 ambiguous, 0 reliable generation violations, 80.5% clean-ledger Mu'jam corroboration floor. Still lacks translations, gradings, topics, structure enrichment and Mashyakha expansion. |
+| **Tahdhib al-Ahkam** | `10083` | 🟡 Chains + context resolved. 13,920 hadiths; 15,159 chains / 74,644 nodes; 319 review chains (97.9% clean); **47.5% person-resolved**, 26,555 ambiguous, 0 reliable generation violations, 79.9% repaired-ledger Mu'jam corroboration floor. Still lacks translations, gradings, topics, structure enrichment and Mashyakha expansion. |
+| **Al-Istibsar** | `11002` | 🟡 Chains + context resolved. 5,557 hadiths; 6,196 chains / 30,847 nodes; 115 review chains (98.1% clean); **49.5% person-resolved**, 11,131 ambiguous, 0 reliable generation violations, 77.2% repaired-ledger Mu'jam corroboration floor. Still lacks translations, gradings, topics, structure enrichment and Mashyakha expansion. |
 | **Bihar al-Anwar** | `71860` | 🔴 Extracted but unpolished. 49,629 hadiths; 38,641 have chains. No translations, gradings, topics or structure enrichment. |
 | Mu'jam Rijal al-Hadith | `14036` | ✅ 15,593 entries — the rijal spine. |
 | External rijāl witnesses | `ext-rijal-*` | ✅ 11,525 offline metadata witnesses from Najāshī, Kashshī, Ṭūsī, al-Fihrist and al-Ḥillī; hidden from the public book catalogue. |
@@ -136,6 +136,23 @@ commentary rows at Alembic head `a7c3e5b91d24`. Remote `quick_check=ok`; public 
 confirmed Faqih graph data, external rijal entries, both commentary sources and reader pages.
 Production retains the newest three explicit rollback files.
 
+**Mu'jam volume-boundary repair (complete, 2026-10-05).** Parser `mujam_v2` now stops the
+last numbered biography in volumes 1–23 before each volume's `تفصيل طبقات الرواة` appendix,
+while preserving genuine continuation pages. The repair was rehearsed on
+`eshia_research.phase2-mujam-disposable.20261005.db`, then the Mu'jam, person, resolution,
+tabaqat and prior layers were rebuilt on the main local DB in dependency order. Occurrence
+rows fell from 53,745 to 12,807; 23 boundary flags remain for audit, the largest ledger is 24,
+and no ledger exceeds 200. The scoped al-Tusi context pass resolved 6,566 cases and its
+immediate rerun resolved 0. All four books have zero bare-form leaks and zero reliable
+generation violations. `quick_check=ok`, foreign-key and dangling-row checks are clear, and
+all 119,133 crawled `pages` rows are unchanged. Verification: 578 backend tests and the
+Next.js production build pass. Full ledger and collection metrics:
+`docs/mujam-volume-boundary-repair-20261005.md`.
+
+Rollback file: `eshia-research.before-mujam-boundary-repair.20261005.db`, 6,671,761,408
+bytes, SHA-256 `072AC2E2B50550357EDB08E618626E43CB57E78D07333E763F17E797744168BD`.
+The repaired research DB and rollback remain local; production data has not been replaced.
+
 ---
 
 ## 4. Rijal / Tamyiz engine (person identity)
@@ -149,14 +166,18 @@ calculus (أبيه/عنه/بهذا الإسناد, 'iddah rosters) · **C** taba
 intervals) · **D** global/context resolution + compiler & kunya priors · **E** tashif/saqt
 criticism (annotate only, never edit text).
 
-**Re-run order matters** — changing the grammar/person layer invalidates everything
-downstream: `build-person-layer` → `resolve-persons` → `build-tabaqat` → `refine-tabaqat`.
+**Re-run order matters** — changing Mu'jam or the person layer invalidates everything
+downstream: `build-person-layer` → `materialize-same-person-links` → `resolve-persons` →
+`build-tabaqat` → `refine-tabaqat` → `refine-compiler-priors` → `refine-imam-priors` →
+the corpus-scoped `refine-collective-context` pass. Repeat the final command to prove it
+resolves and expands zero additional rows.
 
-**Al-Kafi measured state:** ~72% resolved, 61.7% Mu'jam corroboration, **0 reliable
+**Al-Kafi measured state:** 61.6% of chain nodes resolved, 58.0% repaired-ledger Mu'jam
+corroboration, **0 reliable
 generation violations**, bare-form leak 0.
 
 **DONE definition (standing):** every node is either resolved-with-dalil, ranked-ambiguous
-with candidates shown, or flagged. The ~72% plateau is the *honest* answer —
+with candidates shown, or flagged. The current plateau is the *honest* answer —
 **do not chase 100%.**
 
 ### Offline external rijāl witnesses (2026-08-23)
@@ -323,15 +344,14 @@ publishing, blue/green, containerisation. They solve problems Usul16 does not ha
 
 **Next Four Books pass** (highest leverage first):
 
-1. Generalize the independently evidenced Mashyakha proposal layer to Tahdhib and Istibsar.
-   Their chain structure is now clean enough for this to be the main resolution multiplier.
-2. Repair the 23 overrun Mu'jam occurrence ledgers, then re-run the now-idempotent context pass;
-   26,578 Tahdhib and 11,143 Istibsar mentions remain honestly ambiguous.
-3. Review the 434 retained al-Tusi chain cases (319 Tahdhib, 115 Istibsar), prioritising the 56
+1. Generalize the independently evidenced Mashyakha proposal layer to Tahdhib, then Istibsar.
+   Their chain structure and Mu'jam evidence are now clean enough for this to be the main
+   resolution multiplier; 26,555 Tahdhib and 11,131 Istibsar mentions remain ambiguous.
+2. Review the 434 retained al-Tusi chain cases (319 Tahdhib, 115 Istibsar), prioritising the 56
    suspicious cases before the 381 explicitly marked multi-route cases.
-4. Build content parity for both books: rendered English, section structure, topics and an
+3. Build content parity for both books: rendered English, section structure, topics and an
    attributable grading layer. All four layers are currently absent.
-5. Enable each al-Tusi book for the public graph only after its abbreviated-opening policy and
+4. Enable each al-Tusi book for the public graph only after its abbreviated-opening policy and
    remaining suspicious-chain audit are explicit.
 
 **Faqih residuals:** decide the `faqih-5751` boundary; obtain an attributable report-level

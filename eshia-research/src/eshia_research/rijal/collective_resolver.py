@@ -97,7 +97,11 @@ REJECTED_HADITH_STATUS = "rejected_non_hadith_fragment"
 # rerun) creates a self-reinforcing chain in which one mistaken inference can
 # spread without any new independent witness.
 CONTEXT_DERIVED_METHODS = frozenset(
-    {"collective_context", "tusi_source_opening_consensus"}
+    {
+        "collective_context",
+        "tusi_source_opening_consensus",
+        "collective_roster_after_context",
+    }
 )
 AL_TUSI_SOURCE_BOOK_IDS = frozenset({"10083", "11002"})
 MIN_TUSI_OPENING_CONSENSUS = 20
@@ -554,8 +558,18 @@ def _chain_states(db: Session, book_ids: list[int]) -> list[list[ChainNodeState]
             ChainNode.node_type,
             ChainNode.relation_kind,
         )
-        .where(ChainNode.chain_id.in_(rows))
-        .order_by(ChainNode.chain_id, ChainNode.position)
+        .join(Chain, Chain.id == ChainNode.chain_id)
+        .join(Hadith, Hadith.id == Chain.hadith_id)
+        .where(
+            Hadith.book_id.in_(book_ids),
+            Hadith.review_status != REJECTED_HADITH_STATUS,
+        )
+        .order_by(
+            Hadith.book_id,
+            Hadith.sequence_in_book,
+            Chain.chain_number,
+            ChainNode.position,
+        )
     ).all()
     resolutions: dict[int, list[MentionResolution]] = defaultdict(list)
     for resolution in db.execute(
