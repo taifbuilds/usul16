@@ -9,6 +9,8 @@ Al-Kafi as the current gold-standard pilot.
   network.
 - `AGENT_HANDOFF.md`: durable corpus decisions, applied database changes, and
   current research status.
+- `docs/project-roadmap.md`: current five-phase delivery plan, acceptance gates,
+  and verified restart baseline.
 - `docs/operations.md`: runtime, database-change, backup-retention, and
   verification procedures.
 - `docs/operations/PRODUCTION_DEPLOYMENT.md`: **canonical reference for how
