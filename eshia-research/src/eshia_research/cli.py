@@ -47,12 +47,16 @@ from eshia_research.crawler.jobs import (
 )
 from eshia_research.db import SessionLocal, init_db as _init_db
 from eshia_research.hadith_extractor import rebuild_hadith_index
+from eshia_research.isnad.review_audit import build_tusi_chain_review, write_tusi_chain_review
 from eshia_research.rijal.mashyakha import (
     audit_faqih_mashyakha_coverage,
+    audit_tusi_mashyakha_coverage,
     crawl_faqih_mashyakha,
     import_faqih_mashyakha_paths,
+    import_tusi_mashyakha_paths,
     load_mashyakha_snapshot,
     materialize_faqih_mashyakha_expansions,
+    materialize_tusi_mashyakha_expansions,
     write_mashyakha_snapshot,
 )
 from eshia_research.search import search_pages
@@ -168,6 +172,84 @@ def materialize_faqih_mashyakha_expansions_cmd(
     typer.echo(
         f"{mode}created {stats.created}, updated {stats.updated}, removed {stats.removed}; "
         f"proposed {stats.proposed}, needs review {stats.needs_review}."
+    )
+
+
+@app.command("import-tusi-mashyakha")
+def import_tusi_mashyakha_cmd(
+    dry_run: bool = typer.Option(True, "--dry-run/--apply"),
+) -> None:
+    """Import al-Tusi's shared Mashyakha from preserved al-Istibsar pages."""
+    db = SessionLocal()
+    try:
+        stats, extraction = import_tusi_mashyakha_paths(db)
+        if dry_run:
+            db.rollback()
+        else:
+            db.commit()
+    finally:
+        db.close()
+    mode = "DRY-RUN: " if dry_run else ""
+    typer.echo(
+        f"{mode}pages {extraction.first_page}-{extraction.last_page}; "
+        f"created {stats.created}, updated {stats.updated}; parsed {stats.parsed}, "
+        f"needs review {stats.needs_review}."
+    )
+
+
+@app.command("audit-tusi-mashyakha")
+def audit_tusi_mashyakha_cmd(
+    source_book_id: str = typer.Option(..., "--source-book-id", help="10083 or 11002."),
+) -> None:
+    """Report strict Mashyakha proposal coverage for one al-Tusi collection."""
+    db = SessionLocal()
+    try:
+        report = audit_tusi_mashyakha_coverage(db, source_book_id)
+    finally:
+        db.close()
+    for key, value in report.items():
+        typer.echo(f"{key}={value}")
+
+
+@app.command("materialize-tusi-mashyakha-expansions")
+def materialize_tusi_mashyakha_expansions_cmd(
+    source_book_id: str = typer.Option(..., "--source-book-id", help="10083 or 11002."),
+    dry_run: bool = typer.Option(True, "--dry-run/--apply"),
+) -> None:
+    """Create al-Tusi source-linked proposals without rewriting literal chains."""
+    db = SessionLocal()
+    try:
+        stats = materialize_tusi_mashyakha_expansions(db, source_book_id)
+        if dry_run:
+            db.rollback()
+        else:
+            db.commit()
+    finally:
+        db.close()
+    mode = "DRY-RUN: " if dry_run else ""
+    typer.echo(
+        f"{mode}created {stats.created}, updated {stats.updated}, removed {stats.removed}; "
+        f"proposed {stats.proposed}, needs review {stats.needs_review}."
+    )
+
+
+@app.command("audit-tusi-chain-reviews")
+def audit_tusi_chain_reviews_cmd(
+    json_path: str = typer.Option(..., "--json-path"),
+    markdown_path: str = typer.Option(..., "--markdown-path"),
+    audit_date: str = typer.Option(..., "--audit-date"),
+) -> None:
+    """Export exhaustive suspicious and multi-route al-Tusi decisions."""
+    db = SessionLocal()
+    try:
+        report = build_tusi_chain_review(db, audit_date=audit_date)
+    finally:
+        db.close()
+    write_tusi_chain_review(report, json_path, markdown_path)
+    summary = report["summary"]
+    typer.echo(
+        f"Reviewed {summary['suspicious_chains']} suspicious chain(s) and "
+        f"classified {summary['multi_route_chains']} multi-route chain(s)."
     )
 
 

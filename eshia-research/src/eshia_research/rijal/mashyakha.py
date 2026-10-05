@@ -18,6 +18,7 @@ import datetime as dt
 import json
 import re
 import time
+from bisect import bisect_right
 from collections import defaultdict
 from dataclasses import asdict, dataclass, field
 from functools import lru_cache
@@ -36,6 +37,7 @@ from eshia_research.models import (
     Hadith,
     MashyakhaExpansion,
     MashyakhaPath,
+    Page,
 )
 from eshia_research.normalise import normalise_arabic_persian, strip_diacritics
 from eshia_research.translation.text import clean_ws, sha256_text
@@ -51,6 +53,13 @@ FAQIH_SOURCE_BOOK_ID = "11021"
 FAQIH_MASHYAKHA_REMOTE_BOOK_ID = 38
 FAQIH_MASHYAKHA_SOURCE_KEY = "thaqalayn-faqih-mashaykha-v1"
 MASHYAKHA_PARSER_VERSION = "faqih_mashyakha_v2"
+TUSI_SOURCE_BOOK_IDS = ("10083", "11002")
+TUSI_MASHYAKHA_WITNESS_BOOK_ID = "11002"
+TUSI_MASHYAKHA_SOURCE_KEY = "eshia-tusi-mashyakha-v1"
+TUSI_MASHYAKHA_PARSER_VERSION = "tusi_mashyakha_v1"
+TUSI_MASHYAKHA_VOLUME = 4
+TUSI_MASHYAKHA_PAGE_START = 304
+TUSI_MASHYAKHA_PAGE_END = 343
 
 # Match methods, strongest first.  The first four leave a single source witness
 # standing and are proposed; PARTIAL_NAME_CANDIDATE never is.
@@ -100,6 +109,31 @@ _TARGET_GLOSS_RE = re.compile(r"\s+و\s+اسمه\s+.*$", re.DOTALL)
 _NARRATION_SPLIT_RE = re.compile(r"\s+عن\s+")
 _PATH_PREFIX_RE = re.compile(r"^عن\s+")
 _ZERO_WIDTH_RE = re.compile("[​-‏⁠﻿]")
+
+# Al-Tusi's shared closing Mashyakha is printed after al-Istibsar. Each entry
+# begins «(و) ما ذكرته ... عن X» and supplies the compiler's route to the book
+# or original owned by X. Editorial footnotes are interleaved in this edition,
+# so the source segment remains authoritative and target parsing stops before
+# the first footnote/cue rather than attempting to turn annotations into nodes.
+_TUSI_ENTRY_START_RE = re.compile(
+    r"(?:\(\s*)?(?:و\s*)?ما\s+ذكرته\s*(?:\)\s*)?"
+    r"(?:في\s+هذا\s+الكتاب\s+)?عن\s+"
+)
+_TUSI_PATH_CUE_RE = re.compile(
+    r"\s+(?P<cue>"
+    r"(?:فقد\s+)?(?:رويته|اخبرني|أخبرني|اخبرنا|أخبرنا)(?:\s+به|\s+بها)?"
+    r"|ما\s+رويته"
+    r")\s+"
+)
+_TUSI_FOOTNOTE_RE = re.compile(r"\s*\[[٠-٩0-9]+\].*$", re.DOTALL)
+_TUSI_TARGET_SCOPE_RE = re.compile(
+    r"\s+(?:مما|ما|الذي)\s+(?:اخذته|أخذته).*$", re.DOTALL
+)
+_TUSI_TARGET_VARIANT_RE = re.compile(r"«.*?»")
+_TUSI_HONORIFIC_RE = re.compile(
+    r"\s+(?:رحمه\s*الله|رحمهم\s*الله|رضي\s*الله\s*عنه(?:ما|م)?|قدس\s*سره).*$",
+    re.DOTALL,
+)
 
 # --- report-side canonicalisation (operates on *_normalised text) ---
 
@@ -184,6 +218,13 @@ class MashyakhaExpansionStats:
     needs_review: int = 0
 
 
+@dataclass(frozen=True)
+class TusiMashyakhaExtraction:
+    entries: list[MashyakhaSourceEntry]
+    first_page: int
+    last_page: int
+
+
 def _normalise(value: str | None) -> str:
     return normalise_arabic_persian(clean_ws(value or ""))
 
@@ -262,6 +303,117 @@ def parse_faqih_mashyakha_path(source_text_ar: str) -> ParsedMashyakhaPath:
         path_nodes=nodes,
         review_status="parsed",
         target_forms=[_normalise(form) for form in forms],
+    )
+
+
+def parse_tusi_mashyakha_path(source_text_ar: str) -> ParsedMashyakhaPath:
+    """Parse one source-preserved entry from al-Tusi's shared Mashyakha.
+
+    The eShia edition interleaves biographical footnotes with al-Tusi's text.
+    We therefore make only the claim needed by the proposal layer: which
+    opening author(s) the entry names. The complete segment remains stored as
+    the witness; parsed path pieces are evidence labels and never graph edges.
+    """
+    text = _parseable_text(source_text_ar)
+    start = _TUSI_ENTRY_START_RE.search(text)
+    if start is None:
+        return ParsedMashyakhaPath(
+            target_raw=None,
+            target_normalised=None,
+            path_nodes=[],
+            review_status="needs_review",
+            notes="No standard al-Tusi Mashyakha entry opening found.",
+        )
+    remainder = text[start.end() :]
+    cue = _TUSI_PATH_CUE_RE.search(remainder)
+    if cue is None:
+        return ParsedMashyakhaPath(
+            target_raw=None,
+            target_normalised=None,
+            path_nodes=[],
+            review_status="needs_review",
+            notes="The entry names no recognisable path cue.",
+        )
+
+    target = remainder[: cue.start()]
+    target = _TUSI_TARGET_VARIANT_RE.sub(" ", target)
+    target = _TUSI_FOOTNOTE_RE.sub("", target)
+    target = _TUSI_TARGET_SCOPE_RE.sub("", target)
+    target = _TUSI_HONORIFIC_RE.sub("", target)
+    target = clean_ws(target.strip(" .،,()"))
+    # A formula such as «محمد بن إسماعيل عن الفضل» names the author at
+    # position zero; the following narrator belongs to the quoted source chain.
+    target = _NARRATION_SPLIT_RE.split(target, maxsplit=1)[0]
+    forms = [
+        clean_ws(part.strip(" .،,()"))
+        for part in re.split(r"\s+و(?=[ء-ی])", target)
+        if clean_ws(part.strip(" .،,()"))
+    ]
+    forms = [re.sub(r"^(?:الفقيه|الشيخ)\s+", "", form) for form in forms]
+    forms = list(dict.fromkeys(form for form in forms if form))
+    if not forms:
+        return ParsedMashyakhaPath(
+            target_raw=target or None,
+            target_normalised=_normalise(target) or None,
+            path_nodes=[],
+            review_status="needs_review",
+            notes="The entry path cue was found but its target was empty.",
+        )
+
+    path_text = clean_ws(remainder[cue.end() :].strip(" .،,"))
+    path_nodes = [
+        clean_ws(part.strip(" .،,"))
+        for part in _NARRATION_SPLIT_RE.split(path_text)
+        if clean_ws(part.strip(" .،,"))
+    ]
+    return ParsedMashyakhaPath(
+        target_raw=target,
+        target_normalised=_normalise(forms[0]),
+        path_nodes=path_nodes or [path_text],
+        review_status="parsed",
+        target_forms=[_normalise(form) for form in forms],
+        notes=(
+            "Path components are a conservative transcription aid; the source segment is "
+            "authoritative and no component is published as a graph edge."
+        ),
+    )
+
+
+def extract_tusi_mashyakha_entries(pages: list[Page]) -> TusiMashyakhaExtraction:
+    """Split the closing al-Tusi Mashyakha into source-cited entries."""
+    ordered = sorted(pages, key=lambda page: (page.volume_number, page.page_number, page.id))
+    if not ordered:
+        raise ValueError("No al-Tusi Mashyakha pages supplied")
+    starts: list[int] = []
+    chunks: list[str] = []
+    offset = 0
+    for page in ordered:
+        starts.append(offset)
+        chunk = page.text_raw or ""
+        chunks.append(chunk)
+        offset += len(chunk) + 1
+    full_text = "\n".join(chunks)
+    markers = list(_TUSI_ENTRY_START_RE.finditer(full_text))
+    if len(markers) < 40:
+        raise ValueError(f"Expected the complete al-Tusi Mashyakha, found {len(markers)} entries")
+
+    entries: list[MashyakhaSourceEntry] = []
+    for index, marker in enumerate(markers, start=1):
+        end = markers[index].start() if index < len(markers) else len(full_text)
+        page_index = max(0, bisect_right(starts, marker.start()) - 1)
+        page = ordered[page_index]
+        entries.append(
+            MashyakhaSourceEntry(
+                source_chapter=index,
+                source_hadith_number=None,
+                source_url=page.source_url,
+                source_text_ar=full_text[marker.start() : end].strip(),
+            )
+        )
+    return TusiMashyakhaExtraction(
+        entries=entries,
+        first_page=ordered[0].page_number,
+        last_page=ordered[-1].page_number,
     )
 
 
@@ -458,19 +610,38 @@ def import_faqih_mashyakha_paths(
     entries: list[MashyakhaSourceEntry],
 ) -> MashyakhaImportStats:
     """Idempotently import source witnesses without touching report chains."""
+    return _import_mashyakha_paths(
+        db,
+        entries,
+        source_book_id=FAQIH_SOURCE_BOOK_ID,
+        source_key=FAQIH_MASHYAKHA_SOURCE_KEY,
+        parser_version=MASHYAKHA_PARSER_VERSION,
+        parser=parse_faqih_mashyakha_path,
+    )
+
+
+def _import_mashyakha_paths(
+    db: Session,
+    entries: list[MashyakhaSourceEntry],
+    *,
+    source_book_id: str,
+    source_key: str,
+    parser_version: str,
+    parser: Any,
+) -> MashyakhaImportStats:
     stats = MashyakhaImportStats()
     now = dt.datetime.now(dt.timezone.utc)
     for entry in entries:
-        parsed = parse_faqih_mashyakha_path(entry.source_text_ar)
+        parsed = parser(entry.source_text_ar)
         existing = db.scalar(
             select(MashyakhaPath).where(
-                MashyakhaPath.source_key == FAQIH_MASHYAKHA_SOURCE_KEY,
+                MashyakhaPath.source_key == source_key,
                 MashyakhaPath.source_chapter == entry.source_chapter,
             )
         )
         values: dict[str, Any] = {
-            "source_book_id": FAQIH_SOURCE_BOOK_ID,
-            "source_key": FAQIH_MASHYAKHA_SOURCE_KEY,
+            "source_book_id": source_book_id,
+            "source_key": source_key,
             "source_chapter": entry.source_chapter,
             "source_hadith_number": entry.source_hadith_number,
             "source_url": entry.source_url,
@@ -481,7 +652,7 @@ def import_faqih_mashyakha_paths(
             "source_text_en": clean_ws(entry.source_text_en) or None,
             "source_sha256": sha256_text(entry.source_text_ar),
             "parsed_path_json": parsed.path_nodes or None,
-            "parser_version": MASHYAKHA_PARSER_VERSION,
+            "parser_version": parser_version,
             "review_status": parsed.review_status,
             "notes": parsed.notes,
             "updated_at": now,
@@ -503,13 +674,48 @@ def import_faqih_mashyakha_paths(
     return stats
 
 
-def _parsed_paths_by_target_form(db: Session) -> dict[str, list[MashyakhaPath]]:
+def import_tusi_mashyakha_paths(db: Session) -> tuple[MashyakhaImportStats, TusiMashyakhaExtraction]:
+    """Import the shared Tahdhib/Istibsar Mashyakha from preserved eShia pages."""
+    witness_book = db.scalar(
+        select(Book).where(Book.source_book_id == TUSI_MASHYAKHA_WITNESS_BOOK_ID)
+    )
+    if witness_book is None:
+        raise ValueError(
+            f"No al-Istibsar witness with source_book_id={TUSI_MASHYAKHA_WITNESS_BOOK_ID}"
+        )
+    pages = list(
+        db.scalars(
+            select(Page)
+            .where(
+                Page.book_id == witness_book.id,
+                Page.volume_number == TUSI_MASHYAKHA_VOLUME,
+                Page.page_number.between(TUSI_MASHYAKHA_PAGE_START, TUSI_MASHYAKHA_PAGE_END),
+            )
+            .order_by(Page.page_number)
+        )
+    )
+    extraction = extract_tusi_mashyakha_entries(pages)
+    stats = _import_mashyakha_paths(
+        db,
+        extraction.entries,
+        source_book_id=TUSI_MASHYAKHA_WITNESS_BOOK_ID,
+        source_key=TUSI_MASHYAKHA_SOURCE_KEY,
+        parser_version=TUSI_MASHYAKHA_PARSER_VERSION,
+        parser=parse_tusi_mashyakha_path,
+    )
+    return stats, extraction
+
+
+def _parsed_paths_by_target_form(
+    db: Session,
+    source_key: str = FAQIH_MASHYAKHA_SOURCE_KEY,
+) -> dict[str, list[MashyakhaPath]]:
     """Index every narrator form the parsed witnesses vouch for."""
     paths_by_form: dict[str, list[MashyakhaPath]] = defaultdict(list)
     for path in db.scalars(
         select(MashyakhaPath)
         .where(
-            MashyakhaPath.source_key == FAQIH_MASHYAKHA_SOURCE_KEY,
+            MashyakhaPath.source_key == source_key,
             MashyakhaPath.review_status == "parsed",
         )
         .order_by(MashyakhaPath.source_chapter)
@@ -523,27 +729,37 @@ def _parsed_paths_by_target_form(db: Session) -> dict[str, list[MashyakhaPath]]:
     return paths_by_form
 
 
-def _faqih_mursal_openings(db: Session, book: Book) -> list[tuple[int, str | None, str | None]]:
+def _book_openings(
+    db: Session,
+    book: Book,
+    *,
+    mursal_only: bool,
+) -> list[tuple[int, str | None, str | None]]:
+    statement = (
+        select(Chain.id, ChainNode.raw_token, ChainNode.token_normalised)
+        .join(Hadith, Hadith.id == Chain.hadith_id)
+        .join(ChainNode, ChainNode.chain_id == Chain.id)
+        .where(Hadith.book_id == book.id, ChainNode.position == 0)
+        .order_by(Chain.id)
+    )
+    if mursal_only:
+        statement = statement.where(Chain.flags.contains("mursal_opening"))
     return [
         (chain_id, raw, normalised)
         for chain_id, raw, normalised in db.execute(
-            select(Chain.id, ChainNode.raw_token, ChainNode.token_normalised)
-            .join(Hadith, Hadith.id == Chain.hadith_id)
-            .join(ChainNode, ChainNode.chain_id == Chain.id)
-            .where(
-                Hadith.book_id == book.id,
-                Chain.flags.contains("mursal_opening"),
-                ChainNode.position == 0,
-            )
-            .order_by(Chain.id)
+            statement
         ).all()
     ]
 
 
 def _require_faqih(db: Session) -> Book:
-    book = db.scalar(select(Book).where(Book.source_book_id == FAQIH_SOURCE_BOOK_ID))
+    return _require_book(db, FAQIH_SOURCE_BOOK_ID)
+
+
+def _require_book(db: Session, source_book_id: str) -> Book:
+    book = db.scalar(select(Book).where(Book.source_book_id == source_book_id))
     if book is None:
-        raise ValueError(f"No Faqih book with source_book_id={FAQIH_SOURCE_BOOK_ID}")
+        raise ValueError(f"No book with source_book_id={source_book_id}")
     return book
 
 
@@ -557,15 +773,47 @@ def materialize_faqih_mashyakha_expansions(db: Session) -> MashyakhaExpansionSta
     changed.  A tier that leaves more than one witness standing — or that rests
     on a partial name — is stored as ranked ``needs_review`` candidates.
     """
-    book = _require_faqih(db)
-    paths_by_form = _parsed_paths_by_target_form(db)
+    return materialize_mashyakha_expansions(
+        db,
+        target_book_id=FAQIH_SOURCE_BOOK_ID,
+        source_key=FAQIH_MASHYAKHA_SOURCE_KEY,
+        mursal_only=True,
+    )
+
+
+def materialize_tusi_mashyakha_expansions(
+    db: Session,
+    source_book_id: str,
+) -> MashyakhaExpansionStats:
+    if source_book_id not in TUSI_SOURCE_BOOK_IDS:
+        raise ValueError(f"Not an al-Tusi Four Books source: {source_book_id}")
+    return materialize_mashyakha_expansions(
+        db,
+        target_book_id=source_book_id,
+        source_key=TUSI_MASHYAKHA_SOURCE_KEY,
+        mursal_only=False,
+    )
+
+
+def materialize_mashyakha_expansions(
+    db: Session,
+    *,
+    target_book_id: str,
+    source_key: str,
+    mursal_only: bool,
+) -> MashyakhaExpansionStats:
+    """Create source-linked proposals without changing literal chain nodes."""
+    book = _require_book(db, target_book_id)
+    paths_by_form = _parsed_paths_by_target_form(db, source_key)
 
     stats = MashyakhaExpansionStats()
     now = dt.datetime.now(dt.timezone.utc)
     cache: dict[str | None, OpeningMatch | None] = {}
     chain_ids: set[int] = set()
     supported: set[tuple[int, int]] = set()
-    for chain_id, opening_raw, opening_normalised in _faqih_mursal_openings(db, book):
+    for chain_id, opening_raw, opening_normalised in _book_openings(
+        db, book, mursal_only=mursal_only
+    ):
         chain_ids.add(chain_id)
         if opening_normalised not in cache:
             cache[opening_normalised] = classify_opening(opening_normalised, paths_by_form)
@@ -626,8 +874,11 @@ def materialize_faqih_mashyakha_expansions(db: Session) -> MashyakhaExpansionSta
     # already ruled on are decisions, not output, and are kept.
     if chain_ids:
         for expansion in db.scalars(
-            select(MashyakhaExpansion).where(
+            select(MashyakhaExpansion)
+            .join(MashyakhaPath, MashyakhaPath.id == MashyakhaExpansion.mashyakha_path_id)
+            .where(
                 MashyakhaExpansion.chain_id.in_(chain_ids),
+                MashyakhaPath.source_key == source_key,
                 MashyakhaExpansion.review_status.in_(("proposed", "needs_review")),
             )
         ):
@@ -645,10 +896,38 @@ def audit_faqih_mashyakha_coverage(db: Session) -> dict[str, int]:
     recorded evidence tier.  It does not claim the source path has been grafted
     into the report or that its identities have been resolved.
     """
-    book = _require_faqih(db)
-    paths_by_form = _parsed_paths_by_target_form(db)
+    return audit_mashyakha_coverage(
+        db,
+        target_book_id=FAQIH_SOURCE_BOOK_ID,
+        source_key=FAQIH_MASHYAKHA_SOURCE_KEY,
+        mursal_only=True,
+    )
+
+
+def audit_tusi_mashyakha_coverage(db: Session, source_book_id: str) -> dict[str, int]:
+    if source_book_id not in TUSI_SOURCE_BOOK_IDS:
+        raise ValueError(f"Not an al-Tusi Four Books source: {source_book_id}")
+    return audit_mashyakha_coverage(
+        db,
+        target_book_id=source_book_id,
+        source_key=TUSI_MASHYAKHA_SOURCE_KEY,
+        mursal_only=False,
+    )
+
+
+def audit_mashyakha_coverage(
+    db: Session,
+    *,
+    target_book_id: str,
+    source_key: str,
+    mursal_only: bool,
+) -> dict[str, int]:
+    book = _require_book(db, target_book_id)
+    paths_by_form = _parsed_paths_by_target_form(db, source_key)
     openings = [
-        normalised for _, _, normalised in _faqih_mursal_openings(db, book) if normalised
+        normalised
+        for _, _, normalised in _book_openings(db, book, mursal_only=mursal_only)
+        if normalised
     ]
 
     cache: dict[str, OpeningMatch | None] = {}
@@ -667,7 +946,21 @@ def audit_faqih_mashyakha_coverage(db: Session) -> dict[str, int]:
     def count(model: Any, *where: Any) -> int:
         return db.scalar(select(func.count()).select_from(model).where(*where)) or 0
 
-    source_scope = (MashyakhaPath.source_key == FAQIH_MASHYAKHA_SOURCE_KEY,)
+    source_scope = (MashyakhaPath.source_key == source_key,)
+
+    def expansion_count(status: str | None = None) -> int:
+        statement = (
+            select(func.count())
+            .select_from(MashyakhaExpansion)
+            .join(Chain, Chain.id == MashyakhaExpansion.chain_id)
+            .join(Hadith, Hadith.id == Chain.hadith_id)
+            .join(MashyakhaPath, MashyakhaPath.id == MashyakhaExpansion.mashyakha_path_id)
+            .where(Hadith.book_id == book.id, MashyakhaPath.source_key == source_key)
+        )
+        if status is not None:
+            statement = statement.where(MashyakhaExpansion.review_status == status)
+        return db.scalar(statement) or 0
+
     return {
         "source_paths": count(MashyakhaPath, *source_scope),
         "parsed_paths": count(MashyakhaPath, *source_scope, MashyakhaPath.review_status == "parsed"),
@@ -678,16 +971,12 @@ def audit_faqih_mashyakha_coverage(db: Session) -> dict[str, int]:
             MashyakhaPath, *source_scope, MashyakhaPath.review_status == "needs_review"
         ),
         "target_forms": len(paths_by_form),
-        "mursal_openings": len(openings),
+        ("mursal_openings" if mursal_only else "eligible_openings"): len(openings),
         **{f"openings_{method}": tiers[method] for method in tiers},
         "openings_with_single_candidate": single_candidate,
         "openings_with_any_witness": single_candidate + tiers[MATCH_PARTIAL_CANDIDATE],
         "openings_without_source_witness": without_witness,
-        "expansion_proposals": count(MashyakhaExpansion),
-        "expansion_proposed": count(
-            MashyakhaExpansion, MashyakhaExpansion.review_status == "proposed"
-        ),
-        "expansion_needs_review": count(
-            MashyakhaExpansion, MashyakhaExpansion.review_status == "needs_review"
-        ),
+        "expansion_proposals": expansion_count(),
+        "expansion_proposed": expansion_count("proposed"),
+        "expansion_needs_review": expansion_count("needs_review"),
     }
