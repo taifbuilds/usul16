@@ -16,14 +16,14 @@ export const CORPUS_MATURITY: Record<string, CorpusMaturity> = {
     summary: "Arabic hadiths, English coverage, topics, and resolved chains are published; grading coverage and one English boundary case remain.",
   },
   "10083": {
-    label: "Structured · under review",
+    label: "Graph-ready · reader coverage limited",
     tone: "review",
-    summary: "Readable and structured; chain review and editorial reconciliation are still in progress.",
+    summary: "Literal chains are published to the graph, with source-linked Mashyakha proposals kept as separate evidence; translations, gradings, topics, and full section structure remain limited.",
   },
   "11002": {
-    label: "Structured · under review",
+    label: "Graph-ready · reader coverage limited",
     tone: "review",
-    summary: "Readable and structured; chain review and editorial reconciliation are still in progress.",
+    summary: "Literal chains are published to the graph, with source-linked Mashyakha proposals kept as separate evidence; translations, gradings, topics, and full section structure remain limited.",
   },
   "71860": {
     label: "Research preview",

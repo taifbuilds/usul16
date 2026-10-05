@@ -275,12 +275,15 @@ def test_graph_reports_book_footprint_and_ids(client: TestClient, seeded):
     assert attar_node["reliability"] is None
 
 
-def test_graph_accepts_polished_faqih_without_fallback(client: TestClient, seeded):
-    # Faqih passed the graph gate: an explicit request must retain its book id
-    # rather than silently substituting al-Kafi. This fixture has no Faqih rows,
-    # so an empty graph is the honest result.
-    body = client.get("/transmission-graph?books=11021&min_count=1").json()
-    assert body["book_ids"] == ["11021"]
+@pytest.mark.parametrize("source_book_id", ["11021", "10083", "11002"])
+def test_graph_accepts_each_polished_four_book_without_fallback(
+    client: TestClient, seeded, source_book_id: str
+):
+    # Each enabled Four Book passed its own graph gate. An explicit request must
+    # retain that id rather than silently substituting al-Kafi. This fixture has
+    # no rows for the requested book, so an empty graph is the honest result.
+    body = client.get(f"/transmission-graph?books={source_book_id}&min_count=1").json()
+    assert body["book_ids"] == [source_book_id]
     assert body["nodes"] == []
 
 

@@ -59,23 +59,23 @@ Four Books resolution work.
 
 ## Phase 3 — Complete Four Books transmission coverage
 
-Status: **next**
+Status: **complete (2026-10-05)**
 
-| ID | Task | Acceptance criterion |
+| ID | Task | Acceptance evidence |
 |---|---|---|
-| P3-01 | Generalize the sourced Mashyakha proposal layer to Tahdhib | Literal and reconstructed chains remain separate; every proposal cites its path and scope. |
-| P3-02 | Generalize the same layer to Istibsar | Same publication and provenance gates as Tahdhib. |
-| P3-03 | Review the 56 suspicious al-Tusi chains | Each is corrected, accepted with explanation, or retained as review-only. |
-| P3-04 | Classify the remaining retained multi-route cases | Route multiplicity remains visible and is never collapsed into a fabricated single chain. |
-| P3-05 | Rebuild and evaluate person resolution | Collection reports include resolution states, corroboration, generation checks and unresolved-case counts. |
-| P3-06 | Enable Tahdhib and Istibsar in the graph separately | Each book passes its own chain, identity and abbreviated-opening publication gates before its ID is added. |
+| P3-01 | Generalize the sourced Mashyakha proposal layer to Tahdhib | The shared 46-entry al-Tusi witness produced 5,337 single-witness proposals and 15,185 ranked candidates; no literal chain nodes changed. |
+| P3-02 | Generalize the same layer to Istibsar | The same cited witness and matching gates produced 2,510 single-witness proposals and 7,027 ranked candidates, with zero-row immediate rerun deltas. |
+| P3-03 | Review the 56 suspicious al-Tusi chains | The [review ledger](tusi-chain-review-20261005.md) dispositions all 56; parser-spill and contaminated cases remain review-only. |
+| P3-04 | Classify the remaining retained multi-route cases | The exhaustive JSON ledger classifies all 381 multi-route chains and preserves every literal route without flattening. |
+| P3-05 | Rebuild and evaluate person resolution | The [Phase 3 audit](four-books-transmission-phase3-20261005.md) records all four resolution states, corroboration floors, zero bare-form leaks, zero reliable-generation violations and a zero-result context rerun. |
+| P3-06 | Enable Tahdhib and Istibsar in the graph separately | Both IDs are enabled independently in backend and UI after passing their gates; tests assert neither can silently fall back to al-Kafi. |
 
 Deliverable: all Four Books available in the public graph with traceable literal and
 reconstructed transmission evidence.
 
 ## Phase 4 — Complete the reader's core layers
 
-Status: **queued; source acquisition can begin early**
+Status: **next**
 
 | ID | Task | Acceptance criterion |
 |---|---|---|

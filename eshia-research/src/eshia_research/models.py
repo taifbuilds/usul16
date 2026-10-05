@@ -1261,12 +1261,13 @@ class HadithGrading(Base):
 
 
 class MashyakhaPath(Base):
-    """One source-preserved path from a compiler to Faqih's abbreviated narrator.
+    """One source-preserved path from a compiler to an abbreviated opening.
 
-    ``Man la yahduruhu al-Faqih`` normally begins a report at the first named
-    narrator.  Its separate Mashyakha supplies al-Saduq's preceding path.  A
-    path is stored as an external textual witness first; it does not rewrite a
-    report's printed isnad or silently assert a graph edge.
+    Faqih and the two al-Tusi collections commonly begin at the owner of the
+    quoted book or original. Their closing Mashyakha witnesses supply the
+    compiler's preceding route. A path is stored as an external textual
+    witness first; it does not rewrite a printed isnad or silently assert a
+    graph edge.
     """
 
     __tablename__ = "mashyakha_paths"
@@ -1306,7 +1307,7 @@ class MashyakhaPath(Base):
 
 
 class MashyakhaExpansion(Base):
-    """A reviewable proposal to prepend a Mashyakha path to one Faqih chain.
+    """A reviewable proposal to prepend a Mashyakha path to one literal chain.
 
     The report's printed isnad remains in ``Chain`` and ``ChainNode``.  This
     relation only records an exact textual match between its opening narrator

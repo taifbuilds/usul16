@@ -9,6 +9,7 @@ from eshia_research.models import (
     Hadith,
     MashyakhaExpansion,
     MashyakhaPath,
+    Page,
 )
 from eshia_research.normalise import normalise_arabic_persian
 from eshia_research.rijal.mashyakha import (
@@ -19,12 +20,16 @@ from eshia_research.rijal.mashyakha import (
     MATCH_PARTIAL_CANDIDATE,
     MashyakhaSourceEntry,
     audit_faqih_mashyakha_coverage,
+    audit_tusi_mashyakha_coverage,
     canonical_opening,
     classify_opening,
+    extract_tusi_mashyakha_entries,
     import_faqih_mashyakha_paths,
     load_mashyakha_snapshot,
     materialize_faqih_mashyakha_expansions,
+    materialize_tusi_mashyakha_expansions,
     parse_faqih_mashyakha_path,
+    parse_tusi_mashyakha_path,
     write_mashyakha_snapshot,
 )
 
@@ -119,6 +124,134 @@ def test_unrecognised_entry_is_preserved_for_review():
     assert parsed.review_status == "needs_review"
     assert parsed.target_raw is None
     assert parsed.path_nodes == []
+
+
+def test_parse_tusi_mashyakha_target_without_promoting_editorial_notes():
+    parsed = parse_tusi_mashyakha_path(
+        "( وما ذكرته ) عن الحسين بن سعيد والحسن بن محبوب [١] ما رويته بهذا "
+        "الاسناد عن أحمد بن محمد عنهما. [١] ترجمة المحقق المطولة."
+    )
+
+    assert parsed.review_status == "parsed"
+    assert parsed.target_forms == [
+        normalise_arabic_persian("الحسين بن سعيد"),
+        normalise_arabic_persian("الحسن بن محبوب"),
+    ]
+    assert "ترجمة المحقق المطولة" in parsed.path_nodes[-1]
+    assert "no component is published as a graph edge" in parsed.notes
+
+
+def test_extract_tusi_mashyakha_entries_keeps_page_citations():
+    entries = [
+        f"( وما ذكرته ) عن الراوي {number} فقد رويته عن الشيخ عن الراوي {number}."
+        for number in range(1, 41)
+    ]
+    pages = [
+        Page(
+            id=1,
+            book_id=1,
+            volume_number=4,
+            page_number=304,
+            text_raw="\n".join(entries[:20]),
+            source_url="https://lib.eshia.ir/11002/4/304",
+            checksum="a",
+        ),
+        Page(
+            id=2,
+            book_id=1,
+            volume_number=4,
+            page_number=305,
+            text_raw="\n".join(entries[20:]),
+            source_url="https://lib.eshia.ir/11002/4/305",
+            checksum="b",
+        ),
+    ]
+
+    extraction = extract_tusi_mashyakha_entries(pages)
+
+    assert len(extraction.entries) == 40
+    assert extraction.first_page == 304
+    assert extraction.last_page == 305
+    assert extraction.entries[0].source_url.endswith("/304")
+    assert extraction.entries[-1].source_url.endswith("/305")
+
+
+@pytest.mark.parametrize("source_book_id", ["10083", "11002"])
+def test_tusi_proposal_is_scoped_and_does_not_rewrite_literal_chain(
+    db: Session, source_book_id: str
+):
+    book = Book(
+        source_book_id=source_book_id,
+        title_original=source_book_id,
+        title_normalised=source_book_id,
+        source_url=f"https://lib.eshia.ir/{source_book_id}",
+    )
+    db.add(book)
+    db.flush()
+    hadith = Hadith(
+        public_id=f"book-{source_book_id}-1",
+        book_id=book.id,
+        sequence_in_book=1,
+        sequence_in_page=1,
+        volume_start=1,
+        volume_end=1,
+        page_start=1,
+        page_end=1,
+        full_text_raw="الحسين بن سعيد عن حماد",
+        full_text_normalised=normalise_arabic_persian("الحسين بن سعيد عن حماد"),
+        isnad_raw="الحسين بن سعيد عن حماد",
+        isnad_normalised=normalise_arabic_persian("الحسين بن سعيد عن حماد"),
+        matn_raw="متن",
+        matn_normalised="متن",
+        source_url=f"https://lib.eshia.ir/{source_book_id}/1/1",
+        review_status="pending",
+    )
+    db.add(hadith)
+    db.flush()
+    chain = Chain(
+        hadith_id=hadith.id,
+        chain_number=1,
+        raw_isnad=hadith.isnad_raw,
+        flags=None,
+        review_status="pending",
+    )
+    db.add(chain)
+    db.flush()
+    db.add(
+        ChainNode(
+            chain_id=chain.id,
+            position=0,
+            raw_token="الحسين بن سعيد",
+            token_normalised=normalise_arabic_persian("الحسين بن سعيد"),
+            node_type="named_narrator",
+        )
+    )
+    path = MashyakhaPath(
+        source_book_id="11002",
+        source_key="eshia-tusi-mashyakha-v1",
+        source_chapter=1,
+        source_url="https://lib.eshia.ir/11002/4/320",
+        target_raw="الحسين بن سعيد",
+        target_normalised=normalise_arabic_persian("الحسين بن سعيد"),
+        target_forms_json=[normalise_arabic_persian("الحسين بن سعيد")],
+        source_text_ar="وما ذكرته عن الحسين بن سعيد فقد أخبرني به الشيخ عنه",
+        source_sha256="sha",
+        parsed_path_json=["الشيخ", "الحسين بن سعيد"],
+        parser_version="tusi_mashyakha_v1",
+        review_status="parsed",
+    )
+    db.add(path)
+    db.flush()
+    node_count = db.query(ChainNode).count()
+
+    stats = materialize_tusi_mashyakha_expansions(db, source_book_id)
+    report = audit_tusi_mashyakha_coverage(db, source_book_id)
+
+    assert stats.proposed == 1
+    assert db.query(ChainNode).count() == node_count
+    assert db.get(Chain, chain.id).raw_isnad == "الحسين بن سعيد عن حماد"
+    assert report["eligible_openings"] == 1
+    assert report["expansion_proposed"] == 1
 
 
 def test_snapshot_round_trip(tmp_path):

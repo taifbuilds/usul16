@@ -57,10 +57,14 @@ BIHAR_DAR_IHYA_SOURCE_BOOK_ID = "71860"
 # graph, dossiers, path-finding and reliability (see the graph plan): once a
 # book's chains are resolved + chain-indexed, add its id here and it inherits
 # every feature — no schema change, no client rewrite. Faqih passed the chain,
-# identity, bare-form, and reliable-generation gates on 2026-08-23.
+# identity, bare-form, and reliable-generation gates on 2026-08-23. Tahdhib
+# and Istibsar passed those gates independently after their shared Mashyakha
+# proposal layer and retained-chain review were completed on 2026-10-05.
 POLISHED_TRANSMISSION_BOOK_IDS: tuple[str, ...] = (
     AL_KAFI_ISLAMIYYA_SOURCE_BOOK_ID,
     "11021",
+    "10083",
+    "11002",
 )
 
 # Human-readable slugs used in public hadith IDs («alkafi-2041») — the ID a

@@ -165,13 +165,15 @@ interface SimEdge extends TransmissionGraphEdge {
 }
 
 type LayoutMode = "constellation" | "tabaqat";
-type BookScope = "all" | "11005" | "11021";
+type BookScope = "all" | "11005" | "11021" | "10083" | "11002";
 
-const CHARTED_BOOKS = ["11005", "11021"] as const;
+const CHARTED_BOOKS = ["11005", "11021", "10083", "11002"] as const;
 const BOOK_SCOPE_OPTIONS: { value: BookScope; label: string }[] = [
   { value: "all", label: "All charted" },
   { value: "11005", label: "Al-Kāfī" },
   { value: "11021", label: "Al-Faqīh" },
+  { value: "10083", label: "Tahdhīb" },
+  { value: "11002", label: "Al-Istibṣār" },
 ];
 
 function bookIdsForScope(scope: BookScope): string[] {
@@ -796,7 +798,9 @@ export function TransmissionGraphClient() {
   const searchParams = useSearchParams();
   const [bookScope, setBookScope] = useState<BookScope>(() => {
     const requested = searchParams.get("book");
-    return requested === "11005" || requested === "11021" ? requested : "all";
+    return CHARTED_BOOKS.some((bookId) => bookId === requested)
+      ? (requested as BookScope)
+      : "all";
   });
   const selectedBookIds = useMemo(() => bookIdsForScope(bookScope), [bookScope]);
   const selectedBookLabel = bookLabelForScope(bookScope);
